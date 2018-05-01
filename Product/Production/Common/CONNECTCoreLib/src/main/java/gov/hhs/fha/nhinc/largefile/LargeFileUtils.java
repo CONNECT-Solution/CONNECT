@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -101,27 +101,25 @@ public class LargeFileUtils {
      *
      * @param dh - the data handler that contains the data source to parse
      * @return URI representing the data inside the data handler
-     * @throws IOException
      * @throws URISyntaxException
      */
-    public URI parseBase64DataAsUri(DataHandler dh) throws IOException, URISyntaxException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        InputStream is = null;
-        try {
-            is = dh.getInputStream();
+    public URI parseBase64DataAsUri(DataHandler dh) throws URISyntaxException {
+
+        String uriString = "";
+        try (InputStream is = dh.getInputStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             int numRead = 1024;
             byte[] buf = new byte[numRead];
             if ((numRead = is.read(buf)) >= 0) {
                 baos.write(buf, 0, numRead);
             }
-        } finally {
-            closeStreamWithoutException(is);
-            closeStreamWithoutException(baos);
+            uriString = StringUtil.convertToStringUTF8(baos.toByteArray());
+        } catch (IOException e) {
+            LOG.error("IOException occurred while parsing Base64 Data for URI String", e);
         }
 
-        String uriString = StringUtil.convertToStringUTF8(baos.toByteArray());
         return new URI(uriString);
     }
+
 
     /**
      * Saves the data handler to a file in the configured payload directory.
@@ -203,7 +201,7 @@ public class LargeFileUtils {
         if (!file.exists()) {
             throw new IOException(
                 "Payload file location points to does not exists.  Please ensure that the file path is base64 encoded. "
-                + file.getAbsolutePath());
+                    + file.getAbsolutePath());
         }
         LargeFileDataSource fds = new LargeFileDataSource(file);
         return new DataHandler(fds);
