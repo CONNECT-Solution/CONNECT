@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -58,8 +58,9 @@ public class HibernateAccessor {
     public synchronized File getHibernateFile(String hibernateFileName) throws PropertyAccessException {
         checkEnvVarSet();
         LOG.debug("Checking the hibernate file.");
-        LOG.debug(propertyFileDir + File.separator + "hibernate" + File.separator + hibernateFileName);
-        File result = new File(propertyFileDir + File.separator + "hibernate" + File.separator + hibernateFileName);
+        String path = propertyFileDir + File.separator + "hibernate" + File.separator + hibernateFileName;
+        LOG.info(path);
+        File result = new File(path);
         if (!result.exists()) {
             throw new PropertyAccessException("Unable to locate " + result);
         }
@@ -74,7 +75,7 @@ public class HibernateAccessor {
     private synchronized void loadPropertyFileDir() {
         propertyFileDir = getPropertyAccessor().getPropertyFileLocation();
         if (NullChecker.isNullish(propertyFileDir)) {
-            LOG.error("Failed to load Hibernate Directory");
+            LOG.error("Failed to load Hibernate Directory - directory property is not set");
             failedToLoadEnvVar = true;
             return;
         }
@@ -83,7 +84,7 @@ public class HibernateAccessor {
         propertyFileDir = dir.getAbsolutePath();
 
         if (!dir.exists()) {
-            LOG.error("Failed to load Hibernate Directory");
+            LOG.error("Failed to load Hibernate Directory: {} - Directory does not exist", dir.getPath());
             failedToLoadEnvVar = true;
         }
     }

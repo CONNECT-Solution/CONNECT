@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration SYSTEM "classpath://org/hibernate/hibernate-configuration-3.0.dtd">
+
+<!--
+    Document   : hibernate.cfg.xml
+    Created on : July 15, 2008, 10:20 PM
+    Author     : svalluripalli
+    Description:
+        Purpose of the document follows.
+-->
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.transaction.coordinator_class">org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorBuilderImpl</property>
+		<property name="hibernate.show_sql">true</property>
+
+        <!-- Uncomment the following line if you want the HBM files to update the database tables.
+             Useful for when you are chaning the schema and want to make sure everything works -->
+        <!-- property name="hibernate.hbm2ddl.auto">update</property -->
+
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/auditrepo</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">NHIE-Gateway</property>
+	
+        <!-- Mapping files -->
+        <mapping resource="auditrepo.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

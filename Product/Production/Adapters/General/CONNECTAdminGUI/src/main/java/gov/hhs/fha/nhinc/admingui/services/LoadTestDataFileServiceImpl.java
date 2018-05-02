@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
@@ -145,7 +145,7 @@ public class LoadTestDataFileServiceImpl implements LoadTestDataService {
     }
 
     @Override
-    public List<Document> getAllDocuments() {
+    public List<DocumentMetadata> getAllDocuments() {
         throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
     }
 
@@ -155,12 +155,12 @@ public class LoadTestDataFileServiceImpl implements LoadTestDataService {
     }
 
     @Override
-    public boolean deleteDocument(Document document) {
+    public boolean deleteDocument(DocumentMetadata document) {
         throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
     }
 
     @Override
-    public Document duplicateDocument(Long id) {
+    public DocumentMetadata duplicateDocument(Long id) {
         throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
     }
 
@@ -170,7 +170,7 @@ public class LoadTestDataFileServiceImpl implements LoadTestDataService {
     }
 
     @Override
-    public Document getDocumentBy(Long documentId) {
+    public DocumentMetadata getDocumentBy(Long documentId) {
         throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
     }
 
@@ -180,7 +180,7 @@ public class LoadTestDataFileServiceImpl implements LoadTestDataService {
     }
 
     @Override
-    public boolean saveDocument(Document document) throws LoadTestDataException {
+    public boolean saveDocument(DocumentMetadata document) throws LoadTestDataException {
         throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
     }
 

@@ -41,6 +41,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import javax.activation.DataHandler;
 import org.apache.cxf.attachment.ByteDataSource;
+import org.apache.xml.security.exceptions.Base64DecodingException;
+import org.apache.xml.security.utils.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,9 +50,9 @@ public class LargeFileUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(LargeFileUtils.class);
 
-    private static LargeFileUtils INSTANCE = new LargeFileUtils();
-    private static String ATTACHMENT_FILE_PREFIX = "nhin";
-    private static String ATTACHMENT_FILE_SUFFIX = ".clf";
+    private static final LargeFileUtils INSTANCE = new LargeFileUtils();
+    private static final String ATTACHMENT_FILE_PREFIX = "nhin";
+    private static final String ATTACHMENT_FILE_SUFFIX = ".clf";
 
     /**
      * Returns the singleton instance of this class.
@@ -118,6 +120,25 @@ public class LargeFileUtils {
         }
 
         return new URI(uriString);
+    }
+
+    /**
+     * Decodes a binary stream from the given Base64 encoded string and returns the array of bytes
+     *
+     * @param dh - the data handler that contains the data source to parse
+     * @return Base64 binary, or null if there was a problem decoding the data
+     */
+    public byte[] decodeFromBase64(DataHandler dh) {
+        byte[] bytes = null;
+
+        try (InputStream is = dh.getInputStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            Base64.decode(is, baos);
+            bytes = baos.toByteArray();
+        } catch (IOException | Base64DecodingException e) {
+            LOG.error("Exception occurred while decoding Base64 Data", e);
+        }
+
+        return bytes;
     }
 
 

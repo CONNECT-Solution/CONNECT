@@ -39,7 +39,7 @@ public class EventCode {
     private String eventCode;
     private String eventCodeScheme;
     private String eventCodeDisplayName;
-    private Document document;
+    private DocumentMetadata document;
 
     public String getEventCode() {
         return eventCode;
@@ -73,11 +73,11 @@ public class EventCode {
         this.eventCodeScheme = eventCodeScheme;
     }
 
-    public Document getDocument() {
+    public DocumentMetadata getDocument() {
         return document;
     }
 
-    public void setDocument(Document document) {
+    public void setDocument(DocumentMetadata document) {
         this.document = document;
     }
 

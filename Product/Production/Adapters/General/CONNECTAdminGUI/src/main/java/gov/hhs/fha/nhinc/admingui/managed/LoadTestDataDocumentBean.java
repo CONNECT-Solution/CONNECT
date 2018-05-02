@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.admingui.services.LoadTestDataService;
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.addFacesMessageBy;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import java.io.IOException;
@@ -68,10 +68,10 @@ public class LoadTestDataDocumentBean {
     private static final String GROWL_MESSAGE = "msgForGrowl";
 
     private String dialogTitle;
-    private Document withDocument;
+    private DocumentMetadata withDocument;
     private EventCode withEventCode;
 
-    private Document selectedDocument;
+    private DocumentMetadata selectedDocument;
     private EventCode selectedEventCode;
 
     @Autowired
@@ -83,11 +83,11 @@ public class LoadTestDataDocumentBean {
     }
 
     // selected-record
-    public Document getSelectedDocument() {
+    public DocumentMetadata getSelectedDocument() {
         return selectedDocument;
     }
 
-    public void setSelectedDocument(Document selectedDocument) {
+    public void setSelectedDocument(DocumentMetadata selectedDocument) {
         this.selectedDocument = selectedDocument;
     }
 
@@ -100,10 +100,10 @@ public class LoadTestDataDocumentBean {
     }
 
     // database-methods
-    public List<Document> getDocuments() {
-        List<Document> documents = loadTestDataService.getAllDocuments();
+    public List<DocumentMetadata> getDocuments() {
+        List<DocumentMetadata> documents = loadTestDataService.getAllDocuments();
         Map<Long, Patient> lookupPatient = mapPatientById(loadTestDataService.getAllPatients());
-        for (Document doc : documents) {
+        for (DocumentMetadata doc : documents) {
             if (doc.getPatientRecordId() != null) {
                 doc.setPatientIdentifier(lookupPatient.get(doc.getPatientRecordId()).getPatientIdentifier());
             }
@@ -134,7 +134,7 @@ public class LoadTestDataDocumentBean {
             dialogTitle = "Edit Document";
             withDocument = loadTestDataService.duplicateDocument(selectedDocument.getDocumentid());
         } else {
-            new Document();
+            new DocumentMetadata();
             addFacesMessageBy(msgForInvalidDocument("document"));
         }
     }
@@ -152,7 +152,7 @@ public class LoadTestDataDocumentBean {
 
     public void newDocument() {
         dialogTitle = "Create Document";
-        withDocument = new Document();
+        withDocument = new DocumentMetadata();
         newEventCode();
     }
 
@@ -233,9 +233,9 @@ public class LoadTestDataDocumentBean {
         return selectedEventCode == null;
     }
 
-    public Document getDocumentForm() {
+    public DocumentMetadata getDocumentForm() {
         if (null == withDocument) {
-            withDocument = new Document();
+            withDocument = new DocumentMetadata();
         }
         return withDocument;
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping SYSTEM "classpath://org/hibernate/hibernate-configuration-3.0.dtd">
 <hibernate-mapping package="gov.hhs.fha.nhinc.docrepository.adapter.model">
-    <class name="Document" table="document">
+    <class name="DocumentMetadata" table="documentregistry">
         <id column="documentid" name="documentid" type="long">
             <generator class="increment"/>
         </id>
@@ -52,12 +52,12 @@
         <property column="TypeCodeScheme" length="64" name="typeCodeScheme" not-null="false" type="string"/>
         <property column="TypeCodeDisplayName" length="64" name="typeCodeDisplayName" not-null="false" type="string"/>
         <property column="DocumentUri" length="128" name="documentUri" not-null="false" type="string"/>
-        <property column="RawData" name="rawData" not-null="false" type="binary"/>
         <property column="OnDemand" name="onDemand" not-null="true" type="boolean"/>
         <property column="NewDocumentUniqueId" length="128" name="NewDocumentUniqueId" not-null="false" type="string"/>
         <property column="NewRepositoryUniqueId" length="128" name="NewRepositoryUniqueId" not-null="false" type="string"/>
         <property column="Persistent" name="persistentCode" not-null="true" type="int"/>
         <property column="PatientRecordId" name="patientRecordId" type="long"/>
+        <one-to-one name="document" class="gov.hhs.fha.nhinc.docrepository.adapter.model.Document" cascade="save-update"></one-to-one>
         <set cascade="all-delete-orphan" inverse="true" lazy="false" name="eventCodes">
             <key column="documentid"/>
             <one-to-many class="EventCode"/>

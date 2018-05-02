@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,6 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.component;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.List;
@@ -34,11 +38,11 @@ import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+
 
 /**
  *
@@ -111,7 +115,7 @@ public class XDRHelperTest {
 
         List<String> result = instance.getIntendedRecepients(body);
 
-        assertNull(result);
+        assertTrue(result.isEmpty());
     }
 
     @Test
@@ -124,7 +128,7 @@ public class XDRHelperTest {
 
         List<String> result = instance.getIntendedRecepients(body);
 
-        assertNull(result);
+        assertTrue(result.isEmpty());
     }
 
     @Ignore
@@ -143,7 +147,7 @@ public class XDRHelperTest {
     public void testgetIntendedRecepients_Valid() {
         System.out.println("testgetIntendedRecepients_Valid");
         ProvideAndRegisterDocumentSetRequestType body = new XDRMessageHelper()
-                .getSampleMessage("ProvideAndRegisterDocumentSet-IntendedRecpient.xml");
+            .getSampleMessage("ProvideAndRegisterDocumentSet-IntendedRecpient.xml");
         XDRHelper instance = createHelper();
 
         List<String> result = instance.getIntendedRecepients(body);
@@ -186,7 +190,7 @@ public class XDRHelperTest {
     @Test
     public void testValidateDocumentMetaData_UnsupportedMimeType() {
         System.out.println("testValidateDocumentMetaData_UnsupportedMimeType");
-        ProvideAndRegisterDocumentSetRequestType body = new XDRMessageHelper().getSampleMessage();
+        ProvideAndRegisterDocumentSetRequestType body = XDRMessageHelper.getSampleMessage();
 
         XDRHelper instance = createHelper(false);
 
@@ -201,7 +205,7 @@ public class XDRHelperTest {
     @Test
     public void testValidateDocumentMetaData_SupportedMimeType() {
         System.out.println("testValidateDocumentMetaData_SupportedMimeType");
-        ProvideAndRegisterDocumentSetRequestType body = new XDRMessageHelper().getSampleMessage();
+        ProvideAndRegisterDocumentSetRequestType body = XDRMessageHelper.getSampleMessage();
 
         XDRHelper instance = createHelper(true);
 
@@ -212,8 +216,8 @@ public class XDRHelperTest {
     @Test
     public void testValidateDocumentMetaData_PatIdsNoMatch() {
         System.out.println("testValidateDocumentMetaData_PatIdsNoMatch");
-        ProvideAndRegisterDocumentSetRequestType body = new XDRMessageHelper()
-                .getSampleMessage("ProvideAndRegisterDocumentSet-MultiPat.xml");
+        ProvideAndRegisterDocumentSetRequestType body = XDRMessageHelper
+            .getSampleMessage("ProvideAndRegisterDocumentSet-MultiPat.xml");
 
         XDRHelper instance = createHelper(true);
 

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration SYSTEM "classpath://org/hibernate/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- SQL dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- We currently have the antlr classpath conflict described here:
+            http://thejavablog.wordpress.com/2010/12/02/classnotfoundexception-org-hibernate-hql-ast-hqltoken/
+            Switching to the classing translator so that our named query works.
+        -->
+        <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+
+        <!-- Disable the second-level cache  -->
+        <property name="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
+
+		<property name="hibernate.show_sql">true</property>
+
+        <!-- Uncomment the following line if you want the HBM files to update the database tables.
+             Useful for when you are chaning the schema and want to make sure everything works -->
+        <!-- property name="hibernate.hbm2ddl.auto">update</property -->
+
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/transrepo</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">NHIE-Gateway</property>
+
+        <mapping resource="transactionrepository.hbm.xml"/>
+
+    </session-factory>
+
+</hibernate-configuration>

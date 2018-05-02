@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.util;
 
 import com.google.gson.Gson;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
@@ -94,7 +94,7 @@ public class HelperUtil {
         return item;
     }
 
-    public static void updateDocumentBy(Document doc, Patient patient) {
+    public static void updateDocumentBy(DocumentMetadata doc, Patient patient) {
         doc.setPatientId(patient.getPatientIdentifierIso());
         doc.setSourcePatientId(patient.getPatientIdentifierIso());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");

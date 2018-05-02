@@ -24,32 +24,40 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission.adapter.component;
+package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import javax.annotation.Resource;
-import javax.xml.ws.Action;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
-import javax.xml.ws.soap.SOAPBinding;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
+import gov.hhs.fha.nhinc.test.DAOIntegrationTest;
+import org.junit.Before;
+import org.junit.Test;
 
-/**
- *
- * @author JHOPPESC
- */
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class AdapterComponentDocSubmissionSecured implements gov.hhs.fha.nhinc.adaptercomponentxdrsecured.AdapterComponentXDRSecuredPortType {
+public class DocumentDaoIntTest extends DAOIntegrationTest {
 
-    @Resource
-    private WebServiceContext context;
+    private DocumentDao documentDao;
 
-    @Action(input = "urn:gov:hhs:fha:nhinc:adapterxdrsecured:ProvideAndRegisterDocumentSet-b", output = "urn:gov:hhs:fha:nhinc:adapterxdrsecured:ProvideAndRegisterDocumentSet-bResponse")
-    @Override
-    public RegistryResponseType provideAndRegisterDocumentSetb(ProvideAndRegisterDocumentSetRequestType body) {
-        return new AdapterComponentDocSubmissionImpl().provideAndRegisterDocumentSetb(body, context);
+    @Before
+    public void setUp() {
+
+        documentDao = new DocumentDao();
+
     }
 
+    @Test
+    public void testSave() {
+        DocumentMetadata metadata = new DocumentMetadata();
+        metadata.setOnDemand(false);
+        metadata.setPersistent(false);
+        metadata.setDocumentUniqueId("blah");
+
+        Document doc = new Document();
+        doc.setDocumentUniqueId("blah");
+        doc.setRepositoryUniqueId("1.1");
+        doc.setRawData(new byte[100]);
+
+        metadata.setDocument(doc);
+
+        documentDao.save(metadata);
+
+    }
 }
