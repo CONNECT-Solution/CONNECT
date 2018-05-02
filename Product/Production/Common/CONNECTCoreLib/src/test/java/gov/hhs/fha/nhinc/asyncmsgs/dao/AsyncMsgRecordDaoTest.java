@@ -80,6 +80,7 @@ public class AsyncMsgRecordDaoTest {
 
     /**
      * Test of queryByMessageIdAndDirection method, of class AsyncMsgRecordDao.
+     * test - for ci merge job
      */
     @Test
     public void testQueryByMessageIdAndDirection() {
