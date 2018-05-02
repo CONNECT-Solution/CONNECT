@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pap;
 
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 
@@ -52,9 +52,9 @@ public class AdapterPAPImpl {
      * @param patientId
      * @return <code>Document</code>
      */
-    public Document getPolicyDocumentByPatientId(String patientId) {
+    public DocumentMetadata getPolicyDocumentByPatientId(String patientId) {
         LOG.info("Begin AdapterPAPImpl.getPolicyDocument(...)");
-        Document document = new Document();
+        DocumentMetadata document = new DocumentMetadata();
         try {
             DocumentQueryParams params = new DocumentQueryParams();
             LOG.debug("patientid:" + patientId);
@@ -63,7 +63,7 @@ public class AdapterPAPImpl {
             classCodeValues.add(AdapterPAPConstants.DOCUMENT_CLASS_CODE);
             params.setClassCodes(classCodeValues);
             DocumentService service = new DocumentService();
-            List<Document> docs = service.documentQuery(params);
+            List<DocumentMetadata> docs = service.documentQuery(params);
             int docsSize = 0;
             if (CollectionUtils.isNotEmpty(docs)){
                 docsSize = docs.size();
@@ -84,9 +84,9 @@ public class AdapterPAPImpl {
      * @param documentId
      * @return <code>Document</code>
      */
-    public Document getPolicyDocumentByDocId(Long documentId) {
+    public DocumentMetadata getPolicyDocumentByDocId(Long documentId) {
         LOG.info("Begin AdapterPAPImpl.getPolicyDocumentByDocId(...)");
-        Document document = new Document();
+        DocumentMetadata document = new DocumentMetadata();
         try {
             DocumentService service = new DocumentService();
             document = service.getDocument(documentId);
@@ -104,7 +104,7 @@ public class AdapterPAPImpl {
      * @param document
      * @return true - success; false - failure
      */
-    public boolean savePolicyDocument(Document document) {
+    public boolean savePolicyDocument(DocumentMetadata document) {
         LOG.info("Begin AdapterPAPImpl.savePolicyDocument(...)");
         boolean isDocSaved = false;
         try {
@@ -129,7 +129,7 @@ public class AdapterPAPImpl {
      * @param document
      * @return true - success; false - failure
      */
-    public boolean deletePolicyDocument(Document document) {
+    public boolean deletePolicyDocument(DocumentMetadata document) {
         LOG.info("Begin AdapterPAPImpl.deletePolicyDocument(...)");
         boolean isDocSaved = false;
 

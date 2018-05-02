@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
@@ -102,7 +102,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     @Test
     public void testSetDocumentResponse_Failure() {
         AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl();
-        Document doc = mock(Document.class);
+        DocumentMetadata doc = mock(DocumentMetadata.class);
 
         when(doc.getRawData()).thenReturn(null);
 
@@ -115,7 +115,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         String url = "file:///FILE_NAME";
         AdapterComponentDocRepositoryOrchImpl docRepo = getDocRepoWithMockLargeFileUtils();
 
-        Document doc = mock(Document.class);
+        DocumentMetadata doc = mock(DocumentMetadata.class);
         DocumentResponse oDocResponse = mock(DocumentResponse.class);
         DataHandler dataHandler = mock(DataHandler.class);
 
@@ -135,7 +135,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
 
         AdapterComponentDocRepositoryOrchImpl docRepo = getDocRepoWithMockLargeFileUtils();
 
-        Document doc = mock(Document.class);
+        DocumentMetadata doc = mock(DocumentMetadata.class);
         DocumentResponse oDocResponse = mock(DocumentResponse.class);
         DataHandler dataHandler = mock(DataHandler.class);
 
@@ -176,18 +176,18 @@ public class AdapterComponentDocRepositoryOrchImplTest {
             protected void retrieveDocuments(boolean repositoryIdMatched, List<String> documentUniqueIds,
                     ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response, String homeCommunityId,
                     RegistryErrorList regerrList) {
-                Document doc1 = new Document();
+                DocumentMetadata doc1 = new DocumentMetadata();
                 doc1.setDocumentUniqueId("2.531.777");
-                Document doc2 = new Document();
+                DocumentMetadata doc2 = new DocumentMetadata();
                 doc2.setDocumentUniqueId("");
-                ArrayList<Document> docs = new ArrayList<>();
+                ArrayList<DocumentMetadata> docs = new ArrayList<>();
                 docs.add(doc1);
                 docs.add(doc2);
                 loadDocumentResponses(response, docs, homeCommunityId, documentUniqueIds, regerrList);
             }
 
             @Override
-            protected boolean setDocumentResponse(Document doc, DocumentResponse oDocResponse) {
+            protected boolean setDocumentResponse(DocumentMetadata doc, DocumentResponse oDocResponse) {
                 return true;
             }
 
@@ -204,7 +204,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl() {
             @Override
             protected void loadDocumentResponses(ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response,
-                    List<Document> docs, String homeCommunityId, List<String> documentUniqueId,
+                    List<DocumentMetadata> docs, String homeCommunityId, List<String> documentUniqueId,
                     RegistryErrorList regerrList) {
                 assertTrue(true);
             }
@@ -242,7 +242,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
             }
 
             @Override
-            protected Document setDocument(
+            protected DocumentMetadata setDocument(
                     List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
                     RegistryErrorList errorList, int i, HashMap<String, DataHandler> docMap,
                     boolean requestHasReplacementAssociation) {
@@ -418,7 +418,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
 
         when(extrinsicObject.getStatus()).thenReturn(STATUS);
 
-        Document doc = docRepo.setDocument(identifiableObjectList, errorList, 0, docMap, true);
+        DocumentMetadata doc = docRepo.setDocument(identifiableObjectList, errorList, 0, docMap, true);
 
         assertEquals(doc.getPatientId(), PATIENT_ID_NO_QUOTES);
         assertEquals(doc.getDocumentTitle(), DOCUMENT_TITLE);
@@ -463,10 +463,10 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         final String CLASS_CODE = "CLASS_CODE";
         final String STATUS = "STATUS";
         final long DOC_ID = 101;
-        Document doc = mock(Document.class);
+        DocumentMetadata doc = mock(DocumentMetadata.class);
         RegistryErrorList errorList = new RegistryErrorList();
 
-        List<Document> docList = new ArrayList<>();
+        List<DocumentMetadata> docList = new ArrayList<>();
 
         AdapterComponentDocRepositoryOrchImpl docRepo = getDocRepoWithMockDocService();
 
@@ -491,9 +491,9 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         final String CLASS_CODE = "CLASS_CODE";
         final String STATUS = "STATUS";
         final long DOC_ID = 0;
-        Document doc = mock(Document.class);
+        DocumentMetadata doc = mock(DocumentMetadata.class);
         RegistryErrorList errorList = new RegistryErrorList();
-        List<Document> docList = new ArrayList<>();
+        List<DocumentMetadata> docList = new ArrayList<>();
 
         AdapterComponentDocRepositoryOrchImpl docRepo = getDocRepoWithMockDocService();
 
@@ -523,7 +523,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
             }
         };
         final List<SlotType1> documentSlots = mock(ArrayList.class);
-        Document doc = new Document();
+        DocumentMetadata doc = new DocumentMetadata();
 
         final String PID3 = "PID3";
         final String PID5 = "PID5";
@@ -560,7 +560,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
                 return docRepoHelper;
             }
         };
-        Document doc = new Document();
+        DocumentMetadata doc = new DocumentMetadata();
         List<ClassificationType> classifications = mock(ArrayList.class);
 
         final String AUTHOR_PERSON = "author";
@@ -644,7 +644,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         localizedString.setValue(EVENT_CODE_DISPLAY_NAME);
         List<LocalizedStringType> eventCodeDisplayNameList = new ArrayList<>();
         eventCodeDisplayNameList.add(localizedString);
-        Document doc = new Document();
+        DocumentMetadata doc = new DocumentMetadata();
 
         when(classificationType.getClassificationScheme())
                 .thenReturn(DocRepoConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION);
@@ -732,13 +732,13 @@ public class AdapterComponentDocRepositoryOrchImplTest {
             }
 
             @Override
-            protected void setDocumentPidObjects(Document doc,
+            protected void setDocumentPidObjects(DocumentMetadata doc,
                     List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots) {
                 // Do nothing
             }
 
             @Override
-            protected void setDocumentObjectsFromClassifications(Document doc,
+            protected void setDocumentObjectsFromClassifications(DocumentMetadata doc,
                     List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications) {
                 // Do nothing
             }
@@ -746,7 +746,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
             @Override
             protected void extractEventCodes(
                     List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
-                    gov.hhs.fha.nhinc.docrepository.adapter.model.Document doc) {
+                    gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata doc) {
                 // Do nothing
             }
 
@@ -763,7 +763,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
             }
 
             @Override
-            protected void saveDocument(Document doc, boolean requestHasReplacementAssociation, String documentUniqueId,
+            protected void saveDocument(DocumentMetadata doc, boolean requestHasReplacementAssociation, String documentUniqueId,
                     RegistryErrorList errorList) {
                 // Do nothing
             }

@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -97,10 +97,10 @@ public class AdapterComponentDocRepositoryHelper {
         lStatus.add(sStatus);
         params.setStatuses(lStatus);
 
-        List<Document> documents = docService.documentQuery(params);
+        List<DocumentMetadata> documents = docService.documentQuery(params);
         if (NullChecker.isNotNullish(documents)) {
             LOG.debug("queryRepositoryByPatientId {} documents for patient: {}", documents.size(), sPatId);
-            for (Document doc : documents) {
+            for (DocumentMetadata doc : documents) {
                 LOG.debug("queryRepositoryByPatientId - sDocId: {}", sDocId);
                 if (sDocId.equals(doc.getDocumentUniqueId())) {
                     nhincDocRepositoryDocId = doc.getDocumentid();

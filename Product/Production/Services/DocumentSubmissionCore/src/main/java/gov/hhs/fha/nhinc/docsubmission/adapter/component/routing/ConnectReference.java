@@ -41,6 +41,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * This class is a reference for routing the document submission to the messages intended recipients, whether it is
+ * sending the document via SMTP, using a web service, or a direct connection to another server.
  *
  * @author dunnek
  */
@@ -52,14 +54,13 @@ public class ConnectReference implements XDRRouting {
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
         AssertionType assertion) {
         LOG.info("Inside Connect Reference provideAndRegisterDocumentSetB()");
-        XDRHelper helper = new XDRHelper();
 
         processRequest(request);
 
-        return helper.createPositiveAck();
+        return new XDRHelper().createPositiveAck();
     }
 
-    private void processRequest(ProvideAndRegisterDocumentSetRequestType request) {
+    private static void processRequest(ProvideAndRegisterDocumentSetRequestType request) {
         LargeFileUtils fileUtils = LargeFileUtils.getInstance();
 
         List<Document> docList = request.getDocument();
@@ -72,8 +73,7 @@ public class ConnectReference implements XDRRouting {
                     }
                 } else {
                     LOG.debug("Closing request input streams");
-                    LargeFileUtils.getInstance().closeStreamWithoutException(
-                        doc.getValue().getDataSource().getInputStream());
+                    fileUtils.closeStreamWithoutException(doc.getValue().getDataSource().getInputStream());
                 }
             } catch (URISyntaxException | IOException ioe) {
                 LOG.error("Failed to close input stream", ioe);

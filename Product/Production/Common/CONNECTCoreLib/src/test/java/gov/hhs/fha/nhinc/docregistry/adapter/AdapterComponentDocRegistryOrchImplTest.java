@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docregistry.adapter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
@@ -87,21 +87,21 @@ public class AdapterComponentDocRegistryOrchImplTest {
     private DocumentService createDocumentService() {
         return new DocumentService() {
             @Override
-            public List<Document> documentQuery(DocumentQueryParams params) {
+            public List<DocumentMetadata> documentQuery(DocumentQueryParams params) {
 
-                ArrayList<Document> docs = new ArrayList<>();
+                ArrayList<DocumentMetadata> docs = new ArrayList<>();
                 if (params.getOnDemand() == null || params.getOnDemand() != null && params.getOnDemand()) {
-                    Document onDemandDoc = new Document();
+                    DocumentMetadata onDemandDoc = new DocumentMetadata();
                     onDemandDoc.setDocumentUniqueId("12345.11111");
 
                     docs.add(onDemandDoc);
                 }
 
                 if (params.getOnDemand() == null || !params.getOnDemand()) {
-                    Document stableDoc = new Document();
+                    DocumentMetadata stableDoc = new DocumentMetadata();
                     stableDoc.setDocumentUniqueId("12345.22222");
 
-                    Document stableDoc2 = new Document();
+                    DocumentMetadata stableDoc2 = new DocumentMetadata();
                     stableDoc2.setDocumentUniqueId("12345.33333");
 
                     docs.add(stableDoc);

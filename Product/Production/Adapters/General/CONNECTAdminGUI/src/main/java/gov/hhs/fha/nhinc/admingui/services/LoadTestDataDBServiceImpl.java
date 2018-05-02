@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DocumentDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.EventCodeDao;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.patientdb.dao.AddressDAO;
 import gov.hhs.fha.nhinc.patientdb.dao.IdentifierDAO;
@@ -77,7 +77,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         // This is done because JDBC cannot attach to two different databases and share a session.
         boolean actionResultDoc = false;
         boolean actionResult = false;
-        List<Document> delDocuments = documentDAO.findAllBy(patient.getPatientId());
+        List<DocumentMetadata> delDocuments = documentDAO.findAllBy(patient.getPatientId());
         actionResultDoc = documentDAO.deleteAll(delDocuments);
         if (actionResultDoc) {
             actionResult = patientDAO.deleteTransaction(patient);
@@ -109,7 +109,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     }
 
     private void updateDocumentWith(long patientid) throws LoadTestDataException {
-        List<Document> updateDocument = documentDAO.findAllBy(patientid);
+        List<DocumentMetadata> updateDocument = documentDAO.findAllBy(patientid);
         if (CollectionUtils.isNotEmpty(updateDocument)) {
             Patient patient = patientDAO.readTransaction(patientid, true);
             for (int i = 0; i < updateDocument.size(); i++) {
@@ -241,7 +241,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
 
     // DocumentRepository
     @Override
-    public List<Document> getAllDocuments() {
+    public List<DocumentMetadata> getAllDocuments() {
         return documentDAO.findAll();
     }
 
@@ -251,7 +251,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     }
 
     @Override
-    public boolean deleteDocument(Document document) {
+    public boolean deleteDocument(DocumentMetadata document) {
         return documentDAO.delete(document);
     }
 
@@ -261,7 +261,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     }
 
     @Override
-    public Document getDocumentBy(Long documentId) {
+    public DocumentMetadata getDocumentBy(Long documentId) {
         return documentDAO.findById(documentId);
     }
 
@@ -271,7 +271,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     }
 
     @Override
-    public boolean saveDocument(Document document) throws LoadTestDataException {
+    public boolean saveDocument(DocumentMetadata document) throws LoadTestDataException {
         return documentDAO.save(document);
     }
 
@@ -325,9 +325,9 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
      * @see gov.hhs.fha.nhinc.admingui.services.LoadTestDataService#duplicateDocument(java.lang.Long)
      */
     @Override
-    public Document duplicateDocument(Long documentid) {
-        Document originalDoc = documentDAO.findById(documentid);
-        Document cloneDoc = originalDoc.cloneDocument();
+    public DocumentMetadata duplicateDocument(Long documentid) {
+        DocumentMetadata originalDoc = documentDAO.findById(documentid);
+        DocumentMetadata cloneDoc = originalDoc.cloneDocument();
 
         Set<EventCode> cloneEventCodes = new HashSet<>();
         for (EventCode code : originalDoc.getEventCodes()) {

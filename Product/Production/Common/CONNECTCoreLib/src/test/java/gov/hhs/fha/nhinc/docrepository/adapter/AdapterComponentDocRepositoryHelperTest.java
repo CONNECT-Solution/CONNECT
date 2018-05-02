@@ -31,7 +31,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
@@ -173,8 +173,8 @@ public class AdapterComponentDocRepositoryHelperTest {
         final String DOC_UNIQUE_ID = "Doc ID 1";
         final long DOC_ID = 12345;
         DocumentService docService = mock(DocumentService.class);
-        List<Document> documents = new ArrayList<>();
-        Document doc = mock(Document.class);
+        List<DocumentMetadata> documents = new ArrayList<>();
+        DocumentMetadata doc = mock(DocumentMetadata.class);
         documents.add(doc);
 
         when(docService.documentQuery(any(DocumentQueryParams.class))).thenReturn(documents);

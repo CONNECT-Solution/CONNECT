@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
@@ -181,13 +181,13 @@ public class AdapterComponentDocRepositoryOrchImpl {
             DocumentQueryParams params = new DocumentQueryParams();
             params.setDocumentUniqueId(documentUniqueIds);
             DocumentService service = getDocumentService();
-            List<Document> docs = service.documentQuery(params);
+            List<DocumentMetadata> docs = service.documentQuery(params);
             loadDocumentResponses(response, docs, homeCommunityId, documentUniqueIds, regerrList);
         }
     }
 
     protected void loadDocumentResponses(ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response,
-        List<Document> docs, String homeCommunityId, List<String> documentUniqueId, RegistryErrorList regerrList) {
+        List<DocumentMetadata> docs, String homeCommunityId, List<String> documentUniqueId, RegistryErrorList regerrList) {
         if (response != null) {
             String responseStatus = DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE;
             List<DocumentResponse> olDocResponse = response.getDocumentResponse();
@@ -195,7 +195,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             if (docs != null && !docs.isEmpty()) {
                 for (String documentId : documentUniqueId) {
                     boolean documentIdPresent = false;
-                    for (Document doc : docs) {
+                    for (DocumentMetadata doc : docs) {
                         if (doc.getDocumentUniqueId().equals(documentId)) {
                             documentIdPresent = true;
                         }
@@ -211,7 +211,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     }
                 }
 
-                for (Document doc : docs) {
+                for (DocumentMetadata doc : docs) {
                     DocumentResponse oDocResponse = new DocumentResponse();
                     boolean bHasData;
 
@@ -272,7 +272,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         }
     }
 
-    protected boolean setDocumentResponse(Document doc, DocumentResponse oDocResponse) {
+    protected boolean setDocumentResponse(DocumentMetadata doc, DocumentResponse oDocResponse) {
         boolean bHasData = false;
         if (doc.getRawData() != null && doc.getRawData().length > 0) {
             try {
@@ -360,7 +360,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         return registryResponse;
     }
 
-    protected Document setDocument(
+    protected DocumentMetadata setDocument(
         List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
         RegistryErrorList errorList, int i, HashMap<String, DataHandler> docMap,
         boolean requestHasReplacementAssociation) {
@@ -388,7 +388,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             }
 
             // prepare for the translation to the NHINC doc repository
-            Document doc = new Document();
+            DocumentMetadata doc = new DocumentMetadata();
 
             // extract the docId
             String documentUniqueId = extractMetadataFromExternalIdentifiers(externalIdentifiers,
@@ -553,7 +553,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         return null;
     }
 
-    protected void saveDocument(Document doc, boolean requestHasReplacementAssociation, String documentUniqueId,
+    protected void saveDocument(DocumentMetadata doc, boolean requestHasReplacementAssociation, String documentUniqueId,
         RegistryErrorList errorList) {
 
         DocumentService docService = getDocumentService();
@@ -594,7 +594,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             + identifiableObjectList.get(i).getDeclaredType());
     }
 
-    protected void setDocumentPidObjects(Document doc,
+    protected void setDocumentPidObjects(DocumentMetadata doc,
         List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots) {
         String pid3 = docRepoHelper.extractPatientInfo(documentSlots, DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID3);
         doc.setPid3(pid3);
@@ -615,7 +615,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             + ".");
     }
 
-    protected void setDocumentObjectsFromClassifications(Document doc,
+    protected void setDocumentObjectsFromClassifications(DocumentMetadata doc,
         List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications) {
         // extract the document's author info
         String authorPerson = docRepoHelper.extractClassificationMetadata(classifications,
@@ -808,7 +808,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
      * @param doc The NHINC document object to be persisted.
      */
     protected void extractEventCodes(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
-        gov.hhs.fha.nhinc.docrepository.adapter.model.Document doc) {
+        gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata doc) {
         LOG.trace("Begin extractEventCodes");
         Set<EventCode> eventCodes = new HashSet<>();
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications) {
