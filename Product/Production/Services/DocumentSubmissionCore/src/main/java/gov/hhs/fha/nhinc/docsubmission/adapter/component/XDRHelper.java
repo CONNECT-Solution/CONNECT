@@ -219,7 +219,7 @@ public class XDRHelper {
                     SlotType1 recipSlot = getNamedSlotItem(extObj.getSlot(), XDS_INTENDED_RECIPIENT_SLOT);
                     if (recipSlot != null) {
                         result = recipSlot.getValueList().getValue();
-                        LOG.info("Intended Recipients: {}", result.toString());
+                        LOG.info("Intended Recipients: {}", result);
                     }
 
                 }

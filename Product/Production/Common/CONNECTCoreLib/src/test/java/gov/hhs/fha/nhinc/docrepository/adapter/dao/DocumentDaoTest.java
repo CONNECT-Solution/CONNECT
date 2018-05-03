@@ -109,7 +109,7 @@ public class DocumentDaoTest {
 
         DocumentMetadata resultDoc = documentDao.findById(ID);
 
-        assertEquals(resultDoc.getDocumentid(), (Long) ID);
+        assertEquals((Long) ID, resultDoc.getDocumentid());
     }
 
     @Test
@@ -133,9 +133,9 @@ public class DocumentDaoTest {
 
         List<DocumentMetadata> resultsDocuments = documentDao.findAll();
 
-        assertEquals(resultsDocuments.size(), 2);
-        assertEquals(resultsDocuments.get(0).getDocumentid(), (Long) ID_1);
-        assertEquals(resultsDocuments.get(1).getDocumentid(), (Long) ID_2);
+        assertEquals(2, resultsDocuments.size());
+        assertEquals((Long) ID_1, resultsDocuments.get(0).getDocumentid());
+        assertEquals((Long) ID_2, resultsDocuments.get(1).getDocumentid());
     }
 
     @Test
@@ -187,17 +187,15 @@ public class DocumentDaoTest {
 
         Criteria criteria = mock(Criteria.class);
 
-        when(session.createCriteria(DocumentMetadata.class)).thenReturn(criteria);
-        when(criteria.list()).thenReturn(documents);
 
         when(session.createCriteria(DocumentMetadata.class)).thenReturn(criteria);
         when(criteria.list()).thenReturn(documents);
 
         List<DocumentMetadata> resultsDocuments = documentDao.findDocuments(params);
 
-        assertEquals(resultsDocuments.size(), 2);
-        assertEquals(resultsDocuments.get(0).getDocumentid(), (Long) ID_1);
-        assertEquals(resultsDocuments.get(1).getDocumentid(), (Long) ID_2);
+        assertEquals(2, resultsDocuments.size());
+        assertEquals((Long) ID_1, resultsDocuments.get(0).getDocumentid());
+        assertEquals((Long) ID_2, resultsDocuments.get(1).getDocumentid());
 
     }
 }

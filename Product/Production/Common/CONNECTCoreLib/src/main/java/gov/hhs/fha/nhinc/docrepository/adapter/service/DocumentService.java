@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docrepository.adapter.service;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DocumentDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.EventCodeDao;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
@@ -62,12 +63,11 @@ public class DocumentService {
      * @param document Document object to save.
      */
     public void saveDocument(DocumentMetadata document) {
+
         LOG.debug("Saving a document");
         if (document != null) {
             if (document.getDocumentid() != null) {
-                if (LOG.isDebugEnabled()) {
-                    LOG.debug("Performing an update for document: " + document.getDocumentid());
-                }
+                LOG.debug("Performing an update for document: {}", document.getDocumentid());
                 DocumentMetadata ecDoc = getDocument(document.getDocumentid());
                 if (ecDoc != null) {
                     // Delete existing event codes
@@ -89,20 +89,20 @@ public class DocumentService {
                         }
                     }
                 }
-            } else {
-                LOG.debug("Performing an insert");
             }
 
             // Calculate the hash code.
             // -------------------------
-            if (document.getRawData() != null) {
+
+            Document doc = document.getDocument();
+            if (doc.getRawData().length > 0) {
                 String documentStr;
                 try {
                     String sHash;
-                    documentStr = StringUtil.convertToStringUTF8(document.getRawData());
+                    documentStr = StringUtil.convertToStringUTF8(doc.getRawData());
                     sHash = SHA1HashCode.calculateSHA1(documentStr);
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Successfully created Hash Code for string");
+                        LOG.debug("Successfully created Hash Code for string: {}", sHash);
                     }
                     document.setHash(sHash);
                 } catch (UnsupportedEncodingException uee) {
@@ -112,7 +112,7 @@ public class DocumentService {
                 }
             } else {
                 document.setHash("");
-                LOG.warn("No SHA-1 Hash Code created because document was null.");
+                LOG.warn("No SHA-1 Hash Code created because document data was empty.");
             }
         }
 

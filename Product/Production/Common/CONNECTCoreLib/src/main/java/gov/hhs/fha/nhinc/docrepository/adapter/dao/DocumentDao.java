@@ -107,93 +107,45 @@ public class DocumentDao {
     public List<DocumentMetadata> findDocuments(DocumentQueryParams params) {
         LOG.debug("Beginning document query");
 
-        String patientId = null;
-        List<String> classCodes = null;
-        String classCodeScheme = null;
-        Date creationTimeFrom = null;
-        Date creationTimeTo = null;
-        Date serviceStartTimeFrom = null;
-        Date serviceStartTimeTo = null;
-        Date serviceStopTimeFrom = null;
-        Date serviceStopTimeTo = null;
-        List<String> statuses = null;
-        List<String> documentUniqueIds = null;
-        Boolean onDemand = null;
-        if (params != null) {
-            patientId = params.getPatientId();
-            classCodes = params.getClassCodes();
-            classCodeScheme = params.getClassCodeScheme();
-            creationTimeFrom = params.getCreationTimeFrom();
-            creationTimeTo = params.getCreationTimeTo();
-            serviceStartTimeFrom = params.getServiceStartTimeFrom();
-            serviceStartTimeTo = params.getServiceStartTimeTo();
-            serviceStopTimeFrom = params.getServiceStopTimeFrom();
-            serviceStopTimeTo = params.getServiceStopTimeTo();
-            statuses = params.getStatuses();
-            documentUniqueIds = params.getDocumentUniqueIds();
-            onDemand = params.getOnDemand();
+        DocumentQueryParams parameters = params;
+        if (parameters == null) {
+            parameters = new DocumentQueryParams();
         }
+
         List<DocumentMetadata> documents = new ArrayList<>();
         Session sess = null;
         try {
             sess = getSession();
             if (sess != null) {
-                SimpleDateFormat logDateFormatter = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
+
                 Criteria criteria = sess.createCriteria(DocumentMetadata.class);
 
+                String patientId = parameters.getPatientId();
                 if (patientId != null) {
                     criteria.add(Restrictions.eq("patientId", patientId));
                 }
 
-                getClassCodeCritera(classCodes, classCodeScheme, criteria);
-
-                if (creationTimeFrom != null) {
-                    LOG.debug("Document query - creation time from: {}", logDateFormatter.format(creationTimeFrom));
-                    criteria.add(Restrictions.ge("creationTime", creationTimeFrom));
-                }
-
-                if (creationTimeTo != null) {
-                    LOG.debug("Document query - creation time to: {}", logDateFormatter.format(creationTimeTo));
-                    criteria.add(Restrictions.le("creationTime", creationTimeTo));
-                }
-
-                if (serviceStartTimeFrom != null) {
-                    LOG.debug("Document query - service start time from: {}",
-                        logDateFormatter.format(serviceStartTimeFrom));
-                    criteria.add(Restrictions.ge("serviceStartTime", serviceStartTimeFrom));
-                }
-
-                if (serviceStartTimeTo != null) {
-                    LOG.debug("Document query - service start time to: {}",
-                        logDateFormatter.format(serviceStartTimeTo));
-                    criteria.add(Restrictions.le("serviceStartTime", serviceStartTimeTo));
-                }
-
-                if (serviceStopTimeFrom != null) {
-                    LOG.debug("Document query - service stop time from: {}",
-                        logDateFormatter.format(serviceStopTimeFrom));
-                    criteria.add(Restrictions.ge("serviceStopTime", serviceStopTimeFrom));
-                }
-
-                if (serviceStopTimeTo != null) {
-                    LOG.debug("Document query - service stop time to: {}", logDateFormatter.format(serviceStopTimeTo));
-                    criteria.add(Restrictions.le("serviceStopTime", serviceStopTimeTo));
-                }
-
+                List<String> statuses = parameters.getStatuses();
                 if (statuses != null && !statuses.isEmpty()) {
                     LOG.debug("Document query - statuses: {}", statuses);
                     criteria.add(Restrictions.in("status", statuses));
                 }
 
+                List<String> documentUniqueIds = parameters.getDocumentUniqueIds();
                 if (documentUniqueIds != null && !documentUniqueIds.isEmpty()) {
                     LOG.debug("Document query - document unique ids: {}", documentUniqueIds);
                     criteria.add(Restrictions.in("documentUniqueId", documentUniqueIds));
                 }
 
+                Boolean onDemand = parameters.getOnDemand();
                 if (onDemand != null) {
                     LOG.debug("Document query - onDemand: {}", onDemand);
                     criteria.add(Restrictions.eq("onDemand", onDemand));
                 }
+
+                populateClassCodeCritera(parameters, criteria);
+                populateServiceDateCriteria(parameters, criteria);
+                populateCreationDateCriteria(parameters, criteria);
 
                 documents = criteria.list();
 
@@ -207,6 +159,70 @@ public class DocumentDao {
             GenericDBUtils.closeSession(sess);
         }
         return documents;
+    }
+
+    private static void populateCreationDateCriteria(DocumentQueryParams params, Criteria criteria) {
+        SimpleDateFormat logDateFormatter = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
+
+        Date creationTimeFrom = params.getCreationTimeFrom();
+        if (creationTimeFrom != null) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Document query - creation time from: {}", logDateFormatter.format(creationTimeFrom));
+            }
+            criteria.add(Restrictions.ge("creationTime", creationTimeFrom));
+        }
+
+        Date creationTimeTo = params.getCreationTimeTo();
+        if (creationTimeTo != null) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Document query - creation time to: {}", logDateFormatter.format(creationTimeTo));
+            }
+            criteria.add(Restrictions.le("creationTime", creationTimeTo));
+        }
+    }
+
+    private static void populateServiceDateCriteria(DocumentQueryParams params, Criteria criteria) {
+        SimpleDateFormat logDateFormatter = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
+
+        Date serviceStartTimeFrom = params.getServiceStartTimeFrom();
+        if (serviceStartTimeFrom != null) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Document query - service start time from: {}",
+                    logDateFormatter.format(serviceStartTimeFrom));
+            }
+
+            criteria.add(Restrictions.ge("serviceStartTime", serviceStartTimeFrom));
+        }
+
+        Date serviceStartTimeTo = params.getServiceStartTimeTo();
+        if (serviceStartTimeTo != null) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Document query - service start time to: {}",
+                    logDateFormatter.format(serviceStartTimeTo));
+            }
+
+            criteria.add(Restrictions.le("serviceStartTime", serviceStartTimeTo));
+        }
+
+        Date serviceStopTimeFrom = params.getServiceStopTimeFrom();
+        if (serviceStopTimeFrom != null) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Document query - service stop time from: {}",
+                    logDateFormatter.format(serviceStopTimeFrom));
+            }
+
+            criteria.add(Restrictions.ge("serviceStopTime", serviceStopTimeFrom));
+        }
+
+        Date serviceStopTimeTo = params.getServiceStopTimeTo();
+        if (serviceStopTimeTo != null) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Document query - service stop time to: {}",
+                    logDateFormatter.format(serviceStopTimeTo));
+            }
+
+            criteria.add(Restrictions.le("serviceStopTime", serviceStopTimeTo));
+        }
     }
 
     /**************************************************************
@@ -226,7 +242,10 @@ public class DocumentDao {
      * Any critera generated with this method will be added to the Criteria parameter
      *
      *************************************************************/
-    private static void getClassCodeCritera(List<String> classCodes, String classCodeScheme, Criteria criteria) {
+    private static void populateClassCodeCritera(DocumentQueryParams params, Criteria criteria) {
+        List<String> classCodes = params.getClassCodes();
+        String classCodeScheme = params.getClassCodeScheme();
+
         if (CollectionUtils.isNotEmpty(classCodes)) {
             Criterion criterion = null;
             for (String classCode : classCodes) {

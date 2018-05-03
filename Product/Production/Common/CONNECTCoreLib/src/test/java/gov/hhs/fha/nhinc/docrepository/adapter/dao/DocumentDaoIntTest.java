@@ -49,8 +49,9 @@ public class DocumentDaoIntTest extends DAOIntegrationTest {
         metadata.setOnDemand(false);
         metadata.setPersistent(false);
         metadata.setDocumentUniqueId("blah");
+        metadata.setNewRepositoryUniqueId("1.1");
 
-        Document doc = new Document();
+        Document doc = new Document(metadata);
         doc.setDocumentUniqueId("blah");
         doc.setRepositoryUniqueId("1.1");
         doc.setRawData(new byte[100]);

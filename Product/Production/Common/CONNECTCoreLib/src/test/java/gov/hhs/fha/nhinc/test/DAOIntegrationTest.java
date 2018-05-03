@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class DAOIntegrationTest {
     {
         // We need to set this property so the PropertyAccessor class doesnt complain and error out.
-        System.setProperty("nhinc.properties.dir", System.getProperty("user.dir") + "/src/test/resources/config");
+        System.setProperty("nhinc.properties.dir", System.getProperty("user.dir") + "/src/test/resources/");
     }
 
     @Test

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
@@ -274,7 +275,8 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
     protected boolean setDocumentResponse(DocumentMetadata doc, DocumentResponse oDocResponse) {
         boolean bHasData = false;
-        if (doc.getRawData() != null && doc.getRawData().length > 0) {
+        // Document document = doc == null ? null : doc.getDocument();
+        if (doc.getRawData().length > 0) {
             try {
                 String url = StringUtil.convertToStringUTF8(doc.getRawData());
                 LOG.debug("Raw Data not null");
@@ -520,7 +522,8 @@ public class AdapterComponentDocRepositoryOrchImpl {
             try {
                 DataHandler dh = docMap.get(extrinsicObject.getId());
                 rawData = getLargeFileUtils().convertToBytes(dh);
-                doc.setRawData(rawData);
+                Document document = new Document(doc);
+                document.setRawData(rawData);
             } catch (IOException ioe) {
                 LOG.error("Failed to retrieve document from the message.  Will not be able to save to repository: {}",
                     ioe.getLocalizedMessage(), ioe);

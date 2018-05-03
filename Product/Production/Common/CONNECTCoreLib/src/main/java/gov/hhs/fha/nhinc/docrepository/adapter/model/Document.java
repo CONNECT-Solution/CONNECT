@@ -26,13 +26,17 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.model;
 
+import java.io.Serializable;
+
 /**
  * Hibernate/JPA Entity for holding submitted document binary data.
- * 
- * @author CONNECT New Staff
+ *
+ * @author Patrick Lobre
  *
  */
-public class Document {
+public class Document implements Serializable {
+
+    private static final long serialVersionUID = -8789043337300367645L;
 
     private Long repoId;
     private DocumentMetadata metadata;
@@ -40,6 +44,30 @@ public class Document {
     private String repositoryUniqueId;
     private byte[] rawData;
 
+
+    /**
+     * Copies the Document into a new detached entity.
+     *
+     * @param document
+     */
+    public Document(Document document) {
+        documentUniqueId = document.getDocumentUniqueId();
+        repositoryUniqueId = document.getRepositoryUniqueId();
+        rawData = document.getRawData().clone();
+    }
+
+    /**
+     * Creates a new one-to-one relationship with the given Document Metadata
+     *
+     * @param document
+     */
+    public Document(DocumentMetadata document) {
+        documentUniqueId = document.getDocumentUniqueId();
+        repositoryUniqueId = document.getNewRepositoryUniqueId();
+        rawData = new byte[0];
+        metadata = document;
+        document.setDocument(this);
+    }
 
     public Long getRepoId() {
         return repoId;
@@ -80,6 +108,5 @@ public class Document {
     public void setRawData(byte[] rawData) {
         this.rawData = rawData;
     }
-
 
 }
