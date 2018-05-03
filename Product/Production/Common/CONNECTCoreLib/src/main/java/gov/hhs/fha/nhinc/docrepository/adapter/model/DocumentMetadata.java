@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -34,8 +35,9 @@ import java.util.Set;
  *
  * @author Neil Webb
  */
-public class DocumentMetadata {
+public class DocumentMetadata  implements Serializable {
 
+    private static final long serialVersionUID = -4351324133531223086L;
     private Long documentid;
     private String documentUniqueId;
     private String documentTitle;
@@ -84,10 +86,9 @@ public class DocumentMetadata {
     private String typeCodeScheme;
     private String typeCodeDisplayName;
     private String documentUri;
-    private byte[] rawData;
     private boolean onDemand;
-    private String NewDocumentUniqueId;
-    private String NewRepositoryUniqueId;
+    private String newDocumentUniqueId;
+    private String newRepositoryUniqueId;
     private boolean persistent;
     private Set<EventCode> eventCodes;
     private Long patientRecordId;
@@ -104,6 +105,9 @@ public class DocumentMetadata {
 
     public void setDocument(Document document) {
         this.document = document;
+        document.setDocumentUniqueId(documentUniqueId);
+        document.setRepositoryUniqueId(newRepositoryUniqueId);
+        document.setMetadata(this);
     }
 
     public String getAuthorInstitution() {
@@ -514,22 +518,6 @@ public class DocumentMetadata {
         this.typeCodeScheme = typeCodeScheme;
     }
 
-    public byte[] getRawData() {
-        if (rawData == null) {
-            return null;
-        } else {
-            return rawData.clone();
-        }
-    }
-
-    public void setRawData(byte[] rawData) {
-        if (rawData != null) {
-            this.rawData = rawData.clone();
-        } else {
-            this.rawData = null;
-        }
-    }
-
     public boolean isOnDemand() {
         return onDemand;
     }
@@ -539,19 +527,19 @@ public class DocumentMetadata {
     }
 
     public String getNewDocumentUniqueId() {
-        return NewDocumentUniqueId;
+        return newDocumentUniqueId;
     }
 
-    public void setNewDocumentUniqueId(String NewDocumentUniqueId) {
-        this.NewDocumentUniqueId = NewDocumentUniqueId;
+    public void setNewDocumentUniqueId(String newDocumentUniqueId) {
+        this.newDocumentUniqueId = newDocumentUniqueId;
     }
 
     public String getNewRepositoryUniqueId() {
-        return NewRepositoryUniqueId;
+        return newRepositoryUniqueId;
     }
 
-    public void setNewRepositoryUniqueId(String NewRepositoryUniqueId) {
-        this.NewRepositoryUniqueId = NewRepositoryUniqueId;
+    public void setNewRepositoryUniqueId(String newRepositoryUniqueId) {
+        this.newRepositoryUniqueId = newRepositoryUniqueId;
     }
 
     public boolean isPersistent() {
@@ -560,6 +548,10 @@ public class DocumentMetadata {
 
     public void setPersistent(boolean persistent) {
         this.persistent = persistent;
+    }
+
+    public byte[] getRawData() {
+        return document != null ? document.getRawData() : new byte[0];
     }
 
     /**
@@ -667,14 +659,13 @@ public class DocumentMetadata {
         obj.setTypeCodeScheme(typeCodeScheme);
         obj.setTypeCodeDisplayName(typeCodeDisplayName);
         obj.setDocumentUri(documentUri);
-        obj.setRawData(rawData);
         obj.setOnDemand(onDemand);
-        obj.setNewDocumentUniqueId(NewDocumentUniqueId);
-        obj.setNewRepositoryUniqueId(NewRepositoryUniqueId);
+        obj.setNewDocumentUniqueId(newDocumentUniqueId);
+        obj.setNewRepositoryUniqueId(newRepositoryUniqueId);
         obj.setPersistent(persistent);
         obj.setPatientRecordId(patientRecordId);
         obj.setPatientIdentifier(patientIdentifier);
-        obj.setDocument(document);
+        obj.setDocument(new Document(document));
         obj.setDocumentid(null);
         obj.setEventCodes(null);
 

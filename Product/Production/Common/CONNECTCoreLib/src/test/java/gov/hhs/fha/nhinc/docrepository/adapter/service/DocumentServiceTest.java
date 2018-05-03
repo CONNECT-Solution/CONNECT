@@ -34,6 +34,7 @@ import static org.mockito.Mockito.when;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DocumentDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.EventCodeDao;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
@@ -59,23 +60,24 @@ public class DocumentServiceTest {
     public void testSaveDocument() throws NoSuchAlgorithmException, UnsupportedEncodingException {
         DocumentService documentService = getDocumentServiceWithMockDaos();
 
-        DocumentMetadata mockDoc = mock(DocumentMetadata.class);
-        Set<EventCode> eventCodes = new HashSet<>();
-        EventCode eventCode = mock(EventCode.class);
-        eventCodes.add(eventCode);
-
-        when(DOCUMENT_DAO.findById(anyLong())).thenReturn(mockDoc);
-        when(mockDoc.getEventCodes()).thenReturn(eventCodes);
-
         DocumentMetadata doc = new DocumentMetadata();
+        Document document = new Document(doc);
         long id = 12345L;
         String rawDataString = "RAW DATA";
         byte[] rawData = rawDataString.getBytes();
+        document.setRawData(rawData);
+
         doc.setDocumentid(id);
-        doc.setRawData(rawData);
+
+        Set<EventCode> eventCodes = new HashSet<>();
+        eventCodes.add(new EventCode());
         doc.setEventCodes(eventCodes);
 
+        doc.setDocument(document);
+
         documentService.saveDocument(doc);
+
+        when(DOCUMENT_DAO.findById(anyLong())).thenReturn(doc);
 
         verify(DOCUMENT_DAO).save(doc);
         assertEquals(SHA1HashCode.calculateSHA1(rawDataString), doc.getHash());

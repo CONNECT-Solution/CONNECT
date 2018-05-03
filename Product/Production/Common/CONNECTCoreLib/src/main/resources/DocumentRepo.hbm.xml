@@ -6,10 +6,11 @@
             <generator class="increment"/>
         </id>
         
-        <one-to-one name="metadata" class="gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata" cascade="save-update"/>
-        <property column="RawData" name="rawData" not-null="true" type="binary"/>
-        <property column="DocumentUniqueId" length="64" name="documentUniqueId" not-null="true" type="string"/>
-        <property column="RepositoryUniqueId" length="128" name="repositoryUniqueId" not-null="true" type="string"/>
-       
+       <property column="RawData" name="rawData" not-null="true" type="binary"/>
+       <property column="DocumentUniqueId" length="64" name="documentUniqueId" not-null="true" type="string"/>
+       <property column="RepositoryUniqueId" length="128" name="repositoryUniqueId" not-null="true" type="string"/>
+        
+       <one-to-one name="metadata" class="gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata" cascade="save-update"/>
+        
     </class>
 </hibernate-mapping>
