@@ -46,7 +46,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.util.ReflectionUtils;
@@ -69,7 +68,7 @@ public class DocumentServiceTest {
 
         doc.setDocumentid(id);
 
-        Set<EventCode> eventCodes = new HashSet<>();
+        HashSet<EventCode> eventCodes = new HashSet<>();
         eventCodes.add(new EventCode());
         doc.setEventCodes(eventCodes);
 
@@ -105,7 +104,6 @@ public class DocumentServiceTest {
         doc.setDocumentUniqueId(unique_id);
         DocumentService documentService = getDocumentServiceWithMockDaos();
 
-        // TODO: Make test better.
         documentService.deleteDocument(doc);
     }
 

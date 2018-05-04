@@ -133,6 +133,7 @@ public class DocumentService {
             DocumentQueryParams params = new DocumentQueryParams();
             List<String> uniqueIds = new ArrayList<>();
             uniqueIds.add(document.getDocumentUniqueId());
+            params.setDocumentUniqueId(uniqueIds);
 
             List<DocumentMetadata> docs = documentQuery(params);
             if (docs != null && docs.size() == 1) {
@@ -141,6 +142,8 @@ public class DocumentService {
                 throw new DocumentServiceException(
                     "Single document match not found for document unique id: " + document.getDocumentUniqueId());
             }
+
+            documentDao.delete(document);
         } else {
             if (document == null) {
                 throw new DocumentServiceException("Document to delete was null");
@@ -149,7 +152,6 @@ public class DocumentService {
             }
         }
 
-        documentDao.delete(document);
     }
 
     /**
