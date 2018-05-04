@@ -83,7 +83,7 @@ public class DocumentDao {
         return GenericDBUtils.findAll(getSession(), DocumentMetadata.class);
     }
 
-    public List<DocumentMetadata> findAllBy(long patientId) {
+    public List<DocumentMetadata> findAllByPatientId(long patientId) {
         return GenericDBUtils.findAllBy(getSession(), DocumentMetadata.class,
             Restrictions.eq("patientRecordId", patientId));
     }

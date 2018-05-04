@@ -77,7 +77,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         // This is done because JDBC cannot attach to two different databases and share a session.
         boolean actionResultDoc = false;
         boolean actionResult = false;
-        List<DocumentMetadata> delDocuments = documentDAO.findAllBy(patient.getPatientId());
+        List<DocumentMetadata> delDocuments = documentDAO.findAllByPatientId(patient.getPatientId());
         actionResultDoc = documentDAO.deleteAll(delDocuments);
         if (actionResultDoc) {
             actionResult = patientDAO.deleteTransaction(patient);
@@ -109,7 +109,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
     }
 
     private void updateDocumentWith(long patientid) throws LoadTestDataException {
-        List<DocumentMetadata> updateDocument = documentDAO.findAllBy(patientid);
+        List<DocumentMetadata> updateDocument = documentDAO.findAllByPatientId(patientid);
         if (CollectionUtils.isNotEmpty(updateDocument)) {
             Patient patient = patientDAO.readTransaction(patientid, true);
             for (int i = 0; i < updateDocument.size(); i++) {

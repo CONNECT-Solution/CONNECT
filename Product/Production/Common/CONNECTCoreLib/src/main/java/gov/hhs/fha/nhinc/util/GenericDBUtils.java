@@ -68,7 +68,7 @@ public class GenericDBUtils {
     }
 
     public static <T> boolean save(Session session, T entity) {
-        List<T> entities = new ArrayList();
+        List<T> entities = new ArrayList<T>();
         entities.add(entity);
         return GenericDBUtils.saveAll(session, entities);
     }
