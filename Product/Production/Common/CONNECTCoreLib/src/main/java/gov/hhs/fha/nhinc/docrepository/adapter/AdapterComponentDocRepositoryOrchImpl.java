@@ -49,7 +49,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import javax.activation.DataHandler;
 import javax.xml.bind.JAXBElement;
 import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
@@ -812,7 +811,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
     protected void extractEventCodes(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
         gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata doc) {
         LOG.trace("Begin extractEventCodes");
-        Set<EventCode> eventCodes = new HashSet<>();
+        HashSet<EventCode> eventCodes = new HashSet<>();
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications) {
             String classificationSchemeName = classification.getClassificationScheme();
             if (DocRepoConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION.equals(classificationSchemeName)) {

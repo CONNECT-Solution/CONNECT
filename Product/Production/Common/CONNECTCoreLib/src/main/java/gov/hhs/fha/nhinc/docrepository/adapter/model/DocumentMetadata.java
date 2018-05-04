@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docrepository.adapter.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -90,7 +91,7 @@ public class DocumentMetadata  implements Serializable {
     private String newDocumentUniqueId;
     private String newRepositoryUniqueId;
     private boolean persistent;
-    private Set<EventCode> eventCodes;
+    private HashSet<EventCode> eventCodes;
     private Long patientRecordId;
     private String patientIdentifier;
     private Document document;
@@ -579,7 +580,7 @@ public class DocumentMetadata  implements Serializable {
         return eventCodes;
     }
 
-    public void setEventCodes(Set<EventCode> eventCodes) {
+    public void setEventCodes(HashSet<EventCode> eventCodes) {
         this.eventCodes = eventCodes;
     }
 

@@ -14,10 +14,10 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <property name="hibernate.connection.datasource">jdbc/docrepository_datasource</property>
-		
-		
+
 
         <mapping resource="Document.hbm.xml"/>
+        <mapping resource="DocumentRepo.hbm.xml"/>
         <mapping resource="EventCode.hbm.xml"/>
         <mapping resource="ExtraSlot.hbm.xml"/>
 
