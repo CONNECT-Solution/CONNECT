@@ -665,7 +665,9 @@ public class DocumentMetadata  implements Serializable {
         obj.setPersistent(persistent);
         obj.setPatientRecordId(patientRecordId);
         obj.setPatientIdentifier(patientIdentifier);
-        obj.setDocument(new Document(document));
+        if (document != null) {
+            obj.setDocument(new Document(document));
+        }
         obj.setDocumentid(null);
         obj.setEventCodes(null);
 

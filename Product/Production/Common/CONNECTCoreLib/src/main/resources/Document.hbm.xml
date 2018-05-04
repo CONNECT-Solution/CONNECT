@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping SYSTEM "classpath://org/hibernate/hibernate-configuration-3.0.dtd">
 <hibernate-mapping package="gov.hhs.fha.nhinc.docrepository.adapter.model">
-    <class name="DocumentMetadata" table="documentregistry">
+    <class name="DocumentMetadata" table="docregistry">
         <id column="documentid" name="documentid" type="long">
             <generator class="increment"/>
         </id>
