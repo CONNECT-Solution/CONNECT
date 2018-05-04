@@ -8,7 +8,7 @@
 
         <!-- Uncomment the following line if you want the HBM files to update the database tables.
              Useful for when you are chaning the schema and want to make sure everything works -->
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <!--  property name="hibernate.hbm2ddl.auto">update</property -->
 
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
