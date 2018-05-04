@@ -275,7 +275,6 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
     protected boolean setDocumentResponse(DocumentMetadata doc, DocumentResponse oDocResponse) {
         boolean bHasData = false;
-        // Document document = doc == null ? null : doc.getDocument();
         if (doc.getRawData().length > 0) {
             try {
                 String url = StringUtil.convertToStringUTF8(doc.getRawData());

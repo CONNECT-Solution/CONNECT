@@ -69,6 +69,10 @@ public class Document implements Serializable {
         document.setDocument(this);
     }
 
+    public Document() {
+
+    }
+
     public Long getRepoId() {
         return repoId;
     }
