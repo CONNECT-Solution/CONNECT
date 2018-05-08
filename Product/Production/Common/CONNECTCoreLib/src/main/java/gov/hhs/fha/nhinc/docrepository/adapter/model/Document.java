@@ -26,17 +26,13 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.model;
 
-import java.io.Serializable;
-
 /**
  * Hibernate/JPA Entity for holding submitted document binary data.
  *
  * @author Patrick Lobre
  *
  */
-public class Document implements Serializable {
-
-    private static final long serialVersionUID = -8789043337300367645L;
+public class Document {
 
     private Long repoId;
     private DocumentMetadata metadata;
