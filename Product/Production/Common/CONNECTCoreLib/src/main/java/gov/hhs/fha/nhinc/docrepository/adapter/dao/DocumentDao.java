@@ -126,13 +126,13 @@ public class DocumentDao {
                 }
 
                 List<String> statuses = parameters.getStatuses();
-                if (statuses != null && !statuses.isEmpty()) {
+                if (CollectionUtils.isNotEmpty(statuses)) {
                     LOG.debug("Document query - statuses: {}", statuses);
                     criteria.add(Restrictions.in("status", statuses));
                 }
 
                 List<String> documentUniqueIds = parameters.getDocumentUniqueIds();
-                if (documentUniqueIds != null && !documentUniqueIds.isEmpty()) {
+                if (CollectionUtils.isNotEmpty(documentUniqueIds)) {
                     LOG.debug("Document query - document unique ids: {}", documentUniqueIds);
                     criteria.add(Restrictions.in("documentUniqueId", documentUniqueIds));
                 }
