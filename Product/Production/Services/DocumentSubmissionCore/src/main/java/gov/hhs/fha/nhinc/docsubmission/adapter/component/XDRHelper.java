@@ -30,9 +30,13 @@ import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.RoutingObjectFa
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBElement;
+import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
@@ -127,6 +131,7 @@ public class XDRHelper {
         return result;
     }
 
+
     public RegistryErrorList validateDocumentMetaData(ProvideAndRegisterDocumentSetRequestType body) {
         RegistryErrorList result = new RegistryErrorList();
 
@@ -141,54 +146,68 @@ public class XDRHelper {
             return processErrorList(result);
         }
 
-        if (body.getDocument() == null) {
-            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument,
-                NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
-                "ProvideAndRegisterDocumentSetRequestType did not contain a DocumentList");
-            result.getRegistryError().add(error);
-        } else if (body.getDocument().isEmpty()) {
-            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument,
-                NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, "DocumentList did not contain any documents");
-            result.getRegistryError().add(error);
-        }
-
-        if (CollectionUtils.isNotEmpty(result.getRegistryError())) {
+        if (validateDocumentData(body, result)) {
             return processErrorList(result);
         }
 
-        RegistryObjectListType regList = body.getSubmitObjectsRequest().getRegistryObjectList();
+        validateSubmittedObjectsRequest(body.getSubmitObjectsRequest(), result, body.getDocument());
 
-        ArrayList<String> metaDocIds = new ArrayList<>();
+        return processErrorList(result);
+
+    }
+
+    /**
+     * Validate SubmittedObjectRequest on a Document Submission or Document Data Submission. If docListToCheck is NULL
+     * then there will be no validation done to see if the document id is present in the payload.
+     *
+     * Any RegistryErrors found will be added to the errorList parameter and the method will return true. If no
+     * RegistryErrors are created, this method will return false.
+     *
+     * @param body
+     * @param errorList
+     * @param docListToCheck - Optional, may be NULL if this is a DDS call.
+     */
+    private boolean validateSubmittedObjectsRequest(SubmitObjectsRequest submittedObject,
+        RegistryErrorList errorList, List<Document> docListToCheck) {
+
+        boolean added = false;
+
+        RegistryObjectListType regList = submittedObject.getRegistryObjectList();
         ArrayList<String> metaPatIds = new ArrayList<>();
+        // for (int x = 0; x < regList.getIdentifiable().size(); x++) {
 
-        for (int x = 0; x < regList.getIdentifiable().size(); x++) {
-            if (regList.getIdentifiable().get(x).getDeclaredType().equals(ExtrinsicObjectType.class)) {
+        for (JAXBElement<? extends IdentifiableType> item : regList.getIdentifiable()) {
+            if (item.getDeclaredType().equals(ExtrinsicObjectType.class)) {
 
-                ExtrinsicObjectType extObj = (ExtrinsicObjectType) regList.getIdentifiable().get(x).getValue();
+                ExtrinsicObjectType extObj = (ExtrinsicObjectType) item.getValue();
                 String mimeType = extObj.getMimeType();
-                if (isSupportedMimeType(mimeType) == false) {
-
+                if (!isSupportedMimeType(mimeType)) {
                     RegistryError error = createRegistryError(XDR_EC_XDSMissingDocumentMetadata,
                         NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, "Unsupported Mime Type: " + mimeType);
-                    result.getRegistryError().add(error);
+                    errorList.getRegistryError().add(error);
+                    added = true;
                 }
-                String docId = extObj.getId();
-                metaDocIds.add(docId);
 
-                if (isDocIdPresent(body.getDocument(), docId) == false) {
+                // Explicit check for NULL here. If docListToCheck is null, under the assumption this is a DSS
+                // submission and not a DS submission. If it is not null, check if the id is present.
+                // An empty list should enter this branch and add a registry error.
+                String docId = extObj.getId();
+                if (docListToCheck != null && !isDocIdPresent(docListToCheck, docId)) {
 
                     RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument,
                         NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
                         "Document Id: " + docId + " exists in metadata with no corresponding attached document");
-                    result.getRegistryError().add(error);
+                    errorList.getRegistryError().add(error);
+                    added = true;
                 }
-                String localPatId = getPatientId(extObj.getSlot());
 
+                String localPatId = getPatientId(extObj.getSlot());
                 if (localPatId.isEmpty()) {
                     RegistryError error = createRegistryError(XDR_EC_XDSUnknownPatientId,
                         NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
                         "Patient ID referenced in metadata is not known to the Receiving NHIE");
-                    result.getRegistryError().add(error);
+                    errorList.getRegistryError().add(error);
+                    added = true;
                 }
                 metaPatIds.add(localPatId);
             }
@@ -197,11 +216,38 @@ public class XDRHelper {
         if (!patientIdsMatch(metaPatIds)) {
             RegistryError error = createRegistryError(XDR_EC_XDSPatientIdDoesNotMatch,
                 NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, "Patient Ids do not match");
-            result.getRegistryError().add(error);
+            errorList.getRegistryError().add(error);
+            added = true;
         }
 
-        return processErrorList(result);
+        return added;
+    }
 
+    /**
+     * Validates that the body has a document attached to it. If it does not or if it is empty, a RegistryError will be
+     * added to the error list.
+     *
+     * If there was an error added to the list, this method will return true. Otherwise this method will return false
+     *
+     * @param body
+     * @param errorList
+     */
+    private boolean validateDocumentData(ProvideAndRegisterDocumentSetRequestType body, RegistryErrorList errorList) {
+        boolean result = false;
+        if (body.getDocument() == null) {
+            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument,
+                NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
+                "ProvideAndRegisterDocumentSetRequestType did not contain a DocumentList");
+            errorList.getRegistryError().add(error);
+            result = true;
+        } else if (body.getDocument().isEmpty()) {
+            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument,
+                NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, "DocumentList did not contain any documents");
+            errorList.getRegistryError().add(error);
+            result = true;
+        }
+
+        return result;
     }
 
     public List<String> getIntendedRecepients(ProvideAndRegisterDocumentSetRequestType body) {
@@ -307,16 +353,19 @@ public class XDRHelper {
         return mimeArray;
     }
 
-    private boolean isDocIdPresent(List<ProvideAndRegisterDocumentSetRequestType.Document> documents, String docId) {
+    private boolean isDocIdPresent(List<Document> documents, String docId) {
         boolean result = false;
 
-        for (ProvideAndRegisterDocumentSetRequestType.Document doc : documents) {
-            if (doc.getId().equals(docId)) {
-                result = true;
+        if (CollectionUtils.isEmpty(documents)) {
+            return false;
+        } else {
+            for (Document doc : documents) {
+                if (doc.getId().equals(docId)) {
+                    result = true;
+                }
             }
+            return result;
         }
-
-        return result;
     }
 
     private RegistryError createRegistryError(String errorCode, String severity, String codeContext) {
