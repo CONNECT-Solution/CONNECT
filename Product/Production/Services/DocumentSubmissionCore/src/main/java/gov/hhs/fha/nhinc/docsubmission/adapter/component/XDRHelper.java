@@ -174,8 +174,6 @@ public class XDRHelper {
 
         RegistryObjectListType regList = submittedObject.getRegistryObjectList();
         ArrayList<String> metaPatIds = new ArrayList<>();
-        // for (int x = 0; x < regList.getIdentifiable().size(); x++) {
-
         for (JAXBElement<? extends IdentifiableType> item : regList.getIdentifiable()) {
             if (item.getDeclaredType().equals(ExtrinsicObjectType.class)) {
 
