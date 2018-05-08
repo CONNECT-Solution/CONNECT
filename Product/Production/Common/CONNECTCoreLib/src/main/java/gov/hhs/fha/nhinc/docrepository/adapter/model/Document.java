@@ -66,7 +66,7 @@ public class Document {
     }
 
     public Document() {
-
+        rawData = new byte[0];
     }
 
     public Long getRepoId() {
