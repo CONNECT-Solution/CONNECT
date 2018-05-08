@@ -86,24 +86,6 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     private final UTCDateUtil utcDateUtil = mock(UTCDateUtil.class);
 
     @Test
-    public void testGetDocumentService() {
-        AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl();
-        assertTrue(docRepo.getDocumentService() != null);
-    }
-
-    @Test
-    public void testGetLargeFilesUtil() {
-        AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl();
-        assertTrue(docRepo.getLargeFileUtils() != null);
-    }
-
-    @Test
-    public void testGetDateUtil() {
-        AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl();
-        assertTrue(docRepo.getDateUtil() != null);
-    }
-
-    @Test
     public void testSetDocumentResponse_Failure() {
         AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl();
         DocumentMetadata doc = new DocumentMetadata();
