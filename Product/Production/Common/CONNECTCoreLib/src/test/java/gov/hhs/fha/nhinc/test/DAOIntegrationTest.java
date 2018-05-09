@@ -3,7 +3,6 @@
  */
 package gov.hhs.fha.nhinc.test;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -16,15 +15,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/config/CONNECT-testcontext.xml" })
-public class DAOIntegrationTest {
+public abstract class DAOIntegrationTest {
     {
         // We need to set this property so the PropertyAccessor class doesnt complain and error out.
         System.setProperty("nhinc.properties.dir", System.getProperty("user.dir") + "/src/test/resources/");
     }
 
-    @Test
-    public void contextLoads() {
-        // If this method fails, there is a context configuration error and Spring was not able to load it from the
-        // given application context file.
-    }
 }
