@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,20 +27,27 @@
 package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.faults.ConfigurationException;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.net.MalformedURLException;
+import java.net.URL;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
  *
  */
 public class CONNECTCXFClientFactory extends CONNECTClientFactory {
+    private static final Logger LOG = LoggerFactory.getLogger(PropertyAccessor.class);
 
     /**
      * Returns a CONNECTClient configured for secured invocation.
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
-            AssertionType assertion) {
+        AssertionType assertion) {
 
         return new CONNECTCXFClientSecured<>(portDescriptor, url, assertion);
     }
@@ -52,7 +59,7 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
-            AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
+        AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
         return new CONNECTCXFClientSecured<>(portDescriptor, assertion, url, targetHomeCommunityId, serviceName);
     }
 
@@ -61,7 +68,30 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
-            AssertionType assertion) {
+        AssertionType assertion) {
         return new CONNECTCXFClientUnsecured<>(portDescriptor, url, assertion);
+    }
+
+    /**
+     * Returns a CONNECTClient configured for https-is-required invocation.
+     */
+    @Override
+    public <T> CONNECTClient<T> getCONNECTClientHttps(ServicePortDescriptor<T> portDescriptor, String url,
+        AssertionType assertion) throws ConfigurationException {
+
+        String serviceProtocol = "";
+        try {
+            serviceProtocol = new URL(url).getProtocol().toUpperCase();
+        } catch (MalformedURLException ex) {
+            LOG.error("there an error in the URL: {}", ex.getLocalizedMessage(), ex);
+        }
+
+        LOG.info("getCONNECTClientHttps--serviceProtocol: '{}'", serviceProtocol);
+
+        if (!"HTTPS".equals(serviceProtocol)) {
+            throw new ConfigurationException("CONNECTCXFClientBaseSecured service's url required HTTPS");
+        }
+
+        return new CONNECTCXFClientBaseSecured<>(portDescriptor, url, assertion);
     }
 }

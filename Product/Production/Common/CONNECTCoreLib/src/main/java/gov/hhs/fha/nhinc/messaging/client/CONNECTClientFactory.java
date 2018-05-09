@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.faults.ConfigurationException;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
@@ -34,14 +35,17 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  *
  */
 public abstract class CONNECTClientFactory {
-    public abstract <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
+    abstract public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
         AssertionType assertion);
 
-    public abstract <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
+    abstract public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
         AssertionType assertion, String url, String targetHomeCommunityId, String serviceName);
 
-    public abstract <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
+    abstract public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
         AssertionType assertion);
+
+    abstract public <T> CONNECTClient<T> getCONNECTClientHttps(ServicePortDescriptor<T> portDescriptor, String url,
+        AssertionType assertion) throws ConfigurationException;
 
     public static CONNECTClientFactory getInstance() {
         return new CONNECTCXFClientFactory();
