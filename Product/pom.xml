@@ -1043,6 +1043,11 @@
       </dependency>
       <dependency>
         <groupId>org.connectopensource</groupId>
+        <artifactId>DocumentDataSubmissionWebservices</artifactId>
+        <version>${connect.webservices.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.connectopensource</groupId>
         <artifactId>DocumentQueryWebservices</artifactId>
         <version>${connect.webservices.version}</version>
       </dependency>
