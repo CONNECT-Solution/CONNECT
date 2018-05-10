@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,13 +26,25 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.DISABLE_CN_CHECK;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSClientParametersFactory;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CXFServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author bhumphrey
@@ -41,21 +53,24 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
 
     protected ServiceEndpoint<T> serviceEndpoint = null;
+    private static final Logger LOG = LoggerFactory.getLogger(CONNECTCXFClient.class);
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
         this(portDescriptor, url, assertion, new CXFServicePortBuilder<>(portDescriptor));
     }
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
-            ServicePortBuilder<T> portBuilder) {
+        ServicePortBuilder<T> portBuilder) {
         serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url,
-                assertion != null ? assertion.getTransactionTimeout() : null);
+            assertion != null ? assertion.getTransactionTimeout() : null);
+        configCNCheck();
     }
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
-            ServicePortBuilder<T> portBuilder, String subscriptionId) {
+        ServicePortBuilder<T> portBuilder, String subscriptionId) {
         serviceEndpoint = super.configureBasePort(portBuilder.createPort(), subscriptionId,
-                assertion != null ? assertion.getTransactionTimeout() : null);
+            assertion != null ? assertion.getTransactionTimeout() : null);
+        configCNCheck();
     }
 
     @Override
@@ -72,7 +87,28 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
     @Override
     public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo,
-                wsAddressingActionId, assertion);
+            wsAddressingActionId, assertion);
         serviceEndpoint.configure();
+    }
+
+    private void configCNCheck() {
+        boolean isDisableCNCheck = false;
+        try {
+            isDisableCNCheck = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
+                DISABLE_CN_CHECK);
+        } catch (PropertyAccessException ex) {
+            LOG.error("Not able to 'disableCNCheck' from the property file: {}", ex.getLocalizedMessage(), ex);
+        }
+
+        LOG.info("gateway-property--disableCNCheck: '{}'", isDisableCNCheck);
+
+        if (isDisableCNCheck) {
+            Client client = ClientProxy.getClient(serviceEndpoint.getPort());
+
+            HTTPConduit conduit = (HTTPConduit) client.getConduit();
+
+            TLSClientParameters tlsPara = TLSClientParametersFactory.getInstance().getTLSClientParameters();
+            conduit.setTlsClientParameters(tlsPara);
+        }
     }
 }

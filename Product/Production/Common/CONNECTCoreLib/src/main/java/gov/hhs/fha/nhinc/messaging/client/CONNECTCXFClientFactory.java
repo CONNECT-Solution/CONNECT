@@ -27,11 +27,8 @@
 package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.faults.ConfigurationException;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.net.MalformedURLException;
-import java.net.URL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,26 +69,4 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
         return new CONNECTCXFClientUnsecured<>(portDescriptor, url, assertion);
     }
 
-    /**
-     * Returns a CONNECTClient configured for https-is-required invocation.
-     */
-    @Override
-    public <T> CONNECTClient<T> getCONNECTClientHttps(ServicePortDescriptor<T> portDescriptor, String url,
-        AssertionType assertion) throws ConfigurationException {
-
-        String serviceProtocol = "";
-        try {
-            serviceProtocol = new URL(url).getProtocol().toUpperCase();
-        } catch (MalformedURLException ex) {
-            LOG.error("there an error in the URL: {}", ex.getLocalizedMessage(), ex);
-        }
-
-        LOG.info("getCONNECTClientHttps--serviceProtocol: '{}'", serviceProtocol);
-
-        if (!"HTTPS".equals(serviceProtocol)) {
-            throw new ConfigurationException("CONNECTCXFClientBaseSecured service's url required HTTPS");
-        }
-
-        return new CONNECTCXFClientBaseSecured<>(portDescriptor, url, assertion);
-    }
 }

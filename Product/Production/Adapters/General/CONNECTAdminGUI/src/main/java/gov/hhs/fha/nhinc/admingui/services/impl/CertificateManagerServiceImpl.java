@@ -275,7 +275,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
         ServicePortDescriptor<EntityConfigAdminPortType> portDescriptor = new ConfigAdminPortDescriptor();
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientHttps(portDescriptor, url,
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
             new AssertionType());
     }
 
