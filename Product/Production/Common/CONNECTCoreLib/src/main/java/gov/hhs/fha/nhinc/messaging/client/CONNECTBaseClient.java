@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,13 +26,21 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.DISABLE_CN_CHECK;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
+
 import gov.hhs.fha.nhinc.messaging.client.interceptor.SoapResponseInInterceptor;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSClientServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.apache.cxf.phase.PhaseInterceptorChain;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
@@ -41,6 +49,7 @@ import org.apache.cxf.phase.PhaseInterceptorChain;
 public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
 
     private WebServiceProxyHelper proxyHelper;
+    private static final Logger LOG = LoggerFactory.getLogger(CONNECTBaseClient.class);
 
     protected CONNECTBaseClient() {
         proxyHelper = new WebServiceProxyHelper();
@@ -69,6 +78,20 @@ public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
         ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<>(port);
         serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
         serviceEndpoint = new TimeoutServiceEndpointDecorator<>(serviceEndpoint, timeout);
+
+        boolean isDisableCNCheck = false;
+        try {
+            isDisableCNCheck = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
+                DISABLE_CN_CHECK);
+        } catch (PropertyAccessException ex) {
+            LOG.error("Not able to 'disableCNCheck' from the property file: {}", ex.getLocalizedMessage(), ex);
+        }
+
+        LOG.info("gateway-property--disableCNCheck: '{}'", isDisableCNCheck);
+
+        if (isDisableCNCheck) {
+            serviceEndpoint = new TLSClientServiceEndpointDecorator<>(serviceEndpoint);
+        }
 
         return serviceEndpoint;
     }

@@ -26,25 +26,13 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.DISABLE_CN_CHECK;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSClientParametersFactory;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CXFServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.apache.cxf.configuration.jsse.TLSClientParameters;
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author bhumphrey
@@ -53,7 +41,6 @@ import org.slf4j.LoggerFactory;
 public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
 
     protected ServiceEndpoint<T> serviceEndpoint = null;
-    private static final Logger LOG = LoggerFactory.getLogger(CONNECTCXFClient.class);
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
         this(portDescriptor, url, assertion, new CXFServicePortBuilder<>(portDescriptor));
@@ -63,14 +50,12 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
         ServicePortBuilder<T> portBuilder) {
         serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url,
             assertion != null ? assertion.getTransactionTimeout() : null);
-        configCNCheck();
     }
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
         ServicePortBuilder<T> portBuilder, String subscriptionId) {
         serviceEndpoint = super.configureBasePort(portBuilder.createPort(), subscriptionId,
             assertion != null ? assertion.getTransactionTimeout() : null);
-        configCNCheck();
     }
 
     @Override
@@ -89,26 +74,5 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo,
             wsAddressingActionId, assertion);
         serviceEndpoint.configure();
-    }
-
-    private void configCNCheck() {
-        boolean isDisableCNCheck = false;
-        try {
-            isDisableCNCheck = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
-                DISABLE_CN_CHECK);
-        } catch (PropertyAccessException ex) {
-            LOG.error("Not able to 'disableCNCheck' from the property file: {}", ex.getLocalizedMessage(), ex);
-        }
-
-        LOG.info("gateway-property--disableCNCheck: '{}'", isDisableCNCheck);
-
-        if (isDisableCNCheck) {
-            Client client = ClientProxy.getClient(serviceEndpoint.getPort());
-
-            HTTPConduit conduit = (HTTPConduit) client.getConduit();
-
-            TLSClientParameters tlsPara = TLSClientParametersFactory.getInstance().getTLSClientParameters();
-            conduit.setTlsClientParameters(tlsPara);
-        }
     }
 }
