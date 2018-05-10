@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
+import static org.junit.Assert.assertEquals;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecoratorTest;
 import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
@@ -37,9 +39,11 @@ import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
-import static org.junit.Assert.assertEquals;
+import org.apache.cxf.transport.http.HTTPConduit;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,6 +62,8 @@ public class CONNECTCXFClientUnsecuredTest {
 
     @Before
     public void setUpTest(){
+        System.setProperty("nhinc.properties.dir", System.getProperty("user.dir") + "/src/test/resources/");
+        System.setProperty("javax.net.ssl.keyStorePassword", "changeit");
         try {
             PropertyAccessor.getInstance().setProperty(NhincConstants.GATEWAY_PROPERTY_FILE, TimeoutServiceEndpointDecorator.CONFIG_KEY_TIMEOUT, Integer.toString(TIMEOUT));
         } catch (PropertyAccessException ex) {
@@ -124,7 +130,34 @@ public class CONNECTCXFClientUnsecuredTest {
 
     private CONNECTClient<TestServicePortType> createClient(String url, AssertionType assertion) {
         return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(new TestServicePortDescriptor(), url,
-                assertion);
+            assertion);
+    }
+
+    @Test
+    public void testHttpsClientDisableCNCheck() {
+        String url = "https://url";
+        AssertionType assertion = new AssertionType();
+        assertion.setTransactionTimeout(-1);
+
+        CONNECTClient<TestServicePortType> endpoint = null;
+        try {
+            PropertyAccessor.getInstance().setProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                NhincConstants.DISABLE_CN_CHECK, "true");
+
+            boolean disableCNCheck = PropertyAccessor.getInstance()
+                .getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.DISABLE_CN_CHECK);
+
+            endpoint = createClient(url, assertion);
+
+            Client client = ClientProxy.getClient(endpoint.getPort());
+
+            HTTPConduit conduit = (HTTPConduit) client.getConduit();
+            TLSClientParameters tlsPara = conduit.getTlsClientParameters();
+
+            Assert.assertTrue("disableCNCheck==true", tlsPara.isDisableCNCheck());
+        } catch (PropertyAccessException ex) {
+            System.out.println("Unable to set in memory property for disable-CN-Check.");
+        }
     }
 
 }
