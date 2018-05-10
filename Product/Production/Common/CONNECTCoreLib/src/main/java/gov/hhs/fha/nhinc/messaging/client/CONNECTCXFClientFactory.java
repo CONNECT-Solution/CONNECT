@@ -28,17 +28,12 @@ package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
  *
  */
 public class CONNECTCXFClientFactory extends CONNECTClientFactory {
-    private static final Logger LOG = LoggerFactory.getLogger(PropertyAccessor.class);
-
     /**
      * Returns a CONNECTClient configured for secured invocation.
      */
