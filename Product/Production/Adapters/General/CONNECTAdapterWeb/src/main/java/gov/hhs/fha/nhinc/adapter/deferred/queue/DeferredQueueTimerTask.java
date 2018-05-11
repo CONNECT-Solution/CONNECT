@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * This class is responsible for handling the work that is done each time the timer goes off; i.e. processing the
@@ -37,11 +38,13 @@ import org.slf4j.LoggerFactory;
  *
  * @author richard.ettema
  */
-public class DeferredQueueTimerTask {
+@Component
+public class DeferredQueueTimerTask implements Runnable{
 
     private static final Logger LOG = LoggerFactory.getLogger(DeferredQueueTimerTask.class);
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String DEFERRED_QUEUE_SWITCH_PROPERTY = "DeferredQueueProcessActive";
+
 
     protected void forceDeferredQueueProcess() {
         try {
@@ -49,24 +52,18 @@ public class DeferredQueueTimerTask {
             helper.forceProcess();
         } catch (DeferredQueueException ex) {
             LOG.error("DeferredQueueTimerTask DeferredQueueException thrown: {}", ex.getLocalizedMessage(), ex);
-
-            for (StackTraceElement ste : ex.getStackTrace()) {
-                if (ste.toString().contains("EJBClassLoader")) {
-                    DeferredQueueTimer.getInstance().stopTimer();
-                    break;
-                }
-            }
         }
     }
 
     /**
      * This method is called each time the timer thread wakes up.
      */
+    @Override
     public void run() {
         boolean bQueueActive;
         try {
             bQueueActive = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
-                    DEFERRED_QUEUE_SWITCH_PROPERTY);
+                DEFERRED_QUEUE_SWITCH_PROPERTY);
 
             if (bQueueActive) {
                 LOG.debug("Start: DeferredQueueTimerTask.run method - processing queue entries.");
@@ -89,8 +86,7 @@ public class DeferredQueueTimerTask {
      * @param args
      */
     public static void main(String[] args) {
-        LOG.info("Starting test.");
-
+        LOG.info("Start of test.");
         try {
             DeferredQueueTimerTask oTimerTask = new DeferredQueueTimerTask();
             oTimerTask.run();
