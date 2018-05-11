@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,10 +26,7 @@
  */
 package gov.hhs.fha.nhinc.exchangemgr;
 
-import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
-import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDataUpdateMgr;
-import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,46 +34,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author tjafri
  */
-public class ExchangeScheduler extends Thread {
+public class ExchangeScheduler implements Runnable {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeScheduler.class);
-    private boolean isRunnable = false;
-    private long refreshInterval;
-    private static final int DEFAULT_EXCHANGE_REFRESH_INTERVAL = 1440; // a day in minutes
-
-    /**
-     * Get an instance
-     *
-     * @return
-     */
-    protected static ExchangeScheduler getInstance() {
-        return InstanceHolder.INSTANCE;
-    }
-
-    /**
-     * This method is used to create an instance of the ExchangeScheduler. There should only be exactly one instance of
-     * this running at any time. If it exists, it simply returns the one that exists. If it does not exist, then it will
-     * create it, start the timer, and return a handle to it.
-     *
-     * @throws ExchangeSchedulerException
-     */
-    public void startTimer() throws ExchangeSchedulerException {
-        isRunnable = true;
-
-        try {
-            getInstance().initialize();
-            getInstance().setName("ExchangeScheduler Thread");
-            getInstance().setDaemon(true);
-            getInstance().start();
-        } catch (Exception e) {
-            throw new ExchangeSchedulerException("Failed to start the Exchange Scheduler: " + e.getLocalizedMessage(), e);
-        }
-        LOG.info("ExchangeScheduler has just been started now.");
-    }
-
-    public void stopTimer() {
-        isRunnable = false;
-    }
 
     /*
      * This method is scheduled to run for a given refresh interval as stated in exchangeInfo.xml. Everytime the
@@ -85,39 +45,8 @@ public class ExchangeScheduler extends Thread {
      */
     @Override
     public void run() {
-        LOG.info("ExchangeScheduled inside run");
-        while (isRunnable) {
-            getInstance().initialize();
-            ExchangeDataUpdateMgr exTask = new ExchangeDataUpdateMgr();
-            exTask.task();
-            try {
-                LOG.info("Putting {} for sleep for {} milliseconds", getInstance().getName(), refreshInterval);
-                Thread.sleep(refreshInterval);
-            } catch (InterruptedException ex) {
-                LOG.error("Failed to put {} to sleep: {}", getInstance().getName(), ex.getLocalizedMessage(), ex);
-            }
-        }
+        LOG.info("Running Exchange Data Update Manager...");
+        new ExchangeDataUpdateMgr().task();
     }
 
-    private void initialize() {
-        try {
-            ExchangeInfoType exInfo = ExchangeInfoDAOFileImpl.getInstance().loadExchangeInfo();
-            long interval = exInfo.getRefreshInterval();
-            if (interval <= 0) {
-                refreshInterval = TimeUnit.MINUTES.toMillis(DEFAULT_EXCHANGE_REFRESH_INTERVAL);
-            } else {
-                refreshInterval = TimeUnit.MINUTES.toMillis(interval);
-            }
-        } catch (ExchangeManagerException ex) {
-            LOG.error("Unable to load exchange information {}", ex.getLocalizedMessage(), ex);
-        }
-    }
-
-    public static class InstanceHolder {
-
-        private static final ExchangeScheduler INSTANCE = new ExchangeScheduler();
-
-        private InstanceHolder() {
-        }
-    }
 }
