@@ -46,6 +46,8 @@ import org.apache.cxf.transport.http.HTTPConduit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
@@ -57,6 +59,7 @@ public class CONNECTCXFClientUnsecuredTest {
     private final MTOMServiceEndpointDecoratorTest mtomTest = new MTOMServiceEndpointDecoratorTest();
     private final SoapResponseServiceEndpointDecoratorTest responseTest = new SoapResponseServiceEndpointDecoratorTest();
     private final URLServiceEndpointDecoratorTest urlTest = new URLServiceEndpointDecoratorTest();
+    private static final Logger LOG = LoggerFactory.getLogger(CONNECTCXFClientUnsecuredTest.class);
 
     private static final int TIMEOUT = 100;
 
@@ -67,7 +70,7 @@ public class CONNECTCXFClientUnsecuredTest {
         try {
             PropertyAccessor.getInstance().setProperty(NhincConstants.GATEWAY_PROPERTY_FILE, TimeoutServiceEndpointDecorator.CONFIG_KEY_TIMEOUT, Integer.toString(TIMEOUT));
         } catch (PropertyAccessException ex) {
-            System.out.println("Unable to set in memory property for timeout decorator.");
+            LOG.error("Unable to set in memory property for timeout decorator. {}", ex);
         }
     }
 
@@ -156,7 +159,8 @@ public class CONNECTCXFClientUnsecuredTest {
 
             Assert.assertTrue("disableCNCheck==true", tlsPara.isDisableCNCheck());
         } catch (PropertyAccessException ex) {
-            System.out.println("Unable to set in memory property for disable-CN-Check.");
+            LOG.error("Unable to set in memory property for disable-CN-Check. {}", ex);
+            Assert.fail();
         }
     }
 
@@ -183,7 +187,8 @@ public class CONNECTCXFClientUnsecuredTest {
 
             Assert.assertFalse("disableCNCheck==false", tlsPara.isDisableCNCheck());
         } catch (PropertyAccessException ex) {
-            System.out.println("Unable to set in memory property for disable-CN-Check.");
+            LOG.error("Unable to set in memory property for disable-CN-Check. {}", ex);
+            Assert.fail();
         }
     }
 
