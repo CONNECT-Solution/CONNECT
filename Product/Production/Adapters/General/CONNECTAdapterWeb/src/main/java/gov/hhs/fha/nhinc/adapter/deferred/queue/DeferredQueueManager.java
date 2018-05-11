@@ -37,28 +37,12 @@ import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueRespon
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Addressing(enabled = true, required = true)
 public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemanager.DeferredQueueManagerPortType {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DeferredQueueManager.class);
-
     @Resource
     private WebServiceContext context;
-
-    /**
-     * Default constructor.
-     */
-    public DeferredQueueManager() {
-
-        /*
-         * try { DeferredQueueTimer timer = DeferredQueueTimer.getInstance(); timer.startTimer(); } catch (Exception e)
-         * { String sErrorMessage = "Failed to start DeferredQueueManager's timer.  Error: " + e.getMessage();
-         * LOG.error(sErrorMessage, e); }
-         */
-    }
 
     /**
      * Force the deferred queue process
