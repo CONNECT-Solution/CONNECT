@@ -18,30 +18,4 @@
     <context:annotation-config/>
     <task:annotation-driven/>
 
-    <bean name="eventfactory" class="gov.hhs.fha.nhinc.event.EventFactoryFactoryBean" />
-
-    <bean name="txHibernateUtil" class="gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil"
-        init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="true"/>
-
-    <bean name="eventHibernateUtil" class="gov.hhs.fha.nhinc.event.persistence.HibernateUtil"
-        init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="true"/>
-
-    <bean name="asyncmsgsHibernateUtil" class="gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil"
-        init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="true"/>
-
-    <bean name="connManHibernateUtil" class="gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil"
-        init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="true"/>
-
-    <bean name="docRepoHibernateUtil" class="gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil"
-        init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="true"/>
-
-    <bean name="patientCorrHibernateUtil" class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil"
-        init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="true"/>
-
-    <bean name="msgMonitorHibernateUtil" class="gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil"
-        init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="true"/>
-
-    <bean name="directConfigHibernateUtil" class="gov.hhs.fha.nhinc.directconfig.persistence.HibernateUtil"
-        init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="true"/>
-
 </beans>
