@@ -134,7 +134,7 @@ public class CONNECTCXFClientUnsecuredTest {
     }
 
     @Test
-    public void testHttpsClientDisableCNCheck() {
+    public void testHttpsClientDisableCNCheckTrue() {
         String url = "https://url";
         AssertionType assertion = new AssertionType();
         assertion.setTransactionTimeout(-1);
@@ -155,6 +155,33 @@ public class CONNECTCXFClientUnsecuredTest {
             TLSClientParameters tlsPara = conduit.getTlsClientParameters();
 
             Assert.assertTrue("disableCNCheck==true", tlsPara.isDisableCNCheck());
+        } catch (PropertyAccessException ex) {
+            System.out.println("Unable to set in memory property for disable-CN-Check.");
+        }
+    }
+
+    @Test
+    public void testHttpsClientDisableCNCheckFalse() {
+        String url = "https://url";
+        AssertionType assertion = new AssertionType();
+        assertion.setTransactionTimeout(-1);
+
+        CONNECTClient<TestServicePortType> endpoint = null;
+        try {
+            PropertyAccessor.getInstance().setProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+                NhincConstants.DISABLE_CN_CHECK, "false");
+
+            boolean disableCNCheck = PropertyAccessor.getInstance()
+                .getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.DISABLE_CN_CHECK);
+
+            endpoint = createClient(url, assertion);
+
+            Client client = ClientProxy.getClient(endpoint.getPort());
+
+            HTTPConduit conduit = (HTTPConduit) client.getConduit();
+            TLSClientParameters tlsPara = conduit.getTlsClientParameters();
+
+            Assert.assertFalse("disableCNCheck==false", tlsPara.isDisableCNCheck());
         } catch (PropertyAccessException ex) {
             System.out.println("Unable to set in memory property for disable-CN-Check.");
         }
