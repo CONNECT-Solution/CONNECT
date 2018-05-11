@@ -39,11 +39,11 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
-//Tests are being ignored due to current pipeline process for PR Validator.
-//These tests all *must* pass for DocumentDAO to be considered correct.
-// When the database gets reflected with th new changes, this @Ignore should be removed.
+//Uncomment to run DAO Integration test which will use a MySQL DB connection.
+@Ignore
 public class DocumentDaoIntTest extends DAOIntegrationTest {
 
     private static DocumentDao documentDao;

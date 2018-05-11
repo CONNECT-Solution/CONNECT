@@ -30,7 +30,7 @@ public class DeferredQueueScheduler {
     public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
         ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
         threadPoolTaskScheduler.setPoolSize(1);
-        threadPoolTaskScheduler.setThreadNamePrefix("ThreadPoolTaskScheduler");
+        threadPoolTaskScheduler.setThreadNamePrefix("DeferredQueueThreadPoolTaskScheduler");
         return threadPoolTaskScheduler;
     }
 
@@ -49,6 +49,7 @@ public class DeferredQueueScheduler {
         } catch (PropertyAccessException | NumberFormatException e) {
             LOG.error("Could not set interval rate. Defaulting to {} seconds by default. Error is : {}",
                 DEFERRED_QUEUE_REFRESH_DURATION_DEFAULT, e.getMessage());
+            LOG.error("Exception Occurred:", e);
         }
 
         PeriodicTrigger periodicTrigger = new PeriodicTrigger(intervalSeconds, TimeUnit.SECONDS);
