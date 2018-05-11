@@ -28,7 +28,7 @@ public class ExchangeSchedulerConfig {
     public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
         ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
         threadPoolTaskScheduler.setPoolSize(1);
-        threadPoolTaskScheduler.setThreadNamePrefix("ThreadPoolTaskScheduler");
+        threadPoolTaskScheduler.setThreadNamePrefix("ExchangeThreadPoolTaskScheduler");
         return threadPoolTaskScheduler;
     }
 
@@ -46,8 +46,9 @@ public class ExchangeSchedulerConfig {
                 intervalMinutes = interval;
             }
         } catch (ExchangeManagerException e) {
-            LOG.error("Could not set interval rate. Defaulting to {} seconds by default. Error is : {}",
+            LOG.error("Could not set interval rate. Defaulting to {} minutes by default. Error is : {}",
                 DEFAULT_EXCHANGE_REFRESH_INTERVAL, e.getMessage());
+            LOG.error("Exception Occurred:", e);
         }
 
         PeriodicTrigger periodicTrigger = new PeriodicTrigger(intervalMinutes, TimeUnit.MINUTES);
