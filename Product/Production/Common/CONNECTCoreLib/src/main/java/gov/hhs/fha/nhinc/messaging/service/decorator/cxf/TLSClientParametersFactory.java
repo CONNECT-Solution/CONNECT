@@ -111,7 +111,7 @@ public class TLSClientParametersFactory {
             }
 
             tlsClientParameters.setDisableCNCheck(isDisableCNCheck);
-            LOG.info("tlsClientParameters--disableCNCheck-is-set: '{}'", isDisableCNCheck);
+            LOG.info("tlsClientParameters--disableCNCheck-is-set: {}", isDisableCNCheck);
         } catch (GeneralSecurityException | IllegalStateException e) {
             LOG.error("Could not get TLS client parameters: {} ", e.getLocalizedMessage(), e);
             throw new SecurityException("Could not create SSL Context.", e);
