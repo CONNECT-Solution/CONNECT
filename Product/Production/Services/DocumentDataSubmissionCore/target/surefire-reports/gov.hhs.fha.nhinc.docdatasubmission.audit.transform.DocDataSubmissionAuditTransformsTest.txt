@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: gov.hhs.fha.nhinc.docdatasubmission.audit.transform.DocDataSubmissionAuditTransformsTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.417 sec - in gov.hhs.fha.nhinc.docdatasubmission.audit.transform.DocDataSubmissionAuditTransformsTest
