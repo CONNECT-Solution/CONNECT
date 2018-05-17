@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -172,6 +172,7 @@ public class WebServiceProxyHelper {
                     LOG.info("Target Sys properties Home Comm Description: {}", oHomeCommunity.getDescription());
                     LOG.info("Target Sys properties Home Comm Name: {}", oHomeCommunity.getName());
                 }
+                LOG.info("Exchange Name in the Outbound request: {}", oTargetSystem.getExchangeName());
                 sURL = getEndPointFromConnectionManagerByGatewayAPILevel(oTargetSystem, sServiceName, level);
             } catch (ExchangeManagerException e) {
                 LOG.error("Error: Failed to retrieve url for service {}: {}", sServiceName, e.getLocalizedMessage(), e);
@@ -360,8 +361,8 @@ public class WebServiceProxyHelper {
         } catch (IllegalArgumentException e) {
             LOG.error(
                 "The method was called with incorrect arguments. This assumes that the method should have "
-                    + "exactly one argument and it must be of the correct type for this method: {}",
-                    e.getLocalizedMessage(), e);
+                + "exactly one argument and it must be of the correct type for this method: {}",
+                e.getLocalizedMessage(), e);
             throw e;
         } catch (InvocationTargetException e) {
             Exception cause = e;
