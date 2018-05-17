@@ -155,9 +155,9 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
     }
 
     @Override
-    public String getEndpointURL(String hcid, String sServiceName, UDDI_SPEC_VERSION api_spec)
+    public String getEndpointURL(String hcid, String sServiceName, UDDI_SPEC_VERSION api_spec, String exchangeName)
         throws ExchangeManagerException {
-        OrganizationType org = getOrganization(hcid);
+        OrganizationType org = getOrganization(exchangeName, hcid);
         EndpointType epType = ExchangeManagerHelper.getServiceEndpointType(org, sServiceName);
         if (null == epType) {
             return "";

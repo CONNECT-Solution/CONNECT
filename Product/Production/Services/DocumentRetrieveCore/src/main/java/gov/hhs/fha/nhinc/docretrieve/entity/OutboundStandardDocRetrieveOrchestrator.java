@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -59,7 +59,8 @@ public class OutboundStandardDocRetrieveOrchestrator extends CONNECTOutboundOrch
                 rdMessage.getNhinDelegate(), rdMessage.getAggregator());
             newMessage.setRequest(rdRequest);
             newMessage.setAssertion(message.getAssertion());
-            newMessage.setTarget(buildHomeCommunity(docRequest.getHomeCommunityId(), rdMessage.getTarget().getUseSpecVersion()));
+            newMessage.setTarget(buildHomeCommunity(docRequest.getHomeCommunityId(), rdMessage.getTarget().
+                getUseSpecVersion(), rdMessage.getTarget().getExchangeName()));
 
             // Process and aggregate
             NhinAggregator agg = rdMessage.getAggregator();
@@ -69,13 +70,14 @@ public class OutboundStandardDocRetrieveOrchestrator extends CONNECTOutboundOrch
         return message;
     }
 
-    private NhinTargetSystemType buildHomeCommunity(String homeCommunityId, String guidance) {
+    private NhinTargetSystemType buildHomeCommunity(String homeCommunityId, String guidance, String exchangeName) {
         NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
         //set the prefix for the homecommunity ID if its not present
         homeCommunity.setHomeCommunityId(HomeCommunityMap.getHomeCommunityIdWithPrefix(homeCommunityId));
         nhinTargetSystem.setHomeCommunity(homeCommunity);
         nhinTargetSystem.setUseSpecVersion(guidance);
+        nhinTargetSystem.setExchangeName(exchangeName);
         return nhinTargetSystem;
     }
 }

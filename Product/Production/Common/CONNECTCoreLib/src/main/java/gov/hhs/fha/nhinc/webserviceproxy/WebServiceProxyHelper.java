@@ -177,6 +177,7 @@ public class WebServiceProxyHelper {
                     LOG.info("Target Sys properties Home Comm Description: {}", oHomeCommunity.getDescription());
                     LOG.info("Target Sys properties Home Comm Name: {}", oHomeCommunity.getName());
                 }
+                LOG.info("Exchange Name in the Outbound request: {}", oTargetSystem.getExchangeName());
                 sURL = getEndPointFromConnectionManagerByGatewayAPILevel(oTargetSystem, sServiceName, level);
             } catch (ExchangeManagerException e) {
                 LOG.error("Error: Failed to retrieve url for service {}: {}", sServiceName, e.getLocalizedMessage(), e);
@@ -365,8 +366,8 @@ public class WebServiceProxyHelper {
         } catch (IllegalArgumentException e) {
             LOG.error(
                 "The method was called with incorrect arguments. This assumes that the method should have "
-                    + "exactly one argument and it must be of the correct type for this method: {}",
-                    e.getLocalizedMessage(), e);
+                + "exactly one argument and it must be of the correct type for this method: {}",
+                e.getLocalizedMessage(), e);
             throw e;
         } catch (InvocationTargetException e) {
             Exception cause = e;
