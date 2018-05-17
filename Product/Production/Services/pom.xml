@@ -26,7 +26,7 @@
         <module>DocumentQueryCore</module>
         <module>DocRegistryCore</module>
         <module>PatientDiscoveryCore</module>
-		<module>DocumentDataSubmissionCore</module>
+        <module>DocumentDataSubmissionCore</module>
         <module>DocumentSubmissionCore</module>
         <module>CORE_X12DocumentSubmissionCore</module>
         <module>DocumentRetrieveCore</module>
