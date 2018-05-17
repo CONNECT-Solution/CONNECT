@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -108,7 +108,7 @@ public class AggregationService {
         AssertionType assertion, NhinTargetCommunitiesType targets) {
 
         List<OutboundOrchestratable> list = new ArrayList<>();
-
+        String exchangeName = targets.getExchangeName();
         try {
 
             QualifiedSubjectIdentifierType qualSubId = getQualifiedSubjectIndentifer(adhocQueryRequest);
@@ -141,7 +141,7 @@ public class AggregationService {
                     qualSubId.getAssigningAuthorityIdentifier());
                 target.setHomeCommunity(targetCommunity);
                 target.setUseSpecVersion(targets.getUseSpecVersion());
-
+                target.setExchangeName(exchangeName);
                 AdhocQueryRequest childRequest = cloneRequest(adhocQueryRequest);
                 setPatientIdOnRequest(childRequest, id.getExtension(), id.getRoot());
 
