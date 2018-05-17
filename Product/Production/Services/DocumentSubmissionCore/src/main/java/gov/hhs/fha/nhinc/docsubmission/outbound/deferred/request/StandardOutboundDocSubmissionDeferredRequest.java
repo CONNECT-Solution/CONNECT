@@ -125,7 +125,7 @@ public class StandardOutboundDocSubmissionDeferredRequest implements OutboundDoc
         return sendToNhinProxy(nhinRequest, assertion);
     }
 
-    private gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType
+    private static gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType
         createRequestForNhin(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
 
         NhinTargetSystemType targetSystemType = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
