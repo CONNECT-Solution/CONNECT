@@ -99,7 +99,7 @@ public abstract class AbstractDocDataSubmissionAuditTransforms<T, K> extends Aud
             objIdTypeCode, objIdTypeCodeSys, objIdTypeDisplayName);
     }
 
-    private String getIdValue(RegisterDocumentSetRequestType request, String idType) {
+    private static String getIdValue(RegisterDocumentSetRequestType request, String idType) {
         String idValue = null;
         RegistryObjectType registryObj = extractRegistryObject(
             request.getSubmitObjectsRequest().getRegistryObjectList());
@@ -109,7 +109,7 @@ public abstract class AbstractDocDataSubmissionAuditTransforms<T, K> extends Aud
         return idValue;
     }
 
-    private String getIdFromExternalIdentifiers(List<ExternalIdentifierType> externalIdentifiers, String type) {
+    private static String getIdFromExternalIdentifiers(List<ExternalIdentifierType> externalIdentifiers, String type) {
         String id = null;
         for (ExternalIdentifierType identifier : externalIdentifiers) {
             if (identifier.getName() != null
@@ -123,7 +123,7 @@ public abstract class AbstractDocDataSubmissionAuditTransforms<T, K> extends Aud
         return id;
     }
 
-    private RegistryObjectType extractRegistryObject(RegistryObjectListType registryList) {
+    private static RegistryObjectType extractRegistryObject(RegistryObjectListType registryList) {
         RegistryObjectType registryObj = null;
         if (registryList != null && registryList.getIdentifiable() != null) {
             for (JAXBElement<? extends IdentifiableType> object : registryList.getIdentifiable()) {

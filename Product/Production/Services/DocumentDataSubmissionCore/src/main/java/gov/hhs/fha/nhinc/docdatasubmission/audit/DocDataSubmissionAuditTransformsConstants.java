@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docdatasubmission.audit;
 
 public class DocDataSubmissionAuditTransformsConstants {
-
+    
     public static final String DDS_SUBMISSIONSET_PATIENT_ID = "DDSSubmissionSet.patientId";
     public static final String DDS_SUBMISSIONSET_UNIQUE_ID = "DDSSubmissionSet.uniqueId";
 
@@ -53,5 +53,9 @@ public class DocDataSubmissionAuditTransformsConstants {
     public static final String EVENT_TYPE_CODE_DISPLAY_NAME = "Register Document Set-b";
     public static final String EVENT_ACTION_CODE_SOURCE = "R";
     public static final String EVENT_ACTION_CODE_RECIPIENT = "C";
+
+    private DocDataSubmissionAuditTransformsConstants() {
+        throw new IllegalStateException("Utility class");
+    }
 
 }
