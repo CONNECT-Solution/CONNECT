@@ -32,7 +32,7 @@
 		</cxf:features>
 	</cxf:bus>
 
-	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterddssecured"
+	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterddssecured:data"
 		id="AdapterDocDataSubmissionSecured" address="/AdapterDocDataSubmissionSecured"
 		serviceName="tns:AdapterDDSSecured_Service" endpointName="tns:AdapterDDSSecured_Port"
 		implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.AdapterDocDataSubmissionSecured"
@@ -52,15 +52,9 @@
 			</entry>
 			<entry key="ws-security.enable.timestamp.cache" value="false" />
 		</jaxws:properties>
-		<jaxws:inInterceptors>
-			<ref bean="timestampInInterceptor" />
-		</jaxws:inInterceptors>
-		<jaxws:outFaultInterceptors>
-			<ref bean="attachmentFaultOutInterceptor" />
-		</jaxws:outFaultInterceptors>
 	</jaxws:endpoint>
 
-	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdds"
+	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdds:data"
 		id="AdapterDocDataSubmissionUnsecured" address="/AdapterDocDataSubmissionUnsecured"
 		serviceName="tns:AdapterDDS_Service" endpointName="tns:AdapterDDS_Port"
 		implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.AdapterDocDataSubmissionUnsecured"
@@ -72,7 +66,7 @@
 
 	<!-- Adapter Document Submission Component -->
 
-	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentddssecured"
+	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentddssecured:data"
 		id="AdapterComponentDocDataSubmissionSecured" address="/AdapterComponentDocDataSubmissionSecured"
 		serviceName="tns:AdapterComponentDDSSecured_Service" endpointName="tns:AdapterComponentDDSSecured_Port"
 		implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.component.AdapterComponentDocDataSubmissionSecured"
@@ -92,15 +86,9 @@
 			</entry>
 			<entry key="ws-security.enable.timestamp.cache" value="false" />
 		</jaxws:properties>
-		<jaxws:inInterceptors>
-			<ref bean="timestampInInterceptor" />
-		</jaxws:inInterceptors>
-		<jaxws:outFaultInterceptors>
-			<ref bean="attachmentFaultOutInterceptor" />
-		</jaxws:outFaultInterceptors>
 	</jaxws:endpoint>
 
-	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentdds"
+	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentdds:data"
 		id="AdapterComponentDocDataSubmissionUnsecured" address="/AdapterComponentDocDataSubmissionUnsecured"
 		serviceName="tns:AdapterComponentDDS_Service" endpointName="tns:AdapterComponentDDS_Port"
 		implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.component.AdapterComponentDocDataSubmissionUnsecured"

@@ -44,7 +44,6 @@ public class AdapterDocDataSubmissionSecured implements AdapterDDSSecuredPortTyp
 
     @Override
     public RegistryResponseType registerDocumentSetb(RegisterDocumentSetRequestType body) {
-
         return new RegistryResponseType();
     }
 

@@ -405,7 +405,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <dds.excluded>false</dds.excluded>
+        <ds.excluded>false</ds.excluded>
       </properties>
 
       <dependencies>
@@ -487,7 +487,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <ds.excluded>false</ds.excluded>
+        <dds.excluded>false</dds.excluded>
       </properties>
 
       <dependencies>
@@ -497,10 +497,22 @@
           <version>${project.parent.version}</version>
           <type>war</type>
         </dependency>
+		 <dependency>
+          <groupId>org.connectopensource</groupId>
+          <artifactId>DocumentDataSubmission_a0</artifactId>
+          <version>${project.parent.version}</version>
+          <type>war</type>
+        </dependency>
 
         <dependency>
           <groupId>org.connectopensource</groupId>
           <artifactId>DocumentDataSubmission_10</artifactId>
+          <version>${project.parent.version}</version>
+          <type>pom</type>
+        </dependency>
+		 <dependency>
+          <groupId>org.connectopensource</groupId>
+          <artifactId>DocumentDataSubmission_a0</artifactId>
           <version>${project.parent.version}</version>
           <type>pom</type>
         </dependency>
@@ -518,6 +530,12 @@
                   <groupId>org.connectopensource</groupId>
                   <artifactId>DocumentDataSubmission_10</artifactId>
                   <contextRoot>/Gateway/DocumentDataSubmission/1_0</contextRoot>
+                  <excluded>${dds.excluded}</excluded>
+                </webModule>
+				<webModule>
+                  <groupId>org.connectopensource</groupId>
+                  <artifactId>DocumentSubmission_a0</artifactId>
+                  <contextRoot>/Adapter/DocumentDataSubmission/A_0</contextRoot>
                   <excluded>${dds.excluded}</excluded>
                 </webModule>
               </modules>
