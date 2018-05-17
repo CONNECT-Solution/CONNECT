@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -133,7 +133,7 @@ public interface Exchange<T> {
      * @return The business entities that have this service defined.
      * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      */
-    public Set<OrganizationType> getAllOrganizationSetByServiceName(String sUniformServiceName)
+    public Set<OrganizationType> getAllOrganizationSetByServiceName(String sUniformServiceName, String exchangeName)
         throws ExchangeManagerException;
 
     public List<NhincConstants.UDDI_SPEC_VERSION> getSpecVersions(String hcid,
@@ -172,8 +172,9 @@ public interface Exchange<T> {
      * NhinTargetCommunity type it will first check if a Home Community Id is specified. If so then it will add the URL
      * for the specified service for that home community to the List of URLs. Next it will check if a region (state) is
      * specified. If so it will obtain a list of URLs for that that service for all communities in the specified state.
-     * Next it will check if a list is specified (this feature is not implemented). If there are no
-     * NhinTargetCommunities specified it will return the list of URLs for the entire NHIN for that service.
+     * Next it will check if a list is specified (this feature is not implemented). If there is an exchange specified in
+     * NhinTargetCommunities, it will return list of URLs for that service in that particular exchange If there are no
+     * NhinTargetCommunities specified it will return the list of URLs for that service in a default exchange.
      *
      * @param targets List of targets to get URLs for.
      * @param serviceName The name of the service to locate who URL is being requested.
@@ -188,6 +189,7 @@ public interface Exchange<T> {
     /**
      *
      * @param sHomeCommunityId
+     * @param exchangeName
      * @param sServiceName
      * @param spec_level
      * @return
@@ -200,7 +202,7 @@ public interface Exchange<T> {
         ExchangeManagerException;
 
     /**
-     * This method returns a local url for a specified service.
+     * This method returns a local url for a specified service using default exchange.
      *
      * @param sServiceName
      * @return The URL for only the requested service at the local home community. If the service is not found, then
@@ -208,4 +210,21 @@ public interface Exchange<T> {
      * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      */
     public String getEndpointURL(String sServiceName) throws ExchangeManagerException;
+
+    /*
+     * This method returns a local url for a specified service.
+     *
+     * @param exchangeName @param sServiceName @return The URL for only the requested service at the local home
+     * community. If the service is not found, then null is returned. @throws
+     * gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
+     */
+    public String getEndpointURL(String sServiceName, String exchangeName) throws ExchangeManagerException;
+
+    public String getEndpointURL(String sServiceName, T apiSpec, String exchangeName) throws
+        ExchangeManagerException;
+
+    public String getEndpointURL(String sHomeCommunityId, String sServiceName, T apiSpec, String exchangeName) throws
+        ExchangeManagerException;
+
+    public List<OrganizationType> getAllOrganizations(String exchangeName) throws ExchangeManagerException;
 }
