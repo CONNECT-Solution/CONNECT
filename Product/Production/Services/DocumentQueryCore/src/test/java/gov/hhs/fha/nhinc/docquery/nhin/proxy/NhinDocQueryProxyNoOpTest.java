@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import java.lang.reflect.Method;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -43,7 +44,7 @@ public class NhinDocQueryProxyNoOpTest {
     public void hasBeginOutboundProcessingEvent() throws Exception {
         Class<NhinDocQueryProxyNoOpImpl> clazz = NhinDocQueryProxyNoOpImpl.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
-                AssertionType.class, NhinTargetSystemType.class);
+                AssertionType.class, NhinTargetSystemType.class, List.class);
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);
         assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());

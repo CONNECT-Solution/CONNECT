@@ -35,9 +35,13 @@ import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.apache.cxf.headers.Header;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,12 +63,14 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
      *
      * @param request the AdhocQueryRequest message to be sent
      * @param assertion the AssertionType instance received from the adapter
-     * @param targets NhinTargetCommunitiesType where DocQuery Request is to be sent. Only the first one is used.
+     * @param targets NhinTargetCommunitiesType where DocQuery Request is to be
+     * sent. Only the first one is used.
+     * @param context
      * @return AdhocQueryResponse received from the NHIN
      */
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
-        NhinTargetCommunitiesType targets) {
+            NhinTargetCommunitiesType targets, WebServiceContext context) {
 
         NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
         String targetHCID = getTargetHCID(target);
@@ -74,7 +80,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
         }
 
         return sendRequestToNwhin(request, MessageGeneratorUtils.getInstance().generateMessageId(
-            assertion), target, targetHCID);
+                assertion), target, targetHCID, context);
     }
 
     private String getTargetHCID(NhinTargetSystemType target) {
@@ -87,16 +93,16 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
     }
 
     private AdhocQueryResponse sendRequestToNwhin(AdhocQueryRequest request, AssertionType assertion,
-        NhinTargetSystemType target, String targetCommunityID) {
+            NhinTargetSystemType target, String targetCommunityID, WebServiceContext context) {
 
         AdhocQueryResponse response;
 
         try {
             auditRequest(request, assertion, target);
             OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null,
-                assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, request);
+                    assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, request);
             response = delegate.process(orchestratable).getResponse();
-
+            addResponseHeadersToContext(context, orchestratable.getResponseHeaders());
         } catch (Exception ex) {
             String errorMsg = "Error from target homeId = " + targetCommunityID + ". " + ex.getMessage();
             response = MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(errorMsg);
@@ -109,7 +115,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
     private void warnTooManyTargets(String targetHCID, NhinTargetCommunitiesType targets) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Multiple targets in request message in passthrough mode.  Only sending to target HCID: ")
-            .append(targetHCID).append(".  Not sending request to: ");
+                .append(targetHCID).append(".  Not sending request to: ");
 
         Iterator<NhinTargetCommunityType> communityIterator = targets.getNhinTargetCommunity().iterator();
         Boolean first = true;
@@ -139,10 +145,21 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     private void auditRequest(AdhocQueryRequest request, AssertionType assertion, NhinTargetSystemType target) {
         getAuditLogger().auditRequestMessage(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.DOC_QUERY_SERVICE_NAME);
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.DOC_QUERY_SERVICE_NAME);
     }
 
     protected DocQueryAuditLogger getAuditLogger() {
         return new DocQueryAuditLogger();
+    }
+
+    protected void addResponseHeadersToContext(WebServiceContext context, List<Header> responseHeaders) {
+        List<Header> contextHeaders = (List<Header>) context.getMessageContext().get(Header.HEADER_LIST);
+        if (contextHeaders == null) {
+            contextHeaders = new ArrayList<>();
+        }
+        for (Header header : responseHeaders) {
+            header.setDirection(Header.Direction.DIRECTION_OUT);
+            contextHeaders.add(header);
+        }
     }
 }

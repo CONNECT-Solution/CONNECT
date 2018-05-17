@@ -137,6 +137,13 @@ public class PropertyAccessor implements IPropertyAcessor {
 
         return propertyFileDAO.getPropertyBoolean(propertyFile, propertyName);
     }
+    
+    public synchronized Set<String> getPropertySet(String propertyFile, String propertyName) throws PropertyAccessException {
+        validateInput(propertyFile, propertyName);
+        loadPropertyFile(propertyFile);
+        
+        return propertyFileDAO.getPropertySet(propertyFile, propertyName);
+    }
 
     /**
      * This will return the long value conversion of the property. If the property value cannot be converted to a long,

@@ -34,8 +34,11 @@ import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
+import java.util.ArrayList;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.apache.cxf.headers.Header;
 
 /**
  * Doc Query implementation of OutboundOrchestratableMessage.
@@ -54,6 +57,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
 
     private AdhocQueryResponse response = null;
     private NhinAggregator aggregator = null;
+    private List<Header> responseHeaders = new ArrayList<>();
 
     /**
      * Default Constructor.
@@ -99,6 +103,14 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
         // CHECKSTYLE:ON
         this(null, null, a, name, null, r);
         this.aggregator = agg;
+    }
+    
+    public void addHeader(Header header) {
+        responseHeaders.add(header);
+    }
+    
+    public List<Header> getResponseHeaders(){
+        return responseHeaders;
     }
 
     /**

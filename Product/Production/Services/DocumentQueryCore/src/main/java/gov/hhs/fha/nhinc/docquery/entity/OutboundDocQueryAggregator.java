@@ -31,11 +31,13 @@ import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import java.math.BigInteger;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.cxf.headers.Header;
 
 /**
  * @author bhumphrey
@@ -175,6 +177,7 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
                 DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         }
         aggregate(to.getResponse(), singleResponse);
+        aggregateHeaders(to.getResponseHeaders(), from.getResponseHeaders());
     }
 
     /*
@@ -213,6 +216,10 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
             aggreatedResponse.setResponseSlotList(new SlotListType());
         }
 
+    }
+
+    private void aggregateHeaders(List<Header> aggregateHeaders, List<Header> singleResponseHeaders) {
+        aggregateHeaders.addAll(singleResponseHeaders);
     }
 
 }

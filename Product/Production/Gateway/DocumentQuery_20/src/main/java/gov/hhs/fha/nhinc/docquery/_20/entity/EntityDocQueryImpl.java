@@ -68,7 +68,7 @@ public class EntityDocQueryImpl extends BaseService {
         AssertionType assertion = getAssertion(context, null);
 
         return respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), assertion,
-                request.getNhinTargetCommunities());
+                request.getNhinTargetCommunities(), context);
     }
 
     /**
@@ -83,11 +83,11 @@ public class EntityDocQueryImpl extends BaseService {
             RespondingGatewayCrossGatewayQueryRequestType request, WebServiceContext context) {
 
         return respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), request.getAssertion(),
-                request.getNhinTargetCommunities());
+                request.getNhinTargetCommunities(), context);
     }
 
     private AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
+            NhinTargetCommunitiesType targets, WebServiceContext context) {
 
         AdhocQueryResponse response = null;
 
@@ -99,7 +99,7 @@ public class EntityDocQueryImpl extends BaseService {
             if (StringUtils.isBlank(targets.getUseSpecVersion())) {
                 targets.setUseSpecVersion("2.0");
             }
-            response = outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets);
+            response = outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets, context);
         } catch (Exception e) {
             LOG.error("Failed to send request to Nwhin.", e);
         }

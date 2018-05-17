@@ -35,7 +35,7 @@ public class NhinDocQueryProxyNoOpImplTest {
     @Test
     public void responseHasObjectTypeList() throws Exception {
         NhinDocQueryProxyNoOpImpl impl = new NhinDocQueryProxyNoOpImpl();
-        AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null, null);
+        AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null, null, null);
         AdhocQueryResponseAsserter.assertSchemaCompliant(response);
     }
 }

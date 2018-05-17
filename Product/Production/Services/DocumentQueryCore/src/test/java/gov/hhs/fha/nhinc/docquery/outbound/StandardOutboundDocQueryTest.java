@@ -50,11 +50,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
+import org.apache.cxf.headers.Header;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
@@ -76,6 +78,7 @@ public class StandardOutboundDocQueryTest {
     private final DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
     private final AggregationStrategy strategy = mock(AggregationStrategy.class);
     private final AggregationService service = mock(AggregationService.class);
+    private final WebServiceContext context = mock(WebServiceContext.class);
     private static final String HOME_HCID = "1.0";
     private static final String SENDING_HCID_FORMATTED = "1.2";
 
@@ -85,7 +88,7 @@ public class StandardOutboundDocQueryTest {
         NhinTargetSystemType target = null;
         final DocQueryAuditLogger auditLogger = getAuditLogger(true);
         AssertionType assertion = new AssertionType();
-
+        
         StandardOutboundDocQuery entitydocqueryimpl = new StandardOutboundDocQuery(strategy, service, policyChecker) {
             @Override
             protected DocQueryAuditLogger getAuditLogger() {
@@ -96,11 +99,16 @@ public class StandardOutboundDocQueryTest {
             protected String getSenderHcid() {
                 return SENDING_HCID_FORMATTED;
             }
+            
+            @Override
+            protected void addResponseHeadersToContext(WebServiceContext context, List<Header> responseHeaders) {
+                //do nothing
+            }
         };
 
         NhinTargetCommunitiesType targets = createNhinTargetCommunites();
         AdhocQueryResponse response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest,
-            assertion, targets);
+            assertion, targets, context);
         verify(service).createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets));
         assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
@@ -124,13 +132,18 @@ public class StandardOutboundDocQueryTest {
             protected String getSenderHcid() {
                 return SENDING_HCID_FORMATTED;
             }
+            
+            @Override
+            protected void addResponseHeadersToContext(WebServiceContext context, List<Header> responseHeaders) {
+                //do nothing
+            }
         };
 
         AdhocQueryRequest adhocQueryRequest = mock(AdhocQueryRequest.class);
         AssertionType assertion = mock(AssertionType.class);
         NhinTargetCommunitiesType targets = mock(NhinTargetCommunitiesType.class);
         AdhocQueryResponse response = docQuery
-            .respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
+            .respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets, context);
         AdhocQueryResponseAsserter.assertSchemaCompliant(response);
         verify(mockEJBLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), any(NhinTargetSystemType.class),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
@@ -195,7 +208,7 @@ public class StandardOutboundDocQueryTest {
     public void hasBeginOutboundProcessingEvent() throws Exception {
         Class<StandardOutboundDocQuery> clazz = StandardOutboundDocQuery.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
-            AssertionType.class, NhinTargetCommunitiesType.class);
+            AssertionType.class, NhinTargetCommunitiesType.class, WebServiceContext.class);
         OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
@@ -226,6 +239,11 @@ public class StandardOutboundDocQueryTest {
             protected String getSenderHcid() {
                 return SENDING_HCID_FORMATTED;
             }
+            
+            @Override
+            protected void addResponseHeadersToContext(WebServiceContext context, List<Header> responseHeaders) {
+                //do nothing
+            }
         };
 
         NhinTargetCommunitiesType targets = createNhinTargetCommunites();
@@ -236,7 +254,7 @@ public class StandardOutboundDocQueryTest {
         when(policyChecker.checkOutgoingPolicy(any(AdhocQueryRequest.class), any(AssertionType.class))).thenReturn(false);
 
         AdhocQueryResponse response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest,
-            assertion, targets);
+            assertion, targets, context);
         verify(service).createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets));
         assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
@@ -268,6 +286,11 @@ public class StandardOutboundDocQueryTest {
             protected String getSenderHcid() {
                 return SENDING_HCID_FORMATTED;
             }
+            
+            @Override
+            protected void addResponseHeadersToContext(WebServiceContext context, List<Header> responseHeaders) {
+                //do nothing
+            }
         };
 
         when(policyChecker.checkOutgoingPolicy(any(AdhocQueryRequest.class), any(AssertionType.class))).thenReturn(false)
@@ -281,7 +304,7 @@ public class StandardOutboundDocQueryTest {
         NhinTargetCommunitiesType targets = createNhinTargetCommunites();
         when(service.createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets))).thenReturn(list);
 
-        entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
+        entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets, context);
         assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, atLeast(1)).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
@@ -311,6 +334,11 @@ public class StandardOutboundDocQueryTest {
             protected String getSenderHcid() {
                 return SENDING_HCID_FORMATTED;
             }
+            
+            @Override
+            protected void addResponseHeadersToContext(WebServiceContext context, List<Header> responseHeaders) {
+                //do nothing
+            }
         };
 
         when(policyChecker.checkOutgoingPolicy(any(AdhocQueryRequest.class), any(AssertionType.class))).thenReturn(false)
@@ -321,7 +349,7 @@ public class StandardOutboundDocQueryTest {
         NhinTargetCommunitiesType targets = createNhinTargetCommunites();
         when(service.createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets))).thenReturn(list);
 
-        entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
+        entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets, context);
         assertNotNull("Assertion MessageId is null", assertion.getMessageId());
         verify(mockEJBLogger, never()).auditRequestMessage(eq(adhocQueryRequest), eq(assertion), eq(target),
             eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),

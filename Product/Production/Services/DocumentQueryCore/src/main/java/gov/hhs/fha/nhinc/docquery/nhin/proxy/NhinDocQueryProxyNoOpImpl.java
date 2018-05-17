@@ -32,9 +32,11 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
+import org.apache.cxf.headers.Header;
 
 /**
  *
@@ -51,6 +53,7 @@ public class NhinDocQueryProxyNoOpImpl implements NhinDocQueryProxy {
      *            Assertion received.
      * @param target
      *            NhinTargetCommunities to send DocQueryRequest.
+     * @param responseHeaders
      * @return null AdhocQuery Response since this does not send Query request.
      */
     @NwhinInvocationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
@@ -58,7 +61,7 @@ public class NhinDocQueryProxyNoOpImpl implements NhinDocQueryProxy {
             version = "")
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
-            NhinTargetSystemType target) {
+            NhinTargetSystemType target, List<Header> responseHeaders) {
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRegistryObjectList(new RegistryObjectListType());
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);

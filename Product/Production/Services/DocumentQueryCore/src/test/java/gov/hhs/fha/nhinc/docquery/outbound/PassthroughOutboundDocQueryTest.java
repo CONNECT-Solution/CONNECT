@@ -37,9 +37,12 @@ import gov.hhs.fha.nhinc.docquery.audit.transform.DocQueryAuditTransforms;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import java.util.List;
 import java.util.Properties;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.apache.cxf.headers.Header;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
@@ -61,6 +64,7 @@ import org.slf4j.Logger;
 public class PassthroughOutboundDocQueryTest {
 
     private final AuditEJBLogger mockEJBLogger = mock(AuditEJBLogger.class);
+    private final WebServiceContext context = mock(WebServiceContext.class);
 
     @Test
     public void passthroughOutboundDocQuery() {
@@ -81,9 +85,14 @@ public class PassthroughOutboundDocQueryTest {
             protected DocQueryAuditLogger getAuditLogger() {
                 return auditLogger;
             }
+            
+            @Override
+            protected void addResponseHeadersToContext(WebServiceContext context, List<Header> responseHeaders){
+                //do nothing
+            }
         };
         AdhocQueryResponse actualResponse = passthroughDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
-            targets);
+            targets, context);
 
         assertSame(expectedResponse, actualResponse);
         assertNotNull("Assertion MessageId is null", assertion.getMessageId());
@@ -139,10 +148,15 @@ public class PassthroughOutboundDocQueryTest {
             protected DocQueryAuditLogger getAuditLogger() {
                 return auditLogger;
             }
+            
+            @Override
+            protected void addResponseHeadersToContext(WebServiceContext context, List<Header> responseHeaders){
+                //do nothing
+            }
         };
 
         AdhocQueryResponse actualResponse = passthroughDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
-            targets);
+            targets, context);
 
         verify(mockLogger).warn(logMessageCaptor.capture());
         assertSame(expectedResponse, actualResponse);
@@ -173,9 +187,13 @@ public class PassthroughOutboundDocQueryTest {
             protected DocQueryAuditLogger getAuditLogger() {
                 return auditLogger;
             }
+            @Override
+            protected void addResponseHeadersToContext(WebServiceContext context, List<Header> responseHeaders){
+                //do nothing
+            }
         };
         AdhocQueryResponse actualResponse = passthroughDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
-            targets);
+            targets, context);
 
         assertSame(expectedResponse, actualResponse);
         assertNotNull("Assertion MessageId is null", assertion.getMessageId());
