@@ -31,7 +31,7 @@
 
     <jaxws:endpoint xmlns:nds="urn:ihe:iti:xdr:2007" id="NhinDocDataSubmission" address="/DocumentRepositoryDDS_Service"
         serviceName="nds:DocumentRepositoryDDS_Service" endpointName="nds:DocumentRepositoryDDS_Port_Soap" implementor="#nhinDDS"
-        wsdlLocation="classpath:wsdl/NhinDDS20.wsdl">
+        wsdlLocation="classpath:wsdl/NhinDDS.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
