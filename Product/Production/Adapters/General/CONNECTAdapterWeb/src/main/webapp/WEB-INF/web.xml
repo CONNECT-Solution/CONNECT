@@ -19,6 +19,18 @@
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
+    
+     <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:CONNECT-context.xml
+        </param-value>
+
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

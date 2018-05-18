@@ -17,4 +17,5 @@
     <context:component-scan   base-package="gov.hhs.fha.nhinc"/>
     <context:annotation-config/>
     <task:annotation-driven/>
+
 </beans>
