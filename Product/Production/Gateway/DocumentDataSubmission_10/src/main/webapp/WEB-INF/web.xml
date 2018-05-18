@@ -10,14 +10,8 @@
         <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
-    <servlet>
-        <servlet-name>PassthruMXBean</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docdatasubmission._10.gateway.InitServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>   
     
-     <context-param>
+    <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath:CONNECT-interceptor-beans.xml
