@@ -121,11 +121,7 @@ public class DocDataSubmissionAuditTransformsTest
 
             @Override
             protected String getRemoteHostAddress(Properties webContextProeprties) {
-                // if (webContextProeprties != null && !webContextProeprties.isEmpty()
-                // && webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS) != null) {
                 return webContextProeprties.getProperty(NhincConstants.REMOTE_HOST_ADDRESS);
-                // }
-                // return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
             }
 
             @Override
