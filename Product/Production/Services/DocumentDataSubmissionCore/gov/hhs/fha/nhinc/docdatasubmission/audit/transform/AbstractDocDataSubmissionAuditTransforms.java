@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -47,16 +47,16 @@ public abstract class AbstractDocDataSubmissionAuditTransforms<T, K> extends Aud
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDocDataSubmissionAuditTransforms.class);
 
     // PatientParticipantObjectIdentification is same for both Request and Response in case of DDS
-    protected AuditMessageType getPatientParticipantObjectIdentification(RegisterDocumentSetRequestType request,
-        AuditMessageType auditMsg) {
+    protected AuditMessageType getPatientParticipantObjectIdentification(
+        RegisterDocumentSetRequestType request, AuditMessageType auditMsg) {
         auditMsg.getParticipantObjectIdentification().add(createPatientParticipantObjectIdentification(
             getIdValue(request, DocDataSubmissionAuditTransformsConstants.DDS_SUBMISSIONSET_PATIENT_ID)));
         return auditMsg;
     }
 
     // SubmissionSetParticipantObjectIdentification is same for both Request and Response in case of DDS
-    protected AuditMessageType getSubmissionSetParticipantObjectIdentification(RegisterDocumentSetRequestType request,
-        AuditMessageType auditMsg) {
+    protected AuditMessageType getSubmissionSetParticipantObjectIdentification(
+        RegisterDocumentSetRequestType request, AuditMessageType auditMsg) {
         auditMsg.getParticipantObjectIdentification().add(createSubmissionSetParticipantObjectIdentification(
             getIdValue(request, DocDataSubmissionAuditTransformsConstants.DDS_SUBMISSIONSET_UNIQUE_ID)));
         return auditMsg;
@@ -77,8 +77,7 @@ public abstract class AbstractDocDataSubmissionAuditTransforms<T, K> extends Aud
         return participantObject;
     }
 
-    private ParticipantObjectIdentificationType createSubmissionSetParticipantObjectIdentification(
-        String submissionId) {
+    private ParticipantObjectIdentificationType createSubmissionSetParticipantObjectIdentification(String submissionId) {
 
         ParticipantObjectIdentificationType participantObject = createParticipantObject(
             DocDataSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_SYSTEM,
@@ -96,8 +95,8 @@ public abstract class AbstractDocDataSubmissionAuditTransforms<T, K> extends Aud
     private ParticipantObjectIdentificationType createParticipantObject(short objTypeCodeSys, short objTypeCodeRole,
         String objIdTypeCode, String objIdTypeCodeSys, String objIdTypeDisplayName) {
 
-        return createParticipantObjectIdentification(objTypeCodeSys, objTypeCodeRole, objIdTypeCode, objIdTypeCodeSys,
-            objIdTypeDisplayName);
+        return createParticipantObjectIdentification(objTypeCodeSys, objTypeCodeRole,
+            objIdTypeCode, objIdTypeCodeSys, objIdTypeDisplayName);
     }
 
     private static String getIdValue(RegisterDocumentSetRequestType request, String idType) {
@@ -113,7 +112,8 @@ public abstract class AbstractDocDataSubmissionAuditTransforms<T, K> extends Aud
     private static String getIdFromExternalIdentifiers(List<ExternalIdentifierType> externalIdentifiers, String type) {
         String id = null;
         for (ExternalIdentifierType identifier : externalIdentifiers) {
-            if (identifier.getName() != null && NullChecker.isNotNullish(identifier.getName().getLocalizedString())
+            if (identifier.getName() != null
+                && NullChecker.isNotNullish(identifier.getName().getLocalizedString())
                 && identifier.getName().getLocalizedString().get(0) != null
                 && identifier.getName().getLocalizedString().get(0).getValue().equals(type)) {
                 id = identifier.getValue();
