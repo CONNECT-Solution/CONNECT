@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -44,28 +44,41 @@ import org.slf4j.LoggerFactory;
 public class AdapterComponentDocSubmissionOrchImpl {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocSubmissionOrchImpl.class);
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
-            AssertionType assertion) {
+    private AdapterComponentDocSubmissionOrchImpl() {
+
+    }
+
+    /**
+     * Validates the document submission message and forwards the message to the given intended recipients </br>
+     * NOTE: The result of this invocation will be the result of the last recipient. All preceding invocation results
+     * will be ignored
+     *
+     * @param msg
+     * @param assertion
+     * @return Registry response
+     */
+    public static RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
+        AssertionType assertion) {
         LOG.debug("Begin provideAndRegisterDocumentSetb()");
         XDRHelper helper = new XDRHelper();
         RegistryErrorList errorList = helper.validateDocumentMetaData(msg);
 
         RegistryResponseType result = null;
 
-        if (errorList.getHighestSeverity().equals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR)) {
+        if (NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR.equals(errorList.getHighestSeverity())) {
             result = helper.createErrorResponse(errorList);
         } else {
-            LOG.info(" Request contained " + msg.getDocument().size() + " documents.");
-            LOG.info(" Request Id: " + msg.getSubmitObjectsRequest().getId());
+            LOG.info(" Request contained {} documents.", msg.getDocument().size());
+            LOG.info(" Request Id: {}", msg.getSubmitObjectsRequest().getId());
 
             List<String> recips = helper.getIntendedRecepients(msg);
 
-            if (recips != null) {
+            if (!recips.isEmpty()) {
                 List<String> xdrBeans = helper.getRoutingBeans(recips);
                 RoutingObjectFactory factory = new RoutingObjectFactory();
 
                 for (String bean : xdrBeans) {
-                    LOG.debug("Bean name = " + bean);
+                    LOG.debug("Bean name = {}", bean);
                     XDRRouting proxy = factory.getNhinXDRRouting(bean);
                     result = proxy.provideAndRegisterDocumentSetB(msg, assertion);
                 }

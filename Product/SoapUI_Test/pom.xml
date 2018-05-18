@@ -168,6 +168,10 @@
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
+                                    <artifactId>DocumentDataSubmissionWebservices</artifactId>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
                                     <artifactId>DocumentQueryWebservices</artifactId>
                                 </artifactItem>
                                 <artifactItem>

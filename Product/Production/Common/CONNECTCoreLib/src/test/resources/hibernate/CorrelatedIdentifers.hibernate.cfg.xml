@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration SYSTEM "classpath://org/hibernate/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- SQL dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- Disable the second-level cache  -->
+        <property name="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
+
+		<property name="hibernate.show_sql">true</property>
+
+        <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+
+		
+		 <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/patientcorrelationdb</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">NHIE-Gateway</property>
+		
+		
+        <mapping resource="CorrelatedIdentifers.hbm.xml"/>
+        <mapping resource="PDDeferredCorrelation.hbm.xml"/>
+
+    </session-factory>
+
+</hibernate-configuration>

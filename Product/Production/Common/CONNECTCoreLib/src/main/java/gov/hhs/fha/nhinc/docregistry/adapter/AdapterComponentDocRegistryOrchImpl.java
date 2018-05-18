@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docregistry.adapter;
 
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
@@ -212,7 +212,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
             DocumentService service = getDocumentService();
 
-            List<Document> docs = new ArrayList<>();
+            List<DocumentMetadata> docs = new ArrayList<>();
             Boolean isOnDemand = params.getOnDemand();
             if (isOnDemand == null || !isOnDemand) {
                 params.setOnDemandParams(Boolean.FALSE);
@@ -509,7 +509,7 @@ public class AdapterComponentDocRegistryOrchImpl {
      * @param docs - Documents i/p Parameter.
      */
     public void loadResponseMessage(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response,
-        List<Document> docs) {
+        List<DocumentMetadata> docs) {
         RegistryObjectListType regObjList = new RegistryObjectListType();
         response.setRegistryObjectList(regObjList);
 
@@ -532,7 +532,7 @@ public class AdapterComponentDocRegistryOrchImpl {
             ArrayList<JAXBElement<? extends IdentifiableType>> olObjRef = new ArrayList<>();
             ArrayList<JAXBElement<? extends IdentifiableType>> olAssoc = new ArrayList<>();
 
-            for (Document doc : docs) {
+            for (DocumentMetadata doc : docs) {
                 ExtrinsicObjectType oExtObj = new ExtrinsicObjectType();
                 JAXBElement<? extends IdentifiableType> oJAXBExtObj = oRimObjectFactory.createExtrinsicObject(oExtObj);
                 List<SlotType1> olSlot = oExtObj.getSlot();

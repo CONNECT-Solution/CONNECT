@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -40,24 +40,24 @@ import javax.xml.transform.stream.StreamSource;
 public class XDRMessageHelper {
     private static final String XML_FILENAME = "ProvideAndRegisterDocumentSet-bRequest.xml";
 
-    public ProvideAndRegisterDocumentSetRequestType getSampleMessage() {
+    public static ProvideAndRegisterDocumentSetRequestType getSampleMessage() {
         return getSampleMessage(XML_FILENAME);
     }
 
-    public ProvideAndRegisterDocumentSetRequestType getSampleMessage(String fileName) {
+    public static ProvideAndRegisterDocumentSetRequestType getSampleMessage(String fileName) {
         ProvideAndRegisterDocumentSetRequestType result = null;
 
         try {
             // JAXBContext jc = JAXBContext.newInstance( "oasis.names.tc.ebxml_regrep.xsd.rim._3" );
             JAXBContext jc = JAXBContext
-                    .newInstance(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.class);
+                .newInstance(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.class);
 
             jc.createMarshaller();
 
             Unmarshaller u = jc.createUnmarshaller();
 
             JAXBElement<ProvideAndRegisterDocumentSetRequestType> element = u.unmarshal(new StreamSource(fileName),
-                    ProvideAndRegisterDocumentSetRequestType.class);
+                ProvideAndRegisterDocumentSetRequestType.class);
             result = element.getValue();
 
         } catch (Exception ex) {
@@ -77,7 +77,7 @@ public class XDRMessageHelper {
 
             Unmarshaller u = jc.createUnmarshaller();
             JAXBElement<ProvideAndRegisterDocumentSetRequestType> element = u.unmarshal(new StreamSource(XML_FILENAME),
-                    ProvideAndRegisterDocumentSetRequestType.class);
+                ProvideAndRegisterDocumentSetRequestType.class);
 
             element.setValue(msg);
             m.marshal(element, new FileWriter("C:\\temp\\test2.xml"));

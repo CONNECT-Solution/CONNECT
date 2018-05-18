@@ -6,21 +6,20 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <!-- Uncomment the following line if you want the HBM files to update the database tables.
+             Useful for when you are chaning the schema and want to make sure everything works -->
+        <!--  property name="hibernate.hbm2ddl.auto">update</property -->
 
-        <!-- <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>-->
-
-        <!--  thread is the short name for      org.hibernate.context.ThreadLocalSessionContext
-        and let Hibernate bind the session automatically to the thread    -->
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/docrepository</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">NHIE-Gateway</property>
-        <!-- Mapping files -->
+
 
         <!-- Mapping files -->
         <mapping resource="Document.hbm.xml"/>
+        <mapping resource="DocumentRepo.hbm.xml"/>
         <mapping resource="EventCode.hbm.xml"/>
 
     </session-factory>

@@ -68,7 +68,7 @@ public class GenericDBUtils {
     }
 
     public static <T> boolean save(Session session, T entity) {
-        List<T> entities = new ArrayList();
+        List<T> entities = new ArrayList<T>();
         entities.add(entity);
         return GenericDBUtils.saveAll(session, entities);
     }
@@ -96,6 +96,7 @@ public class GenericDBUtils {
                 tx.rollback();
             }
             LOG.error("Exception during save caused by : {}", e.getMessage(), e);
+            throw e;
         } finally {
             closeSession(session);
         }
@@ -117,6 +118,7 @@ public class GenericDBUtils {
                 tx.rollback();
             }
             LOG.error("Exception during delete caused by : {}", e.getMessage(), e);
+            throw e;
         } finally {
             closeSession(session);
         }
@@ -142,6 +144,7 @@ public class GenericDBUtils {
                 tx.rollback();
             }
             LOG.error("Exception during delete caused by : {}", e.getMessage(), e);
+            throw e;
         } finally {
             closeSession(session);
         }
@@ -156,6 +159,7 @@ public class GenericDBUtils {
             LOG.trace("GenericDBUtil.readBy - entity = session.get()");
         } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during read caused by : {}", e.getMessage(), e);
+            throw e;
         } finally {
             closeSession(session);
         }
@@ -186,6 +190,7 @@ public class GenericDBUtils {
             LOG.trace("GenericDBUtil.findAllBy - queryList = aCriteria.list");
         } catch (HibernateException | NullPointerException e) {
             LOG.error("Exception during findAllBy occured due to : {}", e.getMessage(), e);
+            throw e;
         } finally {
             closeSession(session);
         }

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docrepository.adapter.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -36,18 +35,20 @@ import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DocumentDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.EventCodeDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
 import gov.hhs.fha.nhinc.util.hash.SHA1HashCode;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.springframework.util.ReflectionUtils;
 
 public class DocumentServiceTest {
 
@@ -58,46 +59,39 @@ public class DocumentServiceTest {
     public void testSaveDocument() throws NoSuchAlgorithmException, UnsupportedEncodingException {
         DocumentService documentService = getDocumentServiceWithMockDaos();
 
-        Document mockDoc = mock(Document.class);
-        Set<EventCode> eventCodes = new HashSet<>();
-        EventCode eventCode = mock(EventCode.class);
-        eventCodes.add(eventCode);
-
-        when(DOCUMENT_DAO.findById(anyLong())).thenReturn(mockDoc);
-        when(mockDoc.getEventCodes()).thenReturn(eventCodes);
-
-        Document doc = new Document();
+        DocumentMetadata doc = new DocumentMetadata();
+        Document document = new Document(doc);
         long id = 12345L;
         String rawDataString = "RAW DATA";
         byte[] rawData = rawDataString.getBytes();
+        document.setRawData(rawData);
+
         doc.setDocumentid(id);
-        doc.setRawData(rawData);
+
+        HashSet<EventCode> eventCodes = new HashSet<>();
+        eventCodes.add(new EventCode());
         doc.setEventCodes(eventCodes);
+
+        doc.setDocument(document);
 
         documentService.saveDocument(doc);
 
+        when(DOCUMENT_DAO.findById(anyLong())).thenReturn(doc);
+
         verify(DOCUMENT_DAO).save(doc);
-        assertEquals(doc.getHash(), SHA1HashCode.calculateSHA1(rawDataString));
+        assertEquals(SHA1HashCode.calculateSHA1(rawDataString), doc.getHash());
     }
 
     @Test
     public void testDeleteDocument_Success() throws DocumentServiceException {
-        final List<Document> DOC_LIST = new ArrayList<>();
-        Document doc = new Document();
+        final List<DocumentMetadata> DOC_LIST = new ArrayList<>();
+        DocumentMetadata doc = new DocumentMetadata();
         String unique_id = "Doc_ID_1";
         doc.setDocumentUniqueId(unique_id);
         DOC_LIST.add(doc);
-        DocumentService documentService = new DocumentService() {
-            @Override
-            protected DocumentDao getDocumentDao() {
-                return DOCUMENT_DAO;
-            }
+        DocumentService documentService = getDocumentServiceWithMockDaos();
 
-            @Override
-            public List<Document> documentQuery(DocumentQueryParams params) {
-                return DOC_LIST;
-            }
-        };
+        when(DOCUMENT_DAO.findDocuments(Mockito.isA(DocumentQueryParams.class))).thenReturn(DOC_LIST);
 
         documentService.deleteDocument(doc);
         verify(DOCUMENT_DAO).delete(doc);
@@ -105,36 +99,24 @@ public class DocumentServiceTest {
 
     @Test(expected = DocumentServiceException.class)
     public void testDeleteDocument_NoDocumentsReturned() throws DocumentServiceException {
-        final DocumentDao DOCUMENT_DAO = mock(DocumentDao.class);
-        final List<Document> DOC_LIST = new ArrayList<>();
-        Document doc = new Document();
+        DocumentMetadata doc = new DocumentMetadata();
         String unique_id = "Doc_ID_1";
         doc.setDocumentUniqueId(unique_id);
-        DocumentService documentService = new DocumentService() {
-            @Override
-            protected DocumentDao getDocumentDao() {
-                return DOCUMENT_DAO;
-            }
-
-            @Override
-            public List<Document> documentQuery(DocumentQueryParams params) {
-                return DOC_LIST;
-            }
-        };
+        DocumentService documentService = getDocumentServiceWithMockDaos();
 
         documentService.deleteDocument(doc);
     }
 
     @Test(expected = DocumentServiceException.class)
     public void testDeleteDocument_NullDocumentReturned() throws DocumentServiceException {
-        Document nullDoc = null;
+        DocumentMetadata nullDoc = null;
         DocumentService documentService = new DocumentService();
         documentService.deleteDocument(nullDoc);
     }
 
     @Test(expected = DocumentServiceException.class)
     public void testDeleteDocument_NullDocumentId() throws DocumentServiceException {
-        Document doc = new Document();
+        DocumentMetadata doc = new DocumentMetadata();
         DocumentService documentService = new DocumentService();
         documentService.deleteDocument(doc);
     }
@@ -145,10 +127,10 @@ public class DocumentServiceTest {
 
         final long DOC_ID = 12345L;
         final String DOC_UNIQUE_ID = "Doc ID";
-        Document doc = new Document();
+        DocumentMetadata doc = new DocumentMetadata();
         doc.setDocumentid(DOC_ID);
         doc.setDocumentUniqueId(DOC_UNIQUE_ID);
-        List<Document> documents = new ArrayList<>();
+        List<DocumentMetadata> documents = new ArrayList<>();
         documents.add(doc);
 
         DocumentQueryParams dqParams = mock(DocumentQueryParams.class);
@@ -168,55 +150,39 @@ public class DocumentServiceTest {
         when(EVENTCODE_DAO.eventCodeQuery(Mockito.anyList())).thenReturn(eventCodeList);
         when(eventcode.getDocument()).thenReturn(doc);
 
-        List<Document> resultDocList = documentService.documentQuery(dqParams);
-        Document resultDoc = resultDocList.get(0);
+        List<DocumentMetadata> resultDocList = documentService.documentQuery(dqParams);
+        DocumentMetadata resultDoc = resultDocList.get(0);
 
-        assertEquals(resultDocList.size(), 1);
-        assertEquals(resultDoc.getDocumentid(), (Long) DOC_ID);
-        assertEquals(resultDoc.getDocumentUniqueId(), DOC_UNIQUE_ID);
+        assertEquals(1, resultDocList.size());
+        assertEquals((Long) DOC_ID, resultDoc.getDocumentid());
+        assertEquals(DOC_UNIQUE_ID, resultDoc.getDocumentUniqueId());
     }
 
     @Test
     public void testGetAllDocuments() {
         DocumentService documentService = getDocumentServiceWithMockDaos();
 
-        List<Document> documents = new ArrayList<>();
+        List<DocumentMetadata> documents = new ArrayList<>();
 
         when(DOCUMENT_DAO.findAll()).thenReturn(documents);
 
-        List<Document> results = documentService.getAllDocuments();
+        List<DocumentMetadata> results = documentService.getAllDocuments();
 
-        assertTrue(results instanceof List);
-    }
-
-    @Test
-    public void testGetDocumentDao() {
-        DocumentService documentService = new DocumentService();
-        DocumentDao documentDao = documentService.getDocumentDao();
-
-        assertTrue(documentDao instanceof DocumentDao);
-    }
-
-    @Test
-    public void testGetEventCodeDao() {
-        DocumentService documentService = new DocumentService();
-        EventCodeDao eventCodeDao = documentService.getEventCodeDao();
-
-        assertTrue(eventCodeDao instanceof EventCodeDao);
+        verify(DOCUMENT_DAO).findAll();
+        assertEquals(documents, results);
     }
 
     private DocumentService getDocumentServiceWithMockDaos() {
-        DocumentService documentService = new DocumentService() {
-            @Override
-            protected DocumentDao getDocumentDao() {
-                return DOCUMENT_DAO;
-            }
 
-            @Override
-            protected EventCodeDao getEventCodeDao() {
-                return EVENTCODE_DAO;
-            }
-        };
+        // Since we aren't using Autowiring for these types of things for some reason... Reflection to the rescue.
+        DocumentService documentService = new DocumentService();
+        Field docDao = ReflectionUtils.findField(DocumentService.class, "documentDao");
+        ReflectionUtils.makeAccessible(docDao);
+        ReflectionUtils.setField(docDao, documentService, DOCUMENT_DAO);
+
+        Field eventDao = ReflectionUtils.findField(DocumentService.class, "eventCodeDao");
+        ReflectionUtils.makeAccessible(eventDao);
+        ReflectionUtils.setField(eventDao, documentService, EVENTCODE_DAO);
         return documentService;
     }
 }
