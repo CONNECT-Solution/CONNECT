@@ -367,7 +367,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     @Override
     public List<OrganizationType> getAllOrganizations(String exchangeName) throws ExchangeManagerException {
         refreshExchangeCacheIfRequired();
-        return null != exchangeName ? new ArrayList<>(getCache().get(exchangeName).values())
+        return (null != exchangeName) ? new ArrayList<>(getCache().get(exchangeName).values())
             : new ArrayList<>(getCache().get(this.getDefaultExchange()).values());
     }
 }

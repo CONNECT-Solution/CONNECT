@@ -149,7 +149,7 @@ public interface Exchange<T> {
      * null is returned.
      * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      */
-    public String getDefaultEndpointURL(String exchangeName, String hcid, String sUniformServiceName)
+    public String getDefaultEndpointURL(String hcid, String sUniformServiceName, String exchangeName)
         throws ExchangeManagerException;
 
     /**
