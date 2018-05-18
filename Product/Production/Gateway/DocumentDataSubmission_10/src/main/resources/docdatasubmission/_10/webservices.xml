@@ -44,18 +44,6 @@
             <entry key="mtom-enabled" value="true" />
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-
-        <jaxws:inInterceptors>
-            <ref bean="timestampInInterceptor" />
-            <ref bean="securityConfigInInterceptor" />
-        </jaxws:inInterceptors>
-        <jaxws:outFaultInterceptors>
-            <ref bean="attachmentFaultOutInterceptor" />
-        </jaxws:outFaultInterceptors>
-        <jaxws:handlers>
-            <ref bean="SOAPHeaderHandler" />
-            <ref bean="TransactionHandler" />
-        </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- Entity services -->
@@ -63,9 +51,6 @@
     <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:entitydds:data" id="EntityDocDataSubmissionUnsecured"
         address="/EntityService/EntityDocDataSubmissionUnsecured" serviceName="eds:EntityDDS_Service" endpointName="eds:EntityDDS_Port"
         implementor="#entityDDSUnsecured" wsdlLocation="classpath:wsdl/EntityDDS.wsdl">
-        <jaxws:handlers>
-            <ref bean="TransactionHandler" />
-        </jaxws:handlers>
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
@@ -86,19 +71,5 @@
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-
-        <jaxws:inInterceptors>
-            <ref bean="timestampInInterceptor" />
-            <ref bean="securityConfigInInterceptor" />
-        </jaxws:inInterceptors>
-        <jaxws:outFaultInterceptors>
-            <ref bean="attachmentFaultOutInterceptor" />
-        </jaxws:outFaultInterceptors>
-        <jaxws:handlers>
-            <ref bean="TransactionHandler" />
-        </jaxws:handlers>
     </jaxws:endpoint>
-
-
-   
 </beans>
