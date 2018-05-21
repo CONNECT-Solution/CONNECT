@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -32,6 +32,9 @@ import gov.hhs.fha.nhinc.mpilib.Patient;
 import gov.hhs.fha.nhinc.mpilib.Patients;
 import gov.hhs.fha.nhinc.mpilib.PersonName;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType.PatientLocationResponse;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import org.hl7.v3.ActClassControlAct;
@@ -110,7 +113,7 @@ public class TestPatientDiscoveryMessageHelper {
         code.setCodeSystem(CNTRL_CODE_SYSTEM);
 
         PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess
-            = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
+        = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         controlActProcess.setClassCode(ActClassControlAct.CACT);
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setCode(code);
@@ -193,7 +196,7 @@ public class TestPatientDiscoveryMessageHelper {
 
     private static PRPAMT201306UV02LivingSubjectAdministrativeGender createGender(String gender) {
         PRPAMT201306UV02LivingSubjectAdministrativeGender adminGender
-            = new PRPAMT201306UV02LivingSubjectAdministrativeGender();
+        = new PRPAMT201306UV02LivingSubjectAdministrativeGender();
 
         if (gender != null && gender.length() > 0) {
             CE genderCode = new CE();
@@ -213,7 +216,7 @@ public class TestPatientDiscoveryMessageHelper {
         Patients patients = createPatients(firstName, lastName, gender, birthTime, root, extension);
 
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess
-            = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setClassCode(ActClassControlAct.CACT);
@@ -257,7 +260,7 @@ public class TestPatientDiscoveryMessageHelper {
         statusCode.setCode(STATUS_CD);
 
         PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent regEvent
-            = new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
+        = new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
 
         regEvent.getMoodCode().add(REG_MOOD_CODE);
         regEvent.getClassCode().add(REG_CLASS_CODE);
@@ -335,5 +338,38 @@ public class TestPatientDiscoveryMessageHelper {
         ids.add(subjectId);
         result.setIdentifiers(ids);
         return result;
+    }
+
+    public static PatientLocationQueryRequestType createPatientLocationQueryRequestType(String extension, String root) {
+        II subject = new II();
+        subject.setRoot(root);
+        subject.setExtension(extension);
+
+        PatientLocationQueryRequestType request = new PatientLocationQueryRequestType();
+        request.setRequestedPatientId(subject);
+
+        return request;
+    }
+
+    public static PatientLocationQueryResponseType createPatientLocationQueryResponseType(String searchExtension,
+        String searchRoot, String hcid, String foundExtension, String foundRoot) {
+
+        II subject = new II();
+        subject.setRoot(searchRoot);
+        subject.setExtension(searchExtension);
+
+        II found = new II();
+        found.setRoot(foundRoot);
+        found.setExtension(foundExtension);
+
+        PatientLocationResponse location = new PatientLocationResponse();
+        location.setHomeCommunityId(hcid);
+        location.setCorrespondingPatientId(found);
+        location.setRequestedPatientId(subject);
+
+        PatientLocationQueryResponseType response = new PatientLocationQueryResponseType();
+        response.getPatientLocationResponse().add(location);
+
+        return response;
     }
 }
