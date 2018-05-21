@@ -29,7 +29,7 @@
 
     <!-- Nhin Services -->
 
-    <jaxws:endpoint xmlns:nds="urn:ihe:iti:xdr:2007" id="NhinDocDataSubmission" address="/DocumentRepositoryDDS_Service"
+    <jaxws:endpoint xmlns:nds="urn:ihe:iti:xdr:2007" id="NhinDocDataSubmission" address="/DocumentRegistryXDS_Service"
         serviceName="nds:DocumentRepositoryDDS_Service" endpointName="nds:DocumentRepositoryDDS_Port_Soap" implementor="#nhinDDS"
         wsdlLocation="classpath:wsdl/NhinDDS.wsdl">
         <jaxws:properties>
@@ -41,7 +41,6 @@
             <entry key="ws-security.timestamp.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
             </entry>
-            <entry key="mtom-enabled" value="true" />
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
     </jaxws:endpoint>
