@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -92,42 +92,18 @@ import org.slf4j.LoggerFactory;
  */
 public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
-    /**
-     * The Constant attributeStatementBuilder.
-     */
+
     private final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder;
 
-    /**
-     * The Constant X509_NAME_ID.
-     */
     private static final String X509_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
 
-    /**
-     * The Constant NAME_FORMAT_STRING.
-     */
     private static final String NAME_FORMAT_STRING = "urn:oasis:names:tc:SAML:2.0:attrname-format:uri";
 
-    /**
-     * The evidence builder.
-     */
     private final SAMLObjectBuilder<Evidence> evidenceBuilder;
 
-    /**
-     * The xsAnyBuilder.
-     */
     private final XSAnyBuilder xsAnyBuilder;
 
-    /**
-     * The instance.
-     */
     private static OpenSAML2ComponentBuilder openSamlInstance;
-
-    /**
-     * The subject locality builder.
-     */
-    /**
-     * The builder factory.
-     */
 
     private static final Logger LOG = LoggerFactory.getLogger(OpenSAML2ComponentBuilder.class);
 
@@ -221,7 +197,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param value the value
      * @return the name id
      */
-    @SuppressWarnings("unchecked")
     public NameID createNameID(final String qualifier, final String format, final String value) {
         final NameIDBean nameIDBean = new NameIDBean();
         nameIDBean.setNameQualifier(qualifier);
@@ -276,7 +251,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             final SubjectConfirmation subjectConfirmation = createHoKConfirmation(subjectConfirmationData);
             subject.getSubjectConfirmations().add(subjectConfirmation);
         } catch (SecurityException | WSSecurityException e) {
-            LOG.error("Unable to create Saml2Subject ", e.getLocalizedMessage());
+            LOG.error("Unable to create Saml2Subject: {}", e.getLocalizedMessage());
             throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
         }
         return subject;
@@ -411,7 +386,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param nameFormat the name format
      * @return the attribute
      */
-    Attribute createAttribute(final String friendlyName, final String name, final String nameFormat) {
+    public Attribute createAttribute(final String friendlyName, final String name, final String nameFormat) {
         return SAML2ComponentBuilder.createAttribute(friendlyName, name,
             StringUtils.defaultIfBlank(nameFormat, NAME_FORMAT_STRING));
     }
@@ -425,7 +400,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param values the values
      * @return the attribute
      */
-    Attribute createAttribute(final String friendlyName, final String name, final String nameFormat,
+    public Attribute createAttribute(final String friendlyName, final String name, final String nameFormat,
         final List<?> values) {
         return SAML2ComponentBuilder.createAttribute(friendlyName, name, nameFormat, (List<Object>) values);
     }
@@ -439,7 +414,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the xS any
      */
 
-    XSAny createAny(final String namespace, final String name, final String prefix) {
+    private XSAny createAny(final String namespace, final String name, final String prefix) {
         return xsAnyBuilder.buildObject(namespace, name, prefix);
 
     }
@@ -453,7 +428,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param attributes the attributes
      * @return the xS any
      */
-    XSAny createAny(final String namespace, final String name, final String prefix,
+    private XSAny createAny(final String namespace, final String name, final String prefix,
         final Map<QName, String> attributes) {
         final XSAny any = createAny(namespace, name, prefix);
         for (final Entry<QName, String> keyValue : attributes.entrySet()) {
@@ -472,7 +447,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param attributes the attributes
      * @return the xS any
      */
-    XSAny createAttributeValue(final String namespace, final String name, final String prefix,
+    private XSAny createAttributeValue(final String namespace, final String name, final String prefix,
         final Map<QName, String> attributes) {
         final XSAny attribute = createAny(namespace, name, prefix, attributes);
         return createAttributeValue(Arrays.asList(attribute));
@@ -485,7 +460,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the xS any
      */
 
-    XSAny createAttributeValue(final List<XSAny> values) {
+    private XSAny createAttributeValue(final List<XSAny> values) {
         final XSAny attributeValue = xsAnyBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME);
         attributeValue.getUnknownXMLObjects().addAll(values);
         return attributeValue;
@@ -560,14 +535,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param userDisplay the user display
      * @return the attribute
      */
-    public Attribute createUserRoleAttribute(final String userCode, final String userSystem,
+    public Attribute createSubjectRoleAttribute(final String userCode, final String userSystem,
         final String userSystemName, final String userDisplay) {
         final Object attributeValue = createHL7Attribute("Role", userCode, userSystem, userSystemName, userDisplay);
-        if (OpenSAML2ComponentBuilder.getInstance() != null) {
-            return OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.USER_ROLE_ATTR, null,
-                Arrays.asList(attributeValue));
-        }
-        return null;
+        return createAttribute(null, SamlConstants.USER_ROLE_ATTR, null, Arrays.asList(attributeValue));
+
     }
 
     /**
@@ -610,11 +582,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
     }
 
-    QName createHl7QName(final String name, final boolean hasPrefix) {
+    private static QName createHl7QName(final String name, final boolean hasPrefix) {
         return hasPrefix ? new QName(SamlConstants.HL7_NAMESPACE_URI, name, SamlConstants.HL7_PREFIX) : new QName(name);
     }
 
-    boolean getHl7PrefixProperty() {
+    private static boolean getHl7PrefixProperty() {
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.HL7_PREFIX_FOR_ATTR_PROPERTY);
@@ -630,7 +602,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param patientId the patient id
      * @return the attribute
      */
-    public Attribute createPatientIDAttribute(final String patientId) {
+    public Attribute createResourceIDAttribute(final String patientId) {
         return createAttribute(null, SamlConstants.PATIENT_ID_ATTR, null, Collections.singletonList(patientId));
     }
 
@@ -661,22 +633,14 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     public List<AttributeStatement> createHomeCommunitAttributeStatement(final String communityId) {
         final List<AttributeStatement> statements = new ArrayList<>();
-        final Attribute attribute = createHomeCommunityAttribute(communityId);
+        final Attribute attribute = createAttribute(null, SamlConstants.HOME_COM_ID_ATTR, null,
+            Arrays.asList(communityId));
 
-        statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
+        statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
 
         return statements;
     }
 
-    /**
-     * Creates the home community attribute.
-     *
-     * @param communityId the community id
-     * @return the attribute
-     */
-    Attribute createHomeCommunityAttribute(final String communityId) {
-        return createAttribute(null, SamlConstants.HOME_COM_ID_ATTR, null, Arrays.asList(communityId));
-    }
 
     /**
      * Creates the signature.
@@ -688,7 +652,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @throws SAMLComponentBuilderException the exception
      */
     public Signature createSignature(final X509Certificate certificate, final PrivateKey privateKey,
-        final PublicKey publicKey) throws SAMLAssertionBuilderException {
+        final PublicKey publicKey) {
         final BasicX509Credential credential = new BasicX509Credential(certificate, privateKey);
         credential.setEntityCertificate(certificate);
         credential.setPrivateKey(privateKey);
@@ -758,8 +722,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         final String purposeSystemName, final String purposeDisplay) {
         final Object attributeValue = createHL7Attribute("PurposeOfUse", purposeCode, purposeSystem, purposeSystemName,
             purposeDisplay);
-        return OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR, null,
-            Arrays.asList(attributeValue));
+        return createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR, null, Arrays.asList(attributeValue));
     }
 
     /**
@@ -771,16 +734,13 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param purposeDisplay the purpose display
      * @return the attribute
      */
-    Attribute createPurposeForUseAttribute(final String purposeCode, final String purposeSystem,
+    public Attribute createPurposeForUseAttribute(final String purposeCode, final String purposeSystem,
         final String purposeSystemName, final String purposeDisplay) {
 
         final Object attributeValue = createHL7Attribute("PurposeForUse", purposeCode, purposeSystem, purposeSystemName,
             purposeDisplay);
-        if (OpenSAML2ComponentBuilder.getInstance() != null) {
-            return OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR, null,
-                Arrays.asList(attributeValue));
-        }
-        return null;
+        return createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR, null, Arrays.asList(attributeValue));
+
     }
 
     /**
@@ -793,7 +753,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         final List<AttributeStatement> statements = new ArrayList<>();
         final Attribute attribute = createAttribute(null, SamlConstants.USER_ORG_ID_ATTR, null,
             Arrays.asList(organizationId));
-        statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
+        statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
         return statements;
     }
 }

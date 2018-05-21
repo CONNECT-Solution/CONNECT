@@ -113,11 +113,11 @@
                                                 </div>
                                             </p:panel>
                                             <p:panel style="width: 800px; padding: 10px;">
-                                                <p:barChart id="eventBarChart" value="#{statusBean.eventBarChart}" orientation="horizontal" stacked="true" legendPosition="se" seriesColors="10253F, CC0000" /> 
-                                                <p:pieChart id="eventPieChart" value="#{statusBean.eventPieChart}" legendPosition="se" seriesColors="10253F, CC0000, 33D6FF, FFCC00" showDataLabels="TRUE" sliceMargin="5" fill="FALSE"/>
+                                                <p:chart type="bar" id="eventBarChart" model="#{statusBean.eventBarChart}" /> 
+                                                <p:chart type="pie" id="eventPieChart" model="#{statusBean.eventPieChart}" />
                                             </p:panel>
                                         </h:panelGrid>
-                                        <p:poll interval="5" update="statusGrid" />
+                                        <p:poll interval="5" update="statusGrid eventPieChart eventBarChart" />
                                     </h:form>
                                 </div>
                             </div>

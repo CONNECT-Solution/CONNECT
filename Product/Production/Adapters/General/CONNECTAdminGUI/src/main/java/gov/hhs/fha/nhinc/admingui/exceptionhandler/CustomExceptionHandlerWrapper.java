@@ -80,7 +80,7 @@ public class CustomExceptionHandlerWrapper extends ExceptionHandlerWrapper {
             HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
             Object servletEx = request.getAttribute("javax.servlet.error.exception");
             try {
-                RequestContext.getCurrentInstance().execute("dialog.hide()");
+                RequestContext.getCurrentInstance().execute("PF('dialog').hide()");
                 if (servletEx instanceof SanitizationException) {
                     // SanitizationFilter has redirected to customerror page
                     fc.addMessage("errorMessage", new FacesMessage(FacesMessage.SEVERITY_ERROR,

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,11 +26,13 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.addFacesMessageBy;
+
 import gov.hhs.fha.nhinc.admingui.services.LoadTestDataService;
 import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
-import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.addFacesMessageBy;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import java.io.IOException;
@@ -68,10 +70,10 @@ public class LoadTestDataDocumentBean {
     private static final String GROWL_MESSAGE = "msgForGrowl";
 
     private String dialogTitle;
-    private Document withDocument;
+    private DocumentMetadata withDocument;
     private EventCode withEventCode;
 
-    private Document selectedDocument;
+    private DocumentMetadata selectedDocument;
     private EventCode selectedEventCode;
 
     @Autowired
@@ -83,11 +85,11 @@ public class LoadTestDataDocumentBean {
     }
 
     // selected-record
-    public Document getSelectedDocument() {
+    public DocumentMetadata getSelectedDocument() {
         return selectedDocument;
     }
 
-    public void setSelectedDocument(Document selectedDocument) {
+    public void setSelectedDocument(DocumentMetadata selectedDocument) {
         this.selectedDocument = selectedDocument;
     }
 
@@ -100,10 +102,10 @@ public class LoadTestDataDocumentBean {
     }
 
     // database-methods
-    public List<Document> getDocuments() {
-        List<Document> documents = loadTestDataService.getAllDocuments();
+    public List<DocumentMetadata> getDocuments() {
+        List<DocumentMetadata> documents = loadTestDataService.getAllDocuments();
         Map<Long, Patient> lookupPatient = mapPatientById(loadTestDataService.getAllPatients());
-        for (Document doc : documents) {
+        for (DocumentMetadata doc : documents) {
             if (doc.getPatientRecordId() != null) {
                 doc.setPatientIdentifier(lookupPatient.get(doc.getPatientRecordId()).getPatientIdentifier());
             }
@@ -134,7 +136,7 @@ public class LoadTestDataDocumentBean {
             dialogTitle = "Edit Document";
             withDocument = loadTestDataService.duplicateDocument(selectedDocument.getDocumentid());
         } else {
-            new Document();
+            new DocumentMetadata();
             addFacesMessageBy(msgForInvalidDocument("document"));
         }
     }
@@ -152,7 +154,7 @@ public class LoadTestDataDocumentBean {
 
     public void newDocument() {
         dialogTitle = "Create Document";
-        withDocument = new Document();
+        withDocument = new DocumentMetadata();
         newEventCode();
     }
 
@@ -233,9 +235,9 @@ public class LoadTestDataDocumentBean {
         return selectedEventCode == null;
     }
 
-    public Document getDocumentForm() {
+    public DocumentMetadata getDocumentForm() {
         if (null == withDocument) {
-            withDocument = new Document();
+            withDocument = new DocumentMetadata();
         }
         return withDocument;
     }
@@ -260,7 +262,10 @@ public class LoadTestDataDocumentBean {
 
     public void setDocumentFile(UploadedFile file) {
         if (file != null && withDocument != null) {
-            withDocument.setRawData(file.getContents());
+            Document doc = new Document(withDocument);
+            doc.setRawData(file.getContents());
+
+            withDocument.setDocument(doc);
             withDocument.setSize(file.getContents().length);
             withDocument.setMimeType(file.getContentType());
             try {

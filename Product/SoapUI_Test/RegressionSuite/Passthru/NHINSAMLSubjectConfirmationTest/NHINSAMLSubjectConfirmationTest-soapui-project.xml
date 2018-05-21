@@ -225,19 +225,19 @@ context.mockRunner.getMockContext().removeProperty('HOK');</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2017-09-13T17:48:10Z</con:value>
+          <con:value>2018-04-27T15:12:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2017-09-13T17:58:10Z</con:value>
+          <con:value>2018-04-27T15:22:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/13/2017 17:48:10</con:value>
+          <con:value>04/27/2018 15:12:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2017-10-13T00:00:00Z</con:value>
+          <con:value>2018-05-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -343,6 +343,12 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
                   <urn3:originalText>Public Health</urn3:originalText>
                </urn3:roleCoded>
             </urn3:userInfo>
+            <urn3:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:code>PUBLICHEALTH</urn3:code>
+               <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+               <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
+               <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
+            </urn3:purposeOfDisclosureCoded>            
             <urn3:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn3:authorized>            
             <urn3:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
@@ -454,19 +460,19 @@ context.mockRunner.getMockContext().removeProperty('BEARER');</con:tearDownScrip
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2017-09-13T17:48:14Z</con:value>
+          <con:value>2018-04-27T15:13:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2017-09-13T17:58:14Z</con:value>
+          <con:value>2018-04-27T15:23:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/13/2017 17:48:14</con:value>
+          <con:value>04/27/2018 15:13:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2017-10-13T00:00:00Z</con:value>
+          <con:value>2018-05-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -574,6 +580,12 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
                   <urn3:originalText>Public Health</urn3:originalText>
                </urn3:roleCoded>
             </urn3:userInfo>
+            <urn3:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:code>PUBLICHEALTH</urn3:code>
+               <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+               <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
+               <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
+            </urn3:purposeOfDisclosureCoded>            
             <urn3:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn3:authorized>            
             <urn3:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
@@ -677,19 +689,19 @@ context.mockRunner.getMockContext().removeProperty('SV');</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2017-09-13T17:48:17Z</con:value>
+          <con:value>2018-04-27T15:13:25Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2017-09-13T17:58:17Z</con:value>
+          <con:value>2018-04-27T15:23:25Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/13/2017 17:48:17</con:value>
+          <con:value>04/27/2018 15:13:25</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2017-10-13T00:00:00Z</con:value>
+          <con:value>2018-05-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -797,6 +809,12 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
                   <urn3:originalText>Public Health</urn3:originalText>
                </urn3:roleCoded>
             </urn3:userInfo>
+            <urn3:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:code>PUBLICHEALTH</urn3:code>
+               <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+               <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
+               <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
+            </urn3:purposeOfDisclosureCoded>            
             <urn3:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn3:authorized>            
             <urn3:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
@@ -885,19 +903,19 @@ context.mockRunner.getMockContext().removeProperty('SV');</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2017-09-13T17:48:20Z</con:value>
+          <con:value>2018-04-27T15:13:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2017-09-13T17:58:20Z</con:value>
+          <con:value>2018-04-27T15:23:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/13/2017 17:48:20</con:value>
+          <con:value>04/27/2018 15:13:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2017-10-13T00:00:00Z</con:value>
+          <con:value>2018-05-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>

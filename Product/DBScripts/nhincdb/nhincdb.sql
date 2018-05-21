@@ -247,7 +247,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON configdb.* to nhincuser;
 -- begin docrepository
 CREATE DATABASE IF NOT EXISTS docrepository;
 
-CREATE TABLE IF NOT EXISTS docrepository.document (
+CREATE TABLE IF NOT EXISTS docrepository.docregistry (
     documentid int(11) NOT NULL,
     DocumentUniqueId varchar(64) NOT NULL,
     DocumentTitle varchar(128) default NULL,
@@ -296,13 +296,21 @@ CREATE TABLE IF NOT EXISTS docrepository.document (
     TypeCodeScheme varchar(64) default NULL,
     TypeCodeDisplayName varchar(64) default NULL,
     DocumentUri varchar(128) default NULL COMMENT 'May derive this value',
-    RawData longblob,
     Persistent int(11) NOT NULL,
     OnDemand tinyint(1) NOT NULL default 0 COMMENT 'Indicate whether document is dynamic (true or 1) or static (false or 0).',
     NewDocumentUniqueId varchar(128) default NULL,
     NewRepositoryUniqueId varchar(128) default NULL,
     PatientRecordId int(11) NULL,
+	repoId int(11) default NULL,
     PRIMARY KEY  (documentid)
+);
+
+CREATE TABLE IF NOT EXISTS docrepository.docrepository (
+  repoId int(11) NOT NULL,
+  RawData longblob NOT NULL,
+  DocumentUniqueId varchar(64) NOT NULL,
+  RepositoryUniqueId varchar(128) NOT NULL,
+  PRIMARY KEY (repoId)
 );
 
 CREATE TABLE IF NOT EXISTS docrepository.eventcode (

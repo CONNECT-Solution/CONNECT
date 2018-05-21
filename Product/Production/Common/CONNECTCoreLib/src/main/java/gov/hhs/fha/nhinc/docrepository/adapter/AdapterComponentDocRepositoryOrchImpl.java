@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
@@ -48,7 +49,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import javax.activation.DataHandler;
 import javax.xml.bind.JAXBElement;
 import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
@@ -181,13 +181,13 @@ public class AdapterComponentDocRepositoryOrchImpl {
             DocumentQueryParams params = new DocumentQueryParams();
             params.setDocumentUniqueId(documentUniqueIds);
             DocumentService service = getDocumentService();
-            List<Document> docs = service.documentQuery(params);
+            List<DocumentMetadata> docs = service.documentQuery(params);
             loadDocumentResponses(response, docs, homeCommunityId, documentUniqueIds, regerrList);
         }
     }
 
     protected void loadDocumentResponses(ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response,
-        List<Document> docs, String homeCommunityId, List<String> documentUniqueId, RegistryErrorList regerrList) {
+        List<DocumentMetadata> docs, String homeCommunityId, List<String> documentUniqueId, RegistryErrorList regerrList) {
         if (response != null) {
             String responseStatus = DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE;
             List<DocumentResponse> olDocResponse = response.getDocumentResponse();
@@ -195,7 +195,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             if (docs != null && !docs.isEmpty()) {
                 for (String documentId : documentUniqueId) {
                     boolean documentIdPresent = false;
-                    for (Document doc : docs) {
+                    for (DocumentMetadata doc : docs) {
                         if (doc.getDocumentUniqueId().equals(documentId)) {
                             documentIdPresent = true;
                         }
@@ -211,7 +211,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     }
                 }
 
-                for (Document doc : docs) {
+                for (DocumentMetadata doc : docs) {
                     DocumentResponse oDocResponse = new DocumentResponse();
                     boolean bHasData;
 
@@ -272,9 +272,9 @@ public class AdapterComponentDocRepositoryOrchImpl {
         }
     }
 
-    protected boolean setDocumentResponse(Document doc, DocumentResponse oDocResponse) {
+    protected boolean setDocumentResponse(DocumentMetadata doc, DocumentResponse oDocResponse) {
         boolean bHasData = false;
-        if (doc.getRawData() != null && doc.getRawData().length > 0) {
+        if (doc.getRawData().length > 0) {
             try {
                 String url = StringUtil.convertToStringUTF8(doc.getRawData());
                 LOG.debug("Raw Data not null");
@@ -360,7 +360,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         return registryResponse;
     }
 
-    protected Document setDocument(
+    protected DocumentMetadata setDocument(
         List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
         RegistryErrorList errorList, int i, HashMap<String, DataHandler> docMap,
         boolean requestHasReplacementAssociation) {
@@ -388,7 +388,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             }
 
             // prepare for the translation to the NHINC doc repository
-            Document doc = new Document();
+            DocumentMetadata doc = new DocumentMetadata();
 
             // extract the docId
             String documentUniqueId = extractMetadataFromExternalIdentifiers(externalIdentifiers,
@@ -520,7 +520,8 @@ public class AdapterComponentDocRepositoryOrchImpl {
             try {
                 DataHandler dh = docMap.get(extrinsicObject.getId());
                 rawData = getLargeFileUtils().convertToBytes(dh);
-                doc.setRawData(rawData);
+                Document document = new Document(doc);
+                document.setRawData(rawData);
             } catch (IOException ioe) {
                 LOG.error("Failed to retrieve document from the message.  Will not be able to save to repository: {}",
                     ioe.getLocalizedMessage(), ioe);
@@ -553,7 +554,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         return null;
     }
 
-    protected void saveDocument(Document doc, boolean requestHasReplacementAssociation, String documentUniqueId,
+    protected void saveDocument(DocumentMetadata doc, boolean requestHasReplacementAssociation, String documentUniqueId,
         RegistryErrorList errorList) {
 
         DocumentService docService = getDocumentService();
@@ -594,7 +595,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             + identifiableObjectList.get(i).getDeclaredType());
     }
 
-    protected void setDocumentPidObjects(Document doc,
+    protected void setDocumentPidObjects(DocumentMetadata doc,
         List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots) {
         String pid3 = docRepoHelper.extractPatientInfo(documentSlots, DocRepoConstants.XDS_SOURCE_PATIENT_INFO_PID3);
         doc.setPid3(pid3);
@@ -615,7 +616,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             + ".");
     }
 
-    protected void setDocumentObjectsFromClassifications(Document doc,
+    protected void setDocumentObjectsFromClassifications(DocumentMetadata doc,
         List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications) {
         // extract the document's author info
         String authorPerson = docRepoHelper.extractClassificationMetadata(classifications,
@@ -808,9 +809,9 @@ public class AdapterComponentDocRepositoryOrchImpl {
      * @param doc The NHINC document object to be persisted.
      */
     protected void extractEventCodes(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
-        gov.hhs.fha.nhinc.docrepository.adapter.model.Document doc) {
+        gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata doc) {
         LOG.trace("Begin extractEventCodes");
-        Set<EventCode> eventCodes = new HashSet<>();
+        HashSet<EventCode> eventCodes = new HashSet<>();
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications) {
             String classificationSchemeName = classification.getClassificationScheme();
             if (DocRepoConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION.equals(classificationSchemeName)) {

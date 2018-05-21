@@ -579,7 +579,18 @@
           <version>${project.parent.version}</version>
           <type>pom</type>
         </dependency>
-
+        <dependency>
+          <groupId>org.connectopensource</groupId>
+          <artifactId>ConfigAdmin</artifactId>
+          <version>${project.parent.version}</version>
+          <type>war</type>
+        </dependency>
+        <dependency>
+          <groupId>org.connectopensource</groupId>
+          <artifactId>ConfigAdmin</artifactId>
+          <version>${project.parent.version}</version>
+          <type>pom</type>
+        </dependency>
         <!-- Java EE APIs -->
         <dependency>
           <groupId>javax.xml.bind</groupId>
@@ -648,7 +659,13 @@
                   <contextRoot>/Direct</contextRoot>
                   <excluded>${direct.excluded}</excluded>
                 </webModule>
-              </modules>
+                <webModule>
+                  <groupId>org.connectopensource</groupId>
+                  <artifactId>ConfigAdmin</artifactId>
+                  <contextRoot>/CONNECTGateway/GUIService</contextRoot>
+                  <excluded>${adminws.excluded}</excluded>
+                </webModule>
+                </modules>
             </configuration>
           </plugin>
         </plugins>
@@ -716,7 +733,51 @@
         </plugins>
       </build>
     </profile>
+    
+    <!-- Config Admin webservices -->
+  <profile>
+      <id>adminws</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <adminws.excluded>false</adminws.excluded>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.connectopensource</groupId>
+          <artifactId>ConfigAdmin</artifactId>
+          <version>${project.parent.version}</version>
+          <type>war</type>
+        </dependency>
+        <dependency>
+          <groupId>org.connectopensource</groupId>
+          <artifactId>ConfigAdmin</artifactId>
+          <version>${project.parent.version}</version>
+          <type>pom</type>
+        </dependency>
+      </dependencies>
 
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-ear-plugin</artifactId>
+            <configuration>
+              <modules combine.children="append">
+                <webModule>
+                  <groupId>org.connectopensource</groupId>
+                  <artifactId>ConfigAdmin</artifactId>
+                  <contextRoot>/CONNECTGateway/GUIService</contextRoot>
+                  <excluded>${adminws.excluded}</excluded>
+                </webModule>
+              </modules>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    
     <!-- Performance Test -->
     <profile>
       <id>PerfTest</id>

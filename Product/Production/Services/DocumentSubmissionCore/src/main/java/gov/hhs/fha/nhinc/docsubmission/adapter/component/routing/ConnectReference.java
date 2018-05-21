@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -32,13 +32,17 @@ import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * This class is a reference for routing the document submission to the messages intended recipients, whether it is
+ * sending the document via SMTP, using a web service, or a direct connection to another server.
  *
  * @author dunnek
  */
@@ -50,14 +54,13 @@ public class ConnectReference implements XDRRouting {
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
         AssertionType assertion) {
         LOG.info("Inside Connect Reference provideAndRegisterDocumentSetB()");
-        XDRHelper helper = new XDRHelper();
 
         processRequest(request);
 
-        return helper.createPositiveAck();
+        return new XDRHelper().createPositiveAck();
     }
 
-    private void processRequest(ProvideAndRegisterDocumentSetRequestType request) {
+    private static void processRequest(ProvideAndRegisterDocumentSetRequestType request) {
         LargeFileUtils fileUtils = LargeFileUtils.getInstance();
 
         List<Document> docList = request.getDocument();
@@ -70,10 +73,9 @@ public class ConnectReference implements XDRRouting {
                     }
                 } else {
                     LOG.debug("Closing request input streams");
-                    LargeFileUtils.getInstance().closeStreamWithoutException(
-                        doc.getValue().getDataSource().getInputStream());
+                    fileUtils.closeStreamWithoutException(doc.getValue().getDataSource().getInputStream());
                 }
-            } catch (Exception ioe) {
+            } catch (URISyntaxException | IOException ioe) {
                 LOG.error("Failed to close input stream", ioe);
             }
         }

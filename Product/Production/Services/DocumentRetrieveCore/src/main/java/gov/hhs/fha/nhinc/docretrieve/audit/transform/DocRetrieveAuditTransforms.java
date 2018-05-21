@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -57,7 +57,7 @@ import org.slf4j.LoggerFactory;
  * @author vimehta
  */
 public class DocRetrieveAuditTransforms
-    extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> {
+extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetResponseType> {
 
     private static final Logger LOG = LoggerFactory.getLogger(DocRetrieveAuditTransforms.class);
 
@@ -151,7 +151,8 @@ public class DocRetrieveAuditTransforms
     private String getRepositoryUniqueIdFromResponse(RetrieveDocumentSetResponseType response) {
         String repositoryUniqueId = null;
 
-        if (response != null && response.getDocumentResponse() != null && response.getDocumentResponse().get(0) != null
+        if (response != null && CollectionUtils.isNotEmpty(response.getDocumentResponse())
+            && response.getDocumentResponse().get(0) != null
             && response.getDocumentResponse().get(0).getRepositoryUniqueId() != null) {
             repositoryUniqueId = response.getDocumentResponse().get(0).getRepositoryUniqueId();
         } else {
@@ -169,7 +170,8 @@ public class DocRetrieveAuditTransforms
     private String getHomeCommunityIdFromResponse(RetrieveDocumentSetResponseType response) {
         String homeCommunityId = null;
 
-        if (response != null && response.getDocumentResponse() != null && response.getDocumentResponse().get(0) != null
+        if (response != null && CollectionUtils.isNotEmpty(response.getDocumentResponse())
+            && response.getDocumentResponse().get(0) != null
             && response.getDocumentResponse().get(0).getHomeCommunityId() != null) {
             homeCommunityId = HomeCommunityMap
                 .getHomeCommunityIdWithPrefix(response.getDocumentResponse().get(0).getHomeCommunityId());
@@ -180,7 +182,8 @@ public class DocRetrieveAuditTransforms
     }
 
     private String getDocumentUniqueIdFromResponse(RetrieveDocumentSetResponseType response) {
-        if (response != null && response.getDocumentResponse() != null && response.getDocumentResponse().get(0) != null
+        if (response != null && CollectionUtils.isNotEmpty(response.getDocumentResponse())
+            && response.getDocumentResponse().get(0) != null
             && response.getDocumentResponse().get(0).getDocumentUniqueId() != null) {
             return response.getDocumentResponse().get(0).getDocumentUniqueId();
         }
@@ -361,10 +364,10 @@ public class DocRetrieveAuditTransforms
         }
 
         participant.getRoleIDCode()
-            .add(AuditDataTransformHelper.createCodeValueType(
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+        .add(AuditDataTransformHelper.createCodeValueType(
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
 
         participant.setUserIsRequestor(Boolean.FALSE);
 

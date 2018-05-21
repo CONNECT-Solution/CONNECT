@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -30,9 +30,13 @@ import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.RoutingObjectFa
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBElement;
+import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
@@ -127,6 +131,7 @@ public class XDRHelper {
         return result;
     }
 
+
     public RegistryErrorList validateDocumentMetaData(ProvideAndRegisterDocumentSetRequestType body) {
         RegistryErrorList result = new RegistryErrorList();
 
@@ -140,67 +145,107 @@ public class XDRHelper {
             // Request message was null, cannot continue. Return result.
             return processErrorList(result);
         }
-        if (body.getDocument() == null) {
-            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument,
-                NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
-                "ProvideAndRegisterDocumentSetRequestType did not contain a DocumentList");
-            result.getRegistryError().add(error);
-        } else if (body.getDocument().isEmpty()) {
-            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument,
-                NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, "DocumentList did not contain any documents");
-            result.getRegistryError().add(error);
-        }
 
-        if (CollectionUtils.isNotEmpty(result.getRegistryError())) {
+        if (validateDocumentData(body, result)) {
             return processErrorList(result);
         }
 
-        RegistryObjectListType regList = body.getSubmitObjectsRequest().getRegistryObjectList();
+        validateSubmittedObjectsRequest(body.getSubmitObjectsRequest(), result, body.getDocument());
 
-        ArrayList<String> metaDocIds = new ArrayList<>();
+        return processErrorList(result);
+
+    }
+
+    /**
+     * Validate SubmittedObjectRequest on a Document Submission or Document Data Submission. If docListToCheck is NULL
+     * then there will be no validation done to see if the document id is present in the payload.
+     *
+     * Any RegistryErrors found will be added to the errorList parameter and the method will return true. If no
+     * RegistryErrors are created, this method will return false.
+     *
+     * @param body
+     * @param errorList
+     * @param docListToCheck - Optional, may be NULL if this is a DDS call.
+     */
+    private boolean validateSubmittedObjectsRequest(SubmitObjectsRequest submittedObject,
+        RegistryErrorList errorList, List<Document> docListToCheck) {
+
+        boolean added = false;
+
+        RegistryObjectListType regList = submittedObject.getRegistryObjectList();
         ArrayList<String> metaPatIds = new ArrayList<>();
+        for (JAXBElement<? extends IdentifiableType> item : regList.getIdentifiable()) {
+            if (item.getDeclaredType().equals(ExtrinsicObjectType.class)) {
 
-        for (int x = 0; x < regList.getIdentifiable().size(); x++) {
-            if (regList.getIdentifiable().get(x).getDeclaredType().equals(ExtrinsicObjectType.class)) {
-
-                ExtrinsicObjectType extObj = (ExtrinsicObjectType) regList.getIdentifiable().get(x).getValue();
+                ExtrinsicObjectType extObj = (ExtrinsicObjectType) item.getValue();
                 String mimeType = extObj.getMimeType();
-                if (isSupportedMimeType(mimeType) == false) {
-
+                if (!isSupportedMimeType(mimeType)) {
                     RegistryError error = createRegistryError(XDR_EC_XDSMissingDocumentMetadata,
                         NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, "Unsupported Mime Type: " + mimeType);
-                    result.getRegistryError().add(error);
+                    errorList.getRegistryError().add(error);
+                    added = true;
                 }
-                String docId = extObj.getId();
-                metaDocIds.add(docId);
 
-                if (isDocIdPresent(body.getDocument(), docId) == false) {
+                // Explicit check for NULL here. If docListToCheck is null, under the assumption this is a DSS
+                // submission and not a DS submission. If it is not null, check if the id is present.
+                // An empty list should enter this branch and add a registry error.
+                String docId = extObj.getId();
+                if (docListToCheck != null && !isDocIdPresent(docListToCheck, docId)) {
 
                     RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument,
                         NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
                         "Document Id: " + docId + " exists in metadata with no corresponding attached document");
-                    result.getRegistryError().add(error);
+                    errorList.getRegistryError().add(error);
+                    added = true;
                 }
-                String localPatId = getPatientId(extObj.getSlot());
 
+                String localPatId = getPatientId(extObj.getSlot());
                 if (localPatId.isEmpty()) {
                     RegistryError error = createRegistryError(XDR_EC_XDSUnknownPatientId,
                         NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
                         "Patient ID referenced in metadata is not known to the Receiving NHIE");
-                    result.getRegistryError().add(error);
+                    errorList.getRegistryError().add(error);
+                    added = true;
                 }
                 metaPatIds.add(localPatId);
             }
         }
 
-        if (patientIdsMatch(metaPatIds) == false) {
+        if (!patientIdsMatch(metaPatIds)) {
             RegistryError error = createRegistryError(XDR_EC_XDSPatientIdDoesNotMatch,
                 NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, "Patient Ids do not match");
-            result.getRegistryError().add(error);
+            errorList.getRegistryError().add(error);
+            added = true;
         }
 
-        return processErrorList(result);
+        return added;
+    }
 
+    /**
+     * Validates that the body has a document attached to it. If it does not or if it is empty, a RegistryError will be
+     * added to the error list.
+     *
+     * If there was an error added to the list, this method will return true. Otherwise this method will return false
+     *
+     * @param body
+     * @param errorList
+     */
+    private boolean validateDocumentData(ProvideAndRegisterDocumentSetRequestType body, RegistryErrorList errorList) {
+        boolean result = false;
+        if (body.getDocument() == null) {
+            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument,
+                NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
+                "ProvideAndRegisterDocumentSetRequestType did not contain a DocumentList");
+            errorList.getRegistryError().add(error);
+            result = true;
+        } else if (body.getDocument().isEmpty()) {
+            RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument,
+                NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, "DocumentList did not contain any documents");
+            errorList.getRegistryError().add(error);
+            result = true;
+        }
+
+        return result;
     }
 
     public List<String> getIntendedRecepients(ProvideAndRegisterDocumentSetRequestType body) {
@@ -208,10 +253,7 @@ public class XDRHelper {
         List<String> result = new ArrayList<>();
 
         LOG.debug("begin getIntendedRecepients()");
-        if (body == null || body.getSubmitObjectsRequest() == null) {
-            return null;
-        }
-        try {
+        if (body != null && body.getSubmitObjectsRequest() != null) {
             RegistryObjectListType regList = body.getSubmitObjectsRequest().getRegistryObjectList();
 
             for (int x = 0; x < regList.getIdentifiable().size(); x++) {
@@ -221,19 +263,27 @@ public class XDRHelper {
                     SlotType1 recipSlot = getNamedSlotItem(extObj.getSlot(), XDS_INTENDED_RECIPIENT_SLOT);
                     if (recipSlot != null) {
                         result = recipSlot.getValueList().getValue();
+                        LOG.info("Intended Recipients: {}", result);
                     }
 
                 }
 
             }
-        } catch (Exception ex) {
-            LOG.error("Unable to pull intended recipients: {}", ex.getLocalizedMessage(), ex);
         }
 
-        LOG.debug("Found " + result.size() + " recipients");
+        LOG.debug("Found {} recipients", result.size());
         return result;
     }
 
+    /**
+     * Grabs the intended recipient bean names as defined in XDRConfiguration.xml and attempts to load them as beans
+     * defined in DocumentSubmissionProxyConfig.xml
+     *
+     * If no intended recipients are found, "reference" will be added by default.
+     *
+     * @param List of recipients. Possible values defined in XDRConfiguration.xml
+     * @return List of corresponding bean names for the given recipient list
+     */
     public List<String> getRoutingBeans(List<String> intendedRecipients) {
         ArrayList<String> result = new ArrayList<>();
 
@@ -245,12 +295,11 @@ public class XDRHelper {
             // Loop through List of configured beans
             for (RoutingConfig rc : config.getRoutingInfo()) {
                 if (rc.getRecepient().equalsIgnoreCase(recipient)) {
-                    if (result.contains(rc.getBean()) == false) {
+                    if (!result.contains(rc.getBean())) {
                         result.add(rc.getBean());
                     }
                     break;
                 }
-
             }
         }
 
@@ -258,7 +307,7 @@ public class XDRHelper {
             result.add(RoutingObjectFactory.BEAN_REFERENCE_IMPLEMENTATION);
         }
 
-        LOG.debug("Found " + result.size() + " beans");
+        LOG.debug("Found {} beans", result.size());
         return result;
     }
 
@@ -302,16 +351,19 @@ public class XDRHelper {
         return mimeArray;
     }
 
-    private boolean isDocIdPresent(List<ProvideAndRegisterDocumentSetRequestType.Document> documents, String docId) {
+    private boolean isDocIdPresent(List<Document> documents, String docId) {
         boolean result = false;
 
-        for (ProvideAndRegisterDocumentSetRequestType.Document doc : documents) {
-            if (doc.getId().equals(docId)) {
-                result = true;
+        if (CollectionUtils.isEmpty(documents)) {
+            return false;
+        } else {
+            for (Document doc : documents) {
+                if (doc.getId().equals(docId)) {
+                    result = true;
+                }
             }
+            return result;
         }
-
-        return result;
     }
 
     private RegistryError createRegistryError(String errorCode, String severity, String codeContext) {

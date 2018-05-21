@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM "classpath://org/hibernate/hibernate-configuration-3.0.dtd">
+<hibernate-mapping package="gov.hhs.fha.nhinc.docrepository.adapter.model">
+    <class name="Document" table="docrepository">
+        <id column="repoId" name="repoId" type="long">
+            <generator class="increment"/>
+        </id>
+        
+       <property column="RawData" name="rawData" not-null="true" type="binary"/>
+       <property column="DocumentUniqueId" length="64" name="documentUniqueId" not-null="true" type="string"/>
+       <property column="RepositoryUniqueId" length="128" name="repositoryUniqueId" not-null="true" type="string"/>
+        
+       <one-to-one name="metadata" class="gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata" cascade="save-update"/>
+        
+    </class>
+</hibernate-mapping>
