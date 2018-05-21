@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docdatasubmission._10.nhin;
 
 import gov.hhs.fha.nhinc.docdatasubmission.inbound.InboundDocDataSubmission;
-import ihe.iti.xdr._2007.DocumentRepositoryDDSPortType;
+import ihe.iti.xdr._2007.DocumentRegistryXDSPortType;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
 
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class NhinDocDataSubmission implements DocumentRepositoryDDSPortType {
+public class NhinDocDataSubmission implements DocumentRegistryXDSPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(NhinDocDataSubmission.class);
 
@@ -62,7 +62,7 @@ public class NhinDocDataSubmission implements DocumentRepositoryDDSPortType {
     }
 
     @Override
-    public RegistryResponseType documentRepositoryDDSRegisterDocumentSetB(RegisterDocumentSetRequestType body) {
+    public RegistryResponseType documentRegistryXDSRegisterDocumentSetB(RegisterDocumentSetRequestType body) {
         LOG.debug("Calling service with context {} and inbound submission class {}", context,
             inboundDocDataSubmission.getClass().getName());
         return new RegistryResponseType();

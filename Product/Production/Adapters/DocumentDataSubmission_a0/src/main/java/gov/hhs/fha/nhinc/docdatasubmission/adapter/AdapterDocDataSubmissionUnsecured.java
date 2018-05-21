@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.adapter;
 
-import gov.hhs.fha.nhinc.adapterdds.data.AdapterDDSPortType;
+import gov.hhs.fha.nhinc.adapterdds.data.AdapterXDSPortType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegisterDocumentSetRequestType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -37,7 +37,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class AdapterDocDataSubmissionUnsecured implements AdapterDDSPortType {
+public class AdapterDocDataSubmissionUnsecured implements AdapterXDSPortType {
 
     @Resource
     private WebServiceContext context;
