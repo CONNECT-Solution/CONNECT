@@ -36,7 +36,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -62,7 +61,8 @@ public abstract class BaseService {
 
     private final AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
     private static final Logger LOG = LoggerFactory.getLogger(BaseService.class);
-    private static HttpHeaderHelper headerHelper = new HttpHeaderHelper();
+    private static final HttpHeaderHelper headerHelper = new HttpHeaderHelper();
+    private static final ResponseHeaderHandler respHeaderHandler = new ResponseHeaderHandler();
 
     protected AssertionType getAssertion(WebServiceContext context) {
         return getAssertion(context, null);
@@ -87,7 +87,7 @@ public abstract class BaseService {
         return assertion;
     }
     
-    protected void addSoapHeaders(String service, Object addHeaders, WebServiceContext context) {
+    protected void addSoapHeaders(Object addHeaders, WebServiceContext context) {
         List<Header> addHeadersList;
         
         if(addHeaders != null && addHeaders instanceof List) {
@@ -96,23 +96,7 @@ public abstract class BaseService {
             return;
         }
         
-        List<Header> headers = (List<Header>) context.getMessageContext().get(Header.HEADER_LIST);
-        if (headers == null) {
-            headers = new ArrayList<>();
-        }
-
-        try {
-            if (isAdapterSoapHeaderConfigured(service) && !addHeadersList.isEmpty()) {
-                for(Header header : addHeadersList) {
-                    header.setDirection(Header.Direction.DIRECTION_OUT);
-                    headers.add(header);
-                }
-            }
-        } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to read property for adding Soap Header for: {}", service, ex);
-        }
-
-        context.getMessageContext().put(Header.HEADER_LIST, headers);
+        respHeaderHandler.addResponseHeadersToContext(context, addHeadersList, NhincConstants.ALLOWABLE_OUTBOUND_RESPONSE_HEADERS);
     }
 
     //Extract custom http headers from message context.
@@ -255,10 +239,6 @@ public abstract class BaseService {
 
     protected MessageContext getMessageContext(WebServiceContext context) {
         return context.getMessageContext();
-    }
-    
-    private boolean isAdapterSoapHeaderConfigured(String service) throws PropertyAccessException {
-        return getPropertyAccessor().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, "addAdapterHeader-" + service);
     }
 
 }

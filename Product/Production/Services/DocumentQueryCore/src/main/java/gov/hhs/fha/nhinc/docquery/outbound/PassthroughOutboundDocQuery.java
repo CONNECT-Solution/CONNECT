@@ -34,8 +34,8 @@ import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
+import gov.hhs.fha.nhinc.messaging.server.ResponseHeaderHandler;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
@@ -49,6 +49,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     private static final Logger LOG = LoggerFactory.getLogger(PassthroughOutboundDocQuery.class);
     private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
+    private static final ResponseHeaderHandler respHeaderHandler = new ResponseHeaderHandler();
 
     public PassthroughOutboundDocQuery() {
         super();
@@ -101,8 +102,9 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
             auditRequest(request, assertion, target);
             OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null,
                     assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, request);
-            response = delegate.process(orchestratable).getResponse();
-            addResponseHeadersToContext(context, orchestratable.getResponseHeaders());
+            OutboundDocQueryOrchestratable orchResponse = delegate.process(orchestratable);            
+            response = orchResponse.getResponse();
+            addResponseHeadersToContext(context, orchResponse.getResponseHeaders());
         } catch (Exception ex) {
             String errorMsg = "Error from target homeId = " + targetCommunityID + ". " + ex.getMessage();
             response = MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(errorMsg);
@@ -153,13 +155,6 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
     }
 
     protected void addResponseHeadersToContext(WebServiceContext context, List<Header> responseHeaders) {
-        List<Header> contextHeaders = (List<Header>) context.getMessageContext().get(Header.HEADER_LIST);
-        if (contextHeaders == null) {
-            contextHeaders = new ArrayList<>();
-        }
-        for (Header header : responseHeaders) {
-            header.setDirection(Header.Direction.DIRECTION_OUT);
-            contextHeaders.add(header);
-        }
+        respHeaderHandler.addResponseHeadersToContext(context, responseHeaders, NhincConstants.ALLOWABLE_INBOUND_RESPONSE_HEADERS);
     }
 }

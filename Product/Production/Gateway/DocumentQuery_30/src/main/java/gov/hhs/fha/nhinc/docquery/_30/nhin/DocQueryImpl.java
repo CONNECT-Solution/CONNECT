@@ -53,7 +53,7 @@ public class DocQueryImpl extends BaseService {
         Properties webContextProperties = getWebContextProperties(context);
 
         AdhocQueryResponse response = inboundDocQuery.respondingGatewayCrossGatewayQuery(body, assertion, webContextProperties);       
-        addSoapHeaders("docQuery", webContextProperties.get(NhincConstants.SOAP_HEADERS_PROPERTY), context);
+        addSoapHeaders(webContextProperties.get(NhincConstants.SOAP_HEADERS_PROPERTY), context);
         
         return response;
     }

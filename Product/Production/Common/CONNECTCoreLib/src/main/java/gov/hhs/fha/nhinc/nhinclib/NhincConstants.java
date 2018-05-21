@@ -176,7 +176,8 @@ public class NhincConstants {
     public static final String GATEWAY_PROPERTY_FILE = "gateway";
     public static final String SAML_PROPERTY_FILE = "saml";
     public static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
-    public static final String ALLOWABLE_RESPONSE_HEADERS = "allowableInboundResponseHeaders";
+    public static final String ALLOWABLE_INBOUND_RESPONSE_HEADERS = "allowableInboundResponseHeaders";
+    public static final String ALLOWABLE_OUTBOUND_RESPONSE_HEADERS = "allowableOutboundResponseHeaders";
     public static final String INTERNAL_CONNECTION_INFO = "InternalConnectionInfo2.xml";
     public static final String DIRECTTESTING_FLAG = "DirectTesting";
     public static final String MESSAGEMONITORING_DELAYINMINUTES = "MessageMonitoringDelayTime";
