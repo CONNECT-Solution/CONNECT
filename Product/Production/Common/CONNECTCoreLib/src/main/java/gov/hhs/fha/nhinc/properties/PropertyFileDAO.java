@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -73,7 +73,7 @@ public class PropertyFileDAO {
         }
     }
 
-    public Set getPropertySet(String propertyFileName, String propertyName) throws PropertyAccessException {
+    public Set getPropertySet(String propertyFileName, String propertyName) {
         PropertiesConfiguration properties = propertyFilesHashmap.get(propertyFileName);
         if (properties != null && properties.containsKey(propertyName)) {
             List propertyValue = properties.getList(propertyName);
@@ -81,7 +81,7 @@ public class PropertyFileDAO {
                 return new HashSet<>(propertyValue);
             }
         }
-        return null;
+        return Collections.emptySet();
     }
     
     public String getProperty(String propertyFileName, String propertyName) throws PropertyAccessException {

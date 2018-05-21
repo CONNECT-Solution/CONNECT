@@ -218,7 +218,7 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
 
     }
 
-    private void aggregateHeaders(List<Header> aggregateHeaders, List<Header> singleResponseHeaders) {
+    private static void aggregateHeaders(List<Header> aggregateHeaders, List<Header> singleResponseHeaders) {
         aggregateHeaders.addAll(singleResponseHeaders);
     }
 

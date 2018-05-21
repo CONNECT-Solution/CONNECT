@@ -150,7 +150,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
         responseHeaders.addAll(SoapResponseInInterceptor.getResponseHeaders(port));
     }
 
-    private AdhocQueryResponse buildErrorResponse(String message) {
+    private static AdhocQueryResponse buildErrorResponse(String message) {
         final XDCommonResponseHelper helper = new XDCommonResponseHelper();
         final RegistryResponseType registryError = helper.createError(message,
                 ErrorCodes.XDSRegistryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DQ);

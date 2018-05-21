@@ -111,7 +111,7 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl extends BaseAdapterDocQue
         return response;
     }
     
-    private void addResponseHeaders(List<Header> headers, Properties webContextProperties) {
+    private static void addResponseHeaders(List<Header> headers, Properties webContextProperties) {
         webContextProperties.put(NhincConstants.SOAP_HEADERS_PROPERTY, headers);
     }
     
