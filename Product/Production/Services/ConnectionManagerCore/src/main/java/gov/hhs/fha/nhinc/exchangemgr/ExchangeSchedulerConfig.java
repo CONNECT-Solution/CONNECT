@@ -39,8 +39,8 @@ public class ExchangeSchedulerConfig {
         long intervalMinutes = DEFAULT_EXCHANGE_REFRESH_INTERVAL;
         try {
             ExchangeInfoType exInfo = ExchangeInfoDAOFileImpl.getInstance().loadExchangeInfo();
-            long interval = exInfo.getRefreshInterval();
-            if (interval <= 0) {
+            Long interval = exInfo.getRefreshInterval();
+            if (interval == null || interval <= 0) {
                 intervalMinutes = DEFAULT_EXCHANGE_REFRESH_INTERVAL;
             } else {
                 intervalMinutes = interval;
