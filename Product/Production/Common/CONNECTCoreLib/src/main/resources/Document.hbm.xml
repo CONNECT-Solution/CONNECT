@@ -57,7 +57,7 @@
         <property column="NewRepositoryUniqueId" length="128" name="newRepositoryUniqueId" not-null="false" type="string"/>
         <property column="Persistent" name="persistentCode" not-null="true" type="int"/>
         <property column="PatientRecordId" name="patientRecordId" type="long"/>
-        <many-to-one name="document" class="gov.hhs.fha.nhinc.docrepository.adapter.model.Document" cascade="save-update, delete" column="repoId"></many-to-one>
+        <many-to-one name="document" class="gov.hhs.fha.nhinc.docrepository.adapter.model.Document" cascade="save-update, delete" column="repoId" lazy="false"/>
         <set cascade="all-delete-orphan" inverse="true" lazy="false" name="eventCodes">
             <key column="documentid"/>
             <one-to-many class="EventCode"/>
