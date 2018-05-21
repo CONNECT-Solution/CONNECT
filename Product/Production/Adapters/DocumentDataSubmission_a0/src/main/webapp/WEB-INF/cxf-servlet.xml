@@ -34,7 +34,7 @@
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterddssecured:data"
         id="AdapterDocDataSubmissionSecured" address="/AdapterDocDataSubmissionSecured"
-        serviceName="tns:AdapterDDSSecured_Service" endpointName="tns:AdapterDDSSecured_Port"
+        serviceName="tns:AdapterXDSSecured_Service" endpointName="tns:AdapterXDSSecured_Port"
         implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.AdapterDocDataSubmissionSecured"
         wsdlLocation="classpath:wsdl/AdapterDDSSecured.wsdl">
 
@@ -55,7 +55,7 @@
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdds:data"
         id="AdapterDocDataSubmissionUnsecured" address="/AdapterDocDataSubmissionUnsecured"
-        serviceName="tns:AdapterDDS_Service" endpointName="tns:AdapterDDS_Port"
+        serviceName="tns:AdapterXDS_Service" endpointName="tns:AdapterXDS_Port"
         implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.AdapterDocDataSubmissionUnsecured"
         wsdlLocation="classpath:wsdl/AdapterDDS.wsdl">
     </jaxws:endpoint>
@@ -64,7 +64,7 @@
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentddssecured:data"
         id="AdapterComponentDocDataSubmissionSecured" address="/AdapterComponentDocDataSubmissionSecured"
-        serviceName="tns:AdapterComponentDDSSecured_Service" endpointName="tns:AdapterComponentDDSSecured_Port"
+        serviceName="tns:AdapterComponentXDSSecured_Service" endpointName="tns:AdapterComponentXDSSecured_Port"
         implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.component.AdapterComponentDocDataSubmissionSecured"
         wsdlLocation="classpath:wsdl/AdapterComponentDDSSecured.wsdl">
 
@@ -85,7 +85,7 @@
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentdds:data"
         id="AdapterComponentDocDataSubmissionUnsecured" address="/AdapterComponentDocDataSubmissionUnsecured"
-        serviceName="tns:AdapterComponentDDS_Service" endpointName="tns:AdapterComponentDDS_Port"
+        serviceName="tns:AdapterComponentXDS_Service" endpointName="tns:AdapterComponentXDS_Port"
         implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.component.AdapterComponentDocDataSubmissionUnsecured"
         wsdlLocation="classpath:wsdl/AdapterComponentDDS.wsdl">
     </jaxws:endpoint>

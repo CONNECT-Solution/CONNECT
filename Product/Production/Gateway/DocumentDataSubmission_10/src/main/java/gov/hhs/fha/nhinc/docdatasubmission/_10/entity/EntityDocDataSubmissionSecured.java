@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.docdatasubmission._10.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docdatasubmission.outbound.OutboundDocDataSubmission;
-import gov.hhs.fha.nhinc.entityddssecured.data.EntityDDSSecuredPortType;
+import gov.hhs.fha.nhinc.entityddssecured.data.EntityXDSSecuredPortType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
 
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityDocDataSubmissionSecured implements EntityDDSSecuredPortType {
+public class EntityDocDataSubmissionSecured implements EntityXDSSecuredPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(EntityDocDataSubmissionSecured.class);
 
