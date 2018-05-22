@@ -33,17 +33,23 @@ package gov.hhs.fha.nhinc.patientdiscovery.audit;
  */
 public class PatientLocationQueryAuditTransformsConstants {
 
+    private static final String VALUE_QUERY = "Query";
+    private static final String VALUE_EXECUTE = "E";
+    private static final String VALUE_IHE_TRANSACTIONS = "IHE Transactions";
+    private static final String VALUE_PLQ = "Patient Location Query";
+    private static final String VALUE_ITI_56 = "ITI-56";
+
     public static final String EVENT_ID_CODE = "110112";
     public static final String EVENT_CODE_SYSTEM = "DCM";
-    public static final String EVENT_CODE_DISPLAY_REQUESTOR = "Query";
-    public static final String EVENT_CODE_DISPLAY_RESPONDER = "Query";
+    public static final String EVENT_CODE_DISPLAY_REQUESTOR = VALUE_QUERY;
+    public static final String EVENT_CODE_DISPLAY_RESPONDER = VALUE_QUERY;
 
-    public static final String EVENT_TYPE_CODE = "ITI-56";
-    public static final String EVENT_TYPE_CODE_SYSTEM = "IHE Transactions";
-    public static final String EVENT_TYPE_CODE_DISPLAY_NAME = "Patient Location Query";
+    public static final String EVENT_TYPE_CODE = VALUE_ITI_56;
+    public static final String EVENT_TYPE_CODE_SYSTEM = VALUE_IHE_TRANSACTIONS;
+    public static final String EVENT_TYPE_CODE_DISPLAY_NAME = VALUE_PLQ;
 
-    public static final String EVENT_ACTION_CODE_REQUESTOR = "E";
-    public static final String EVENT_ACTION_CODE_RESPONDER = "E";
+    public static final String EVENT_ACTION_CODE_REQUESTOR = VALUE_EXECUTE;
+    public static final String EVENT_ACTION_CODE_RESPONDER = VALUE_EXECUTE;
 
     public static final short PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM = 1;
     public static final short PARTICIPANT_PATIENT_OBJ_TYPE_CODE_ROLE = 1;
@@ -54,9 +60,9 @@ public class PatientLocationQueryAuditTransformsConstants {
     public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID = "PatientLocationQueryRequest";
     public static final short PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM = 2;
     public static final short PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE = 24;
-    public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE = "ITI-56";
-    public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM = "IHE Transactions";
-    public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME = "Patient Location Query";
+    public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE = VALUE_ITI_56;
+    public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM = VALUE_IHE_TRANSACTIONS;
+    public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME = VALUE_PLQ;
 
     private PatientLocationQueryAuditTransformsConstants() {
     }
