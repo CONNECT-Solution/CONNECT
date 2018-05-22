@@ -32,7 +32,7 @@
         </cxf:features>
     </cxf:bus>
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterddssecured:data"
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdssecured"
         id="AdapterDocDataSubmissionSecured" address="/AdapterDocDataSubmissionSecured"
         serviceName="tns:AdapterXDSSecured_Service" endpointName="tns:AdapterXDSSecured_Port"
         implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.AdapterDocDataSubmissionSecured"
@@ -53,7 +53,7 @@
         </jaxws:properties>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdds:data"
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxds"
         id="AdapterDocDataSubmissionUnsecured" address="/AdapterDocDataSubmissionUnsecured"
         serviceName="tns:AdapterXDS_Service" endpointName="tns:AdapterXDS_Port"
         implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.AdapterDocDataSubmissionUnsecured"
@@ -62,7 +62,7 @@
 
     <!-- Adapter Document Submission Component -->
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentddssecured:data"
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentxdssecured"
         id="AdapterComponentDocDataSubmissionSecured" address="/AdapterComponentDocDataSubmissionSecured"
         serviceName="tns:AdapterComponentXDSSecured_Service" endpointName="tns:AdapterComponentXDSSecured_Port"
         implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.component.AdapterComponentDocDataSubmissionSecured"
@@ -83,7 +83,7 @@
         </jaxws:properties>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentdds:data"
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentxds"
         id="AdapterComponentDocDataSubmissionUnsecured" address="/AdapterComponentDocDataSubmissionUnsecured"
         serviceName="tns:AdapterComponentXDS_Service" endpointName="tns:AdapterComponentXDS_Port"
         implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.component.AdapterComponentDocDataSubmissionUnsecured"

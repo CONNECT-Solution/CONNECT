@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.adapter;
 
-import gov.hhs.fha.nhinc.adapterddssecured.data.AdapterXDSSecuredPortType;
+import gov.hhs.fha.nhinc.adapterxdssecured.AdapterXDSSecuredPortType;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;

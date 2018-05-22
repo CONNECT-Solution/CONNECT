@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.adapter.component;
 
-import gov.hhs.fha.nhinc.adaptercomponentdds.data.AdapterComponentXDSPortType;
+import gov.hhs.fha.nhinc.adaptercomponentxds.AdapterComponentXDSPortType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegisterDocumentSetRequestType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;

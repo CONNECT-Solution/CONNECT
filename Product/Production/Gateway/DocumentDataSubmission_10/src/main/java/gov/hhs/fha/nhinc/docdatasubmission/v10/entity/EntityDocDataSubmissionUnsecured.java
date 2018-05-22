@@ -24,24 +24,48 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission._10.entity;
+package gov.hhs.fha.nhinc.docdatasubmission.v10.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.docdatasubmission.DocDataSubmission;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.docdatasubmission.outbound.OutboundDocDataSubmission;
+import gov.hhs.fha.nhinc.entityxds.EntityXDSPortType;
+import javax.annotation.Resource;
+import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.Addressing;
+import javax.xml.ws.soap.SOAPBinding;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class EntityDocDataSubmissionImpl extends BaseService implements DocDataSubmission {
+@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
+@Addressing(enabled = true)
+public class EntityDocDataSubmissionUnsecured implements EntityXDSPortType {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDocDataSubmissionImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocDataSubmissionUnsecured.class);
 
-    @Override
-    public RegistryResponseType registerDocumentSetB(RespondingGatewayRegisterDocumentSetSecuredRequestType body) {
-        LOG.debug("Hit service method. Body is {}", body.toString());
-        return new RegistryResponseType();
+    @Resource
+    private WebServiceContext context;
+
+    private OutboundDocDataSubmission outboundDocDataSubmission;
+
+
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
 
+    public void setOutboundDocDataSubmission(OutboundDocDataSubmission outboundDocSubmission) {
+        outboundDocDataSubmission = outboundDocSubmission;
+    }
 
+    public OutboundDocDataSubmission getOutboundDocDataSubmission() {
+        return outboundDocDataSubmission;
+    }
+
+    @Override
+    public RegistryResponseType registerDocumentSetB(RespondingGatewayRegisterDocumentSetRequestType arg0) {
+        LOG.debug("Calling service with context {} and outbound submission class {}", context,
+            outboundDocDataSubmission.getClass().getName());
+        return new RegistryResponseType();
+    }
 }

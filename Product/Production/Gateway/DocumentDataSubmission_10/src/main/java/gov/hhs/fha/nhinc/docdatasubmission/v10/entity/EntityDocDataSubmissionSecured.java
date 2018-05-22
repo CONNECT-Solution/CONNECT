@@ -24,11 +24,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission._10.entity;
+package gov.hhs.fha.nhinc.docdatasubmission.v10.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docdatasubmission.outbound.OutboundDocDataSubmission;
-import gov.hhs.fha.nhinc.entitydds.data.EntityXDSPortType;
+import gov.hhs.fha.nhinc.entityxdssecured.EntityXDSSecuredPortType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -40,32 +40,28 @@ import org.slf4j.LoggerFactory;
 
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityDocDataSubmissionUnsecured implements EntityXDSPortType {
+public class EntityDocDataSubmissionSecured implements EntityXDSSecuredPortType {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDocDataSubmissionUnsecured.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocDataSubmissionSecured.class);
 
     @Resource
     private WebServiceContext context;
 
     private OutboundDocDataSubmission outboundDocDataSubmission;
 
-
     public void setContext(WebServiceContext context) {
         this.context = context;
     }
 
-    public void setOutboundDocDataSubmission(OutboundDocDataSubmission outboundDocSubmission) {
-        outboundDocDataSubmission = outboundDocSubmission;
-    }
-
-    public OutboundDocDataSubmission getOutboundDocDataSubmission() {
-        return outboundDocDataSubmission;
+    public void setOutboundDocDataSubmission(OutboundDocDataSubmission outboundDS) {
+        outboundDocDataSubmission = outboundDS;
     }
 
     @Override
-    public RegistryResponseType registerDocumentSetB(RespondingGatewayRegisterDocumentSetRequestType arg0) {
-        LOG.debug("Calling service with context {} and outbound submission class {}", context,
+    public RegistryResponseType registerDocumentSetB(RespondingGatewayRegisterDocumentSetSecuredRequestType body) {
+        LOG.debug("Calling service with context {} and inbound submission class {}", context,
             outboundDocDataSubmission.getClass().getName());
+
         return new RegistryResponseType();
     }
 }
