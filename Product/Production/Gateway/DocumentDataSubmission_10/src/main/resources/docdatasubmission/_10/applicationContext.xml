@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/aop     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config />
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:documentdatasubmission10.properties</value>
+                <value>file:///${nhinc.properties.dir}/gateway.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--  Document Data Submission -->
+
+    <bean id="nhinDDS" class="gov.hhs.fha.nhinc.docdatasubmission.v10.nhin.NhinDocDataSubmission">
+        <property name="inboundDocDataSubmission">
+            <bean class="${docdatasubmission.inboundDocDataSubmission}" />
+        </property>
+    </bean>
+
+    <bean id="entityDDSUnsecured" class="gov.hhs.fha.nhinc.docdatasubmission.v10.entity.EntityDocDataSubmissionUnsecured">
+        <property name="outboundDocDataSubmission">
+            <bean class="${docdatasubmission.outboundDocDataSubmission}" />
+        </property>
+    </bean>
+
+    <bean id="entityDDSSecured" class="gov.hhs.fha.nhinc.docdatasubmission.v10.entity.EntityDocDataSubmissionSecured">
+        <property name="outboundDocDataSubmission">
+            <bean class="${docdatasubmission.outboundDocDataSubmission}" />
+        </property>
+    </bean>
+
+    <bean id="stdDDSOutbound"
+      class="gov.hhs.fha.nhinc.docdatasubmission.outbound.StandardOutboundDocDataSubmission">
+    </bean>
+
+    <bean id="ptDDSOutbound"
+      class="gov.hhs.fha.nhinc.docdatasubmission.outbound.PassthroughOutboundDocDataSubmission">
+    </bean>
+
+    <bean id="stdDDSInbound"
+      class="gov.hhs.fha.nhinc.docdatasubmission.inbound.StandardInboundDocDataSubmission">
+    </bean>
+
+    <bean id="ptDDSInbound"
+      class="gov.hhs.fha.nhinc.docdatasubmission.inbound.PassthroughInboundDocDataSubmission">
+    </bean>
+
+</beans>
