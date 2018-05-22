@@ -30,6 +30,7 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditTransformsConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.parser.PRPAIN201305UV02Parser;
 import gov.hhs.fha.nhinc.patientdiscovery.parser.PRPAIN201306UV02Parser;
@@ -53,8 +54,6 @@ import org.hl7.v3.PRPAIN201306UV02;
  * @param <K>
  */
 public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends AuditTransforms<T, K> {
-
-    private static final String JAXB_HL7_CONTEXT_NAME = "org.hl7.v3";
 
     protected AuditMessageType createPatientParticipantObjectIdentification(AuditMessageType auditMsg, String aa,
         String patientId) {
@@ -128,7 +127,7 @@ public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends Audi
     }
 
     protected Marshaller getMarshaller() throws JAXBException {
-        return new JAXBContextHandler().getJAXBContext(JAXB_HL7_CONTEXT_NAME).createMarshaller();
+        return new JAXBContextHandler().getJAXBContext(NhincConstants.JAXB_HL7_CONTEXT_NAME_HL7_V3).createMarshaller();
     }
 
     @Override
@@ -192,7 +191,7 @@ public abstract class AbstractPatientDiscoveryAuditTransforms<T, K> extends Audi
                 } else {
                     createPatientParticipantObjectIdentification(auditMsg,
                         StringUtils.isNotBlank(entry.getRoot()) ? entry.getRoot().trim() : null,
-                        StringUtils.isNotBlank(entry.getExtension()) ? entry.getExtension().trim() : null);
+                            StringUtils.isNotBlank(entry.getExtension()) ? entry.getExtension().trim() : null);
                 }
             }
         } else {

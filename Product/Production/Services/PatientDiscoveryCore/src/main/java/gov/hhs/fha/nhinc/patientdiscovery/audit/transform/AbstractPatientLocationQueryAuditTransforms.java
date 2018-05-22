@@ -30,6 +30,7 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientLocationQueryAuditTransformsConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
@@ -55,7 +56,6 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractPatientLocationQueryAuditTransforms<T, K> extends AuditTransforms<T, K> {
 
-    private static final String JAXB_HL7_CONTEXT_NAME = "org.hl7.v3";
     private static final Logger LOG = LoggerFactory.getLogger(AbstractPatientLocationQueryAuditTransforms.class);
 
     protected AuditMessageType createPatientParticipantObjectIdentification(AuditMessageType auditMsg, String aa,
@@ -157,7 +157,7 @@ public abstract class AbstractPatientLocationQueryAuditTransforms<T, K> extends 
     }
 
     protected Marshaller getMarshaller() throws JAXBException {
-        return new JAXBContextHandler().getJAXBContext(JAXB_HL7_CONTEXT_NAME).createMarshaller();
+        return new JAXBContextHandler().getJAXBContext(NhincConstants.JAXB_HL7_CONTEXT_NAME_HL7_V3).createMarshaller();
     }
 
     @Override
