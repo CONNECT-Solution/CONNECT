@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -25,9 +25,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.exchangemgr;
-
-import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
-import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
 
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeListType;
@@ -42,6 +39,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
+import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +62,9 @@ public class ExchangeManagerHelper {
     }
 
     public static boolean organizationHasService(OrganizationType org, String sUniformServiceName) {
-        if (org.getEndpointList() != null && CollectionUtils.isNotEmpty(org.getEndpointList().getEndpoint())) {
+
+        if (StringUtils.isNotBlank(sUniformServiceName) && org.getEndpointList() != null && CollectionUtils.isNotEmpty(
+            org.getEndpointList().getEndpoint())) {
             for (EndpointType epType : org.getEndpointList().getEndpoint()) {
                 if (hasService(epType, sUniformServiceName)) {
                     return true;
@@ -74,7 +75,8 @@ public class ExchangeManagerHelper {
     }
 
     public static boolean hasService(EndpointType epType, String sUniformServiceName) {
-        if (epType != null && CollectionUtils.isNotEmpty(epType.getName())) {
+        if (StringUtils.isNotBlank(sUniformServiceName) && epType != null && CollectionUtils.
+            isNotEmpty(epType.getName())) {
             for (String name : epType.getName()) {
                 if (sUniformServiceName.equalsIgnoreCase(name)) {
                     return true;
@@ -89,7 +91,9 @@ public class ExchangeManagerHelper {
         if (null != epType && null != epType.getEndpointConfigurationList() && CollectionUtils.isNotEmpty(
             epType.getEndpointConfigurationList().getEndpointConfiguration())) {
             for (EndpointConfigurationType config : epType.getEndpointConfigurationList().getEndpointConfiguration()) {
-                specVersionList.add(NhincConstants.UDDI_SPEC_VERSION.fromString(config.getVersion()));
+                if (StringUtils.isNotBlank(config.getVersion())) {
+                    specVersionList.add(NhincConstants.UDDI_SPEC_VERSION.fromString(config.getVersion()));
+                }
             }
         }
         return specVersionList;
@@ -348,6 +352,15 @@ public class ExchangeManagerHelper {
         for (EndpointType endpoint : endpoints) {
             if (containsIgnoreCaseBy(endpoint.getName(), serviceName)) {
                 return endpoint;
+            }
+        }
+        return null;
+    }
+
+    public static String getNhinServiceName(List<String> serviceNames) {
+        for (String name : serviceNames) {
+            if (StringUtils.isNotBlank(NhincConstants.NHIN_SERVICE_NAMES.fromValueString(name).toString())) {
+                return NhincConstants.NHIN_SERVICE_NAMES.fromValueString(name).getUDDIServiceName();
             }
         }
         return null;
