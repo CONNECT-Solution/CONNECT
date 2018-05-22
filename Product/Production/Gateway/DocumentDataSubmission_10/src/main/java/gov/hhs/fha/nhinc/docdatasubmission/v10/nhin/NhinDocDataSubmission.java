@@ -24,10 +24,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission._10.nhin;
+package gov.hhs.fha.nhinc.docdatasubmission.v10.nhin;
 
 import gov.hhs.fha.nhinc.docdatasubmission.inbound.InboundDocDataSubmission;
-import ihe.iti.xdr._2007.DocumentRegistryXDSPortType;
+import ihe.iti.xds._2007.DocumentRegistryXDSPortType;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;

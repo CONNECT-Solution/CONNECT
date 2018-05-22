@@ -29,7 +29,7 @@
 
     <!-- Nhin Services -->
 
-    <jaxws:endpoint xmlns:nds="urn:ihe:iti:xdr:2007" id="NhinDocDataSubmission" address="/DocumentRegistryXDS_Service"
+    <jaxws:endpoint xmlns:nds="urn:ihe:iti:xds:2007" id="NhinDocDataSubmission" address="/DocumentRegistryXDS_Service"
         serviceName="nds:DocumentRegistryXDS_Service" endpointName="nds:DocumentRegistryXDS_Port_Soap" implementor="#nhinDDS"
         wsdlLocation="classpath:wsdl/NhinDDS.wsdl">
         <jaxws:properties>
@@ -47,15 +47,12 @@
 
     <!-- Entity services -->
 
-    <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:entitydds:data" id="EntityDocDataSubmissionUnsecured"
+    <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:entityxds" id="EntityDocDataSubmissionUnsecured"
         address="/EntityService/EntityDocDataSubmissionUnsecured" serviceName="eds:EntityXDS_Service" endpointName="eds:EntityXDS_Port"
         implementor="#entityDDSUnsecured" wsdlLocation="classpath:wsdl/EntityDDS.wsdl">
-        <jaxws:properties>
-            <entry key="mtom-enabled" value="true" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:entityddssecured:data" id="EntityDocDataSubmissionSecured"
+    <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:entityxdssecured" id="EntityDocDataSubmissionSecured"
         address="/EntityService/EntityDocDataSubmissionSecured" serviceName="eds:EntityXDSSecured_Service" endpointName="eds:EntityXDSSecured_Port"
         implementor="#entityDDSSecured" wsdlLocation="classpath:wsdl/EntityDDSSecured.wsdl">
         <jaxws:properties>

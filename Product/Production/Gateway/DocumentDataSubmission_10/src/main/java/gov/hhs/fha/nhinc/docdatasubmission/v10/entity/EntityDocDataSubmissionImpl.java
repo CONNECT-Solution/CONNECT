@@ -24,44 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission._10.entity;
+package gov.hhs.fha.nhinc.docdatasubmission.v10.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.docdatasubmission.outbound.OutboundDocDataSubmission;
-import gov.hhs.fha.nhinc.entityddssecured.data.EntityXDSSecuredPortType;
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
-import javax.xml.ws.soap.SOAPBinding;
+import gov.hhs.fha.nhinc.docdatasubmission.DocDataSubmission;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityDocDataSubmissionSecured implements EntityXDSSecuredPortType {
+class EntityDocDataSubmissionImpl extends BaseService implements DocDataSubmission {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDocDataSubmissionSecured.class);
-
-    @Resource
-    private WebServiceContext context;
-
-    private OutboundDocDataSubmission outboundDocDataSubmission;
-
-    public void setContext(WebServiceContext context) {
-        this.context = context;
-    }
-
-    public void setOutboundDocDataSubmission(OutboundDocDataSubmission outboundDS) {
-        outboundDocDataSubmission = outboundDS;
-    }
+    private static final Logger LOG = LoggerFactory.getLogger(EntityDocDataSubmissionImpl.class);
 
     @Override
     public RegistryResponseType registerDocumentSetB(RespondingGatewayRegisterDocumentSetSecuredRequestType body) {
-        LOG.debug("Calling service with context {} and inbound submission class {}", context,
-            outboundDocDataSubmission.getClass().getName());
-
+        LOG.debug("Hit service method. Body is {}", body.toString());
         return new RegistryResponseType();
     }
+
+
 }
