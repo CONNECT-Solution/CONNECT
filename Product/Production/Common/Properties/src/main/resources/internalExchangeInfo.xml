@@ -885,7 +885,7 @@
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
-                            <ns2:name>adapterddsservicesecured</ns2:name>
+                            <ns2:name>adapterxdsservicesecured</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
                                     <ns2:url>https://localhost:8181/Adapter/DocumentDataSubmission/A_0/AdapterDocDataSubmissionSecured</ns2:url>
