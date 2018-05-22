@@ -130,7 +130,7 @@ public abstract class AbstractPatientLocationQueryAuditTransforms<T, K> extends 
         return participantObject;
     }
 
-    private II getPatientIdFromRequest(PatientLocationQueryRequestType request) {
+    private static II getPatientIdFromRequest(PatientLocationQueryRequestType request) {
         II livingSubjectId = null;
         if (request != null && request.getRequestedPatientId() != null) {
             livingSubjectId = request.getRequestedPatientId();
@@ -210,7 +210,7 @@ public abstract class AbstractPatientLocationQueryAuditTransforms<T, K> extends 
         return PatientLocationQueryAuditTransformsConstants.EVENT_ACTION_CODE_RESPONDER;
     }
 
-    private List<II> getPatientIds(PatientLocationQueryResponseType response) {
+    private static List<II> getPatientIds(PatientLocationQueryResponseType response) {
         List<II> oIIs =  new ArrayList<>();
         if (response != null && CollectionUtils.isNotEmpty(response.getPatientLocationResponse())) {
             for (PatientLocationResponse subject : response.getPatientLocationResponse()) {
