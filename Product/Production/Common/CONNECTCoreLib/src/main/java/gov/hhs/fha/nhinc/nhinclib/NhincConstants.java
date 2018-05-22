@@ -548,6 +548,10 @@ public class NhincConstants {
 
     public static final String DISABLE_CN_CHECK = "disableCNCheck";
 
+    // jaxb-hl7-context-name
+    public static final String JAXB_HL7_CONTEXT_NAME_XSD_QUERY = "oasis.names.tc.ebxml_regrep.xsd.query._3";
+    public static final String JAXB_HL7_CONTEXT_NAME_HL7_V3 = "org.hl7.v3";
+
     private NhincConstants() {
     }
 }
