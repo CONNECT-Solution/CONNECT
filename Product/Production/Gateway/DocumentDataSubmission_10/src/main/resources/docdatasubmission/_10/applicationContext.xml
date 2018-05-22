@@ -23,19 +23,19 @@
 
     <!--  Document Data Submission -->
 
-    <bean id="nhinDDS" class="gov.hhs.fha.nhinc.docdatasubmission._10.nhin.NhinDocDataSubmission">
+    <bean id="nhinDDS" class="gov.hhs.fha.nhinc.docdatasubmission.v10.nhin.NhinDocDataSubmission">
         <property name="inboundDocDataSubmission">
             <bean class="${docdatasubmission.inboundDocDataSubmission}" />
         </property>
     </bean>
 
-    <bean id="entityDDSUnsecured" class="gov.hhs.fha.nhinc.docdatasubmission._10.entity.EntityDocDataSubmissionUnsecured">
+    <bean id="entityDDSUnsecured" class="gov.hhs.fha.nhinc.docdatasubmission.v10.entity.EntityDocDataSubmissionUnsecured">
         <property name="outboundDocDataSubmission">
             <bean class="${docdatasubmission.outboundDocDataSubmission}" />
         </property>
     </bean>
 
-    <bean id="entityDDSSecured" class="gov.hhs.fha.nhinc.docdatasubmission._10.entity.EntityDocDataSubmissionSecured">
+    <bean id="entityDDSSecured" class="gov.hhs.fha.nhinc.docdatasubmission.v10.entity.EntityDocDataSubmissionSecured">
         <property name="outboundDocDataSubmission">
             <bean class="${docdatasubmission.outboundDocDataSubmission}" />
         </property>
