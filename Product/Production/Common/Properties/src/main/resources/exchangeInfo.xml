@@ -320,7 +320,7 @@
               </ns2:endpointConfigurationList>
             </ns2:endpoint>
             <ns2:endpoint>
-              <ns2:name>DocumentDataSubmission</ns2:name>
+              <ns2:name>DocDataSubmission</ns2:name>
                 <ns2:endpointConfigurationList>
                   <ns2:endpointConfiguration>
                     <ns2:url>https://localhost:8181/Gateway/DocumentDataSubmission/1_0/DocumentRegistryXDR_Service</ns2:url>

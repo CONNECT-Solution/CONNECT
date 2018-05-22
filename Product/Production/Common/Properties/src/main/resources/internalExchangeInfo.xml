@@ -858,7 +858,7 @@
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
-                            <ns2:name>adaptercomponentddsservice</ns2:name>
+                            <ns2:name>adaptercomponentxdsservice</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
                                     <ns2:url>http://localhost:8080/Adapter/DocumentDataSubmission/A_0/AdapterComponentDocDataSubmissionUnsecured</ns2:url>
@@ -867,7 +867,7 @@
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
-                            <ns2:name>adaptercomponentddsservicesecured</ns2:name>
+                            <ns2:name>adaptercomponentxdsservicesecured</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
                                     <ns2:url>https://localhost:8181/Adapter/DocumentDataSubmission/A_0/AdapterComponentDocDataSubmissionSecured</ns2:url>
@@ -876,7 +876,7 @@
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
-                            <ns2:name>adapterddsservice</ns2:name>
+                            <ns2:name>adapterdxsservice</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
                                     <ns2:url>http://localhost:8080/Adapter/DocumentDataSubmission/A_0/AdapterDocDataSubmissionUnsecured</ns2:url>
