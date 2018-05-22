@@ -58,4 +58,6 @@ public class PatientLocationQueryAuditTransformsConstants {
     public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM = "IHE Transactions";
     public static final String PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME = "Patient Location Query";
 
+    private PatientLocationQueryAuditTransformsConstants() {
+    }
 }
