@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -81,13 +82,17 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
     private void loadExchangeInfo() throws ExchangeManagerException {
         exInfo = getExchangeInfoDAO().loadExchangeInfo();
-
+        overrideExchange = null;
         if (exInfo != null) {
             synchronized (exCache) {
                 exCache.clear();
                 if (null != exInfo.getExchanges() && CollectionUtils.isNotEmpty(exInfo.getExchanges().getExchange())) {
                     for (ExchangeType ex : exInfo.getExchanges().getExchange()) {
                         if (isOverrideExchange(ex)) {
+                            if (null != overrideExchange) {
+                                LOG.warn(
+                                    "Found more than one overrides exchange type .. overwriting the previous exchange");
+                            }
                             overrideExchange = ex;
                         } else {
                             updateExchangeCache(ex);
@@ -163,7 +168,29 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
     @Override
     public List<OrganizationType> getAllOrganizations() throws ExchangeManagerException {
         refreshExchangeCacheIfRequired();
-        return ExchangeManagerHelper.getOrganizationTypeAllByCache(exCache);
+        List<OrganizationType> orgList = new ArrayList<>();
+        for (Entry<String, Map<String, OrganizationType>> exEntry : exCache.entrySet()) {
+            Map<String, OrganizationType> orgMap = exCache.get(exEntry.getKey());
+            for (Entry<String, OrganizationType> hcidKey : orgMap.entrySet()) {
+                OrganizationType org = orgMap.get(hcidKey.getKey());
+                orgList.add(syncWithOverrides(org, hcidKey.getKey()));
+            }
+        }
+        return orgList;
+    }
+
+    @Override
+    public List<OrganizationType> getAllOrganizations(String exchangeName) throws ExchangeManagerException {
+        refreshExchangeCacheIfRequired();
+        List<OrganizationType> orgList = new ArrayList<>();
+        String exName = (StringUtils.isNotEmpty(exchangeName) ? exchangeName : getDefaultExchange());
+
+        Map<String, OrganizationType> orgMap = exCache.get(exName);
+        for (Entry<String, OrganizationType> hcidKey : orgMap.entrySet()) {
+            OrganizationType org = orgMap.get(hcidKey.getKey());
+            orgList.add(syncWithOverrides(org, hcidKey.getKey()));
+        }
+        return orgList;
     }
 
     private void saveExchangeInfo() throws ExchangeManagerException {
@@ -198,7 +225,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
             if (StringUtils.equalsIgnoreCase(exchangeName, getDefaultExchange())) {
                 exInfo.setDefaultExchange(null);
             }
-            List<ExchangeType> exchanges = getAllExchanges();
+            List<ExchangeType> exchanges = ExchangeManagerHelper.getAllExchanges(exInfo, true);
             ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, exchangeName);
             if (null != exchangeFound) {
                 exchanges.remove(exchangeFound);
@@ -218,9 +245,11 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
             return bSave;
         }
         try {
-            refreshExchangeCacheIfRequired();
-            List<ExchangeType> exchanges = ExchangeManagerHelper.getExchangeTypeBy(exInfo, true);
-            ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, exchangeUpdate.getName());
+            if (null == exInfo) {
+                loadExchangeInfo();
+            }
+            List<ExchangeType> exchanges = ExchangeManagerHelper.getAllExchanges(exInfo, true);
+            ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, exchangeAdd.getName());
             if (null != exchangeFound) {
                 LOG.info("saveExchange--updated-exchangeFound");
                 exchangeFound.setDisabled(exchangeUpdate.isDisabled());
@@ -276,7 +305,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
         try {
             refreshExchangeCacheIfRequired();
-            return ExchangeManagerHelper.getEndpointTypeBy(exInfo, exchangeName, hcid);
+            return ExchangeManagerHelper.getEndpointTypeBy(getOrganization(exchangeName, hcid));
         } catch (ExchangeManagerException e) {
             LOG.error("unable to get-all-enpointTypesBy: {}", e.getLocalizedMessage(), e);
             return emptyList;
@@ -433,8 +462,8 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
         for (EndpointType overriderEpType : epOverrideList) {
             String serviceName = ExchangeManagerHelper.getNhinServiceName(overriderEpType.getName());
-            if (StringUtils.isNotEmpty(serviceName) && CollectionUtils.isNotEmpty(ExchangeManagerHelper.getSpecVersions(
-                overriderEpType))) {
+            if (StringUtils.isNotEmpty(serviceName) && !ExchangeManagerHelper.getSpecVersionsAndUrlMap(
+                overriderEpType).isEmpty()) {
                 overrideEpMap.put(serviceName, overriderEpType);
             }
         }
@@ -474,7 +503,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         List<EndpointConfigurationType> syncConfigList = new ArrayList<>();
         Map<String, String> overrideMap = new HashMap<>();
         for (EndpointConfigurationType config : originalEpConfigList) {
-            if (StringUtils.isNotBlank(config.getVersion())) {
+            if (StringUtils.isNotBlank(config.getVersion()) && StringUtils.isNotBlank(config.getUrl())) {
                 overrideMap.put(config.getVersion(), config.getUrl());
             }
         }

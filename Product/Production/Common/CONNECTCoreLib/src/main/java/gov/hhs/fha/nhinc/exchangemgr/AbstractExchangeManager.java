@@ -63,14 +63,10 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     protected abstract T getApiSpecEnum(String version);
 
     @Override
-    public List<OrganizationType> getAllOrganizations() throws ExchangeManagerException {
-        refreshExchangeCacheIfRequired();
-        List<OrganizationType> orgList = new ArrayList<>();
-        for (Map<String, OrganizationType> aMap : getCache().values()) {
-            orgList.addAll(aMap.values());
-        }
-        return orgList;
-    }
+    public abstract List<OrganizationType> getAllOrganizations(String exchangeName) throws ExchangeManagerException;
+
+    @Override
+    public abstract List<OrganizationType> getAllOrganizations() throws ExchangeManagerException;
 
     @Override
     public String getOrganizationName(String hcid) throws ExchangeManagerException {
@@ -362,12 +358,5 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
             LOG.error("Unable to read exchange file {}", ex.getLocalizedMessage(), ex);
         }
         return innerMap;
-    }
-
-    @Override
-    public List<OrganizationType> getAllOrganizations(String exchangeName) throws ExchangeManagerException {
-        refreshExchangeCacheIfRequired();
-        return (null != exchangeName) ? new ArrayList<>(getCache().get(exchangeName).values())
-            : new ArrayList<>(getCache().get(this.getDefaultExchange()).values());
     }
 }

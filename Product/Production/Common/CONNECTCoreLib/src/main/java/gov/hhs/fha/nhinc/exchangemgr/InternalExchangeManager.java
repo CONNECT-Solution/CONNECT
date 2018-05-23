@@ -35,7 +35,9 @@ import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -199,4 +201,18 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
         return true;
     }
 
+    @Override
+    public List<OrganizationType> getAllOrganizations() throws ExchangeManagerException {
+        refreshExchangeCacheIfRequired();
+        List<OrganizationType> orgList = new ArrayList<>();
+        for (Map<String, OrganizationType> aMap : getCache().values()) {
+            orgList.addAll(aMap.values());
+        }
+        return orgList;
+    }
+
+    @Override
+    public List<OrganizationType> getAllOrganizations(String exchangeName) throws ExchangeManagerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
