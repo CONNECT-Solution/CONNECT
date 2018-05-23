@@ -57,6 +57,7 @@ public class ExchangeManagerTest extends BaseExchangeManager {
     private static final String HCID_1 = "urn:oid:1.1";
     private static final String HCID_2 = "urn:oid:2.2";
     private static final String DEFAULT_EXCHANGE = "NationwideExchange";
+    private static final String STATE_EXCHANGE = "StateExchange";
     private static final String PD = "PatientDiscovery";
     private static final String QD = "QueryForDocements";
     private static final String RD = "RetrieveDocuments";
@@ -119,9 +120,33 @@ public class ExchangeManagerTest extends BaseExchangeManager {
     public void testOverrideExchange() {
         Exchange<UDDI_SPEC_VERSION> exMgr = createExternalExchangeManagerForOverride();
         try {
-            OrganizationType org = exMgr.getOrganization("2.2");
+            OrganizationType org = exMgr.getOrganization("3.3");
             assertNotNull("Organization is Null", org);
             verifyOverridesEndpoint(org.getEndpointList().getEndpoint());
+        } catch (ExchangeManagerException ex) {
+            fail("Error running testOverrideExchange: " + ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetAllOrganizationExchangeWithOverrides() {
+        Exchange<UDDI_SPEC_VERSION> exMgr = createExternalExchangeManagerForOverride();
+        try {
+            List<OrganizationType> orgList = exMgr.getAllOrganizations();
+            assertEquals("List of Organization returned should be 3", 3, orgList.size());
+            verifyOverridesEndpoint(orgList.get(2).getEndpointList().getEndpoint());
+        } catch (ExchangeManagerException ex) {
+            fail("Error running testOverrideExchange: " + ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetAllOrganizationForAnExchangeWithOverrides() {
+        Exchange<UDDI_SPEC_VERSION> exMgr = createExternalExchangeManagerForOverride();
+        try {
+            List<OrganizationType> orgList = exMgr.getAllOrganizations(STATE_EXCHANGE);
+            assertEquals("List of Organization returned for default Exchange should be 1", 1, orgList.size());
+            verifyOverridesEndpoint(orgList.get(0).getEndpointList().getEndpoint());
         } catch (ExchangeManagerException ex) {
             fail("Error running testOverrideExchange: " + ex.getMessage());
         }

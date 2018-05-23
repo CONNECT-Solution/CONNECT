@@ -303,7 +303,7 @@ public class ExchangeManagerBean {
     }
 
     public EXCHANGE_TYPE[] getListTypes() {
-        return EXCHANGE_TYPE.values();
+        return ExchangeManagerHelper.getDisplayExchangeTypes();
     }
 
     private boolean isNotEmptyTLSVersions() {
