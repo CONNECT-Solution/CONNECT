@@ -36,12 +36,14 @@ import gov.hhs.fha.nhinc.exchange.directory.EndpointListType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
 import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
@@ -253,15 +255,14 @@ public class ExchangeManagerHelper {
     }
 
     public static List<ExchangeType> getExchangeTypeBy(ExchangeInfoType exchangeInfo, boolean requiredElement) {
+        List<ExchangeType> exList = new ArrayList<>();
         if (null != exchangeInfo) {
             if (requiredElement && null == exchangeInfo.getExchanges()) {
                 exchangeInfo.setExchanges(new ExchangeListType());
             }
-            if (null != exchangeInfo.getExchanges()) {
-                return exchangeInfo.getExchanges().getExchange();
-            }
+            exList.addAll(getDisplayExchangeList(exchangeInfo));
         }
-        return new ArrayList<>();
+        return exList;
     }
 
     public static ExchangeType findExchangeTypeBy(List<ExchangeType> exchanges, String exchangeName) {
@@ -366,6 +367,20 @@ public class ExchangeManagerHelper {
         return null;
     }
 
+    public static Map<String, String> getSpecVersionsAndUrlMap(EndpointType epType) {
+        Map<String, String> specVersionUrlMap = new HashMap<>();
+        if (null != epType && null != epType.getEndpointConfigurationList() && CollectionUtils.isNotEmpty(
+            epType.getEndpointConfigurationList().getEndpointConfiguration())) {
+            for (EndpointConfigurationType config : epType.getEndpointConfigurationList().getEndpointConfiguration()) {
+                if (StringUtils.isNotBlank(config.getVersion()) && StringUtils.isNotBlank(config.getUrl())) {
+                    specVersionUrlMap.put(NhincConstants.UDDI_SPEC_VERSION.fromString(config.getVersion()).toString(),
+                        config.getUrl());
+                }
+            }
+        }
+        return specVersionUrlMap;
+    }
+
     //private-methods
     private static boolean containsIgnoreCaseBy(List<String> stringContainers, String compareTo) {
         if (CollectionUtils.isNotEmpty(stringContainers)) {
@@ -378,4 +393,45 @@ public class ExchangeManagerHelper {
         return false;
     }
 
+    public static EXCHANGE_TYPE[] getDisplayExchangeTypes() {
+        EXCHANGE_TYPE[] allTypes = EXCHANGE_TYPE.values();
+        List<EXCHANGE_TYPE> guiTypes = new ArrayList<>();
+        for (EXCHANGE_TYPE allType : allTypes) {
+            if (!isExchangeOverride(allType.toString())) {
+                guiTypes.add(allType);
+            }
+        }
+        return guiTypes.toArray(new EXCHANGE_TYPE[guiTypes.size()]);
+    }
+
+    public static List<ExchangeType> getAllExchanges(ExchangeInfoType exchangeInfo, boolean requiredElement) {
+        if (null != exchangeInfo) {
+            if (requiredElement && null == exchangeInfo.getExchanges()) {
+                exchangeInfo.setExchanges(new ExchangeListType());
+            }
+            if (null != exchangeInfo.getExchanges() && CollectionUtils.isNotEmpty(exchangeInfo.
+                getExchanges().getExchange())) {
+                return exchangeInfo.getExchanges().getExchange();
+            }
+        }
+        return new ArrayList<>();
+    }
+
+    private static boolean isExchangeOverride(String exType) {
+        return NhincConstants.EXCHANGE_TYPE.OVERRIDES.toString().equalsIgnoreCase(exType);
+    }
+
+    private static List<ExchangeType> getDisplayExchangeList(ExchangeInfoType exchangeInfo) {
+        List<ExchangeType> exList = new ArrayList<>();
+        if (null != exchangeInfo.getExchanges() && CollectionUtils.isNotEmpty(exchangeInfo.
+            getExchanges().getExchange())) {
+            for (ExchangeType ex : exchangeInfo.getExchanges().getExchange()) {
+                if (!isExchangeOverride(ex.getType())) {
+                    exList.add(ex);
+                }
+            }
+        }
+        return exList;
+
+    }
 }
