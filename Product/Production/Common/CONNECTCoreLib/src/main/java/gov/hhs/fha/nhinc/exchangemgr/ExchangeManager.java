@@ -522,7 +522,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
             hcidWithPrefix, overrideHcid);
     }
 
-    private boolean isValidExchangeType(String type) {
+    private static boolean isValidExchangeType(String type) {
         for (EXCHANGE_TYPE exType : EXCHANGE_TYPE.values()) {
             if (StringUtils.equalsIgnoreCase(exType.getValue(), type)) {
                 return true;
