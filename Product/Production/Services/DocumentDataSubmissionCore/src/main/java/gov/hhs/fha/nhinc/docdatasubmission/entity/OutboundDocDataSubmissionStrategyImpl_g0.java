@@ -24,17 +24,42 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission.outbound;
+package gov.hhs.fha.nhinc.docdatasubmission.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.NhinDocDataSubmissionProxy;
+import gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.NhinDocDataSubmissionProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.Orchestratable;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public interface OutboundDocDataSubmission {
+class OutboundDocDataSubmissionStrategyImpl_g0 implements OrchestrationStrategy {
 
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType body, AssertionType assertion,
-        NhinTargetCommunitiesType targets, UrlInfoType urlInfo);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundDocDataSubmissionStrategyImpl_g0.class);
 
+    protected NhinDocDataSubmissionProxy getNhinDocDataSubmissionProxy() {
+        return new NhinDocDataSubmissionProxyObjectFactory().getNhinDocDataSubmissionProxy();
+    }
+
+    @Override
+    public void execute(Orchestratable message) {
+        if (message instanceof OutboundDocDataSubmissionOrchestratable) {
+            execute((OutboundDocDataSubmissionOrchestratable) message);
+        } else {
+            LOG.error("Not an OutboundDocDataSubmissionOrchestratable.");
+        }
+    }
+
+    public void execute(OutboundDocDataSubmissionOrchestratable message) {
+        LOG.trace("Begin OutboundDocDataSubmissionOrchestratableImpl_g0.process");
+
+        NhinDocDataSubmissionProxy nhincDocSubmission = getNhinDocDataSubmissionProxy();
+        RegistryResponseType response = nhincDocSubmission.RegisterDocumentSetB(message.getRequest(),
+            message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+        message.setResponse(response);
+
+        LOG.trace("End OutboundDocDataSubmissionOrchestratableImpl_g0.process");
+    }
 }

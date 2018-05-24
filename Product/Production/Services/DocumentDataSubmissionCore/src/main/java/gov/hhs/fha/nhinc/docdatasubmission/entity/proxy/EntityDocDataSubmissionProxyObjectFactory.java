@@ -24,17 +24,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission.outbound;
+package gov.hhs.fha.nhinc.docdatasubmission.entity.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
-public interface OutboundDocDataSubmission {
+public class EntityDocDataSubmissionProxyObjectFactory extends ComponentProxyObjectFactory {
+    private static final String CONFIG_FILE_NAME = "DocumentSubmissionProxyConfig.xml";
+    private static final String BEAN_NAME = "entitydocsubmission";
 
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType body, AssertionType assertion,
-        NhinTargetCommunitiesType targets, UrlInfoType urlInfo);
+    @Override
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
+    }
+
+    public EntityDocDataSubmissionProxy getEntityDocDataSubmissionProxy() {
+        return getBean(BEAN_NAME, EntityDocDataSubmissionProxy.class);
+    }
 
 }
