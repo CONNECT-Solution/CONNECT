@@ -58,8 +58,8 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
 
     @Override
     @OutboundProcessingEvent(beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-    afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-    serviceType = "Document Data Submission", version = "")
+        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
+        serviceType = "Document Data Submission", version = "")
     public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType body, AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
@@ -147,13 +147,14 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
 
     private RegistryResponseType getResponseFromTarget(RespondingGatewayRegisterDocumentSetSecuredRequestType request,
         AssertionType assertion) {
-        gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType nhinRequest;
+
         RegistryResponseType nhinResponse = new RegistryResponseType();
         if (hasNhinTargetHomeCommunityId(request)) {
-            nhinRequest = createRequestForNhin(request);
 
             try {
-                nhinResponse = sendToNhinProxy(nhinRequest, assertion);
+                NhinTargetSystemType nhinTargetSystemType = getMessageGeneratorUtils()
+                    .convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities());
+                nhinResponse = sendToNhinProxy(request, assertion, nhinTargetSystemType);
             } catch (Exception e) {
                 String hcid = getNhinTargetHomeCommunityId(request);
                 nhinResponse = MessageGeneratorUtils.getInstance()
@@ -167,40 +168,29 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
         return nhinResponse;
     }
 
-    private RespondingGatewayRegisterDocumentSetSecuredRequestType createRequestForNhin(
-        RespondingGatewayRegisterDocumentSetSecuredRequestType request) {
-
-        RespondingGatewayRegisterDocumentSetSecuredRequestType nhinRequest = new RespondingGatewayRegisterDocumentSetSecuredRequestType();
-
-        /*
-         * nhinRequest.setNhinTargetSystem(
-         * getMessageGeneratorUtils().convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities()));
-         * nhinRequest.setRegisterDocumentSetRequest(request.getRegisterDocumentSetRequest());
-         */
-        return nhinRequest;
-    }
-
     private RegistryResponseType sendToNhinProxy(
         gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType request,
-        AssertionType assertion) {
+        AssertionType assertion, NhinTargetSystemType nhinTargetSystemType) {
 
-        OutboundDocDataSubmissionDelegate dsDelegate = getOutboundDocDataSubmissionDelegate();
-        OutboundDocDataSubmissionOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, request, assertion);
-        RegistryResponseType response = ((OutboundDocDataSubmissionOrchestratable) dsDelegate.process(dsOrchestratable))
-            .getResponse();
+        OutboundDocDataSubmissionDelegate ddsDelegate = getOutboundDocDataSubmissionDelegate();
+        OutboundDocDataSubmissionOrchestratable ddsOrchestratable = createOrchestratable(ddsDelegate, request,
+            assertion, nhinTargetSystemType);
+        ddsOrchestratable.setTarget(nhinTargetSystemType);
+        RegistryResponseType response = ((OutboundDocDataSubmissionOrchestratable) ddsDelegate
+            .process(ddsOrchestratable)).getResponse();
 
         return response;
     }
 
     protected OutboundDocDataSubmissionOrchestratable createOrchestratable(OutboundDocDataSubmissionDelegate delegate,
         gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType request,
-        AssertionType assertion) {
+        AssertionType assertion, NhinTargetSystemType nhinTargetSystemType) {
 
         OutboundDocDataSubmissionOrchestratable dsOrchestratable = new OutboundDocDataSubmissionOrchestratable(
             delegate);
         dsOrchestratable.setAssertion(assertion);
         dsOrchestratable.setRequest(request.getRegisterDocumentSetRequest());
-        // dsOrchestratable.setTarget(request.getNhinTargetSystem());
+        dsOrchestratable.setTarget(nhinTargetSystemType);
 
         return dsOrchestratable;
     }

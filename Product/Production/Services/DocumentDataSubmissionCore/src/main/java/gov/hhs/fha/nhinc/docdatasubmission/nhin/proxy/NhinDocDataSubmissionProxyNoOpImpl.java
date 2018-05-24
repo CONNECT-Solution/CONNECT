@@ -34,7 +34,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-
 public class NhinDocDataSubmissionProxyNoOpImpl implements NhinDocDataSubmissionProxy {
     @NwhinInvocationEvent(beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
         afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",

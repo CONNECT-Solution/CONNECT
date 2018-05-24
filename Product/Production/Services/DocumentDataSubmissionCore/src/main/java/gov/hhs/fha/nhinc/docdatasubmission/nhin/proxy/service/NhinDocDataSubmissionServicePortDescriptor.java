@@ -26,9 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.service;
 
-
 public class NhinDocDataSubmissionServicePortDescriptor extends AbstractServicePortDescriptor {
-
 
     @Override
     public String getWSAddressingAction() {

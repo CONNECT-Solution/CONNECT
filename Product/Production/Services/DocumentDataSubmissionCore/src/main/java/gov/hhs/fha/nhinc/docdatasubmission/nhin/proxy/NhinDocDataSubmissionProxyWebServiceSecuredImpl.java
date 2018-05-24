@@ -83,8 +83,8 @@ public class NhinDocDataSubmissionProxyWebServiceSecuredImpl implements NhinDocD
         afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
         serviceType = "Document Data Submission", version = "")
     @Override
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType request,
-        AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType request, AssertionType assertion,
+        NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         LOG.debug("Begin provideAndRegisterDocumentSetB");
         RegistryResponseType response = new RegistryResponseType();
 
@@ -92,11 +92,10 @@ public class NhinDocDataSubmissionProxyWebServiceSecuredImpl implements NhinDocD
             String url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
                 NhincConstants.NHINC_XDR_SERVICE_NAME, apiLevel);
 
-
             ServicePortDescriptor<DocumentRegistryXDSPortType> portDescriptor = getServicePortDescriptor(apiLevel);
 
-            CONNECTClient<DocumentRegistryXDSPortType> client = getCONNECTClientSecured(portDescriptor, assertion,
-                url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHINC_XDR_SERVICE_NAME);
+            CONNECTClient<DocumentRegistryXDSPortType> client = getCONNECTClientSecured(portDescriptor, assertion, url,
+                targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHINC_XDR_SERVICE_NAME);
             client.enableMtom();
 
             response = (RegistryResponseType) client.invokePort(DocumentRegistryXDSPortType.class,

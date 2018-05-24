@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.service;
 import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import ihe.iti.xds._2007.DocumentRegistryXDSPortType;
 
-
 /**
  * @author akong
  *
