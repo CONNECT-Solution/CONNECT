@@ -24,15 +24,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission.inbound;
+package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
-import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-public interface InboundDocDataSubmission {
+/**
+ * @author ttang
+ *
+ */
+public interface AdapterDocDataSubmissionProxy {
 
-    public RegistryResponseType documentRepositoryRegisterDocumentSetB(RegisterDocumentSetRequestType body,
-        AssertionType assertion, Properties webContextProperties);
+    @AdapterDelegationEvent(serviceType = "Document Data Submission", version = "",
+        beforeBuilder = DefaultEventDescriptionBuilder.class,
+        afterReturningBuilder = DefaultEventDescriptionBuilder.class)
+    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion);
 }
