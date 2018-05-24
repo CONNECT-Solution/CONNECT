@@ -552,6 +552,10 @@ public class NhincConstants {
     public static final String JAXB_HL7_CONTEXT_NAME_XSD_QUERY = "oasis.names.tc.ebxml_regrep.xsd.query._3";
     public static final String JAXB_HL7_CONTEXT_NAME_HL7_V3 = "org.hl7.v3";
 
+    // Doc Data Submission
+    public static final String ADAPTER_XDS_SERVICE_NAME = "adapterxds";
+    public static final String ADAPTER_XDS_SECURED_SERVICE_NAME = "adapterxdssecured";
+
     private NhincConstants() {
     }
 }
