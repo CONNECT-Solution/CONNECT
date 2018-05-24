@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
 public class XDSPolicyChecker {
     private static final Logger LOG = LoggerFactory.getLogger(XDSPolicyChecker.class);
 
-    public boolean checkXDRRequestPolicy(RegisterDocumentSetRequestType message, AssertionType assertion,
+    public boolean checkXDRRequestPolicy(RegisterDocumentSetRequestType request, AssertionType assertion,
         String senderHCID, String receiverHCID, String direction) {
 
         XDREventType policyCheckReq = new XDREventType();
@@ -65,7 +65,7 @@ public class XDSPolicyChecker {
         policyCheckReq.setReceivingHomeCommunity(receiverHC);
 
         policyMsg.setAssertion(assertion);
-        policyMsg.setProvideAndRegisterDocumentSetRequest(message);
+        // policyMsg.setProvideAndRegisterDocumentSetRequest(request);
 
         policyCheckReq.setMessage(policyMsg);
 

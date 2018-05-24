@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -24,10 +24,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission.entity;
+package gov.hhs.fha.nhinc.docdatasubmission.entity;
 
-import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxy;
-import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxyObjectFactory;
+import gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.NhinDocDataSubmissionProxy;
+import gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.NhinDocDataSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
@@ -43,25 +43,25 @@ class OutboundDocSubmissionStrategyImpl_g1 implements OrchestrationStrategy {
 
     private static final Logger LOG = LoggerFactory.getLogger(OutboundDocSubmissionStrategyImpl_g1.class);
 
-    protected NhinDocSubmissionProxy getNhinDocSubmissionProxy() {
-        return new NhinDocSubmissionProxyObjectFactory().getNhinDocSubmissionProxy();
+    protected NhinDocDataSubmissionProxy getNhinDocSubmissionProxy() {
+        return new NhinDocDataSubmissionProxyObjectFactory().getNhinDocDataSubmissionProxy();
     }
 
     @Override
     public void execute(Orchestratable message) {
-        if (message instanceof OutboundDocSubmissionOrchestratable) {
-            execute((OutboundDocSubmissionOrchestratable) message);
+        if (message instanceof OutboundDocDataSubmissionOrchestratable) {
+            execute((OutboundDocDataSubmissionOrchestratable) message);
         } else {
             LOG.error("Not an OutboundDocSubmissionOrchestratable.");
         }
     }
 
-    public void execute(OutboundDocSubmissionOrchestratable message) {
+    public void execute(OutboundDocDataSubmissionOrchestratable message) {
         LOG.trace("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
 
-        NhinDocSubmissionProxy nhincDocSubmission = getNhinDocSubmissionProxy();
-        RegistryResponseType response = nhincDocSubmission.provideAndRegisterDocumentSetB(message.getRequest(),
-                message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
+        NhinDocDataSubmissionProxy nhincDocSubmission = getNhinDocSubmissionProxy();
+        RegistryResponseType response = nhincDocSubmission.registerDocumentSetB(message.getRequest(),
+            message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
         message.setResponse(response);
 
         LOG.trace("End OutboundDocSubmissionOrchestratableImpl_g1.process");

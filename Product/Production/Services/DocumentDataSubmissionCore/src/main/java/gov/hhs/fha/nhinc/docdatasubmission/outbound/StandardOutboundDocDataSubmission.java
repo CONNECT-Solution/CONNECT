@@ -58,8 +58,8 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
 
     @Override
     @OutboundProcessingEvent(beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-        serviceType = "Document Data Submission", version = "")
+    afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
+    serviceType = "Document Data Submission", version = "")
     public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType body, AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
@@ -167,15 +167,16 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
         return nhinResponse;
     }
 
-    private gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType createRequestForNhin(
+    private RespondingGatewayRegisterDocumentSetSecuredRequestType createRequestForNhin(
         RespondingGatewayRegisterDocumentSetSecuredRequestType request) {
 
-        gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType nhinRequest = new gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType();
+        RespondingGatewayRegisterDocumentSetSecuredRequestType nhinRequest = new RespondingGatewayRegisterDocumentSetSecuredRequestType();
 
-        nhinRequest.setNhinTargetSystem(
-            getMessageGeneratorUtils().convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities()));
-        nhinRequest.setRegisterDocumentSetRequest(request.getRegisterDocumentSetRequest());
-
+        /*
+         * nhinRequest.setNhinTargetSystem(
+         * getMessageGeneratorUtils().convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities()));
+         * nhinRequest.setRegisterDocumentSetRequest(request.getRegisterDocumentSetRequest());
+         */
         return nhinRequest;
     }
 
@@ -199,7 +200,7 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
             delegate);
         dsOrchestratable.setAssertion(assertion);
         dsOrchestratable.setRequest(request.getRegisterDocumentSetRequest());
-        dsOrchestratable.setTarget(request.getNhinTargetSystem());
+        // dsOrchestratable.setTarget(request.getNhinTargetSystem());
 
         return dsOrchestratable;
     }

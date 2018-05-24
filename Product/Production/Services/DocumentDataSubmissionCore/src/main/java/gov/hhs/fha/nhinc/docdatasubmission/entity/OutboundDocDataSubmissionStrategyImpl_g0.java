@@ -56,7 +56,7 @@ class OutboundDocDataSubmissionStrategyImpl_g0 implements OrchestrationStrategy 
         LOG.trace("Begin OutboundDocDataSubmissionOrchestratableImpl_g0.process");
 
         NhinDocDataSubmissionProxy nhincDocSubmission = getNhinDocDataSubmissionProxy();
-        RegistryResponseType response = nhincDocSubmission.RegisterDocumentSetB(message.getRequest(),
+        RegistryResponseType response = nhincDocSubmission.registerDocumentSetB(message.getRequest(),
             message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
         message.setResponse(response);
 

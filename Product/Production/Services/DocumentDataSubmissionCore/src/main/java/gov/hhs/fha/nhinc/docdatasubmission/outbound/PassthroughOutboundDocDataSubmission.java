@@ -26,6 +26,19 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.outbound;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
+import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 public class PassthroughOutboundDocDataSubmission implements OutboundDocDataSubmission {
+
+    @Override
+    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType body, AssertionType assertion,
+        NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

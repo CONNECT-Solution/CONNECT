@@ -114,7 +114,7 @@ public class StandardInboundDocDataSubmission extends AbstractInboundDocDataSubm
 
         String senderHCID = assertion.getHomeCommunity().getHomeCommunityId();
 
-        return policyChecker.checkXDSRequestPolicy(request, assertion, senderHCID, receiverHCID,
+        return policyChecker.checkXDRRequestPolicy(request, assertion, senderHCID, receiverHCID,
             POLICYENGINE_INBOUND_DIRECTION);
     }
 

@@ -33,7 +33,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class RegistryResponseTypeHolderBuilder extends ArgTransformerEventDescriptionBuilder {
 
     public RegistryResponseTypeHolderBuilder() {
-        setDelegate(new DeferredResponseDescriptionBuilder());
+        setDelegate(null);
     }
 
     @Override

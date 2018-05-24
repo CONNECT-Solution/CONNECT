@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -24,19 +24,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission.nhin.proxy.service;
+package gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.service;
 
 import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
-import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
+import ihe.iti.xds._2007.DocumentRegistryXDSPortType;
 
 
 /**
  * @author akong
  *
  */
-public abstract class AbstractServicePortDescriptor extends SOAP12ServicePortDescriptor<DocumentRepositoryXDRPortType> {
+public abstract class AbstractServicePortDescriptor extends SOAP12ServicePortDescriptor<DocumentRegistryXDSPortType> {
 
-    private static final String NAMESPACE_URI = "urn:ihe:iti:xdr:2007";
+    private static final String NAMESPACE_URI = "urn:ihe:iti:xds:2007";
     private static final String SERVICE_LOCAL_PART = "DocumentRepositoryXDR_Service";
     private static final String PORT_LOCAL_PART = "DocumentRepositoryXDR_Port_Soap";
 
@@ -53,8 +53,8 @@ public abstract class AbstractServicePortDescriptor extends SOAP12ServicePortDes
     }
 
     @Override
-    public Class<DocumentRepositoryXDRPortType> getPortClass() {
-        return DocumentRepositoryXDRPortType.class;
+    public Class<DocumentRegistryXDSPortType> getPortClass() {
+        return DocumentRegistryXDSPortType.class;
     }
 
 }
