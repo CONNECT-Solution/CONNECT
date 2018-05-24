@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<exchangeInfo xmlns="urn:gov:hhs:fha:nhinc:exchange" xmlns:ns2="urn:gov:hhs:fha:nhinc:exchange:directory">
+    <refreshInterval>1440</refreshInterval>
+    <maxNumberOfBackups>0</maxNumberOfBackups>
+    <defaultExchange>NationwideExchange</defaultExchange>
+    <exchanges>
+        <exchange type="uddiTest">
+            <name>StateExchange</name>
+            <url>https://testurl/uddi/list</url>
+            <organizationList>
+                <organization>
+                    <ns2:name>uddi:Conformance:urn:oid:1.1</ns2:name>
+                    <ns2:hcid>urn:oid:1.1</ns2:hcid>
+                    <ns2:contact>
+                        <ns2:fullName>Doe, John</ns2:fullName>
+                        <ns2:phone>333-999-8888</ns2:phone>
+                        <ns2:email>jdoe@stateExchange.com</ns2:email>
+                        <ns2:address>
+                            <ns2:addressLine>123 Main St</ns2:addressLine>
+                            <ns2:addressLine>City, VA</ns2:addressLine>
+                        </ns2:address>
+                    </ns2:contact>
+                    <ns2:endpointList>
+                        <ns2:endpoint>
+                            <ns2:description>This is an implementation of the eHealth Exchange PatientDiscovery Specification</ns2:description>
+                            <ns2:name>PatientDiscovery</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                   <ns2:url>https://stateExchange.com:443/CONNECTGateway/NhinService/NhinPatientDiscovery</ns2:url>
+                                   <ns2:version>1.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:description>This is an implementation of the eHealth Exchange QueryForDocuments Specification</ns2:description>
+                            <ns2:name>QueryForDocuments</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://stateExchange.com:443/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery</ns2:url>
+                                    <ns2:version>2.0</ns2:version>
+                            </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:description>This is an implementation of the eHealth Exchange RetrieveDocuments Specification</ns2:description>
+                            <ns2:name>RetrieveDocuments</ns2:name>
+                            <ns2:endpointConfigurationList>
+                            <ns2:endpointConfiguration>
+                                <ns2:url>https://stateExchange.com:443/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</ns2:url>
+                                <ns2:version>2.0</ns2:version>
+                            </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                    </ns2:endpointList>
+                    <ns2:targetRegion>US-MD</ns2:targetRegion>
+                </organization>
+            </organizationList>
+        </exchange>
+    </exchanges>
+</exchangeInfo>
