@@ -137,7 +137,7 @@ public class ExchangeManagerTest extends BaseExchangeManager {
             assertEquals("List of Organization returned should be 3", 3, orgList.size());
             for (OrganizationType org : orgList) {
                 if (HCID_3.equalsIgnoreCase(org.getHcid())) {
-                    verifyOverridesEndpoint(orgList.get(2).getEndpointList().getEndpoint());
+                    verifyOverridesEndpoint(org.getEndpointList().getEndpoint());
                 }
             }
         } catch (ExchangeManagerException ex) {
