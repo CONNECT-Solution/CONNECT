@@ -56,6 +56,7 @@ public class ExchangeManagerTest extends BaseExchangeManager {
 
     private static final String HCID_1 = "urn:oid:1.1";
     private static final String HCID_2 = "urn:oid:2.2";
+    private static final String HCID_3 = "urn:oid:3.3";
     private static final String DEFAULT_EXCHANGE = "NationwideExchange";
     private static final String STATE_EXCHANGE = "StateExchange";
     private static final String PD = "PatientDiscovery";
@@ -131,7 +132,11 @@ public class ExchangeManagerTest extends BaseExchangeManager {
         try {
             List<OrganizationType> orgList = exMgr.getAllOrganizations();
             assertEquals("List of Organization returned should be 3", 3, orgList.size());
-            verifyOverridesEndpoint(orgList.get(2).getEndpointList().getEndpoint());
+            for (OrganizationType org : orgList) {
+                if (HCID_3.equalsIgnoreCase(org.getHcid())) {
+                    verifyOverridesEndpoint(orgList.get(2).getEndpointList().getEndpoint());
+                }
+            }
         } catch (ExchangeManagerException ex) {
             fail("Error running testOverrideExchange: " + ex.getMessage());
         }
