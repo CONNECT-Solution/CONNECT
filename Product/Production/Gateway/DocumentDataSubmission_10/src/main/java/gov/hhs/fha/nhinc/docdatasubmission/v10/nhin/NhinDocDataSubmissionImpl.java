@@ -24,12 +24,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission;
+package gov.hhs.fha.nhinc.docdatasubmission.v10.nhin;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docdatasubmission.inbound.InboundDocDataSubmission;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-public interface DocDataSubmission {
+/**
+ * @author ttang
+ *
+ */
+public class NhinDocDataSubmissionImpl extends BaseService {
+    private InboundDocDataSubmission inboundDocDataSubmission;
 
-    public RegistryResponseType registerDocumentSetB(RespondingGatewayRegisterDocumentSetSecuredRequestType body);
+    public NhinDocDataSubmissionImpl(InboundDocDataSubmission inboundDocDataSubmission) {
+        this.inboundDocDataSubmission = inboundDocDataSubmission;
+    }
+
+    public RegistryResponseType documentRepositoryRegisterDocumentSetB(RegisterDocumentSetRequestType body,
+        WebServiceContext context) {
+        AssertionType assertion = getAssertion(context, null);
+
+        return inboundDocDataSubmission.documentRepositoryRegisterDocumentSetB(body, assertion,
+            getWebContextProperties(context));
+    }
 }

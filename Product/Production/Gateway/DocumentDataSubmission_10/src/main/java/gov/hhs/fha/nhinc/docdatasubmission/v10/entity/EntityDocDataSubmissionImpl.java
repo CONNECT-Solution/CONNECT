@@ -26,21 +26,62 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.v10.entity;
 
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION.SPEC_1_0;
+import static gov.hhs.fha.nhinc.util.NhinUtils.setTargetCommunitiesVersion;
+
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.docdatasubmission.DocDataSubmission;
+import gov.hhs.fha.nhinc.docdatasubmission.outbound.OutboundDocDataSubmission;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class EntityDocDataSubmissionImpl extends BaseService implements DocDataSubmission {
+class EntityDocDataSubmissionImpl extends BaseService {
 
     private static final Logger LOG = LoggerFactory.getLogger(EntityDocDataSubmissionImpl.class);
 
-    @Override
-    public RegistryResponseType registerDocumentSetB(RespondingGatewayRegisterDocumentSetSecuredRequestType body) {
-        LOG.debug("Hit service method. Body is {}", body.toString());
-        return new RegistryResponseType();
+    private OutboundDocDataSubmission outboundDocDataSubmission;
+
+    public EntityDocDataSubmissionImpl(OutboundDocDataSubmission outboundDocDataSubmission) {
+        this.outboundDocDataSubmission = outboundDocDataSubmission;
+    }
+
+    RegistryResponseType registerDocumentSetBUnsecured(RespondingGatewayRegisterDocumentSetRequestType request,
+        WebServiceContext context) {
+
+        RegistryResponseType response = null;
+
+        try {
+            setTargetCommunitiesVersion(request.getNhinTargetCommunities(), SPEC_1_0);
+            response = outboundDocDataSubmission.registerDocumentSetB(request.getRegisterDocumentSetRequest(),
+                request.getAssertion(), request.getNhinTargetCommunities(), request.getUrl());
+
+        } catch (Exception e) {
+            LOG.error("Failed to send request to Nwhin: {}", e);
+        }
+
+        return response;
+    }
+
+    RegistryResponseType registerDocumentSetBSecured(RespondingGatewayRegisterDocumentSetSecuredRequestType request,
+        WebServiceContext context) {
+
+        RegistryResponseType response = null;
+
+        try {
+            AssertionType assertion = getAssertion(context, null);
+            setTargetCommunitiesVersion(request.getNhinTargetCommunities(), SPEC_1_0);
+            response = outboundDocDataSubmission.registerDocumentSetB(request.getRegisterDocumentSetRequest(),
+                assertion, request.getNhinTargetCommunities(), request.getUrl());
+
+        } catch (Exception e) {
+            LOG.error("Failed to send request to Nwhin: {}", e);
+        }
+
+        return response;
     }
 
 
