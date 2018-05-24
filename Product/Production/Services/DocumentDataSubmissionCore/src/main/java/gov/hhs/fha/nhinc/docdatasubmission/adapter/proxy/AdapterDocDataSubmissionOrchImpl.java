@@ -39,7 +39,7 @@ public class AdapterDocDataSubmissionOrchImpl {
     public static RegistryResponseType provideAndRegisterDocumentSetB(RegisterDocumentSetRequestType msg,
         AssertionType assertion) {
         AdapterDocDataSubmissionProxyObjectFactory factory = new AdapterDocDataSubmissionProxyObjectFactory();
-        AdapterDocDataSubmissionProxy proxy = factory.getAdapterComponentDocSubmissionProxy();
+        AdapterDocDataSubmissionProxy proxy = factory.getAdapterDocDataSubmissionProxy();
 
         return proxy.registerDocumentSetB(msg, assertion);
     }
