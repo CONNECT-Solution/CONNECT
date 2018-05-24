@@ -32,13 +32,10 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-/**
- *
- * @author dunnek
- */
+
 public interface NhinDocDataSubmissionProxy {
 
-    public RegistryResponseType RegisterDocumentSetB(RegisterDocumentSetRequestType request, AssertionType assertion,
+    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType request, AssertionType assertion,
         NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel);
 
 }

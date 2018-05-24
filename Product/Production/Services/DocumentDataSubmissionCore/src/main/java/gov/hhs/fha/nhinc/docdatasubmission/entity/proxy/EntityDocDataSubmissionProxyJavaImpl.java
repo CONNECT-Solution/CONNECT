@@ -46,9 +46,9 @@ public class EntityDocDataSubmissionProxyJavaImpl implements EntityDocDataSubmis
     }
 
     @Override
-    public RegistryResponseType RegisterDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion,
+    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
-        return outboundDocDataSubmission.RegisterDocumentSetB(msg, assertion, targets, urlInfo);
+        return outboundDocDataSubmission.registerDocumentSetB(msg, assertion, targets, urlInfo);
     }
 }

@@ -34,6 +34,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public interface EntityDocDataSubmissionProxy {
 
-    public RegistryResponseType RegisterDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion,
+    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo);
 }
