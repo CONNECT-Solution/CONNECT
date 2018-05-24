@@ -1,4 +1,5 @@
 package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
+
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
@@ -31,6 +32,8 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 
 public class AdapterDocDataSubmissionProxyObjectFactory extends ComponentProxyObjectFactory {
+
+
     private static final String CONFIG_FILE_NAME = "DocumentDataSubmissionProxyConfig.xml";
     private static final String BEAN_NAME = "adapterdocdatasubmission";
 
@@ -39,7 +42,7 @@ public class AdapterDocDataSubmissionProxyObjectFactory extends ComponentProxyOb
         return CONFIG_FILE_NAME;
     }
 
-    public AdapterDocDataSubmissionProxy getAdapterComponentDocSubmissionProxy() {
+    public AdapterDocDataSubmissionProxy getAdapterDocDataSubmissionProxy() {
         return getBean(BEAN_NAME, AdapterDocDataSubmissionProxy.class);
     }
 

@@ -26,6 +26,115 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.inbound;
 
-public class StandardInboundDocDataSubmission implements InboundDocDataSubmission {
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.HOME_COMMUNITY_ID_PROPERTY;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.POLICYENGINE_INBOUND_DIRECTION;
+
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docdatasubmission.XDSPolicyChecker;
+import gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy.AdapterDocDataSubmissionProxyObjectFactory;
+import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.docdatasubmission.audit.DocDataSubmissionAuditLogger;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
+import java.util.Properties;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class StandardInboundDocDataSubmission extends AbstractInboundDocDataSubmission {
+
+    private static final Logger LOG = LoggerFactory.getLogger(StandardInboundDocDataSubmission.class);
+    private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private PropertyAccessor propertyAccessor;
+    private XDSPolicyChecker policyChecker;
+
+    /**
+     * Constructor.
+     */
+    public StandardInboundDocDataSubmission() {
+        this(new AdapterDocDataSubmissionProxyObjectFactory(), new XDSPolicyChecker(), PropertyAccessor.getInstance(),
+            new DocDataSubmissionAuditLogger());
+    }
+    /**
+     * Constructor with dependency injection of strategy components.
+     * @param adapterFactory
+     * @param policyChecker
+     * @param propertyAccessor
+     * @param auditLogger
+     */
+    public StandardInboundDocDataSubmission(AdapterDocDataSubmissionProxyObjectFactory adapterFactory,
+        XDSPolicyChecker policyChecker, PropertyAccessor propertyAccessor, DocDataSubmissionAuditLogger auditLogger) {
+        super(adapterFactory, auditLogger);
+        this.policyChecker = policyChecker;
+        this.propertyAccessor = propertyAccessor;
+    }
+
+
+    @Override
+    @InboundProcessingEvent(beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
+    afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Data Submission",
+    version = "")
+    public RegistryResponseType documentRepositoryRegisterDocumentSetB(RegisterDocumentSetRequestType body, AssertionType assertion, Properties webContextProperties) {
+
+        RegistryResponseType response = processDocDataSubmission(body, assertion, webContextProperties);
+
+        auditResponse(body, response, assertion, webContextProperties);
+
+        return response;
+    }
+
+    @Override
+    public RegistryResponseType processDocDataSubmission(RegisterDocumentSetRequestType body, AssertionType assertion,
+        Properties webContextProperties) {
+        RegistryResponseType response;
+
+        String localHCID = getLocalHCID();
+        if (isPolicyValid(body, assertion, localHCID)) {
+            response = sendToAdapter(body, assertion);
+        } else {
+            LOG.error("Failed policy check.  Sending error response.");
+            response = msgUtils.createFailedPolicyCheckResponse();
+        }
+
+        return response;
+    }
+
+    private boolean isPolicyValid(RegisterDocumentSetRequestType request, AssertionType assertion,
+        String receiverHCID) {
+
+        if (!hasHomeCommunityId(assertion)) {
+            LOG.warn("Failed policy check.  Received assertion does not have a home community id.");
+            return false;
+        }
+
+        String senderHCID = assertion.getHomeCommunity().getHomeCommunityId();
+
+        return policyChecker.checkXDSRequestPolicy(request, assertion, senderHCID, receiverHCID,
+            POLICYENGINE_INBOUND_DIRECTION);
+    }
+
+    private boolean hasHomeCommunityId(AssertionType assertion) {
+        if (assertion != null && assertion.getHomeCommunity() != null
+            && StringUtils.isNotBlank(assertion.getHomeCommunity().getHomeCommunityId())) {
+            return true;
+        }
+        return false;
+    }
+
+    private String getLocalHCID() {
+        String localHCID = "";
+        try {
+            localHCID = propertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+        } catch (PropertyAccessException ex) {
+            LOG.error("Failed to retrieve local HCID from properties file", ex);
+        }
+
+        return localHCID;
+    }
 
 }
