@@ -366,14 +366,13 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
     private static boolean isOverrideExchange(ExchangeType exchange) {
         return null != exchange.getOrganizationList()
             && CollectionUtils.isNotEmpty(exchange.getOrganizationList().getOrganization())
-            && StringUtils.isNotEmpty(exchange.getType()) && StringUtils.equalsIgnoreCase(
-            EXCHANGE_TYPE.OVERRIDES.toString(), exchange.getType());
+            && StringUtils.equalsIgnoreCase(EXCHANGE_TYPE.OVERRIDES.toString(), exchange.getType());
     }
 
     private void updateExchangeCache(ExchangeType ex) {
         if (null != ex.getOrganizationList()
             && CollectionUtils.isNotEmpty(ex.getOrganizationList().getOrganization())
-            && StringUtils.isNotEmpty(ex.getType()) && StringUtils.isNotEmpty(ex.getName())) {
+            && isValidExchangeType(ex.getType()) && StringUtils.isNotEmpty(ex.getName())) {
             Map<String, OrganizationType> innerMap = new HashMap<>();
             for (OrganizationType org : ex.getOrganizationList().getOrganization()) {
                 innerMap.put(org.getHcid(), org);
@@ -526,5 +525,15 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         String hcidWithPrefix = HomeCommunityMap.getHomeCommunityIdWithPrefix(requestHcid);
         return StringUtils.equalsIgnoreCase(hcidWithoutPrefix, overrideHcid) || StringUtils.endsWithIgnoreCase(
             hcidWithPrefix, overrideHcid);
+    }
+
+    private boolean isValidExchangeType(String type) {
+        for (EXCHANGE_TYPE exType : EXCHANGE_TYPE.values()) {
+            if (StringUtils.equalsIgnoreCase(exType.getValue(), type)) {
+                return true;
+            }
+        }
+        LOG.warn("Incorrect Exchange type in exchangeInfo.xml {}", type);
+        return false;
     }
 }

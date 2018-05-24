@@ -168,6 +168,16 @@ public class ExchangeManagerTest extends BaseExchangeManager {
         }
     }
 
+    @Test
+    public void testInvalidExchange() {
+        ExchangeManager exMgr = createExchangeManagerWithInvalidExType();
+        try {
+            assertTrue(exMgr.getCache().isEmpty());
+        } catch (ExchangeManagerException ex) {
+            fail("Error running testInvalidExchange: " + ex.getMessage());
+        }
+    }
+
     private Exchange<UDDI_SPEC_VERSION> createExternalExchangeManager() {
         return new ExchangeManager() {
             @Override
@@ -212,6 +222,16 @@ public class ExchangeManagerTest extends BaseExchangeManager {
             protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
                 return createExchangeInfoDAO(
                     "/config/ExchangeManagerTest/exchangeInfoTestWithOverrides.xml");
+            }
+        };
+    }
+
+    private ExchangeManager createExchangeManagerWithInvalidExType() {
+        return new ExchangeManager() {
+            @Override
+            protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
+                return createExchangeInfoDAO(
+                    "/config/ExchangeManagerTest/exchangeInfoWithInvalidType.xml");
             }
         };
     }
