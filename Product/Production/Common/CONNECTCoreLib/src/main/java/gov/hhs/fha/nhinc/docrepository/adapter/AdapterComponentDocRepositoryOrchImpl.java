@@ -564,7 +564,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
      *
      * @return document repository ID from adapter properties
      */
-    private String getDefaultRepositoryId() {
+    private static String getDefaultRepositoryId() {
         return PropertyAccessor.getInstance().getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME,
             NhincConstants.XDS_REPOSITORY_ID, REPOSITORY_UNIQUE_ID);
     }
