@@ -484,7 +484,7 @@
     <profile>
       <id>DDS</id>
       <activation>
-        <activeByDefault>true</activeByDefault>
+        <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
         <dds.excluded>false</dds.excluded>
