@@ -404,8 +404,7 @@ public class NhincConstants {
     public static final String XDR_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     public static final String XDR_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
     public static final String XDR_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    // XDS Constants
-    public static final String NHINC_XDS_SERVICE_NAME = "DocDataSubmission";
+
     // Administrative Distribution Constants
     public static final String ADMIN_DIST_SERVICE_NAME = "admindist";
     public static final String NHIN_ADMIN_DIST_SERVICE_NAME = "AdminDistribution";
@@ -555,6 +554,7 @@ public class NhincConstants {
     public static final String JAXB_HL7_CONTEXT_NAME_HL7_V3 = "org.hl7.v3";
 
     // Doc Data Submission
+    public static final String NHINC_XDS_SERVICE_NAME = "DocDataSubmission";
     public static final String ADAPTER_XDS_SERVICE_NAME = "adapterxds";
     public static final String ADAPTER_XDS_SECURED_SERVICE_NAME = "adapterxdssecured";
 

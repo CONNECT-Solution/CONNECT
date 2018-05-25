@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.adapterxds.AdapterXDSPortType;
 import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 
-public class AdapterDocDataSubmissionUnsecuredServicePortDescriptor extends
+public class AdapterDocDataSubmissionServicePortDescriptor extends
     SOAP12ServicePortDescriptor<AdapterXDSPortType> {
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adaptercomponentxds:RegisterDocumentSet-b";
 

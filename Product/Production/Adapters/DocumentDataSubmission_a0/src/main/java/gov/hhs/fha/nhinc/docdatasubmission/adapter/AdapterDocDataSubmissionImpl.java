@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docdatasubmission.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.docrepository.adapter.AdapterComponentDocRepositoryOrchImpl;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
@@ -35,18 +36,17 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class AdapterDocDataSubmissionImpl extends BaseService {
 
-    public RegistryResponseType provideAndRegisterDocumentSetb(RegisterDocumentSetRequestType body,
+    public RegistryResponseType registerDocumentSetb(RegisterDocumentSetRequestType body,
         WebServiceContext context) {
-        AssertionType assertion = getAssertion(context, null);
-
-        return AdapterDocDataSubmissionOrchImpl.registerDocumentSetB(body, assertion);
+        return registerDocumentSetb(body, getAssertion(context, null));
     }
 
-    public RegistryResponseType provideAndRegisterDocumentSetb(AdapterRegisterDocumentSetRequestType body,
+    public RegistryResponseType registerDocumentSetb(AdapterRegisterDocumentSetRequestType body,
         WebServiceContext context) {
-        AssertionType assertion = getAssertion(context, body.getAssertion());
+        return registerDocumentSetb(body.getRegisterDocumentSetRequest(), getAssertion(context, body.getAssertion()));
+    }
 
-        return AdapterDocDataSubmissionOrchImpl
-            .registerDocumentSetB(body.getRegisterDocumentSetRequest(), assertion);
+    public RegistryResponseType registerDocumentSetb(RegisterDocumentSetRequestType body, AssertionType assertion) {
+        return new AdapterComponentDocRepositoryOrchImpl().registerDocumentSet(body);
     }
 }

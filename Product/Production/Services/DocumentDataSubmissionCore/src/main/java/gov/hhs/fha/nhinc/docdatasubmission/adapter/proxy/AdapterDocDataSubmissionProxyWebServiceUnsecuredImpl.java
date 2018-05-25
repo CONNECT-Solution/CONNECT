@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 import gov.hhs.fha.nhinc.adapterxds.AdapterXDSPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.docdatasubmission.adapter.descriptor.AdapterDocDataSubmissionUnsecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.docdatasubmission.adapter.descriptor.AdapterDocDataSubmissionServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -60,7 +60,7 @@ public class AdapterDocDataSubmissionProxyWebServiceUnsecuredImpl implements Ada
                 request.setRegisterDocumentSetRequest(msg);
                 request.setAssertion(assertion);
 
-                ServicePortDescriptor<AdapterXDSPortType> portDescriptor = new AdapterDocDataSubmissionUnsecuredServicePortDescriptor();
+                ServicePortDescriptor<AdapterXDSPortType> portDescriptor = new AdapterDocDataSubmissionServicePortDescriptor();
 
                 CONNECTClient<AdapterXDSPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientUnsecured(portDescriptor, url, assertion);

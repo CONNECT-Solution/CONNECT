@@ -209,44 +209,16 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     @Test
     public void testDocumentRepositoryProvideAndRegisterDocumentSet_Success() {
         ProvideAndRegisterDocumentSetRequestType body = mock(ProvideAndRegisterDocumentSetRequestType.class);
-        final HashMap<String, DataHandler> docMap = mock(HashMap.class);
+        final HashMap<String, DataHandler> docMap = new HashMap<String, DataHandler>();
         SubmitObjectsRequest submitObjectsRequest = mock(SubmitObjectsRequest.class);
         RegistryObjectListType regObjectList = mock(RegistryObjectListType.class);
-        List<JAXBElement<? extends IdentifiableType>> identifiableObjectList = mock(List.class);
+        List<JAXBElement<? extends IdentifiableType>> identifiableObjectList = new ArrayList<JAXBElement<? extends IdentifiableType>>();
 
-        AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl() {
-            @Override
-            public AdapterComponentDocRepositoryHelper getHelper() {
-                return new AdapterComponentDocRepositoryHelper() {
-                    @Override
-                    HashMap<String, DataHandler> getDocumentMap(
-                        ProvideAndRegisterDocumentSetRequestType body) {
-                        return docMap;
-                    }
-                };
-            }
-
-            @Override
-            protected DocumentMetadata setDocument(
-                List<JAXBElement<? extends IdentifiableType>> identifiableObjectList,
-                RegistryErrorList errorList, int i, HashMap<String, DataHandler> docMap,
-                boolean requestHasReplacementAssociation) {
-                return null;
-            }
-
-            @Override
-            protected boolean checkForReplacementAssociation(
-                List<JAXBElement<? extends IdentifiableType>> identifiableObjectList,
-                RegistryErrorList errorList) {
-                return true;
-            }
-        };
+        AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl();
 
         when(body.getSubmitObjectsRequest()).thenReturn(submitObjectsRequest);
         when(submitObjectsRequest.getRegistryObjectList()).thenReturn(regObjectList);
         when(regObjectList.getIdentifiable()).thenReturn(identifiableObjectList);
-
-        when(identifiableObjectList.size()).thenReturn(1);
 
         RegistryResponseType registryResponse = docRepo.documentRepositoryProvideAndRegisterDocumentSet(body);
 
@@ -271,15 +243,13 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     @Test
     public void testCheckForReplacementAssociation_Success() {
         RegistryErrorList errorList = new RegistryErrorList();
-        List<JAXBElement<? extends IdentifiableType>> identifiableObjectList = mock(
-            ArrayList.class);
+        List<JAXBElement<? extends IdentifiableType>> identifiableObjectList = mock(ArrayList.class);
         final AssociationType1 associationType1 = new AssociationType1();
         associationType1.setAssociationType("urn:oasis:names:tc:ebxml-regrep:AssociationType:RPLC");
         AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl() {
             @Override
             protected Object getIdentifiableObjectValue(
-                List<JAXBElement<? extends IdentifiableType>> identifiableObjectList,
-                int i) {
+                List<JAXBElement<? extends IdentifiableType>> identifiableObjectList, int i) {
                 return associationType1;
             }
         };
@@ -292,15 +262,13 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     @Test
     public void testCheckForReplacementAssociation_Failure() {
         RegistryErrorList errorList = new RegistryErrorList();
-        List<JAXBElement<? extends IdentifiableType>> identifiableObjectList = mock(
-            ArrayList.class);
+        List<JAXBElement<? extends IdentifiableType>> identifiableObjectList = mock(ArrayList.class);
         final AssociationType1 associationType1 = new AssociationType1();
 
         AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl() {
             @Override
             protected Object getIdentifiableObjectValue(
-                List<JAXBElement<? extends IdentifiableType>> identifiableObjectList,
-                int i) {
+                List<JAXBElement<? extends IdentifiableType>> identifiableObjectList, int i) {
                 return associationType1;
             }
         };
@@ -313,8 +281,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     }
 
     @Test
-    public void testSetDocument_SuccessALL() throws IOException {
-        List<JAXBElement<? extends IdentifiableType>> identifiableObjectList = mock(ArrayList.class);
+    public void testSaveExtrinsicObject_SuccessALL() throws IOException {
         final ExtrinsicObjectType extrinsicObject = mock(ExtrinsicObjectType.class);
 
         List<ExternalIdentifierType> externalIdentifierList = new ArrayList<>();
@@ -365,7 +332,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         final String RAW_DATA = "Raw Data";
         final String STATUS = "Status";
 
-        AdapterComponentDocRepositoryOrchImpl docRepo = getDocRepoWithMutipleOverrides(extrinsicObject);
+        AdapterComponentDocRepositoryOrchImpl docRepo = getDocRepoWithMutipleOverrides();
 
         when(extrinsicObject.getExternalIdentifier()).thenReturn(externalIdentifierList);
         when(externalIdentifier.getName()).thenReturn(name);
@@ -403,7 +370,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
 
         when(extrinsicObject.getStatus()).thenReturn(STATUS);
 
-        DocumentMetadata doc = docRepo.setDocument(identifiableObjectList, errorList, 0, docMap, true);
+        DocumentMetadata doc = docRepo.saveExtrinsicObject(extrinsicObject, errorList, docMap, true);
 
         assertEquals(PATIENT_ID_NO_QUOTES, doc.getPatientId());
         assertEquals(DOCUMENT_TITLE, doc.getDocumentTitle());
@@ -426,7 +393,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
 
     protected RetrieveDocumentSetRequestType createDocumentRequest_Success() {
 
-        ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType requestBody = new ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType();
+        RetrieveDocumentSetRequestType requestBody = new RetrieveDocumentSetRequestType();
         DocumentRequest req1 = new DocumentRequest();
         req1.setDocumentUniqueId("1.546.678");
         req1.setHomeCommunityId("1.1");
@@ -640,7 +607,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         when(classificationType.getName()).thenReturn(internationalString);
         when(internationalString.getLocalizedString()).thenReturn(eventCodeDisplayNameList);
 
-        docRepo.extractEventCodes(classifications, doc);
+        docRepo.extractEventCodes(doc, classifications);
 
         EventCode event = doc.getEventCodes().iterator().next();
 
@@ -706,41 +673,26 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         return docRepo;
     }
 
-    private AdapterComponentDocRepositoryOrchImpl getDocRepoWithMutipleOverrides(
-        final ExtrinsicObjectType extrinsicObject) {
+    private AdapterComponentDocRepositoryOrchImpl getDocRepoWithMutipleOverrides() {
         AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl() {
-            @Override
-            protected Object getExtrinsicObjectValue(
-                List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
-                int i) {
-                return extrinsicObject;
-            }
 
             @Override
             protected void setDocumentPidObjects(DocumentMetadata doc,
-                List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots) {
+                List<SlotType1> documentSlots) {
                 // Do nothing
             }
 
             @Override
             protected void setDocumentObjectsFromClassifications(DocumentMetadata doc,
-                List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications) {
+                List<ClassificationType> classifications) {
                 // Do nothing
             }
 
             @Override
-            protected void extractEventCodes(
-                List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
-                gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata doc) {
+            protected void extractEventCodes(DocumentMetadata doc, List<ClassificationType> classifications) {
                 // Do nothing
             }
 
-            @Override
-            protected void logDeclaredType(
-                List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
-                int i) {
-                // Do nothing
-            }
 
             @Override
             public LargeFileUtils getLargeFileUtils() {
