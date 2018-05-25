@@ -26,7 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.v10.entity;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docdatasubmission.outbound.OutboundDocDataSubmission;
 import gov.hhs.fha.nhinc.entityxds.EntityXDSPortType;
 import javax.annotation.Resource;
@@ -35,14 +38,10 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 import javax.xml.ws.soap.SOAPBinding;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocDataSubmissionUnsecured implements EntityXDSPortType {
-
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDocDataSubmissionUnsecured.class);
 
     @Resource
     private WebServiceContext context;
@@ -63,9 +62,10 @@ public class EntityDocDataSubmissionUnsecured implements EntityXDSPortType {
     }
 
     @Override
-    public RegistryResponseType registerDocumentSetB(RespondingGatewayRegisterDocumentSetRequestType arg0) {
-        LOG.debug("Calling service with context {} and outbound submission class {}", context,
-            outboundDocDataSubmission.getClass().getName());
-        return new RegistryResponseType();
+    @OutboundMessageEvent(beforeBuilder = DocDataSubmissionArgTransformerBuilder.class,
+    afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
+    serviceType = "Document Data Submission", version = "1.0")
+    public RegistryResponseType registerDocumentSetB(RespondingGatewayRegisterDocumentSetRequestType body) {
+        return new EntityDocDataSubmissionImpl(outboundDocDataSubmission).registerDocumentSetBUnsecured(body, context);
     }
 }
