@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="DocRegistryAndRepository" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="c42c580c-833f-485d-bb90-a4a76c4125d4" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="DocRegistryAndRepository" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="c42c580c-833f-485d-bb90-a4a76c4125d4" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="../../../target/wsdl/AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="ca87465f-3732-4970-897e-5ff782d05efb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -329,8 +329,7 @@
       </con:testStep>
       <con:testStep name="Delete Document" type="groovy" id="c63cdcb9-31f8-4b65-8072-4cf2b3836df1">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('DocRepositoryDB') { sql -> 
+        <con:config><script>context.withSql('DocRepositoryDB') { sql -> 
   def table = context.findProperty('DocumentTable')
   def col = context.findProperty('DocCol')
   def val = context.findProperty('DocVal')
@@ -340,27 +339,29 @@
   def val1 = context.findProperty('EventVal')
 
   sql.execute('delete from ' + table1 + ' where ' + col1 + ' = ' + val1)
+  sql.execute("delete from docrepository where DocumentUniqueId like (select DocumentUniqueId from " + table + " where " + col + " = " + val +")" )
   sql.execute("delete from " + table + " where " + col + " = " + val )
-}</script>
-        </con:config>
+  
+  
+}</script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-27T05:00:46Z</con:value>
+          <con:value>2018-05-25T18:26:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-27T05:10:46Z</con:value>
+          <con:value>2018-05-25T18:36:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/27/2013 05:00:46</con:value>
+          <con:value>05/25/2018 18:26:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-27T00:00:00Z</con:value>
+          <con:value>2018-06-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -706,7 +707,7 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
               <con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -1052,8 +1053,7 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
       </con:testStep>
       <con:testStep name="Delete Document" type="groovy" id="e8783308-52e2-4cec-a77d-e5a475bece7a">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('DocRepositoryDB') { sql -> 
+        <con:config><script>context.withSql('DocRepositoryDB') { sql -> 
   def table = context.findProperty('DocumentTable')
   def col = context.findProperty('DocCol')
   def val = context.findProperty('DocVal1')
@@ -1065,27 +1065,27 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
   def val2 = context.findProperty('EventVal2');
 
   sql.execute('delete from ' + table1 + ' where ' + col1 + ' = ' + val1 )
+  sql.execute("delete from docrepository where DocumentUniqueId like (select DocumentUniqueId from " + table + " where " + col + " = " + val +")" )
   sql.execute("delete from " + table + " where " + col + " = " + val )
-}</script>
-        </con:config>
+}</script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-27T05:00:46Z</con:value>
+          <con:value>2018-05-25T18:26:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-27T05:10:46Z</con:value>
+          <con:value>2018-05-25T18:36:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/27/2013 05:00:46</con:value>
+          <con:value>05/25/2018 18:26:59</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-27T00:00:00Z</con:value>
+          <con:value>2018-06-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1386,8 +1386,7 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
       </con:testStep>
       <con:testStep name="Delete Document" type="groovy" id="a1ce91d6-ba73-4d2d-bd33-27b0d062429c">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('DocRepositoryDB') { sql -> 
+        <con:config><script>context.withSql('DocRepositoryDB') { sql -> 
   def table = context.findProperty('DocumentTable')
   def col = context.findProperty('DocCol')
   def val = context.findProperty('DocVal')
@@ -1397,28 +1396,28 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
   def val1 = context.findProperty('EventVal')
 
   sql.execute('delete from ' + table1 + ' where ' + col1 + ' = ' + val1)
+  sql.execute("delete from docrepository where DocumentUniqueId like (select DocumentUniqueId from " + table + " where " + col + " = " + val +")" )
   sql.execute("delete from " + table + " where " + col + " = " + val )
-}</script>
-        </con:config>
+}</script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-27T05:00:49Z</con:value>
+          <con:value>2018-05-25T18:27:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-27T05:10:49Z</con:value>
+          <con:value>2018-05-25T18:37:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/27/2013 05:00:49</con:value>
+          <con:value>05/25/2018 18:27:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-27T00:00:00Z</con:value>
+          <con:value>2018-06-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2111,8 +2110,7 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
       </con:testStep>
       <con:testStep name="Delete Document" type="groovy" id="ef504314-e7e5-4296-ab63-b518feb30cb6">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('DocRepositoryDB') { sql -> 
+        <con:config><script>context.withSql('DocRepositoryDB') { sql -> 
   def table = context.findProperty('DocumentTable')
   def col = context.findProperty('DocCol')
   def val = context.findProperty('DocVal1')
@@ -2124,28 +2122,28 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
   def val2 = context.findProperty('EventVal2');
 
   sql.execute('delete from ' + table1 + ' where ' + col1 + ' = ' + val1 )
+  sql.execute("delete from docrepository where DocumentUniqueId like (select DocumentUniqueId from " + table + " where " + col + " = " + val +")" )
   sql.execute("delete from " + table + " where " + col + " = " + val )
-}</script>
-        </con:config>
+}</script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);</con:setupScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-27T05:00:49Z</con:value>
+          <con:value>2018-05-25T18:27:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-27T05:10:49Z</con:value>
+          <con:value>2018-05-25T18:37:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/27/2013 05:00:49</con:value>
+          <con:value>05/25/2018 18:27:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-27T00:00:00Z</con:value>
+          <con:value>2018-06-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2183,7 +2181,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
     </con:property>
     <con:property>
       <con:name>DocumentTable</con:name>
-      <con:value>document</con:value>
+      <con:value>docregistry</con:value>
     </con:property>
     <con:property>
       <con:name>DocVal</con:name>
@@ -2227,7 +2225,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value></con:value>
+      <con:value/>
     </con:property>
     <con:property>
       <con:name>ASUsername</con:name>

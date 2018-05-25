@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.properties;
 
+import org.apache.commons.lang3.StringUtils;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.File;
 import java.util.Properties;
@@ -92,6 +93,18 @@ public class PropertyAccessor implements IPropertyAcessor {
         loadPropertyFile(propertyFile);
 
         return propertyFileDAO.getProperty(propertyFile, propertyName);
+    }
+
+    @Override
+    public synchronized String getProperty(String propertyFile, String propertyName, String defaultValue) {
+        String result = null;
+        try {
+            result = getProperty(propertyFile, propertyName);
+        } catch (PropertyAccessException e) {
+            LOG.error("Fail to retrieve {} from {}.property file", propertyName, propertyFile, e.getLocalizedMessage(),
+                e);
+        }
+        return StringUtils.isNotBlank(result) ? result : defaultValue;
     }
 
     /**
