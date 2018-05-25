@@ -66,6 +66,8 @@ public class EntityDocDataSubmissionUnsecured implements EntityXDSPortType {
     public RegistryResponseType registerDocumentSetB(RespondingGatewayRegisterDocumentSetRequestType arg0) {
         LOG.debug("Calling service with context {} and outbound submission class {}", context,
             outboundDocDataSubmission.getClass().getName());
-        return new RegistryResponseType();
+        RegistryResponseType rt = new RegistryResponseType();
+        rt.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success");
+        return rt;
     }
 }

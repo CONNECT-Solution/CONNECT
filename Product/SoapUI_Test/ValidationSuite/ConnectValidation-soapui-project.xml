@@ -796,7 +796,430 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:testSuite name="g1" id="15648530-46ad-479d-a785-8ee44ec5cd39">
+  <con:interface xsi:type="con:WsdlInterface" id="b3763060-06df-4642-b408-d19d339d8491" wsaVersion="NONE" name="EntityXDS_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityxds}EntityXDS_Binding" soapVersion="1_2" anonymous="optional" definition="../target/wsdl/EntityDDS.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint></con:endpoints><con:operation id="ed7ecd3d-a522-41a2-8e68-8bbaf99171c6" isOneWay="false" action="" name="RegisterDocumentSet-b" bindingOperationName="RegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6b3ed630-ca38-4c60-b007-894af6ea344f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">\r
+   <soap:Header/>\r
+   <soap:Body>\r
+      <urn:RespondingGateway_RegisterDocumentSetRequest>\r
+         <urn:assertion>\r
+            <!--Optional:-->\r
+            <urn1:address>\r
+               <urn1:addressType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:addressType>\r
+               <urn1:city>?</urn1:city>\r
+               <urn1:country>?</urn1:country>\r
+               <urn1:state>?</urn1:state>\r
+               <urn1:streetAddress>?</urn1:streetAddress>\r
+               <urn1:zipCode>?</urn1:zipCode>\r
+            </urn1:address>\r
+            <!--Optional:-->\r
+            <urn1:dateOfBirth>?</urn1:dateOfBirth>\r
+            <!--Optional:-->\r
+            <urn1:explanationNonClaimantSignature>?</urn1:explanationNonClaimantSignature>\r
+            <!--Optional:-->\r
+            <urn1:haveSecondWitnessSignature>?</urn1:haveSecondWitnessSignature>\r
+            <!--Optional:-->\r
+            <urn1:haveSignature>?</urn1:haveSignature>\r
+            <!--Optional:-->\r
+            <urn1:haveWitnessSignature>?</urn1:haveWitnessSignature>\r
+            <urn1:homeCommunity>\r
+               <!--Optional:-->\r
+               <urn1:description>?</urn1:description>\r
+               <urn1:homeCommunityId>?</urn1:homeCommunityId>\r
+               <!--Optional:-->\r
+               <urn1:name>?</urn1:name>\r
+            </urn1:homeCommunity>\r
+            <!--Optional:-->\r
+            <urn1:nationalProviderId>?</urn1:nationalProviderId>\r
+            <!--Optional:-->\r
+            <urn1:personName>\r
+               <urn1:familyName>?</urn1:familyName>\r
+               <urn1:givenName>?</urn1:givenName>\r
+               <urn1:nameType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:nameType>\r
+               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>\r
+               <urn1:fullName>?</urn1:fullName>\r
+               <urn1:prefix>?</urn1:prefix>\r
+               <urn1:suffix>?</urn1:suffix>\r
+            </urn1:personName>\r
+            <!--Optional:-->\r
+            <urn1:phoneNumber>\r
+               <urn1:areaCode>?</urn1:areaCode>\r
+               <urn1:countryCode>?</urn1:countryCode>\r
+               <urn1:extension>?</urn1:extension>\r
+               <urn1:localNumber>?</urn1:localNumber>\r
+               <urn1:phoneNumberType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:phoneNumberType>\r
+            </urn1:phoneNumber>\r
+            <!--Optional:-->\r
+            <urn1:secondWitnessAddress>\r
+               <urn1:addressType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:addressType>\r
+               <urn1:city>?</urn1:city>\r
+               <urn1:country>?</urn1:country>\r
+               <urn1:state>?</urn1:state>\r
+               <urn1:streetAddress>?</urn1:streetAddress>\r
+               <urn1:zipCode>?</urn1:zipCode>\r
+            </urn1:secondWitnessAddress>\r
+            <!--Optional:-->\r
+            <urn1:secondWitnessName>\r
+               <urn1:familyName>?</urn1:familyName>\r
+               <urn1:givenName>?</urn1:givenName>\r
+               <urn1:nameType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:nameType>\r
+               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>\r
+               <urn1:fullName>?</urn1:fullName>\r
+               <urn1:prefix>?</urn1:prefix>\r
+               <urn1:suffix>?</urn1:suffix>\r
+            </urn1:secondWitnessName>\r
+            <!--Optional:-->\r
+            <urn1:secondWitnessPhone>\r
+               <urn1:areaCode>?</urn1:areaCode>\r
+               <urn1:countryCode>?</urn1:countryCode>\r
+               <urn1:extension>?</urn1:extension>\r
+               <urn1:localNumber>?</urn1:localNumber>\r
+               <urn1:phoneNumberType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:phoneNumberType>\r
+            </urn1:secondWitnessPhone>\r
+            <!--Optional:-->\r
+            <urn1:SSN>?</urn1:SSN>\r
+            <!--Zero or more repetitions:-->\r
+            <urn1:uniquePatientId>?</urn1:uniquePatientId>\r
+            <!--Optional:-->\r
+            <urn1:witnessAddress>\r
+               <urn1:addressType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:addressType>\r
+               <urn1:city>?</urn1:city>\r
+               <urn1:country>?</urn1:country>\r
+               <urn1:state>?</urn1:state>\r
+               <urn1:streetAddress>?</urn1:streetAddress>\r
+               <urn1:zipCode>?</urn1:zipCode>\r
+            </urn1:witnessAddress>\r
+            <!--Optional:-->\r
+            <urn1:witnessName>\r
+               <urn1:familyName>?</urn1:familyName>\r
+               <urn1:givenName>?</urn1:givenName>\r
+               <urn1:nameType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:nameType>\r
+               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>\r
+               <urn1:fullName>?</urn1:fullName>\r
+               <urn1:prefix>?</urn1:prefix>\r
+               <urn1:suffix>?</urn1:suffix>\r
+            </urn1:witnessName>\r
+            <!--Optional:-->\r
+            <urn1:witnessPhone>\r
+               <urn1:areaCode>?</urn1:areaCode>\r
+               <urn1:countryCode>?</urn1:countryCode>\r
+               <urn1:extension>?</urn1:extension>\r
+               <urn1:localNumber>?</urn1:localNumber>\r
+               <urn1:phoneNumberType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:phoneNumberType>\r
+            </urn1:witnessPhone>\r
+            <urn1:userInfo>\r
+               <urn1:personName>\r
+                  <urn1:familyName>?</urn1:familyName>\r
+                  <urn1:givenName>?</urn1:givenName>\r
+                  <urn1:nameType>\r
+                     <urn1:code>?</urn1:code>\r
+                     <!--Optional:-->\r
+                     <urn1:codeSystem>?</urn1:codeSystem>\r
+                     <!--Optional:-->\r
+                     <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                     <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                     <urn1:displayName>?</urn1:displayName>\r
+                     <urn1:originalText>?</urn1:originalText>\r
+                     <!--Zero or more repetitions:-->\r
+                     <urn1:translation/>\r
+                  </urn1:nameType>\r
+                  <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>\r
+                  <urn1:fullName>?</urn1:fullName>\r
+                  <urn1:prefix>?</urn1:prefix>\r
+                  <urn1:suffix>?</urn1:suffix>\r
+               </urn1:personName>\r
+               <urn1:userName>?</urn1:userName>\r
+               <urn1:org>\r
+                  <!--Optional:-->\r
+                  <urn1:description>?</urn1:description>\r
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>\r
+                  <!--Optional:-->\r
+                  <urn1:name>?</urn1:name>\r
+               </urn1:org>\r
+               <urn1:roleCoded>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:roleCoded>\r
+            </urn1:userInfo>\r
+            <urn1:authorized>?</urn1:authorized>\r
+            <urn1:purposeOfDisclosureCoded>\r
+               <urn1:code>?</urn1:code>\r
+               <!--Optional:-->\r
+               <urn1:codeSystem>?</urn1:codeSystem>\r
+               <!--Optional:-->\r
+               <urn1:codeSystemName>?</urn1:codeSystemName>\r
+               <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+               <urn1:displayName>?</urn1:displayName>\r
+               <urn1:originalText>?</urn1:originalText>\r
+               <!--Zero or more repetitions:-->\r
+               <urn1:translation/>\r
+            </urn1:purposeOfDisclosureCoded>\r
+            <!--Optional:-->\r
+            <urn1:acpAttribute>?</urn1:acpAttribute>\r
+            <!--Optional:-->\r
+            <urn1:instanceAcpAttribute>?</urn1:instanceAcpAttribute>\r
+            <!--Optional:-->\r
+            <urn1:samlConditions>\r
+               <urn1:notBefore>?</urn1:notBefore>\r
+               <urn1:notOnOrAfter>?</urn1:notOnOrAfter>\r
+            </urn1:samlConditions>\r
+            <!--Optional:-->\r
+            <urn1:samlAuthnStatement>\r
+               <urn1:authInstant>?</urn1:authInstant>\r
+               <!--Optional:-->\r
+               <urn1:sessionIndex>?</urn1:sessionIndex>\r
+               <urn1:authContextClassRef>?</urn1:authContextClassRef>\r
+               <!--Optional:-->\r
+               <urn1:subjectLocalityAddress>?</urn1:subjectLocalityAddress>\r
+               <!--Optional:-->\r
+               <urn1:subjectLocalityDNSName>?</urn1:subjectLocalityDNSName>\r
+            </urn1:samlAuthnStatement>\r
+            <!--Optional:-->\r
+            <urn1:samlAuthzDecisionStatement>\r
+               <!--Optional:-->\r
+               <urn1:decision>?</urn1:decision>\r
+               <!--Optional:-->\r
+               <urn1:resource>?</urn1:resource>\r
+               <!--Optional:-->\r
+               <urn1:action>?</urn1:action>\r
+               <!--Optional:-->\r
+               <urn1:evidence>\r
+                  <!--Optional:-->\r
+                  <urn1:assertion>\r
+                     <!--Optional:-->\r
+                     <urn1:id>?</urn1:id>\r
+                     <!--Optional:-->\r
+                     <urn1:issueInstant>?</urn1:issueInstant>\r
+                     <!--Optional:-->\r
+                     <urn1:version>?</urn1:version>\r
+                     <!--Optional:-->\r
+                     <urn1:issuer>?</urn1:issuer>\r
+                     <!--Optional:-->\r
+                     <urn1:issuerFormat>?</urn1:issuerFormat>\r
+                     <!--Optional:-->\r
+                     <urn1:subject>?</urn1:subject>\r
+                     <!--Optional:-->\r
+                     <urn1:conditions>\r
+                        <!--Optional:-->\r
+                        <urn1:notBefore>?</urn1:notBefore>\r
+                        <!--Optional:-->\r
+                        <urn1:notOnOrAfter>?</urn1:notOnOrAfter>\r
+                     </urn1:conditions>\r
+                     <!--Zero or more repetitions:-->\r
+                     <urn1:accessConsentPolicy>?</urn1:accessConsentPolicy>\r
+                     <!--Zero or more repetitions:-->\r
+                     <urn1:instanceAccessConsentPolicy>?</urn1:instanceAccessConsentPolicy>\r
+                  </urn1:assertion>\r
+               </urn1:evidence>\r
+            </urn1:samlAuthzDecisionStatement>\r
+            <!--Optional:-->\r
+            <urn1:samlSignature>\r
+               <!--Optional:-->\r
+               <urn1:keyInfo>\r
+                  <!--Optional:-->\r
+                  <urn1:rsaKeyValueModulus>cid:583957366117</urn1:rsaKeyValueModulus>\r
+                  <!--Optional:-->\r
+                  <urn1:rsaKeyValueExponent>cid:607070465995</urn1:rsaKeyValueExponent>\r
+               </urn1:keyInfo>\r
+               <!--Optional:-->\r
+               <urn1:signatureValue>cid:440610560844</urn1:signatureValue>\r
+            </urn1:samlSignature>\r
+            <!--Optional:-->\r
+            <urn1:samlIssuer>\r
+               <!--Optional:-->\r
+               <urn1:issuer>?</urn1:issuer>\r
+               <!--Optional:-->\r
+               <urn1:issuerFormat>?</urn1:issuerFormat>\r
+            </urn1:samlIssuer>\r
+            <!--Zero or more repetitions:-->\r
+            <urn1:samlSubjectConfirmations>\r
+               <urn1:method>?</urn1:method>\r
+               <!--Optional:-->\r
+               <urn1:subjectCondition>\r
+                  <urn1:notBefore>?</urn1:notBefore>\r
+                  <urn1:notOnOrAfter>?</urn1:notOnOrAfter>\r
+               </urn1:subjectCondition>\r
+               <!--Optional:-->\r
+               <urn1:recipient>?</urn1:recipient>\r
+               <!--Optional:-->\r
+               <urn1:inResponseTo>?</urn1:inResponseTo>\r
+               <!--Optional:-->\r
+               <urn1:address>?</urn1:address>\r
+            </urn1:samlSubjectConfirmations>\r
+            <!--Optional:-->\r
+            <urn1:messageId>?</urn1:messageId>\r
+            <!--Zero or more repetitions:-->\r
+            <urn1:relatesToList>?</urn1:relatesToList>\r
+            <!--Optional:-->\r
+            <urn1:implementsSpecVersion>?</urn1:implementsSpecVersion>\r
+            <!--Optional:-->\r
+            <urn1:transactionTimeout>-1</urn1:transactionTimeout>\r
+            <!--Optional:-->\r
+            <urn1:keepAlive>?</urn1:keepAlive>\r
+            <!--Zero or more repetitions:-->\r
+            <urn1:CONNECTCustomHttpHeaders>\r
+               <urn1:headerName>?</urn1:headerName>\r
+               <urn1:headerValue>?</urn1:headerValue>\r
+            </urn1:CONNECTCustomHttpHeaders>\r
+         </urn:assertion>\r
+         <!--Optional:-->\r
+         <urn:nhinTargetCommunities>\r
+            <!--1 or more repetitions:-->\r
+            <urn1:nhinTargetCommunity>\r
+               <urn1:homeCommunity>\r
+                  <!--Optional:-->\r
+                  <urn1:description>?</urn1:description>\r
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>\r
+                  <!--Optional:-->\r
+                  <urn1:name>?</urn1:name>\r
+               </urn1:homeCommunity>\r
+               <!--Optional:-->\r
+               <urn1:list>?</urn1:list>\r
+               <!--Optional:-->\r
+               <urn1:region>?</urn1:region>\r
+            </urn1:nhinTargetCommunity>\r
+            <!--Optional:-->\r
+            <urn1:useSpecVersion>?</urn1:useSpecVersion>\r
+            <!--Optional:-->\r
+            <urn1:exchangeName>?</urn1:exchangeName>\r
+         </urn:nhinTargetCommunities>\r
+         <urn:RegisterDocumentSetRequest>\r
+            <urn2:SubmitObjectsRequest id="?" comment="?">\r
+               <!--Optional:-->\r
+               <urn3:RequestSlotList>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:Slot name="?" slotType="?">\r
+                     <urn4:ValueList>\r
+                        <urn4:Value>?</urn4:Value>\r
+                     </urn4:ValueList>\r
+                  </urn4:Slot>\r
+               </urn3:RequestSlotList>\r
+               <urn4:RegistryObjectList>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:Identifiable id="?" home="?">\r
+                     <!--Zero or more repetitions:-->\r
+                     <urn4:Slot name="?" slotType="?">\r
+                        <urn4:ValueList>\r
+                           <urn4:Value>?</urn4:Value>\r
+                        </urn4:ValueList>\r
+                     </urn4:Slot>\r
+                  </urn4:Identifiable>\r
+               </urn4:RegistryObjectList>\r
+            </urn2:SubmitObjectsRequest>\r
+         </urn:RegisterDocumentSetRequest>\r
+         <!--Optional:-->\r
+         <urn:url>\r
+            <urn1:url>?</urn1:url>\r
+            <urn1:id>?</urn1:id>\r
+         </urn:url>\r
+      </urn:RespondingGateway_RegisterDocumentSetRequest>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="{urn:gov:hhs:fha:nhinc:entityxds}RegisterDocumentSet-b"/></con:call></con:operation></con:interface><con:testSuite name="g1" id="15648530-46ad-479d-a785-8ee44ec5cd39">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="53f821fb-e99b-4318-a86d-66e62b517650" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
@@ -1801,7 +2224,7 @@ if(passthruValue != null){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -3662,7 +4085,229 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
       </con:properties>
     </con:testCase>
-    <con:properties/>
+    <con:testCase id="7eab9545-5c9a-4b52-ad19-0ca1ea5b9693" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DocumentDataSubmission" searchProperties="true"><con:settings/><con:testStep type="request" name="Doc Data Submission" id="16ba4d21-a1bb-494c-86de-0d8834b923e6"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityXDS_Binding</con:interface><con:operation>RegisterDocumentSet-b</con:operation><con:request name="Doc Data Submission" id="33d79357-ec6c-4e7f-a0d5-ff207e27d68c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Document Data Submission">
+      <urn:RespondingGateway_RegisterDocumentSetRequest>
+         <urn:assertion>
+            <urn1:homeCommunity>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+            <urn1:userInfo>
+               <urn1:personName>
+                  <urn1:familyName>Skagerberg</urn1:familyName>
+                  <urn1:givenName>Karl</urn1:givenName>
+                  <urn1:nameType>
+                     <urn1:code>nameCode</urn1:code>
+                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                     <urn1:displayName>nameCode</urn1:displayName>
+                     <urn1:originalText>nameCode</urn1:originalText>
+                  </urn1:nameType>
+                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+                  <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
+               </urn1:personName>
+               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:org>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>307969004</urn1:code>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Public Health</urn1:displayName>
+                  <urn1:originalText>Public Health</urn1:originalText>
+               </urn1:roleCoded>
+            </urn1:userInfo>
+            <urn1:authorized>true</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>TREATMENT</urn1:code>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:conditions>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
+         </urn:assertion>
+
+         <urn:RegisterDocumentSetRequest>
+            <urn2:SubmitObjectsRequest id="123" comment="comme"> 
+               <urn4:RegistryObjectList>
+                  <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
+                     <urn4:Slot name="creationTime">
+                        <urn4:ValueList>
+                           <urn4:Value>20051224</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="languageCode">
+                        <urn4:ValueList>
+                           <urn4:Value>en-us</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStartTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230800</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStopTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230801</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientId">
+                        <urn4:ValueList>
+                           <urn4:Value>ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientInfo">
+                        <urn4:ValueList>
+                           <urn4:Value>PID-3|ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                           <urn4:Value>PID-5|Doe^John^^^</urn4:Value>
+                           <urn4:Value>PID-7|19560527</urn4:Value>
+                           <urn4:Value>PID-8|M</urn4:Value>
+                           <urn4:Value>PID-11|100 Main St^^Metropolis^Il^44130^USA</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Name>
+                        <urn4:LocalizedString value="Physical"/>
+                     </urn4:Name>
+                     <urn4:Description/>
+                     <urn4:Classification id="cl01" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" classifiedObject="Document01">
+                        <urn4:Slot name="authorPerson">
+                           <urn4:ValueList>
+                              <urn4:Value>Gerald Smitty</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorInstitution">
+                           <urn4:ValueList>
+                              <urn4:Value>Cleveland Clinic</urn4:Value>
+                              <urn4:Value>Parma Community</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorRole">
+                           <urn4:ValueList>
+                              <urn4:Value>Attending</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorSpecialty">
+                           <urn4:ValueList>
+                              <urn4:Value>Orthopedic</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl02" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" classifiedObject="Document01" nodeRepresentation="History and Physical">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon classCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="History and Physical"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl03" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" classifiedObject="Document01" nodeRepresentation="1.3.6.1.4.1.21367.2006.7.101">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon confidentialityCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Clinical-Staff"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl04" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" classifiedObject="Document01" nodeRepresentation="CDAR2/IHE 1.0">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon formatCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="CDAR2/IHE 1.0"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl05" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" classifiedObject="Document01" nodeRepresentation="Outpatient">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon healthcareFacilityTypeCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl06" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" classifiedObject="Document01" nodeRepresentation="General Medicine">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon practiceSettingCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="General Medicine"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl07" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" classifiedObject="Document01" nodeRepresentation="34108-1">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>LOINC</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient Evaluation And Management"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:ExternalIdentifier id="ei01" registryObject="Document01" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.patientId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei02" registryObject="Document01" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" value="1.3.6.1.4.1.21367.2005.3.9999.32">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                  </urn4:ExtrinsicObject>
+                  <urn4:Association id="as01" associationType="HasMember" sourceObject="SubmissionSet01" targetObject="Document01">
+                     <urn4:Slot name="SubmissionSetStatus">
+                        <urn4:ValueList>
+                           <urn4:Value>Original</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                  </urn4:Association>
+               </urn4:RegistryObjectList> 
+            </urn2:SubmitObjectsRequest>
+         </urn:RegisterDocumentSetRequest>
+      </urn:RespondingGateway_RegisterDocumentSetRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:assertion type="SOAP Response" id="b82967bb-88db-478b-9558-afff56ff6c9a"/><con:assertion type="Schema Compliance" id="76fe5956-edc6-4b39-85dc-a10b5ae1d2fc"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="3f230455-a153-407e-a58d-9d2c295c8db3"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/>
     <con:setupScript/>
     <con:tearDownScript/>
     <con:reportParameters/>
@@ -4669,7 +5314,7 @@ if(passthruValue != null){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -6991,7 +7636,160 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
     </con:testCase>
-    <con:properties/>
+    <con:testCase id="5d9e83a3-f0c9-4661-8c99-4a1ec838f1fb" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DocumentDataSubmission" searchProperties="true"><con:settings/><con:testStep type="request" name="Doc Data Submission" id="ae17782d-e79d-4d94-bd66-3bdfdc14a47e"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityXDS_Binding</con:interface><con:operation>RegisterDocumentSet-b</con:operation><con:request name="Doc Data Submission" id="33d79357-ec6c-4e7f-a0d5-ff207e27d68c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Document Data Submission">
+      <urn:RespondingGateway_RegisterDocumentSetRequest>
+         
+         <urn:RegisterDocumentSetRequest>
+            <urn2:SubmitObjectsRequest id="123" comment="comme"> 
+               <urn4:RegistryObjectList>
+                  <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
+                     <urn4:Slot name="creationTime">
+                        <urn4:ValueList>
+                           <urn4:Value>20051224</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="languageCode">
+                        <urn4:ValueList>
+                           <urn4:Value>en-us</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStartTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230800</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStopTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230801</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientId">
+                        <urn4:ValueList>
+                           <urn4:Value>ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientInfo">
+                        <urn4:ValueList>
+                           <urn4:Value>PID-3|ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                           <urn4:Value>PID-5|Doe^John^^^</urn4:Value>
+                           <urn4:Value>PID-7|19560527</urn4:Value>
+                           <urn4:Value>PID-8|M</urn4:Value>
+                           <urn4:Value>PID-11|100 Main St^^Metropolis^Il^44130^USA</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Name>
+                        <urn4:LocalizedString value="Physical"/>
+                     </urn4:Name>
+                     <urn4:Description/>
+                     <urn4:Classification id="cl01" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" classifiedObject="Document01">
+                        <urn4:Slot name="authorPerson">
+                           <urn4:ValueList>
+                              <urn4:Value>Gerald Smitty</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorInstitution">
+                           <urn4:ValueList>
+                              <urn4:Value>Cleveland Clinic</urn4:Value>
+                              <urn4:Value>Parma Community</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorRole">
+                           <urn4:ValueList>
+                              <urn4:Value>Attending</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorSpecialty">
+                           <urn4:ValueList>
+                              <urn4:Value>Orthopedic</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl02" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" classifiedObject="Document01" nodeRepresentation="History and Physical">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon classCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="History and Physical"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl03" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" classifiedObject="Document01" nodeRepresentation="1.3.6.1.4.1.21367.2006.7.101">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon confidentialityCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Clinical-Staff"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl04" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" classifiedObject="Document01" nodeRepresentation="CDAR2/IHE 1.0">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon formatCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="CDAR2/IHE 1.0"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl05" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" classifiedObject="Document01" nodeRepresentation="Outpatient">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon healthcareFacilityTypeCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl06" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" classifiedObject="Document01" nodeRepresentation="General Medicine">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon practiceSettingCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="General Medicine"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl07" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" classifiedObject="Document01" nodeRepresentation="34108-1">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>LOINC</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient Evaluation And Management"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:ExternalIdentifier id="ei01" registryObject="Document01" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.patientId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei02" registryObject="Document01" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" value="1.3.6.1.4.1.21367.2005.3.9999.32">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                  </urn4:ExtrinsicObject>
+                  <urn4:Association id="as01" associationType="HasMember" sourceObject="SubmissionSet01" targetObject="Document01">
+                     <urn4:Slot name="SubmissionSetStatus">
+                        <urn4:ValueList>
+                           <urn4:Value>Original</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                  </urn4:Association>
+               </urn4:RegistryObjectList> 
+            </urn2:SubmitObjectsRequest>
+         </urn:RegisterDocumentSetRequest>
+      </urn:RespondingGateway_RegisterDocumentSetRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:assertion type="SOAP Response" id="b82967bb-88db-478b-9558-afff56ff6c9a"/><con:assertion type="Schema Compliance" id="76fe5956-edc6-4b39-85dc-a10b5ae1d2fc"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="3f230455-a153-407e-a58d-9d2c295c8db3"/><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/>
     <con:setupScript/>
     <con:tearDownScript/>
     <con:reportParameters/>
