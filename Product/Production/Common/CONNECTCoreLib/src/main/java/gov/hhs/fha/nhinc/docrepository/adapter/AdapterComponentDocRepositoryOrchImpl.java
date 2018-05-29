@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
@@ -60,6 +61,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //hi merge
@@ -160,10 +162,10 @@ public class AdapterComponentDocRepositoryOrchImpl {
             if (!documentUniqueIds.isEmpty() && !repositoryUniqueIds.isEmpty()) {
                 boolean repositoryIdMatched = true;
                 for (String repositoryUniqueId : repositoryUniqueIds) {
-                    if (!REPOSITORY_UNIQUE_ID.equals(repositoryUniqueId)) {
+                    if (!StringUtils.equalsIgnoreCase(getDefaultRepositoryId(), repositoryUniqueId)) {
                         repositoryIdMatched = false;
                         LOG.warn("Document repository message not processed due to repository "
-                            + " unique id mismatch. Expected: " + REPOSITORY_UNIQUE_ID + ", found: "
+                            + " unique id mismatch. Expected: " + getDefaultRepositoryId() + ", found: "
                             + repositoryUniqueId);
                     }
                 }
@@ -315,7 +317,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         LOG.debug("Entering docRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet method.");
 
         RegistryResponseType registryResponse = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory()
-            .createRegistryResponseType();
+        .createRegistryResponseType();
         RegistryErrorList errorList = new oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList();
 
         // convert input XDS message to internal message
@@ -337,7 +339,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList = regObjectList
                 .getIdentifiable();
             LOG.debug("There is/are " + identifiableObjectList.size()
-            + " identifiableObject(s) in this registryObjectsList.");
+                + " identifiableObject(s) in this registryObjectsList.");
 
             boolean requestHasReplacementAssociation = checkForReplacementAssociation(identifiableObjectList,
                 errorList);
@@ -496,11 +498,11 @@ public class AdapterComponentDocRepositoryOrchImpl {
             // extract sourcePatientInfo metadata
             String sourcePatientId = docRepoHelper.extractMetadataFromSlots(documentSlots,
                 DocRepoConstants.XDS_SOURCE_PATIENT_ID_SLOT, 0);
-            LOG.debug("sourcePatientid: " + sourcePatientId);
+            LOG.debug("sourcePatientid: {} ", sourcePatientId);
             if (sourcePatientId != null) {
                 // remove the assigning authority value
                 String sourcePatientIdReformatted = PatientIdFormatUtil.stripQuotesFromPatientId(sourcePatientId);
-                LOG.debug("Reformatted sourcePatientId for ExtrinsicObject " + i + ": " + sourcePatientIdReformatted);
+                LOG.debug("Reformatted sourcePatientId for ExtrinsicObject {} :", i, sourcePatientIdReformatted);
                 doc.setSourcePatientId(sourcePatientIdReformatted);
             }
 
@@ -520,8 +522,11 @@ public class AdapterComponentDocRepositoryOrchImpl {
             try {
                 DataHandler dh = docMap.get(extrinsicObject.getId());
                 rawData = getLargeFileUtils().convertToBytes(dh);
-                Document document = new Document(doc);
+                Document document = new Document();
                 document.setRawData(rawData);
+                document.setRepositoryUniqueId(getDefaultRepositoryId());
+                doc.setDocument(document);
+
             } catch (IOException ioe) {
                 LOG.error("Failed to retrieve document from the message.  Will not be able to save to repository: {}",
                     ioe.getLocalizedMessage(), ioe);
@@ -552,6 +557,16 @@ public class AdapterComponentDocRepositoryOrchImpl {
             return doc;
         }
         return null;
+    }
+
+    /**
+     * Retrieve from adapter.properties. If it doesn't exist, return default value
+     *
+     * @return document repository ID from adapter properties
+     */
+    private static String getDefaultRepositoryId() {
+        return PropertyAccessor.getInstance().getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME,
+            NhincConstants.XDS_REPOSITORY_ID, REPOSITORY_UNIQUE_ID);
     }
 
     protected void saveDocument(DocumentMetadata doc, boolean requestHasReplacementAssociation, String documentUniqueId,

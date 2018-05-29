@@ -105,7 +105,6 @@ public class DocumentMetadata {
         this.document = document;
         if (document != null) {
             document.setDocumentUniqueId(documentUniqueId);
-            document.setRepositoryUniqueId(newRepositoryUniqueId);
             document.setMetadata(this);
         }
     }
