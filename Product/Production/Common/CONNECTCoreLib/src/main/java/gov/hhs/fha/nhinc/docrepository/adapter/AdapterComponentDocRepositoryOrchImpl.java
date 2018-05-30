@@ -210,54 +210,8 @@ public class AdapterComponentDocRepositoryOrchImpl {
             List<DocumentResponse> olDocResponse = response.getDocumentResponse();
 
             if (docs != null && !docs.isEmpty()) {
-                for (String documentId : documentUniqueId) {
-                    boolean documentIdPresent = false;
-                    for (DocumentMetadata doc : docs) {
-                        if (doc.getDocumentUniqueId().equals(documentId)) {
-                            documentIdPresent = true;
-                        }
-                    }
-                    if (!documentIdPresent) {
-                        addMissingDocIDError(response);
-                    }
-                }
-
-                for (DocumentMetadata doc : docs) {
-                    DocumentResponse oDocResponse = new DocumentResponse();
-
-                    // Home Community Id
-                    // -------------------
-                    oDocResponse.setHomeCommunityId(homeCommunityId);
-
-                    // Repository Unique Id
-                    // ----------------------
-                    oDocResponse.setRepositoryUniqueId(REPOSITORY_UNIQUE_ID);
-
-                    // Document Unique ID
-                    // --------------------
-                    if (NullChecker.isNotNullish(doc.getDocumentUniqueId())) {
-                        oDocResponse.setDocumentUniqueId(doc.getDocumentUniqueId());
-                        LOG.debug("Document unique id found ");
-                    }
-
-                    // Mime Type
-                    // ----------
-                    if (NullChecker.isNotNullish(doc.getMimeType())) {
-                        oDocResponse.setMimeType(doc.getMimeType());
-                        LOG.debug("Mime type Identified ");
-                    }
-
-                    // On-Demand document
-                    if (doc.isOnDemand()) {
-                        oDocResponse.setNewDocumentUniqueId(doc.getNewDocumentUniqueId());
-                        oDocResponse.setNewRepositoryUniqueId(doc.getNewRepositoryUniqueId());
-                    }
-
-                    if (setDocumentResponse(doc, oDocResponse)) {
-                        olDocResponse.add(oDocResponse);
-                    }
-                }
-
+                checkDocumentsForIDs(response, docs, documentUniqueId);
+                createDocResponses(docs, homeCommunityId, olDocResponse);
             } else {
                 addMissingDocIdToErrorList(response.getRegistryResponse(), regerrList);
             }
@@ -276,8 +230,72 @@ public class AdapterComponentDocRepositoryOrchImpl {
     }
 
     /**
-     * @param response
+     * Creates a document response for each document and adds it to the document response list
+     *
+     * Sets the Document Unique Id, HCID, Repository Unique Id, and Mime Type. If the document is an On-Demand Document,
+     * the NewDocument UniqueId and Repository Unique Id will also be set.
+     *
+     * Finally, the document metadata will be added to the list if, and only if, the document metadata contains a valid
+     * document
+     *
+     * @param docs - List of document metadata to create responses from
+     * @param homeCommunityId
+     * @param docResponseList - The container that will hold the generated responses
      */
+    private void createDocResponses(List<DocumentMetadata> docs, String homeCommunityId,
+        List<DocumentResponse> docResponseList) {
+        for (DocumentMetadata doc : docs) {
+            DocumentResponse oDocResponse = new DocumentResponse();
+
+
+            oDocResponse.setHomeCommunityId(homeCommunityId);
+            oDocResponse.setRepositoryUniqueId(REPOSITORY_UNIQUE_ID);
+
+            // Document Unique ID
+            if (NullChecker.isNotNullish(doc.getDocumentUniqueId())) {
+                oDocResponse.setDocumentUniqueId(doc.getDocumentUniqueId());
+                LOG.debug("Document unique id found ");
+            }
+
+            // Mime Type
+            if (NullChecker.isNotNullish(doc.getMimeType())) {
+                oDocResponse.setMimeType(doc.getMimeType());
+                LOG.debug("Mime type Identified ");
+            }
+
+            // On-Demand document
+            if (doc.isOnDemand()) {
+                oDocResponse.setNewDocumentUniqueId(doc.getNewDocumentUniqueId());
+                oDocResponse.setNewRepositoryUniqueId(doc.getNewRepositoryUniqueId());
+            }
+
+            if (setDocumentResponse(doc, oDocResponse)) {
+                docResponseList.add(oDocResponse);
+            }
+        }
+    }
+
+    /**
+     * @param response
+     * @param docs
+     * @param documentUniqueId
+     */
+    private void checkDocumentsForIDs(RetrieveDocumentSetResponseType response, List<DocumentMetadata> docs,
+        List<String> documentUniqueId) {
+        for (String documentId : documentUniqueId) {
+            boolean documentIdPresent = false;
+            for (DocumentMetadata doc : docs) {
+                if (doc.getDocumentUniqueId().equals(documentId)) {
+                    documentIdPresent = true;
+                    break;
+                }
+            }
+            if (!documentIdPresent) {
+                addMissingDocIDError(response);
+            }
+        }
+    }
+
     private void addMissingDocIDError(RetrieveDocumentSetResponseType response) {
         RegistryError regErr = docRepoHelper.setRegistryError("find Document id.", "",
             XDS_DOCUMENT_UNIQUE_ID_ERROR, XDS_DOCUMENT_UNIQUE_ID_ERROR + " Document Id is empty.");
@@ -468,46 +486,49 @@ public class AdapterComponentDocRepositoryOrchImpl {
             errorList.getRegistryError().add(error);
         }
 
-        // extract the document title
-        InternationalStringType docTitle = extrinsicObject.getName();
-        if (docTitle != null) {
-            String docTitleValue = docTitle.getLocalizedString().get(0).getValue();
-            LOG.debug("DocumentTitle for ExtrinsicObject: {}", docTitleValue);
-            doc.setDocumentTitle(docTitleValue);
+        if (errorList.getRegistryError().isEmpty()) {
+            // extract the document title
+            InternationalStringType docTitle = extrinsicObject.getName();
+            if (docTitle != null) {
+                String docTitleValue = docTitle.getLocalizedString().get(0).getValue();
+                LOG.debug("DocumentTitle for ExtrinsicObject: {}", docTitleValue);
+                doc.setDocumentTitle(docTitleValue);
+            }
+
+            // extract the document comments
+            InternationalStringType docComments = extrinsicObject.getDescription();
+            if (docComments != null) {
+                String docCommentsValue = docComments.getLocalizedString().get(0).getValue();
+                LOG.debug("DocumentComments for ExtrinsicObject: {}", docCommentsValue);
+                doc.setComments(docCommentsValue);
+            }
+
+            // extract mimeType
+            LOG.debug("Document mimeType for ExtrinsicObject: {}", extrinsicObject.getMimeType());
+            doc.setMimeType(extrinsicObject.getMimeType());
+
+            // extract classification metadata items
+            List<ClassificationType> classifications = extrinsicObject.getClassification();
+            setDocumentObjectsFromClassifications(doc, classifications);
+            extractEventCodes(doc, classifications);
+
+            extractDocumentBinary(extrinsicObject, docMap, doc);
+            extractFromDocumentSlots(doc, extrinsicObject.getSlot());
+
+            String availabilityStatus = extrinsicObject.getStatus();
+            LOG.debug("Availability status received in message: {}", availabilityStatus);
+            doc.setAvailablityStatus(StringUtils.isEmpty(availabilityStatus)
+                ? DocRepoConstants.XDS_AVAILABLILTY_STATUS_APPROVED : availabilityStatus);
+
+            // default value for new documents
+            // TO DO: implement logic for the replacement of a document - it means changing the status of the referenced
+            // document in the submission set association element
+            doc.setStatus(DocRepoConstants.XDS_STATUS);
+
+            saveDocument(doc, hasReplacementRequest, documentUniqueId, errorList);
+        } else {
+            return null;
         }
-
-        // extract the document comments
-        InternationalStringType docComments = extrinsicObject.getDescription();
-        if (docComments != null) {
-            String docCommentsValue = docComments.getLocalizedString().get(0).getValue();
-            LOG.debug("DocumentComments for ExtrinsicObject: {}", docCommentsValue);
-            doc.setComments(docCommentsValue);
-        }
-
-        // extract mimeType
-        LOG.debug("Document mimeType for ExtrinsicObject: {}", extrinsicObject.getMimeType());
-        doc.setMimeType(extrinsicObject.getMimeType());
-
-        // extract classification metadata items
-        List<ClassificationType> classifications = extrinsicObject.getClassification();
-        setDocumentObjectsFromClassifications(doc, classifications);
-        extractEventCodes(doc, classifications);
-
-        extractDocumentBinary(extrinsicObject, docMap, doc);
-        extractFromDocumentSlots(doc, extrinsicObject.getSlot());
-
-        String availabilityStatus = extrinsicObject.getStatus();
-        LOG.debug("Availability status received in message: {}", availabilityStatus);
-        doc.setAvailablityStatus(StringUtils.isEmpty(availabilityStatus)
-            ? DocRepoConstants.XDS_AVAILABLILTY_STATUS_APPROVED : availabilityStatus);
-
-        // default value for new documents
-        // TO DO: implement logic for the replacement of a document - it means changing the status of the referenced
-        // document in the submission set association element
-        doc.setStatus(DocRepoConstants.XDS_STATUS);
-
-        saveDocument(doc, hasReplacementRequest, documentUniqueId, errorList);
-
         return doc;
 
     }

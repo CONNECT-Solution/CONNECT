@@ -28,6 +28,8 @@ package gov.hhs.fha.nhinc.docrepository.adapter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
@@ -45,6 +47,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -58,6 +61,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.activation.DataHandler;
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AssociationType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
@@ -74,6 +78,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 /**
  * @author achidamb / jsmith
@@ -614,6 +620,139 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         assertEquals(NODE_REP, event.getEventCode());
         assertEquals(EVENT_CODE_DISPLAY_NAME, event.getEventCodeDisplayName());
         assertEquals(EVENT_SCHEME, event.getEventCodeScheme());
+    }
+
+    @Test
+    public void testRegisterDocument_BlankPayload() {
+        AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl();
+        RegisterDocumentSetRequestType body = makeBlankRegisterPayload(
+            new ArrayList<JAXBElement<? extends IdentifiableType>>());
+
+        RegistryResponseType result = docRepo.registerDocumentSet(body);
+        assertNotNull(result);
+        assertEquals(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS, result.getStatus());
+    }
+
+    @Test
+    public void testRegisterDocument_MissingExternalId() {
+        AdapterComponentDocRepositoryOrchImpl docRepo = new AdapterComponentDocRepositoryOrchImpl();
+        ArrayList<JAXBElement<? extends IdentifiableType>> documentList = new ArrayList<JAXBElement<? extends IdentifiableType>>();
+        ExtrinsicObjectType extrinsicObject = new ExtrinsicObjectType();
+        JAXBElement<ExtrinsicObjectType> xmlElement = new JAXBElement<ExtrinsicObjectType>(
+            new QName("ExtrinsicObjectType"), ExtrinsicObjectType.class, extrinsicObject);
+        documentList.add(xmlElement);
+        RegisterDocumentSetRequestType body = makeBlankRegisterPayload(documentList);
+
+        RegistryResponseType result = docRepo.registerDocumentSet(body);
+        assertNotNull(result);
+        assertEquals(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE, result.getStatus());
+
+        List<RegistryError> registryErrorList = result.getRegistryErrorList().getRegistryError();
+
+        assertEquals(1, registryErrorList.size());
+        assertEquals(DocRepoConstants.XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA,
+            registryErrorList.get(0).getErrorCode());
+        assertEquals(
+            DocRepoConstants.XDS_MISSING_DOCUMENT_METADATA
+            + " extrinsicObject.getExternalIdentifier() element is null or empty.",
+            registryErrorList.get(0).getValue());
+    }
+
+    @Test
+    public void testRegisterDocument_MissingDocIdAndPatientId() {
+        AdapterComponentDocRepositoryOrchImpl docRepo = getDocRepoWithMockDocService();
+        ArrayList<JAXBElement<? extends IdentifiableType>> documentList = new ArrayList<JAXBElement<? extends IdentifiableType>>();
+        ExtrinsicObjectType extrinsicObject = new ExtrinsicObjectType();
+        JAXBElement<ExtrinsicObjectType> xmlElement = new JAXBElement<ExtrinsicObjectType>(
+            new QName("ExtrinsicObjectType"), ExtrinsicObjectType.class, extrinsicObject);
+        documentList.add(xmlElement);
+        RegisterDocumentSetRequestType body = makeBlankRegisterPayload(documentList);
+
+        ExternalIdentifierType identifier = new ExternalIdentifierType();
+        InternationalStringType name = new InternationalStringType();
+        LocalizedStringType localizedName = new LocalizedStringType();
+        localizedName.setValue("1");
+        name.getLocalizedString().add(localizedName);
+        identifier.setName(name);
+
+        extrinsicObject.getExternalIdentifier().add(identifier);
+
+        RegistryResponseType result = docRepo.registerDocumentSet(body);
+        assertNotNull(result);
+        assertEquals(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE, result.getStatus());
+
+        List<RegistryError> registryErrorList = result.getRegistryErrorList().getRegistryError();
+
+        assertEquals(2, registryErrorList.size());
+        assertEquals(DocRepoConstants.XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA,
+            registryErrorList.get(0).getErrorCode());
+        assertEquals(
+            DocRepoConstants.XDS_MISSING_DOCUMENT_METADATA
+            + " DocumentUniqueId was missing.",
+            registryErrorList.get(0).getValue());
+
+        assertEquals(DocRepoConstants.XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA,
+            registryErrorList.get(1).getErrorCode());
+        assertEquals(DocRepoConstants.XDS_MISSING_DOCUMENT_METADATA + " PatientId was missing.",
+            registryErrorList.get(1).getValue());
+    }
+
+    @Test
+    public void testRegisterDocument_Success() {
+        AdapterComponentDocRepositoryOrchImpl docRepo = getDocRepoWithMockDocService();
+        ArrayList<JAXBElement<? extends IdentifiableType>> documentList = new ArrayList<JAXBElement<? extends IdentifiableType>>();
+        ExtrinsicObjectType extrinsicObject = new ExtrinsicObjectType();
+        JAXBElement<ExtrinsicObjectType> xmlElement = new JAXBElement<ExtrinsicObjectType>(
+            new QName("ExtrinsicObjectType"), ExtrinsicObjectType.class, extrinsicObject);
+        documentList.add(xmlElement);
+        RegisterDocumentSetRequestType body = makeBlankRegisterPayload(documentList);
+
+        ExternalIdentifierType docId = new ExternalIdentifierType();
+        InternationalStringType name = new InternationalStringType();
+        LocalizedStringType localizedName = new LocalizedStringType();
+        localizedName.setValue(DocRepoConstants.XDS_DOCUMENT_UNIQUE_ID);
+        name.getLocalizedString().add(localizedName);
+        docId.setName(name);
+        docId.setValue("1");
+        extrinsicObject.getExternalIdentifier().add(docId);
+
+        ExternalIdentifierType patientId = new ExternalIdentifierType();
+        InternationalStringType patName = new InternationalStringType();
+        LocalizedStringType patLocalizedName = new LocalizedStringType();
+        patLocalizedName.setValue(DocRepoConstants.XDS_PATIENT_ID);
+        patName.getLocalizedString().add(patLocalizedName);
+        patientId.setName(patName);
+        patientId.setValue("1");
+        extrinsicObject.getExternalIdentifier().add(patientId);
+
+        when(docService.saveDocument(Mockito.isA(DocumentMetadata.class))).thenAnswer(new Answer<DocumentMetadata>() {
+            @Override
+            public DocumentMetadata answer(InvocationOnMock invocation) throws Throwable {
+                // Set the ID to act like Hibernate persisted the entity, since its a mock.
+                DocumentMetadata metadata = (DocumentMetadata) invocation.getArguments()[0];
+                metadata.setDocumentid(1L);
+                return metadata;
+            }
+        });
+
+        RegistryResponseType result = docRepo.registerDocumentSet(body);
+        assertNotNull(result);
+        assertEquals(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS, result.getStatus());
+        assertNull(result.getRegistryErrorList());
+
+        Mockito.verify(docService, Mockito.times(1)).saveDocument(Mockito.isA(DocumentMetadata.class));
+
+    }
+
+    private static RegisterDocumentSetRequestType makeBlankRegisterPayload(
+        List<JAXBElement<? extends IdentifiableType>> identifiableList) {
+        RegisterDocumentSetRequestType body = new RegisterDocumentSetRequestType();
+        SubmitObjectsRequest submittedObjects = new SubmitObjectsRequest();
+        RegistryObjectListType registryList = new RegistryObjectListType();
+        registryList.getIdentifiable().addAll(identifiableList);
+        submittedObjects.setRegistryObjectList(registryList);
+        body.setSubmitObjectsRequest(submittedObjects);
+        return body;
     }
 
     protected RetrieveDocumentSetRequestType createDocumentRequest_Failure() {
