@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -174,11 +174,14 @@ public class FHIRTransformHelper {
             try {
                 String serviceNames = PropertyAccessor.getInstance().getProperty(NhincConstants.FHIR_DIRECTORY_FILE,
                     nhinService.getUDDIServiceName());
-                if (isServiceNameMatch(serviceNames.split(SEPARATOR), name)) {
+                if (serviceNames == null) {
+                    LOG.warn("Service {} does not have any FHIR property defined", nhinService.getUDDIServiceName());
+                } else if (isServiceNameMatch(serviceNames.split(SEPARATOR), name)) {
                     return nhinService.getUDDIServiceName();
                 }
             } catch (PropertyAccessException ex) {
-                LOG.error("Unable to read {} from {}", nhinService.toString(), NhincConstants.FHIR_DIRECTORY_FILE, ex);
+                LOG.error("Unable to read {} from {} for NHIN Service {}", nhinService.toString(),
+                    NhincConstants.FHIR_DIRECTORY_FILE, nhinService, ex);
             }
         }
         return null;
@@ -205,7 +208,7 @@ public class FHIRTransformHelper {
         List<String> displayList = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(extList)) {
             for (Extension ext : extList) {
-                extractDisplayStringFromCodeableConcept(displayList, ((CodeableConcept) (ext.getValue())));
+                extractDisplayStringFromCodeableConcept(displayList, (CodeableConcept) ext.getValue());
             }
         }
         return displayList;
