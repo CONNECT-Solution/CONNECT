@@ -61,13 +61,13 @@ public class EntityDocDataSubmissionProxyWebServiceSecuredImpl implements Entity
     }
 
     @Override
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType message,
-        AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        LOG.debug("Begin EntityDocSubmissionProxyWebServiceSecuredImpl.provideAndRegisterDocumentSetB");
+    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType message, AssertionType assertion,
+        NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+        LOG.debug("Begin EntityDocDataSubmissionProxyWebServiceSecuredImpl.RegisterDocumentSetB");
         RegistryResponseType response = new RegistryResponseType();
 
         try {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDR_SECURED_SERVICE_NAME);
+            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDS_SECURED_SERVICE_NAME);
 
             ServicePortDescriptor<EntityXDSSecuredPortType> portDescriptor = getServicePortDescriptor(
                 NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
@@ -79,14 +79,14 @@ public class EntityDocDataSubmissionProxyWebServiceSecuredImpl implements Entity
             securedRequest.setRegisterDocumentSetRequest(message);
             securedRequest.setUrl(urlInfo);
 
-            response = (RegistryResponseType) client.invokePort(EntityXDSSecuredPortType.class,
-                "provideAndRegisterDocumentSetB", securedRequest);
+            response = (RegistryResponseType) client.invokePort(EntityXDSSecuredPortType.class, "RegisterDocumentSetB",
+                securedRequest);
 
         } catch (Exception e) {
-            LOG.error("Error calling provideAndRegisterDocumentSetB: " + e.getMessage(), e);
+            LOG.error("Error calling RegisterDocumentSetB: " + e.getMessage(), e);
         }
 
-        LOG.debug("End EntityDocSubmissionProxyWebServiceSecuredImpl.provideAndRegisterDocumentSetB");
+        LOG.debug("End EntityDocDataSubmissionProxyWebServiceSecuredImpl.RegisterDocumentSetB");
         return response;
     }
 

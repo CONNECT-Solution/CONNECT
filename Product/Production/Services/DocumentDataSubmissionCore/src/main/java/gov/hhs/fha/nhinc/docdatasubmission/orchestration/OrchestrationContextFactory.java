@@ -81,7 +81,7 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
         NhincConstants.NHIN_SERVICE_NAMES serviceName) {
 
         switch (serviceName) {
-            case DOCUMENT_SUBMISSION:
+            case DOCUMENT_DATA_SUBMISSION:
                 return OutboundDocDataSubmissionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         }
 

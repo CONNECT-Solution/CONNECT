@@ -21,6 +21,17 @@
       <con:settings/>
     </con:operation>
   </con:interface>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="../../../target/wsdl/EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="42b67b15-6802-4fd6-9319-8cf844805eb0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:endpoints>
+      <con:endpoint>${#TestSuite#Endpoint-XDSEntity}</con:endpoint>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint>
+      <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint>
+    </con:endpoints>
+    <con:operation action="" anonymous="optional" bindingOperationName="RegisterDocumentSet-b" inputName="" isOneWay="false" name="RegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="ba007cf5-27e8-49ec-a4f4-b6f6d6589ba2">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="../../../target/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="02bae5b0-fdd3-424d-97ba-22f868fbc706" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
@@ -2824,6 +2835,1058 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }
 
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission',"false", log);
+testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Success">
+        <con:settings/>
+        <con:config>
+          <script/>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
+
+//context.setGatewayStandard(false);
+//log.info ("Setting the gateway to Passthrough");
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+def propertiesFilename = projectPath + "/DocumentSubmissionAuditLog.properties"
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+ def props = new Properties()
+ props.load(new FileInputStream(propertiesFile))
+ props.each { key, value ->
+     testCase.setPropertyValue(key, value)
+ }
+}</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+
+//context.setGatewayStandard(true);
+//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>&lt;!--Destination--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Human</con:name>
+          <con:value>Requestor--></con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Source--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--Patient--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--Submission</con:name>
+          <con:value>Set --></con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserID</con:name>
+          <con:value>kskagerb</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@code</con:name>
+          <con:value>307969004</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name>
+          <con:value>SNOMED_CT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@displayName</con:name>
+          <con:value>Human Requestor</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name>
+          <con:value>localhost</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name>
+          <con:value>110152</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
+          <con:value>Destination</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_g0.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_g1.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
+          <con:value>192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserID</con:name>
+          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
+          <con:value>110153</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
+          <con:value>Source</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditMessage.xmlns</con:name>
+          <con:value>http://nhinc.services.com/schema/auditmessage</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
+          <con:value>DoD</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
+          <con:value>urn:oid:1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
+          <con:value>1010</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2016-02-04T21:16:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventActionCode</con:name>
+          <con:value>R</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventDateTime</con:name>
+          <con:value>2015-04-02T13:47:30.199Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventOutcomeIndicator</con:name>
+          <con:value>0</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@code</con:name>
+          <con:value>110106</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@displayName</con:name>
+          <con:value>Export</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@code</con:name>
+          <con:value>ITI-41</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name>
+          <con:value>IHE Transactions</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@displayName</con:name>
+          <con:value>Provide and Register Document Set-b</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.@EventActionCode</con:name>
+          <con:value>C</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@code</con:name>
+          <con:value>110107</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@displayName</con:name>
+          <con:value>Import</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2016-03-05T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
+          <con:value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>RFC-3881</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>Patient Number</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectID</con:name>
+          <con:value>SubSetID_UniqueID01</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>20</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>IHE XDS Metadata</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>submission set classificationNode</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>02/04/2016 21:06:00</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2016-02-04T21:06:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Data Submission" searchProperties="true" id="bfb21e63-366d-4679-9fe6-33293702838f">
+      <con:settings/>
+      <con:testStep type="groovy" name="Clear Audit Logs" id="cecb38d3-259e-439f-8344-20deb68e3650">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
+	sql.execute('delete from ' + context.findProperty('AuditRepoTable'))
+	sql.execute('alter table ' + context.findProperty('AuditRepoTable') + ' AUTO_INCREMENT=1')
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="delay" name="Wait to Clear Audit logs">
+        <con:settings/>
+        <con:config>
+          <delay>3000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Doc Submission" type="request" id="efed7670-fb06-4951-958e-4af171f6007f">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityXDS_Binding</con:interface>
+          <con:operation>RegisterDocumentSet-b</con:operation>
+          <con:request incomingWss="" name="Doc Submission" outgoingWss="" wssPasswordType="" id="09886b09-6a6f-4b37-b9e6-8fb42749a919">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Document Data Submission">
+      <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
+         <urn:assertion>
+            <urn1:messageId>${#Project#messageID}</urn1:messageId>
+            <urn1:address>
+               <urn1:addressType>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>AddrCity</urn1:city>
+               <urn1:country>AddrCountry</urn1:country>
+               <urn1:state>AddrState</urn1:state>
+               <urn1:streetAddress>AddrStreet</urn1:streetAddress>
+               <urn1:zipCode>AddrZip</urn1:zipCode>
+            </urn1:address>
+            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
+            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
+            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
+            <urn1:haveSignature>false</urn1:haveSignature>
+            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
+            <urn1:homeCommunity>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+            <urn1:personName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Sandy</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+               <urn1:fullName>Sandy S. Smith</urn1:fullName>
+            </urn1:personName>
+            <urn1:phoneNumber>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>5436</urn1:extension>
+               <urn1:localNumber>253-6849</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:phoneNumber>
+            <urn1:secondWitnessAddress>
+               <urn1:addressType>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>Addr2City</urn1:city>
+               <urn1:country>Addr2Country</urn1:country>
+               <urn1:state>Addr2State</urn1:state>
+               <urn1:streetAddress>Addr2Street</urn1:streetAddress>
+               <urn1:zipCode>Addr2Zip</urn1:zipCode>
+            </urn1:secondWitnessAddress>
+            <urn1:secondWitnessName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Sammy</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
+               <urn1:fullName>Sammy S. Smith</urn1:fullName>
+            </urn1:secondWitnessName>
+            <urn1:secondWitnessPhone>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>5424</urn1:extension>
+               <urn1:localNumber>542-6823</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:secondWitnessPhone>
+            <urn1:SSN>253-98-7546</urn1:SSN>
+            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+            <urn1:witnessAddress>
+               <urn1:addressType>
+                  <urn1:code>addrCode</urn1:code>
+                  <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>addrCode</urn1:displayName>
+                  <urn1:originalText>addrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>Burnell</urn1:city>
+               <urn1:country>USA</urn1:country>
+               <urn1:state>FL</urn1:state>
+               <urn1:streetAddress>825 North</urn1:streetAddress>
+               <urn1:zipCode>32184</urn1:zipCode>
+            </urn1:witnessAddress>
+            <urn1:witnessName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Scott</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
+               <urn1:fullName>Scott S. Smith</urn1:fullName>
+            </urn1:witnessName>
+            <urn1:witnessPhone>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>8432</urn1:extension>
+               <urn1:localNumber>985-2239</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:witnessPhone>
+            <urn1:userInfo>
+               <urn1:personName>
+                  <urn1:familyName>Skagerberg</urn1:familyName>
+                  <urn1:givenName>Karl</urn1:givenName>
+                  <urn1:nameType>
+                     <urn1:code>nameCode</urn1:code>
+                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                     <urn1:displayName>nameCode</urn1:displayName>
+                     <urn1:originalText>nameCode</urn1:originalText>
+                  </urn1:nameType>
+                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+                  <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
+               </urn1:personName>
+               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:org>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>307969004</urn1:code>
+                  <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
+                  <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Public Health</urn1:displayName>
+                  <urn1:originalText>Public Health</urn1:originalText>
+               </urn1:roleCoded>
+            </urn1:userInfo>
+            <urn1:authorized>true</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:conditions>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
+         </urn:assertion>
+
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
+
+         <urn:ProvideAndRegisterDocumentSetRequest>
+            <urn2:SubmitObjectsRequest id="123" comment="comme">
+               <!--Optional:-->
+  
+               <urn4:RegistryObjectList>
+                  <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
+                     <urn4:Slot name="creationTime">
+                        <urn4:ValueList>
+                           <urn4:Value>20051224</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="languageCode">
+                        <urn4:ValueList>
+                           <urn4:Value>en-us</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStartTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230800</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStopTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230801</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientId">
+                        <urn4:ValueList>
+                           <urn4:Value>ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientInfo">
+                        <urn4:ValueList>
+                           <urn4:Value>PID-3|ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                           <urn4:Value>PID-5|Doe^John^^^</urn4:Value>
+                           <urn4:Value>PID-7|19560527</urn4:Value>
+                           <urn4:Value>PID-8|M</urn4:Value>
+                           <urn4:Value>PID-11|100 Main St^^Metropolis^Il^44130^USA</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Name>
+                        <urn4:LocalizedString value="Physical"/>
+                     </urn4:Name>
+                     <urn4:Description/>
+                     <urn4:Classification id="cl01" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" classifiedObject="Document01">
+                        <urn4:Slot name="authorPerson">
+                           <urn4:ValueList>
+                              <urn4:Value>Gerald Smitty</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorInstitution">
+                           <urn4:ValueList>
+                              <urn4:Value>Cleveland Clinic</urn4:Value>
+                              <urn4:Value>Parma Community</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorRole">
+                           <urn4:ValueList>
+                              <urn4:Value>Attending</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorSpecialty">
+                           <urn4:ValueList>
+                              <urn4:Value>Orthopedic</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl02" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" classifiedObject="Document01" nodeRepresentation="History and Physical">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon classCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="History and Physical"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl03" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" classifiedObject="Document01" nodeRepresentation="1.3.6.1.4.1.21367.2006.7.101">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon confidentialityCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Clinical-Staff"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl04" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" classifiedObject="Document01" nodeRepresentation="CDAR2/IHE 1.0">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon formatCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="CDAR2/IHE 1.0"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl05" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" classifiedObject="Document01" nodeRepresentation="Outpatient">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon healthcareFacilityTypeCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl06" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" classifiedObject="Document01" nodeRepresentation="General Medicine">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon practiceSettingCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="General Medicine"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl07" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" classifiedObject="Document01" nodeRepresentation="34108-1">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>LOINC</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient Evaluation And Management"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:ExternalIdentifier id="ei01" registryObject="Document01" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.patientId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei02" registryObject="Document01" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" value="1.3.6.1.4.1.21367.2005.3.9999.32">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                  </urn4:ExtrinsicObject>
+                  <urn4:RegistryPackage id="SubmissionSet01">
+                     <urn4:Slot name="submissionTime">
+                        <urn4:ValueList>
+                           <urn4:Value>20041225235050</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Name>
+                        <urn4:LocalizedString value="Physical"/>
+                     </urn4:Name>
+                     <urn4:Description>
+                        <urn4:LocalizedString value="Annual physical"/>
+                     </urn4:Description>
+                     <urn4:Classification id="cl08" classificationScheme="urn:uuid:a7058bb9-b4e4-4307-ba5b-e3f0ab85e12d" classifiedObject="SubmissionSet01">
+                        <urn4:Slot name="authorPerson">
+                           <urn4:ValueList>
+                              <urn4:Value>Sherry Dopplemeyer</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorInstitution">
+                           <urn4:ValueList>
+                              <urn4:Value>Cleveland Clinic</urn4:Value>
+                              <urn4:Value>Berea Community</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorRole">
+                           <urn4:ValueList>
+                              <urn4:Value>Purn4ary Surgon</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorSpecialty">
+                           <urn4:ValueList>
+                              <urn4:Value>Orthopedic</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl09" classificationScheme="urn:uuid:aa543740-bdda-424e-8c96-df4873be8500" classifiedObject="SubmissionSet01" nodeRepresentation="History and Physical">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon contentTypeCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="History and Physical"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:ExternalIdentifier id="ei03" registryObject="SubmissionSet01" identificationScheme="urn:uuid:96fdda7c-d067-4183-912e-bf5ee74998a8" value="1.3.6.1.4.1.21367.2005.3.9999.33">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.uniqueId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei04" registryObject="SubmissionSet01" identificationScheme="urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832" value="3670984664">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.sourceId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei05" registryObject="SubmissionSet01" identificationScheme="urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.patientId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                  </urn4:RegistryPackage>
+                  <urn4:Classification id="cl10" classifiedObject="SubmissionSet01" classificationNode="urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd"/>
+                  <urn4:Association id="as01" associationType="HasMember" sourceObject="SubmissionSet01" targetObject="Document01">
+                     <urn4:Slot name="SubmissionSetStatus">
+                        <urn4:ValueList>
+                           <urn4:Value>Original</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                  </urn4:Association>
+               </urn4:RegistryObjectList> 
+
+            </urn2:SubmitObjectsRequest>
+            <!--1 or more repetitions:-->
+            <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
+         </urn:ProvideAndRegisterDocumentSetRequest>
+      </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" id="ba128bc3-c9e4-4de3-9601-91e3fc940355"/>
+            <con:assertion type="SOAP Fault Assertion" id="998f3460-0291-4c6a-9aac-9ed47b6441f9"/>
+            <con:assertion type="XPath Match" id="a140b353-3943-421c-bc0a-5c071893268b">
+              <con:configuration>
+                <path>declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+							//ns11:RegistryResponse[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Schema Compliance" type="Schema Compliance" id="2c244ed8-97af-4659-8ea0-54e589839082">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate">
+        <con:settings/>
+        <con:config>
+          <delay>2000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Verify Audit Logs" id="d9e498c1-9552-498c-baa1-0ff26cf9d1ff">
+        <con:settings/>
+        <con:config>
+          <script>if (  nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocDataSubmission', log) == "true")
+{
+context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
+}
+	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
+}
+else if (  nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocDataSubmission', log) == "false")
+{
+ 	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
+	}
+	testRunner.gotoStepByName( "Success")
+}
+else
+{
+ 	testRunner.fail( "Incorrect AuditLogging property found for this service testcase" )
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound = sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
+	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+		assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+	     }     	
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+     	if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	   		assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )
+	     }
+	}
+  }
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     assert(!node.@AlternativeUserID.isEmpty())	     
+     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+          assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )	     
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){			
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->	    
+	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )	
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+     	assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	}	
+}
+if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
+	     //assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectID" )
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole" )
+	     assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName" )
+  	}
+ }
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound = sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())    
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
+	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification_Responder.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification_Responder.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node ->	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
+     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+          assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )	     
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
+	     }
+	     assert(!node.@AlternativeUserID.isEmpty())
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
+	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )	
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+     	assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	}	
+}
+if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
+	     //assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectID" )
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole" )
+	     assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName" )
+  	}
+ }
+}
+
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocDataSubmission',"false", log);
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
@@ -9439,6 +10502,10 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
         <con:name>Endpoint-XDREntity</con:name>
         <con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:value>
       </con:property>
+     <con:property>
+        <con:name>Endpoint-XDSEntity</con:name>
+        <con:value>http://localhost:8080/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:value>
+      </con:property>
       <con:property>
         <con:name>Endpoint-DocQuery</con:name>
         <con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:value>
@@ -12157,6 +13224,1058 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }
 
 nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission',"false", log);
+testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Success">
+        <con:settings/>
+        <con:config>
+          <script/>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
+
+//context.setGatewayStandard(false);
+//log.info ("Setting the gateway to Passthrough");
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+def propertiesFilename = projectPath + "/DocumentSubmissionAuditLog.properties"
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+ def props = new Properties()
+ props.load(new FileInputStream(propertiesFile))
+ props.each { key, value ->
+     testCase.setPropertyValue(key, value)
+ }
+}</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+
+//context.setGatewayStandard(true);
+//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>&lt;!--Destination--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Human</con:name>
+          <con:value>Requestor--></con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Source--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--Patient--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--Submission</con:name>
+          <con:value>Set --></con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserID</con:name>
+          <con:value>kskagerb</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@code</con:name>
+          <con:value>307969004</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name>
+          <con:value>SNOMED_CT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@displayName</con:name>
+          <con:value>Human Requestor</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name>
+          <con:value>localhost</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name>
+          <con:value>110152</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
+          <con:value>Destination</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_g0.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_g1.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
+          <con:value>192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserID</con:name>
+          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
+          <con:value>110153</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
+          <con:value>Source</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditMessage.xmlns</con:name>
+          <con:value>http://nhinc.services.com/schema/auditmessage</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
+          <con:value>DoD</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
+          <con:value>urn:oid:1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
+          <con:value>1010</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2016-02-04T21:18:36Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventActionCode</con:name>
+          <con:value>R</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventDateTime</con:name>
+          <con:value>2015-04-02T13:47:30.199Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventOutcomeIndicator</con:name>
+          <con:value>0</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@code</con:name>
+          <con:value>110106</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@displayName</con:name>
+          <con:value>Export</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@code</con:name>
+          <con:value>ITI-41</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name>
+          <con:value>IHE Transactions</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@displayName</con:name>
+          <con:value>Provide and Register Document Set-b</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.@EventActionCode</con:name>
+          <con:value>C</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@code</con:name>
+          <con:value>110107</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@displayName</con:name>
+          <con:value>Import</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2016-03-05T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
+          <con:value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>RFC-3881</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>Patient Number</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectID</con:name>
+          <con:value>SubSetID_UniqueID01</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>20</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>IHE XDS Metadata</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>submission set classificationNode</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>02/04/2016 21:08:36</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2016-02-04T21:08:36Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Data Submission" searchProperties="true" id="fb0a6077-5978-4615-ae36-a77a19ceef7d">
+      <con:settings/>
+      <con:testStep type="groovy" name="Clear Audit Logs" id="846da1f9-7f09-4c32-9bd3-85f84710f03e">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
+	sql.execute('delete from ' + context.findProperty('AuditRepoTable'))
+	sql.execute('alter table ' + context.findProperty('AuditRepoTable') + ' AUTO_INCREMENT=1')
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="delay" name="Wait to Clear Audit logs">
+        <con:settings/>
+        <con:config>
+          <delay>3000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Doc Submission" type="request" id="20b3c101-a2f1-4c1f-88dd-56fe0e5c480a">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityXDS_Binding</con:interface>
+          <con:operation>RegisterDocumentSet-b</con:operation>
+          <con:request incomingWss="" name="Doc Submission" outgoingWss="" wssPasswordType="" id="0eabbc2a-875b-4cee-ac85-9cd43072f50f">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g0" testCase="Document Data Submission">
+      <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
+         <urn:assertion>
+            <urn1:messageId>${#Project#messageID}</urn1:messageId>
+            <urn1:address>
+               <urn1:addressType>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>AddrCity</urn1:city>
+               <urn1:country>AddrCountry</urn1:country>
+               <urn1:state>AddrState</urn1:state>
+               <urn1:streetAddress>AddrStreet</urn1:streetAddress>
+               <urn1:zipCode>AddrZip</urn1:zipCode>
+            </urn1:address>
+            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
+            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
+            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
+            <urn1:haveSignature>false</urn1:haveSignature>
+            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
+            <urn1:homeCommunity>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+            <urn1:personName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Sandy</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+               <urn1:fullName>Sandy S. Smith</urn1:fullName>
+            </urn1:personName>
+            <urn1:phoneNumber>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>5436</urn1:extension>
+               <urn1:localNumber>253-6849</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:phoneNumber>
+            <urn1:secondWitnessAddress>
+               <urn1:addressType>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>Addr2City</urn1:city>
+               <urn1:country>Addr2Country</urn1:country>
+               <urn1:state>Addr2State</urn1:state>
+               <urn1:streetAddress>Addr2Street</urn1:streetAddress>
+               <urn1:zipCode>Addr2Zip</urn1:zipCode>
+            </urn1:secondWitnessAddress>
+            <urn1:secondWitnessName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Sammy</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
+               <urn1:fullName>Sammy S. Smith</urn1:fullName>
+            </urn1:secondWitnessName>
+            <urn1:secondWitnessPhone>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>5424</urn1:extension>
+               <urn1:localNumber>542-6823</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:secondWitnessPhone>
+            <urn1:SSN>253-98-7546</urn1:SSN>
+            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+            <urn1:witnessAddress>
+               <urn1:addressType>
+                  <urn1:code>addrCode</urn1:code>
+                  <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>addrCode</urn1:displayName>
+                  <urn1:originalText>addrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>Burnell</urn1:city>
+               <urn1:country>USA</urn1:country>
+               <urn1:state>FL</urn1:state>
+               <urn1:streetAddress>825 North</urn1:streetAddress>
+               <urn1:zipCode>32184</urn1:zipCode>
+            </urn1:witnessAddress>
+            <urn1:witnessName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Scott</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
+               <urn1:fullName>Scott S. Smith</urn1:fullName>
+            </urn1:witnessName>
+            <urn1:witnessPhone>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>8432</urn1:extension>
+               <urn1:localNumber>985-2239</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:witnessPhone>
+            <urn1:userInfo>
+               <urn1:personName>
+                  <urn1:familyName>Skagerberg</urn1:familyName>
+                  <urn1:givenName>Karl</urn1:givenName>
+                  <urn1:nameType>
+                     <urn1:code>nameCode</urn1:code>
+                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                     <urn1:displayName>nameCode</urn1:displayName>
+                     <urn1:originalText>nameCode</urn1:originalText>
+                  </urn1:nameType>
+                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+                  <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
+               </urn1:personName>
+               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:org>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>307969004</urn1:code>
+                  <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
+                  <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Public Health</urn1:displayName>
+                  <urn1:originalText>Public Health</urn1:originalText>
+               </urn1:roleCoded>
+            </urn1:userInfo>
+            <urn1:authorized>true</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:conditions>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
+         </urn:assertion>
+
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
+
+         <urn:ProvideAndRegisterDocumentSetRequest>
+            <urn2:SubmitObjectsRequest id="123" comment="comme">
+               <!--Optional:-->
+
+               <urn4:RegistryObjectList>
+                  <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
+                     <urn4:Slot name="creationTime">
+                        <urn4:ValueList>
+                           <urn4:Value>20051224</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="languageCode">
+                        <urn4:ValueList>
+                           <urn4:Value>en-us</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStartTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230800</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStopTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230801</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientId">
+                        <urn4:ValueList>
+                           <urn4:Value>ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientInfo">
+                        <urn4:ValueList>
+                           <urn4:Value>PID-3|ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                           <urn4:Value>PID-5|Doe^John^^^</urn4:Value>
+                           <urn4:Value>PID-7|19560527</urn4:Value>
+                           <urn4:Value>PID-8|M</urn4:Value>
+                           <urn4:Value>PID-11|100 Main St^^Metropolis^Il^44130^USA</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Name>
+                        <urn4:LocalizedString value="Physical"/>
+                     </urn4:Name>
+                     <urn4:Description/>
+                     <urn4:Classification id="cl01" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" classifiedObject="Document01">
+                        <urn4:Slot name="authorPerson">
+                           <urn4:ValueList>
+                              <urn4:Value>Gerald Smitty</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorInstitution">
+                           <urn4:ValueList>
+                              <urn4:Value>Cleveland Clinic</urn4:Value>
+                              <urn4:Value>Parma Community</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorRole">
+                           <urn4:ValueList>
+                              <urn4:Value>Attending</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorSpecialty">
+                           <urn4:ValueList>
+                              <urn4:Value>Orthopedic</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl02" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" classifiedObject="Document01" nodeRepresentation="History and Physical">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon classCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="History and Physical"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl03" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" classifiedObject="Document01" nodeRepresentation="1.3.6.1.4.1.21367.2006.7.101">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon confidentialityCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Clinical-Staff"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl04" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" classifiedObject="Document01" nodeRepresentation="CDAR2/IHE 1.0">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon formatCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="CDAR2/IHE 1.0"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl05" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" classifiedObject="Document01" nodeRepresentation="Outpatient">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon healthcareFacilityTypeCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl06" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" classifiedObject="Document01" nodeRepresentation="General Medicine">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon practiceSettingCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="General Medicine"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl07" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" classifiedObject="Document01" nodeRepresentation="34108-1">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>LOINC</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient Evaluation And Management"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:ExternalIdentifier id="ei01" registryObject="Document01" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.patientId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei02" registryObject="Document01" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" value="1.3.6.1.4.1.21367.2005.3.9999.32">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                  </urn4:ExtrinsicObject>
+                  <urn4:RegistryPackage id="SubmissionSet01">
+                     <urn4:Slot name="submissionTime">
+                        <urn4:ValueList>
+                           <urn4:Value>20041225235050</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Name>
+                        <urn4:LocalizedString value="Physical"/>
+                     </urn4:Name>
+                     <urn4:Description>
+                        <urn4:LocalizedString value="Annual physical"/>
+                     </urn4:Description>
+                     <urn4:Classification id="cl08" classificationScheme="urn:uuid:a7058bb9-b4e4-4307-ba5b-e3f0ab85e12d" classifiedObject="SubmissionSet01">
+                        <urn4:Slot name="authorPerson">
+                           <urn4:ValueList>
+                              <urn4:Value>Sherry Dopplemeyer</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorInstitution">
+                           <urn4:ValueList>
+                              <urn4:Value>Cleveland Clinic</urn4:Value>
+                              <urn4:Value>Berea Community</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorRole">
+                           <urn4:ValueList>
+                              <urn4:Value>Purn4ary Surgon</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorSpecialty">
+                           <urn4:ValueList>
+                              <urn4:Value>Orthopedic</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl09" classificationScheme="urn:uuid:aa543740-bdda-424e-8c96-df4873be8500" classifiedObject="SubmissionSet01" nodeRepresentation="History and Physical">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon contentTypeCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="History and Physical"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:ExternalIdentifier id="ei03" registryObject="SubmissionSet01" identificationScheme="urn:uuid:96fdda7c-d067-4183-912e-bf5ee74998a8" value="1.3.6.1.4.1.21367.2005.3.9999.33">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.uniqueId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei04" registryObject="SubmissionSet01" identificationScheme="urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832" value="3670984664">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.sourceId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei05" registryObject="SubmissionSet01" identificationScheme="urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.patientId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                  </urn4:RegistryPackage>
+                  <urn4:Classification id="cl10" classifiedObject="SubmissionSet01" classificationNode="urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd"/>
+                  <urn4:Association id="as01" associationType="HasMember" sourceObject="SubmissionSet01" targetObject="Document01">
+                     <urn4:Slot name="SubmissionSetStatus">
+                        <urn4:ValueList>
+                           <urn4:Value>Original</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                  </urn4:Association>
+               </urn4:RegistryObjectList>
+
+            </urn2:SubmitObjectsRequest>
+            <!--1 or more repetitions:-->
+            <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
+         </urn:ProvideAndRegisterDocumentSetRequest>
+      </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" id="3acd8f4e-1d63-4379-9e95-536a6ba35923"/>
+            <con:assertion type="SOAP Fault Assertion" id="62de05d0-17a3-4a3d-9f5d-b2bf91d283c4"/>
+            <con:assertion type="XPath Match" id="571b27f2-a64d-4da3-b9fa-b97550c08c1d">
+              <con:configuration>
+                <path>declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+							//ns11:RegistryResponse[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Schema Compliance" type="Schema Compliance" id="f562b376-b1d9-4cd9-8f45-cf1f26fdf956">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate">
+        <con:settings/>
+        <con:config>
+          <delay>2000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Verify Audit Logs" id="6846903e-4c2f-4c34-8b95-8c7f7804f568">
+        <con:settings/>
+        <con:config>
+          <script>if (  nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocDataSubmission', log) == "true")
+{
+context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
+}
+	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
+}
+else if (  nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocDataSubmission', log) == "false")
+{
+ 	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
+	}
+	testRunner.gotoStepByName( "Success")
+}
+else
+{
+ 	testRunner.fail( "Incorrect AuditLogging property found for this service testcase" )
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
+	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+		assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+	     }     	
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+     	if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	   		assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )
+	     }
+	}
+  }
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     assert(!node.@AlternativeUserID.isEmpty())	     
+     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+          assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )	     
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){			
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->	    
+	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )	
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+     	assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	}	
+}
+if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
+	     //assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectID" )
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole" )
+	     assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName" )
+  	}
+ }
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())   
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
+	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification_Responder.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification_Responder.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node ->	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
+     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+          assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )	     
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
+	     }
+	     assert(!node.@AlternativeUserID.isEmpty())
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
+	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )	
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+     	assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	}	
+}
+if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
+	     //assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectID" )
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole" )
+	     assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName" )
+  	}
+ }
+}
+
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocDataSubmission',"false", log);
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
@@ -21243,6 +23362,10 @@ if (propertiesFile.exists()) {
         <con:name>Endpoint-XDREntity</con:name>
         <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value>
       </con:property>
+      <con:property>
+        <con:name>Endpoint-XDSEntity</con:name>
+        <con:value>http://localhost:8080/Gateway/DocumentDataSubmission/1_1/EntityService/EntityDocDataSubmissionUnsecured</con:value>
+      </con:property>
     </con:properties>
     <con:setupScript/>
     <con:tearDownScript/>
@@ -21488,6 +23611,10 @@ if (propertiesFile.exists()) {
     <con:property>
       <con:name>EventTypeDocSubmission</con:name>
       <con:value>DocSubmission</con:value>
+    </con:property>
+    <con:property>
+      <con:name>EventTypeDocDataSubmission</con:name>
+      <con:value>DocDataSubmission</con:value>
     </con:property>
     <con:property>
       <con:name>EventTypePDDefReq</con:name>

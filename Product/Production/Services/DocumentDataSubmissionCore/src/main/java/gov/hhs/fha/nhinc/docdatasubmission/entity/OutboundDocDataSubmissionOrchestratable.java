@@ -105,7 +105,7 @@ public class OutboundDocDataSubmissionOrchestratable implements OutboundOrchestr
 
     @Override
     public String getServiceName() {
-        return NhincConstants.NHINC_XDR_SERVICE_NAME;
+        return NhincConstants.NHINC_XDS_SERVICE_NAME;
     }
 
     @Override

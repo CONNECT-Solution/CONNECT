@@ -51,11 +51,11 @@ public class OutboundDocDataSubmissionDelegate implements OutboundDelegate {
     public OutboundOrchestratable process(OutboundOrchestratable message) {
         LOG.debug("begin process");
         if (message instanceof OutboundDocDataSubmissionOrchestratable) {
-            LOG.debug("processing DS orchestratable ");
+            LOG.debug("processing DDS orchestratable ");
             OutboundDocDataSubmissionOrchestratable dsMessage = (OutboundDocDataSubmissionOrchestratable) message;
 
             OrchestrationContextBuilder contextBuilder = getOrchestrationContextFactory()
-                .getBuilder(dsMessage.getTarget(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
+                .getBuilder(dsMessage.getTarget(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_DATA_SUBMISSION);
 
             if (contextBuilder instanceof OutboundDocDataSubmissionOrchestrationContextBuilder_g0) {
                 ((OutboundDocDataSubmissionOrchestrationContextBuilder_g0) contextBuilder).init(message);

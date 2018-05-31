@@ -382,6 +382,8 @@ public class NhincConstants {
     // XDR Constants
     public static final String ENTITY_XDR_SECURED_SERVICE_NAME = "entityxdrsecured";
     public static final String ENTITY_XDR_SERVICE_NAME = "entityxdr";
+    public static final String ENTITY_XDS_SECURED_SERVICE_NAME = "entityxdssecured";
+    public static final String ENTITY_XDS_SERVICE_NAME = "entityxds";
     public static final String ADAPTER_XDR_SERVICE_NAME = "adapterxdr";
     public static final String ADAPTER_XDR_SECURED_SERVICE_NAME = "adapterxdrsecured";
     public static final String ADAPTER_COMPONENT_XDR_SERVICE_NAME = "adaptercomponentxdr";

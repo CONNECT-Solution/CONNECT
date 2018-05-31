@@ -28,8 +28,6 @@ package gov.hhs.fha.nhinc.docdatasubmission;
 
 import gov.hhs.fha.nhinc.common.eventcommon.XDSEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDSMessageType;
-import gov.hhs.fha.nhinc.common.eventcommon.XDSResponseEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.XDSResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
@@ -39,7 +37,6 @@ import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,71 +91,4 @@ public class XDSPolicyChecker {
         return policyIsValid;
     }
 
-    /**
-     *
-     * @param message
-     * @param assertion
-     * @param senderHCID
-     * @param receiverHCID
-     * @param direction
-     * @return
-     */
-    public boolean checkXDSResponsePolicy(RegistryResponseType message, AssertionType assertion, String senderHCID,
-        String receiverHCID, String direction) {
-        LOG.debug("Entering checkXDSResponsePolicy");
-
-        XDSResponseEventType policyCheckReq = createXDSResponseEventType(message, assertion, senderHCID, receiverHCID,
-            direction);
-
-        boolean isPolicyValid = false;
-
-        PolicyEngineChecker policyChecker = new PolicyEngineChecker();
-
-        CheckPolicyRequestType policyReq = policyChecker.checkPolicyXDSResponse(policyCheckReq);
-        PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
-        PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
-
-        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
-            && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
-            isPolicyValid = true;
-        }
-
-        LOG.debug("Exiting checkXDSResponsePolicy");
-
-        return isPolicyValid;
-    }
-
-    /**
-     *
-     * @param message
-     * @param assertion
-     * @param senderHCID
-     * @param receiverHCID
-     * @param direction
-     * @return
-     */
-    private XDSResponseEventType createXDSResponseEventType(RegistryResponseType message, AssertionType assertion,
-        String senderHCID, String receiverHCID, String direction) {
-        XDSResponseEventType policyCheckReq = new XDSResponseEventType();
-        XDSResponseMessageType policyMsg = new XDSResponseMessageType();
-
-        policyCheckReq.setDirection(direction);
-
-        HomeCommunityType senderHC = new HomeCommunityType();
-        senderHC.setHomeCommunityId(senderHCID);
-
-        policyCheckReq.setSendingHomeCommunity(senderHC);
-        HomeCommunityType receiverHC = new HomeCommunityType();
-
-        receiverHC.setHomeCommunityId(receiverHCID);
-        policyCheckReq.setReceivingHomeCommunity(receiverHC);
-
-        policyMsg.setAssertion(assertion);
-        policyMsg.setRegistryResponse(message);
-
-        policyCheckReq.setMessage(policyMsg);
-
-        return policyCheckReq;
-    }
 }

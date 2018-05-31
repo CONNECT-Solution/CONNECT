@@ -43,7 +43,7 @@ public class OutboundDocDataSubmissionOrchestrationContextBuilder_g1
     @Override
     public OrchestrationContext build() {
         LOG.trace("begin build");
-        return new OrchestrationContext(new OutboundDocSubmissionStrategyImpl_g1(),
+        return new OrchestrationContext(new OutboundDocDataSubmissionStrategyImpl_g1(),
             new OutboundDocDataSubmissionOrchestratable(getNhinDelegate(), getRequest(), getTarget(),
                 getAssertionType()));
     }

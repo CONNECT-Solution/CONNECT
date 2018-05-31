@@ -35,15 +35,11 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author akong
- */
 class OutboundDocSubmissionStrategyImpl_g1 implements OrchestrationStrategy {
 
     private static final Logger LOG = LoggerFactory.getLogger(OutboundDocSubmissionStrategyImpl_g1.class);
 
-    protected NhinDocDataSubmissionProxy getNhinDocSubmissionProxy() {
+    protected NhinDocDataSubmissionProxy getNhinDocDataSubmissionProxy() {
         return new NhinDocDataSubmissionProxyObjectFactory().getNhinDocDataSubmissionProxy();
     }
 
@@ -52,18 +48,18 @@ class OutboundDocSubmissionStrategyImpl_g1 implements OrchestrationStrategy {
         if (message instanceof OutboundDocDataSubmissionOrchestratable) {
             execute((OutboundDocDataSubmissionOrchestratable) message);
         } else {
-            LOG.error("Not an OutboundDocSubmissionOrchestratable.");
+            LOG.error("Not an OutboundDocDataSubmissionOrchestratable.");
         }
     }
 
     public void execute(OutboundDocDataSubmissionOrchestratable message) {
-        LOG.trace("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
+        LOG.trace("Begin OutboundDocDataSubmissionOrchestratableImpl_g1.process");
 
-        NhinDocDataSubmissionProxy nhincDocSubmission = getNhinDocSubmissionProxy();
+        NhinDocDataSubmissionProxy nhincDocSubmission = getNhinDocDataSubmissionProxy();
         RegistryResponseType response = nhincDocSubmission.registerDocumentSetB(message.getRequest(),
             message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
         message.setResponse(response);
 
-        LOG.trace("End OutboundDocSubmissionOrchestratableImpl_g1.process");
+        LOG.trace("End OutboundDocDataSubmissionOrchestratableImpl_g1.process");
     }
 }
