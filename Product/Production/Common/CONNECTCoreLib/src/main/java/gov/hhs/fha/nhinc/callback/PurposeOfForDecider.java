@@ -62,7 +62,7 @@ public class PurposeOfForDecider {
 
         serviceName = NHIN_SERVICE_NAMES.fromValueString(action);
         if (null == serviceName) {
-            LOG.warn("Could not read purpose of / for action: service name is null");
+            LOG.warn("Could not read purpose of / for action: service name is null for action {}", action);
             return purposeFor;
         }
 
