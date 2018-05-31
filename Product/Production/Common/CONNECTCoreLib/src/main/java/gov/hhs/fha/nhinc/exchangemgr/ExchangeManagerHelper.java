@@ -360,8 +360,16 @@ public class ExchangeManagerHelper {
 
     public static String getNhinServiceName(List<String> serviceNames) {
         for (String name : serviceNames) {
-            if (StringUtils.isNotBlank(NhincConstants.NHIN_SERVICE_NAMES.fromValueString(name).toString())) {
-                return NhincConstants.NHIN_SERVICE_NAMES.fromValueString(name).getUDDIServiceName();
+            try {
+                if (StringUtils.isNotBlank(NhincConstants.NHIN_SERVICE_NAMES.fromValueString(name).toString())) {
+                    return NhincConstants.NHIN_SERVICE_NAMES.fromValueString(name).getUDDIServiceName();
+                }
+            } catch(IllegalArgumentException e) {
+                // ignoring, since the Sequoia UDDI often has multiple names for entries
+                // and only one is known to CONNECT.
+                
+                //Adding logging of error so CAGitBot stops complaining
+                LOG.debug(e.getMessage());
             }
         }
         return null;
