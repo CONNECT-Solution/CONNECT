@@ -360,7 +360,7 @@ public class ExchangeManagerHelper {
 
     public static String getNhinServiceName(List<String> serviceNames) {
         for (String name : serviceNames) {
-            if (StringUtils.isNotBlank(NhincConstants.NHIN_SERVICE_NAMES.fromValueString(name).toString())) {
+            if (isServiceNameMatch(name)) {
                 return NhincConstants.NHIN_SERVICE_NAMES.fromValueString(name).getUDDIServiceName();
             }
         }
@@ -432,6 +432,9 @@ public class ExchangeManagerHelper {
             }
         }
         return exList;
+    }
 
+    private static boolean isServiceNameMatch(String name) {
+        return StringUtils.isNotBlank(name) && null != NhincConstants.NHIN_SERVICE_NAMES.fromValueString(name);
     }
 }
