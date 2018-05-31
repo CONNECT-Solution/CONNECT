@@ -367,6 +367,9 @@ public class ExchangeManagerHelper {
             } catch(IllegalArgumentException e) {
                 // ignoring, since the Sequoia UDDI often has multiple names for entries
                 // and only one is known to CONNECT.
+                
+                //Adding logging of error so CAGitBot stops complaining
+                LOG.debug(e.getMessage());
             }
         }
         return null;
