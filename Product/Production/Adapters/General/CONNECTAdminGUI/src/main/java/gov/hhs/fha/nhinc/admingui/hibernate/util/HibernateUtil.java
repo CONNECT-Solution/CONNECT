@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import java.io.File;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -76,8 +77,8 @@ public class HibernateUtil {
 
     /**
      * Method close the Hibernate SessionFactory
-     *
      */
+    @PreDestroy
     public void closeSessionFactory() {
         if (sessionFactory != null && !sessionFactory.isClosed()) {
             sessionFactory.close();
