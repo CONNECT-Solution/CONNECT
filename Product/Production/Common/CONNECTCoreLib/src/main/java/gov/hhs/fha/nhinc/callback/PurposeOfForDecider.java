@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.callback;
 
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
-
 import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxy;
 import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyObjectFactory;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
@@ -60,11 +59,10 @@ public class PurposeOfForDecider {
         boolean purposeFor = false;
 
         String action = properties.getAction();
-        try {
-            serviceName = NHIN_SERVICE_NAMES.fromValueString(action);
-        } catch (IllegalArgumentException ex) {
-            LOG.warn("Could not read purpose of / for action: {}", ex.getLocalizedMessage());
-            LOG.trace("Could not read purpose of / for action: {}", ex.getLocalizedMessage(), ex);
+
+        serviceName = NHIN_SERVICE_NAMES.fromValueString(action);
+        if (null == serviceName) {
+            LOG.warn("Could not read purpose of / for action: service name is null");
             return purposeFor;
         }
 
@@ -76,7 +74,7 @@ public class PurposeOfForDecider {
             hcid = hcid.replace(NhincConstants.HCID_PREFIX, "");
         }
 
-        if (apiLevel == null && serviceName != null && hcid != null) {
+        if (apiLevel == null && hcid != null) {
             NhinEndpointManager nem = getNhinEndpointManager();
             apiLevel = nem.getApiVersion(hcid, serviceName);
         }
@@ -87,7 +85,7 @@ public class PurposeOfForDecider {
         }
 
         if (LOG.isDebugEnabled()) {
-            logPurposeDecision(purposeFor, hcid, serviceName != null ? serviceName.getUDDIServiceName() : null);
+            logPurposeDecision(purposeFor, hcid, serviceName.getUDDIServiceName());
         }
 
         return purposeFor;
@@ -102,6 +100,6 @@ public class PurposeOfForDecider {
         }
 
         LOG.debug("PurposeOfForDecider decision for HCID: " + hcid + " and Service Name: " + serviceName + " is = "
-                + purposeName + ".");
+            + purposeName + ".");
     }
 }
