@@ -60,8 +60,10 @@ public class StandardInboundDocDataSubmission extends AbstractInboundDocDataSubm
         this(new AdapterDocDataSubmissionProxyObjectFactory(), new XDSPolicyChecker(), PropertyAccessor.getInstance(),
             new DocDataSubmissionAuditLogger());
     }
+
     /**
      * Constructor with dependency injection of strategy components.
+     * 
      * @param adapterFactory
      * @param policyChecker
      * @param propertyAccessor
@@ -74,12 +76,12 @@ public class StandardInboundDocDataSubmission extends AbstractInboundDocDataSubm
         this.propertyAccessor = propertyAccessor;
     }
 
-
     @Override
     @InboundProcessingEvent(beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-    afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Data Submission",
-    version = "")
-    public RegistryResponseType documentRepositoryRegisterDocumentSetB(RegisterDocumentSetRequestType body, AssertionType assertion, Properties webContextProperties) {
+        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
+        serviceType = "Document Data Submission", version = "")
+    public RegistryResponseType documentRepositoryRegisterDocumentSetB(RegisterDocumentSetRequestType body,
+        AssertionType assertion, Properties webContextProperties) {
 
         RegistryResponseType response = processDocDataSubmission(body, assertion, webContextProperties);
 
@@ -114,7 +116,7 @@ public class StandardInboundDocDataSubmission extends AbstractInboundDocDataSubm
 
         String senderHCID = assertion.getHomeCommunity().getHomeCommunityId();
 
-        return policyChecker.checkXDRRequestPolicy(request, assertion, senderHCID, receiverHCID,
+        return policyChecker.checkXDSRequestPolicy(request, assertion, senderHCID, receiverHCID,
             POLICYENGINE_INBOUND_DIRECTION);
     }
 

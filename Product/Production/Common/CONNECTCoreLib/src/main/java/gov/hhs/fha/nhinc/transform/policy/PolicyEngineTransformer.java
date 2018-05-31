@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -35,6 +35,8 @@ import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.PatDiscReqEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.XDSEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.XDSResponseEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 
 /**
@@ -46,37 +48,37 @@ public class PolicyEngineTransformer {
     private PatientDiscoveryPolicyTransformHelper pdPolicyTransformerHelepr = new PatientDiscoveryPolicyTransformHelper();
 
     public CheckPolicyRequestType transformPatDiscReqToCheckPolicy(
-            PatDiscReqEventType transformPatDiscReqToCheckPolicyRequest) {
+        PatDiscReqEventType transformPatDiscReqToCheckPolicyRequest) {
         return pdPolicyTransformerHelepr
-                .transformPatientDiscoveryNhincToCheckPolicy(transformPatDiscReqToCheckPolicyRequest);
+            .transformPatientDiscoveryNhincToCheckPolicy(transformPatDiscReqToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformAdhocQueryToCheckPolicy(
-            AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {
+        AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {
         return AdhocQueryTransformHelper.transformAdhocQueryToCheckPolicy(transformAdhocQueryToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformAdhocQueryResultToCheckPolicy(
-            AdhocQueryResultEventType transformAdhocQueryResultToCheckPolicyRequest) {
+        AdhocQueryResultEventType transformAdhocQueryResultToCheckPolicyRequest) {
         return AdhocQueryTransformHelper
-                .transformAdhocQueryResponseToCheckPolicy(transformAdhocQueryResultToCheckPolicyRequest);
+            .transformAdhocQueryResponseToCheckPolicy(transformAdhocQueryResultToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformDocRetrieveToCheckPolicy(
-            DocRetrieveEventType transformDocRetrieveToCheckPolicyRequest) {
+        DocRetrieveEventType transformDocRetrieveToCheckPolicyRequest) {
         return DocRetrieveTransformHelper.transformDocRetrieveToCheckPolicy(transformDocRetrieveToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformDocRetrieveResultToCheckPolicy(
-            DocRetrieveResultEventType transformDocRetrieveResultToCheckPolicyRequest) {
+        DocRetrieveResultEventType transformDocRetrieveResultToCheckPolicyRequest) {
         // TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     public CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(
-            FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest) {
+        FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest) {
         return FindAuditEventsTransformHelper
-                .transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
+            .transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformNotifyToCheckPolicy(NotifyEventType transformNotifyToCheckPolicyRequest) {
@@ -89,6 +91,14 @@ public class PolicyEngineTransformer {
 
     public CheckPolicyRequestType transformXDRResponseInputToCheckPolicy(XDRResponseEventType request) {
         return new XDRPolicyTransformHelper().transformXDRResponseToCheckPolicy(request);
+    }
+
+    public CheckPolicyRequestType transformXDSRequestToCheckPolicy(XDSEventType request) {
+        return new XDSPolicyTransformHelper().transformXDSToCheckPolicy(request);
+    }
+
+    public CheckPolicyRequestType transformXDSResponseInputToCheckPolicy(XDSResponseEventType request) {
+        return new XDSPolicyTransformHelper().transformXDSResponseToCheckPolicy(request);
     }
 
 }

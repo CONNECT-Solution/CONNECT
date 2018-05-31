@@ -135,7 +135,7 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
                 assertion);
             String receiverHCID = getNhinTargetHomeCommunityId(request);
 
-            isValid = getXDSPolicyChecker().checkXDRRequestPolicy(request.getRegisterDocumentSetRequest(), assertion,
+            isValid = getXDSPolicyChecker().checkXDSRequestPolicy(request.getRegisterDocumentSetRequest(), assertion,
                 senderHCID, receiverHCID, NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
         } else {
             LOG.warn("Check on policy requires a non null target home community ID specified in the request");
@@ -174,7 +174,7 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
 
         OutboundDocDataSubmissionDelegate ddsDelegate = getOutboundDocDataSubmissionDelegate();
         OutboundDocDataSubmissionOrchestratable ddsOrchestratable = createOrchestratable(ddsDelegate, request,
-            assertion, nhinTargetSystemType);
+            assertion);
         ddsOrchestratable.setTarget(nhinTargetSystemType);
         RegistryResponseType response = ((OutboundDocDataSubmissionOrchestratable) ddsDelegate
             .process(ddsOrchestratable)).getResponse();
@@ -184,21 +184,21 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
 
     protected OutboundDocDataSubmissionOrchestratable createOrchestratable(OutboundDocDataSubmissionDelegate delegate,
         gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType request,
-        AssertionType assertion, NhinTargetSystemType nhinTargetSystemType) {
+        AssertionType assertion) {
 
-        OutboundDocDataSubmissionOrchestratable dsOrchestratable = new OutboundDocDataSubmissionOrchestratable(
+        OutboundDocDataSubmissionOrchestratable ddsOrchestratable = new OutboundDocDataSubmissionOrchestratable(
             delegate);
-        dsOrchestratable.setAssertion(assertion);
-        dsOrchestratable.setRequest(request.getRegisterDocumentSetRequest());
-        dsOrchestratable.setTarget(nhinTargetSystemType);
+        ddsOrchestratable.setAssertion(assertion);
+        ddsOrchestratable.setRequest(request.getRegisterDocumentSetRequest());
+        // dsOrchestratable.setTarget(nhinTargetSystemType);
 
-        return dsOrchestratable;
+        return ddsOrchestratable;
     }
 
     private void auditRequest(RegisterDocumentSetRequestType request, AssertionType assertion,
         NhinTargetSystemType target) {
         auditLogger.auditRequestMessage(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.NHINC_XDR_SERVICE_NAME);
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.NHINC_XDS_SERVICE_NAME);
     }
 
     private HomeCommunityType getNhinTargetHomeCommunity(

@@ -26,10 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission;
 
-import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
-import gov.hhs.fha.nhinc.common.eventcommon.XDRMessageType;
-import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseMessageType;
+import gov.hhs.fha.nhinc.common.eventcommon.XDSEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.XDSMessageType;
+import gov.hhs.fha.nhinc.common.eventcommon.XDSResponseEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.XDSResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
@@ -47,11 +47,11 @@ import org.slf4j.LoggerFactory;
 public class XDSPolicyChecker {
     private static final Logger LOG = LoggerFactory.getLogger(XDSPolicyChecker.class);
 
-    public boolean checkXDRRequestPolicy(RegisterDocumentSetRequestType request, AssertionType assertion,
+    public boolean checkXDSRequestPolicy(RegisterDocumentSetRequestType request, AssertionType assertion,
         String senderHCID, String receiverHCID, String direction) {
 
-        XDREventType policyCheckReq = new XDREventType();
-        XDRMessageType policyMsg = new XDRMessageType();
+        XDSEventType policyCheckReq = new XDSEventType();
+        XDSMessageType policyMsg = new XDSMessageType();
 
         policyCheckReq.setDirection(direction);
 
@@ -65,18 +65,18 @@ public class XDSPolicyChecker {
         policyCheckReq.setReceivingHomeCommunity(receiverHC);
 
         policyMsg.setAssertion(assertion);
-        // policyMsg.setProvideAndRegisterDocumentSetRequest(request);
+        policyMsg.setRegisterDocumentSetRequest(request);
 
         policyCheckReq.setMessage(policyMsg);
 
         return invokePolicyEngine(policyCheckReq);
     }
 
-    protected boolean invokePolicyEngine(XDREventType policyCheckReq) {
+    protected boolean invokePolicyEngine(XDSEventType policyCheckReq) {
         boolean policyIsValid = false;
 
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
-        CheckPolicyRequestType policyReq = policyChecker.checkPolicyXDRRequest(policyCheckReq);
+        CheckPolicyRequestType policyReq = policyChecker.checkPolicyXDSRequest(policyCheckReq);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
         AssertionType assertion = null;
@@ -103,18 +103,18 @@ public class XDSPolicyChecker {
      * @param direction
      * @return
      */
-    public boolean checkXDRResponsePolicy(RegistryResponseType message, AssertionType assertion, String senderHCID,
+    public boolean checkXDSResponsePolicy(RegistryResponseType message, AssertionType assertion, String senderHCID,
         String receiverHCID, String direction) {
-        LOG.debug("Entering checkXDRResponsePolicy");
+        LOG.debug("Entering checkXDSResponsePolicy");
 
-        XDRResponseEventType policyCheckReq = createXDRResponseEventType(message, assertion, senderHCID, receiverHCID,
+        XDSResponseEventType policyCheckReq = createXDSResponseEventType(message, assertion, senderHCID, receiverHCID,
             direction);
 
         boolean isPolicyValid = false;
 
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
 
-        CheckPolicyRequestType policyReq = policyChecker.checkPolicyXDRResponse(policyCheckReq);
+        CheckPolicyRequestType policyReq = policyChecker.checkPolicyXDSResponse(policyCheckReq);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
         CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
@@ -124,7 +124,7 @@ public class XDSPolicyChecker {
             isPolicyValid = true;
         }
 
-        LOG.debug("Exiting checkXDRResponsePolicy");
+        LOG.debug("Exiting checkXDSResponsePolicy");
 
         return isPolicyValid;
     }
@@ -138,10 +138,10 @@ public class XDSPolicyChecker {
      * @param direction
      * @return
      */
-    private XDRResponseEventType createXDRResponseEventType(RegistryResponseType message, AssertionType assertion,
+    private XDSResponseEventType createXDSResponseEventType(RegistryResponseType message, AssertionType assertion,
         String senderHCID, String receiverHCID, String direction) {
-        XDRResponseEventType policyCheckReq = new XDRResponseEventType();
-        XDRResponseMessageType policyMsg = new XDRResponseMessageType();
+        XDSResponseEventType policyCheckReq = new XDSResponseEventType();
+        XDSResponseMessageType policyMsg = new XDSResponseMessageType();
 
         policyCheckReq.setDirection(direction);
 
