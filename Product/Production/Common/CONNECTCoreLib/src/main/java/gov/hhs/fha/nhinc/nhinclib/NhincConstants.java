@@ -105,12 +105,12 @@ public class NhincConstants {
         public static NHIN_SERVICE_NAMES fromValueString(final String valueString) {
             if (valueString != null) {
                 for (final NHIN_SERVICE_NAMES enumValue : NHIN_SERVICE_NAMES.values()) {
-                    if (valueString.equals(enumValue.UDDIServiceName)) {
+                    if (enumValue.UDDIServiceName.equals(valueString)) {
                         return enumValue;
                     }
                 }
             }
-            throw new IllegalArgumentException("No enum constant " + valueString);
+            return null;
         }
 
         public static List<String> getEnumServiceNamesList() {
