@@ -33,10 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-/**
- * @author akong
- *
- */
 public class RegistryResponseDescriptionExtractor {
 
     private static final ErrorExtractor ERROR_EXTRACTOR = new ErrorExtractor();

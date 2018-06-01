@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.service.NhinDocDataSubmissionServicePortDescriptor;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
@@ -52,8 +52,8 @@ public class NhinDocDataSubmissionProxyWebServiceSecuredImpl implements NhinDocD
     public NhinDocDataSubmissionProxyWebServiceSecuredImpl() {
     }
 
-    protected MessageGeneratorUtils getMessageGeneratorUtils() {
-        return MessageGeneratorUtils.getInstance();
+    protected MessageGeneratorUtilsDocData getMessageGeneratorUtils() {
+        return MessageGeneratorUtilsDocData.getInstance();
     }
 
     protected WebServiceProxyHelper getWebServiceProxyHelper() {

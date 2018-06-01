@@ -32,7 +32,7 @@ import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.POLICYENGINE_INBOUND_DIR
 
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.XDSPolicyChecker;
 import gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy.AdapterDocDataSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
 public class StandardInboundDocDataSubmission extends AbstractInboundDocDataSubmission {
 
     private static final Logger LOG = LoggerFactory.getLogger(StandardInboundDocDataSubmission.class);
-    private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private MessageGeneratorUtilsDocData msgUtils = MessageGeneratorUtilsDocData.getInstance();
     private PropertyAccessor propertyAccessor;
     private XDSPolicyChecker policyChecker;
 
@@ -63,7 +63,7 @@ public class StandardInboundDocDataSubmission extends AbstractInboundDocDataSubm
 
     /**
      * Constructor with dependency injection of strategy components.
-     * 
+     *
      * @param adapterFactory
      * @param policyChecker
      * @param propertyAccessor

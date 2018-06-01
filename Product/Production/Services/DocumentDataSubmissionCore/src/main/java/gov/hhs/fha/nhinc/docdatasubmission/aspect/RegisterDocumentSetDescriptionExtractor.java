@@ -35,10 +35,6 @@ import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author akong
- *
- */
 public class RegisterDocumentSetDescriptionExtractor {
 
     private static final PayloadTypeExtractor PAYLOAD_TYPE_EXTRACTOR = new PayloadTypeExtractor();

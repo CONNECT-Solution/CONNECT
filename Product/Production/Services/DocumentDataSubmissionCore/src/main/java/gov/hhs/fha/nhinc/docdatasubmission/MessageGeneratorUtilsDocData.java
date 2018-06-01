@@ -33,15 +33,11 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-/**
- * @author akong
- *
- */
-public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGeneratorUtils {
+public class MessageGeneratorUtilsDocData extends gov.hhs.fha.nhinc.util.MessageGeneratorUtils {
 
-    private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
+    private static MessageGeneratorUtilsDocData INSTANCE = new MessageGeneratorUtilsDocData();
 
-    MessageGeneratorUtils() {
+    MessageGeneratorUtilsDocData() {
     };
 
     /**
@@ -49,7 +45,7 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
      *
      * @return the singleton instance
      */
-    public static MessageGeneratorUtils getInstance() {
+    public static MessageGeneratorUtilsDocData getInstance() {
         return INSTANCE;
     }
 

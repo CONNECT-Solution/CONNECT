@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.XDSPolicyChecker;
 import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docdatasubmission.audit.DocDataSubmissionAuditLogger;
@@ -64,11 +64,11 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
         RegistryResponseType response;
-        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
+        assertion = MessageGeneratorUtilsDocData.getInstance().generateMessageId(assertion);
 
         RespondingGatewayRegisterDocumentSetSecuredRequestType request = createRequestForInternalProcessing(body,
             targets, urlInfo);
-        NhinTargetSystemType target = getMessageGeneratorUtils().convertFirstToNhinTargetSystemType(targets);
+        NhinTargetSystemType target = getMessageGeneratorUtilsDocData().convertFirstToNhinTargetSystemType(targets);
         auditRequest(request.getRegisterDocumentSetRequest(), assertion, target);
 
         if (isPolicyValid(request, assertion)) {
@@ -76,7 +76,7 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
             response = getResponseFromTarget(request, assertion);
         } else {
             LOG.error("Failed policy check.  Sending error response.");
-            response = MessageGeneratorUtils.getInstance().createFailedPolicyCheckResponse();
+            response = MessageGeneratorUtilsDocData.getInstance().createFailedPolicyCheckResponse();
         }
 
         return response;
@@ -108,8 +108,8 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
         return new SubjectHelper();
     }
 
-    protected MessageGeneratorUtils getMessageGeneratorUtils() {
-        return MessageGeneratorUtils.getInstance();
+    protected MessageGeneratorUtilsDocData getMessageGeneratorUtilsDocData() {
+        return MessageGeneratorUtilsDocData.getInstance();
     }
 
     protected OutboundDocDataSubmissionDelegate getOutboundDocDataSubmissionDelegate() {
@@ -152,12 +152,12 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
         if (hasNhinTargetHomeCommunityId(request)) {
 
             try {
-                NhinTargetSystemType nhinTargetSystemType = getMessageGeneratorUtils()
+                NhinTargetSystemType nhinTargetSystemType = getMessageGeneratorUtilsDocData()
                     .convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities());
                 nhinResponse = sendToNhinProxy(request, assertion, nhinTargetSystemType);
             } catch (Exception e) {
                 String hcid = getNhinTargetHomeCommunityId(request);
-                nhinResponse = MessageGeneratorUtils.getInstance()
+                nhinResponse = MessageGeneratorUtilsDocData.getInstance()
                     .createRegistryBusyErrorResponse("Failed to send " + "request to community " + hcid);
                 LOG.error("Fault encountered while trying to send message to the nhin " + hcid, e);
             }

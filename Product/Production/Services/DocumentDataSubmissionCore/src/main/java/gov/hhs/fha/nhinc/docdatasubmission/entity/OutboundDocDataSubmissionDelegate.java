@@ -59,8 +59,6 @@ public class OutboundDocDataSubmissionDelegate implements OutboundDelegate {
 
             if (contextBuilder instanceof OutboundDocDataSubmissionOrchestrationContextBuilder_g0) {
                 ((OutboundDocDataSubmissionOrchestrationContextBuilder_g0) contextBuilder).init(message);
-            } else if (contextBuilder instanceof OutboundDocDataSubmissionOrchestrationContextBuilder_g1) {
-                ((OutboundDocDataSubmissionOrchestrationContextBuilder_g1) contextBuilder).init(message);
             } else {
                 return null;
             }

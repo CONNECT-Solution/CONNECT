@@ -40,10 +40,6 @@ import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author dunnek
- */
 public class XDSPolicyTransformHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(XDSPolicyTransformHelper.class);

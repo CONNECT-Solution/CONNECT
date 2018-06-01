@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.audit.DocDataSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.docdatasubmission.entity.OutboundDocDataSubmissionDelegate;
 import gov.hhs.fha.nhinc.docdatasubmission.entity.OutboundDocDataSubmissionOrchestratable;
@@ -58,18 +58,15 @@ public class PassthroughOutboundDocDataSubmission implements OutboundDocDataSubm
     public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType body, AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
-        // RegistryResponseType response;
-
-        assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
-        NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
+        assertion = MessageGeneratorUtilsDocData.getInstance().generateMessageId(assertion);
+        NhinTargetSystemType target = MessageGeneratorUtilsDocData.getInstance()
+            .convertFirstToNhinTargetSystemType(targets);
         RespondingGatewayRegisterDocumentSetSecuredRequestType request = createAuditRequest(body, assertion, targets);
 
         auditRequest(request.getRegisterDocumentSetRequest(), assertion, target);
-        // auditRequest(request, assertion, request.getNhinTargetSystem());
 
         OutboundDocDataSubmissionOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, body, target,
             assertion);
-        // dsOrchestratable.setTarget(nhinTargetSystemType);
         RegistryResponseType response = ((OutboundDocDataSubmissionOrchestratable) dsDelegate.process(dsOrchestratable))
             .getResponse();
 
@@ -89,7 +86,6 @@ public class PassthroughOutboundDocDataSubmission implements OutboundDocDataSubm
             delegate);
         dsOrchestratable.setAssertion(assertion);
         dsOrchestratable.setRequest(request);
-        // dsOrchestratable.setTarget(targetSystem);
 
         return dsOrchestratable;
     }
