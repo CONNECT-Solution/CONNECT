@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.common.eventcommon.PatDiscReqEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDSEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.XDSResponseEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer;
 
@@ -111,10 +110,6 @@ public class PolicyEngineChecker implements DocumentRetrievePolicyEngineChecker 
 
     public CheckPolicyRequestType checkPolicyXDSRequest(XDSEventType request) {
         return policyTransformer.transformXDSRequestToCheckPolicy(request);
-    }
-
-    public CheckPolicyRequestType checkPolicyXDSResponse(XDSResponseEventType request) {
-        return policyTransformer.transformXDSResponseInputToCheckPolicy(request);
     }
 
 }

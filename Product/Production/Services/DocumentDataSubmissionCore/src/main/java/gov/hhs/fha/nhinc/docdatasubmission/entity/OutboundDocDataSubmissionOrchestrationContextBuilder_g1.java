@@ -30,10 +30,6 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author zmelnick
- */
 public class OutboundDocDataSubmissionOrchestrationContextBuilder_g1
     extends OutboundDocDataSubmissionOrchestrationContextBuilder {
 
@@ -43,7 +39,7 @@ public class OutboundDocDataSubmissionOrchestrationContextBuilder_g1
     @Override
     public OrchestrationContext build() {
         LOG.trace("begin build");
-        return new OrchestrationContext(new OutboundDocDataSubmissionStrategyImpl_g1(),
+        return new OrchestrationContext(new OutboundDocDataSubmissionStrategyImpl_g0(),
             new OutboundDocDataSubmissionOrchestratable(getNhinDelegate(), getRequest(), getTarget(),
                 getAssertionType()));
     }

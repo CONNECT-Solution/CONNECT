@@ -36,7 +36,6 @@ import gov.hhs.fha.nhinc.common.eventcommon.PatDiscReqEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDSEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.XDSResponseEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 
 /**
@@ -95,10 +94,6 @@ public class PolicyEngineTransformer {
 
     public CheckPolicyRequestType transformXDSRequestToCheckPolicy(XDSEventType request) {
         return new XDSPolicyTransformHelper().transformXDSToCheckPolicy(request);
-    }
-
-    public CheckPolicyRequestType transformXDSResponseInputToCheckPolicy(XDSResponseEventType request) {
-        return new XDSPolicyTransformHelper().transformXDSResponseToCheckPolicy(request);
     }
 
 }

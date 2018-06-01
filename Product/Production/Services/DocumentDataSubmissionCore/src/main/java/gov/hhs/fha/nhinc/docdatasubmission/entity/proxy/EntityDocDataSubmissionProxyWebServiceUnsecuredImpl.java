@@ -42,7 +42,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class EntityDocDataSubmissionProxyWebServiceUnsecuredImpl implements EntityDocDataSubmissionProxy {
     private static final Logger LOG = LoggerFactory
         .getLogger(EntityDocDataSubmissionProxyWebServiceUnsecuredImpl.class);
@@ -62,13 +61,13 @@ public class EntityDocDataSubmissionProxyWebServiceUnsecuredImpl implements Enti
     }
 
     @Override
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType message,
-        AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        LOG.debug("Begin EntityDocSubmissionProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetB");
+    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType message, AssertionType assertion,
+        NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+        LOG.debug("Begin EntityDocDataSubmissionProxyWebServiceUnsecuredImpl.RegisterDocumentSetB");
         RegistryResponseType response = new RegistryResponseType();
 
         try {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDR_SERVICE_NAME);
+            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDS_SERVICE_NAME);
 
             ServicePortDescriptor<EntityXDSPortType> portDescriptor = getServicePortDescriptor(
                 NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
@@ -80,14 +79,14 @@ public class EntityDocDataSubmissionProxyWebServiceUnsecuredImpl implements Enti
             request.setRegisterDocumentSetRequest(message);
             request.setUrl(urlInfo);
 
-            response = (RegistryResponseType) client.invokePort(EntityXDSPortType.class,
-                "provideAndRegisterDocumentSetB", request);
+            response = (RegistryResponseType) client.invokePort(EntityXDSPortType.class, "RegisterDocumentSetB",
+                request);
 
         } catch (Exception ex) {
-            LOG.error("Error calling provideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
+            LOG.error("Error calling RegisterDocumentSetB: " + ex.getMessage(), ex);
         }
 
-        LOG.debug("End EntityDocSubmissionProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetB");
+        LOG.debug("End EntityDocDataSubmissionProxyWebServiceUnsecuredImpl.RegisterDocumentSetB");
         return response;
     }
 

@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.transform.policy;
 
 import gov.hhs.fha.nhinc.common.eventcommon.XDSEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.XDSResponseEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -170,47 +169,6 @@ public class XDSPolicyTransformHelper {
     public CheckPolicyRequestType transformXDSEntityToCheckPolicy(
         RespondingGatewayRegisterDocumentSetSecuredRequestType request) {
         throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    /**
-     *
-     * @param event
-     * @return
-     */
-    public CheckPolicyRequestType transformXDSResponseToCheckPolicy(XDSResponseEventType event) {
-
-        LOG.debug("Begin -- XDSPolicyTransformHelper.transformXDSResponseToCheckPolicy()");
-        CheckPolicyRequestType checkPolicyRequest = null;
-
-        if (event == null) {
-            LOG.debug("Request is null.");
-            return checkPolicyRequest;
-        } else {
-            checkPolicyRequest = new CheckPolicyRequestType();
-        }
-
-        RequestType request = new RequestType();
-
-        SubjectHelper subjHelp = new SubjectHelper();
-        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(),
-            event.getMessage().getAssertion());
-        LOG.debug("transformXDSResponseToCheckPolicy - adding subject");
-        request.getSubject().add(subject);
-
-        LOG.debug("transformXDSResponseToCheckPolicy - adding assertion data");
-        AssertionHelper assertHelp = new AssertionHelper();
-        assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
-
-        if (NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION.equals(event.getDirection())) {
-            request.setAction(ActionHelper.actionFactory(XDSRESPONSE_ACTION_OUT_VALUE));
-        } else if (NhincConstants.POLICYENGINE_INBOUND_DIRECTION.equals(event.getDirection())) {
-            request.setAction(ActionHelper.actionFactory(XDSRESPONSE_ACTION_IN_VALUE));
-        }
-
-        checkPolicyRequest.setRequest(request);
-        checkPolicyRequest.setAssertion(event.getMessage().getAssertion());
-        LOG.debug("End -- XDSPolicyTransformHelper.transformXDSResponseToCheckPolicy()");
-        return checkPolicyRequest;
     }
 
 }
