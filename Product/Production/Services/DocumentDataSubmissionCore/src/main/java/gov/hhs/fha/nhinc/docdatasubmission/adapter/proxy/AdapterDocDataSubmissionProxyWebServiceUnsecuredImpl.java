@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 import gov.hhs.fha.nhinc.adapterxds.AdapterXDSPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docdatasubmission.adapter.descriptor.AdapterDocDataSubmissionServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -73,8 +74,7 @@ public class AdapterDocDataSubmissionProxyWebServiceUnsecuredImpl implements Ada
             }
         } catch (Exception ex) {
             LOG.error("Error sending Adapter Doc Data Submission Unsecured message: " + ex.getMessage(), ex);
-            response = new RegistryResponseType();
-            response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            response = MessageGeneratorUtils.getInstance().createRegistryErrorResponse();
         }
 
         LOG.debug("End RegisterDocumentSetB");
