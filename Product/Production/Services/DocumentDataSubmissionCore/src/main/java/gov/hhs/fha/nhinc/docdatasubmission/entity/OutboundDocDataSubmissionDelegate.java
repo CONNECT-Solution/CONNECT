@@ -26,12 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.entity;
 
+import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docdatasubmission.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,15 +76,17 @@ public class OutboundDocDataSubmissionDelegate implements OutboundDelegate {
         return OrchestrationContextFactory.getInstance();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.orchestration.OutboundDelegate#createErrorResponse(gov.hhs.fha.nhinc.orchestration.
-     * OutboundOrchestratable, java.lang.String)
-     */
     @Override
     public void createErrorResponse(OutboundOrchestratable message, String error) {
-        // TODO Auto-generated method stub
+        if (message == null) {
+            LOG.debug("OutboundOrchestratable was null");
+            return;
+        }
+        OutboundDocDataSubmissionOrchestratable msg = (OutboundDocDataSubmissionOrchestratable) message;
 
+        RegistryResponseType response = MessageGeneratorUtils.getInstance()
+            .createRegistryErrorResponseWithAckFailure(error);
+
+        msg.setResponse(response);
     }
 }
