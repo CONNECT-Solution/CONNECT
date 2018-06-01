@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adapterxdssecured.AdapterXDSSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.adapter.descriptor.AdapterDocDataSubmissionSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -46,10 +46,8 @@ public class AdapterDocDataSubmissionProxyWebServiceSecuredImpl implements Adapt
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocDataSubmissionProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
-
     @Override
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg,
-        AssertionType assertion) {
+    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion) {
         RegistryResponseType response = null;
 
         try {
@@ -69,7 +67,7 @@ public class AdapterDocDataSubmissionProxyWebServiceSecuredImpl implements Adapt
             }
         } catch (Exception ex) {
             LOG.error("Error sending Adapter Doc Data Submission Secured message: " + ex.getMessage(), ex);
-            response = MessageGeneratorUtils.getInstance().createRegistryErrorResponse();
+            response = MessageGeneratorUtilsDocData.getInstance().createRegistryErrorResponse();
         }
         return response;
     }

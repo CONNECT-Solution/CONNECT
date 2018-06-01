@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
@@ -37,9 +37,8 @@ public class AdapterDocDataSubmissionProxyNoOpImpl implements AdapterDocDataSubm
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocDataSubmissionProxyNoOpImpl.class);
 
     @Override
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg,
-        AssertionType assertion) {
+    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion) {
         LOG.trace("Using NoOp Implementation for Adapter Doc Submission Service");
-        return MessageGeneratorUtils.getInstance().createRegistryResponseSuccess();
+        return MessageGeneratorUtilsDocData.getInstance().createRegistryResponseSuccess();
     }
 }

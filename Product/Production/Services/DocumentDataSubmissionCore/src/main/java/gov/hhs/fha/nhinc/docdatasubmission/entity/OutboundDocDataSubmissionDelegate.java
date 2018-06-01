@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.entity;
 
-import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
@@ -81,7 +81,7 @@ public class OutboundDocDataSubmissionDelegate implements OutboundDelegate {
             return;
         }
 
-        RegistryResponseType response = MessageGeneratorUtils.getInstance()
+        RegistryResponseType response = MessageGeneratorUtilsDocData.getInstance()
             .createRegistryErrorResponseWithAckFailure(error);
 
         ((OutboundDocDataSubmissionOrchestratable) message).setResponse(response);

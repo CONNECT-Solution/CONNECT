@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 import gov.hhs.fha.nhinc.adapterxds.AdapterXDSPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.adapter.descriptor.AdapterDocDataSubmissionServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -48,8 +48,7 @@ public class AdapterDocDataSubmissionProxyWebServiceUnsecuredImpl implements Ada
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     @Override
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg,
-        AssertionType assertion) {
+    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion) {
         LOG.debug("Begin RegisterDocumentSetB");
         RegistryResponseType response = null;
 
@@ -65,8 +64,8 @@ public class AdapterDocDataSubmissionProxyWebServiceUnsecuredImpl implements Ada
 
                 CONNECTClient<AdapterXDSPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientUnsecured(portDescriptor, url, assertion);
-                response = (RegistryResponseType) client.invokePort(AdapterXDSPortType.class,
-                    "registerDocumentSetb", request);
+                response = (RegistryResponseType) client.invokePort(AdapterXDSPortType.class, "registerDocumentSetb",
+                    request);
 
             } else {
                 LOG.error("Failed to call the web service ({}). The URL is null.",
@@ -74,7 +73,7 @@ public class AdapterDocDataSubmissionProxyWebServiceUnsecuredImpl implements Ada
             }
         } catch (Exception ex) {
             LOG.error("Error sending Adapter Doc Data Submission Unsecured message: " + ex.getMessage(), ex);
-            response = MessageGeneratorUtils.getInstance().createRegistryErrorResponse();
+            response = MessageGeneratorUtilsDocData.getInstance().createRegistryErrorResponse();
         }
 
         LOG.debug("End RegisterDocumentSetB");
