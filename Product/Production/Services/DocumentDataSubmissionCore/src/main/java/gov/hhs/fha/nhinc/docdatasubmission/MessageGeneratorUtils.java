@@ -26,9 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission;
 
+import gov.hhs.fha.nhinc.docrepository.adapter.DocRepoConstants;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -97,6 +99,12 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
     public RegistryResponseType createRegistryErrorResponse() {
         return createRegistryErrorResponse("Failed to retrieve document from request.",
             DocumentConstants.XDS_REGISTRY_ERROR, DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
+    }
+
+    public RegistryResponseType createRegistryResponseSuccess() {
+        RegistryResponseType registryResponse = new ObjectFactory().createRegistryResponseType();
+        registryResponse.setStatus(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
+        return registryResponse;
     }
 
     /**

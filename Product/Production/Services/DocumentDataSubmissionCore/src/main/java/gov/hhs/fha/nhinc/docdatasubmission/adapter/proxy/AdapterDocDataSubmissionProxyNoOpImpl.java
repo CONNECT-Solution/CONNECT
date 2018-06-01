@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtils;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
@@ -39,6 +40,6 @@ public class AdapterDocDataSubmissionProxyNoOpImpl implements AdapterDocDataSubm
     public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg,
         AssertionType assertion) {
         LOG.trace("Using NoOp Implementation for Adapter Doc Submission Service");
-        return new RegistryResponseType();
+        return MessageGeneratorUtils.getInstance().createRegistryResponseSuccess();
     }
 }
