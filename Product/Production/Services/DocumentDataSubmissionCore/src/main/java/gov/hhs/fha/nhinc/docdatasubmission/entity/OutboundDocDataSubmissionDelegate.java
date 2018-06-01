@@ -82,11 +82,10 @@ public class OutboundDocDataSubmissionDelegate implements OutboundDelegate {
             LOG.debug("OutboundOrchestratable was null");
             return;
         }
-        OutboundDocDataSubmissionOrchestratable msg = (OutboundDocDataSubmissionOrchestratable) message;
 
         RegistryResponseType response = MessageGeneratorUtils.getInstance()
             .createRegistryErrorResponseWithAckFailure(error);
 
-        msg.setResponse(response);
+        ((OutboundDocDataSubmissionOrchestratable) message).setResponse(response);
     }
 }
