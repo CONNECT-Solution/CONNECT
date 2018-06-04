@@ -73,6 +73,13 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
         } else {
             timeout = getTimeoutFromConfig();
         }
+        ((BindingProvider)getPort()).getRequestContext().put(ClientImpl.SYNC_TIMEOUT, timeout);
+        ((BindingProvider)getPort()).getRequestContext().put("com.sun.xml.internal.ws.request.timeout", timeout);
+        ((BindingProvider)getPort()).getRequestContext().put("com.sun.xml.internal.ws.connect.timeout", timeout);
+        ((BindingProvider)getPort()).getRequestContext().put("com.sun.xml.ws.request.timeout", timeout);
+        ((BindingProvider)getPort()).getRequestContext().put("com.sun.xml.ws.connect.timeout", timeout);
+        ((BindingProvider)getPort()).getRequestContext().put("javax.xml.ws.client.requestTimeout", timeout);
+        ((BindingProvider)getPort()).getRequestContext().put("javax.xml.ws.client.connectTimeout", timeout);
         httpClientPolicy.setReceiveTimeout(timeout);
         httpClientPolicy.setConnectionTimeout(timeout);
     }
