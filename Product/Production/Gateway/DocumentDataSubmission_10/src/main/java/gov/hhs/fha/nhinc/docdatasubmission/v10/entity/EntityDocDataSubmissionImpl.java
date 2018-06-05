@@ -49,8 +49,7 @@ class EntityDocDataSubmissionImpl extends BaseService {
         this.outboundDocDataSubmission = outboundDocDataSubmission;
     }
 
-    RegistryResponseType registerDocumentSetBUnsecured(RespondingGatewayRegisterDocumentSetRequestType request,
-        WebServiceContext context) {
+    RegistryResponseType registerDocumentSetBUnsecured(RespondingGatewayRegisterDocumentSetRequestType request) {
 
         RegistryResponseType response = null;
 

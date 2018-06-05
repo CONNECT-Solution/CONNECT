@@ -65,6 +65,6 @@ public class EntityDocDataSubmissionUnsecured implements EntityXDSPortType {
     afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
     serviceType = "Document Data Submission", version = "1.0")
     public RegistryResponseType registerDocumentSetB(RespondingGatewayRegisterDocumentSetRequestType body) {
-        return new EntityDocDataSubmissionImpl(outboundDocDataSubmission).registerDocumentSetBUnsecured(body, context);
+        return new EntityDocDataSubmissionImpl(outboundDocDataSubmission).registerDocumentSetBUnsecured(body);
     }
 }

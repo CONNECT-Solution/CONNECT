@@ -26,22 +26,21 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.entity;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
 public class OutboundDocDataSubmissionFactory {
 
-    private static OutboundDocDataSubmissionFactory INSTANCE = new OutboundDocDataSubmissionFactory();
+    private static OutboundDocDataSubmissionFactory instance = new OutboundDocDataSubmissionFactory();
 
     private OutboundDocDataSubmissionFactory() {
     }
 
-    public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+    public OrchestrationContextBuilder createOrchestrationContextBuilder() {
         return new OutboundDocDataSubmissionOrchestrationContextBuilder_g0();
     }
 
     public static OutboundDocDataSubmissionFactory getInstance() {
-        return INSTANCE;
+        return instance;
     }
 
 }

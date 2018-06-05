@@ -43,7 +43,7 @@ public class RegistryResponseDescriptionExtractor {
      * @param response the RegistryResponse whose values are to be extracted
      * @return a list of string containing the statuses
      */
-    public ImmutableList<String> getStatuses(RegistryResponseType response) {
+    public static ImmutableList<String> getStatuses(RegistryResponseType response) {
         ImmutableList<String> statuses = ImmutableList.of();
         if (hasStatus(response)) {
             statuses = ImmutableList.of(response.getStatus());
@@ -58,7 +58,7 @@ public class RegistryResponseDescriptionExtractor {
      * @param response the RegistryResponse whose values are to be extracted
      * @return a list of string containing the error codes
      */
-    public List<String> getErrorCodes(RegistryResponseType response) {
+    public static List<String> getErrorCodes(RegistryResponseType response) {
         List<String> errorCodes = new ArrayList<>();
         if (hasErrorList(response)) {
             errorCodes = Lists.transform(response.getRegistryErrorList().getRegistryError(), ERROR_EXTRACTOR);
@@ -67,11 +67,11 @@ public class RegistryResponseDescriptionExtractor {
         return errorCodes;
     }
 
-    private boolean hasStatus(RegistryResponseType response) {
+    private static boolean hasStatus(RegistryResponseType response) {
         return response != null && response.getStatus() != null;
     }
 
-    private boolean hasErrorList(RegistryResponseType response) {
+    private static boolean hasErrorList(RegistryResponseType response) {
         return response != null && response.getRegistryErrorList() != null;
     }
 

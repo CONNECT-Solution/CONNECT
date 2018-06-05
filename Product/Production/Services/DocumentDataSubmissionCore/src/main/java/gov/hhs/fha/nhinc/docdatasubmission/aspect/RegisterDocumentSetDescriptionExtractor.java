@@ -77,7 +77,7 @@ public class RegisterDocumentSetDescriptionExtractor {
         return payloadSizes;
     }
 
-    private boolean hasObjectList(RegisterDocumentSetRequestType request) {
+    private static boolean hasObjectList(RegisterDocumentSetRequestType request) {
         return request != null && request.getSubmitObjectsRequest() != null
             && request.getSubmitObjectsRequest().getRegistryObjectList() != null;
     }

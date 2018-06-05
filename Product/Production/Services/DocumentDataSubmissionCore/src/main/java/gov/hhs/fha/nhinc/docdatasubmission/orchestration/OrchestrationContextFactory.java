@@ -28,33 +28,27 @@ package gov.hhs.fha.nhinc.docdatasubmission.orchestration;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
-import gov.hhs.fha.nhinc.connectmgr.UddiSpecVersionRegistry;
 import gov.hhs.fha.nhinc.docdatasubmission.entity.OutboundDocDataSubmissionFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.orchestration.AbstractOrchestrationContextFactory;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import org.apache.commons.lang.StringUtils;
 
 public class OrchestrationContextFactory extends AbstractOrchestrationContextFactory {
 
-    private static OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
+    private static OrchestrationContextFactory instance = new OrchestrationContextFactory();
 
     private OrchestrationContextFactory() {
     }
 
     public static OrchestrationContextFactory getInstance() {
-        return INSTANCE;
+        return instance;
     }
 
     @Override
     public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType,
         NhincConstants.NHIN_SERVICE_NAMES serviceName) {
-        NhinEndpointManager nem = new NhinEndpointManager();
-        NhincConstants.GATEWAY_API_LEVEL apiLevel = nem.getApiVersion(homeCommunityType.getHomeCommunityId(),
-            serviceName);
-        return OutboundDocDataSubmissionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        return OutboundDocDataSubmissionFactory.getInstance().createOrchestrationContextBuilder();
     }
 
     /**
@@ -70,9 +64,7 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
         if (StringUtils.isEmpty(userSpec)) {
             return getBuilder(targets.getHomeCommunity(), serviceName);
         } else {
-            NhincConstants.GATEWAY_API_LEVEL apiLevel = UddiSpecVersionRegistry.getInstance()
-                .getSupportedGatewayAPI(UDDI_SPEC_VERSION.fromString(userSpec), serviceName);
-            return OutboundDocDataSubmissionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+            return OutboundDocDataSubmissionFactory.getInstance().createOrchestrationContextBuilder();
         }
 
     }

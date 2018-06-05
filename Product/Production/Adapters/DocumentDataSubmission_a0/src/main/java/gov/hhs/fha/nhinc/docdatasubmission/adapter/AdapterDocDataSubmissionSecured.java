@@ -46,6 +46,6 @@ public class AdapterDocDataSubmissionSecured implements AdapterXDSSecuredPortTyp
 
     @Override
     public RegistryResponseType registerDocumentSetb(RegisterDocumentSetRequestType body) {
-        return service.registerDocumentSetb(body, context);
+        return service.registerDocumentSetb(body);
     }
 }
