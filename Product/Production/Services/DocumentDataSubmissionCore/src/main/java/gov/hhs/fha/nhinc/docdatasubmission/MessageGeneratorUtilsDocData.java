@@ -93,7 +93,7 @@ public class MessageGeneratorUtilsDocData extends gov.hhs.fha.nhinc.util.Message
      * @return the generated RegistryErrorResponse message
      */
     public RegistryResponseType createRegistryErrorResponse() {
-        return createRegistryErrorResponse("Failed to retrieve document from request.",
+        return createRegistryErrorResponse("Failed to submit document data submission",
             DocumentConstants.XDS_REGISTRY_ERROR, DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
     }
 

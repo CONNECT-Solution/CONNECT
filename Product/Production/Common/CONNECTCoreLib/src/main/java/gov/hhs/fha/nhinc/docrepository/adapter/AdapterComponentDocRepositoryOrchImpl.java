@@ -489,7 +489,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         if (errorList.getRegistryError().isEmpty()) {
             // extract the document title
             InternationalStringType docTitle = extrinsicObject.getName();
-            if (docTitle != null) {
+            if (docTitle != null && CollectionUtils.isNotEmpty(docTitle.getLocalizedString())) {
                 String docTitleValue = docTitle.getLocalizedString().get(0).getValue();
                 LOG.debug("DocumentTitle for ExtrinsicObject: {}", docTitleValue);
                 doc.setDocumentTitle(docTitleValue);
@@ -497,7 +497,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
             // extract the document comments
             InternationalStringType docComments = extrinsicObject.getDescription();
-            if (docComments != null) {
+            if (docComments != null && CollectionUtils.isNotEmpty(docComments.getLocalizedString())) {
                 String docCommentsValue = docComments.getLocalizedString().get(0).getValue();
                 LOG.debug("DocumentComments for ExtrinsicObject: {}", docCommentsValue);
                 doc.setComments(docCommentsValue);

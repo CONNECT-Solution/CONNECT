@@ -559,8 +559,8 @@ public class NhincConstants {
 
     // Doc Data Submission
     public static final String NHINC_XDS_SERVICE_NAME = "DocDataSubmission";
-    public static final String ADAPTER_XDS_SERVICE_NAME = "adapterxds";
-    public static final String ADAPTER_XDS_SECURED_SERVICE_NAME = "adapterxdssecured";
+    public static final String ADAPTER_XDS_SERVICE_NAME = "adapterxdsservice";
+    public static final String ADAPTER_XDS_SECURED_SERVICE_NAME = "adapterxdsservicesecured";
 
     private NhincConstants() {
     }
