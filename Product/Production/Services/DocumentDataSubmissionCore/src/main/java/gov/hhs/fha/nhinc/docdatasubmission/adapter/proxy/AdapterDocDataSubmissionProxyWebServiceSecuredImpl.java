@@ -60,7 +60,7 @@ public class AdapterDocDataSubmissionProxyWebServiceSecuredImpl implements Adapt
                 CONNECTClient<AdapterXDSSecuredPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientSecured(portDescriptor, url, assertion);
                 response = (RegistryResponseType) client.invokePort(AdapterXDSSecuredPortType.class,
-                    "registerDocumentSetb", msg);
+                    "RegisterDocumentSetb", msg);
             } else {
                 LOG.error("Failed to call the web service ({}).  The URL is null.",
                     NhincConstants.ADAPTER_XDS_SECURED_SERVICE_NAME);

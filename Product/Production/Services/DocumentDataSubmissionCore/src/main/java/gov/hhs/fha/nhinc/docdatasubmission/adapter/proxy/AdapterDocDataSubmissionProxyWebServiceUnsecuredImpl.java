@@ -64,7 +64,7 @@ public class AdapterDocDataSubmissionProxyWebServiceUnsecuredImpl implements Ada
 
                 CONNECTClient<AdapterXDSPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientUnsecured(portDescriptor, url, assertion);
-                response = (RegistryResponseType) client.invokePort(AdapterXDSPortType.class, "registerDocumentSetb",
+                response = (RegistryResponseType) client.invokePort(AdapterXDSPortType.class, "RegisterDocumentSetb",
                     request);
 
             } else {

@@ -49,9 +49,6 @@ public class NhinDocDataSubmissionProxyWebServiceSecuredImpl implements NhinDocD
     private static final Logger LOG = LoggerFactory.getLogger(NhinDocDataSubmissionProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper proxyHelper = null;
 
-    public NhinDocDataSubmissionProxyWebServiceSecuredImpl() {
-    }
-
     protected MessageGeneratorUtilsDocData getMessageGeneratorUtils() {
         return MessageGeneratorUtilsDocData.getInstance();
     }
@@ -61,15 +58,6 @@ public class NhinDocDataSubmissionProxyWebServiceSecuredImpl implements NhinDocD
             proxyHelper = new WebServiceProxyHelper();
         }
         return proxyHelper;
-    }
-
-    public ServicePortDescriptor<DocumentRegistryXDSPortType> getServicePortDescriptor(
-        NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        switch (apiLevel) {
-
-            default:
-                return new NhinDocDataSubmissionServicePortDescriptor();
-        }
     }
 
     protected CONNECTClient<DocumentRegistryXDSPortType> getCONNECTClientSecured(
@@ -85,31 +73,31 @@ public class NhinDocDataSubmissionProxyWebServiceSecuredImpl implements NhinDocD
     @Override
     public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType request, AssertionType assertion,
         NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        LOG.debug("Begin provideAndRegisterDocumentSetB");
+        LOG.debug("Begin registerDocumentSetb");
         RegistryResponseType response = new RegistryResponseType();
 
         try {
             String url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
-                NhincConstants.NHINC_XDR_SERVICE_NAME, apiLevel);
+                NhincConstants.NHINC_XDS_SERVICE_NAME, apiLevel);
 
-            ServicePortDescriptor<DocumentRegistryXDSPortType> portDescriptor = getServicePortDescriptor(apiLevel);
+            ServicePortDescriptor<DocumentRegistryXDSPortType> portDescriptor = new NhinDocDataSubmissionServicePortDescriptor();
 
             CONNECTClient<DocumentRegistryXDSPortType> client = getCONNECTClientSecured(portDescriptor, assertion, url,
-                targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHINC_XDR_SERVICE_NAME);
+                targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHINC_XDS_SERVICE_NAME);
             client.enableMtom();
 
             response = (RegistryResponseType) client.invokePort(DocumentRegistryXDSPortType.class,
-                "documentRepositoryProvideAndRegisterDocumentSetB", request);
+                "documentRegistryXDSRegisterDocumentSetB", request);
 
         } catch (LargePayloadException lpe) {
             LOG.error("Failed to send message.", lpe);
             response = getMessageGeneratorUtils().createMissingDocumentRegistryResponse();
         } catch (Exception ex) {
-            LOG.error("Error calling documentRepositoryProvideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
+            LOG.error("Error calling registerDocumentSetB: " + ex.getMessage(), ex);
             response = getMessageGeneratorUtils().createRegistryErrorResponseWithAckFailure(ex.getMessage());
         }
 
-        LOG.debug("End provideAndRegisterDocumentSetB");
+        LOG.debug("End registerDocumentSetb");
         return response;
     }
 

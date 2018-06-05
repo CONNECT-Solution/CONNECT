@@ -29,8 +29,8 @@ package gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 public class NhinDocDataSubmissionProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "DocumentSubmissionProxyConfig.xml";
-    private static final String BEAN_NAME = "nhinxdr";
+    private static final String CONFIG_FILE_NAME = "DocumentDataSubmissionProxyConfig.xml";
+    private static final String BEAN_NAME = "nhinxdds";
 
     @Override
     protected String getConfigFileName() {

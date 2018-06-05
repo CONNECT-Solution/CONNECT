@@ -29,15 +29,11 @@ package gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.service;
 import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import ihe.iti.xds._2007.DocumentRegistryXDSPortType;
 
-/**
- * @author akong
- *
- */
 public abstract class AbstractServicePortDescriptor extends SOAP12ServicePortDescriptor<DocumentRegistryXDSPortType> {
 
     private static final String NAMESPACE_URI = "urn:ihe:iti:xds:2007";
-    private static final String SERVICE_LOCAL_PART = "DocumentRepositoryXDR_Service";
-    private static final String PORT_LOCAL_PART = "DocumentRepositoryXDR_Port_Soap";
+    private static final String SERVICE_LOCAL_PART = "DocumentRepositoryXDS_Service";
+    private static final String PORT_LOCAL_PART = "DocumentRepositoryXDS_Port_Soap";
 
     public String getNamespaceUri() {
         return NAMESPACE_URI;

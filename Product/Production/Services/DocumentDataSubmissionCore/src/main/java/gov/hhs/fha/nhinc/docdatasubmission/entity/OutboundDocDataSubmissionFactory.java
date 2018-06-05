@@ -37,10 +37,7 @@ public class OutboundDocDataSubmissionFactory {
     }
 
     public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        switch (apiLevel) {
-            default:
-                return new OutboundDocDataSubmissionOrchestrationContextBuilder_g0();
-        }
+        return new OutboundDocDataSubmissionOrchestrationContextBuilder_g0();
     }
 
     public static OutboundDocDataSubmissionFactory getInstance() {

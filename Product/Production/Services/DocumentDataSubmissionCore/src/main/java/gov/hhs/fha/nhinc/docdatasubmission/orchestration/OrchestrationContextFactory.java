@@ -54,7 +54,7 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
         NhinEndpointManager nem = new NhinEndpointManager();
         NhincConstants.GATEWAY_API_LEVEL apiLevel = nem.getApiVersion(homeCommunityType.getHomeCommunityId(),
             serviceName);
-        return getBuilder(apiLevel, serviceName);
+        return OutboundDocDataSubmissionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
     }
 
     /**
@@ -72,20 +72,9 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
         } else {
             NhincConstants.GATEWAY_API_LEVEL apiLevel = UddiSpecVersionRegistry.getInstance()
                 .getSupportedGatewayAPI(UDDI_SPEC_VERSION.fromString(userSpec), serviceName);
-            return getBuilder(apiLevel, serviceName);
+            return OutboundDocDataSubmissionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         }
 
-    }
-
-    private OrchestrationContextBuilder getBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel,
-        NhincConstants.NHIN_SERVICE_NAMES serviceName) {
-
-        switch (serviceName) {
-            case DOCUMENT_DATA_SUBMISSION:
-                return OutboundDocDataSubmissionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-        }
-
-        return null;
     }
 
 }

@@ -48,7 +48,6 @@ public class EntityDocDataSubmissionUnsecured implements EntityXDSPortType {
 
     private OutboundDocDataSubmission outboundDocDataSubmission;
 
-
     public void setContext(WebServiceContext context) {
         this.context = context;
     }
