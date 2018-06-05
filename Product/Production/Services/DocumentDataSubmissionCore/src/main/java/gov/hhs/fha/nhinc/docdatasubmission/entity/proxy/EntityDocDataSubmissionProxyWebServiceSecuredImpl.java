@@ -55,8 +55,7 @@ public class EntityDocDataSubmissionProxyWebServiceSecuredImpl implements Entity
         return new WebServiceProxyHelper();
     }
 
-    protected ServicePortDescriptor<EntityXDSSecuredPortType> getServicePortDescriptor(
-        NhincConstants.ADAPTER_API_LEVEL apiLevel) {
+    protected ServicePortDescriptor<EntityXDSSecuredPortType> getServicePortDescriptor() {
         return new EntityDocDataSubmissionSecuredAdapterServicePortDescriptor();
     }
 
@@ -69,8 +68,7 @@ public class EntityDocDataSubmissionProxyWebServiceSecuredImpl implements Entity
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDS_SECURED_SERVICE_NAME);
 
-            ServicePortDescriptor<EntityXDSSecuredPortType> portDescriptor = getServicePortDescriptor(
-                NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+            ServicePortDescriptor<EntityXDSSecuredPortType> portDescriptor = getServicePortDescriptor();
 
             CONNECTClient<EntityXDSSecuredPortType> client = getCONNECTClient(portDescriptor, url, assertion);
 
@@ -83,7 +81,7 @@ public class EntityDocDataSubmissionProxyWebServiceSecuredImpl implements Entity
                 securedRequest);
 
         } catch (Exception e) {
-            LOG.error("Error calling RegisterDocumentSetB: " + e.getMessage(), e);
+            LOG.error("Error calling RegisterDocumentSetB: {}", e.getMessage(), e);
         }
 
         LOG.debug("End EntityDocDataSubmissionProxyWebServiceSecuredImpl.RegisterDocumentSetB");

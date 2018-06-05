@@ -36,8 +36,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class AdapterDocDataSubmissionImpl extends BaseService {
 
-    public RegistryResponseType registerDocumentSetb(RegisterDocumentSetRequestType body,
-        WebServiceContext context) {
+    public RegistryResponseType registerDocumentSetb(RegisterDocumentSetRequestType body, WebServiceContext context) {
         return registerDocumentSetb(body, getAssertion(context, null));
     }
 

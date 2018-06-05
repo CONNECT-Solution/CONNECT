@@ -59,8 +59,8 @@ public class OutboundDocDataSubmissionDelegate implements OutboundDelegate {
             OrchestrationContextBuilder contextBuilder = getOrchestrationContextFactory()
                 .getBuilder(dsMessage.getTarget(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_DATA_SUBMISSION);
 
-            if (contextBuilder instanceof OutboundDocDataSubmissionOrchestrationContextBuilder_g0) {
-                ((OutboundDocDataSubmissionOrchestrationContextBuilder_g0) contextBuilder).init(message);
+            if (contextBuilder instanceof OutboundDocDataSubmissionOrchestrationContextBuilderImpl) {
+                ((OutboundDocDataSubmissionOrchestrationContextBuilderImpl) contextBuilder).init(message);
             } else {
                 return null;
             }
