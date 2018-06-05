@@ -120,12 +120,9 @@ public class StandardInboundDocDataSubmission extends AbstractInboundDocDataSubm
             POLICYENGINE_INBOUND_DIRECTION);
     }
 
-    private boolean hasHomeCommunityId(AssertionType assertion) {
-        if (assertion != null && assertion.getHomeCommunity() != null
-            && StringUtils.isNotBlank(assertion.getHomeCommunity().getHomeCommunityId())) {
-            return true;
-        }
-        return false;
+    private static boolean hasHomeCommunityId(AssertionType assertion) {
+        return assertion != null && assertion.getHomeCommunity() != null
+            && StringUtils.isNotBlank(assertion.getHomeCommunity().getHomeCommunityId());
     }
 
     private String getLocalHCID() {
