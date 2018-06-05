@@ -38,11 +38,8 @@ import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class XDSPolicyChecker {
-    private static final Logger LOG = LoggerFactory.getLogger(XDSPolicyChecker.class);
 
     public boolean checkXDSRequestPolicy(RegisterDocumentSetRequestType request, AssertionType assertion,
         String senderHCID, String receiverHCID, String direction) {

@@ -30,83 +30,56 @@ import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class DocDataSubmissionBaseEventDescriptionBuilder extends TargetEventDescriptionBuilder {
 
-    private final RegisterDocumentSetDescriptionExtractor REQUEST_EXTRACTOR;
-    private final RegistryResponseDescriptionExtractor RESPONSE_EXTRACTOR;
+    private final RegisterDocumentSetDescriptionExtractor requestExtractor;
+    private final RegistryResponseDescriptionExtractor responseExtractor;
     private RegisterDocumentSetRequestType request;
     private RegistryResponseType response;
 
     public DocDataSubmissionBaseEventDescriptionBuilder() {
-        REQUEST_EXTRACTOR = new RegisterDocumentSetDescriptionExtractor();
-        RESPONSE_EXTRACTOR = new RegistryResponseDescriptionExtractor();
+        requestExtractor = new RegisterDocumentSetDescriptionExtractor();
+        responseExtractor = new RegistryResponseDescriptionExtractor();
     }
 
     public DocDataSubmissionBaseEventDescriptionBuilder(final RegisterDocumentSetDescriptionExtractor requestExtractor,
         final AssertionDescriptionExtractor assertionExtractor,
         final RegistryResponseDescriptionExtractor responseExtractor) {
-        REQUEST_EXTRACTOR = requestExtractor;
-        RESPONSE_EXTRACTOR = responseExtractor;
+        this.requestExtractor = requestExtractor;
+        this.responseExtractor = responseExtractor;
         super.setAssertionExtractor(assertionExtractor);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildTimeStamp()
-     */
     @Override
     public void buildTimeStamp() {
-        // TODO Auto-generated method stub
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        setTimeStamp(timeStamp);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildStatuses()
-     */
     @Override
     public void buildStatuses() {
-        setStatuses(RESPONSE_EXTRACTOR.getStatuses(response));
+        setStatuses(responseExtractor.getStatuses(response));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadTypes()
-     */
     @Override
     public void buildPayloadTypes() {
-        setPayLoadTypes(REQUEST_EXTRACTOR.getPayloadTypes(request));
+        setPayLoadTypes(requestExtractor.getPayloadTypes(request));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadSize()
-     */
     @Override
     public void buildPayloadSizes() {
-        setPayloadSizes(REQUEST_EXTRACTOR.getPayloadSize(request));
+        setPayloadSizes(requestExtractor.getPayloadSize(request));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildErrorCodes()
-     */
     @Override
     public void buildErrorCodes() {
-        setErrorCodes(RESPONSE_EXTRACTOR.getErrorCodes(response));
+        setErrorCodes(responseExtractor.getErrorCodes(response));
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setArguments(java.lang.Object[])
-     */
     @Override
     public void setArguments(Object... arguments) {
         extractAssertion(arguments);
@@ -126,11 +99,6 @@ public class DocDataSubmissionBaseEventDescriptionBuilder extends TargetEventDes
         request = null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setReturnValue(java.lang.Object)
-     */
     @Override
     public void setReturnValue(Object returnValue) {
         if (returnValue != null && returnValue instanceof RegistryResponseType) {

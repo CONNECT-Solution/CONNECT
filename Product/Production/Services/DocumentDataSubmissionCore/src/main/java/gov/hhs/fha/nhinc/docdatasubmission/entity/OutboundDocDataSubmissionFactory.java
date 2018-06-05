@@ -36,7 +36,7 @@ public class OutboundDocDataSubmissionFactory {
     }
 
     public OrchestrationContextBuilder createOrchestrationContextBuilder() {
-        return new OutboundDocDataSubmissionOrchestrationContextBuilder_g0();
+        return new OutboundDocDataSubmissionOrchestrationContextBuilderImpl();
     }
 
     public static OutboundDocDataSubmissionFactory getInstance() {
