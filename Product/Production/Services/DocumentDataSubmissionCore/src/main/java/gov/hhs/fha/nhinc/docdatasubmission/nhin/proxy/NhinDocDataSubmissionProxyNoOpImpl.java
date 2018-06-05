@@ -36,7 +36,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class NhinDocDataSubmissionProxyNoOpImpl implements NhinDocDataSubmissionProxy {
     @NwhinInvocationEvent(beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
+        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
+        serviceType = "Document Data Submission",
         version = "")
 
     @Override

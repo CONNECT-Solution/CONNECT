@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -50,7 +50,7 @@ public class UddiSpecVersionRegistry {
     }
 
     public ArrayList<UDDI_SPEC_VERSION> getSupportedSpecs(final GATEWAY_API_LEVEL apiLevel,
-            final NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+        final NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         ArrayList<UDDI_SPEC_VERSION> list = new ArrayList<>();
         final HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> map = tw.getAPIToSpecMapping(serviceName);
         if (map != null) {
@@ -60,7 +60,7 @@ public class UddiSpecVersionRegistry {
     }
 
     public GATEWAY_API_LEVEL getSupportedGatewayAPI(final UDDI_SPEC_VERSION specVersion,
-            final NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+        final NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         GATEWAY_API_LEVEL api = null;
         final HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> map = tw.getSpecToAPIMapping(serviceName);
         if (map != null) {
@@ -70,7 +70,7 @@ public class UddiSpecVersionRegistry {
     }
 
     boolean isSupported(final GATEWAY_API_LEVEL apiLevel, final String specVersion,
-            final NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+        final NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         if (apiLevel == null && NullChecker.isNullish(specVersion)) {
             return true;
         }
@@ -169,33 +169,48 @@ public class UddiSpecVersionRegistry {
             DRSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_3_0, GATEWAY_API_LEVEL.LEVEL_g1);
             specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE, DRSpecToApiMap);
 
+            // Document Data Submission
+            final HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> DDSApiToSpecMap = new HashMap<>();
+            final ArrayList<UDDI_SPEC_VERSION> DDSG0SpecVersions = new ArrayList<>();
+            DDSG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_1_0);
+            DDSApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, DDSG0SpecVersions);
+            final ArrayList<UDDI_SPEC_VERSION> DDSG1SpecVersions = new ArrayList<>();
+            DDSG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_1_0);
+            DDSApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, DDSG1SpecVersions);
+            apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_DATA_SUBMISSION, DDSApiToSpecMap);
+
+            final HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> DDSSpecToApiMap = new HashMap<>();
+            DSSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_1_0, GATEWAY_API_LEVEL.LEVEL_g0);
+            DSSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_1_0, GATEWAY_API_LEVEL.LEVEL_g1);
+            specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_DATA_SUBMISSION, DSSpecToApiMap);
+
         }
 
         public HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> getAPIToSpecMapping(
-                final NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+            final NhincConstants.NHIN_SERVICE_NAMES serviceName) {
             switch (serviceName) {
-            case PATIENT_DISCOVERY_DEFERRED_REQUEST:
-            case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
-                return apiToSpecMap.get(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
-            case DOCUMENT_SUBMISSION_DEFERRED_REQUEST:
-            case DOCUMENT_SUBMISSION_DEFERRED_RESPONSE:
-                return apiToSpecMap.get(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
-            default:
-                return apiToSpecMap.get(serviceName);
+                case PATIENT_DISCOVERY_DEFERRED_REQUEST:
+                case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
+                    return apiToSpecMap.get(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
+                case DOCUMENT_SUBMISSION_DEFERRED_REQUEST:
+                case DOCUMENT_SUBMISSION_DEFERRED_RESPONSE:
+                    return apiToSpecMap.get(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
+                default:
+                    return apiToSpecMap.get(serviceName);
             }
         }
 
         public HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> getSpecToAPIMapping(
-                final NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+            final NhincConstants.NHIN_SERVICE_NAMES serviceName) {
             switch (serviceName) {
-            case PATIENT_DISCOVERY_DEFERRED_REQUEST:
-            case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
-                return specToApiMap.get(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
-            case DOCUMENT_SUBMISSION_DEFERRED_REQUEST:
-            case DOCUMENT_SUBMISSION_DEFERRED_RESPONSE:
-                return specToApiMap.get(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
-            default:
-                return specToApiMap.get(serviceName);
+                case PATIENT_DISCOVERY_DEFERRED_REQUEST:
+                case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
+                    return specToApiMap.get(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
+                case DOCUMENT_SUBMISSION_DEFERRED_REQUEST:
+                case DOCUMENT_SUBMISSION_DEFERRED_RESPONSE:
+                    return specToApiMap.get(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
+                default:
+                    return specToApiMap.get(serviceName);
             }
         }
     }
