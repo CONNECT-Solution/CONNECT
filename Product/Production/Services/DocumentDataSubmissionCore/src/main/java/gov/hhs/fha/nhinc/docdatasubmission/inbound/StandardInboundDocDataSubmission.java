@@ -78,8 +78,8 @@ public class StandardInboundDocDataSubmission extends AbstractInboundDocDataSubm
 
     @Override
     @InboundProcessingEvent(beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-        serviceType = "Document Data Submission", version = "")
+    afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
+    serviceType = "Document Data Submission", version = "")
     public RegistryResponseType documentRepositoryRegisterDocumentSetB(RegisterDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties) {
 
@@ -120,12 +120,9 @@ public class StandardInboundDocDataSubmission extends AbstractInboundDocDataSubm
             POLICYENGINE_INBOUND_DIRECTION);
     }
 
-    private boolean hasHomeCommunityId(AssertionType assertion) {
-        if (assertion != null && assertion.getHomeCommunity() != null
-            && StringUtils.isNotBlank(assertion.getHomeCommunity().getHomeCommunityId())) {
-            return true;
-        }
-        return false;
+    private static boolean hasHomeCommunityId(AssertionType assertion) {
+        return assertion != null && assertion.getHomeCommunity() != null
+            && StringUtils.isNotBlank(assertion.getHomeCommunity().getHomeCommunityId());
     }
 
     private String getLocalHCID() {

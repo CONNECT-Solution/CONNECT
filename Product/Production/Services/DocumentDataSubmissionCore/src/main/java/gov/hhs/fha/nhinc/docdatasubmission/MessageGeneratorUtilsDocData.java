@@ -35,18 +35,19 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-public class MessageGeneratorUtilsDocData extends gov.hhs.fha.nhinc.util.MessageGeneratorUtils {
+public class MessageGeneratorUtilsDocData {
 
-    private static MessageGeneratorUtilsDocData INSTANCE = new MessageGeneratorUtilsDocData();
+    private static final MessageGeneratorUtilsDocData INSTANCE = new MessageGeneratorUtilsDocData();
 
-    MessageGeneratorUtilsDocData() {
-    };
+    private MessageGeneratorUtilsDocData() {
+    }
 
     /**
      * Returns the singleton instance of this class.
      *
      * @return the singleton instance
      */
+
     public static MessageGeneratorUtilsDocData getInstance() {
         return INSTANCE;
     }

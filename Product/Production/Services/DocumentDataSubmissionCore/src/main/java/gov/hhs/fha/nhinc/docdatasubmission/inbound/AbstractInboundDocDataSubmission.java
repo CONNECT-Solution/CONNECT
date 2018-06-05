@@ -45,19 +45,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public abstract class AbstractInboundDocDataSubmission implements InboundDocDataSubmission {
 
-    public abstract RegistryResponseType processDocDataSubmission(RegisterDocumentSetRequestType body,
-        AssertionType assertion, Properties webContextProperties);
-
-    // these are private properties
     private DocDataSubmissionAuditLogger auditLogger = null;
     private AdapterDocDataSubmissionProxyObjectFactory adapterFactory = null;
-
-    public AbstractInboundDocDataSubmission(AdapterDocDataSubmissionProxyObjectFactory adapterFactory,
-        DocDataSubmissionAuditLogger auditLogger) {
-
-        this.adapterFactory = adapterFactory;
-        this.auditLogger = auditLogger;
-    }
 
     @Override
     public RegistryResponseType documentRepositoryRegisterDocumentSetB(RegisterDocumentSetRequestType body,
@@ -68,6 +57,16 @@ public abstract class AbstractInboundDocDataSubmission implements InboundDocData
         auditResponse(body, response, assertion, webContextProperties);
 
         return response;
+    }
+
+    public abstract RegistryResponseType processDocDataSubmission(RegisterDocumentSetRequestType body,
+        AssertionType assertion, Properties webContextProperties);
+
+    public AbstractInboundDocDataSubmission(AdapterDocDataSubmissionProxyObjectFactory adapterFactory,
+        DocDataSubmissionAuditLogger auditLogger) {
+
+        this.adapterFactory = adapterFactory;
+        this.auditLogger = auditLogger;
     }
 
     protected RegistryResponseType sendToAdapter(RegisterDocumentSetRequestType request,

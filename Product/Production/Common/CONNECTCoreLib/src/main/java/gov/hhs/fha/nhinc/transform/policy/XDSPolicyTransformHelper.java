@@ -45,8 +45,6 @@ public class XDSPolicyTransformHelper {
     private static final Logger LOG = LoggerFactory.getLogger(XDSPolicyTransformHelper.class);
     private static final String ActionInValue = "XDSIn";
     private static final String ActionOutValue = "XDSOut";
-    private static final String XDSRESPONSE_ACTION_IN_VALUE = "XDSResponseIn";
-    private static final String XDSRESPONSE_ACTION_OUT_VALUE = "XDSResponseOut";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
 
@@ -88,7 +86,7 @@ public class XDSPolicyTransformHelper {
 
             LOG.debug("transformXDSToCheckPolicy: sStrippedPatientId = {}", patId);
             resource.getAttribute()
-                .add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, patId));
+            .add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, patId));
 
             request.getResource().add(resource);
         }
@@ -113,9 +111,7 @@ public class XDSPolicyTransformHelper {
         return getIdentifiersFromRequest(event.getMessage().getRegisterDocumentSetRequest());
     }
 
-    private String getIdentifiersFromRequest(RegisterDocumentSetRequestType request) {
-        String result = "";
-
+    private static String getIdentifiersFromRequest(RegisterDocumentSetRequestType request) {
         if (request == null) {
             LOG.error("Incoming RegisterDocumentSetRequestType was null");
             return null;
@@ -138,22 +134,26 @@ public class XDSPolicyTransformHelper {
 
             if (object.getIdentifiable().get(x).getDeclaredType().equals(RegistryPackageType.class)) {
                 RegistryPackageType registryPackage = (RegistryPackageType) object.getIdentifiable().get(x).getValue();
-
                 LOG.debug("Slot(s) in registry Package is {}", registryPackage.getSlot().size());
-
-                for (int y = 0; y < registryPackage.getExternalIdentifier().size(); y++) {
-                    String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0)
-                        .getValue();
-                    if (test.equals("XDSSubmissionSet.patientId")) {
-                        result = registryPackage.getExternalIdentifier().get(y).getValue();
-                    }
-
-                }
-
+                return getPatientId(registryPackage);
             }
         }
+        return null;
+    }
 
-        return result;
+    /**
+     * @param registryPackage
+     */
+    private static String getPatientId(RegistryPackageType registryPackage) {
+        for (int y = 0; y < registryPackage.getExternalIdentifier().size(); y++) {
+            String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0)
+                .getValue();
+            if ("XDSSubmissionSet.patientId".equals(test)) {
+                return registryPackage.getExternalIdentifier().get(y).getValue();
+            }
+
+        }
+        return null;
     }
 
     /**

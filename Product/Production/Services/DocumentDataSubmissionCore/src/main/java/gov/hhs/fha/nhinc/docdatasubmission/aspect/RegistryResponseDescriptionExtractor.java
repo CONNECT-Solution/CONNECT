@@ -67,11 +67,11 @@ public class RegistryResponseDescriptionExtractor {
         return errorCodes;
     }
 
-    private boolean hasStatus(RegistryResponseType response) {
+    private static boolean hasStatus(RegistryResponseType response) {
         return response != null && response.getStatus() != null;
     }
 
-    private boolean hasErrorList(RegistryResponseType response) {
+    private static boolean hasErrorList(RegistryResponseType response) {
         return response != null && response.getRegistryErrorList() != null;
     }
 
