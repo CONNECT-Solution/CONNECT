@@ -167,8 +167,7 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
         return nhinResponse;
     }
 
-    private RegistryResponseType sendToNhinProxy(
-        gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType request,
+    private RegistryResponseType sendToNhinProxy(RespondingGatewayRegisterDocumentSetSecuredRequestType request,
         AssertionType assertion, NhinTargetSystemType nhinTargetSystemType) {
 
         OutboundDocDataSubmissionDelegate ddsDelegate = getOutboundDocDataSubmissionDelegate();
@@ -180,8 +179,7 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
     }
 
     protected OutboundDocDataSubmissionOrchestratable createOrchestratable(OutboundDocDataSubmissionDelegate delegate,
-        gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType request,
-        AssertionType assertion) {
+        RespondingGatewayRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
 
         OutboundDocDataSubmissionOrchestratable ddsOrchestratable = new OutboundDocDataSubmissionOrchestratable(
             delegate);
