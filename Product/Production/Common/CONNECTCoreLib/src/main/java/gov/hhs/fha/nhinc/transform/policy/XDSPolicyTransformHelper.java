@@ -43,10 +43,10 @@ import org.slf4j.LoggerFactory;
 public class XDSPolicyTransformHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(XDSPolicyTransformHelper.class);
-    private static final String actionInValue = "XDSIn";
-    private static final String actionOutValue = "XDSOut";
-    private static final String patientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
-    private static final String patientIdAttributeId = Constants.ResourceIdAttributeId;
+    private static final String ACTION_IN_VALUE = "XDSIn";
+    private static final String ACTION_OUT_VALUE = "XDSOut";
+    private static final String PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID = Constants.AssigningAuthorityAttributeId;
+    private static final String PATIENT_ID_ATTRIBUTE_ID = Constants.ResourceIdAttributeId;
 
     /**
      * Transform method to create a CheckPolicyRequest object from a 201306 message
@@ -81,12 +81,12 @@ public class XDSPolicyTransformHelper {
         if (patId != null && assigningAuthorityId != null) {
             ResourceType resource = new ResourceType();
             AttributeHelper attrHelper = new AttributeHelper();
-            resource.getAttribute().add(attrHelper.attributeFactory(patientAssigningAuthorityAttributeId,
+            resource.getAttribute().add(attrHelper.attributeFactory(PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID,
                 Constants.DataTypeString, assigningAuthorityId));
 
             LOG.debug("transformXDSToCheckPolicy: sStrippedPatientId = {}", patId);
             resource.getAttribute()
-                .add(attrHelper.attributeFactory(patientIdAttributeId, Constants.DataTypeString, patId));
+            .add(attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DataTypeString, patId));
 
             request.getResource().add(resource);
         }
@@ -96,9 +96,9 @@ public class XDSPolicyTransformHelper {
         assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
 
         if (NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION.equals(event.getDirection())) {
-            request.setAction(ActionHelper.actionFactory(actionOutValue));
+            request.setAction(ActionHelper.actionFactory(ACTION_OUT_VALUE));
         } else if (NhincConstants.POLICYENGINE_INBOUND_DIRECTION.equals(event.getDirection())) {
-            request.setAction(ActionHelper.actionFactory(actionInValue));
+            request.setAction(ActionHelper.actionFactory(ACTION_IN_VALUE));
         }
 
         checkPolicyRequest.setRequest(request);
@@ -117,9 +117,7 @@ public class XDSPolicyTransformHelper {
             return null;
         }
 
-        if (request.getSubmitObjectsRequest() == null)
-
-        {
+        if (request.getSubmitObjectsRequest() == null) {
             LOG.error("Incoming RegisterDocumentSetRequestType metadata was null");
             return null;
         }
