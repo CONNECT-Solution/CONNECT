@@ -13,6 +13,4 @@
 
     <context:annotation-config />
     <context:component-scan base-package="gov.hhs.fha.nhinc.admingui" />
-    <bean id="hibernateUtil" class="gov.hhs.fha.nhinc.admingui.hibernate.util.HibernateUtil"
-          init-method="buildSessionFactory" destroy-method="closeSessionFactory"/>
 </beans>

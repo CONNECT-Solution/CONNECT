@@ -179,6 +179,7 @@ public class NhincConstants {
     public static final String UDDI_CONNECTION_INFO = "";
     public static final String ADAPTER_PROPERTY_FILE_NAME = "adapter";
     public static final String XDS_HOME_COMMUNITY_ID_PROPERTY = "XDSbHomeCommunityId";
+    public static final String XDS_REPOSITORY_ID = "XDSRepositoryId";
     public static final String MAX_UDDI_RESULTS_PROPERTY = "UDDIMaxResults";
     public static final String FHIR_DIRECTORY_FILE = "FHIRDirectoryMapping";
     public static final String MESSAGES_PROPERTY_FILE = "messages";
