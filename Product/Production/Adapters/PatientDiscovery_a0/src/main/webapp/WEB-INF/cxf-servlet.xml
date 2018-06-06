@@ -197,4 +197,31 @@
     </jaxws:endpoint>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+
+    <!-- Adapter Patient Location Query services -->
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientlocationquerysecured"
+        id="AdapterPatientLocationQuerySecured" address="/AdapterPatientLocationQuerySecured"
+        serviceName="tns:AdapterPatientLocaionQuerySecured" endpointName="tns:AdapterPatientLocationQuerySecuredPortType"
+        implementor="gov.hhs.fha.nhinc.patientlocationquery.adapter.AdapterPatientLocationQuerySecured"
+        wsdlLocation="classpath:wsdl/AdapterPatientLocationQuerySecured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
+
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientlocationquery" id="AdapterPatientLocationQuery"
+        address="/AdapterPatientLocationQuery" serviceName="tns:AdapterPatientLocaionQuery"
+        endpointName="tns:AdapterPatientLocationQueryPortType"
+        implementor="gov.hhs.fha.nhinc.patientlocationquery.adapter.AdapterPatientLocationQueryUnsecured"
+        wsdlLocation="classpath:wsdl/AdapterPatientLocationQuery.wsdl">
+    </jaxws:endpoint>
+
 </beans>

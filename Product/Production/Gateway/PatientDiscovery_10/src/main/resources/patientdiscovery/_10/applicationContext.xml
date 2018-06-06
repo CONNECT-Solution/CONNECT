@@ -137,4 +137,28 @@
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
+
+    <!-- PatientLocationQuery beans -->
+    <bean id="nhinPLQ"
+        class="gov.hhs.fha.nhinc.patientlocationquery.v10.nhin.NhinPatientLocationQuery">
+        <property name="inboundPLQ">
+            <bean class="${patientlocationquery.inboundPatientLocationQuery}"/>
+        </property>
+    </bean>
+
+    <bean id="entityUnsecuredPLQ"
+        class="gov.hhs.fha.nhinc.patientlocationquery.v10.entity.EntityPatientLocationQueryUnsecured">
+        <property name="outboundPLQ">
+            <bean class="${patientlocationquery.outboundPatientLocationQuery}"/>
+        </property>
+    </bean>
+
+    <bean id="entitySecuredPLQ"
+        class="gov.hhs.fha.nhinc.patientlocationquery.v10.entity.EntityPatientLocationQuerySecured">
+        <property name="outboundPLQ">
+            <bean class="${patientlocationquery.outboundPatientLocationQuery}"/>
+        </property>
+    </bean>
+    <bean id="outboundPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.outbound.PassthroughOutboundPatientLocationQuery"/>
+    <bean id="inboundPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.inbound.PassthroughInboundPatientLocationQuery"/>
 </beans>
