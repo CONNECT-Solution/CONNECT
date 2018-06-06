@@ -105,7 +105,6 @@ public class DocumentMetadata {
         this.document = document;
         if (document != null) {
             document.setDocumentUniqueId(documentUniqueId);
-            document.setRepositoryUniqueId(newRepositoryUniqueId);
             document.setMetadata(this);
         }
     }
@@ -219,6 +218,9 @@ public class DocumentMetadata {
     }
 
     public void setDocumentUniqueId(String documentUniqueId) {
+        if (null != document) {
+            document.setDocumentUniqueId(documentUniqueId);
+        }
         this.documentUniqueId = documentUniqueId;
     }
 
@@ -539,6 +541,9 @@ public class DocumentMetadata {
     }
 
     public void setNewRepositoryUniqueId(String newRepositoryUniqueId) {
+        if (null != document && null == document.getRepositoryUniqueId()) {
+            document.setRepositoryUniqueId(newRepositoryUniqueId);
+        }
         this.newRepositoryUniqueId = newRepositoryUniqueId;
     }
 
@@ -606,7 +611,6 @@ public class DocumentMetadata {
         }
         return null;
     }
-
 
     public DocumentMetadata cloneDocument() {
 

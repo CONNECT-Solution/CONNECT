@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
@@ -167,7 +168,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             if (!documentUniqueIds.isEmpty() && !repositoryUniqueIds.isEmpty()) {
                 boolean repositoryIdMatched = true;
                 for (String repositoryUniqueId : repositoryUniqueIds) {
-                    if (!REPOSITORY_UNIQUE_ID.equals(repositoryUniqueId)) {
+                    if (!StringUtils.equalsIgnoreCase(getDefaultRepositoryId(), repositoryUniqueId)) {
                         repositoryIdMatched = false;
                         LOG.warn(
                             "Document repository message not processed due to repository unique id mismatch. Expected: {},  found: {}",
@@ -385,6 +386,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         ProvideAndRegisterDocumentSetRequestType body) {
         LOG.debug("Entering docRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet method.");
 
+
         RegistryResponseType registryResponse = new ObjectFactory().createRegistryResponseType();
         RegistryErrorList errorList = new RegistryErrorList();
 
@@ -404,6 +406,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             // retrieve the document metadata and store each doc in the request
             SubmitObjectsRequest submitObjectsRequest = body.getSubmitObjectsRequest();
             RegistryObjectListType regObjectList = submitObjectsRequest.getRegistryObjectList();
+
             List<JAXBElement<? extends IdentifiableType>> identifiableObjectList = regObjectList.getIdentifiable();
             LOG.debug("There is/are {} identifiableObject(s) in this registryObjectsList.",
                 identifiableObjectList.size());
@@ -620,6 +623,16 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     ioe.getLocalizedMessage(), ioe);
             }
         }
+    }
+
+    /**
+     * Retrieve from adapter.properties. If it doesn't exist, return default value
+     *
+     * @return document repository ID from adapter properties
+     */
+    private static String getDefaultRepositoryId() {
+        return PropertyAccessor.getInstance().getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME,
+            NhincConstants.XDS_REPOSITORY_ID, REPOSITORY_UNIQUE_ID);
     }
 
     protected void saveDocument(DocumentMetadata doc, boolean requestHasReplacementAssociation, String documentUniqueId,
