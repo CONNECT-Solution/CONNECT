@@ -5,10 +5,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Patient Discovery Gateway</title>
+        <title>Patient Discovery/Patient Location Query Gateway</title>
     </head>
     <body>
-	<h1>Patient Discovery Gateway</h1>
+	<h1>Patient Discovery/Patient Location Query Gateway</h1>
         <h2>Spec Version 1.0.0.7</h2>
     </body>
 </html>
