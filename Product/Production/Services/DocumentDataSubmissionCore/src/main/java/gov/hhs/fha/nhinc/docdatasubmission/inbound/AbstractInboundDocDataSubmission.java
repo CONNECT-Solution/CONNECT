@@ -39,14 +39,17 @@ import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-/**
- * @author tran tang
- *
- */
 public abstract class AbstractInboundDocDataSubmission implements InboundDocDataSubmission {
 
     private DocDataSubmissionAuditLogger auditLogger = null;
     private AdapterDocDataSubmissionProxyObjectFactory adapterFactory = null;
+
+    public AbstractInboundDocDataSubmission(AdapterDocDataSubmissionProxyObjectFactory adapterFactory,
+        DocDataSubmissionAuditLogger auditLogger) {
+
+        this.adapterFactory = adapterFactory;
+        this.auditLogger = auditLogger;
+    }
 
     @Override
     public RegistryResponseType documentRepositoryRegisterDocumentSetB(RegisterDocumentSetRequestType body,
@@ -62,15 +65,7 @@ public abstract class AbstractInboundDocDataSubmission implements InboundDocData
     public abstract RegistryResponseType processDocDataSubmission(RegisterDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties);
 
-    public AbstractInboundDocDataSubmission(AdapterDocDataSubmissionProxyObjectFactory adapterFactory,
-        DocDataSubmissionAuditLogger auditLogger) {
-
-        this.adapterFactory = adapterFactory;
-        this.auditLogger = auditLogger;
-    }
-
-    protected RegistryResponseType sendToAdapter(RegisterDocumentSetRequestType request,
-        AssertionType assertion) {
+    protected RegistryResponseType sendToAdapter(RegisterDocumentSetRequestType request, AssertionType assertion) {
         // the adapter should be responsible for adding the metadata-to-database
         AdapterDocDataSubmissionProxy proxy = adapterFactory.getAdapterDocDataSubmissionProxy();
         return proxy.registerDocumentSetB(request, assertion);

@@ -37,6 +37,10 @@ public class RegistryResponseDescriptionExtractor {
 
     private static final ErrorExtractor ERROR_EXTRACTOR = new ErrorExtractor();
 
+    RegistryResponseDescriptionExtractor() {
+
+    }
+
     /**
      * Extracts the statuses in the RegistryResponse;
      *
