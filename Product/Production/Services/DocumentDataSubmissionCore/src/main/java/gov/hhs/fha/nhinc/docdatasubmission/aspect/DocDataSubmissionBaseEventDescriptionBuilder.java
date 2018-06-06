@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.aspect;
 
+import static gov.hhs.fha.nhinc.docdatasubmission.aspect.RegistryResponseDescriptionExtractor.getErrorCodes;
+import static gov.hhs.fha.nhinc.docdatasubmission.aspect.RegistryResponseDescriptionExtractor.getStatuses;
+
 import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
@@ -37,20 +40,16 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class DocDataSubmissionBaseEventDescriptionBuilder extends TargetEventDescriptionBuilder {
 
     private final RegisterDocumentSetDescriptionExtractor requestExtractor;
-    private final RegistryResponseDescriptionExtractor responseExtractor;
     private RegisterDocumentSetRequestType request;
     private RegistryResponseType response;
 
     public DocDataSubmissionBaseEventDescriptionBuilder() {
         requestExtractor = new RegisterDocumentSetDescriptionExtractor();
-        responseExtractor = new RegistryResponseDescriptionExtractor();
     }
 
     public DocDataSubmissionBaseEventDescriptionBuilder(final RegisterDocumentSetDescriptionExtractor requestExtractor,
-        final AssertionDescriptionExtractor assertionExtractor,
-        final RegistryResponseDescriptionExtractor responseExtractor) {
+        final AssertionDescriptionExtractor assertionExtractor) {
         this.requestExtractor = requestExtractor;
-        this.responseExtractor = responseExtractor;
         super.setAssertionExtractor(assertionExtractor);
     }
 
@@ -62,7 +61,7 @@ public class DocDataSubmissionBaseEventDescriptionBuilder extends TargetEventDes
 
     @Override
     public void buildStatuses() {
-        setStatuses(responseExtractor.getStatuses(response));
+        setStatuses(getStatuses(response));
     }
 
     @Override
@@ -77,7 +76,7 @@ public class DocDataSubmissionBaseEventDescriptionBuilder extends TargetEventDes
 
     @Override
     public void buildErrorCodes() {
-        setErrorCodes(responseExtractor.getErrorCodes(response));
+        setErrorCodes(getErrorCodes(response));
     }
 
     @Override
