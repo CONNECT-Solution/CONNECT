@@ -78,8 +78,8 @@ public class StandardInboundDocDataSubmission extends AbstractInboundDocDataSubm
 
     @Override
     @InboundProcessingEvent(beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-    afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-    serviceType = "Document Data Submission", version = "")
+        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
+        serviceType = "Document Data Submission", version = "1.0")
     public RegistryResponseType documentRepositoryRegisterDocumentSetB(RegisterDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties) {
 

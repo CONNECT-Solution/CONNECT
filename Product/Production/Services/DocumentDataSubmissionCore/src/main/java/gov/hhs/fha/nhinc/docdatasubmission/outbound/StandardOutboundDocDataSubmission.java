@@ -61,8 +61,8 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
 
     @Override
     @OutboundProcessingEvent(beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-    afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-    serviceType = "Document Data Submission", version = "")
+        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
+        serviceType = "Document Data Submission", version = "1.0")
     public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType body, AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
@@ -88,7 +88,8 @@ public class StandardOutboundDocDataSubmission implements OutboundDocDataSubmiss
     protected boolean hasNhinTargetHomeCommunityId(RespondingGatewayRegisterDocumentSetSecuredRequestType request) {
 
         if (request != null && request.getNhinTargetCommunities() != null) {
-            List<NhinTargetCommunityType> targetCommunities = request.getNhinTargetCommunities().getNhinTargetCommunity();
+            List<NhinTargetCommunityType> targetCommunities = request.getNhinTargetCommunities()
+                .getNhinTargetCommunity();
             return targetCommunities.get(0) != null && targetCommunities.get(0).getHomeCommunity() != null
                 && NullChecker.isNotNullish(targetCommunities.get(0).getHomeCommunity().getHomeCommunityId());
         }

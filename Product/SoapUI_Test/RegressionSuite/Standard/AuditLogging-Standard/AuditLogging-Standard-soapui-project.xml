@@ -47,7 +47,7 @@
     <con:settings/>
     <con:definitionCache/><con:endpoints>
       <con:endpoint>${#TestSuite#Endpoint-XDSEntity}</con:endpoint>
-      <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentDataSubmission/1_)/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint>
       <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
     </con:endpoints>
     <con:operation action="" anonymous="optional" bindingOperationName="RegisterDocumentSet-b" inputName="" isOneWay="false" name="RegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="8e18d70b-c632-420a-ac0c-cc71b4115b7a">
@@ -3333,7 +3333,7 @@ if (propertiesFile.exists()) {
             </urn1:nhinTargetCommunity>
          </urn:nhinTargetCommunities>
 
-         <urn:ProvideAndRegisterDocumentSetRequest>
+         <urn:RegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
   
