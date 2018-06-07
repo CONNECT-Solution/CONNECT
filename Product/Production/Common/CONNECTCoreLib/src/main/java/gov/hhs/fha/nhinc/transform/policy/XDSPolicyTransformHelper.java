@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.transform.policy;
 
 import gov.hhs.fha.nhinc.common.eventcommon.XDSEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
@@ -87,7 +86,7 @@ public class XDSPolicyTransformHelper {
 
             LOG.debug("transformXDSToCheckPolicy: sStrippedPatientId = {}", patId);
             resource.getAttribute()
-            .add(attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DataTypeString, patId));
+                .add(attrHelper.attributeFactory(PATIENT_ID_ATTRIBUTE_ID, Constants.DataTypeString, patId));
 
             request.getResource().add(resource);
         }
