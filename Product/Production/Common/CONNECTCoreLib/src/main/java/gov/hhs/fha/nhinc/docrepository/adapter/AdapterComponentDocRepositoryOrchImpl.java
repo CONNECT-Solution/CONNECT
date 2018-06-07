@@ -277,6 +277,9 @@ public class AdapterComponentDocRepositoryOrchImpl {
     }
 
     /**
+     * Checks the document for the given IDs. If there is not atleast a one-to-one mapping of documents for document
+     * ids, then the method will add a missing document ID error to the response.
+     *
      * @param response
      * @param docs
      * @param documentUniqueId
