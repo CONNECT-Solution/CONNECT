@@ -47,6 +47,7 @@ public class XDSPolicyTransformHelper {
     private static final String ACTION_OUT_VALUE = "XDSOut";
     private static final String PATIENT_ASSIGNING_AUTHORITY_ATTRIBUTE_ID = Constants.AssigningAuthorityAttributeId;
     private static final String PATIENT_ID_ATTRIBUTE_ID = Constants.ResourceIdAttributeId;
+    private static final String XDS_PATIENT_ID = "XDSSubmissionSet.patientId";
 
     /**
      * Transform method to create a CheckPolicyRequest object from a 201306 message
@@ -146,23 +147,12 @@ public class XDSPolicyTransformHelper {
         for (int y = 0; y < registryPackage.getExternalIdentifier().size(); y++) {
             String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0)
                 .getValue();
-            if ("XDSSubmissionSet.patientId".equals(test)) {
+            if (XDS_PATIENT_ID.equals(test)) {
                 return registryPackage.getExternalIdentifier().get(y).getValue();
             }
 
         }
         return null;
-    }
-
-    /**
-     * Transform method to create a CheckPolicyRequest object
-     *
-     * @param request
-     * @return CheckPolicyRequestType
-     */
-    public CheckPolicyRequestType transformXDSEntityToCheckPolicy(
-        RespondingGatewayRegisterDocumentSetSecuredRequestType request) {
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 
 }

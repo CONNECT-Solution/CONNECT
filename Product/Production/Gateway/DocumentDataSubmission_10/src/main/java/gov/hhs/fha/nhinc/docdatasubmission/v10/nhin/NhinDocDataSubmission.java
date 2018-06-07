@@ -37,10 +37,14 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 import javax.xml.ws.soap.SOAPBinding;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class NhinDocDataSubmission implements DocumentRegistryXDSPortType {
+    private static final Logger LOG = LoggerFactory.getLogger(NhinDocDataSubmission.class);
+
     @Resource
     private WebServiceContext context;
 
@@ -60,9 +64,11 @@ public class NhinDocDataSubmission implements DocumentRegistryXDSPortType {
 
     @Override
     @InboundMessageEvent(serviceType = "Document Data Submission", version = "1.0",
-        beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class)
+    beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
+    afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class)
     public RegistryResponseType documentRegistryXDSRegisterDocumentSetB(RegisterDocumentSetRequestType body) {
+        LOG.debug("Calling service with context {} and inbound submission class {}", context,
+            inboundDocDataSubmission.getClass().getName());
         return new NhinDocDataSubmissionImpl(inboundDocDataSubmission).documentRepositoryRegisterDocumentSetB(body,
             context);
     }
