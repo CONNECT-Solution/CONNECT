@@ -652,12 +652,6 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
         docService.saveDocument(doc);
         LOG.debug("doc.documentId: {}", doc.getDocumentid());
-        // log.debug("document.isPersistent: " + doc.isPersistent()); //TODO need a better way to
-        // determine if the doc was actually persisted.
-
-        // determine if the save was successful - Hibernate will generate
-        // a documentId for the record and populate this value in the
-        // document object if the save was successful.
         if (doc.getDocumentid() == null || doc.getDocumentid() < 1) {
             RegistryError error = docRepoHelper.setRegistryError("store a document.", " storeDocument",
                 DocRepoConstants.XDS_ERROR_CODE_REPOSITORY_ERROR,
