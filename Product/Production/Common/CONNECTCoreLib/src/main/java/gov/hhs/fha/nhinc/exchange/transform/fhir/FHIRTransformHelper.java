@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.exchange.transform.fhir;
 
 import gov.hhs.fha.nhinc.exchange.transform.FHIRConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -171,17 +170,12 @@ public class FHIRTransformHelper {
     public static String extractEndpointName(String name) {
         NhincConstants.NHIN_SERVICE_NAMES[] nhinServices = NhincConstants.NHIN_SERVICE_NAMES.values();
         for (NhincConstants.NHIN_SERVICE_NAMES nhinService : nhinServices) {
-            try {
-                String serviceNames = PropertyAccessor.getInstance().getProperty(NhincConstants.FHIR_DIRECTORY_FILE,
-                    nhinService.getUDDIServiceName());
-                if (serviceNames == null) {
-                    LOG.warn("Service {} does not have any FHIR property defined", nhinService.getUDDIServiceName());
-                } else if (isServiceNameMatch(serviceNames.split(SEPARATOR), name)) {
-                    return nhinService.getUDDIServiceName();
-                }
-            } catch (PropertyAccessException ex) {
-                LOG.error("Unable to read {} from {} for NHIN Service {}", nhinService.toString(),
-                    NhincConstants.FHIR_DIRECTORY_FILE, nhinService, ex);
+            String serviceNames = PropertyAccessor.getInstance().getProperty(NhincConstants.FHIR_DIRECTORY_FILE,
+                nhinService.getUDDIServiceName(), null);
+            if (serviceNames == null) {
+                LOG.warn("Service {} does not have any FHIR property defined", nhinService.getUDDIServiceName());
+            } else if (isServiceNameMatch(serviceNames.split(SEPARATOR), name)) {
+                return nhinService.getUDDIServiceName();
             }
         }
         return null;

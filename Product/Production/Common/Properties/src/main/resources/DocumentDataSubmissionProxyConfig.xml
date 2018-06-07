@@ -12,7 +12,7 @@
         The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces
         in the description separated with a comma like the following sample: {somebean,anotherbean}
     -->
-    <description>Beans included in this file: {adapterdocdatasubmission,entitydocdatasubmission,nhinxdr}</description>
+    <description>Beans included in this file: {adapterdocdatasubmission,entitydocdatasubmission,nhinxdds}</description>
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
     <context:annotation-config />
@@ -74,7 +74,7 @@
     </bean>
 
     <!--
-        Beans defined for nhinxdr
+        Beans defined for nhinxdds
     -->
     <alias alias="nhinxdds" name="nhinxddswssecured" />
 

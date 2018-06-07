@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.service.NhinDocDataSubmissionServicePortDescriptor;
-import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -84,16 +83,12 @@ public class NhinDocDataSubmissionProxyWebServiceSecuredImpl implements NhinDocD
 
             CONNECTClient<DocumentRegistryXDSPortType> client = getCONNECTClientSecured(portDescriptor, assertion, url,
                 targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHINC_XDS_SERVICE_NAME);
-            client.enableMtom();
 
             response = (RegistryResponseType) client.invokePort(DocumentRegistryXDSPortType.class,
                 "documentRegistryXDSRegisterDocumentSetB", request);
 
-        } catch (LargePayloadException lpe) {
-            LOG.error("Failed to send message.", lpe);
-            response = getMessageGeneratorUtils().createMissingDocumentRegistryResponse();
         } catch (Exception ex) {
-            LOG.error("Error calling registerDocumentSetB: " + ex.getMessage(), ex);
+            LOG.error("Error calling registerDocumentSetB: {}", ex.getMessage(), ex);
             response = getMessageGeneratorUtils().createRegistryErrorResponseWithAckFailure(ex.getMessage());
         }
 

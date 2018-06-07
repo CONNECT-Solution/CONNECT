@@ -27,16 +27,26 @@
 package gov.hhs.fha.nhinc.docdatasubmission.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy.AdapterDocDataSubmissionProxyObjectFactory;
+import gov.hhs.fha.nhinc.docdatasubmission.audit.DocDataSubmissionAuditLogger;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-//should extend AbstractInboundDocDataSubmission
-public class PassthroughInboundDocDataSubmission implements InboundDocDataSubmission {
+public class PassthroughInboundDocDataSubmission extends AbstractInboundDocDataSubmission {
+
+    public PassthroughInboundDocDataSubmission() {
+        this(new AdapterDocDataSubmissionProxyObjectFactory(), new DocDataSubmissionAuditLogger());
+    }
+
+    public PassthroughInboundDocDataSubmission(AdapterDocDataSubmissionProxyObjectFactory adapterFactory,
+        DocDataSubmissionAuditLogger auditLogger) {
+        super(adapterFactory, auditLogger);
+    }
 
     @Override
-    public RegistryResponseType documentRepositoryRegisterDocumentSetB(RegisterDocumentSetRequestType body,
-        AssertionType assertion, Properties webContextProperties) {
+    public RegistryResponseType processDocDataSubmission(RegisterDocumentSetRequestType body, AssertionType assertion,
+        Properties webContextProperties) {
         return new RegistryResponseType();
     }
 
