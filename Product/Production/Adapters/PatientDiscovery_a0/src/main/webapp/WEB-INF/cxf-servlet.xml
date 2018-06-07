@@ -201,7 +201,7 @@
     <!-- Adapter Patient Location Query services -->
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientlocationquerysecured"
         id="AdapterPatientLocationQuerySecured" address="/AdapterPatientLocationQuerySecured"
-        serviceName="tns:AdapterPatientLocaionQuerySecured" endpointName="tns:AdapterPatientLocationQuerySecuredPortType"
+        serviceName="tns:AdapterPatientLocationQuerySecured" endpointName="tns:AdapterPatientLocationQuerySecuredPortSoap"
         implementor="gov.hhs.fha.nhinc.patientlocationquery.adapter.AdapterPatientLocationQuerySecured"
         wsdlLocation="classpath:wsdl/AdapterPatientLocationQuerySecured.wsdl">
         <jaxws:properties>
@@ -218,8 +218,8 @@
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientlocationquery" id="AdapterPatientLocationQuery"
-        address="/AdapterPatientLocationQuery" serviceName="tns:AdapterPatientLocaionQuery"
-        endpointName="tns:AdapterPatientLocationQueryPortType"
+        address="/AdapterPatientLocationQuery" serviceName="tns:AdapterPatientLocationQuery"
+        endpointName="tns:AdapterPatientLocationQueryPortSoap"
         implementor="gov.hhs.fha.nhinc.patientlocationquery.adapter.AdapterPatientLocationQueryUnsecured"
         wsdlLocation="classpath:wsdl/AdapterPatientLocationQuery.wsdl">
     </jaxws:endpoint>
