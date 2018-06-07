@@ -43,21 +43,11 @@
         </property>
     </bean>
 
-    <bean id="stdPDOutbound"
-      class="gov.hhs.fha.nhinc.patientdiscovery.outbound.StandardOutboundPatientDiscovery">
-    </bean>
+    <bean id="stdPDOutbound" class="gov.hhs.fha.nhinc.patientdiscovery.outbound.StandardOutboundPatientDiscovery"/>
+    <bean id="ptPDOutbound" class="gov.hhs.fha.nhinc.patientdiscovery.outbound.PassthroughOutboundPatientDiscovery"/>
 
-    <bean id="ptPDOutbound"
-      class="gov.hhs.fha.nhinc.patientdiscovery.outbound.PassthroughOutboundPatientDiscovery">
-    </bean>
-
-    <bean id="stdPDInbound"
-      class="gov.hhs.fha.nhinc.patientdiscovery.inbound.StandardInboundPatientDiscovery">
-    </bean>
-
-    <bean id="ptPDInbound"
-      class="gov.hhs.fha.nhinc.patientdiscovery.inbound.PassthroughInboundPatientDiscovery">
-    </bean>
+    <bean id="stdPDInbound" class="gov.hhs.fha.nhinc.patientdiscovery.inbound.StandardInboundPatientDiscovery"/>
+    <bean id="ptPDInbound" class="gov.hhs.fha.nhinc.patientdiscovery.inbound.PassthroughInboundPatientDiscovery"/>
 
 
     <bean id="nhinPDReq"
@@ -81,21 +71,11 @@
         </property>
     </bean>
 
-    <bean id="stdPDReqOutbound"
-      class="gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.StandardOutboundPatientDiscoveryDeferredRequest">
-    </bean>
+    <bean id="stdPDReqOutbound" class="gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.StandardOutboundPatientDiscoveryDeferredRequest"/>
+    <bean id="ptPDReqOutbound"  class="gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.PassthroughOutboundPatientDiscoveryDeferredRequest"/>
 
-    <bean id="ptPDReqOutbound"
-      class="gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.PassthroughOutboundPatientDiscoveryDeferredRequest">
-    </bean>
-
-    <bean id="stdPDReqInbound"
-      class="gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.StandardInboundPatientDiscoveryDeferredRequest">
-    </bean>
-
-    <bean id="ptPDReqInbound"
-      class="gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.PassthroughInboundPatientDiscoveryDeferredRequest">
-    </bean>
+    <bean id="stdPDReqInbound" class="gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.StandardInboundPatientDiscoveryDeferredRequest"/>
+    <bean id="ptPDReqInbound" class="gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.PassthroughInboundPatientDiscoveryDeferredRequest"/>
 
 
     <bean id="nhinPDResp"
@@ -119,21 +99,12 @@
         </property>
     </bean>
 
-    <bean id="stdPDRespOutbound"
-      class="gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.StandardOutboundPatientDiscoveryDeferredResponse">
-    </bean>
+    <bean id="stdPDRespOutbound" class="gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.StandardOutboundPatientDiscoveryDeferredResponse"/>
+    <bean id="ptPDRespOutbound"  class="gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.PassthroughOutboundPatientDiscoveryDeferredResponse"/>
 
-    <bean id="ptPDRespOutbound"
-      class="gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.PassthroughOutboundPatientDiscoveryDeferredResponse">
-    </bean>
+    <bean id="stdPDRespInbound" class="gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.StandardInboundPatientDiscoveryDeferredResponse"/>
+    <bean id="ptPDRespInbound"  class="gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.PassthroughInboundPatientDiscoveryDeferredResponse"/>
 
-    <bean id="stdPDRespInbound"
-      class="gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.StandardInboundPatientDiscoveryDeferredResponse">
-    </bean>
-
-    <bean id="ptPDRespInbound"
-      class="gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.PassthroughInboundPatientDiscoveryDeferredResponse">
-    </bean>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
@@ -159,6 +130,10 @@
             <bean class="${patientlocationquery.outboundPatientLocationQuery}"/>
         </property>
     </bean>
-    <bean id="outboundPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.outbound.PassthroughOutboundPatientLocationQuery"/>
-    <bean id="inboundPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.inbound.PassthroughInboundPatientLocationQuery"/>
+    
+    <bean id="ptOutboundPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.outbound.PassthroughOutboundPatientLocationQuery"/>
+    <bean id="stOutboundPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.outbound.StandardOutboundPatientLocationQuery"/>
+    
+    <bean id="ptInboundPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.inbound.PassthroughInboundPatientLocationQuery"/>
+    <bean id="stInboundPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.inbound.StandardInboundPatientLocationQuery"/>
 </beans>
