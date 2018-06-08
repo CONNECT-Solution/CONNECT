@@ -72,18 +72,20 @@ public class AssertionBuilderImpl extends AbstractAssertionBuilder implements As
         }
         HomeCommunityType homeCommunity = new HomeCommunityType();
         homeCommunity.setName(userOrganization);
+        homeCommunity.setHomeCommunityId(homeCommunityId);
         userInfo.setOrg(homeCommunity);
+        
+        assertionType.setHomeCommunity(homeCommunity);
 
         // User role
-        if (StringUtils.isBlank(userCode) || StringUtils.isBlank(userSystem) || StringUtils.isBlank(userSystemName)
-                || StringUtils.isBlank(userDisplay)) {
-            CeType userRole = new CeType();
-            userRole.setCode(userCode);
-            userRole.setCodeSystem(userSystem);
-            userRole.setCodeSystemName(userSystemName);
-            userRole.setDisplayName(userDisplay);
-            userInfo.setRoleCoded(userRole);
-        }
+
+        CeType userRole = new CeType();
+        userRole.setCode(userCode);
+        userRole.setCodeSystem(userSystem);
+        userRole.setCodeSystemName(userSystemName);
+        userRole.setDisplayName(userDisplay);
+        userInfo.setRoleCoded(userRole);
+
         assertionType.setUserInfo(userInfo);
         // end UserInfo Assertion
 
@@ -101,6 +103,7 @@ public class AssertionBuilderImpl extends AbstractAssertionBuilder implements As
         authnStatement.setAuthInstant(samlAuthInstant);
         authnStatement.setAuthContextClassRef(samlAuthClass);
         assertionType.setSamlAuthnStatement(authnStatement);
+        
     }
 
     @Override
