@@ -61,8 +61,9 @@ public class DocumentService {
      * Save a document record.
      *
      * @param document Document object to save.
+     * @return
      */
-    public void saveDocument(DocumentMetadata document) {
+    public DocumentMetadata saveDocument(DocumentMetadata document) {
 
         LOG.debug("Saving a document");
         if (document != null) {
@@ -95,7 +96,7 @@ public class DocumentService {
             // -------------------------
 
             Document doc = document.getDocument();
-            if (doc.getRawData().length > 0) {
+            if (doc != null && doc.getRawData().length > 0) {
                 String documentStr;
                 try {
                     String sHash;
@@ -117,6 +118,8 @@ public class DocumentService {
         }
 
         documentDao.save(document);
+        return document;
+
     }
 
     /**

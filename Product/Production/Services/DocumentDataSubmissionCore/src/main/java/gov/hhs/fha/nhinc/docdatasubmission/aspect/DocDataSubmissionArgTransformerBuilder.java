@@ -24,27 +24,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission.adapter.component;
+package gov.hhs.fha.nhinc.docdatasubmission.aspect;
 
-import gov.hhs.fha.nhinc.adaptercomponentxdssecured.AdapterComponentXDSSecuredPortType;
-import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
-import javax.xml.ws.soap.SOAPBinding;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import gov.hhs.fha.nhinc.event.DelegatingEventDescriptionBuilder;
 
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class AdapterComponentDocDataSubmissionSecured implements AdapterComponentXDSSecuredPortType {
+public class DocDataSubmissionArgTransformerBuilder extends DelegatingEventDescriptionBuilder {
 
-    @Resource
-    private WebServiceContext context;
-
-    @Override
-    public RegistryResponseType registerDocumentSetb(RegisterDocumentSetRequestType body) {
-        return new RegistryResponseType();
+    public DocDataSubmissionArgTransformerBuilder() {
+        setDelegate(new DocDataSubmissionBaseEventDescriptionBuilder());
     }
 
+    /**
+     * @param arguments
+     */
+    @Override
+    public void setArguments(Object... arguments) {
+        getDelegate().setArguments(arguments);
+    }
+
+    @Override
+    public void setReturnValue(Object returnValue) {
+        getDelegate().setReturnValue(returnValue);
+    }
 }

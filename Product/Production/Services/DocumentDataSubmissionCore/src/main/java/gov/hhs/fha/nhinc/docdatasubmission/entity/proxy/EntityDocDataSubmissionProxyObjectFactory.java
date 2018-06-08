@@ -24,27 +24,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission.adapter.component;
+package gov.hhs.fha.nhinc.docdatasubmission.entity.proxy;
 
-import gov.hhs.fha.nhinc.adaptercomponentxds.AdapterComponentXDSPortType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegisterDocumentSetRequestType;
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
-import javax.xml.ws.soap.SOAPBinding;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class AdapterComponentDocDataSubmissionUnsecured implements AdapterComponentXDSPortType {
-
-    @Resource
-    private WebServiceContext context;
+public class EntityDocDataSubmissionProxyObjectFactory extends ComponentProxyObjectFactory {
+    private static final String CONFIG_FILE_NAME = "DocumentDataSubmissionProxyConfig.xml";
+    private static final String BEAN_NAME = "entitydocdatasubmission";
 
     @Override
-    public RegistryResponseType registerDocumentSetb(AdapterRegisterDocumentSetRequestType body) {
-        return new RegistryResponseType();
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
+    }
+
+    public EntityDocDataSubmissionProxy getEntityDocDataSubmissionProxy() {
+        return getBean(BEAN_NAME, EntityDocDataSubmissionProxy.class);
     }
 
 }

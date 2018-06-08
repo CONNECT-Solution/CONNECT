@@ -24,12 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission;
+package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-public interface DocDataSubmission {
+public class AdapterDocDataSubmissionOrchImpl {
 
-    public RegistryResponseType registerDocumentSetB(RespondingGatewayRegisterDocumentSetSecuredRequestType body);
+    private AdapterDocDataSubmissionOrchImpl() {
+
+    }
+
+    public static RegistryResponseType provideAndRegisterDocumentSetB(RegisterDocumentSetRequestType msg,
+        AssertionType assertion) {
+        AdapterDocDataSubmissionProxyObjectFactory factory = new AdapterDocDataSubmissionProxyObjectFactory();
+        AdapterDocDataSubmissionProxy proxy = factory.getAdapterDocDataSubmissionProxy();
+
+        return proxy.registerDocumentSetB(msg, assertion);
+    }
+
 }
