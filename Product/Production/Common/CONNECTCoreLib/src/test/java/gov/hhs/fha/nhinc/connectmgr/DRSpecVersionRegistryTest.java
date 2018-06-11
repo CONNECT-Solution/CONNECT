@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,7 +31,7 @@ import static org.junit.Assert.assertTrue;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
-import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
 
 /**
@@ -43,8 +43,8 @@ public class DRSpecVersionRegistryTest {
     @Test
     public void testGetSupportedSpecs_g0_DR() {
         GATEWAY_API_LEVEL api = GATEWAY_API_LEVEL.LEVEL_g0;
-        ArrayList<UDDI_SPEC_VERSION> list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api,
-                NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
+        List<UDDI_SPEC_VERSION> list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api,
+            NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
         assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_2_0));
         assertTrue(!list.contains(UDDI_SPEC_VERSION.SPEC_3_0));
     }
@@ -52,8 +52,8 @@ public class DRSpecVersionRegistryTest {
     @Test
     public void testGetSupportedSpecs_g1_DR() {
         GATEWAY_API_LEVEL api = GATEWAY_API_LEVEL.LEVEL_g1;
-        ArrayList<UDDI_SPEC_VERSION> list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api,
-                NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
+        List<UDDI_SPEC_VERSION> list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api,
+            NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
         assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_3_0));
         assertTrue(!list.contains(UDDI_SPEC_VERSION.SPEC_2_0));
     }

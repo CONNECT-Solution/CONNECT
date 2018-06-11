@@ -76,7 +76,7 @@ public class NhincConstants {
         }
     }
 
-    public static enum NHIN_SERVICE_NAMES {
+    public enum NHIN_SERVICE_NAMES {
 
         PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME),
         PATIENT_DISCOVERY_DEFERRED_REQUEST(PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME),
@@ -88,7 +88,9 @@ public class NhincConstants {
         ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
         CORE_X12DS_REALTIME(CORE_X12DS_REALTIME_SERVICE_NAME),
         CORE_X12DS_GENERICBATCH_REQUEST(CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME),
-        CORE_X12DS_GENERICBATCH_RESPONSE(CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME);
+        CORE_X12DS_GENERICBATCH_RESPONSE(CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME),
+        DOCUMENT_DATA_SUBMISSION(NHINC_XDS_SERVICE_NAME);
+
         private String UDDIServiceName = null;
 
         NHIN_SERVICE_NAMES(final String value) {
@@ -381,6 +383,8 @@ public class NhincConstants {
     // XDR Constants
     public static final String ENTITY_XDR_SECURED_SERVICE_NAME = "entityxdrsecured";
     public static final String ENTITY_XDR_SERVICE_NAME = "entityxdr";
+    public static final String ENTITY_XDS_SECURED_SERVICE_NAME = "entityxdssecured";
+    public static final String ENTITY_XDS_SERVICE_NAME = "entityxds";
     public static final String ADAPTER_XDR_SERVICE_NAME = "adapterxdr";
     public static final String ADAPTER_XDR_SECURED_SERVICE_NAME = "adapterxdrsecured";
     public static final String ADAPTER_COMPONENT_XDR_SERVICE_NAME = "adaptercomponentxdr";
@@ -405,6 +409,7 @@ public class NhincConstants {
     public static final String XDR_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     public static final String XDR_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
     public static final String XDR_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
+
     // Administrative Distribution Constants
     public static final String ADMIN_DIST_SERVICE_NAME = "admindist";
     public static final String NHIN_ADMIN_DIST_SERVICE_NAME = "AdminDistribution";
@@ -552,6 +557,11 @@ public class NhincConstants {
     // jaxb-hl7-context-name
     public static final String JAXB_HL7_CONTEXT_NAME_XSD_QUERY = "oasis.names.tc.ebxml_regrep.xsd.query._3";
     public static final String JAXB_HL7_CONTEXT_NAME_HL7_V3 = "org.hl7.v3";
+
+    // Doc Data Submission
+    public static final String NHINC_XDS_SERVICE_NAME = "DocDataSubmission";
+    public static final String ADAPTER_XDS_SERVICE_NAME = "adapterxdsservice";
+    public static final String ADAPTER_XDS_SECURED_SERVICE_NAME = "adapterxdsservicesecured";
 
     private NhincConstants() {
     }

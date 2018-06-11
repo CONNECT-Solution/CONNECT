@@ -6,10 +6,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Patient Discovery Adapter</title>
+        <title>Patient Discovery/Patient Location Query Adapter</title>
     </head>
     <body>
-        <h1>Patient Discovery Adapter</h1>
+        <h1>Patient Discovery/Patient Location Query Adapter</h1>
         <h2>API Level 0</h2>
     </body>
 </html>

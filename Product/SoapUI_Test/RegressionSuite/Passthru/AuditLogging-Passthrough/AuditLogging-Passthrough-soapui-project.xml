@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="AuditLogging-Passthrough" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" id="e66381c9-fb5e-41d2-9709-c19456143493" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project activeEnvironment="Default" name="AuditLogging-Passthrough" resourceRoot="${projectDir}" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" id="e66381c9-fb5e-41d2-9709-c19456143493" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="../../../target/wsdl/EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="32f903e4-a429-4ad5-9b47-0eb4aba7cf9e" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -18,6 +18,17 @@
       <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
     </con:endpoints>
     <con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="ba007cf5-27e8-49ec-a4f4-b6f6d6589ba2">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="../../../target/wsdl/EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="42b67b15-6802-4fd6-9319-8cf844805eb0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    
+    <con:endpoints>
+      <con:endpoint>${#TestSuite#Endpoint-XDSEntity}</con:endpoint>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint>
+      <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint>
+    </con:endpoints><con:operation action="" anonymous="optional" bindingOperationName="RegisterDocumentSet-b" inputName="" isOneWay="false" name="RegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="ba007cf5-27e8-49ec-a4f4-b6f6d6589ba2">
       <con:settings/>
     </con:operation>
   </con:interface>
@@ -107,8 +118,7 @@
     <con:settings/>
     <con:endpoints>
       <con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscovery</con:endpoint>
-    </con:endpoints>
-    <con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false" id="bac85853-25c7-48a6-9101-5169a3899082">
+    </con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false" id="bac85853-25c7-48a6-9101-5169a3899082">
       <con:settings/>
     </con:operation>
   </con:interface>
@@ -132,8 +142,11 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:testSuite name="g1" id="ecf5915f-e009-4f02-8561-b161f3a78e77">
-    <con:settings/>
+  <con:interface xsi:type="con:WsdlInterface" id="fb759f29-b158-4b27-9046-a33472e583e4" wsaVersion="NONE" name="EntityXDS_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityxds}EntityXDS_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityDDS.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/>
+  <con:endpoints>
+<con:endpoint>http://localhost:/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint></con:endpoints>
+<con:operation id="19ce6a8c-d66a-4c1e-8644-5fea08cdc9ec" isOneWay="false" action="" name="RegisterDocumentSet-b" bindingOperationName="RegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation>
+</con:interface><con:testSuite name="g1" id="ecf5915f-e009-4f02-8561-b161f3a78e77"><con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="7e685188-254a-4e21-9f18-98674d0f4a82">
       <con:settings/>
@@ -146,7 +159,7 @@
 			}</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait to Clear Audit logs">
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="82629046-1237-469a-a73f-1bc22dade2c4">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -630,7 +643,7 @@
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="ddba1ffe-374b-448f-82cf-1032f85869c2">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -661,7 +674,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="16d5f0cf-e7f2-4d72-93f2-efb7632593dc">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -833,7 +846,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" id="b4d5e62a-4143-42ce-929b-4d6a71018598">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -992,7 +1005,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="8d5104a8-b623-4cf7-8e87-37e6cc70f97f">
         <con:settings/>
         <con:config>
           <script/>
@@ -1290,7 +1303,7 @@ if (propertiesFile.exists()) {
 			}</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait to Clear Audit logs">
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="31429a16-b3d7-4402-a537-61a94fe8686a">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -1638,7 +1651,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="2655acf7-3273-40f1-b504-eac31b477872">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -1669,7 +1682,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="f461b706-ef06-4808-ac24-f04f5a46cbc8">
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
@@ -1765,7 +1778,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" id="02394526-7d20-40bd-877b-122284e3cc05">
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
@@ -1867,7 +1880,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="31d18e7e-9a00-4a25-b219-2bb97588ad0e">
         <con:settings/>
         <con:config>
           <script/>
@@ -2073,7 +2086,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait to Clear Audit logs">
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="8821658b-299c-4e4d-8af5-d37955cff148">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -2557,7 +2570,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="a0e49006-b8f9-4dd1-a20a-cf3a010ddbd9">
         <con:settings/>
         <con:config>
           <delay>2000</delay>
@@ -2588,7 +2601,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="c65b1955-2680-4452-97b4-e1805471b86b">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -2713,7 +2726,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="98cc9038-7c38-4890-be5e-a7dbbfbccbc6">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -2827,7 +2840,1059 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="93f8c3e7-f021-4d36-b014-7081891b75ad">
+        <con:settings/>
+        <con:config>
+          <script/>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
+
+//context.setGatewayStandard(false);
+//log.info ("Setting the gateway to Passthrough");
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+def propertiesFilename = projectPath + "/DocumentSubmissionAuditLog.properties"
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+ def props = new Properties()
+ props.load(new FileInputStream(propertiesFile))
+ props.each { key, value ->
+     testCase.setPropertyValue(key, value)
+ }
+}</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+
+//context.setGatewayStandard(true);
+//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>&lt;!--Destination--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Human</con:name>
+          <con:value>Requestor--></con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Source--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--Patient--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--Submission</con:name>
+          <con:value>Set --></con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserID</con:name>
+          <con:value>kskagerb</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@code</con:name>
+          <con:value>307969004</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name>
+          <con:value>SNOMED_CT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@displayName</con:name>
+          <con:value>Human Requestor</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name>
+          <con:value>localhost</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name>
+          <con:value>110152</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
+          <con:value>Destination</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_g0.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_g1.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
+          <con:value>192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserID</con:name>
+          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
+          <con:value>110153</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
+          <con:value>Source</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditMessage.xmlns</con:name>
+          <con:value>http://nhinc.services.com/schema/auditmessage</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
+          <con:value>DoD</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
+          <con:value>urn:oid:1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
+          <con:value>1010</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2016-02-04T21:16:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventActionCode</con:name>
+          <con:value>R</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventDateTime</con:name>
+          <con:value>2015-04-02T13:47:30.199Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventOutcomeIndicator</con:name>
+          <con:value>0</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@code</con:name>
+          <con:value>110106</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@displayName</con:name>
+          <con:value>Export</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@code</con:name>
+          <con:value>ITI-41</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name>
+          <con:value>IHE Transactions</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@displayName</con:name>
+          <con:value>Provide and Register Document Set-b</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.@EventActionCode</con:name>
+          <con:value>C</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@code</con:name>
+          <con:value>110107</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@displayName</con:name>
+          <con:value>Import</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2016-03-05T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
+          <con:value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>RFC-3881</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>Patient Number</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectID</con:name>
+          <con:value>SubSetID_UniqueID01</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>20</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>IHE XDS Metadata</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>submission set classificationNode</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>02/04/2016 21:06:00</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2016-02-04T21:06:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Data Submission" searchProperties="true" id="bfb21e63-366d-4679-9fe6-33293702838f" disabled="true">
+      <con:settings/>
+      <con:testStep type="groovy" name="Clear Audit Logs" id="cecb38d3-259e-439f-8344-20deb68e3650">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
+	sql.execute('delete from ' + context.findProperty('AuditRepoTable'))
+	sql.execute('alter table ' + context.findProperty('AuditRepoTable') + ' AUTO_INCREMENT=1')
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="c2a47bc6-4865-49df-8122-d65b308a1046">
+        <con:settings/>
+        <con:config>
+          <delay>3000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Doc Data Submission" type="request" id="efed7670-fb06-4951-958e-4af171f6007f">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityXDS_Binding</con:interface>
+          <con:operation>RegisterDocumentSet-b</con:operation>
+          <con:request incomingWss="" name="Doc Data Submission" outgoingWss="" wssPasswordType="" id="09886b09-6a6f-4b37-b9e6-8fb42749a919">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Document Data Submission">
+      <urn:RespondingGateway_RegisterDocumentSetRequest>
+         <urn:assertion>
+            <urn1:messageId>${#Project#messageID}</urn1:messageId>
+            <urn1:address>
+               <urn1:addressType>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>AddrCity</urn1:city>
+               <urn1:country>AddrCountry</urn1:country>
+               <urn1:state>AddrState</urn1:state>
+               <urn1:streetAddress>AddrStreet</urn1:streetAddress>
+               <urn1:zipCode>AddrZip</urn1:zipCode>
+            </urn1:address>
+            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
+            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
+            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
+            <urn1:haveSignature>false</urn1:haveSignature>
+            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
+            <urn1:homeCommunity>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+            <urn1:personName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Sandy</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+               <urn1:fullName>Sandy S. Smith</urn1:fullName>
+            </urn1:personName>
+            <urn1:phoneNumber>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>5436</urn1:extension>
+               <urn1:localNumber>253-6849</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:phoneNumber>
+            <urn1:secondWitnessAddress>
+               <urn1:addressType>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>Addr2City</urn1:city>
+               <urn1:country>Addr2Country</urn1:country>
+               <urn1:state>Addr2State</urn1:state>
+               <urn1:streetAddress>Addr2Street</urn1:streetAddress>
+               <urn1:zipCode>Addr2Zip</urn1:zipCode>
+            </urn1:secondWitnessAddress>
+            <urn1:secondWitnessName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Sammy</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
+               <urn1:fullName>Sammy S. Smith</urn1:fullName>
+            </urn1:secondWitnessName>
+            <urn1:secondWitnessPhone>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>5424</urn1:extension>
+               <urn1:localNumber>542-6823</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:secondWitnessPhone>
+            <urn1:SSN>253-98-7546</urn1:SSN>
+            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+            <urn1:witnessAddress>
+               <urn1:addressType>
+                  <urn1:code>addrCode</urn1:code>
+                  <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>addrCode</urn1:displayName>
+                  <urn1:originalText>addrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>Burnell</urn1:city>
+               <urn1:country>USA</urn1:country>
+               <urn1:state>FL</urn1:state>
+               <urn1:streetAddress>825 North</urn1:streetAddress>
+               <urn1:zipCode>32184</urn1:zipCode>
+            </urn1:witnessAddress>
+            <urn1:witnessName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Scott</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
+               <urn1:fullName>Scott S. Smith</urn1:fullName>
+            </urn1:witnessName>
+            <urn1:witnessPhone>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>8432</urn1:extension>
+               <urn1:localNumber>985-2239</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:witnessPhone>
+            <urn1:userInfo>
+               <urn1:personName>
+                  <urn1:familyName>Skagerberg</urn1:familyName>
+                  <urn1:givenName>Karl</urn1:givenName>
+                  <urn1:nameType>
+                     <urn1:code>nameCode</urn1:code>
+                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                     <urn1:displayName>nameCode</urn1:displayName>
+                     <urn1:originalText>nameCode</urn1:originalText>
+                  </urn1:nameType>
+                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+                  <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
+               </urn1:personName>
+               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:org>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>307969004</urn1:code>
+                  <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
+                  <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Public Health</urn1:displayName>
+                  <urn1:originalText>Public Health</urn1:originalText>
+               </urn1:roleCoded>
+            </urn1:userInfo>
+            <urn1:authorized>true</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:conditions>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
+         </urn:assertion>
+
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
+
+         <urn:ProvideAndRegisterDocumentSetRequest>
+            <urn2:SubmitObjectsRequest id="123" comment="comme">
+               <!--Optional:-->
+  
+               <urn4:RegistryObjectList>
+                  <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
+                     <urn4:Slot name="creationTime">
+                        <urn4:ValueList>
+                           <urn4:Value>20051224</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="languageCode">
+                        <urn4:ValueList>
+                           <urn4:Value>en-us</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStartTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230800</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStopTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230801</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientId">
+                        <urn4:ValueList>
+                           <urn4:Value>ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientInfo">
+                        <urn4:ValueList>
+                           <urn4:Value>PID-3|ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                           <urn4:Value>PID-5|Doe^John^^^</urn4:Value>
+                           <urn4:Value>PID-7|19560527</urn4:Value>
+                           <urn4:Value>PID-8|M</urn4:Value>
+                           <urn4:Value>PID-11|100 Main St^^Metropolis^Il^44130^USA</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Name>
+                        <urn4:LocalizedString value="Physical"/>
+                     </urn4:Name>
+                     <urn4:Description/>
+                     <urn4:Classification id="cl01" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" classifiedObject="Document01">
+                        <urn4:Slot name="authorPerson">
+                           <urn4:ValueList>
+                              <urn4:Value>Gerald Smitty</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorInstitution">
+                           <urn4:ValueList>
+                              <urn4:Value>Cleveland Clinic</urn4:Value>
+                              <urn4:Value>Parma Community</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorRole">
+                           <urn4:ValueList>
+                              <urn4:Value>Attending</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorSpecialty">
+                           <urn4:ValueList>
+                              <urn4:Value>Orthopedic</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl02" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" classifiedObject="Document01" nodeRepresentation="History and Physical">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon classCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="History and Physical"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl03" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" classifiedObject="Document01" nodeRepresentation="1.3.6.1.4.1.21367.2006.7.101">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon confidentialityCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Clinical-Staff"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl04" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" classifiedObject="Document01" nodeRepresentation="CDAR2/IHE 1.0">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon formatCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="CDAR2/IHE 1.0"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl05" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" classifiedObject="Document01" nodeRepresentation="Outpatient">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon healthcareFacilityTypeCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl06" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" classifiedObject="Document01" nodeRepresentation="General Medicine">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon practiceSettingCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="General Medicine"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl07" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" classifiedObject="Document01" nodeRepresentation="34108-1">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>LOINC</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient Evaluation And Management"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:ExternalIdentifier id="ei01" registryObject="Document01" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.patientId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei02" registryObject="Document01" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" value="1.3.6.1.4.1.21367.2005.3.9999.32">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                  </urn4:ExtrinsicObject>
+                  <urn4:RegistryPackage id="SubmissionSet01">
+                     <urn4:Slot name="submissionTime">
+                        <urn4:ValueList>
+                           <urn4:Value>20041225235050</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Name>
+                        <urn4:LocalizedString value="Physical"/>
+                     </urn4:Name>
+                     <urn4:Description>
+                        <urn4:LocalizedString value="Annual physical"/>
+                     </urn4:Description>
+                     <urn4:Classification id="cl08" classificationScheme="urn:uuid:a7058bb9-b4e4-4307-ba5b-e3f0ab85e12d" classifiedObject="SubmissionSet01">
+                        <urn4:Slot name="authorPerson">
+                           <urn4:ValueList>
+                              <urn4:Value>Sherry Dopplemeyer</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorInstitution">
+                           <urn4:ValueList>
+                              <urn4:Value>Cleveland Clinic</urn4:Value>
+                              <urn4:Value>Berea Community</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorRole">
+                           <urn4:ValueList>
+                              <urn4:Value>Purn4ary Surgon</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorSpecialty">
+                           <urn4:ValueList>
+                              <urn4:Value>Orthopedic</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl09" classificationScheme="urn:uuid:aa543740-bdda-424e-8c96-df4873be8500" classifiedObject="SubmissionSet01" nodeRepresentation="History and Physical">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon contentTypeCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="History and Physical"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:ExternalIdentifier id="ei03" registryObject="SubmissionSet01" identificationScheme="urn:uuid:96fdda7c-d067-4183-912e-bf5ee74998a8" value="1.3.6.1.4.1.21367.2005.3.9999.33">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.uniqueId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei04" registryObject="SubmissionSet01" identificationScheme="urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832" value="3670984664">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.sourceId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei05" registryObject="SubmissionSet01" identificationScheme="urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.patientId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                  </urn4:RegistryPackage>
+                  <urn4:Classification id="cl10" classifiedObject="SubmissionSet01" classificationNode="urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd"/>
+                  <urn4:Association id="as01" associationType="HasMember" sourceObject="SubmissionSet01" targetObject="Document01">
+                     <urn4:Slot name="SubmissionSetStatus">
+                        <urn4:ValueList>
+                           <urn4:Value>Original</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                  </urn4:Association>
+               </urn4:RegistryObjectList> 
+
+            </urn2:SubmitObjectsRequest>
+            <!--1 or more repetitions:-->
+            <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
+         </urn:ProvideAndRegisterDocumentSetRequest>
+      </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" id="ba128bc3-c9e4-4de3-9601-91e3fc940355"/>
+            <con:assertion type="SOAP Fault Assertion" id="998f3460-0291-4c6a-9aac-9ed47b6441f9"/>
+            <con:assertion type="XPath Match" id="a140b353-3943-421c-bc0a-5c071893268b">
+              <con:configuration>
+                <path>declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+							//ns11:RegistryResponse[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Schema Compliance" type="Schema Compliance" id="2c244ed8-97af-4659-8ea0-54e589839082">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="dc590e6f-2766-47fa-bb8f-a1da8efa7ee3">
+        <con:settings/>
+        <con:config>
+          <delay>2000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Verify Audit Logs" id="d9e498c1-9552-498c-baa1-0ff26cf9d1ff">
+        <con:settings/>
+        <con:config>
+          <script>if (  nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocDataSubmission', log) == "true")
+{
+context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
+}
+	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
+}
+else if (  nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocDataSubmission', log) == "false")
+{
+ 	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
+	}
+	testRunner.gotoStepByName( "Success")
+}
+else
+{
+ 	testRunner.fail( "Incorrect AuditLogging property found for this service testcase" )
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="bd4ebfca-25a7-4b30-881b-1267ee25998a">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound = sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
+	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+		assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+	     }     	
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+     	if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	   		assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )
+	     }
+	}
+  }
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     assert(!node.@AlternativeUserID.isEmpty())	     
+     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+          assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )	     
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){			
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->	    
+	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )	
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+     	assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	}	
+}
+if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
+	     //assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectID" )
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole" )
+	     assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName" )
+  	}
+ }
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="8b1fe034-dbc4-4758-a389-e77edc64a82f">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound = sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())    
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
+	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification_Responder.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification_Responder.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node ->	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
+     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+          assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )	     
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
+	     }
+	     assert(!node.@AlternativeUserID.isEmpty())
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
+	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )	
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+     	assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	}	
+}
+if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
+	     //assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectID" )
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole" )
+	     assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName" )
+  	}
+ }
+}
+
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocDataSubmission',"false", log);
+testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Success" id="096f10a5-88fc-4b56-8621-c771b5a4ef40">
         <con:settings/>
         <con:config>
           <script/>
@@ -3125,7 +4190,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Clear Audit Logs">
+      <con:testStep type="delay" name="Wait for Clear Audit Logs" id="1a1e1543-4db4-4317-838c-41c6e010284f">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -3447,7 +4512,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="f4d843d0-8850-43d4-818f-d41429fe352d">
         <con:settings/>
         <con:config>
           <delay>10000</delay>
@@ -3478,7 +4543,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="ec6156ef-06e4-4e5d-80bd-53c40615a1a6">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -3640,7 +4705,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" id="32f33473-b7bc-40b5-94a4-60d860dcdf00">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -3795,7 +4860,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="f13cb698-36f9-4bb7-8ddf-308d89486e01">
         <con:settings/>
         <con:config>
           <script/>
@@ -4425,7 +5490,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Clear Audit Logs">
+      <con:testStep type="delay" name="Wait for Clear Audit Logs" id="cbcbb7e3-d9c3-4d94-9254-8e08ca969529">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -4773,7 +5838,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="9bb84fab-fbf5-43e8-a28a-ae877d1f96a1">
         <con:settings/>
         <con:config>
           <delay>10000</delay>
@@ -4804,7 +5869,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK" id="e9482e5f-86f4-4495-bd04-5bfad369c8e1">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -4959,7 +6024,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="9910a092-96e6-4f40-849e-0fa2f2087386">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -5121,7 +6186,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="117e47d7-0182-4817-abc8-49f73456a7d2">
         <con:settings/>
         <con:config>
           <script/>
@@ -5755,7 +6820,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Clear Audit Logs">
+      <con:testStep type="delay" name="Wait for Clear Audit Logs" id="ec64be14-f23f-4cc7-b284-a0a5411860b5">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -6225,7 +7290,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
           </con:response>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="ab9da431-dc8a-4c49-9ac6-1bf02eba542b">
         <con:settings/>
         <con:config>
           <delay>25000</delay>
@@ -6256,7 +7321,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="001c1e4f-950e-4d90-a5d5-934e31410693">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -6416,7 +7481,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="d15143cc-d5cb-43c9-baa9-8ffbe7b8b8ca">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -6570,7 +7635,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="4ab8ff91-bf85-4758-8346-d51acf1d950c">
         <con:settings/>
         <con:config>
           <script/>
@@ -7068,7 +8133,7 @@ if (propertiesFile.exists()) {
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Clear Audit Logs">
+      <con:testStep type="delay" name="Wait for Clear Audit Logs" id="f17aa145-b9f0-4f7d-bf36-d86c14abbe5a">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -7363,7 +8428,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="e4f6c854-0c28-43fe-90ee-529adea9fd7e">
         <con:settings/>
         <con:config>
           <delay>2000</delay>
@@ -7394,7 +8459,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="bbd78a77-0fc3-4553-bba0-b69c14a5f7d7">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -7542,7 +8607,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="cf21811f-3897-4017-8e54-9025f0788adb">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -7679,7 +8744,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="47fcf87e-b9a1-4a99-81aa-ba2e663bf505">
         <con:settings/>
         <con:config>
           <script/>
@@ -8034,7 +9099,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Clear Audit Logs">
+      <con:testStep type="delay" name="Wait for Clear Audit Logs" id="329c02ce-8923-48f8-b3e4-824fe56736e5">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -8330,7 +9395,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="7139b70a-755b-47fc-9c7c-a66aaa6bd161">
         <con:settings/>
         <con:config>
           <delay>2000</delay>
@@ -8361,7 +9426,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="ba71607f-1501-4394-b35c-54f466c01336">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -8505,7 +9570,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="4818d268-7e13-49de-8cd0-f3a8438252c8">
         <con:settings/>
         <con:config>
           <script><![CDATA[import java.util.regex.*
@@ -8630,7 +9695,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="f2719af7-a9c6-4d3b-820e-5109020b8fdf">
         <con:settings/>
         <con:config>
           <script/>
@@ -9439,6 +10504,10 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
         <con:name>Endpoint-XDREntity</con:name>
         <con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:value>
       </con:property>
+     <con:property>
+        <con:name>Endpoint-XDSEntity</con:name>
+        <con:value>http://localhost:8080/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:value>
+      </con:property>
       <con:property>
         <con:name>Endpoint-DocQuery</con:name>
         <con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:value>
@@ -9474,7 +10543,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait to Clear Audit logs">
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="f2f6d1cf-2929-4334-8e35-29ed3eb8f943">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -9961,7 +11030,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="510c55bf-f307-47a2-b328-01934e367d24">
         <con:settings/>
         <con:config>
           <delay>2000</delay>
@@ -9992,7 +11061,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="cbf37907-8c69-4545-a7a8-c6fdf223a017">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -10164,7 +11233,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" id="3e1b53ce-d99c-490a-97b7-19502f935c61">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -10323,7 +11392,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="8e1dff73-f4ca-49b1-93a0-fd8592a0ce8f">
         <con:settings/>
         <con:config>
           <script/>
@@ -10621,7 +11690,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait to Clear Audit logs">
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="0fe83a26-e411-4be0-9279-ccbb8183496f">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -10969,7 +12038,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="b7ce140a-e3be-4273-9f22-4fa3190b23ea">
         <con:settings/>
         <con:config>
           <delay>2000</delay>
@@ -11000,7 +12069,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="e554619e-c35f-419f-938c-e594af83c87a">
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
@@ -11097,7 +12166,7 @@ parsedXmlMessage.AuditSourceIdentification.find{
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" id="73ed48c8-2520-4723-ae9e-1e66e392f44b">
         <con:settings/>
         <con:config>
           <script>context.withSql('AuditRepoDB') {sql ->
@@ -11197,7 +12266,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="2b0488d4-8cd2-43a5-a836-b2424df0ee7e">
         <con:settings/>
         <con:config>
           <script/>
@@ -11406,7 +12475,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait to Clear Audit logs">
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="93dfc97e-476c-44c1-aa25-855a7a2ad1e1">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -11890,7 +12959,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="a2e616b7-91e5-408a-b1f5-f00d374668fd">
         <con:settings/>
         <con:config>
           <delay>2000</delay>
@@ -11921,7 +12990,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="b0362d7f-7157-4807-8314-80de6081a3ba">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -12046,7 +13115,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="c2a41970-eb18-441a-85d4-e56c08805c02">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -12160,7 +13229,1059 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="cb576e4c-fb62-4193-8639-cb2536fcd052">
+        <con:settings/>
+        <con:config>
+          <script/>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
+
+//context.setGatewayStandard(false);
+//log.info ("Setting the gateway to Passthrough");
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+def propertiesFilename = projectPath + "/DocumentSubmissionAuditLog.properties"
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+ def props = new Properties()
+ props.load(new FileInputStream(propertiesFile))
+ props.each { key, value ->
+     testCase.setPropertyValue(key, value)
+ }
+}</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+
+//context.setGatewayStandard(true);
+//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+      <con:properties>
+        <con:property>
+          <con:name>&lt;!--Destination--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Human</con:name>
+          <con:value>Requestor--></con:value>
+        </con:property>
+        <con:property>
+          <con:name>&lt;!--Source--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--Patient--></con:name>
+          <con:value/>
+        </con:property>
+        <con:property>
+          <con:name>&lt;--Submission</con:name>
+          <con:value>Set --></con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserID</con:name>
+          <con:value>kskagerb</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@code</con:name>
+          <con:value>307969004</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name>
+          <con:value>SNOMED_CT</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant.RoleIDCode.@displayName</con:name>
+          <con:value>Human Requestor</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name>
+          <con:value>localhost</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name>
+          <con:value>false</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name>
+          <con:value>110152</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name>
+          <con:value>Destination</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_g0.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Dest_g1.@UserID</con:name>
+          <con:value>https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@AlternativeUserID</con:name>
+          <con:value>19233@192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name>
+          <con:value>192.168.1.2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserID</con:name>
+          <con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserIsRequestor</con:name>
+          <con:value>true</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.@UserName</con:name>
+          <con:value>Karl Skagerberg</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name>
+          <con:value>110153</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name>
+          <con:value>Source</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditMessage.xmlns</con:name>
+          <con:value>http://nhinc.services.com/schema/auditmessage</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name>
+          <con:value>DoD</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceID</con:name>
+          <con:value>urn:oid:1.1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
+          <con:value>1010</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2016-02-04T21:18:36Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventActionCode</con:name>
+          <con:value>R</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventDateTime</con:name>
+          <con:value>2015-04-02T13:47:30.199Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.@EventOutcomeIndicator</con:name>
+          <con:value>0</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@code</con:name>
+          <con:value>110106</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@codeSystemName</con:name>
+          <con:value>DCM</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventID.@displayName</con:name>
+          <con:value>Export</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@code</con:name>
+          <con:value>ITI-41</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name>
+          <con:value>IHE Transactions</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification.EventTypeCode.@displayName</con:name>
+          <con:value>Provide and Register Document Set-b</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.@EventActionCode</con:name>
+          <con:value>C</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@code</con:name>
+          <con:value>110107</con:value>
+        </con:property>
+        <con:property>
+          <con:name>EventIdentification_Responder.EventID.@displayName</con:name>
+          <con:value>Import</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2016-03-05T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name>
+          <con:value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>1</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>RFC-3881</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>Patient Number</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectID</con:name>
+          <con:value>SubSetID_UniqueID01</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode</con:name>
+          <con:value>2</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole</con:name>
+          <con:value>20</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code</con:name>
+          <con:value>urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName</con:name>
+          <con:value>IHE XDS Metadata</con:value>
+        </con:property>
+        <con:property>
+          <con:name>ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName</con:name>
+          <con:value>submission set classificationNode</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>02/04/2016 21:08:36</con:value>
+        </con:property>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2016-02-04T21:08:36Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Data Submission" searchProperties="true" id="fb0a6077-5978-4615-ae36-a77a19ceef7d" disabled="true">
+      <con:settings/>
+      <con:testStep type="groovy" name="Clear Audit Logs" id="846da1f9-7f09-4c32-9bd3-85f84710f03e">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
+	sql.execute('delete from ' + context.findProperty('AuditRepoTable'))
+	sql.execute('alter table ' + context.findProperty('AuditRepoTable') + ' AUTO_INCREMENT=1')
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="06d8759b-824b-4c97-a441-b4f70323af35">
+        <con:settings/>
+        <con:config>
+          <delay>3000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Doc Data Submission" type="request" id="20b3c101-a2f1-4c1f-88dd-56fe0e5c480a">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityXDS_Binding</con:interface>
+          <con:operation>RegisterDocumentSet-b</con:operation>
+          <con:request incomingWss="" name="Doc Data Submission" outgoingWss="" wssPasswordType="" id="0eabbc2a-875b-4cee-ac85-9cd43072f50f">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8080/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g0" testCase="Document Data Submission">
+      <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
+         <urn:assertion>
+            <urn1:messageId>${#Project#messageID}</urn1:messageId>
+            <urn1:address>
+               <urn1:addressType>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>AddrCity</urn1:city>
+               <urn1:country>AddrCountry</urn1:country>
+               <urn1:state>AddrState</urn1:state>
+               <urn1:streetAddress>AddrStreet</urn1:streetAddress>
+               <urn1:zipCode>AddrZip</urn1:zipCode>
+            </urn1:address>
+            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
+            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
+            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
+            <urn1:haveSignature>false</urn1:haveSignature>
+            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
+            <urn1:homeCommunity>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+            <urn1:personName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Sandy</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+               <urn1:fullName>Sandy S. Smith</urn1:fullName>
+            </urn1:personName>
+            <urn1:phoneNumber>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>5436</urn1:extension>
+               <urn1:localNumber>253-6849</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:phoneNumber>
+            <urn1:secondWitnessAddress>
+               <urn1:addressType>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>Addr2City</urn1:city>
+               <urn1:country>Addr2Country</urn1:country>
+               <urn1:state>Addr2State</urn1:state>
+               <urn1:streetAddress>Addr2Street</urn1:streetAddress>
+               <urn1:zipCode>Addr2Zip</urn1:zipCode>
+            </urn1:secondWitnessAddress>
+            <urn1:secondWitnessName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Sammy</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
+               <urn1:fullName>Sammy S. Smith</urn1:fullName>
+            </urn1:secondWitnessName>
+            <urn1:secondWitnessPhone>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>5424</urn1:extension>
+               <urn1:localNumber>542-6823</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:secondWitnessPhone>
+            <urn1:SSN>253-98-7546</urn1:SSN>
+            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+            <urn1:witnessAddress>
+               <urn1:addressType>
+                  <urn1:code>addrCode</urn1:code>
+                  <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>addrCode</urn1:displayName>
+                  <urn1:originalText>addrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>Burnell</urn1:city>
+               <urn1:country>USA</urn1:country>
+               <urn1:state>FL</urn1:state>
+               <urn1:streetAddress>825 North</urn1:streetAddress>
+               <urn1:zipCode>32184</urn1:zipCode>
+            </urn1:witnessAddress>
+            <urn1:witnessName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Scott</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
+               <urn1:fullName>Scott S. Smith</urn1:fullName>
+            </urn1:witnessName>
+            <urn1:witnessPhone>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>8432</urn1:extension>
+               <urn1:localNumber>985-2239</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:witnessPhone>
+            <urn1:userInfo>
+               <urn1:personName>
+                  <urn1:familyName>Skagerberg</urn1:familyName>
+                  <urn1:givenName>Karl</urn1:givenName>
+                  <urn1:nameType>
+                     <urn1:code>nameCode</urn1:code>
+                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                     <urn1:displayName>nameCode</urn1:displayName>
+                     <urn1:originalText>nameCode</urn1:originalText>
+                  </urn1:nameType>
+                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+                  <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
+               </urn1:personName>
+               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:org>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>307969004</urn1:code>
+                  <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
+                  <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Public Health</urn1:displayName>
+                  <urn1:originalText>Public Health</urn1:originalText>
+               </urn1:roleCoded>
+            </urn1:userInfo>
+            <urn1:authorized>true</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:conditions>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
+         </urn:assertion>
+
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
+
+         <urn:ProvideAndRegisterDocumentSetRequest>
+            <urn2:SubmitObjectsRequest id="123" comment="comme">
+               <!--Optional:-->
+
+               <urn4:RegistryObjectList>
+                  <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
+                     <urn4:Slot name="creationTime">
+                        <urn4:ValueList>
+                           <urn4:Value>20051224</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="languageCode">
+                        <urn4:ValueList>
+                           <urn4:Value>en-us</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStartTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230800</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="serviceStopTime">
+                        <urn4:ValueList>
+                           <urn4:Value>200412230801</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientId">
+                        <urn4:ValueList>
+                           <urn4:Value>ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Slot name="sourcePatientInfo">
+                        <urn4:ValueList>
+                           <urn4:Value>PID-3|ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                           <urn4:Value>PID-5|Doe^John^^^</urn4:Value>
+                           <urn4:Value>PID-7|19560527</urn4:Value>
+                           <urn4:Value>PID-8|M</urn4:Value>
+                           <urn4:Value>PID-11|100 Main St^^Metropolis^Il^44130^USA</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Name>
+                        <urn4:LocalizedString value="Physical"/>
+                     </urn4:Name>
+                     <urn4:Description/>
+                     <urn4:Classification id="cl01" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" classifiedObject="Document01">
+                        <urn4:Slot name="authorPerson">
+                           <urn4:ValueList>
+                              <urn4:Value>Gerald Smitty</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorInstitution">
+                           <urn4:ValueList>
+                              <urn4:Value>Cleveland Clinic</urn4:Value>
+                              <urn4:Value>Parma Community</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorRole">
+                           <urn4:ValueList>
+                              <urn4:Value>Attending</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorSpecialty">
+                           <urn4:ValueList>
+                              <urn4:Value>Orthopedic</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl02" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" classifiedObject="Document01" nodeRepresentation="History and Physical">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon classCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="History and Physical"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl03" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" classifiedObject="Document01" nodeRepresentation="1.3.6.1.4.1.21367.2006.7.101">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon confidentialityCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Clinical-Staff"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl04" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" classifiedObject="Document01" nodeRepresentation="CDAR2/IHE 1.0">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon formatCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="CDAR2/IHE 1.0"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl05" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" classifiedObject="Document01" nodeRepresentation="Outpatient">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon healthcareFacilityTypeCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl06" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" classifiedObject="Document01" nodeRepresentation="General Medicine">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon practiceSettingCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="General Medicine"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl07" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" classifiedObject="Document01" nodeRepresentation="34108-1">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>LOINC</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="Outpatient Evaluation And Management"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:ExternalIdentifier id="ei01" registryObject="Document01" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.patientId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei02" registryObject="Document01" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" value="1.3.6.1.4.1.21367.2005.3.9999.32">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                  </urn4:ExtrinsicObject>
+                  <urn4:RegistryPackage id="SubmissionSet01">
+                     <urn4:Slot name="submissionTime">
+                        <urn4:ValueList>
+                           <urn4:Value>20041225235050</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                     <urn4:Name>
+                        <urn4:LocalizedString value="Physical"/>
+                     </urn4:Name>
+                     <urn4:Description>
+                        <urn4:LocalizedString value="Annual physical"/>
+                     </urn4:Description>
+                     <urn4:Classification id="cl08" classificationScheme="urn:uuid:a7058bb9-b4e4-4307-ba5b-e3f0ab85e12d" classifiedObject="SubmissionSet01">
+                        <urn4:Slot name="authorPerson">
+                           <urn4:ValueList>
+                              <urn4:Value>Sherry Dopplemeyer</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorInstitution">
+                           <urn4:ValueList>
+                              <urn4:Value>Cleveland Clinic</urn4:Value>
+                              <urn4:Value>Berea Community</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorRole">
+                           <urn4:ValueList>
+                              <urn4:Value>Purn4ary Surgon</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Slot name="authorSpecialty">
+                           <urn4:ValueList>
+                              <urn4:Value>Orthopedic</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                     </urn4:Classification>
+                     <urn4:Classification id="cl09" classificationScheme="urn:uuid:aa543740-bdda-424e-8c96-df4873be8500" classifiedObject="SubmissionSet01" nodeRepresentation="History and Physical">
+                        <urn4:Slot name="codingScheme">
+                           <urn4:ValueList>
+                              <urn4:Value>Connect-a-thon contentTypeCodes</urn4:Value>
+                           </urn4:ValueList>
+                        </urn4:Slot>
+                        <urn4:Name>
+                           <urn4:LocalizedString value="History and Physical"/>
+                        </urn4:Name>
+                     </urn4:Classification>
+                     <urn4:ExternalIdentifier id="ei03" registryObject="SubmissionSet01" identificationScheme="urn:uuid:96fdda7c-d067-4183-912e-bf5ee74998a8" value="1.3.6.1.4.1.21367.2005.3.9999.33">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.uniqueId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei04" registryObject="SubmissionSet01" identificationScheme="urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832" value="3670984664">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.sourceId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                     <urn4:ExternalIdentifier id="ei05" registryObject="SubmissionSet01" identificationScheme="urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                        <urn4:Name>
+                           <urn4:LocalizedString value="XDSSubmissionSet.patientId"/>
+                        </urn4:Name>
+                     </urn4:ExternalIdentifier>
+                  </urn4:RegistryPackage>
+                  <urn4:Classification id="cl10" classifiedObject="SubmissionSet01" classificationNode="urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd"/>
+                  <urn4:Association id="as01" associationType="HasMember" sourceObject="SubmissionSet01" targetObject="Document01">
+                     <urn4:Slot name="SubmissionSetStatus">
+                        <urn4:ValueList>
+                           <urn4:Value>Original</urn4:Value>
+                        </urn4:ValueList>
+                     </urn4:Slot>
+                  </urn4:Association>
+               </urn4:RegistryObjectList>
+
+            </urn2:SubmitObjectsRequest>
+            <!--1 or more repetitions:-->
+            <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
+         </urn:ProvideAndRegisterDocumentSetRequest>
+      </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" id="3acd8f4e-1d63-4379-9e95-536a6ba35923"/>
+            <con:assertion type="SOAP Fault Assertion" id="62de05d0-17a3-4a3d-9f5d-b2bf91d283c4"/>
+            <con:assertion type="XPath Match" id="571b27f2-a64d-4da3-b9fa-b97550c08c1d">
+              <con:configuration>
+                <path>declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+							//ns11:RegistryResponse[1]/@status</path>
+                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion name="Schema Compliance" type="Schema Compliance" id="f562b376-b1d9-4cd9-8f45-cf1f26fdf956">
+              <con:configuration>
+                <definition/>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="ae89f729-aa54-4f52-830a-d2cacc084854">
+        <con:settings/>
+        <con:config>
+          <delay>2000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Verify Audit Logs" id="6846903e-4c2f-4c34-8b95-8c7f7804f568">
+        <con:settings/>
+        <con:config>
+          <script>if (  nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocDataSubmission', log) == "true")
+{
+context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
+}
+	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
+}
+else if (  nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocDataSubmission', log) == "false")
+{
+ 	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
+	}
+	testRunner.gotoStepByName( "Success")
+}
+else
+{
+ 	testRunner.fail( "Incorrect AuditLogging property found for this service testcase" )
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="48c8ca67-0cf3-41b9-9ed5-b940bcbf1d45">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def userId_Outbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())  
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
+	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node -> 
+		assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+	     }     	
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+     	if(!node.RoleIDCode.isEmpty()){
+   	     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+	     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+	   		assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )
+	     }
+	}
+  }
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+	     assert(!node.@AlternativeUserID.isEmpty())	     
+     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+          assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[2].each{ node ->	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )	     
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
+	     }
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){			
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->	    
+	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )	
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+     	assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	}	
+}
+if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
+	     //assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectID" )
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole" )
+	     assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName" )
+  	}
+ }
+}]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="13d62165-12c0-4409-a8e7-18ea5558b5ed">
+        <con:settings/>
+        <con:config>
+          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDocDataSubmission') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())   
+
+parsedXmlMessage.EventIdentification.find{
+	assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
+	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification_Responder.EventID.@code" )
+	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification_Responder.EventID.@displayName" )
+	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[0].each{ node ->	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )	     
+     	assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+          assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )	     
+	}
+}
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+	parsedXmlMessage.ActiveParticipant[1].each{ node ->
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g0.@UserID" )	     
+   	     if(!node.@UserName.isEmpty()){
+	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
+	     }
+	     assert(!node.@AlternativeUserID.isEmpty())
+     	assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+     	assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+   	 	def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+   	 	assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+     	assert(!node.@NetworkAccessPointID.isEmpty())
+     	def NetworkAccessPointID = node.@NetworkAccessPointID
+     	if (NetworkAccessPointTypeCode == 1) {
+
+     		assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+     		
+     	} else {
+
+     		def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+     		def matcher = (NetworkAccessPointID =~ x)  
+			assert matcher.matches()
+     		
+     	}
+     	assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+     	assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+     	assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )	     
+	}
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+		if(!it.@AuditEnterpriseSiteID.isEmpty()){
+			assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+		}
+		if(!it.@AuditSourceTypeCode.isEmpty()){
+			log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+			assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+		}
+		if(!it.@AuditSourceID.isEmpty()){
+			assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )	
+		}
+}
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
+	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )	
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+     	assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+	}	
+}
+if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )){
+	parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
+	     //assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectID" )
+	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCode" )
+	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Set.@ParticipantObjectTypeCodeRole" )
+	     assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@code" )
+     	assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@codeSystemName" )
+     	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName" )
+  	}
+ }
+}
+
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocDataSubmission',"false", log);
+testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Success" id="7b180e22-4dae-4bb8-82d3-a5c376af3345">
         <con:settings/>
         <con:config>
           <script/>
@@ -12458,7 +14579,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait to Clear Audit logs">
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="a19dd5a2-19a2-4d1c-8c67-6934411136b9">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -12780,7 +14901,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="21544fcc-8298-4cdf-aeec-fd87c64fdb8b">
         <con:settings/>
         <con:config>
           <delay>10000</delay>
@@ -12811,7 +14932,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="ac43da56-c276-4ac3-8097-84b8dbd38c5a">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -12973,7 +15094,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2) - ACK" id="6e9bcbc7-ae62-4338-bf2f-0133da603c8f">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -13128,7 +15249,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="c8f7d05b-0f9e-49f2-964a-5029c7fa3253">
         <con:settings/>
         <con:config>
           <script/>
@@ -13766,7 +15887,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait to Clear Audit logs">
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="90d462ef-f6f0-4177-8b44-5a71d6955f01">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -14114,7 +16235,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="a51b5400-a85e-4fb3-b438-7acb56516425">
         <con:settings/>
         <con:config>
           <delay>10000</delay>
@@ -14145,7 +16266,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1) - ACK" id="8d0937c0-bd57-4e08-98ed-864661e10889">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -14300,7 +16421,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="6367da24-9d58-46e5-871c-da167006abf3">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -14462,7 +16583,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="2dd7c19a-11d8-4717-98c9-0f1143fc4796">
         <con:settings/>
         <con:config>
           <script/>
@@ -15104,7 +17225,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait to Clear Audit logs">
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="f7ecfb67-49e4-4a09-8990-4d4b1933cee3">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -15574,7 +17695,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
           </con:response>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="efa9c0fa-3efd-4490-8152-0ffd2406b062">
         <con:settings/>
         <con:config>
           <delay>25000</delay>
@@ -15605,7 +17726,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="0647dd2c-2597-46df-925d-474be4ec84c4">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -15765,7 +17886,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGatewayGateway(2.2)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGatewayGateway(2.2)" id="f1fca21a-bb28-4d95-ae63-6afd7b90f4da">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -15918,7 +18039,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="936a57b8-aa37-46ea-ad67-878d9d5e425f">
         <con:settings/>
         <con:config>
           <script/>
@@ -16364,7 +18485,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait to Clear Audit logs">
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="8cb9ec31-beb3-4349-8850-169c01b19ea8">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -16699,7 +18820,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="44f69631-9079-4f89-bb55-c31324904ec5">
         <con:settings/>
         <con:config>
           <delay>2000</delay>
@@ -16730,7 +18851,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="c647c371-9425-414b-bd7d-8ca6d5b25129">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -16878,7 +18999,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="9c61b662-ddfc-4d7b-9fa3-6a79f3e30181">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -17015,7 +19136,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="6e87ccea-e34c-4c25-8c52-979c296c0c04">
         <con:settings/>
         <con:config>
           <script/>
@@ -17381,7 +19502,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait to Clear Audit logs">
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="76b015c5-cb89-441c-b109-f4c3792a2ddb">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -17677,7 +19798,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="1802754d-6704-4a32-8f03-ea4be7c4ea5f">
         <con:settings/>
         <con:config>
           <delay>2000</delay>
@@ -17708,7 +19829,7 @@ else
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="b4387e1f-8c3c-4d70-93a6-67645535c038">
         <con:settings/>
         <con:config>
           <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -17852,7 +19973,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
 }]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)">
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="097019fe-2a25-4ae7-9a50-886db6094761">
         <con:settings/>
         <con:config>
           <script><![CDATA[import java.util.regex.*
@@ -17975,7 +20096,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="7bad1b3c-0cea-4ffd-b03a-7569064a91fd">
         <con:settings/>
         <con:config>
           <script/>
@@ -18754,7 +20875,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait to Clear Audit logs">
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="3443d3dd-c845-410a-83db-c8df9461195f">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -19026,7 +21147,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="7346a908-c596-4172-b37d-938fad9a1094">
         <con:settings/>
         <con:config>
           <delay>2000</delay>
@@ -19289,7 +21410,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="008a54aa-8306-4e60-a48a-a5c7a6ea0299">
         <con:settings/>
         <con:config>
           <script/>
@@ -19592,7 +21713,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Delay">
+      <con:testStep type="delay" name="Delay" id="c004c12b-1297-4294-b583-113ff4859cf6">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -19866,7 +21987,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="d2073dbf-41df-406c-a571-4aa9ac8ec133">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -20123,7 +22244,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="de749763-ad95-4184-9bfc-75059bb3dbbe">
         <con:settings/>
         <con:config>
           <script/>
@@ -20406,7 +22527,7 @@ if (propertiesFile.exists()) {
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Delay">
+      <con:testStep type="delay" name="Delay" id="b6f2ad3f-ddeb-4347-a0b2-06dd2b135921">
         <con:settings/>
         <con:config>
           <delay>3000</delay>
@@ -20683,7 +22804,7 @@ if (propertiesFile.exists()) {
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Wait for Audit table to populate">
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="c07745f6-88a7-4dee-adde-fc72f9dfc09a">
         <con:settings/>
         <con:config>
           <delay>2000</delay>
@@ -20942,7 +23063,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.fi
 testRunner.gotoStepByName( "Clear Audit Logs")</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Success">
+      <con:testStep type="groovy" name="Success" id="8e8952c8-a881-4776-8162-32993b3cb6c6">
         <con:settings/>
         <con:config>
           <script/>
@@ -21243,6 +23364,10 @@ if (propertiesFile.exists()) {
         <con:name>Endpoint-XDREntity</con:name>
         <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value>
       </con:property>
+      <con:property>
+        <con:name>Endpoint-XDSEntity</con:name>
+        <con:value>http://localhost:8080/Gateway/DocumentDataSubmission/1_1/EntityService/EntityDocDataSubmissionUnsecured</con:value>
+      </con:property>
     </con:properties>
     <con:setupScript/>
     <con:tearDownScript/>
@@ -21490,6 +23615,10 @@ if (propertiesFile.exists()) {
       <con:value>DocSubmission</con:value>
     </con:property>
     <con:property>
+      <con:name>EventTypeDocDataSubmission</con:name>
+      <con:value>DocDataSubmission</con:value>
+    </con:property>
+    <con:property>
       <con:name>EventTypePDDefReq</con:name>
       <con:value>PatientDiscoveryDeferredReq</con:value>
     </con:property>
@@ -21666,5 +23795,5 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 //}</con:afterLoadScript>
   <con:wssContainer/>
   <con:oAuth2ProfileContainer/>
-  <con:sensitiveInformation/>
+  <con:oAuth1ProfileContainer/><con:sensitiveInformation/>
 </con:soapui-project>

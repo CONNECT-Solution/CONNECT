@@ -60,33 +60,4 @@
         wsdlLocation="classpath:wsdl/AdapterDDS.wsdl">
     </jaxws:endpoint>
 
-    <!-- Adapter Document Submission Component -->
-
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentxdssecured"
-        id="AdapterComponentDocDataSubmissionSecured" address="/AdapterComponentDocDataSubmissionSecured"
-        serviceName="tns:AdapterComponentXDSSecured_Service" endpointName="tns:AdapterComponentXDSSecured_Port"
-        implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.component.AdapterComponentDocDataSubmissionSecured"
-        wsdlLocation="classpath:wsdl/AdapterComponentDDSSecured.wsdl">
-
-        <jaxws:properties>
-            <entry key="ws-security.signature.properties"
-                value="file:///${nhinc.properties.dir}/signature.properties" />
-            <entry key="ws-security.encryption.properties"
-                value="file:///${nhinc.properties.dir}/truststore.properties" />
-            <entry key="ws-security.timestamp.validator">
-                <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
-            </entry>
-            <entry key="ws-security.saml2.validator">
-                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
-    </jaxws:endpoint>
-
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentxds"
-        id="AdapterComponentDocDataSubmissionUnsecured" address="/AdapterComponentDocDataSubmissionUnsecured"
-        serviceName="tns:AdapterComponentXDS_Service" endpointName="tns:AdapterComponentXDS_Port"
-        implementor="gov.hhs.fha.nhinc.docdatasubmission.adapter.component.AdapterComponentDocDataSubmissionUnsecured"
-        wsdlLocation="classpath:wsdl/AdapterComponentDDS.wsdl">
-    </jaxws:endpoint>
 </beans>

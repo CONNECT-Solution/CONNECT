@@ -25,6 +25,11 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentDataSubmissionWebservices</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentDataSubmissionCore</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
 
         <!-- Logging -->
         <dependency>

@@ -893,6 +893,41 @@
                                 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
+                        <ns2:name>patientlocationqueryservice</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientLocationQuery</ns2:url>
+                                    <ns2:version>1.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>patientlocationqueryservicesecured</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientLocationQuerySecured</ns2:url>
+                                    <ns2:version>1.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adapterplqservice</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientLocationQuery</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adapterplqservicesecured</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Adapter/PatientDiscovery/A_0/AdapterPatientLocationQuerySecured</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
                     </ns2:endpointList>
                     <ns2:targetRegion>US-NY</ns2:targetRegion>
                     <ns2:targetRegion>US-VA</ns2:targetRegion>
