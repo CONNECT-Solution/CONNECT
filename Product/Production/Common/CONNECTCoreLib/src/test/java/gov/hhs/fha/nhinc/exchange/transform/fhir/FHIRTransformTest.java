@@ -26,11 +26,6 @@
  */
 package gov.hhs.fha.nhinc.exchange.transform.fhir;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import gov.hhs.fha.nhinc.exchange.OrganizationListType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
@@ -52,6 +47,10 @@ import org.hl7.fhir.dstu3.formats.JsonParser;
 import org.hl7.fhir.dstu3.formats.XmlParser;
 import org.hl7.fhir.dstu3.model.Bundle;
 import org.hl7.fhir.exceptions.FHIRFormatError;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,6 +65,7 @@ public class FHIRTransformTest {
     private static final String XML_FILE = "/config/FHIRTransformTest/fhirXmlResponse.xml";
     private static final String XML = "xml";
     private static final String JSON = "json";
+    private static final String ORG_TYPE = "Participant";
     private static final Logger LOG = LoggerFactory.getLogger(FHIRTransformTest.class);
 
     @Test
@@ -115,8 +115,9 @@ public class FHIRTransformTest {
         assertNotNull("OrganizationListType is null", orgListType);
         assertTrue("Size of transformed Organizations must be 2", orglist.size() == 2);
         assertEquals("HCID for organization do not match", "urn:oid:2.16.840.1.113883.3.596", orglist.get(0).getHcid());
-        assertEquals("Size of transformed Endpoints for Organization TestOrg1 must be 3", 3,
-            orglist.get(0).getEndpointList().getEndpoint().size());
+        assertEquals("Organization type do not match", ORG_TYPE, orglist.get(0).getType());
+        assertTrue("Size of transformed Endpoints for Organization TestOrg1 must be 3",
+            orglist.get(0).getEndpointList().getEndpoint().size() == 3);
         for (OrganizationType org : orglist) {
             assertEndpoint(org.getEndpointList().getEndpoint());
         }

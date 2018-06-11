@@ -26,6 +26,20 @@
 			}],
 			"active": "true",
 			"name": "TestOrg1",
+            "text" :{
+                "status":"additional",
+                "div" :"<div><p>This is an <i>example</i> with some <b>xhtml</b> formatting.</p></div>"
+                },    
+            "type":[{
+                "coding":[{  
+                  "system" : "http://hl7.org/fhir/organization-type", 
+                  "code" : "Participant" 
+                  },
+                  {  
+                  "system" : "http://hl7.org/fhir/organization-type",
+                  "code" : "Subparticipant"
+                  }]
+            }],
 			"alias": [],
 			"contact": [{
 				"purpose": {

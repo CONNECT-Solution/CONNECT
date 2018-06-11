@@ -143,7 +143,10 @@ public class ExchangeManagerBean {
 
     public String getOrgDescription() {
         LOG.debug("organization-description does not exist need to be modified once decided.");
-        return DEFAULT_VALUE;
+        if (null == orgFilter) {
+            return DEFAULT_VALUE;
+        }
+        return getOrgDescription(orgFilter.getDescription());
     }
 
     public String getOrgContacts() {
@@ -356,5 +359,17 @@ public class ExchangeManagerBean {
             return MessageFormat.format("{0} {1}", contact.getFullName().get(0), contact.getPhone().get(0));
         }
         return contact.getFullName().get(0);
+    }
+
+    private static String getOrgDescription(List<String> descList) {
+        if (CollectionUtils.isNotEmpty(descList)) {
+            StringBuilder builder = new StringBuilder();
+            for (String str : descList) {
+                builder.append(str);
+                builder.append("\n");
+            }
+            return builder.toString();
+        }
+        return DEFAULT_VALUE;
     }
 }
