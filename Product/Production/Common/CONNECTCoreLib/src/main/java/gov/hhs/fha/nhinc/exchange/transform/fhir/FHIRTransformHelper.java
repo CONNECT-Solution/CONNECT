@@ -42,6 +42,7 @@ import org.hl7.fhir.dstu3.model.ContactPoint;
 import org.hl7.fhir.dstu3.model.Endpoint;
 import org.hl7.fhir.dstu3.model.Extension;
 import org.hl7.fhir.dstu3.model.Identifier;
+import org.hl7.fhir.dstu3.model.Narrative;
 import org.hl7.fhir.dstu3.model.Organization;
 import org.hl7.fhir.dstu3.model.Organization.OrganizationContactComponent;
 import org.hl7.fhir.dstu3.model.ResourceType;
@@ -179,6 +180,20 @@ public class FHIRTransformHelper {
             }
         }
         return null;
+    }
+
+    public static List<String> getDescription(Narrative narritive) {
+        List<String> desc = null;
+        if (null != narritive) {
+            desc = new ArrayList<>();
+            desc.add(narritive.toString());
+        }
+        return desc;
+    }
+
+    public static String getOrgType(List<CodeableConcept> types) {
+        return ((CollectionUtils.isNotEmpty(types)) && (null != types.get(0).getCodingFirstRep()))
+            ? types.get(0).getCodingFirstRep().getCode() : null;
     }
 
     private static boolean isServiceNameMatch(String[] altNames, String name) {

@@ -28,7 +28,32 @@
           <value value="urn:oid:2.16.840.1.113883.3.596"/>
         </identifier>
         <active value="true"/>
+        <type>
+            <coding>
+                <system value="http://hl7.org/fhir/organization-type"/>
+                <version value="[string]"/>
+                <code value="Participant"/>
+                <display value="[string]"/>
+                <userSelected value="true"/>
+            </coding>
+            <coding>
+                <system value="http://hl7.org/fhir/organization-type"/>
+                <version value="[string]"/>
+                <code value="Subparticipant"/>
+                <display value="[string]"/>
+                <userSelected value="true"/>
+            </coding>
+            <text></text>
+        </type>
         <name value="TestOrg1"/>
+        <text>
+            <status value="additional"></status>
+            <div xmlns="http://www.w3.org/1999/xhtml">
+            <p>
+                This is an <i>example</i> with some <b>xhtml</b> formatting.
+            </p>
+            </div>
+        </text>
         <address>
           <use value="work"/>
           <type value="both"/>
@@ -683,6 +708,10 @@
         </identifier>
         <active value="true"/>
         <name value="Conformance1-5AM"/>
+        <text>
+           <status value="additional"></status>
+           <div>This is a simple example with only plain text</div>
+        </text>
         <address>
           <use value="work"/>
           <type value="both"/>
