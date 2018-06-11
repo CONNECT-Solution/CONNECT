@@ -302,7 +302,7 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
 
     private static List<String> buildDescritpion(BusinessEntity entity) {
         List<String> descList = new ArrayList<>();
-        if (null != entity && CollectionUtils.isNotEmpty(entity.getDescription())) {
+        if (null != entity && null != entity.getDescription()) {
             for (Description obj : entity.getDescription()) {
                 descList.add(obj.getValue());
             }
