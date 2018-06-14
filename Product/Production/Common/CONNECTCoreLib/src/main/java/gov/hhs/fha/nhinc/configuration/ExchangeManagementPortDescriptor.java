@@ -9,8 +9,8 @@ import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
  */
 public class ExchangeManagementPortDescriptor extends SOAP12ServicePortDescriptor<EntityExchangeManagementPortType> {
 
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:exchangemangement"
-        + "EntityExchangeManagementRequest";
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:exchangemangement";
+    private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":EntityExchangeManagementRequest";
 
     @Override
     public String getWSAddressingAction() {

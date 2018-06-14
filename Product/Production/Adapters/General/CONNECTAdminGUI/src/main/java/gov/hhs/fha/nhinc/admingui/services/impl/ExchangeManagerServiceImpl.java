@@ -76,6 +76,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
     private final PingService pingService = new PingServiceImpl();
     private static final String DATE_FORMAT = "MM-dd-yy hh:mm:ss";
     private static final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+    private static CONNECTClient<EntityExchangeManagementPortType> client = null;
 
     @Override
     public boolean saveExchange(ExchangeType exchange) {
@@ -190,11 +191,14 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         return false;
     }
 
-    private static CONNECTClient<EntityExchangeManagementPortType> getClient() throws Exception {
-        String url = oProxyHelper.getAdapterEndPointFromConnectionManager(ENTITY_EXCHANGE_MANAGEMENT_SERVICE_NAME);
-        ServicePortDescriptor<EntityExchangeManagementPortType> portDescriptor = new ExchangeManagementPortDescriptor();
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
-            new AssertionType());
+    private static CONNECTClient<EntityExchangeManagementPortType> getClient() throws ExchangeManagerException {
+        if (null == client) {
+            String url = oProxyHelper.getAdapterEndPointFromConnectionManager(ENTITY_EXCHANGE_MANAGEMENT_SERVICE_NAME);
+            ServicePortDescriptor<EntityExchangeManagementPortType> portDescriptor = new ExchangeManagementPortDescriptor();
+            client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
+                new AssertionType());
+        }
+        return client;
     }
 
     private static <T> Object clientInvokePort(String serviceName, T request) throws Exception {
