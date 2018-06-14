@@ -420,6 +420,7 @@ public class NhincConstants {
 
     // Config Admin
     public static final String ENTITY_CONFIG_ADMIN_SERVICE_NAME = "entityconfigadmin";
+    public static final String ENTITY_EXCHANGE_MANAGEMENT_SERVICE_NAME = "entityexchangemanagement";
 
     // CORE X12 Document Submission RealTime Constants
     public static final String CORE_X12DS_REALTIME_SERVICE_NAME = "CORE_X12DSRealTime";
@@ -562,6 +563,16 @@ public class NhincConstants {
     public static final String NHINC_XDS_SERVICE_NAME = "DocDataSubmission";
     public static final String ADAPTER_XDS_SERVICE_NAME = "adapterxdsservice";
     public static final String ADAPTER_XDS_SECURED_SERVICE_NAME = "adapterxdsservicesecured";
+
+    // exchange-management
+    public static final String ADMIN_EXCHANGE_SAVE_EXCHANGE = "saveExchange";
+    public static final String ADMIN_EXCHANGE_DELETE = "deleteExchange";
+    public static final String ADMIN_EXCHANGE_REFRESH = "refreshExchangeManager";
+    public static final String ADMIN_EXCHANGE_INFOVIEW = "getExchangeInfoView";
+    public static final String ADMIN_EXCHANGE_LIST_ENDPOINTS = "listEndpoints";
+    public static final String ADMIN_EXCHANGE_LIST_EXCHANGES = "listExchanges";
+    public static final String ADMIN_EXCHANGE_LIST_ORGANIZATIONS = "listOrganizations";
+    public static final String ADMIN_EXCHANGE_SAVE_CONFIG = "saveExchangeConfig";
 
     private NhincConstants() {
     }

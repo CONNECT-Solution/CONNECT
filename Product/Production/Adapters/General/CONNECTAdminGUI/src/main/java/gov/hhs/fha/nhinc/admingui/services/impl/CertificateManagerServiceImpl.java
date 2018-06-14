@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
-import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.getUser;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.JKS_TYPE;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
@@ -34,13 +35,11 @@ import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_S
 
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
-import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.callback.opensaml.X509CertificateHelper;
-import gov.hhs.fha.nhinc.common.configadmin.ConfigAssertionType;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
@@ -53,7 +52,7 @@ import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.common.nhinccommon.ConfigAssertionType;
 import gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType;
 import gov.hhs.fha.nhinc.configuration.ConfigAdminPortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
@@ -74,10 +73,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.activation.DataHandler;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -328,32 +324,6 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             certs.add(dto);
         }
         return certs;
-    }
-
-    private static ConfigAssertionType buildConfigAssertion() throws CertificateManagerException {
-        ConfigAssertionType assertion = new ConfigAssertionType();
-        UserLogin user = getUser();
-        if (user != null) {
-            UserType configUser = new UserType();
-            configUser.setUserName(user.getUserName());
-            assertion.setUserInfo(configUser);
-        }
-        assertion.setConfigInstance(new DateTime().toString());
-        assertion.setAuthMethod(SamlConstants.ADMIN_AUTH_METHOD);
-
-        return assertion;
-    }
-
-    private static UserLogin getUser() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        if (facesContext != null && facesContext.getViewRoot() != null) {
-            HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-            if (session != null) {
-                return (UserLogin) session.getAttribute(USER_INFO_SESSION_ATTRIBUTE);
-            }
-        }
-
-        return null;
     }
 
     @Override

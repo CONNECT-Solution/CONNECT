@@ -195,9 +195,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         boolean bSave = false;
         getRefreshExceptionFor("update-exchangeInfo");
         try {
-            if (null == exInfo) {
-                loadExchangeInfo();
-            }
+            refreshExchangeCacheIfRequired();
             exInfo.setRefreshInterval(refreshInterval);
             exInfo.setMaxNumberOfBackups(maxBackups);
             exInfo.setDefaultExchange(defaultExchange);
@@ -233,22 +231,27 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         return bSave;
     }
 
-    public boolean saveExchange(ExchangeType exchangeAdd) throws ExchangeManagerException {
+    public boolean saveExchange(ExchangeType exchangeUpdate) throws ExchangeManagerException {
         boolean bSave = false;
         getRefreshExceptionFor("save");
-        if (null == exchangeAdd) {
+        if (null == exchangeUpdate) {
             return bSave;
         }
         try {
-            if (null == exInfo) {
-                loadExchangeInfo();
-            }
+            refreshExchangeCacheIfRequired();
             List<ExchangeType> exchanges = ExchangeManagerHelper.getExchangeTypeBy(exInfo, true);
-            ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, exchangeAdd.getName());
+            ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, exchangeUpdate.getName());
             if (null != exchangeFound) {
-                exchanges.remove(exchangeFound);
+                LOG.info("saveExchange--updated-exchangeFound");
+                exchangeFound.setDisabled(exchangeUpdate.isDisabled());
+                exchangeFound.setKey(exchangeUpdate.getKey());
+                exchangeFound.setTLSVersions(exchangeUpdate.getTLSVersions());
+                exchangeFound.setType(exchangeUpdate.getType());
+                exchangeFound.setUrl(exchangeUpdate.getUrl());
+            }else{
+                LOG.info("saveExchange--adding-exchangeUpdate");
+                exchanges.add(exchangeUpdate);
             }
-            exchanges.add(exchangeAdd);
             saveExchangeInfo();
             bSave = true;
         } catch (ExchangeManagerException e) {
@@ -322,32 +325,5 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
     public boolean isRefreshLocked() {
         return getExchangeInfoDAO().isRefreshLocked();
-    }
-
-    public boolean toggleIsDisabledFor(String forExchangeName) throws ExchangeManagerException {
-        boolean bSave = false;
-        getRefreshExceptionFor("toggle-disable");
-        if (StringUtils.isBlank(forExchangeName)) {
-            return bSave;
-        }
-        try {
-            if (null == exInfo) {
-                loadExchangeInfo();
-            }
-            List<ExchangeType> exchanges = ExchangeManagerHelper.getExchangeTypeBy(exInfo, true);
-            ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, forExchangeName);
-            if (null != exchangeFound) {
-                if (exchangeFound.isDisabled()) {
-                    exchangeFound.setDisabled(false);
-                } else {
-                    exchangeFound.setDisabled(true);
-                }
-            }
-            saveExchangeInfo();
-            bSave = true;
-        } catch (ExchangeManagerException e) {
-            LOG.error("unable to toggle-exchange-isDisable: {}", e.getLocalizedMessage(), e);
-        }
-        return bSave;
     }
 }

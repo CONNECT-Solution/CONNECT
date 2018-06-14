@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -24,30 +24,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.exchangemgr.util;
+package gov.hhs.fha.nhinc.gateway.servlet;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author tjafri
  */
-public class ExchangeDownloadStepStatus {
+public class InitServlet extends HttpServlet {
 
-    private boolean stepSuccessful;
-    private String message;
+    private static final long serialVersionUID = -2650611360988442769L;
+    private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
 
-    public boolean isStepSuccessful() {
-        return stepSuccessful;
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        LOG.debug("InitServlet start...");
+        super.init(config);
     }
 
-    public void setStepSuccessful(boolean stepSuccessful) {
-        this.stepSuccessful = stepSuccessful;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+    @Override
+    public void destroy() {
+        LOG.debug("InitServlet shutdown stopping executor(s)....");
+        super.destroy();
     }
 }

@@ -22,6 +22,15 @@
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
+                            <ns2:name>entityexchangemanagement</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/CONNECTGateway/GUIExchangeService/ExchangeManagement</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
                             <ns2:name>directsoapedge</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
@@ -655,8 +664,7 @@
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
-                            <ns2:name>adapterpatientdiscoverydeferredreqqueueprocess
-                            </ns2:name>
+                            <ns2:name>adapterpatientdiscoverydeferredreqqueueprocess</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
                                     <ns2:url>http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredReqQueueProcess</ns2:url>
@@ -840,7 +848,7 @@
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
-                        <ns2:name>documentdatasubmission</ns2:name>
+                            <ns2:name>documentdatasubmission</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
                                     <ns2:url>http://localhost:8080/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</ns2:url>

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,7 +26,13 @@
  */
 package gov.hhs.fha.nhinc.admingui.util;
 
+import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
+
 import com.google.gson.Gson;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
+import gov.hhs.fha.nhinc.callback.SamlConstants;
+import gov.hhs.fha.nhinc.common.nhinccommon.ConfigAssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
@@ -46,6 +52,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -335,5 +342,31 @@ public class HelperUtil {
         }
         String pfHideDialog = MessageFormat.format("PF(''{0}'').hide();", dlgWidgetVarName);
         return execPFCommand(pfHideDialog, successful);
+    }
+
+    public static ConfigAssertionType buildConfigAssertion() {
+        ConfigAssertionType assertion = new ConfigAssertionType();
+        UserLogin user = getUser();
+        if (user != null) {
+            UserType configUser = new UserType();
+            configUser.setUserName(user.getUserName());
+            assertion.setUserInfo(configUser);
+        }
+        assertion.setConfigInstance(new DateTime().toString());
+        assertion.setAuthMethod(SamlConstants.ADMIN_AUTH_METHOD);
+
+        return assertion;
+    }
+
+    public static UserLogin getUser() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        if (facesContext != null && facesContext.getViewRoot() != null) {
+            HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+            if (session != null) {
+                return (UserLogin) session.getAttribute(USER_INFO_SESSION_ATTRIBUTE);
+            }
+        }
+
+        return null;
     }
 }
