@@ -81,17 +81,17 @@ import org.slf4j.LoggerFactory;
  */
 public class AdapterComponentDocRepositoryOrchImpl {
 
-
-
     private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocRepositoryOrchImpl.class);
-    private static final String REPOSITORY_UNIQUE_ID = "1";
+    private static final String DEFAULT_REPOSITORY_UNIQUE_ID = "2.2";
     private static final String XDS_DOCUMENT_UNIQUE_ID_ERROR = "XDSDocumentUniqueIdError";
     private static final String FIND_A_REQUIRED_ELEMENT = "find a required element";
     private UTCDateUtil utcDateUtil = new UTCDateUtil();
     private AdapterComponentDocRepositoryHelper docRepoHelper = null;
+    private DocumentService docDAO = null;
 
     public AdapterComponentDocRepositoryOrchImpl() {
         docRepoHelper = getHelper();
+        docDAO = getDocumentService();
     }
 
     protected AdapterComponentDocRepositoryHelper getHelper() {
@@ -99,7 +99,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
     }
 
     public DocumentService getDocumentService() {
-        return new DocumentService();
+        return docDAO != null ? docDAO : new DocumentService();
     }
 
     public LargeFileUtils getLargeFileUtils() {
@@ -172,7 +172,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         repositoryIdMatched = false;
                         LOG.warn(
                             "Document repository message not processed due to repository unique id mismatch. Expected: {},  found: {}",
-                            REPOSITORY_UNIQUE_ID, repositoryUniqueId);
+                            getDefaultRepositoryId(), repositoryUniqueId);
                     }
                 }
                 retrieveDocuments(repositoryIdMatched, documentUniqueIds, response, homeCommunityId, regerrList);
@@ -250,7 +250,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
 
             oDocResponse.setHomeCommunityId(homeCommunityId);
-            oDocResponse.setRepositoryUniqueId(REPOSITORY_UNIQUE_ID);
+            oDocResponse.setRepositoryUniqueId(getDefaultRepositoryId());
 
             // Document Unique ID
             if (NullChecker.isNotNullish(doc.getDocumentUniqueId())) {
@@ -462,7 +462,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         // prepare for the translation to the NHINC doc repository
         DocumentMetadata doc = new DocumentMetadata();
 
-        // extract the docId
+        // TODO: Should this be removed?!
         String documentUniqueId = extractMetadataFromExternalIdentifiers(externalIdentifiers,
             DocRepoConstants.XDS_DOCUMENT_UNIQUE_ID);
         if (documentUniqueId != null) {
@@ -493,6 +493,11 @@ public class AdapterComponentDocRepositoryOrchImpl {
         }
 
         if (errorList.getRegistryError().isEmpty()) {
+
+            // set the document unique ID from the database's sequence.
+            doc.setDocumentUniqueId(getDocumentService().getNextID());
+            doc.setNewRepositoryUniqueId(getDefaultRepositoryId());
+
             // extract the document title
             InternationalStringType docTitle = extrinsicObject.getName();
             if (docTitle != null && CollectionUtils.isNotEmpty(docTitle.getLocalizedString())) {
@@ -635,7 +640,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
      */
     private static String getDefaultRepositoryId() {
         return PropertyAccessor.getInstance().getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME,
-            NhincConstants.XDS_REPOSITORY_ID, REPOSITORY_UNIQUE_ID);
+            NhincConstants.XDS_REPOSITORY_ID, DEFAULT_REPOSITORY_UNIQUE_ID);
     }
 
     protected void saveDocument(DocumentMetadata doc, boolean requestHasReplacementAssociation, String documentUniqueId,

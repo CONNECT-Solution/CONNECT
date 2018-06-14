@@ -203,6 +203,10 @@ public class DocumentService {
         return documents;
     }
 
+    public String getNextID() {
+        return "CONNECT" + documentDao.getNextID();
+    }
+
     protected List<DocumentMetadata> queryByEventCode(List<EventCodeParam> eventCodeParams, List<SlotType1> slots) {
         List<EventCode> eventCodes;
         List<DocumentMetadata> documents = new ArrayList<>();
