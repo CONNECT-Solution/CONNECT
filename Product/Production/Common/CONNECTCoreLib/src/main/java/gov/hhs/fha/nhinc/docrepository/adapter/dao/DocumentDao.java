@@ -39,6 +39,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,6 +87,21 @@ public class DocumentDao {
     public List<DocumentMetadata> findAllByPatientId(long patientId) {
         return GenericDBUtils.findAllBy(getSession(), DocumentMetadata.class,
             Restrictions.eq("patientRecordId", patientId));
+    }
+
+    public int getNextID() {
+        DocumentMetadata result = null;
+        try (Session session = getSession()) {
+            Criteria crit = session.createCriteria(DocumentMetadata.class);
+            crit.addOrder(Order.desc("documentUniqueId"));
+            crit.setMaxResults(1);
+
+            result = (DocumentMetadata) crit.uniqueResult();
+            return result != null ? Integer.parseInt(result.getDocumentUniqueId().substring(7)) + 1 : 0;
+        } catch (NumberFormatException e) {
+            LOG.error("Couldnt parse next ID from document ID {}", result.getDocumentUniqueId(), e);
+            throw e;
+        }
     }
 
     protected Session getSession() {
