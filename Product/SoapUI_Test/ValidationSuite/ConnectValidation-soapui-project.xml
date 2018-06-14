@@ -3128,7 +3128,7 @@ if(passthruValue != null){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -3167,7 +3167,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>false</con:value>
+          <con:value>true</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -6245,7 +6245,7 @@ if(passthruValue != null){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -6268,7 +6268,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>false</con:value>
+          <con:value>true</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
@@ -6458,7 +6458,7 @@ if(passthruValue != null){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -7568,7 +7568,7 @@ context.withSql('DocRepositoryDB') { sql ->
     </con:property>
     <con:property>
       <con:name>DQDocID</con:name>
-      <con:value>1.123401.55555</con:value>
+      <con:value>CONNECT32</con:value>
     </con:property>
     <con:property>
       <con:name>DQPatientID</con:name>
@@ -7576,15 +7576,15 @@ context.withSql('DocRepositoryDB') { sql ->
     </con:property>
     <con:property>
       <con:name>DQPTDocID</con:name>
-      <con:value>1.123401.11111</con:value>
+      <con:value>CONNECT3</con:value>
     </con:property>
     <con:property>
       <con:name>DRDocID</con:name>
-      <con:value>1.123407.777777</con:value>
+      <con:value>CONNECT22</con:value>
     </con:property>
     <con:property>
       <con:name>DRRepoID</con:name>
-      <con:value>1</con:value>
+      <con:value>2.2</con:value>
     </con:property>
     <con:property>
       <con:name>DynamicDQDocID</con:name>
