@@ -119,40 +119,31 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
 
     @Override
     public GetExchangeInfoViewResponseMessageType getExchangeInfoView(GetExchangeInfoViewRequestMessageType arg0) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public ListEndpointsResponseMessageType listEndpoints(ListEndpointsRequestMessageType arg0) {
-        // TODO Auto-generated method stub
         return null;
     }
 
 
     @Override
     public ListExchangesResponseMessageType listExchanges(ListExchangesRequestMessageType arg0) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public ListOrganizationsResponseMessageType listOrganizations(ListOrganizationsRequestMessageType arg0) {
-        // TODO Auto-generated method stub
         return null;
     }
-
-
-
-
 
     @Override
     public SimpleExchangeManagementResponseMessageType saveExchangeConfig(SaveExchangeConfigRequestMessageType arg0) {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    private SimpleExchangeManagementResponseMessageType newSimpleResponse(){
+    private static SimpleExchangeManagementResponseMessageType newSimpleResponse() {
         SimpleExchangeManagementResponseMessageType retMsg = new SimpleExchangeManagementResponseMessageType();
         retMsg.setStatus(false);
         return retMsg;
