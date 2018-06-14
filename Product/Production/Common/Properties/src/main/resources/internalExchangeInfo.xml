@@ -893,7 +893,8 @@
                                 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
-                        <ns2:name>patientlocationqueryservice</ns2:name>
+                        <ns2:endpoint>
+                            <ns2:name>patientlocationqueryservice</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
                                     <ns2:url>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientLocationQuery</ns2:url>
