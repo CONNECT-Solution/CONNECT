@@ -7576,7 +7576,7 @@ context.withSql('DocRepositoryDB') { sql ->
     </con:property>
     <con:property>
       <con:name>DQPTDocID</con:name>
-      <con:value>CONNECT3</con:value>
+      <con:value>CONNECT28</con:value>
     </con:property>
     <con:property>
       <con:name>DRDocID</con:name>
