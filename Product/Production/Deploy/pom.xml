@@ -658,6 +658,18 @@
           <version>${project.parent.version}</version>
           <type>pom</type>
         </dependency>
+        <dependency>
+          <groupId>org.connectopensource</groupId>
+          <artifactId>ExchangeManagement</artifactId>
+          <version>${project.parent.version}</version>
+          <type>war</type>
+        </dependency>
+        <dependency>
+          <groupId>org.connectopensource</groupId>
+          <artifactId>ExchangeManagement</artifactId>
+          <version>${project.parent.version}</version>
+          <type>pom</type>
+        </dependency>
         <!-- Java EE APIs -->
         <dependency>
           <groupId>javax.xml.bind</groupId>
@@ -730,6 +742,12 @@
                   <groupId>org.connectopensource</groupId>
                   <artifactId>ConfigAdmin</artifactId>
                   <contextRoot>/CONNECTGateway/GUIService</contextRoot>
+                  <excluded>${adminws.excluded}</excluded>
+                </webModule>
+                <webModule>
+                  <groupId>org.connectopensource</groupId>
+                  <artifactId>ExchangeManagement</artifactId>
+                  <contextRoot>/CONNECTGateway/GUIExchangeService</contextRoot>
                   <excluded>${adminws.excluded}</excluded>
                 </webModule>
                 </modules>
@@ -823,6 +841,18 @@
           <version>${project.parent.version}</version>
           <type>pom</type>
         </dependency>
+        <dependency>
+          <groupId>org.connectopensource</groupId>
+          <artifactId>ExchangeManagement</artifactId>
+          <version>${project.parent.version}</version>
+          <type>war</type>
+        </dependency>
+        <dependency>
+          <groupId>org.connectopensource</groupId>
+          <artifactId>ExchangeManagement</artifactId>
+          <version>${project.parent.version}</version>
+          <type>pom</type>
+        </dependency>
       </dependencies>
 
       <build>
@@ -836,6 +866,12 @@
                   <groupId>org.connectopensource</groupId>
                   <artifactId>ConfigAdmin</artifactId>
                   <contextRoot>/CONNECTGateway/GUIService</contextRoot>
+                  <excluded>${adminws.excluded}</excluded>
+                </webModule>
+                <webModule>
+                  <groupId>org.connectopensource</groupId>
+                  <artifactId>ExchangeManagement</artifactId>
+                  <contextRoot>/CONNECTGateway/GUIExchangeService</contextRoot>
                   <excluded>${adminws.excluded}</excluded>
                 </webModule>
               </modules>

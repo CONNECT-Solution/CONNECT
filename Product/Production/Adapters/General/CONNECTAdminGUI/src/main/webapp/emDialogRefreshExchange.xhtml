@@ -10,16 +10,16 @@
                                 <p:dataTable id="dataTableExchangeDownload" var="exStatus" value="#{exchangeManagerBean.exDownloadStatus}"
                                  paginator="false" styleClass="table table-striped table-status">
                                     <p:column style="padding:0px;">
-                                        <h:outputText rendered="#{exStatus.success}" value="#{exStatus.name}" style="color: green" />
-                                        <h:outputText rendered="#{!exStatus.success}" value="#{exStatus.name}" style="color: red" />
+                                        <h:outputText rendered="#{exStatus.success}" value="#{exStatus.exchangeName}" style="color: green" />
+                                        <h:outputText rendered="#{!exStatus.success}" value="#{exStatus.exchangeName}" style="color: red" />
                                         <div class="dataList">
                                             <p:dataList id="refreshStatus" value="#{exStatus.stepStatus}" var="step" type="unordered" itemType="none" paginator="false" styleClass="dataList">
-                                                <p:outputPanel rendered="#{step.stepSuccessful eq 'false'}" >
+                                                <p:outputPanel rendered="#{step.isStepSuccessful() eq 'false'}" >
                                                 <div class="progress-bar progress-bar-danger" role="progressbar" style="width:33.33%">
                                                 #{step.message}
                                             </div>
                                             </p:outputPanel>
-                                            <p:outputPanel rendered="#{step.stepSuccessful eq 'true'}">
+                                            <p:outputPanel rendered="#{step.isStepSuccessful() eq 'true'}">
                                                 <div class="progress-bar progress-bar-success" role="progressbar" style="width:33.33%">
                                                 #{step.message}
                                                 </div>
