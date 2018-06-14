@@ -160,13 +160,13 @@
                                                     </p:column>
                                                     <p:column headerText="Refresh Exchange">
                                                         <p:commandButton
-                                                            actionListener="#{exchangeManagerBean.toggleIsEnabledFor(rec.name)}"
+                                                            actionListener="#{exchangeManagerBean.toggleIsEnabledFor(rec)}"
                                                             value="Enabled" rendered="#{not rec.disabled}"
                                                             update="dataTableExchange" disabled="#{exchangeManagerBean.refreshLocked}"
                                                             icon="glyphicon glyphicon-ok-sign"
                                                             styleClass="btn btn-outline-primary btn-sm" />
                                                         <p:commandButton
-                                                            actionListener="#{exchangeManagerBean.toggleIsEnabledFor(rec.name)}"
+                                                            actionListener="#{exchangeManagerBean.toggleIsEnabledFor(rec)}"
                                                             value="Disabled" rendered="#{rec.disabled}"
                                                             update="dataTableExchange" disabled="#{exchangeManagerBean.refreshLocked}"
                                                             icon="glyphicon glyphicon-remove-sign"

@@ -27,7 +27,8 @@
         <module>PatientDiscovery_10</module>
         <module>CONNECTGatewayWeb</module>
         <module>CORE_X12DocumentSubmission_10</module>
-		<module>DocumentDataSubmission_10</module>
+        <module>DocumentDataSubmission_10</module>
+        <module>ExchangeManagement</module>
     </modules>
 
     <profiles>

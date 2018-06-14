@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.exchangemgr.util;
 
+import gov.hhs.fha.nhinc.common.exchangemanagement.ExchangeDownloadStatusType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.ExchangeDownloadStepStatusType;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessor;
 import gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessorException;
@@ -78,9 +80,9 @@ public class ExchangeDataUpdateMgr {
     private static final boolean EXCHANGE_REFRESH_IN_PROGRESS = true;
     private static final boolean EXCHANGE_REFRESH_COMPLETED = false;
 
-    public List<ExchangeDownloadStatus> task() {
+    public List<ExchangeDownloadStatusType> task() {
         LOG.trace("Starting ExchangeScheduleTask with DAO-locked");
-        List<ExchangeDownloadStatus> status = new ArrayList<>();
+        List<ExchangeDownloadStatusType> status = new ArrayList<>();
         getExchangeDAO().setRefreshLocked(EXCHANGE_REFRESH_IN_PROGRESS);
         boolean result;
         try {
@@ -120,9 +122,9 @@ public class ExchangeDataUpdateMgr {
         return ExchangeInfoDAOFileImpl.getInstance();
     }
 
-    protected boolean fetchExchangeData(ExchangeType exchange, List<ExchangeDownloadStatus> statues) {
+    protected boolean fetchExchangeData(ExchangeType exchange, List<ExchangeDownloadStatusType> statues) {
         if (exchange != null && StringUtils.isNotEmpty(exchange.getUrl()) && !exchange.isDisabled()) {
-            ExchangeDownloadStatus status = null;
+            ExchangeDownloadStatusType status = null;
             if (EXCHANGE_TYPE.UDDI.toString().equalsIgnoreCase(exchange.getType())) {
                 status = fetchUDDIData(exchange);
             } else if (EXCHANGE_TYPE.FHIR.toString().equalsIgnoreCase(exchange.getType())) {
@@ -145,7 +147,7 @@ public class ExchangeDataUpdateMgr {
         ExchangeFileUtils fileUtils = new ExchangeFileUtils();
         String fileLocation = getExchangeDAO().getExchangeFileLocation();
         File exFile = new File(fileLocation);
-        int allowedBackups = (null != noOfBackups ? noOfBackups.intValue() : 0);
+        int allowedBackups = null != noOfBackups ? noOfBackups.intValue() : 0;
         fileUtils.deleteOldBackups(exFile.getParentFile(), allowedBackups);
         if (allowedBackups > 0) {
             String backupFileLocation = fileUtils.generateUniqueFilename(fileLocation);
@@ -172,10 +174,10 @@ public class ExchangeDataUpdateMgr {
         return stringOf.toLowerCase().contains(charSequence.toLowerCase());
     }
 
-    private ExchangeDownloadStatus fetchUDDIData(ExchangeType exchange) {
+    private ExchangeDownloadStatusType fetchUDDIData(ExchangeType exchange) {
         String exName = exchange.getName();
-        ExchangeDownloadStatus exStatus = new ExchangeDownloadStatus();
-        exStatus.setName(exName);
+        ExchangeDownloadStatusType exStatus = new ExchangeDownloadStatusType();
+        exStatus.setExchangeName(exName);
 
         try {
             LOG.info("Starting UDDI download from {}", exchange.getUrl());
@@ -203,10 +205,10 @@ public class ExchangeDataUpdateMgr {
         return exStatus;
     }
 
-    private ExchangeDownloadStatus fetchFHIRData(ExchangeType exchange) {
+    private ExchangeDownloadStatusType fetchFHIRData(ExchangeType exchange) {
         String exName = exchange.getName();
-        ExchangeDownloadStatus exStatus = new ExchangeDownloadStatus();
-        exStatus.setName(exName);
+        ExchangeDownloadStatusType exStatus = new ExchangeDownloadStatusType();
+        exStatus.setExchangeName(exName);
 
         try {
             LOG.info("Starting FHIR download from {}", exchange.getUrl());
@@ -256,9 +258,9 @@ public class ExchangeDataUpdateMgr {
         return null;
     }
 
-    private static ExchangeDownloadStepStatus buildExchangeDownloadStatusMsg(boolean success, String msgKey,
+    private static ExchangeDownloadStepStatusType buildExchangeDownloadStatusMsg(boolean success, String msgKey,
         String exceptionMsg, Exception exception) {
-        ExchangeDownloadStepStatus stepStatus = new ExchangeDownloadStepStatus();
+        ExchangeDownloadStepStatusType stepStatus = new ExchangeDownloadStepStatusType();
         String message = getMessage(msgKey);
         if (success) {
             LOG.info(message);
