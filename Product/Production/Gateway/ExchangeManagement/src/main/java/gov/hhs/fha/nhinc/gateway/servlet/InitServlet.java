@@ -33,7 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author tjafri
+ * @author ttang
  */
 public class InitServlet extends HttpServlet {
 
@@ -42,13 +42,13 @@ public class InitServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        LOG.debug("InitServlet start...");
+        LOG.debug("InitServlet--init");
         super.init(config);
     }
 
     @Override
     public void destroy() {
-        LOG.debug("InitServlet shutdown stopping executor(s)....");
+        LOG.debug("InitServlet--destroy");
         super.destroy();
     }
 }
