@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
  * @author tjafri
  */
 public interface AssertionBuilder extends Builder {
-
+    
     /**
      * Gets the assertion.
      *

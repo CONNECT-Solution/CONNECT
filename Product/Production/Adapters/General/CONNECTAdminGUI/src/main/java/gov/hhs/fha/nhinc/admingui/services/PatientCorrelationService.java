@@ -24,61 +24,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.messaging.director.impl;
+package gov.hhs.fha.nhinc.admingui.services;
 
-import gov.hhs.fha.nhinc.messaging.director.AbstractMessageDirector;
-import gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.PRPAIN201305UV02Builder;
-import gov.hhs.fha.nhinc.patientdiscovery.messaging.director.PatientDiscoveryMessageDirector;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 
 /**
  *
- * @author tjafri
+ * @author jassmit
  */
-public class PatientDiscoveryMessageDirectorImpl extends AbstractMessageDirector implements
-    PatientDiscoveryMessageDirector {
-
-    /**
-     * The message.
-     */
-    private RespondingGatewayPRPAIN201305UV02RequestType message = null;
-
-    /**
-     * The pd builder.
-     */
-    private PRPAIN201305UV02Builder pdBuilder = null;
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.cahih.messaging.builder.EntityPatientDiscoveryMessageBuilder#getMessage()
-     */
-    @Override
-    public RespondingGatewayPRPAIN201305UV02RequestType getMessage() {
-        return message;
-    }
-
-    @Override
-    public void build() {
-        message = new RespondingGatewayPRPAIN201305UV02RequestType();
-        if (pdBuilder != null) {
-            pdBuilder.build();
-            message.setPRPAIN201305UV02(pdBuilder.getMessage());
-        }
-
-        if (assertion != null) {
-            message.setAssertion(assertion);
-        }
-
-        if (targetBuilder != null) {
-            targetBuilder.build();
-            message.setNhinTargetCommunities(targetBuilder.getNhinTargetCommunities());
-        }
-    }
-
-    @Override
-    public void setPRPAIN201305UV02Builder(PRPAIN201305UV02Builder pdBuilder) {
-        this.pdBuilder = pdBuilder;
-    }
-
+public interface PatientCorrelationService {
+    
+    public String getLocalPatient(PatientSearchResults patientResults);
+    public void queryForLocalPatient(PatientSearchResults patientResults, AssertionType assertion);
+    public void addCorrelation(PatientSearchResults patientResults, AssertionType assertion);
 }

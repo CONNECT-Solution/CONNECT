@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.messaging.director;
 
-import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
 
 /**
@@ -38,7 +38,7 @@ public abstract class AbstractMessageDirector {
     /**
      * The assertion builder.
      */
-    protected AssertionBuilder assertionBuilder = null;
+    protected AssertionType assertion = null;
 
     /**
      * The target builder.
@@ -52,8 +52,8 @@ public abstract class AbstractMessageDirector {
      * org.cahih.messaging.builder.EntityDocumentQueryMessageBuilder#setAssertionBuilder(org.cahih.messaging.builder.
      * AssertionBuilder)
      */
-    public void setAssertionBuilder(AssertionBuilder assertionBuilder) {
-        this.assertionBuilder = assertionBuilder;
+    public void setAssertion(AssertionType assertion) {
+        this.assertion = assertion;
     }
 
     /*
