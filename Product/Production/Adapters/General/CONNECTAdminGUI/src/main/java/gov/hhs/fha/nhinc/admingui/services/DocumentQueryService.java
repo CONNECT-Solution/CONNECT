@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
 
@@ -36,5 +37,5 @@ import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
  */
 public interface DocumentQueryService {
 
-    public DocumentMetadataResults queryForDocuments(DocumentMetadata query) throws DocumentMetadataException;
+    public DocumentMetadataResults queryForDocuments(DocumentMetadata query, AssertionType assertion) throws DocumentMetadataException;
 }

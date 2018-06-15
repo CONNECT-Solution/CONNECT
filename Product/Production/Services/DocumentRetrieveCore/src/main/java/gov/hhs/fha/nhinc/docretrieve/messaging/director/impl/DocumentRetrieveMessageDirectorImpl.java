@@ -52,10 +52,8 @@ public class DocumentRetrieveMessageDirectorImpl extends AbstractMessageDirector
         if (documentRetrieveBuilder != null && documentRetrieveBuilder.getMessage() != null) {
             request.setRetrieveDocumentSetRequest(documentRetrieveBuilder.getMessage());
         }
-        if (assertionBuilder != null) {
-            assertionBuilder.build();
-            request.setAssertion(assertionBuilder.getAssertion());
-        }
+        
+        request.setAssertion(assertion);
 
         if (targetBuilder != null) {
             targetBuilder.build();
