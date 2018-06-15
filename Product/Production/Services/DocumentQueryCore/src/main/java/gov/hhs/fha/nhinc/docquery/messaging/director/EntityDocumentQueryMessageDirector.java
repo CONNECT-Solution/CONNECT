@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.messaging.director;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.docquery.builder.AdhocQueryRequestBuilder;
 import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
@@ -57,7 +58,7 @@ public interface EntityDocumentQueryMessageDirector extends Builder {
      *
      * @param assertionBuilder the new assertion builder
      */
-    public void setAssertionBuilder(AssertionBuilder assertionBuilder);
+    public void setAssertion(AssertionType assertion);
 
     /**
      * Sets the target communities builder.

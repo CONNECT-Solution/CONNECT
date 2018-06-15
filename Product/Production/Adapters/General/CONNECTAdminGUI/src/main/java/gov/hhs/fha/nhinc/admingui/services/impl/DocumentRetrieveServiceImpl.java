@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import gov.hhs.fha.nhinc.admingui.services.DocumentRetrieveService;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.entity.proxy.EntityDocRetrieveProxyWebServiceUnsecuredImpl;
 import gov.hhs.fha.nhinc.docretrieve.messaging.builder.DocumentRetrieveRequestBuilder;
 import gov.hhs.fha.nhinc.docretrieve.messaging.builder.impl.DocumentRetrieveRequestBuilderImpl;
@@ -56,10 +57,10 @@ public class DocumentRetrieveServiceImpl implements DocumentRetrieveService {
     private DocumentRetrieveResultsModelBuilder docRetrieveResults;
 
     @Override
-    public DocumentRetrieveResults retrieveDocuments(DocumentRetrieve documentModel) {
+    public DocumentRetrieveResults retrieveDocuments(DocumentRetrieve documentModel, AssertionType assertion) {
         RetrieveDocumentSetResponseType response;
         EntityDocRetrieveProxyWebServiceUnsecuredImpl retrieveResults = new EntityDocRetrieveProxyWebServiceUnsecuredImpl();
-        messageDirector = setMessageDirector(documentModel);
+        messageDirector = setMessageDirector(documentModel, assertion);
         response = retrieveResults.respondingGatewayCrossGatewayRetrieve(
                 messageDirector.getMessage().getRetrieveDocumentSetRequest(),
                 messageDirector.getMessage().getAssertion(), messageDirector.getMessage().getNhinTargetCommunities());
@@ -67,10 +68,10 @@ public class DocumentRetrieveServiceImpl implements DocumentRetrieveService {
         return docRetrieveResults.getDocumentRetrieveResultsModel();
     }
 
-    private DocumentRetrieveMessageDirectorImpl setMessageDirector(DocumentRetrieve documentModel) {
+    private DocumentRetrieveMessageDirectorImpl setMessageDirector(DocumentRetrieve documentModel, AssertionType assertion) {
         messageDirector = new DocumentRetrieveMessageDirectorImpl();
         AssertionBuilder assertionBuilder = new AssertionBuilderImpl();
-        messageDirector.setAssertionBuilder(assertionBuilder);
+        messageDirector.setAssertion(assertion);
         messageDirector.setTargetCommunitiesBuilder(setNhinTarget(documentModel));
         messageDirector.setDocumentRetrieveBuilder(createRetrieveDocumentSetRequest(documentModel));
         messageDirector.build();
