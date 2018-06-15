@@ -42,9 +42,10 @@ public class AdapterDocDataSubmissionUnsecured implements AdapterXDSPortType {
     @Resource
     private WebServiceContext context;
 
+    private AdapterDocDataSubmissionImpl service = new AdapterDocDataSubmissionImpl();
+
     @Override
     public RegistryResponseType registerDocumentSetb(AdapterRegisterDocumentSetRequestType body) {
-        return new RegistryResponseType();
+        return service.registerDocumentSetb(body);
     }
-
 }

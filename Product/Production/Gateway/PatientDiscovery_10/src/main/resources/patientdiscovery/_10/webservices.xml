@@ -201,4 +201,59 @@
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
+
+    <!-- Nhin Patient Location Query -->
+    <jaxws:endpoint xmlns:tns="urn:ihe:iti:xcpd:2009" id="RespondingGateway_PLQ_Service" address="/NhinService/NhinPatientLocationQuery"
+        serviceName="tns:RespondingGateway_Service" endpointName="tns:RespondingGateway_PLQ_Port_Soap" implementor="#nhinPLQ"
+        wsdlLocation="classpath:wsdl/NhinPatientDiscovery.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+
+        <jaxws:inInterceptors>
+            <ref bean="securityConfigInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+            <ref bean="TransactionHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
+
+    <!-- EntityPatientLocationQuerySecured -->
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientlocationquerysecured" id="EntityPatientLocationQuerySecured"
+        address="/EntityService/EntityPatientLocationQuerySecured" serviceName="tns:EntityPatientLocationQuerySecured"
+        endpointName="tns:EntityPatientLocationQuerySecuredPortSoap" implementor="#entitySecuredPLQ"
+        wsdlLocation="classpath:wsdl/EntityPatientLocationQuerySecured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+
+        <jaxws:inInterceptors>
+            <ref bean="securityConfigInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+            <ref bean="TransactionHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
+
+    <!-- EntityPatientLocationQueryUnsecured -->
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientlocationquery" id="EntityPatientLocationQuery"
+        address="/EntityService/EntityPatientLocationQuery" serviceName="tns:EntityPatientLocationQuery"
+        endpointName="tns:EntityPatientLocationQueryPortSoap" implementor="#entityUnsecuredPLQ"
+        wsdlLocation="classpath:wsdl/EntityPatientLocationQuery.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
 </beans>

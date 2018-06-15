@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -30,13 +30,18 @@ import gov.hhs.fha.nhinc.exchange.OrganizationListType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchange.transform.ExchangeTransformException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.fhir.dstu3.formats.IParser;
 import org.hl7.fhir.dstu3.formats.JsonParser;
 import org.hl7.fhir.dstu3.formats.XmlParser;
@@ -60,6 +65,7 @@ public class FHIRTransformTest {
     private static final String XML_FILE = "/config/FHIRTransformTest/fhirXmlResponse.xml";
     private static final String XML = "xml";
     private static final String JSON = "json";
+    private static final String ORG_TYPE = "Participant";
     private static final Logger LOG = LoggerFactory.getLogger(FHIRTransformTest.class);
 
     @Test
@@ -84,11 +90,32 @@ public class FHIRTransformTest {
         }
     }
 
+    @Test
+    public void testHasFHIRPropertiesInFile() throws PropertyAccessException {
+        ArrayList<String> missing = new ArrayList<String>();
+
+        NhincConstants.NHIN_SERVICE_NAMES[] nhinServices = NhincConstants.NHIN_SERVICE_NAMES.values();
+        for (NhincConstants.NHIN_SERVICE_NAMES nhinService : nhinServices) {
+            String serviceNames = PropertyAccessor.getInstance().getProperty(NhincConstants.FHIR_DIRECTORY_FILE,
+                nhinService.getUDDIServiceName());
+            if (serviceNames == null) {
+                LOG.error("Service {} does not have any FHIR property defined", nhinService.getUDDIServiceName());
+                missing.add(nhinService.name());
+            }
+        }
+
+        if (CollectionUtils.isNotEmpty(missing)) {
+            fail("The following services defined in NhincConstants are missing property values in "
+                + NhincConstants.FHIR_DIRECTORY_FILE + ".properties: " + missing.toString());
+        }
+    }
+
     private void assertTransformedObject(OrganizationListType orgListType) {
         List<OrganizationType> orglist = orgListType.getOrganization();
         assertNotNull("OrganizationListType is null", orgListType);
         assertTrue("Size of transformed Organizations must be 2", orglist.size() == 2);
         assertEquals("HCID for organization do not match", "urn:oid:2.16.840.1.113883.3.596", orglist.get(0).getHcid());
+        assertEquals("Organization type do not match", ORG_TYPE, orglist.get(0).getType());
         assertTrue("Size of transformed Endpoints for Organization TestOrg1 must be 3",
             orglist.get(0).getEndpointList().getEndpoint().size() == 3);
         for (OrganizationType org : orglist) {
