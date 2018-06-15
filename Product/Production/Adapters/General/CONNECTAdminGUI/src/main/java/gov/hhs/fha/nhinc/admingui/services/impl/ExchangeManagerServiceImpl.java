@@ -26,22 +26,38 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
 import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.getEndpointConfigurationTypeBy;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_DELETE;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_REFRESH;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_SAVE_EXCHANGE;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ENTITY_EXCHANGE_MANAGEMENT_SERVICE_NAME;
 
 import gov.hhs.fha.nhinc.admingui.application.EndpointManagerCache;
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
 import gov.hhs.fha.nhinc.admingui.services.PingService;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
+import gov.hhs.fha.nhinc.common.exchangemanagement.DeleteExchangeRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.ExchangeDownloadStatusType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.RefreshExchangeManagerRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.RefreshExchangeManagerResponseMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.SaveExchangeRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.SimpleExchangeManagementResponseMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.configuration.ExchangeManagementPortDescriptor;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchangemanagement.EntityExchangeManagementPortType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
-import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
-import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeManagerUtil;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,12 +75,21 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
     private final ExchangeManager exchangeManager = ExchangeManager.getInstance();
     private final PingService pingService = new PingServiceImpl();
     private static final String DATE_FORMAT = "MM-dd-yy hh:mm:ss";
+    private static final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+    private static CONNECTClient<EntityExchangeManagementPortType> client = null;
 
     @Override
     public boolean saveExchange(ExchangeType exchange) {
+        SaveExchangeRequestMessageType request = new SaveExchangeRequestMessageType();
+        request.setConfigAssertion(buildConfigAssertion());
+        request.setExchange(exchange);
+
         try {
-            return exchangeManager.saveExchange(exchange);
-        } catch (ExchangeManagerException e) {
+            SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
+                ADMIN_EXCHANGE_SAVE_EXCHANGE, request);
+            LOG.debug("{}: {}, {}", ADMIN_EXCHANGE_SAVE_EXCHANGE, response.isStatus(), response.getMessage());
+            return response.isStatus();
+        } catch (Exception e) {
             LOG.error("error during save-exchange: {}", e.getLocalizedMessage(), e);
         }
         return false;
@@ -72,9 +97,16 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
 
     @Override
     public boolean deleteExchange(String exchangeName) {
+        DeleteExchangeRequestMessageType request = new DeleteExchangeRequestMessageType();
+        request.setConfigAssertion(buildConfigAssertion());
+        request.setExchangeName(exchangeName);
+
         try {
-            return exchangeManager.deleteExchange(exchangeName);
-        } catch (ExchangeManagerException e) {
+            SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
+                ADMIN_EXCHANGE_DELETE, request);
+            LOG.debug("{}: {}, {}", ADMIN_EXCHANGE_DELETE, response.isStatus(), response.getMessage());
+            return response.isStatus();
+        } catch (Exception e) {
             LOG.error("error during delete-exchange: {}", e.getLocalizedMessage(), e);
         }
         return false;
@@ -132,8 +164,19 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
     }
 
     @Override
-    public List<ExchangeDownloadStatus> refreshExchangeManager() {
-        return ExchangeManagerUtil.forceExchangesRefresh();
+    public List<ExchangeDownloadStatusType> refreshExchangeManager() {
+        RefreshExchangeManagerRequestMessageType request = new RefreshExchangeManagerRequestMessageType();
+        request.setConfigAssertion(buildConfigAssertion());
+
+        try {
+            RefreshExchangeManagerResponseMessageType response = (RefreshExchangeManagerResponseMessageType) clientInvokePort(
+                ADMIN_EXCHANGE_REFRESH, request);
+            LOG.debug("{}: {}", ADMIN_EXCHANGE_REFRESH, response.getExchangeDownloadStatusList().size());
+            return response.getExchangeDownloadStatusList();
+        } catch (Exception e) {
+            LOG.error("error during refresh-exchange: {}", e.getLocalizedMessage(), e);
+        }
+        return new ArrayList<>();
     }
 
     @Override
@@ -148,18 +191,17 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         return false;
     }
 
-    @Override
-    public boolean isRefreshLocked() {
-        return exchangeManager.isRefreshLocked();
+    private static CONNECTClient<EntityExchangeManagementPortType> getClient() throws ExchangeManagerException {
+        if (null == client) {
+            String url = oProxyHelper.getAdapterEndPointFromConnectionManager(ENTITY_EXCHANGE_MANAGEMENT_SERVICE_NAME);
+            ServicePortDescriptor<EntityExchangeManagementPortType> portDescriptor = new ExchangeManagementPortDescriptor();
+            client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
+                new AssertionType());
+        }
+        return client;
     }
 
-    @Override
-    public boolean toggleExchangeIsEnabled(String exchangeName) {
-        try{
-            return exchangeManager.toggleIsDisabledFor(exchangeName);
-        }catch(ExchangeManagerException e){
-            LOG.error("unable to toggle-exchange-IsEnabled: {}", e.getLocalizedMessage(), e);
-        }
-        return false;
+    private static <T> Object clientInvokePort(String serviceName, T request) throws Exception {
+        return getClient().invokePort(EntityExchangeManagementPortType.class, serviceName, request);
     }
 }
