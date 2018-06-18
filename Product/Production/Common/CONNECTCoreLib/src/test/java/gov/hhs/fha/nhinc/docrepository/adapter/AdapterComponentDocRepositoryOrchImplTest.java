@@ -376,6 +376,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         when(largeFileUtils.convertToBytes(dataHandler)).thenReturn(RAW_DATA.getBytes());
 
         when(extrinsicObject.getStatus()).thenReturn(STATUS);
+        when(docService.getNextID()).thenReturn(DOC_UNIQUE_PERSISTED_ID);
 
         when(docService.getNextID()).thenReturn(DOC_UNIQUE_PERSISTED_ID);
 
@@ -855,6 +856,11 @@ public class AdapterComponentDocRepositoryOrchImplTest {
             @Override
             public UTCDateUtil getDateUtil() {
                 return utcDateUtil;
+            }
+
+            @Override
+            public DocumentService getDocumentService() {
+                return docService;
             }
         };
 
