@@ -307,7 +307,6 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         RegistryErrorList errorList = mock(RegistryErrorList.class);
 
         final String DOC_UNIQUE_ID = "Doc_ID_1";
-        final String DOC_UNIQUE_PERSISTED_ID = "CONNECT1";
         final String PATIENT_ID = "'Patient_ID_1'";
         final String PATIENT_ID_NO_QUOTES = "Patient_ID_1";
         final String DOCUMENT_TITLE = "Document_Title";
@@ -378,8 +377,6 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         when(extrinsicObject.getStatus()).thenReturn(STATUS);
         when(docService.getNextID()).thenReturn(DOC_UNIQUE_PERSISTED_ID);
 
-        when(docService.getNextID()).thenReturn(DOC_UNIQUE_PERSISTED_ID);
-
         DocumentMetadata doc = docRepo.saveExtrinsicObject(extrinsicObject, errorList, docMap, true);
 
         assertEquals(PATIENT_ID_NO_QUOTES, doc.getPatientId());
@@ -397,7 +394,7 @@ public class AdapterComponentDocRepositoryOrchImplTest {
         assertTrue(Arrays.equals(doc.getRawData(), RAW_DATA.getBytes()));
         assertEquals(STATUS, doc.getAvailablityStatus());
         assertEquals(DocRepoConstants.XDS_STATUS, doc.getStatus());
-        assertEquals(DOC_UNIQUE_PERSISTED_ID, doc.getDocumentUniqueId());
+        assertEquals(DOC_UNIQUE_ID, doc.getDocumentUniqueId());
         assertEquals((Integer) RAW_DATA.getBytes().length, doc.getSize());
     }
 
@@ -846,11 +843,6 @@ public class AdapterComponentDocRepositoryOrchImplTest {
             protected void saveDocument(DocumentMetadata doc, boolean requestHasReplacementAssociation, String documentUniqueId,
                 RegistryErrorList errorList) {
                 // Do nothing
-            }
-
-            @Override
-            public DocumentService getDocumentService() {
-                return docService;
             }
 
             @Override
