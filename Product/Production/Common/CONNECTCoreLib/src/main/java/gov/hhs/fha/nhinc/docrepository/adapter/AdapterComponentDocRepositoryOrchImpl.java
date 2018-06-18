@@ -462,7 +462,8 @@ public class AdapterComponentDocRepositoryOrchImpl {
         // prepare for the translation to the NHINC doc repository
         DocumentMetadata doc = new DocumentMetadata();
 
-        // TODO: Should this be removed?!
+        // Extract Document Unique ID. This can be used later to see if we want to support the RPLC operation
+        // in provideAndRegister to do replacement requests.
         String documentUniqueId = extractMetadataFromExternalIdentifiers(externalIdentifiers,
             DocRepoConstants.XDS_DOCUMENT_UNIQUE_ID);
         if (documentUniqueId != null) {
