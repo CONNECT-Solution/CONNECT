@@ -2152,7 +2152,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
     </con:property>
     <con:property>
       <con:name>DocCol</con:name>
-      <con:value>DocumentUniqueId</con:value>
+      <con:value>DocumentTitle</con:value>
     </con:property>
     <con:property>
       <con:name>DocRepositoryDB</con:name>
