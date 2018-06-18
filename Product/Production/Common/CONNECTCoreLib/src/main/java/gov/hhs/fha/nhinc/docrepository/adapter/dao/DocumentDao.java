@@ -51,6 +51,8 @@ import org.slf4j.LoggerFactory;
  * @author Neil Webb
  */
 public class DocumentDao {
+
+    private static final String DOCUMENT_UNIQUE_ID = "documentUniqueId";
     private static final Logger LOG = LoggerFactory.getLogger(DocumentDao.class);
 
     public boolean save(DocumentMetadata document) {
@@ -94,12 +96,12 @@ public class DocumentDao {
         DocumentMetadata result = null;
         try (Session session = getSession()) {
             Criteria crit = session.createCriteria(DocumentMetadata.class);
-            crit.add(Restrictions.ilike("documentUniqueId", "CONNECT%", MatchMode.START));
-            crit.addOrder(Order.desc("documentUniqueId"));
+            crit.add(Restrictions.ilike(DOCUMENT_UNIQUE_ID, "CONNECT%", MatchMode.START));
+            crit.addOrder(Order.desc(DOCUMENT_UNIQUE_ID));
             crit.setMaxResults(1);
 
             result = (DocumentMetadata) crit.uniqueResult();
-            return result != null ? Integer.parseInt(result.getDocumentUniqueId().substring(7)) + 1 : 0;
+            return result == null ? 0 : Integer.parseInt(result.getDocumentUniqueId().substring(7)) + 1;
         } catch (NumberFormatException e) {
             LOG.error("Couldnt parse next ID from document ID {}", result.getDocumentUniqueId(), e);
             throw e;
@@ -152,7 +154,7 @@ public class DocumentDao {
                 List<String> documentUniqueIds = parameters.getDocumentUniqueIds();
                 if (CollectionUtils.isNotEmpty(documentUniqueIds)) {
                     LOG.debug("Document query - document unique ids: {}", documentUniqueIds);
-                    criteria.add(Restrictions.in("documentUniqueId", documentUniqueIds));
+                    criteria.add(Restrictions.in(DOCUMENT_UNIQUE_ID, documentUniqueIds));
                 }
 
                 Boolean onDemand = parameters.getOnDemand();
