@@ -103,7 +103,12 @@ public class DocumentDao {
             result = (DocumentMetadata) crit.uniqueResult();
             return result == null ? 0 : Integer.parseInt(result.getDocumentUniqueId().substring(7)) + 1;
         } catch (NumberFormatException e) {
-            LOG.error("Couldnt parse next ID from document ID {}", result.getDocumentUniqueId(), e);
+            if (result != null) {
+                LOG.error("Couldnt parse next ID from document ID {}", result.getDocumentUniqueId(), e);
+            } else {
+                LOG.error("Couldnt parse next ID from document ID. result was null", e);
+            }
+
             throw e;
         }
     }
