@@ -39,6 +39,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -93,6 +94,7 @@ public class DocumentDao {
         DocumentMetadata result = null;
         try (Session session = getSession()) {
             Criteria crit = session.createCriteria(DocumentMetadata.class);
+            crit.add(Restrictions.ilike("documentUniqueId", "CONNECT%", MatchMode.START));
             crit.addOrder(Order.desc("documentUniqueId"));
             crit.setMaxResults(1);
 
