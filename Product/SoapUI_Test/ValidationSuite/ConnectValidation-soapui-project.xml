@@ -3167,7 +3167,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>false</con:value>
+          <con:value>true</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -6268,7 +6268,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>false</con:value>
+          <con:value>true</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
@@ -6458,7 +6458,7 @@ if(passthruValue != null){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -7580,7 +7580,7 @@ context.withSql('DocRepositoryDB') { sql ->
     </con:property>
     <con:property>
       <con:name>DRRepoID</con:name>
-      <con:value>1</con:value>
+      <con:value>2.2</con:value>
     </con:property>
     <con:property>
       <con:name>DynamicDQDocID</con:name>
