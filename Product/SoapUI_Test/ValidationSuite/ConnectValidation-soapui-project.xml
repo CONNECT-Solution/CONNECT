@@ -3167,7 +3167,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>false</con:value>
+          <con:value>true</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -6268,7 +6268,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>false</con:value>
+          <con:value>true</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
@@ -6458,7 +6458,7 @@ if(passthruValue != null){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -7240,7 +7240,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
     </con:testCase>
     <con:testCase id="5d9e83a3-f0c9-4661-8c99-4a1ec838f1fb" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DocumentDataSubmission" searchProperties="true" disabled="true"><con:settings/><con:testStep type="groovy" name="delete existing rows" id="86bfcee5-3ffd-405f-bef6-5516bab1bdfa"><con:settings/><con:config><script>context.withSql('DocRepositoryDB') { sql -> 
-			sql.execute('delete from ' + context.findProperty('DocumentRegistryTable')+ ' where DocumentUniqueId = "1.2.3.4.5.6.78901.2345.6.7890.12"')
+			sql.execute('delete from ' + context.findProperty('DocumentRegistryTable')+ ' where DocumentUniqueId like "CONNECT%"')
 			}</script></con:config></con:testStep><con:testStep type="request" name="Doc Data Submission" id="ae17782d-e79d-4d94-bd66-3bdfdc14a47e"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityXDS_Binding</con:interface><con:operation>RegisterDocumentSet-b</con:operation><con:request name="Doc Data Submission" id="33d79357-ec6c-4e7f-a0d5-ff207e27d68c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
     <soap:Header/>
     <soap:Body testSuite="Entity_g1" testCase="Document Data Submission">
@@ -7475,18 +7475,14 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
             </urn:nhinTargetCommunities>
         </urn:RespondingGateway_RegisterDocumentSetRequest>
     </soap:Body>
-</soap:Envelope>]]></con:request><con:assertion type="SOAP Response" id="b82967bb-88db-478b-9558-afff56ff6c9a"/><con:assertion type="Schema Compliance" id="76fe5956-edc6-4b39-85dc-a10b5ae1d2fc"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="3f230455-a153-407e-a58d-9d2c295c8db3"/><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Validate Addition in DB" id="2fa588d3-53e9-4e25-867b-966a3afe8104"><con:settings/><con:config><script>def dsCorrelations = 1;
+</soap:Envelope>]]></con:request><con:assertion type="SOAP Response" id="b82967bb-88db-478b-9558-afff56ff6c9a"/><con:assertion type="Schema Compliance" id="76fe5956-edc6-4b39-85dc-a10b5ae1d2fc"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="3f230455-a153-407e-a58d-9d2c295c8db3"/><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Validate Addition in DB" id="2fa588d3-53e9-4e25-867b-966a3afe8104"><con:settings/><con:config><script>def documents = 1;
 
-//if(context.findProperty("PassThruOn").toBoolean()) {
-//	pdCorrelations = 0;
-//}
-
-log.info "Assert ${dsCorrelations} number of correlations"
+log.info "Assert ${documents} number of correlations"
 
 context.withSql('DocRepositoryDB') { sql -> 
-		def found = sql.firstRow('select count(*) from ' + context.findProperty('DocumentRegistryTable') + ' where DocumentUniqueId = "1.2.3.4.5.6.78901.2345.6.7890.12";' )[0]
-		log.info "Found ${found} and expected ${dsCorrelations}"
-		assert dsCorrelations == found
+		def found = sql.firstRow('select count(*) from ' + context.findProperty('DocumentRegistryTable') + ' where DocumentUniqueId = "CONNECT0";' )[0]
+		log.info "Found ${found} and expected ${documents}"
+		assert documents == found
 		}</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/>
     <con:setupScript/>
     <con:tearDownScript/>
@@ -7584,7 +7580,7 @@ context.withSql('DocRepositoryDB') { sql ->
     </con:property>
     <con:property>
       <con:name>DRRepoID</con:name>
-      <con:value>1</con:value>
+      <con:value>2.2</con:value>
     </con:property>
     <con:property>
       <con:name>DynamicDQDocID</con:name>
