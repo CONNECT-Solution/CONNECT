@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="KeepAliveHeader" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="449331bb-af1f-4163-a65d-a91b4cb5a884" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="KeepAliveHeader" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.3.0" activeEnvironment="Default" id="449331bb-af1f-4163-a65d-a91b4cb5a884" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="cca16490-63e3-4a26-a6d0-0be4cbad8f9f" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -8,7 +8,7 @@
     <con:endpoint>http://localhost:8088/mockEntityDocQueryBindingSoap</con:endpoint><con:endpoint>http://localhost:8888/mockRespondingGateway_Query_Binding_Soap</con:endpoint></con:endpoints>
     <con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="7ef6d571-4429-4a47-8c06-4937659cb02f">
       <con:settings/>
-    <con:call name="DocQuery"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/mockEntityDocQueryBindingSoap</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+    <con:call name="DocQuery" id="cf884690-1d68-4aae-bce9-0f53f5d2bef7"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/mockEntityDocQueryBindingSoap</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body>
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -506,7 +506,7 @@
   
   
   
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="RespondingGateway_Query_Binding_Soap" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}RespondingGateway_Query_Binding_Soap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/NhinDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</con:endpoint><con:endpoint>http://localhost:8888/mockRespondingGateway_Query_Binding_Soap</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:ihe:iti:2007:CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="DocQueryRequest" useWsAddressing="true"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/mockRespondingGateway_Query_Binding_Soap</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="RespondingGateway_Query_Binding_Soap" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}RespondingGateway_Query_Binding_Soap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/NhinDocQuery.wsdl" id="439affd7-bf50-4281-901e-609a52e8c473" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:8888/mockRespondingGateway_Query_Binding_Soap</con:endpoint><con:endpoint>https://localhost:${HttpsDefaultPort}/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:ihe:iti:2007:CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="1f05dd70-6caa-4678-9ebc-59c08c2d1356"><con:settings/><con:call name="DocQueryRequest" useWsAddressing="true" id="c5fad790-2696-4071-85b3-6eeae5dbd893"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/mockRespondingGateway_Query_Binding_Soap</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body>
       <urn:AdhocQueryRequest id="?" comment="?" federated="false" federation="?" startIndex="0" maxResults="-1">
@@ -634,7 +634,7 @@
          </urn2:AdhocQuery>
       </urn:AdhocQueryRequest>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:CrossGatewayQuery"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterxdr}AdapterXDR_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterXDR.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionUnsecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="ProvideAndRegisterDocumentSetb" bindingOperationName="ProvideAndRegisterDocumentSetb" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+</soap:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:CrossGatewayQuery"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterxdr}AdapterXDR_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterXDR.wsdl" id="8ba50402-a809-4a33-9336-994ea61a769a" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionUnsecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="ProvideAndRegisterDocumentSetb" bindingOperationName="ProvideAndRegisterDocumentSetb" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="965d355d-207d-4412-8e49-9136200decb8"><con:settings/><con:call name="Request 1" id="59b6633a-ebaa-4f91-b004-acdcc40c4a25"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body>
       <urn:Adapter_ProvideAndRegisterDocumentSetRequest>
@@ -968,7 +968,7 @@
          <urn:url>?</urn:url>
       </urn:Adapter_ProvideAndRegisterDocumentSetRequest>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterxdr:ProvideAndRegisterDocumentSet-b"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DocumentRegistry_Binding_Soap" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterComponentDocRegistry.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${DefaultHttpPort}/CONNECTAdapter/DocumentRegistry_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201301UV02" name="DocumentRegistry_PRPA_IN201301UV02" bindingOperationName="DocumentRegistry_PRPA_IN201301UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${DefaultHttpPort}/CONNECTAdapter/DocumentRegistry_Service</con:endpoint><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:hl7-org:v3:PRPA_IN201301UV02"/></con:call></con:operation><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201302UV02" name="DocumentRegistry_PRPA_IN201302UV02" bindingOperationName="DocumentRegistry_PRPA_IN201302UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201304UV02" name="DocumentRegistry_PRPA_IN201304UV02" bindingOperationName="DocumentRegistry_PRPA_IN201304UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RegisterDocumentSet-b" name="DocumentRegistry_RegisterDocumentSet-b" bindingOperationName="DocumentRegistry_RegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RegistryStoredQuery" name="DocumentRegistry_RegistryStoredQuery" bindingOperationName="DocumentRegistry_RegistryStoredQuery" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquery}AdapterDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQueryUnsecured</con:endpoint><con:endpoint>https://localhost:7777/DocQueryMockAdapter</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQueryUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterxdr:ProvideAndRegisterDocumentSet-b"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DocumentRegistry_Binding_Soap" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterComponentDocRegistry.wsdl" id="d7276100-70d5-434f-9b7c-6f5e778cef75" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${DefaultHttpPort}/CONNECTAdapter/DocumentRegistry_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201301UV02" name="DocumentRegistry_PRPA_IN201301UV02" bindingOperationName="DocumentRegistry_PRPA_IN201301UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="c612a3a4-2839-4403-a071-0370300d80d5"><con:settings/><con:call name="Request 1" id="86056412-0c0b-4a9b-957f-a78a92c7149d"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${DefaultHttpPort}/CONNECTAdapter/DocumentRegistry_Service</con:endpoint><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:hl7-org:v3:PRPA_IN201301UV02"/></con:call></con:operation><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201302UV02" name="DocumentRegistry_PRPA_IN201302UV02" bindingOperationName="DocumentRegistry_PRPA_IN201302UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" id="499a8924-df67-41a8-aaf5-a3212085d095"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201304UV02" name="DocumentRegistry_PRPA_IN201304UV02" bindingOperationName="DocumentRegistry_PRPA_IN201304UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" id="7ed10f64-ddd3-4414-9b61-2c24327a74a1"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RegisterDocumentSet-b" name="DocumentRegistry_RegisterDocumentSet-b" bindingOperationName="DocumentRegistry_RegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" id="d7a6c0a5-47c2-451d-9fb7-c099ae47e851"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RegistryStoredQuery" name="DocumentRegistry_RegistryStoredQuery" bindingOperationName="DocumentRegistry_RegistryStoredQuery" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" id="56d64532-98a2-4b5e-80a7-e94fe0d318ad"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquery}AdapterDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocQuery.wsdl" id="bf072ab4-0fc0-464c-bcd7-f606c5dde059" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQueryUnsecured</con:endpoint><con:endpoint>https://localhost:7777/DocQueryMockAdapter</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="b6426ffd-564b-42f5-8fa7-3683e156af4f"><con:settings/><con:call name="Request 1" id="e7896b54-51ce-4b8b-b53f-547a0bff408a"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQueryUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body>
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -1398,7 +1398,7 @@
          </urn:assertion>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterdocquery/AdapterDocQueryPortType/RespondingGateway_CrossGatewayQueryRequest"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AuditQueryLogSecuredPortTypeBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured}AuditQueryLogSecuredPortTypeBinding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterAuditQueryLogSecured.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpDefaultPort}/CONNECTGateway/GatewayService/AuditQueryLogSecuredService</con:endpoint><con:endpoint>http://localhost:7777/mockAuditQueryLogSecuredPortTypeBinding</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured:QueryAuditEventsSecureRequestType" name="QueryAuditEventsSecure" bindingOperationName="QueryAuditEventsSecure" type="Request-Response" outputName="QueryAuditEventsSecureResponseMessage" inputName="QueryAuditEventsSecureRequestMessage" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:${HttpDefaultPort}/CONNECTGateway/GatewayService/AuditQueryLogSecuredService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:auditquerylog">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterdocquery/AdapterDocQueryPortType/RespondingGateway_CrossGatewayQueryRequest"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AuditQueryLogSecuredPortTypeBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured}AuditQueryLogSecuredPortTypeBinding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterAuditQueryLogSecured.wsdl" id="48e40ec2-626c-4e51-841e-067c5942606b" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:7777/mockAuditQueryLogSecuredPortTypeBinding</con:endpoint><con:endpoint>https://localhost:${HttpDefaultPort}/CONNECTGateway/GatewayService/AuditQueryLogSecuredService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured:QueryAuditEventsSecureRequestType" name="QueryAuditEventsSecure" bindingOperationName="QueryAuditEventsSecure" type="Request-Response" outputName="QueryAuditEventsSecureResponseMessage" inputName="QueryAuditEventsSecureRequestMessage" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="eff6dd4b-3b55-48a5-8099-177da100aef0"><con:settings/><con:call name="Request 1" id="51d4df6e-685c-4424-a48b-8a2a4b1fc9bd"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:${HttpDefaultPort}/CONNECTGateway/GatewayService/AuditQueryLogSecuredService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:auditquerylog">
    <soap:Header/>
    <soap:Body>
       <urn:QueryAuditEventsSecureRequestType>
@@ -1422,14 +1422,14 @@
          </urn:RemoteHcidList>
       </urn:QueryAuditEventsSecureRequestType>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured:QueryAuditEventsSecureRequestType"/></con:call></con:operation><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured:QueryAuditEventsBlobSecureRequest" name="QueryAuditEventsSecureBlob" bindingOperationName="QueryAuditEventsSecureBlob" type="Request-Response" outputName="QueryAuditEventsBlobSecureResponse" inputName="QueryAuditEventsBlobSecureRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:${HttpDefaultPort}/CONNECTGateway/GatewayService/AuditQueryLogSecuredService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:auditquerylog">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured:QueryAuditEventsSecureRequestType"/></con:call></con:operation><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured:QueryAuditEventsBlobSecureRequest" name="QueryAuditEventsSecureBlob" bindingOperationName="QueryAuditEventsSecureBlob" type="Request-Response" outputName="QueryAuditEventsBlobSecureResponse" inputName="QueryAuditEventsBlobSecureRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="84ead5c1-fe25-4da3-b650-9dadd9e6f085"><con:settings/><con:call name="Request 1" id="afedf8c8-813d-4141-8d6d-54be20afaf0c"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:${HttpDefaultPort}/CONNECTGateway/GatewayService/AuditQueryLogSecuredService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:auditquerylog">
    <soap:Header/>
    <soap:Body>
       <urn:QueryAuditEventsBlobSecureRequest>
          <urn:Id>?</urn:Id>
       </urn:QueryAuditEventsBlobSecureRequest>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured:QueryAuditEventsBlobSecureRequest"/></con:call></con:operation><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured:QueryAuditEventsSecureRequestByMessageID" name="QueryAuditEventsSecureByMessageID" bindingOperationName="QueryAuditEventsSecureByMessageID" type="Request-Response" outputName="QueryAuditEventsSecureResponseMessage" inputName="QueryAuditEventsSecureRequestByMessageID" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:${HttpDefaultPort}/CONNECTGateway/GatewayService/AuditQueryLogSecuredService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:auditquerylog">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured:QueryAuditEventsBlobSecureRequest"/></con:call></con:operation><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured:QueryAuditEventsSecureRequestByMessageID" name="QueryAuditEventsSecureByMessageID" bindingOperationName="QueryAuditEventsSecureByMessageID" type="Request-Response" outputName="QueryAuditEventsSecureResponseMessage" inputName="QueryAuditEventsSecureRequestByMessageID" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="59706e50-87a2-479c-81d9-572d8882d58b"><con:settings/><con:call name="Request 1" id="5594c741-e57a-4cfa-bf1d-c85907ee7617"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:${HttpDefaultPort}/CONNECTGateway/GatewayService/AuditQueryLogSecuredService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:auditquerylog">
    <soap:Header/>
    <soap:Body>
       <urn:QueryAuditEventsSecureRequestByRequestMessageId>
@@ -1439,7 +1439,7 @@
          <urn:RelatesTo>?</urn:RelatesTo>
       </urn:QueryAuditEventsSecureRequestByRequestMessageId>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured:QueryAuditEventsSecureRequestByMessageID"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="AuditRepositoryManagerSecuredBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository}AuditRepositoryManagerSecuredBinding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/NhincComponentAuditRepositorySecured.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/CONNECTGateway/GatewayService/AuditRepositoryManagerSecuredService</con:endpoint><con:endpoint>http://localhost:7777/mockAuditRepositoryManagerSecuredBinding</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:LogEventSecuredRequest" name="LogEvent" bindingOperationName="LogEvent" type="Request-Response" outputName="LogEventSecuredResponse" inputName="LogEventSecuredRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1" useWsAddressing="true"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:${HttpsDefaultPort}/CONNECTGateway/GatewayService/AuditRepositoryManagerSecuredService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:auditlog" xmlns:aud="http://nhinc.services.com/schema/auditmessage">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditquerylogsecured:QueryAuditEventsSecureRequestByMessageID"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="AuditRepositoryManagerSecuredBinding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository}AuditRepositoryManagerSecuredBinding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/NhincComponentAuditRepositorySecured.wsdl" id="b985065e-9448-4b80-9d54-f4c7115676a2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:7777/mockAuditRepositoryManagerSecuredBinding</con:endpoint><con:endpoint>https://localhost:${HttpsDefaultPort}/CONNECTGateway/GatewayService/AuditRepositoryManagerSecuredService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:LogEventSecuredRequest" name="LogEvent" bindingOperationName="LogEvent" type="Request-Response" outputName="LogEventSecuredResponse" inputName="LogEventSecuredRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="3abda878-90d1-48e1-b4cb-b3a0792afd2d"><con:settings/><con:call name="Request 1" useWsAddressing="true" id="332e6892-852c-4e28-b1e0-da5c3c494ae0"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:${HttpsDefaultPort}/CONNECTGateway/GatewayService/AuditRepositoryManagerSecuredService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:auditlog" xmlns:aud="http://nhinc.services.com/schema/auditmessage">
    <soap:Header/>
    <soap:Body>
       <urn:LogEventSecureRequest>
@@ -1486,7 +1486,7 @@
          <urn:UserId>?</urn:UserId>
       </urn:LogEventSecureRequest>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:LogEventSecuredRequest"/></con:call></con:operation><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:QueryAuditEventsSecuredRequest" name="QueryAuditEvents" bindingOperationName="QueryAuditEvents" type="Request-Response" outputName="QueryAuditEventsSecuredResponse" inputName="QueryAuditEventsSecuredRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1" useWsAddressing="true"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:${HttpsDefaultPort}/CONNECTGateway/GatewayService/AuditRepositoryManagerSecuredService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:LogEventSecuredRequest"/></con:call></con:operation><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:QueryAuditEventsSecuredRequest" name="QueryAuditEvents" bindingOperationName="QueryAuditEvents" type="Request-Response" outputName="QueryAuditEventsSecuredResponse" inputName="QueryAuditEventsSecuredRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="7fbc618b-2f1a-44a8-b84b-67a8b7c8f6ec"><con:settings/><con:call name="Request 1" useWsAddressing="true" id="ec42aea9-ea01-4700-b085-78eee4c3463e"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:${HttpsDefaultPort}/CONNECTGateway/GatewayService/AuditRepositoryManagerSecuredService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body>
       <urn:FindCommunitiesAndAuditEventsRequest>
@@ -1798,7 +1798,7 @@
          </urn:assertion>
       </urn:FindCommunitiesAndAuditEventsRequest>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:QueryAuditEventsSecuredRequest"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="AdapterDocQuerySecuredBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquerysecured}AdapterDocQuerySecuredBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocQuerySecured.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQuerySecured</con:endpoint><con:endpoint>https://localhost:7777/DocQueryMockAdapter</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:adapterdocquerysecured:AdapterDocQueryRequestSecuredMessage" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1" useWsAddressing="true"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQuerySecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:QueryAuditEventsSecuredRequest"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="AdapterDocQuerySecuredBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquerysecured}AdapterDocQuerySecuredBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocQuerySecured.wsdl" id="ffe6df0f-6307-491d-befe-7e907d8f0e1c" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQuerySecured</con:endpoint><con:endpoint>https://localhost:7777/DocQueryMockAdapter</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:adapterdocquerysecured:AdapterDocQueryRequestSecuredMessage" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="af48006c-2a67-4a66-aad2-b451ca587eca"><con:settings/><con:call name="Request 1" useWsAddressing="true" id="60071591-6710-46f8-99bf-a7dffbe63bec"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQuerySecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body>
       <urn:AdhocQueryRequest id="?" comment="?" federated="false" federation="?" startIndex="0" maxResults="-1">
@@ -2267,7 +2267,7 @@ if(passthruValue != null){
             
             <con:assertion type="SOAP Fault Assertion" id="5d71223b-d686-4cb1-b133-6ff4de385ac5"/>
             
-            <con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+            <con:assertion type="XPath Match" name="XPath Match" id="f57b0130-51f2-4d7d-9b55-25e9c95e78e2"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				//ns2:RegistryErrorList[1]/ns2:RegistryError[1]/@codeContext</path><content>Null response.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials>
               <con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
@@ -2278,7 +2278,7 @@ if(passthruValue != null){
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Assert KeepAlive"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
+      <con:testStep type="groovy" name="Assert KeepAlive" id="83da6b61-a9fe-4133-b02b-42c0d62dc47e"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
 log.info testResult
 assert testResult != "fail"</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
@@ -2327,7 +2327,7 @@ context.mockRunner.stop()</con:tearDownScript>
     
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="KeepAliveOneCustomGatewayProperties" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="" id="e099cc43-3325-4790-9b35-e805958d042e">
       <con:description>This tests for the presence connection: Keep-Alive and one custom header (Custom 1) when they are set in gateway.properties</con:description><con:settings/>
-      <con:testStep type="groovy" name="Check Passthru">
+      <con:testStep type="groovy" name="Check Passthru" id="f19b95e1-2f08-4d60-a51e-e83eac5ab6f7">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -2355,7 +2355,7 @@ if(passthruValue != null){
 }</script></con:config>
       </con:testStep>
       
-      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="4eac9e92-fb80-4f50-be04-d03cb48559a4">
         <con:settings/>
         <con:config>
           <script>context.withSql('PatientCorrelationDB') { sql -> 
@@ -2373,7 +2373,7 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy" id="233fcf7f-9452-4d1d-b184-79f710efbe72">
         <con:settings/>
         <con:config>
           <script>context.withSql('AAMappingDB') { sql -> 
@@ -2389,8 +2389,8 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>3000</delay></con:config></con:testStep>
-      <con:testStep name="Document Query" type="request">
+      <con:testStep type="delay" name="Delay" id="0dc1c1a5-6bf2-41f2-ab68-2f6601a0271a"><con:settings/><con:config><delay>3000</delay></con:config></con:testStep>
+      <con:testStep name="Document Query" type="request" id="5dfb1e2b-058d-4112-954d-ad70cbc1fe78">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -2656,7 +2656,7 @@ if(passthruValue != null){
             
             <con:assertion type="SOAP Fault Assertion" id="5d71223b-d686-4cb1-b133-6ff4de385ac5"/>
             
-            <con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+            <con:assertion type="XPath Match" name="XPath Match" id="da7bf107-4892-4a78-9e81-4539ff915e00"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				//ns2:RegistryErrorList[1]/ns2:RegistryError[1]/@codeContext</path><content>Null response.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials>
               <con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
@@ -2666,7 +2666,7 @@ if(passthruValue != null){
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="groovy" name="Assert KeepAlive"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
+      </con:testStep><con:testStep type="groovy" name="Assert KeepAlive" id="6f32cac6-71ee-4c46-8afb-a9af13bed993"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
 log.info testResult
 assert testResult != "fail"</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
@@ -2677,6 +2677,8 @@ context.mockRunner = runner
 def gatewayPropertiesFile = context.findProperty('GatewayPropDir') + '/gateway.properties'
 def file = new File(gatewayPropertiesFile)
 file.text = file.text.replace('connectionKeepAlive=False', 'connectionKeepAlive=true')
+//adding-newline
+file.append('\n')
 file.append('customHttpHeaders.Custom1=correct1\n')</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
@@ -2713,7 +2715,7 @@ context.mockRunner.stop()</con:tearDownScript>
       <con:reportParameters/>
     </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="KeepAliveTwoCustomsGatewayProperties" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="" id="843cee3e-22f6-4259-8abf-32165dff9896">
       <con:description>This tests for the presence connection: Keep-Alive and two custom headers (Custom 1 and Custom 2) when they are set in gateway.properties</con:description><con:settings/>
-      <con:testStep type="groovy" name="Check Passthru">
+      <con:testStep type="groovy" name="Check Passthru" id="503cdb56-7223-4c7b-a23f-2a9817f2ff48">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -2741,7 +2743,7 @@ if(passthruValue != null){
 }</script></con:config>
       </con:testStep>
       
-      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="31203de2-9857-4175-b861-16bb009c4788">
         <con:settings/>
         <con:config>
           <script>context.withSql('PatientCorrelationDB') { sql -> 
@@ -2759,7 +2761,7 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy" id="84a5ae33-299b-46c4-8621-757512e9c2df">
         <con:settings/>
         <con:config>
           <script>context.withSql('AAMappingDB') { sql -> 
@@ -2775,8 +2777,8 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>3000</delay></con:config></con:testStep>
-      <con:testStep name="Document Query" type="request">
+      <con:testStep type="delay" name="Delay" id="6e331cc3-91fd-432f-8d19-5c46d4b62b0e"><con:settings/><con:config><delay>3000</delay></con:config></con:testStep>
+      <con:testStep name="Document Query" type="request" id="0303a0a9-49c4-4a74-b085-41d244559c9a">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -3042,9 +3044,9 @@ if(passthruValue != null){
             
             <con:assertion type="SOAP Fault Assertion" id="5d71223b-d686-4cb1-b133-6ff4de385ac5"/>
             
-            <con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+            <con:assertion type="XPath Match" name="XPath Match" id="b2662222-cd4a-4a24-86d5-c97b590be709"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				//ns2:RegistryErrorList[1]/ns2:RegistryError[1]/@codeContext</path><content>Null response.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -3052,7 +3054,7 @@ if(passthruValue != null){
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="groovy" name="Assert KeepAlive"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
+      </con:testStep><con:testStep type="groovy" name="Assert KeepAlive" id="214f67de-613a-442b-9ba5-a445800523a8"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
 log.info testResult
 assert testResult != "fail"</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
@@ -3063,8 +3065,11 @@ context.mockRunner = runner
 def gatewayPropertiesFile = context.findProperty('GatewayPropDir') + '/gateway.properties'
 def file = new File(gatewayPropertiesFile)
 file.text = file.text.replace('connectionKeepAlive=False', 'connectionKeepAlive=true')
+//add-new-line
+file.append('\n')
 file.append('customHttpHeaders.Custom1=correct1\n')
-file.append('customHttpHeaders.Custom2=correct2\n')</con:setupScript>
+file.append('customHttpHeaders.Custom2=correct2\n')
+</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
@@ -3100,7 +3105,7 @@ context.mockRunner.stop()</con:tearDownScript>
       <con:reportParameters/>
     </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="KeepAliveNoCustomAssertionBlock" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="" id="795f4ebf-9932-480e-9e76-c82104d01a8b">
       <con:description>This tests for the presence connection: Keep-Alive when the flag is set to true in the assertion block</con:description><con:settings/>
-      <con:testStep type="groovy" name="Check Passthru">
+      <con:testStep type="groovy" name="Check Passthru" id="36416ff2-15f5-4f0d-9874-b37a04a01fcf">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3130,7 +3135,7 @@ if(passthruValue != null){
         </con:config>
       </con:testStep>
       
-      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="0da389e2-511d-4d72-a23e-50543cc3d23b">
         <con:settings/>
         <con:config>
           <script>context.withSql('PatientCorrelationDB') { sql -> 
@@ -3148,7 +3153,7 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy" id="aeb53287-98ba-49b4-9913-c040515f15a3">
         <con:settings/>
         <con:config>
           <script>context.withSql('AAMappingDB') { sql -> 
@@ -3164,7 +3169,7 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Document Query" type="request">
+      <con:testStep name="Document Query" type="request" id="dbdfb072-c4dc-49a5-b94a-760e5aaac7d6">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -3431,7 +3436,7 @@ if(passthruValue != null){
             
             <con:assertion type="SOAP Fault Assertion" id="5d71223b-d686-4cb1-b133-6ff4de385ac5"/>
             
-            <con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+            <con:assertion type="XPath Match" name="XPath Match" id="6dadd010-614e-4a34-92c4-b0ed41faf80e"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				//ns2:RegistryErrorList[1]/ns2:RegistryError[1]/@codeContext</path><content>Null response.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials>
               <con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
@@ -3442,7 +3447,7 @@ if(passthruValue != null){
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Assert KeepAlive"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
+      <con:testStep type="groovy" name="Assert KeepAlive" id="03d9dbb1-bc5f-4f34-a2ff-28740a45c6dc"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
 log.info testResult
 assert testResult != "fail"</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
@@ -3484,7 +3489,7 @@ context.mockRunner.stop()</con:tearDownScript>
       <con:reportParameters/>
     </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="KeepAliveOneCustomAssertionBlock" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="" id="856bd04e-d542-4414-8b11-35c9010c0f27">
       <con:description>This tests for the presence connection: Keep-Alive and one custom header (Custom 1) when they are set in the assertion block</con:description><con:settings/>
-      <con:testStep type="groovy" name="Check Passthru">
+      <con:testStep type="groovy" name="Check Passthru" id="1aa22528-b1fa-4234-a6d4-093e0a84eaa1">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3514,7 +3519,7 @@ if(passthruValue != null){
         </con:config>
       </con:testStep>
       
-      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="ba4617c3-5dac-46d6-bb16-827107ddda2b">
         <con:settings/>
         <con:config>
           <script>context.withSql('PatientCorrelationDB') { sql -> 
@@ -3532,7 +3537,7 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy" id="73c5dc3b-c75b-4aef-9bfc-b69cdea2ce1c">
         <con:settings/>
         <con:config>
           <script>context.withSql('AAMappingDB') { sql -> 
@@ -3548,7 +3553,7 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Document Query" type="request">
+      <con:testStep name="Document Query" type="request" id="d3a838dd-c536-4e92-9955-c56bea29d2d3">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -3819,7 +3824,7 @@ if(passthruValue != null){
             
             <con:assertion type="SOAP Fault Assertion" id="5d71223b-d686-4cb1-b133-6ff4de385ac5"/>
             
-            <con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+            <con:assertion type="XPath Match" name="XPath Match" id="0f3381fb-362c-4028-aa91-1700b03ec810"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				//ns2:RegistryErrorList[1]/ns2:RegistryError[1]/@codeContext</path><content>Null response.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials>
               <con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
@@ -3830,7 +3835,7 @@ if(passthruValue != null){
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Assert KeepAlive"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
+      <con:testStep type="groovy" name="Assert KeepAlive" id="9e51a189-04a1-41ee-958e-233600f1a31a"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
 log.info testResult
 assert testResult != "fail"</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
@@ -3872,7 +3877,7 @@ context.mockRunner.stop()</con:tearDownScript>
       <con:reportParameters/>
     </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="KeepAliveTwoCustomsAssertionBlock" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="" id="e7d1ac5c-3df3-4421-a642-569de725859f">
       <con:description>This tests for the presence connection: Keep-Alive and two custom headers (Custom 1 and Custom 2) when they are set in the assertion block</con:description><con:settings/>
-      <con:testStep type="groovy" name="Check Passthru">
+      <con:testStep type="groovy" name="Check Passthru" id="5b43519d-ed04-442e-922d-83893ac7653f">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -3902,7 +3907,7 @@ if(passthruValue != null){
         </con:config>
       </con:testStep>
       
-      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="c30b46cd-5ed3-4f33-955a-e9329beec69a">
         <con:settings/>
         <con:config>
           <script>context.withSql('PatientCorrelationDB') { sql -> 
@@ -3920,7 +3925,7 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy" id="ba166829-4d04-49a2-a3bb-4aecdba4cd95">
         <con:settings/>
         <con:config>
           <script>context.withSql('AAMappingDB') { sql -> 
@@ -3936,7 +3941,7 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Document Query" type="request">
+      <con:testStep name="Document Query" type="request" id="2fd1aa1c-0e0a-4496-8cdb-9eb4bbc674a9">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -4211,7 +4216,7 @@ if(passthruValue != null){
             
             <con:assertion type="SOAP Fault Assertion" id="5d71223b-d686-4cb1-b133-6ff4de385ac5"/>
             
-            <con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+            <con:assertion type="XPath Match" name="XPath Match" id="bf03f07b-544e-4311-9e51-77aac0b33c44"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				//ns2:RegistryErrorList[1]/ns2:RegistryError[1]/@codeContext</path><content>Null response.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials>
               <con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
@@ -4222,7 +4227,7 @@ if(passthruValue != null){
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Assert KeepAlive"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
+      <con:testStep type="groovy" name="Assert KeepAlive" id="14b1848d-5912-4b62-90f0-cae16bea29f3"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
 log.info testResult
 assert testResult != "fail"</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
@@ -4265,7 +4270,7 @@ context.mockRunner.stop()</con:tearDownScript>
     </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="KeepAliveAssertionBlockOverride" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="" id="ad9435a4-74d1-4a4e-8dc7-076a7c1aaaf1">
       <con:description>This test confirms that when Keep-Alive and custom headers exist in the assertion AND in gateway.properties,
 the values in the assertion block override the values in gateway.properties</con:description><con:settings/>
-      <con:testStep type="groovy" name="Check Passthru">
+      <con:testStep type="groovy" name="Check Passthru" id="13df92e3-833f-4533-afa6-b5c9c8b3799b">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -4295,7 +4300,7 @@ if(passthruValue != null){
         </con:config>
       </con:testStep>
       
-      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="7dbd437f-01dc-475b-ab3e-293d371f4963">
         <con:settings/>
         <con:config>
           <script>context.withSql('PatientCorrelationDB') { sql -> 
@@ -4313,7 +4318,7 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy" id="47d76431-7591-4630-b095-13715edf04aa">
         <con:settings/>
         <con:config>
           <script>context.withSql('AAMappingDB') { sql -> 
@@ -4329,7 +4334,7 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Document Query" type="request">
+      <con:testStep name="Document Query" type="request" id="425847bc-a592-4bb3-be36-c9916b1fa047">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -4604,7 +4609,7 @@ if(passthruValue != null){
             
             <con:assertion type="SOAP Fault Assertion" id="5d71223b-d686-4cb1-b133-6ff4de385ac5"/>
             
-            <con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+            <con:assertion type="XPath Match" name="XPath Match" id="84c4f690-5049-461e-a001-f0d8ff6d48b5"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				//ns2:RegistryErrorList[1]/ns2:RegistryError[1]/@codeContext</path><content>Null response.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials>
               <con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
@@ -4615,7 +4620,7 @@ if(passthruValue != null){
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Assert KeepAlive"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
+      <con:testStep type="groovy" name="Assert KeepAlive" id="4eddcc00-7825-4a10-9366-794a8e70a4f7"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
 log.info testResult
 assert testResult != "fail"</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
@@ -4663,7 +4668,7 @@ context.mockRunner.stop()</con:tearDownScript>
       <con:reportParameters/>
     </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="CustomHeadersAdapter" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword="" id="a990acd7-a5e1-484f-96e4-4e424ae49447">
       <con:settings/>
-      <con:testStep type="groovy" name="Check Passthru">
+      <con:testStep type="groovy" name="Check Passthru" id="81080797-94b1-491f-b50e-085d383d1db4">
         <con:settings/>
         <con:config>
           <script>import nhinc.FileUtils;
@@ -4693,7 +4698,7 @@ if(passthruValue != null){
         </con:config>
       </con:testStep>
       
-      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="4e38c408-04ed-4ab2-8c21-045d8963b77b">
         <con:settings/>
         <con:config>
           <script>context.withSql('PatientCorrelationDB') { sql -> 
@@ -4711,7 +4716,7 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy" id="4d63aa4e-06c4-4490-9a16-dba24f885694">
         <con:settings/>
         <con:config>
           <script>context.withSql('AAMappingDB') { sql -> 
@@ -4727,8 +4732,8 @@ if(passthruValue != null){
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>3000</delay></con:config></con:testStep>
-      <con:testStep name="Document Query" type="request">
+      <con:testStep type="delay" name="Delay" id="426a93ae-44c5-4f9a-afc1-f8ba2e4f997a"><con:settings/><con:config><delay>3000</delay></con:config></con:testStep>
+      <con:testStep name="Document Query" type="request" id="6c299444-00db-4b25-826f-bc4e5f1517ae">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -5003,7 +5008,7 @@ if(passthruValue != null){
             
             <con:assertion type="SOAP Fault Assertion" id="5d71223b-d686-4cb1-b133-6ff4de385ac5"/>
             
-            <con:assertion type="XPath Match" name="XPath Match" disabled="true"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+            <con:assertion type="XPath Match" name="XPath Match" disabled="true" id="683185d4-719e-4014-8ae0-832e7414b47f"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				//ns2:RegistryErrorList[1]/ns2:RegistryError[1]/@codeContext</path><content>Null response.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials>
               <con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
@@ -5013,7 +5018,7 @@ if(passthruValue != null){
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="groovy" name="Assert Custom Headers"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
+      </con:testStep><con:testStep type="groovy" name="Assert Custom Headers" id="ea628263-8359-464b-9721-c433adf694e6"><con:settings/><con:config><script>def testResult = context.expand('${#Global#keepAliveResult}')
 log.info testResult
 assert testResult != "fail"</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
@@ -5073,7 +5078,7 @@ context.mockRunner.stop()</con:tearDownScript>
     <con:reportParameters/>
   </con:testSuite>
   
-  <con:mockService port="8888" path="/mockRespondingGateway_Query_Binding_Soap" host="localhost" name="RespondingGateway_Query_Binding_Soap MockService" bindToHostOnly="false" docroot="" dispatchResponseMessages="true"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-version">false</con:setting></con:settings><con:mockOperation name="RespondingGateway_CrossGatewayQuery" interface="RespondingGateway_Query_Binding_Soap" operation="RespondingGateway_CrossGatewayQuery"><con:settings/><con:dispatchPath>def activeTest = context.expand('${#Global#testNumber}')
+  <con:mockService port="8888" path="/mockRespondingGateway_Query_Binding_Soap" host="localhost" name="RespondingGateway_Query_Binding_Soap MockService" bindToHostOnly="false" docroot="" dispatchResponseMessages="true" id="4ed47f2e-9b1c-4428-8b15-9f62c9576ef5"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-version">false</con:setting></con:settings><con:mockOperation name="RespondingGateway_CrossGatewayQuery" interface="RespondingGateway_Query_Binding_Soap" operation="RespondingGateway_CrossGatewayQuery" id="8159948a-3f9b-4ed4-a996-1cdf3cb062cc"><con:settings/><con:dispatchPath>def activeTest = context.expand('${#Global#testNumber}')
 def keepalive = mockRequest.getRequestHeaders().Connection
 def custom1 = mockRequest.getRequestHeaders().Custom1
 def custom2 = mockRequest.getRequestHeaders().Custom2
@@ -5098,13 +5103,13 @@ if (activeTest == '3') {
 	}
 	
 }
-</con:dispatchPath><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:defaultResponse>Success</con:defaultResponse><con:response name="Success" encoding="UTF-8"><con:settings/><con:responseContent>&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+</con:dispatchPath><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:defaultResponse>Success</con:defaultResponse><con:response name="Success" encoding="UTF-8" id="6780ddcf-d47c-4732-b5e9-3bfd62f08c4a" httpResponseStatus="200"><con:settings/><con:responseContent>&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
    &lt;soap:Body/>
-&lt;/soap:Envelope></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:CrossGatewayQueryResponse"/></con:response><con:response name="Fail" encoding="UTF-8"><con:settings/><con:responseContent>&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+&lt;/soap:Envelope></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:CrossGatewayQueryResponse"/></con:response><con:response name="Fail" encoding="UTF-8" id="6b27838b-f49c-4bf4-9ac3-1aef065baaea" httpResponseStatus="200"><con:settings/><con:responseContent>&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
    &lt;soap:Body/>
-&lt;/soap:Envelope></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:CrossGatewayQueryResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/><con:onRequestScript/></con:mockService><con:mockService port="9999" path="/KeepAliveMockAdapter" host="localhost" name="KeepAliveMockAdapter" bindToHostOnly="false" docroot="" faultMockOperation="DocumentRegistry_RegistryStoredQuery"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="DocumentRegistry_RegistryStoredQuery" interface="DocumentRegistry_Binding_Soap" operation="DocumentRegistry_RegistryStoredQuery"><con:settings/><con:dispatchPath/><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent>&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+&lt;/soap:Envelope></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:CrossGatewayQueryResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/><con:onRequestScript/></con:mockService><con:mockService port="9999" path="/KeepAliveMockAdapter" host="localhost" name="KeepAliveMockAdapter" bindToHostOnly="false" docroot="" faultMockOperation="DocumentRegistry_RegistryStoredQuery" id="4ee9b0ad-3fed-436c-b857-7512883ad4b8"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="DocumentRegistry_RegistryStoredQuery" interface="DocumentRegistry_Binding_Soap" operation="DocumentRegistry_RegistryStoredQuery" id="75d1dafd-b2d8-4598-9211-2e3413d336b0"><con:settings/><con:dispatchPath/><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8" id="b1a686e4-49de-41c1-a7e5-22a550cf94b3" httpResponseStatus="200"><con:settings/><con:responseContent>&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
    &lt;soap:Body/>
-&lt;/soap:Envelope></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:RegistryStoredQueryResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:mockService port="7777" path="/DocQueryMockAdapter" host="localhost" name="DocQueryMockAdapter"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="RespondingGateway_CrossGatewayQuery" interface="AdapterDocQuerySecuredBindingSoap" operation="RespondingGateway_CrossGatewayQuery"><con:settings/><con:dispatchPath>def activeTest = context.expand('${#Global#testNumber}')
+&lt;/soap:Envelope></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:RegistryStoredQueryResponse"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:mockService port="7777" path="/DocQueryMockAdapter" host="localhost" name="DocQueryMockAdapter" id="4e3bcc8b-fa9e-492d-a9e7-04c35d65876d"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="RespondingGateway_CrossGatewayQuery" interface="AdapterDocQuerySecuredBindingSoap" operation="RespondingGateway_CrossGatewayQuery" id="9cb07758-dfd4-4769-926f-e0c04bdb826e"><con:settings/><con:dispatchPath>def activeTest = context.expand('${#Global#testNumber}')
 //def keepalive = mockRequest.getRequestHeaders().Connection
 def custom1 = mockRequest.getRequestHeaders().Custom1
 def custom2 = mockRequest.getRequestHeaders().Custom2
@@ -5129,7 +5134,7 @@ if (activeTest == '3') {
 	}
 	
 }
-</con:dispatchPath><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent>&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+</con:dispatchPath><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8" id="792fcd9b-fede-49ce-a131-6bfcf8d8fa59" httpResponseStatus="200"><con:settings/><con:responseContent>&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
    &lt;soap:Body/>
 &lt;/soap:Envelope></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterdocquerysecured:AdapterDocQueryResponseSecuredMessage"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:requirements/>
   <con:properties>
@@ -5247,7 +5252,7 @@ if (activeTest == '3') {
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value/>
+      <con:value>C:\_development\Servers\wildfly-8.2.1.Final\modules\system\layers\base\org\connectopensource\configuration\main</con:value>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>
@@ -5485,7 +5490,7 @@ sql.close()
   <con:wssContainer/>
   <con:databaseConnectionContainer/>
   <con:oAuth2ProfileContainer/>
-  <con:reporting>
+  <con:oAuth1ProfileContainer/><con:reporting>
     <con:xmlTemplates/>
     <con:xmlTemplates/>
     <con:xmlTemplates/>
