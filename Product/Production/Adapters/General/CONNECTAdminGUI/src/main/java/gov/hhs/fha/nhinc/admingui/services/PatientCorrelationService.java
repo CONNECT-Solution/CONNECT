@@ -28,6 +28,8 @@ package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
+import java.util.List;
+import org.hl7.v3.II;
 
 /**
  *
@@ -35,7 +37,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
  */
 public interface PatientCorrelationService {
     
-    public String getLocalPatient(PatientSearchResults patientResults);
-    public void queryForLocalPatient(PatientSearchResults patientResults, AssertionType assertion);
-    public void addCorrelation(PatientSearchResults patientResults, AssertionType assertion);
+    public II getLocalPatient(PatientSearchResults patientResults);
+    public II getLocalPatient(List<II> correlations);
+    public void queryForCorrelations(PatientSearchResults patientResults, AssertionType assertion);
+    public II addCorrelation(PatientSearchResults patientResults, AssertionType assertion);
 }
