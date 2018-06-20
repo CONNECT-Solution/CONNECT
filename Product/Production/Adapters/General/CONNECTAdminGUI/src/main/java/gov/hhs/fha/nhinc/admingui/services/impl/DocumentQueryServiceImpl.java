@@ -40,7 +40,6 @@ import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
-import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -50,11 +49,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.apache.commons.lang.StringUtils;
-import org.hl7.fhir.instance.model.Organization;
 import org.hl7.v3.II;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,7 +89,10 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * d.setOrganization("urn:oid:2.2"); queryForDocuments(d);
      *
      * @param query Patient object populated with patient search criteria.
+     * @param correlatedId
+     * @param assertion
      * @return PatientSearchResults
+     * @throws gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException
      * @see Patient
      * @see PatientSearchResults
      */
@@ -111,7 +110,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
         targets.add(HomeCommunityMap.formatHomeCommunityId(query.getOrganization()));
         targetCommunity.setTargets(targets);
         targetCommunity.build();
-        EntityDocQueryProxyWebServiceUnsecuredImpl instance = new EntityDocQueryProxyWebServiceUnsecuredImpl();
+        EntityDocQueryProxyWebServiceUnsecuredImpl instance = new EntityDocQueryProxyWebServiceUnsecuredImpl(getOrganizationSpecVersion(query.getOrganization()));
 
         AdhocQueryResponse response = instance.respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(),
                 request.getAssertion(), targetCommunity.getNhinTargetCommunities());
@@ -170,7 +169,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
                 return ExchangeManagerHelper.getHighestUDDISpecVersion(ExchangeManagerHelper.getSpecVersions(ep));
             }
         } catch (ExchangeManagerException ex) {
-           LOG.warn("Unable to find highest spec version for organization {}, setting to {}", hcid, DEFAULT_VERSION);
+           LOG.warn("Unable to find highest spec version for organization {}, setting to {}", hcid, DEFAULT_VERSION, ex);
         }
         return DEFAULT_VERSION;
     } 
@@ -188,7 +187,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
         try {
             propValue = getPropAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
         } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to read property: {})", propertyName);
+            LOG.warn("Unable to read property: {})", propertyName, ex);
         }
         return NullChecker.isNotNullish(propValue);
     }

@@ -49,12 +49,19 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
     private static final Logger LOG = LoggerFactory.getLogger(EntityDocQueryProxyWebServiceUnsecuredImpl.class);
 
     private WebServiceProxyHelper oProxyHelper = null;
+    private NhincConstants.UDDI_SPEC_VERSION version;
 
     /**
      * Default Constructor creates log and WebServiceProxyHelper.
      */
     public EntityDocQueryProxyWebServiceUnsecuredImpl() {
         oProxyHelper = createWebServiceProxyHelper();
+        this.version = null;
+    }
+    
+    public EntityDocQueryProxyWebServiceUnsecuredImpl(NhincConstants.UDDI_SPEC_VERSION version) {
+        this();
+        this.version = version;
     }
 
     /**
@@ -86,8 +93,13 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
         AdhocQueryResponse response = null;
 
         try {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME);
-
+            String url;
+            if(version != null) {
+                url = oProxyHelper.getEndpointFromConnectionManagerByEntitySpecLevel(NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME, version);
+            } else {
+                url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME);
+            }
+            
             if (msg == null) {
                 LOG.error("Message was null");
             } else if (assertion == null) {
