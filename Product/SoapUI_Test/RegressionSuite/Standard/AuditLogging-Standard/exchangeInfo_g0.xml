@@ -90,6 +90,15 @@
 </endpointConfiguration>
                             </endpointConfigurationList>
                         </endpoint>
+            <endpoint>
+              <name>DocDataSubmission</name>
+              <endpointConfigurationList>
+                <endpointConfiguration>
+                  <url>https://localhost:8181/Gateway/DocumentDataSubmission/1_0/DocumentRegistryXDS_Service</url>
+                  <version>1.0</version>
+                </endpointConfiguration>
+              </endpointConfigurationList>
+            </endpoint>
                     </endpointList>
                     <targetRegion>US-NY</targetRegion>
                     <targetRegion>US-VA</targetRegion>
@@ -199,6 +208,15 @@
 </endpointConfiguration>
                             </endpointConfigurationList>
                         </endpoint>
+            <endpoint>
+              <name>DocDataSubmission</name>
+              <endpointConfigurationList>
+                <endpointConfiguration>
+                  <url>https://localhost:8181/Gateway/DocumentDataSubmission/1_0/DocumentRegistryXDS_Service</url>
+                  <version>1.0</version>
+                </endpointConfiguration>
+              </endpointConfigurationList>
+            </endpoint>
                     </endpointList>
                     <targetRegion>US-NY</targetRegion>
                     <targetRegion>US-VA</targetRegion>
