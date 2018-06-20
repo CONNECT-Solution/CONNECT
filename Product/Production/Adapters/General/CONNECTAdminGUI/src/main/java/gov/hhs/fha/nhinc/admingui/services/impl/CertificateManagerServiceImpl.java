@@ -40,7 +40,7 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.callback.opensaml.X509CertificateHelper;
-import gov.hhs.fha.nhinc.common.configadmin.ConfigAssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.ConfigAssertionType;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
