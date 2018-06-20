@@ -35,15 +35,27 @@ import gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyWebServiceUnse
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
 import gov.hhs.fha.nhinc.docquery.model.builder.DocumentMetadataResultsModelBuilder;
+import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
+import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
+import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.lang.StringUtils;
+import org.hl7.fhir.instance.model.Organization;
+import org.hl7.v3.II;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,8 +98,8 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @see PatientSearchResults
      */
     @Override
-    public DocumentMetadataResults queryForDocuments(DocumentMetadata query, AssertionType assertion) throws DocumentMetadataException {
-        AdhocQueryRequest adhocQueryRequest = createAdhocQueryRequest(query);
+    public DocumentMetadataResults queryForDocuments(DocumentMetadata query, II correlatedId, AssertionType assertion) throws DocumentMetadataException {
+        AdhocQueryRequest adhocQueryRequest = createAdhocQueryRequest(query, correlatedId);
         RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
         request.setAdhocQueryRequest(adhocQueryRequest);
         request.setAssertion(assertion);
@@ -125,13 +137,9 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
      * @param query the query
      * @return the adhoc query request
      */
-    private AdhocQueryRequest createAdhocQueryRequest(DocumentMetadata query) {
-        if (!StringUtils.isBlank(query.getPatientId())) {
-            requestBuilder.setPatientId(query.getPatientId());
-        }
-        if (!StringUtils.isBlank(query.getPatientIdRoot())) {
-            requestBuilder.setPatientIdRoot(query.getPatientIdRoot());
-        }
+    private AdhocQueryRequest createAdhocQueryRequest(DocumentMetadata query, II correlatedId) {
+        setQueryPatientId(query, correlatedId);
+        
         requestBuilder.setDocumentTypeCode(query.getDocumentType());
 
         requestBuilder.setCreationTimeFrom(query.getStartTime());
@@ -140,5 +148,52 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
 
         requestBuilder.build();
         return requestBuilder.getMessage();
+    }
+    
+    private void setQueryPatientId(DocumentMetadata query, II correlatedId) {
+        if(correlatedId == null || isPassthrough(query.getOrganization())) {
+            requestBuilder.setPatientId(query.getPatientId());
+            requestBuilder.setPatientIdRoot(query.getPatientIdRoot());           
+        } else {
+            requestBuilder.setPatientId(correlatedId.getExtension());
+            requestBuilder.setPatientIdRoot(correlatedId.getRoot());
+        }
+    }
+    
+    private NhincConstants.UDDI_SPEC_VERSION getOrganizationSpecVersion(String hcid) {
+        final NhincConstants.UDDI_SPEC_VERSION DEFAULT_VERSION = NhincConstants.UDDI_SPEC_VERSION.SPEC_3_0;
+        
+        try {
+            OrganizationType org = ExchangeManager.getInstance().getOrganization(hcid);
+            EndpointType ep = ExchangeManagerHelper.findEndpointTypeBy(org, NhincConstants.DOC_QUERY_SERVICE_NAME);
+            if(ep != null) {
+                return ExchangeManagerHelper.getHighestUDDISpecVersion(ExchangeManagerHelper.getSpecVersions(ep));
+            }
+        } catch (ExchangeManagerException ex) {
+           LOG.warn("Unable to find highest spec version for organization {}, setting to {}", hcid, DEFAULT_VERSION);
+        }
+        return DEFAULT_VERSION;
+    } 
+    
+    private boolean isPassthrough(String hcid) {
+        String propertyName;
+        NhincConstants.UDDI_SPEC_VERSION specVersion = getOrganizationSpecVersion(hcid);
+        if(specVersion.equals(NhincConstants.UDDI_SPEC_VERSION.SPEC_2_0)) {
+            propertyName = "docquery.20.outboundDocQuery";
+        } else {
+            propertyName = "docquery.30.outboundDocQuery";
+        }
+        
+        String propValue = null;
+        try {
+            propValue = getPropAccessor().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
+        } catch (PropertyAccessException ex) {
+            LOG.warn("Unable to read property: {})", propertyName);
+        }
+        return NullChecker.isNotNullish(propValue);
+    }
+    
+    protected PropertyAccessor getPropAccessor() {
+        return PropertyAccessor.getInstance();
     }
 }

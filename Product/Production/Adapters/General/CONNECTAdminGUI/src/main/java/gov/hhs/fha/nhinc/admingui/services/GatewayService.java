@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.admingui.managed.PatientSearchBean;
 import gov.hhs.fha.nhinc.admingui.model.Document;
 import gov.hhs.fha.nhinc.admingui.model.Patient;
 import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
+import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
 import gov.hhs.fha.nhinc.admingui.services.impl.DocumentQueryServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.DocumentRetrieveServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.PatientCorrelationServiceImpl;
@@ -55,6 +56,7 @@ import java.text.SimpleDateFormat;
 import javax.faces.context.FacesContext;
 import javax.ws.rs.core.MediaType;
 import org.apache.commons.lang.StringUtils;
+import org.hl7.v3.II;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,6 +91,7 @@ public class GatewayService {
     public static final String CONTENT_TYPE_APPLICATION_PDF = "application/pdf";
     public static final String DEFAULT_XSL_FILE = "/WEB-INF/CDA.xsl";
     private final XSLTransformHelper transformer = new XSLTransformHelper();
+    private II localCorrelation;
 
     private GatewayService() {
         // create the Service implementation instances
@@ -146,11 +149,21 @@ public class GatewayService {
             if (patientDiscoveryResults.getPatientList().isEmpty()) {
                 return false;
             }
+            
+            localCorrelation = correlationService.getLocalPatient(patientDiscoveryResults);
+            
+            if(localCorrelation == null) {
+                correlationService.queryForCorrelations(patientDiscoveryResults, assertion);
+                localCorrelation = correlationService.getLocalPatient(patientDiscoveryResults.getPatientList().get(0).getCorrelations());
+            }
+            
+            if(localCorrelation == null) {
+                localCorrelation = correlationService.addCorrelation(patientDiscoveryResults, assertion);
+            }
             // populate the UI patient object with the results data
-            correlationService.queryForLocalPatient(patientDiscoveryResults, assertion);
             populatePatientBean(patientDiscoveryResults, patientQuerySearch);
             return true;
-        } catch (final Exception ex) {
+        } catch (final PatientSearchException ex) {
             LOG.error("Failed to Retrieve Patient Data: {}", ex.getLocalizedMessage(), ex);
             // TODO: notify the UI or somehow inform the user
             return false;
@@ -182,7 +195,7 @@ public class GatewayService {
         document.setPatientIdRoot(patientQuerySearch.getSelectedCurrentPatient().getAssigningAuthorityId());
 
         try {
-            final DocumentMetadataResults documentQueryResults = documentQueryService.queryForDocuments(document, assertion);
+            final DocumentMetadataResults documentQueryResults = documentQueryService.queryForDocuments(document, localCorrelation, assertion);
 
             // Check the number of documents
             if (documentQueryResults.getResults().isEmpty()) {
@@ -237,6 +250,10 @@ public class GatewayService {
             return true;
         }
         return false;
+    }
+    
+    public void clearLocalCorrelation() {
+        localCorrelation = null;
     }
 
     /**

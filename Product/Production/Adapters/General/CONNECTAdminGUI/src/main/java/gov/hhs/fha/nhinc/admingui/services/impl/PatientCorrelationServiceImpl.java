@@ -33,13 +33,20 @@ import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelat
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveBuilder;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.IIHelper;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyWebServiceUnsecuredImpl;
-import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
+import java.util.List;
+import java.util.Random;
+import org.hl7.v3.II;
+import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201309UV02;
+import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,27 +62,49 @@ public class PatientCorrelationServiceImpl implements PatientCorrelationService 
     private PatientCorrelationProxy correlationClient = new PatientCorrelationProxyWebServiceUnsecuredImpl();
 
     @Override
-    public String getLocalPatient(PatientSearchResults patientResults) {
-        for (Patient patient : patientResults.getPatientList()) {
-            if (NullChecker.isNotNullish(patient.getAaId()) && patient.getAaId().equals(getLocalAA())) {
-                return patient.getPatientId();
+    public II getLocalPatient(PatientSearchResults patientResults) {
+        if (!patientResults.isPatientListEmpty()) {
+            if (NullChecker.isNotNullish(patientResults.getPatientList().get(0).getAaId()) 
+                    && patientResults.getPatientList().get(0).getAaId().equals(getLocalAA())) {
+                return IIHelper.IIFactory(getLocalAA(), patientResults.getPatientList().get(0).getPid());
             }
         }
         return null;
     }
+    
+    @Override
+    public II getLocalPatient(List<II> correlations) {
+        for(II correlation : correlations) {
+            if(NullChecker.isNotNullish(correlation.getRoot()) && correlation.getRoot().equals(getLocalAA())) {
+                return correlation;
+            }
+        }
+        
+        return null;
+    }
 
     @Override
-    public void queryForLocalPatient(PatientSearchResults patientResults, AssertionType assertion) {
+    public void queryForCorrelations(PatientSearchResults patientResults, AssertionType assertion) {
         PRPAIN201309UV02 request = buildPRPAINRequest(patientResults);
 
         if (request != null) {
             RetrievePatientCorrelationsResponseType response = correlationClient.retrievePatientCorrelations(request, assertion);
+            addToCorrelationList(response, patientResults);
         }
     }
 
     @Override
-    public void addCorrelation(PatientSearchResults patientResults, AssertionType assertion) {
-
+    public II addCorrelation(PatientSearchResults patientResults, AssertionType assertion) {
+        String aa = getLocalAA();
+        II newCorrelation = IIHelper.IIFactory(aa, generatePatientId());
+        II remoteCorrelation = IIHelper.IIFactory(patientResults.getPatientList().get(0).getAaId(), patientResults.getPatientList().get(0).getPid());
+        PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
+        patient.getId().add(newCorrelation);
+        patient.getId().add(remoteCorrelation);
+        PRPAIN201301UV02 request = HL7PRPA201301Transforms.createPRPA201301(patient, aa, aa, aa);
+        
+        correlationClient.addPatientCorrelation(request, assertion);
+        return newCorrelation;
     }
 
     private String getLocalAA() {
@@ -96,7 +125,7 @@ public class PatientCorrelationServiceImpl implements PatientCorrelationService 
     private PRPAIN201309UV02 buildPRPAINRequest(PatientSearchResults patientResults) {
         RetrievePatientCorrelationsRequestType retrieveCorrelations = new RetrievePatientCorrelationsRequestType();
 
-        if (!patientResults.isPatientListEmpty() && NullChecker.isNotNullish(patientResults.getPatientList().get(0).getPatientId())
+        if (!patientResults.isPatientListEmpty() && NullChecker.isNotNullish(patientResults.getPatientList().get(0).getPid())
                 && NullChecker.isNotNullish(patientResults.getPatientList().get(0).getAaId())) {
             QualifiedSubjectIdentifierType qualPatientId = new QualifiedSubjectIdentifierType();
             qualPatientId.setAssigningAuthorityIdentifier(patientResults.getPatientList().get(0).getAaId());
@@ -106,6 +135,26 @@ public class PatientCorrelationServiceImpl implements PatientCorrelationService 
         }
 
         return null;
+    }
+
+    private void addToCorrelationList(RetrievePatientCorrelationsResponseType response, PatientSearchResults patientResults) {
+        if(!patientResults.isPatientListEmpty() && patientResults.getPatientList().get(0) != null
+             && response != null && response.getPRPAIN201310UV02() != null
+             && response.getPRPAIN201310UV02().getControlActProcess() != null
+             && response.getPRPAIN201310UV02().getControlActProcess().getSubject() != null) {
+            List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjectList = response.getPRPAIN201310UV02().getControlActProcess().getSubject();
+            for (PRPAIN201310UV02MFMIMT700711UV01Subject1 subject : subjectList) {
+                if(subject.getRegistrationEvent() != null && subject.getRegistrationEvent().getSubject1() != null
+                        && subject.getRegistrationEvent().getSubject1().getPatient() != null) {
+                    patientResults.getPatientList().get(0).getCorrelations().addAll(subject.getRegistrationEvent().getSubject1().getPatient().getId());
+                }
+            }
+        }
+    }
+
+    private String generatePatientId() {
+        int number = new Random().nextInt(10000000);
+        return "CONNECT-" + String.format ("%07d", number);      
     }
 
 }

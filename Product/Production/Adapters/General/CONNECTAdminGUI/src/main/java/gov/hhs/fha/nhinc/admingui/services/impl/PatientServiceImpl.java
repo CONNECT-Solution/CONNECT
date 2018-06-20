@@ -33,7 +33,6 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 import gov.hhs.fha.nhinc.admingui.services.PatientService;
 import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
 import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceUnsecuredImpl;
