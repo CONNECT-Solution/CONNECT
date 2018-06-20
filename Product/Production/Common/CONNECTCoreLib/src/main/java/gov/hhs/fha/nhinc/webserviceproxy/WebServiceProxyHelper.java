@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.lang.reflect.InvocationTargetException;
@@ -101,6 +102,10 @@ public class WebServiceProxyHelper {
         throws ExchangeManagerException {
 
         return InternalExchangeManager.getInstance().getEndpointURL(sServiceName, level);
+    }
+    
+    public String getEndpointFromConnectionManagerByEntitySpecLevel(String sServiceName, UDDI_SPEC_VERSION version) throws ExchangeManagerException {
+        return InternalExchangeManager.getInstance().getEndpointURL(sServiceName, version);
     }
 
     /**
