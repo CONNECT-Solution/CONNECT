@@ -39,6 +39,8 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +51,8 @@ import org.slf4j.LoggerFactory;
  * @author Neil Webb
  */
 public class DocumentDao {
+
+    private static final String DOCUMENT_UNIQUE_ID = "documentUniqueId";
     private static final Logger LOG = LoggerFactory.getLogger(DocumentDao.class);
 
     public boolean save(DocumentMetadata document) {
@@ -86,6 +90,27 @@ public class DocumentDao {
     public List<DocumentMetadata> findAllByPatientId(long patientId) {
         return GenericDBUtils.findAllBy(getSession(), DocumentMetadata.class,
             Restrictions.eq("patientRecordId", patientId));
+    }
+
+    public int getNextID() {
+        DocumentMetadata result = null;
+        try (Session session = getSession()) {
+            Criteria crit = session.createCriteria(DocumentMetadata.class);
+            crit.add(Restrictions.ilike(DOCUMENT_UNIQUE_ID, "CONNECT%", MatchMode.START));
+            crit.addOrder(Order.desc(DOCUMENT_UNIQUE_ID));
+            crit.setMaxResults(1);
+
+            result = (DocumentMetadata) crit.uniqueResult();
+            return result == null ? 0 : Integer.parseInt(result.getDocumentUniqueId().substring(7)) + 1;
+        } catch (NumberFormatException e) {
+            if (result != null) {
+                LOG.error("Couldnt parse next ID from document ID {}", result.getDocumentUniqueId(), e);
+            } else {
+                LOG.error("Couldnt parse next ID from document ID. result was null", e);
+            }
+
+            throw e;
+        }
     }
 
     protected Session getSession() {
@@ -134,7 +159,7 @@ public class DocumentDao {
                 List<String> documentUniqueIds = parameters.getDocumentUniqueIds();
                 if (CollectionUtils.isNotEmpty(documentUniqueIds)) {
                     LOG.debug("Document query - document unique ids: {}", documentUniqueIds);
-                    criteria.add(Restrictions.in("documentUniqueId", documentUniqueIds));
+                    criteria.add(Restrictions.in(DOCUMENT_UNIQUE_ID, documentUniqueIds));
                 }
 
                 Boolean onDemand = parameters.getOnDemand();

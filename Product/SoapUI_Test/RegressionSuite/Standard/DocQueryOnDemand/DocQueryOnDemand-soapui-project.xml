@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="DocQueryOnDemand" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="27936d45-925a-4a1a-b8b7-382ef7171350" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="DocQueryOnDemand" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.3.0" activeEnvironment="Default" id="27936d45-925a-4a1a-b8b7-382ef7171350" xmlns:con="http://eviware.com/soapui/config">
   <con:description>On (5/11/2016) DocQueryOnDemand and DQDROnDemandandStableDR projects consolidated into DocQueryOnDemand project.
 Test artifacts wiki: https://cgiinterop.atlassian.net/wiki/x/HQBiAg</con:description>
   <con:settings/>
@@ -13,14 +13,14 @@ Test artifacts wiki: https://cgiinterop.atlassian.net/wiki/x/HQBiAg</con:descrip
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityDocRetrieve.wsdl" id="526b9353-5642-40b2-a7f8-942ffbf57b07" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint>
     </con:endpoints>
-    <con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:entitydocretrieve:RespondingGateway_CrossGatewayRetrieveRequestMessage" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveResponse" inputName="RespondingGateway_CrossGatewayRetrieveRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+    <con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:entitydocretrieve:RespondingGateway_CrossGatewayRetrieveRequestMessage" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveResponse" inputName="RespondingGateway_CrossGatewayRetrieveRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="6de20084-f872-47a7-8aba-36db15f551f7">
       <con:settings/>
-      <con:call name="Request 1">
+      <con:call name="Request 1" id="0e1a78a1-8238-4442-b774-1ff0c4b06a76">
         <con:settings/>
         <con:encoding>UTF-8</con:encoding>
         <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint>
@@ -362,12 +362,12 @@ Test artifacts wiki: https://cgiinterop.atlassian.net/wiki/x/HQBiAg</con:descrip
       </con:call>
     </con:operation>
   </con:interface>
-  <con:testSuite name="DQDR_OnDemand AND StableDR-g1">
+  <con:testSuite name="DQDR_OnDemand AND StableDR-g1" id="eb68e908-44a2-4a6d-9cc6-ac48591732c5">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="fff8de6d-a1e8-4140-9837-bb7a8dd63157">
       <con:settings/>
-      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="4faeb60d-8250-4a54-ac79-bfbf1c4b8ae0">
         <con:settings/>
         <con:config>
           <script>context.withSql('PatientCorrelationDB') { sql -> 
@@ -385,7 +385,7 @@ Test artifacts wiki: https://cgiinterop.atlassian.net/wiki/x/HQBiAg</con:descrip
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy" id="e4f90c39-f4ba-4a0c-8b38-d4811b38ef48">
         <con:settings/>
         <con:config>
           <script>context.withSql('AAMappingDB') { sql -> 
@@ -401,7 +401,7 @@ Test artifacts wiki: https://cgiinterop.atlassian.net/wiki/x/HQBiAg</con:descrip
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Document Query neither - assumes stable per spec" type="request">
+      <con:testStep name="Document Query neither - assumes stable per spec" type="request" id="93fe4c49-b72e-4e34-ac41-cdbb566c5ed5">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -679,7 +679,7 @@ assert (count == "2")</scriptText>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Document Query stable only" type="request">
+      <con:testStep name="Document Query stable only" type="request" id="abc3d318-32c6-4919-aec2-26c269e3bb4d">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -963,7 +963,7 @@ assert (count == "2")</scriptText>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Document Query ondemand only" type="request">
+      <con:testStep name="Document Query ondemand only" type="request" id="d9021336-6812-4a17-9a75-b5c16513c8cb">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -1246,7 +1246,7 @@ assert (count == "1")</scriptText>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Document Query both" type="request">
+      <con:testStep name="Document Query both" type="request" id="a58a8e2c-346c-47b4-9554-0943f5837dbd">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -1563,7 +1563,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="497595ae-1743-46d5-9429-7304164360e0">
       <con:settings/>
-      <con:testStep name="Document Retrieve stable" type="request">
+      <con:testStep name="Document Retrieve stable" type="request" id="d56514a9-f1f8-438f-bfba-cd445dd18fa2">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocRetrieveBindingSoap</con:interface>
@@ -1583,7 +1583,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
             <urn1:DocumentRequest>
                <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
-               <urn1:DocumentUniqueId>1.123401.55555 </urn1:DocumentUniqueId>
+               <urn1:DocumentUniqueId>1.123401.55555</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
@@ -1845,7 +1845,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -1854,7 +1854,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Document Retrieve ondemand" type="request">
+      <con:testStep name="Document Retrieve ondemand" type="request" id="f388130c-ac8e-4008-bba4-8292eb31955b">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocRetrieveBindingSoap</con:interface>
@@ -1874,7 +1874,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
             <urn1:DocumentRequest>
                <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
-               <urn1:DocumentUniqueId>1.123401.44444  </urn1:DocumentUniqueId>
+               <urn1:DocumentUniqueId>1.123401.44444</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
@@ -2136,7 +2136,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -4632,5 +4632,5 @@ sql.close()
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:oAuth2ProfileContainer/>
-  <con:sensitiveInformation/>
+  <con:oAuth1ProfileContainer/><con:sensitiveInformation/>
 </con:soapui-project>

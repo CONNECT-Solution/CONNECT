@@ -646,6 +646,60 @@
 </endpointConfiguration>
                             </endpointConfigurationList>
                         </endpoint>
+                        <endpoint>
+                            <name>documentdatasubmission</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>http://localhost:8080/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</url>
+                                    <version>1.0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>documentdatasubmissionsecured</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>https://localhost:8181/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionSecured</url>
+                                    <version>1.0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adaptercomponentxdsservice</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>http://localhost:8080/Adapter/DocumentDataSubmission/A_0/AdapterComponentDocDataSubmissionUnsecured</url>
+                                    <version>LEVEL_a0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adaptercomponentxdsservicesecured</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>https://localhost:8181/Adapter/DocumentDataSubmission/A_0/AdapterComponentDocDataSubmissionSecured</url>
+                                    <version>LEVEL_a0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterxdsservice</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>http://localhost:8080/Adapter/DocumentDataSubmission/A_0/AdapterDocDataSubmissionUnsecured</url>
+                                    <version>LEVEL_a0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterxdsservicesecured</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>https://localhost:8181/Adapter/DocumentDataSubmission/A_0/AdapterDocDataSubmissionSecured</url>
+                                    <version>LEVEL_a0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
                     </endpointList>
                     <targetRegion>US-NY</targetRegion>
                     <targetRegion>US-VA</targetRegion>

@@ -26,29 +26,28 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
+
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.ExchangeManagerServiceImpl;
-import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
-import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
+import gov.hhs.fha.nhinc.common.exchangemanagement.ExchangeDownloadStatusType;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.TLSVersionType;
 import gov.hhs.fha.nhinc.exchange.directory.ContactType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
-import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeDownloadStatus;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,12 +64,6 @@ public class ExchangeManagerBean {
     private static final String DLG_SAVE_EXCHANGE = "wvDlgSaveExchange";
     private static final String DLG_REFRESH_EXCHANGE = "wvDlgRefreshExchangeStatus";
     private static final String DLG_CONFIRM_OVERWRITE_EXCHAGE = "wvConfirmationOverwrite";
-    private static final String[] BUTTONS_REFRESH_LOCKED = {"formDlgExchange:btnSaveExchange",
-        "tabviewExchange:formGeneralSetting:btnStatusRefresh",
-        "tabviewExchange:formGeneralSetting:btnSaveExchangeInfo",
-        "tabviewExchange:formGeneralSetting:btnRefreshExchangeInfo",
-        "tabviewExchange:accordionExchange:formExchange:deleteExchange"};
-
     private ExchangeManagerService exchangeService = new ExchangeManagerServiceImpl();
 
     private ExchangeInfoType generalSetting;
@@ -80,12 +73,11 @@ public class ExchangeManagerBean {
     private String filterOrganization;
     private OrganizationType orgFilter;
     private String filterExchange;
-    private boolean recordRefreshLocked;
     private boolean agreeOverwriteExchange;
 
     private List<String> tlses;
     private List<OrganizationType> organizations;
-    private List<ExchangeDownloadStatus> exDownloadStatus;
+    private List<ExchangeDownloadStatusType> exDownloadStatus;
     private List<ExchangeType> exchanges;
 
     @PostConstruct
@@ -97,7 +89,7 @@ public class ExchangeManagerBean {
         return generalSetting;
     }
 
-    public List<ExchangeDownloadStatus> getExDownloadStatus() {
+    public List<ExchangeDownloadStatusType> getExDownloadStatus() {
         return exDownloadStatus;
     }
 
@@ -324,11 +316,8 @@ public class ExchangeManagerBean {
     }
 
     public boolean isRefreshLocked() {
-        if (recordRefreshLocked != exchangeService.isRefreshLocked()) {
-            recordRefreshLocked = exchangeService.isRefreshLocked();
-            RequestContext.getCurrentInstance().update(Arrays.asList(BUTTONS_REFRESH_LOCKED));
-        }
-        return exchangeService.isRefreshLocked();
+        // web-service no-longer return refreshLocked; action will fail if the exchangeManager is refreshLocked
+        return false;
     }
 
     public boolean isNotUniqueExchangeName() {
@@ -347,8 +336,14 @@ public class ExchangeManagerBean {
         agreeOverwriteExchange = overwriteValue;
     }
 
-    public boolean toggleIsEnabledFor(String exchangeName) {
-        return exchangeService.toggleExchangeIsEnabled(exchangeName);
+    public boolean toggleIsEnabledFor(ExchangeType exchange) {
+        boolean bCurrentStage = exchange.isDisabled();
+        exchange.setDisabled(!bCurrentStage);
+        boolean saveSuccessful = exchangeService.saveExchange(exchange);
+        if (!saveSuccessful) {
+            exchange.setDisabled(bCurrentStage);
+        }
+        return saveSuccessful;
     }
 
     private static String formatContact(ContactType contact) {
