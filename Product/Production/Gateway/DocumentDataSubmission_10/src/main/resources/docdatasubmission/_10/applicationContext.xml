@@ -41,16 +41,8 @@
         </property>
     </bean>
 
-    <bean id="stdDDSOutbound"
-      class="gov.hhs.fha.nhinc.docdatasubmission.outbound.StandardOutboundDocDataSubmission">
-    </bean>
-
     <bean id="ptDDSOutbound"
       class="gov.hhs.fha.nhinc.docdatasubmission.outbound.PassthroughOutboundDocDataSubmission">
-    </bean>
-
-    <bean id="stdDDSInbound"
-      class="gov.hhs.fha.nhinc.docdatasubmission.inbound.StandardInboundDocDataSubmission">
     </bean>
 
     <bean id="ptDDSInbound"
