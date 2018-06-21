@@ -7580,7 +7580,7 @@ context.withSql('DocRepositoryDB') { sql ->
     </con:property>
     <con:property>
       <con:name>DRRepoID</con:name>
-      <con:value>2.2</con:value>
+      <con:value>1</con:value>
     </con:property>
     <con:property>
       <con:name>DynamicDQDocID</con:name>
