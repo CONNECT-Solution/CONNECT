@@ -46,6 +46,7 @@ import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
 import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
 import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
@@ -294,6 +295,10 @@ public class GatewayService {
             // TODO: Currently only one patient is possibe/supported, need to figure out if we are planning to handle
             // multiple patients received from the PD service in the future
             break;
+        }
+        
+        if(NullChecker.isNotNullish(patientQuerySearch.getPatientList())) {
+            patientQuerySearch.getPatientList().get(0).setCorrelation(localCorrelation.getExtension());
         }
     }
 

@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.admingui.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.hl7.v3.II;
 
 /**
  *
@@ -60,6 +61,7 @@ public class Patient {
     private String drivinglicense;
     private String assigningAuthorityId;
     private String domain;
+    private String correlation = "No Correlation";
 
     private List<Document> documentList;
 
@@ -347,6 +349,14 @@ public class Patient {
      */
     public void setDomain(String domain) {
         this.domain = domain;
+    }
+
+    public void setCorrelation(String correlation) {
+        this.correlation = correlation;
+    }
+    
+    public String getCorrelation() {
+        return correlation;
     }
 
 }
