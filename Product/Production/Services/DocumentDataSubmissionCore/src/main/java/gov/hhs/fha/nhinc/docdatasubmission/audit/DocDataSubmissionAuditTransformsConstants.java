@@ -38,8 +38,9 @@ public class DocDataSubmissionAuditTransformsConstants {
     public static final String PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME = "Patient Number";
     public static final short PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_SYSTEM = 2;
     public static final short PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_ROLE = 20;
-    public static final String PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE = "urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd";
-    public static final String PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE_SYSTEM = "IHE DDS Metadata";
+    public static final String PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE
+        = "urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd";
+    public static final String PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_CODE_SYSTEM = "IHE XDS Metadata";
     public static final String PARTICIPANT_SUBMISSION_SET_OBJ_ID_TYPE_DISPLAY_NAME = "submission set classificationNode";
 
     public static final String EVENT_ID_CODE_DDS_SOURCE = "110106";
@@ -57,6 +58,5 @@ public class DocDataSubmissionAuditTransformsConstants {
     private DocDataSubmissionAuditTransformsConstants() {
         throw new IllegalStateException("Utility class");
     }
-
 
 }

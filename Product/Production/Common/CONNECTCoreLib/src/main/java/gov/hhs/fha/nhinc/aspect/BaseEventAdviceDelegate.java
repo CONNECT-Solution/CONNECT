@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,11 +27,6 @@
 package gov.hhs.fha.nhinc.aspect;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.event.ContextEventBuilder;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.Event;
@@ -42,8 +37,8 @@ import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
 import gov.hhs.fha.nhinc.event.EventDirector;
 import gov.hhs.fha.nhinc.event.EventRecorder;
 import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -243,24 +238,36 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
     private AssertionType getAssertion(Object[] args) {
         AssertionType assertion = null;
         for (Object obj : args) {
-            if (obj instanceof AssertionType) {
-                assertion = (AssertionType) obj;
-            } else if (obj instanceof RespondingGatewayPRPAIN201305UV02RequestType) {
-                assertion = ((RespondingGatewayPRPAIN201305UV02RequestType) obj).getAssertion();
-            } else if (obj instanceof RespondingGatewayCrossGatewayQueryRequestType) {
-                assertion = ((RespondingGatewayCrossGatewayQueryRequestType) obj).getAssertion();
-            } else if (obj instanceof RespondingGatewayCrossGatewayRetrieveRequestType) {
-                assertion = ((RespondingGatewayCrossGatewayRetrieveRequestType) obj).getAssertion();
-            } else if (obj instanceof RespondingGatewayProvideAndRegisterDocumentSetRequestType) {
-                assertion = ((RespondingGatewayProvideAndRegisterDocumentSetRequestType) obj).getAssertion();
-            } else if (obj instanceof RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType) {
-                assertion = ((RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType) obj).getAssertion();
-            } else if (obj instanceof RespondingGatewaySendAlertMessageType) {
-                assertion = ((RespondingGatewaySendAlertMessageType) obj).getAssertion();
-            } else if (obj instanceof RespondingGatewayPRPAIN201306UV02RequestType) {
-                assertion = ((RespondingGatewayPRPAIN201306UV02RequestType) obj).getAssertion();
+            assertion = getAssertion(obj);
+            if (null != assertion) {
+                break;
             }
         }
         return assertion;
+    }
+
+    public AssertionType getAssertion(Object obj) {
+        try {
+            if (obj != null) {
+                if (obj instanceof AssertionType) {
+                    return (AssertionType) obj;
+                } else {
+                    return getAssertionType(obj.getClass().getDeclaredMethods(), obj);
+                }
+            }
+        } catch (IllegalAccessException | InvocationTargetException ex) {
+            LOG.error("Unable to extract AssertionType from Object: {}", ex.getLocalizedMessage(), ex);
+        }
+        return null;
+    }
+
+    private AssertionType getAssertionType(Method[] methods, Object obj) throws IllegalAccessException,
+        InvocationTargetException {
+        for (Method m : methods) {
+            if (("getAssertion").equals(m.getName())) {
+                return (AssertionType) m.invoke(obj);
+            }
+        }
+        return null;
     }
 }

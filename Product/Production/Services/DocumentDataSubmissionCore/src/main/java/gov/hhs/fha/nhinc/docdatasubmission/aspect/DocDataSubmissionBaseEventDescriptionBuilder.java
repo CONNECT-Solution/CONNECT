@@ -28,10 +28,8 @@ package gov.hhs.fha.nhinc.docdatasubmission.aspect;
 
 import static gov.hhs.fha.nhinc.docdatasubmission.aspect.RegistryResponseDescriptionExtractor.getErrorCodes;
 import static gov.hhs.fha.nhinc.docdatasubmission.aspect.RegistryResponseDescriptionExtractor.getStatuses;
-
 import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -102,8 +100,6 @@ public class DocDataSubmissionBaseEventDescriptionBuilder extends TargetEventDes
     public void setReturnValue(Object returnValue) {
         if (returnValue != null && returnValue instanceof RegistryResponseType) {
             response = (RegistryResponseType) returnValue;
-        } else if (returnValue != null && returnValue instanceof XDRAcknowledgementType) {
-            response = ((XDRAcknowledgementType) returnValue).getMessage();
         }
     }
 

@@ -24,31 +24,59 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission.entity.proxy;
+package gov.hhs.fha.nhinc.docdatasubmission.v10.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docdatasubmission.outbound.PassthroughOutboundDocDataSubmission;
-import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import static org.junit.Assert.assertNotNull;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-public class EntityDocDataSubmissionProxyJavaImpl implements EntityDocDataSubmissionProxy {
+/**
+ *
+ * @author tjafri
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"/docdatasubmission/_10/applicationContext.xml"})
+public class EntityDocDataSubmissionSpringContextTest {
 
-    private PassthroughOutboundDocDataSubmission outboundDocDataSubmission = new PassthroughOutboundDocDataSubmission();
+    @Autowired
+    EntityDocDataSubmissionUnsecured entityUnsecuredDDS;
 
-    public EntityDocDataSubmissionProxyJavaImpl() {
-        super();
+    @Autowired
+    EntityDocDataSubmissionSecured entitySecuredDDS;
+
+    @Autowired
+    PassthroughOutboundDocDataSubmission outboundDocDataSubmission;
+
+    @Test
+    public void outboundUnsecured() {
+        assertNotNull(outboundDocDataSubmission);
+
+        RespondingGatewayRegisterDocumentSetRequestType request
+            = new RespondingGatewayRegisterDocumentSetRequestType();
+        RegistryResponseType response = entityUnsecuredDDS.registerDocumentSetB(
+            request);
+
+        assertNotNull(response);
+
     }
 
-    public EntityDocDataSubmissionProxyJavaImpl(PassthroughOutboundDocDataSubmission outboundDocDataSubmission) {
-        this.outboundDocDataSubmission = outboundDocDataSubmission;
-    }
+    @Test
+    public void outboundSecured() {
+        assertNotNull(outboundDocDataSubmission);
 
-    @Override
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion,
-        NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+        RespondingGatewayRegisterDocumentSetSecuredRequestType request
+            = new RespondingGatewayRegisterDocumentSetSecuredRequestType();
+        RegistryResponseType response = entitySecuredDDS.
+            registerDocumentSetB(request);
 
-        return outboundDocDataSubmission.registerDocumentSetB(msg, assertion, targets, urlInfo);
+        assertNotNull(response);
+
     }
 }

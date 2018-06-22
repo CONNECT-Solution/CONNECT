@@ -29,25 +29,50 @@ package gov.hhs.fha.nhinc.docdatasubmission.inbound;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy.AdapterDocDataSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.docdatasubmission.audit.DocDataSubmissionAuditLogger;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PassthroughInboundDocDataSubmission extends AbstractInboundDocDataSubmission {
 
+    private static final Logger LOG = LoggerFactory.getLogger(PassthroughInboundDocDataSubmission.class);
+
+    /**
+     * Constructor.
+     */
     public PassthroughInboundDocDataSubmission() {
-        this(new AdapterDocDataSubmissionProxyObjectFactory(), new DocDataSubmissionAuditLogger());
+        this(new AdapterDocDataSubmissionProxyObjectFactory(), PropertyAccessor.getInstance(),
+            new DocDataSubmissionAuditLogger());
     }
 
+    /**
+     * Constructor with dependency injection of strategy components.
+     *
+     * @param adapterFactory
+     * @param propertyAccessor
+     * @param auditLogger
+     */
     public PassthroughInboundDocDataSubmission(AdapterDocDataSubmissionProxyObjectFactory adapterFactory,
-        DocDataSubmissionAuditLogger auditLogger) {
+        PropertyAccessor propertyAccessor, DocDataSubmissionAuditLogger auditLogger) {
         super(adapterFactory, auditLogger);
+    }
+
+    @Override
+    public RegistryResponseType documentRepositoryRegisterDocumentSetB(RegisterDocumentSetRequestType body,
+        AssertionType assertion, Properties webContextProperties) {
+
+        LOG.info("Processing Document Data Submission");
+        RegistryResponseType response = processDocDataSubmission(body, assertion, webContextProperties);
+        auditResponse(body, response, assertion, webContextProperties);
+        return response;
     }
 
     @Override
     public RegistryResponseType processDocDataSubmission(RegisterDocumentSetRequestType body, AssertionType assertion,
         Properties webContextProperties) {
-        return new RegistryResponseType();
+        return sendToAdapter(body, assertion);
     }
-
 }
