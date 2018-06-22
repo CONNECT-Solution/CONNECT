@@ -43,17 +43,6 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityxds}EntityXDS_Binding" definition="../../../target/wsdl/EntityDDS.wsdl" name="EntityXDS_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="b45a46f7-4b7d-45cb-9cf8-7acfd1895d25" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <con:settings/>
-    <con:endpoints>
-      <con:endpoint>${#TestSuite#Endpoint-XDSEntity}</con:endpoint>
-      <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint>
-      <con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
-    </con:endpoints>
-    <con:operation action="" anonymous="optional" bindingOperationName="RegisterDocumentSet-b" inputName="" isOneWay="false" name="RegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response" id="8e18d70b-c632-420a-ac0c-cc71b4115b7a">
-      <con:settings/>
-    </con:operation>
-  </con:interface>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="../../../target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="8c8a5dbe-9819-47db-ae01-9bacac0e2c31" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
