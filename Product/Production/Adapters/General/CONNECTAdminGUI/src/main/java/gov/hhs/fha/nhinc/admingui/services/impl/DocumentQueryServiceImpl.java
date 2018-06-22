@@ -68,6 +68,11 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
     private static Logger LOG = LoggerFactory.getLogger(DocumentQueryServiceImpl.class);
     private AdhocQueryRequestBuilder requestBuilder;
     private DocumentMetadataResultsModelBuilder responseBuilder;
+    
+    private static final NhincConstants.UDDI_SPEC_VERSION DEFAULT_VERSION = NhincConstants.UDDI_SPEC_VERSION.SPEC_3_0;
+    public static final String DOC_QUERY_20_MODE_OUT_PROPNAME = "docquery.20.outboundDocQuery";
+    public static final String DOC_QUERY_30_MODE_OUT_PROPNAME = "docquery.30.outboundDocQuery";
+    
 
     /**
      * Instantiates a new DocumentQueryServiceImpl.
@@ -159,9 +164,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
         }
     }
     
-    private NhincConstants.UDDI_SPEC_VERSION getOrganizationSpecVersion(String hcid) {
-        final NhincConstants.UDDI_SPEC_VERSION DEFAULT_VERSION = NhincConstants.UDDI_SPEC_VERSION.SPEC_3_0;
-        
+    private static NhincConstants.UDDI_SPEC_VERSION getOrganizationSpecVersion(String hcid) {
         try {
             OrganizationType org = ExchangeManager.getInstance().getOrganization(hcid);
             EndpointType ep = ExchangeManagerHelper.findEndpointTypeBy(org, NhincConstants.DOC_QUERY_SERVICE_NAME);
@@ -174,13 +177,13 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
         return DEFAULT_VERSION;
     } 
     
-    private boolean isPassthrough(String hcid) {
+    private static boolean isPassthrough(String hcid) {
         String propertyName;
         NhincConstants.UDDI_SPEC_VERSION specVersion = getOrganizationSpecVersion(hcid);
         if(specVersion.equals(NhincConstants.UDDI_SPEC_VERSION.SPEC_2_0)) {
-            propertyName = "docquery.20.outboundDocQuery";
+            propertyName = DOC_QUERY_20_MODE_OUT_PROPNAME;
         } else {
-            propertyName = "docquery.30.outboundDocQuery";
+            propertyName = DOC_QUERY_30_MODE_OUT_PROPNAME;
         }
         
         String propValue = null;
@@ -192,7 +195,7 @@ public class DocumentQueryServiceImpl implements DocumentQueryService {
         return NullChecker.isNotNullish(propValue);
     }
     
-    protected PropertyAccessor getPropAccessor() {
+    protected static PropertyAccessor getPropAccessor() {
         return PropertyAccessor.getInstance();
     }
 }

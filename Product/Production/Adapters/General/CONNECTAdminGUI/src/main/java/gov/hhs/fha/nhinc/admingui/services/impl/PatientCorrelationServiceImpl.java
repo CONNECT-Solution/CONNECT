@@ -59,15 +59,27 @@ public class PatientCorrelationServiceImpl implements PatientCorrelationService 
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientCorrelationServiceImpl.class);
     private String localAA;
-    private PatientCorrelationProxy correlationClient = new PatientCorrelationProxyWebServiceUnsecuredImpl();
+    private final PatientCorrelationProxy correlationClient = new PatientCorrelationProxyWebServiceUnsecuredImpl();
 
     @Override
+    public II retrieveOrGenerateCorrelation(PatientSearchResults patientResults, AssertionType assertion) {
+        II correlation = getLocalPatient(patientResults);
+        if(correlation == null) {
+            queryForCorrelations(patientResults, assertion);
+            correlation = getLocalPatient(patientResults.getPatientList().get(0).getCorrelations());
+        }
+        
+        if(correlation == null) {
+            correlation = addCorrelation(patientResults, assertion);
+        }
+        return correlation;
+    }
+    
+    @Override
     public II getLocalPatient(PatientSearchResults patientResults) {
-        if (!patientResults.isPatientListEmpty()) {
-            if (NullChecker.isNotNullish(patientResults.getPatientList().get(0).getAaId()) 
-                    && patientResults.getPatientList().get(0).getAaId().equals(getLocalAA())) {
-                return IIHelper.IIFactory(getLocalAA(), patientResults.getPatientList().get(0).getPid());
-            }
+        if (!patientResults.isPatientListEmpty() && NullChecker.isNotNullish(patientResults.getPatientList().get(0).getAaId())
+                && patientResults.getPatientList().get(0).getAaId().equals(getLocalAA())) {
+            return IIHelper.IIFactory(getLocalAA(), patientResults.getPatientList().get(0).getPid());
         }
         return null;
     }
@@ -112,17 +124,17 @@ public class PatientCorrelationServiceImpl implements PatientCorrelationService 
             try {
                 localAA = getPropertyAccessor().getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, NhincConstants.ASSIGNING_AUTH_PROPERTY);
             } catch (PropertyAccessException ex) {
-                LOG.warn("Unable to get local assigning authority due to: {}", ex.getLocalizedMessage());
+                LOG.error("Unable to get local assigning authority due to: {}", ex.getLocalizedMessage());
             }
         }
         return localAA;
     }
 
-    private PropertyAccessor getPropertyAccessor() {
+    private static PropertyAccessor getPropertyAccessor() {
         return PropertyAccessor.getInstance();
     }
 
-    private PRPAIN201309UV02 buildPRPAINRequest(PatientSearchResults patientResults) {
+    private static PRPAIN201309UV02 buildPRPAINRequest(PatientSearchResults patientResults) {
         RetrievePatientCorrelationsRequestType retrieveCorrelations = new RetrievePatientCorrelationsRequestType();
 
         if (!patientResults.isPatientListEmpty() && NullChecker.isNotNullish(patientResults.getPatientList().get(0).getPid())
@@ -137,22 +149,33 @@ public class PatientCorrelationServiceImpl implements PatientCorrelationService 
         return null;
     }
 
-    private void addToCorrelationList(RetrievePatientCorrelationsResponseType response, PatientSearchResults patientResults) {
-        if(!patientResults.isPatientListEmpty() && patientResults.getPatientList().get(0) != null
-             && response != null && response.getPRPAIN201310UV02() != null
-             && response.getPRPAIN201310UV02().getControlActProcess() != null
-             && response.getPRPAIN201310UV02().getControlActProcess().getSubject() != null) {
+    private static void addToCorrelationList(RetrievePatientCorrelationsResponseType response, PatientSearchResults patientResults) {
+        if(isPatientResultEmpty(patientResults) && isCorrelationResponseEmpty(response)) {
             List<PRPAIN201310UV02MFMIMT700711UV01Subject1> subjectList = response.getPRPAIN201310UV02().getControlActProcess().getSubject();
             for (PRPAIN201310UV02MFMIMT700711UV01Subject1 subject : subjectList) {
-                if(subject.getRegistrationEvent() != null && subject.getRegistrationEvent().getSubject1() != null
-                        && subject.getRegistrationEvent().getSubject1().getPatient() != null) {
-                    patientResults.getPatientList().get(0).getCorrelations().addAll(subject.getRegistrationEvent().getSubject1().getPatient().getId());
-                }
+                addToCorrelationList(subject, patientResults);
             }
         }
     }
+    
+    private static boolean isPatientResultEmpty(PatientSearchResults patientResults) {
+        return !patientResults.isPatientListEmpty() && patientResults.getPatientList().get(0) != null;
+    }
+    
+    private static boolean isCorrelationResponseEmpty(RetrievePatientCorrelationsResponseType response) {
+        return response != null && response.getPRPAIN201310UV02() != null
+             && response.getPRPAIN201310UV02().getControlActProcess() != null
+             && response.getPRPAIN201310UV02().getControlActProcess().getSubject() != null;
+    }
+    
+    private static void addToCorrelationList(PRPAIN201310UV02MFMIMT700711UV01Subject1 subject, PatientSearchResults patientResults) {
+        if (subject.getRegistrationEvent() != null && subject.getRegistrationEvent().getSubject1() != null
+                && subject.getRegistrationEvent().getSubject1().getPatient() != null) {
+            patientResults.getPatientList().get(0).getCorrelations().addAll(subject.getRegistrationEvent().getSubject1().getPatient().getId());
+        }
+    }
 
-    private String generatePatientId() {
+    private static String generatePatientId() {
         int number = new Random().nextInt(10000000);
         return "CONNECT-" + String.format ("%07d", number);      
     }
