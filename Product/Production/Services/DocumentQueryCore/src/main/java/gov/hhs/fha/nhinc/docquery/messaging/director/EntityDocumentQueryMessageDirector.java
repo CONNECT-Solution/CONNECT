@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docquery.messaging.director;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.docquery.builder.AdhocQueryRequestBuilder;
-import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
 import gov.hhs.fha.nhinc.messaging.builder.Builder;
 import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
 

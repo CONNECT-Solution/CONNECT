@@ -36,9 +36,7 @@ import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
 import gov.hhs.fha.nhinc.docretrieve.model.builder.DocumentRetrieveResultsModelBuilder;
 import gov.hhs.fha.nhinc.docretrieve.model.builder.impl.DocumentRetrieveResultsModelBuilderImpl;
-import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
 import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
-import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
 import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
@@ -70,7 +68,6 @@ public class DocumentRetrieveServiceImpl implements DocumentRetrieveService {
 
     private DocumentRetrieveMessageDirectorImpl setMessageDirector(DocumentRetrieve documentModel, AssertionType assertion) {
         messageDirector = new DocumentRetrieveMessageDirectorImpl();
-        AssertionBuilder assertionBuilder = new AssertionBuilderImpl();
         messageDirector.setAssertion(assertion);
         messageDirector.setTargetCommunitiesBuilder(setNhinTarget(documentModel));
         messageDirector.setDocumentRetrieveBuilder(createRetrieveDocumentSetRequest(documentModel));

@@ -37,6 +37,7 @@ import org.hl7.v3.II;
  */
 public interface PatientCorrelationService {
     
+    public II retrieveOrGenerateCorrelation(PatientSearchResults patientResults, AssertionType assertion);
     public II getLocalPatient(PatientSearchResults patientResults);
     public II getLocalPatient(List<II> correlations);
     public void queryForCorrelations(PatientSearchResults patientResults, AssertionType assertion);

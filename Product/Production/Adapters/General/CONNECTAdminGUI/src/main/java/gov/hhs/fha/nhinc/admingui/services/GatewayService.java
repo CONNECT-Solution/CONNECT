@@ -151,16 +151,7 @@ public class GatewayService {
                 return false;
             }
             
-            localCorrelation = correlationService.getLocalPatient(patientDiscoveryResults);
-            
-            if(localCorrelation == null) {
-                correlationService.queryForCorrelations(patientDiscoveryResults, assertion);
-                localCorrelation = correlationService.getLocalPatient(patientDiscoveryResults.getPatientList().get(0).getCorrelations());
-            }
-            
-            if(localCorrelation == null) {
-                localCorrelation = correlationService.addCorrelation(patientDiscoveryResults, assertion);
-            }
+            localCorrelation = correlationService.retrieveOrGenerateCorrelation(patientDiscoveryResults, assertion);
             // populate the UI patient object with the results data
             populatePatientBean(patientDiscoveryResults, patientQuerySearch);
             return true;
