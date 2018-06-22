@@ -24,31 +24,37 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission.entity.proxy;
+package gov.hhs.fha.nhinc.docdatasubmission.v10.nhin;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.docdatasubmission.outbound.PassthroughOutboundDocDataSubmission;
+import gov.hhs.fha.nhinc.docdatasubmission.inbound.PassthroughInboundDocDataSubmission;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import static org.junit.Assert.assertNotNull;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-public class EntityDocDataSubmissionProxyJavaImpl implements EntityDocDataSubmissionProxy {
+/**
+ *
+ * @author tjafri
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"/docdatasubmission/_10/applicationContext.xml"})
+public class NhinDocDataSubmissionSpringContextTest {
 
-    private PassthroughOutboundDocDataSubmission outboundDocDataSubmission = new PassthroughOutboundDocDataSubmission();
+    @Autowired
+    NhinDocDataSubmission nhinDDS;
 
-    public EntityDocDataSubmissionProxyJavaImpl() {
-        super();
-    }
+    @Autowired
+    PassthroughInboundDocDataSubmission inboundDocDataSubmission;
 
-    public EntityDocDataSubmissionProxyJavaImpl(PassthroughOutboundDocDataSubmission outboundDocDataSubmission) {
-        this.outboundDocDataSubmission = outboundDocDataSubmission;
-    }
-
-    @Override
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion,
-        NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-
-        return outboundDocDataSubmission.registerDocumentSetB(msg, assertion, targets, urlInfo);
+    @Test
+    public void verifyInbound() {
+        assertNotNull(inboundDocDataSubmission);
+        RegisterDocumentSetRequestType body = new RegisterDocumentSetRequestType();
+        RegistryResponseType response = nhinDDS.documentRegistryXDSRegisterDocumentSetB(body);
+        assertNotNull(response);
     }
 }

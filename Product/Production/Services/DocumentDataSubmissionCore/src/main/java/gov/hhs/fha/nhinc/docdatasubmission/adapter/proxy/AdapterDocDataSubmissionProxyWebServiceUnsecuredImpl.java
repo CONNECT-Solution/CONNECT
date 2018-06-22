@@ -27,10 +27,12 @@
 package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adapterxds.AdapterXDSPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.adapter.descriptor.AdapterDocDataSubmissionServicePortDescriptor;
+import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -43,10 +45,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AdapterDocDataSubmissionProxyWebServiceUnsecuredImpl implements AdapterDocDataSubmissionProxy {
+
     private static final Logger LOG = LoggerFactory
         .getLogger(AdapterDocDataSubmissionProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
+    @AdapterDelegationEvent(serviceType = "Document Data Submission", version = "",
+        beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
+        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class)
     @Override
     public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion) {
         LOG.debug("Begin RegisterDocumentSetB");
@@ -60,7 +66,8 @@ public class AdapterDocDataSubmissionProxyWebServiceUnsecuredImpl implements Ada
                 request.setRegisterDocumentSetRequest(msg);
                 request.setAssertion(assertion);
 
-                ServicePortDescriptor<AdapterXDSPortType> portDescriptor = new AdapterDocDataSubmissionServicePortDescriptor();
+                ServicePortDescriptor<AdapterXDSPortType> portDescriptor
+                    = new AdapterDocDataSubmissionServicePortDescriptor();
 
                 CONNECTClient<AdapterXDSPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientUnsecured(portDescriptor, url, assertion);

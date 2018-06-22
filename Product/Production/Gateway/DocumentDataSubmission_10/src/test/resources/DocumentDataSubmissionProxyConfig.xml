@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/aop     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <!--
+        The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces
+        in the description separated with a comma like the following sample: {somebean,anotherbean}
+    -->
+    <description>Beans included in this file: {adapterdocdatasubmission,entitydocdatasubmission,nhinxdds}</description>
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config />
+
+    <import resource="classpath:CONNECT-context.xml"/>
+    <import resource="classpath:eventlogging.xml"/>
+
+    <!--
+        Beans defined for adapterdocdatasubmission
+    -->
+    <alias alias="adapterdocdatasubmission" name="adapterdocdatasubmissionwssecured" />
+
+    <!-- No-op Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy.AdapterDocDataSubmissionProxyNoOpImpl" id="adapterdocdatasubmissionnoop" name="adapterdocdatasubmissionnoop">
+        <meta key="impltype" value="noop"/>
+    </bean>
+
+    <!-- Java Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy.AdapterDocDataSubmissionProxyJavaImpl" id="adapterdocdatasubmissionjava" name="adapterdocdatasubmissionjava">
+        <meta key="impltype" value="java"/>
+    </bean>
+
+    <!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy.AdapterDocDataSubmissionProxyWebServiceSecuredImpl" id="adapterdocdatasubmissionwssecured" name="adapterdocdatasubmissionwssecured">
+        <meta key="impltype" value="wssecured"/>
+        <meta key="default" value="true"/>
+    </bean>
+
+    <!-- Unsecured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy.AdapterDocDataSubmissionProxyWebServiceUnsecuredImpl" id="adapterdocdatasubmissionwsunsecured" name="adapterdocdatasubmissionwsunsecured">
+        <meta key="impltype" value="wsunsecured"/>
+    </bean>
+
+
+    <!--
+        Beans defined for entitydocdatasubmission
+    -->
+    <alias alias="entitydocdatasubmission" name="entitydocdatasubmissionwssecured" />
+
+    <!-- No-op Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docdatasubmission.entity.proxy.EntityDocDataSubmissionProxyNoOpImpl" id="entitydocdatasubmissionnoop" name="entitydocdatasubmissionnoop">
+        <meta key="impltype" value="noop"/>
+    </bean>
+
+    <!-- Java Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docdatasubmission.entity.proxy.EntityDocDataSubmissionProxyJavaImpl" id="entitydocdatasubmissionjava" name="entitydocdatasubmissionjava">
+        <meta key="impltype" value="java"/>
+    </bean>
+
+    <!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docdatasubmission.entity.proxy.EntityDocDataSubmissionProxyWebServiceSecuredImpl" id="entitydocdatasubmissionwssecured" name="entitydocdatasubmissionwssecured">
+        <meta key="impltype" value="wssecured"/>
+        <meta key="default" value="true"/>
+    </bean>
+
+    <!-- Unsecured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docdatasubmission.entity.proxy.EntityDocDataSubmissionProxyWebServiceUnsecuredImpl" id="entitydocdatasubmissionwsunsecured" name="entitydocdatasubmissionwsunsecured">
+        <meta key="impltype" value="wsunsecured"/>
+    </bean>
+
+    <!--
+        Beans defined for nhinxdds
+    -->
+    <alias alias="nhinxdds" name="nhinxddswssecured" />
+
+    <!-- No-op Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.NhinDocDataSubmissionProxyNoOpImpl" id="nhinxddsnoop" name="nhinxddsnoop">
+        <meta key="impltype" value="noop"/>
+    </bean>
+
+    <!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.NhinDocDataSubmissionProxyWebServiceSecuredImpl" id="nhinxddswssecured" name="nhinxddswssecured">
+        <meta key="impltype" value="wssecured"/>
+        <meta key="default" value="true"/>
+    </bean>
+
+    <!-- Aspect Service -->
+    <aop:aspectj-autoproxy />
+</beans>

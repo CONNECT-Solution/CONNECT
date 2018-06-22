@@ -27,9 +27,11 @@
 package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adapterxdssecured.AdapterXDSSecuredPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.adapter.descriptor.AdapterDocDataSubmissionSecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -46,6 +48,9 @@ public class AdapterDocDataSubmissionProxyWebServiceSecuredImpl implements Adapt
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocDataSubmissionProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
+    @AdapterDelegationEvent(serviceType = "Document Data Submission", version = "",
+        beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
+        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class)
     @Override
     public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion) {
         RegistryResponseType response = null;
@@ -55,7 +60,8 @@ public class AdapterDocDataSubmissionProxyWebServiceSecuredImpl implements Adapt
                 .getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_XDS_SECURED_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
 
-                ServicePortDescriptor<AdapterXDSSecuredPortType> portDescriptor = new AdapterDocDataSubmissionSecuredServicePortDescriptor();
+                ServicePortDescriptor<AdapterXDSSecuredPortType> portDescriptor
+                    = new AdapterDocDataSubmissionSecuredServicePortDescriptor();
 
                 CONNECTClient<AdapterXDSSecuredPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientSecured(portDescriptor, url, assertion);
