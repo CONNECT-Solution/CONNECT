@@ -40,8 +40,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
+import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201309UV02;
@@ -176,8 +176,7 @@ public class PatientCorrelationServiceImpl implements PatientCorrelationService 
     }
 
     private static String generatePatientId() {
-        int number = new Random().nextInt(10000000);
-        return "CONNECT-" + String.format ("%07d", number);      
+        return "CONNECT-" + new Date().getTime();      
     }
 
 }
