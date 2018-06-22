@@ -256,7 +256,7 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
                 }
             }
         } catch (IllegalAccessException | InvocationTargetException ex) {
-            LOG.info("Unable to extract AssertionType from Object", ex);
+            LOG.error("Unable to extract AssertionType from Object: {}", ex.getLocalizedMessage(), ex);
         }
         return null;
     }
