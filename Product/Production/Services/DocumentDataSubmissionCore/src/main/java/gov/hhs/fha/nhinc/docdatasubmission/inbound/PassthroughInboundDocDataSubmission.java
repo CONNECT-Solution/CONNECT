@@ -26,10 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.inbound;
 
-import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy.AdapterDocDataSubmissionProxyObjectFactory;
-import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docdatasubmission.audit.DocDataSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
@@ -63,9 +61,6 @@ public class PassthroughInboundDocDataSubmission extends AbstractInboundDocDataS
     }
 
     @Override
-    @InboundProcessingEvent(beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-        serviceType = "Document Data Submission", version = "1.0")
     public RegistryResponseType documentRepositoryRegisterDocumentSetB(RegisterDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties) {
 

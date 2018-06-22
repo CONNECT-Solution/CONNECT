@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.outbound;
 
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -35,7 +34,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
-import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docdatasubmission.audit.DocDataSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.docdatasubmission.entity.OutboundDocDataSubmissionDelegate;
 import gov.hhs.fha.nhinc.docdatasubmission.entity.OutboundDocDataSubmissionOrchestratable;
@@ -59,9 +57,6 @@ public class PassthroughOutboundDocDataSubmission implements OutboundDocDataSubm
     }
 
     @Override
-    @OutboundProcessingEvent(beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-        serviceType = "Document Data Submission", version = "1.0")
     public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType body, AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
