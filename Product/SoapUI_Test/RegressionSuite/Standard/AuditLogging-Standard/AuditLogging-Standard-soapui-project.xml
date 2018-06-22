@@ -3080,7 +3080,7 @@ if (propertiesFile.exists()) {
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Data Submission" searchProperties="true" id="bfb21e63-366d-4679-9fe6-33293702838f">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Data Submission" searchProperties="true" id="bfb21e63-366d-4679-9fe6-33293702838f" disabled="true">
       <con:settings/>
       <con:testStep type="groovy" name="Clear Audit Logs" id="cd5e587a-19fa-4a60-9020-521134fd99cd">
         <con:settings/>
@@ -13103,7 +13103,7 @@ if (propertiesFile.exists()) {
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Data Submission" searchProperties="true" id="fb0a6077-5978-4615-ae36-a77a19ceef7d">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Data Submission" searchProperties="true" id="fb0a6077-5978-4615-ae36-a77a19ceef7d" disabled="true">
       <con:settings/>
       <con:testStep type="groovy" name="Clear Audit Logs" id="a6bf2189-f4b7-424b-834c-fd4846263567">
         <con:settings/>
