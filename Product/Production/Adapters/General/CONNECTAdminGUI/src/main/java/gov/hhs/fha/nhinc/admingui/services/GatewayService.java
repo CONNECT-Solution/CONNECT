@@ -30,10 +30,13 @@ import gov.hhs.fha.nhinc.admingui.managed.PatientSearchBean;
 import gov.hhs.fha.nhinc.admingui.model.Document;
 import gov.hhs.fha.nhinc.admingui.model.Patient;
 import gov.hhs.fha.nhinc.admingui.services.exception.DocumentMetadataException;
+import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
 import gov.hhs.fha.nhinc.admingui.services.impl.DocumentQueryServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.DocumentRetrieveServiceImpl;
+import gov.hhs.fha.nhinc.admingui.services.impl.PatientCorrelationServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.PatientServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.XSLTransformHelper;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.builder.impl.FindDocumentsAdhocQueryRequestBuilder;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResult;
@@ -41,6 +44,9 @@ import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResults;
 import gov.hhs.fha.nhinc.docquery.model.builder.impl.DocumentMetadataResultsModelBuilderImpl;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
+import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
+import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
@@ -51,6 +57,7 @@ import java.text.SimpleDateFormat;
 import javax.faces.context.FacesContext;
 import javax.ws.rs.core.MediaType;
 import org.apache.commons.lang.StringUtils;
+import org.hl7.v3.II;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,8 +72,11 @@ public class GatewayService {
     private static final Logger LOG = LoggerFactory.getLogger(GatewayService.class);
 
     private final PatientService patientService;
+    private final PatientCorrelationService correlationService;
     private final DocumentQueryService documentQueryService;
     private final DocumentRetrieveService documentRetrieveService;
+    private final AssertionBuilder assertionBuilder;
+    private final AssertionType assertion;
 
     // Should be moved to a constant file later
     public static final String CONTENT_TYPE_IMAGE_PNG = org.springframework.http.MediaType.IMAGE_PNG.toString();
@@ -82,12 +92,18 @@ public class GatewayService {
     public static final String CONTENT_TYPE_APPLICATION_PDF = "application/pdf";
     public static final String DEFAULT_XSL_FILE = "/WEB-INF/CDA.xsl";
     private final XSLTransformHelper transformer = new XSLTransformHelper();
+    private II localCorrelation;
 
     private GatewayService() {
         // create the Service implementation instances
         patientService = new PatientServiceImpl();
-        documentQueryService = new DocumentQueryServiceImpl();
+        correlationService = new PatientCorrelationServiceImpl();
+        documentQueryService = new DocumentQueryServiceImpl(new FindDocumentsAdhocQueryRequestBuilder(),
+                new DocumentMetadataResultsModelBuilderImpl());
         documentRetrieveService = new DocumentRetrieveServiceImpl();
+        assertionBuilder = new AssertionBuilderImpl();
+        assertionBuilder.build();
+        assertion = assertionBuilder.getAssertion();
     }
 
     private static class SingletonHolder {
@@ -108,6 +124,7 @@ public class GatewayService {
      */
     public boolean discoverPatient(final PatientSearchBean patientQuerySearch) {
 
+        
         // Create the patient bean that needs to be passed to the service layer
         final gov.hhs.fha.nhinc.patientdiscovery.model.Patient patientBean
             = new gov.hhs.fha.nhinc.patientdiscovery.model.Patient();
@@ -125,7 +142,7 @@ public class GatewayService {
 
         try {
             // Call the entity/gateway Patient Discovery service
-            final PatientSearchResults patientDiscoveryResults = patientService.queryPatient(patientBean);
+            final PatientSearchResults patientDiscoveryResults = patientService.queryPatient(patientBean, assertion);
             LOG.debug("Patient Discovery call successful. Total number of patients found: {}",
                 patientDiscoveryResults.getPatientList().size());
 
@@ -133,10 +150,12 @@ public class GatewayService {
             if (patientDiscoveryResults.getPatientList().isEmpty()) {
                 return false;
             }
+            
+            localCorrelation = correlationService.retrieveOrGenerateCorrelation(patientDiscoveryResults, assertion);
             // populate the UI patient object with the results data
             populatePatientBean(patientDiscoveryResults, patientQuerySearch);
             return true;
-        } catch (final Exception ex) {
+        } catch (final PatientSearchException ex) {
             LOG.error("Failed to Retrieve Patient Data: {}", ex.getLocalizedMessage(), ex);
             // TODO: notify the UI or somehow inform the user
             return false;
@@ -168,9 +187,7 @@ public class GatewayService {
         document.setPatientIdRoot(patientQuerySearch.getSelectedCurrentPatient().getAssigningAuthorityId());
 
         try {
-            final DocumentQueryServiceImpl dqService = new DocumentQueryServiceImpl(
-                new FindDocumentsAdhocQueryRequestBuilder(), new DocumentMetadataResultsModelBuilderImpl());
-            final DocumentMetadataResults documentQueryResults = dqService.queryForDocuments(document);
+            final DocumentMetadataResults documentQueryResults = documentQueryService.queryForDocuments(document, localCorrelation, assertion);
 
             // Check the number of documents
             if (documentQueryResults.getResults().isEmpty()) {
@@ -201,7 +218,7 @@ public class GatewayService {
         docRetrieve.setRepositoryId(patientQuerySearch.getSelectedCurrentDocument().getRepositoryUniqueId());
 
         // Call the NwHIN service to retrieve the document
-        final DocumentRetrieveResults response = documentRetrieveService.retrieveDocuments(docRetrieve);
+        final DocumentRetrieveResults response = documentRetrieveService.retrieveDocuments(docRetrieve, assertion);
         // set the retrieved document to the UI patient bean
         if (response.getDocument() != null) {
             if (response.getContentType() != null && (response.getContentType().equals(CONTENT_TYPE_APPLICATION_XML)
@@ -225,6 +242,10 @@ public class GatewayService {
             return true;
         }
         return false;
+    }
+    
+    public void clearLocalCorrelation() {
+        localCorrelation = null;
     }
 
     /**
@@ -265,6 +286,10 @@ public class GatewayService {
             // TODO: Currently only one patient is possibe/supported, need to figure out if we are planning to handle
             // multiple patients received from the PD service in the future
             break;
+        }
+        
+        if(NullChecker.isNotNullish(patientQuerySearch.getPatientList())) {
+            patientQuerySearch.getPatientList().get(0).setCorrelation(localCorrelation.getExtension());
         }
     }
 

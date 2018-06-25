@@ -61,11 +61,8 @@ public class EntityDocumentQueryMessageDirectorImpl extends AbstractMessageDirec
             dqBuilder.build();
             message.setAdhocQueryRequest(dqBuilder.getMessage());
         }
-
-        if (assertionBuilder != null) {
-            assertionBuilder.build();
-            message.setAssertion(assertionBuilder.getAssertion());
-        }
+       
+        message.setAssertion(assertion);
 
         if (targetBuilder != null) {
             targetBuilder.build();

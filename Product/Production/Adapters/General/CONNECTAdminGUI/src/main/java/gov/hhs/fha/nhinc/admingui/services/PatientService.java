@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.services;
 
 import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 
@@ -43,6 +44,6 @@ public interface PatientService {
      * @param query the query
      * @return the patient search results
      */
-    public PatientSearchResults queryPatient(Patient patient) throws PatientSearchException;
+    public PatientSearchResults queryPatient(Patient patient, AssertionType assertion) throws PatientSearchException;
 
 }

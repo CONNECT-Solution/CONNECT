@@ -26,6 +26,10 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.hl7.v3.II;
+
 /**
  *
  * @author tjafri
@@ -49,6 +53,7 @@ public class Patient {
     private String domain;
     private String aaId;
     private String organization;// the organization Home community Id
+    private final List<II> correlations;
 
     public Patient() {
         this.firstName = "";
@@ -68,6 +73,7 @@ public class Patient {
         this.domain = "";
         this.aaId = "";
         this.organization = "";
+        this.correlations = new ArrayList<>();
     }
 
     public String getFirstName() {
@@ -205,4 +211,9 @@ public class Patient {
     public void setOrganization(String organization) {
         this.organization = organization;
     }
+
+    public List<II> getCorrelations() {
+        return correlations;
+    }
+    
 }
