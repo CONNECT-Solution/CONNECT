@@ -1853,7 +1853,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>false</con:value>
+          <con:value>true</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4127,7 +4127,8 @@ context.withSql('DocRepositoryDB') { sql ->
 		def found = sql.firstRow('select count(*) from ' + context.findProperty('DocumentRegistryTable') + ' where DocumentUniqueId = "CONNECT0";' )[0]
 		log.info "Found ${found} and expected ${dsCorrelations}"
 		assert dsCorrelations == found
-		}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2018-06-20T13:19:14Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2018-06-20T13:29:14Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/20/2018 13:19:14</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2018-07-20T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:properties/>
+		}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2018-06-20T13:19:14Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2018-06-20T13:29:14Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/20/2018 13:19:14</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2018-07-20T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:properties/>
     <con:setupScript/>
     <con:tearDownScript/>
     <con:reportParameters/>
@@ -5186,7 +5187,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>false</con:value>
+          <con:value>true</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
