@@ -4124,7 +4124,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 log.info "Assert ${dsCorrelations} number of correlations"
 
 context.withSql('DocRepositoryDB') { sql -> 
-		def found = sql.firstRow('select count(*) from ' + context.findProperty('DocumentRegistryTable') + ' where DocumentUniqueId = "1.2.3.4.5.6.78901.2345.6.7890.12";' )[0]
+		def found = sql.firstRow('select count(*) from ' + context.findProperty('DocumentRegistryTable') + ' where DocumentUniqueId = "CONNECT0";' )[0]
 		log.info "Found ${found} and expected ${dsCorrelations}"
 		assert dsCorrelations == found
 		}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2018-06-20T13:19:14Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2018-06-20T13:29:14Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/20/2018 13:19:14</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2018-07-20T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:properties/>
