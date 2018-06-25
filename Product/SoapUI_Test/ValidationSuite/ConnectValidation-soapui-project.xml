@@ -1473,6 +1473,10 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
+      <con:testStep type="groovy" name="Delete existing rows" id="d93864d5-4310-453b-aec4-5e0121d96dc2"><con:settings/><con:config><script>context.withSql('DocRepositoryDB') { sql -> 
+			sql.execute('delete from ' + context.findProperty('DocumentRegistryTable')+ ' where DocumentUniqueId like "CONNECT%"')
+			sql.execute('delete from ' + context.findProperty('DocumentRepositoryTable')+ ' where DocumentUniqueId like "CONNECT%"')
+			}</script></con:config></con:testStep>
       <con:testStep name="Doc Submission" type="request" id="f6e2de4f-e13f-4691-b312-3081e15e4458">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -1809,8 +1813,21 @@ if(passthruValue != null){
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      </con:testStep><con:testStep type="groovy" name="Validate Addition in DB" id="575f5eba-9f9c-4a8a-9db5-3e41aceac713"><con:settings/><con:config><script>def documents = 1;
+
+log.info "Assert ${documents} number of correlations"
+
+context.withSql('DocRepositoryDB') { sql -> 
+		def found = sql.firstRow('select count(*) from ' + context.findProperty('DocumentRegistryTable') + ' where DocumentUniqueId = "CONNECT0";' )[0]
+		log.info "Found ${found} and expected ${documents} document metadata"
+		assert documents == found
+		}
+		
+context.withSql('DocRepositoryDB') { sql -> 
+		def found = sql.firstRow('select count(*) from ' + context.findProperty('DocumentRepositoryTable') + ' where DocumentUniqueId = "CONNECT0";' )[0]
+		log.info "Found ${found} and expected ${documents} documents"
+		assert documents == found
+		}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
@@ -3128,7 +3145,7 @@ if(passthruValue != null){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -3167,7 +3184,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>true</con:value>
+          <con:value>false</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3663,7 +3680,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
       </con:properties>
     </con:testCase>
     <con:testCase id="4428655d-42c3-49de-8128-24d88623bf91" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DocumentDataSubmission" searchProperties="true" disabled="true"><con:settings/><con:testStep type="groovy" name="delete existing rows" id="3e705cc3-20c4-4142-8632-0f807d773c56"><con:settings/><con:config><script>context.withSql('DocRepositoryDB') { sql -> 
-			sql.execute('delete from ' + context.findProperty('DocumentRegistryTable')+ ' where DocumentUniqueId = "1.2.3.4.5.6.78901.2345.6.7890.12"')
+			sql.execute('delete from ' + context.findProperty('DocumentRegistryTable')+ ' where DocumentUniqueId like "CONNECT%"')
 			}</script></con:config></con:testStep><con:testStep type="request" name="Doc Data Submission" id="8369270d-08d0-4509-96f1-1aa195963ef2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityXDS_Binding</con:interface><con:operation>RegisterDocumentSet-b</con:operation><con:request name="Doc Data Submission" id="33d79357-ec6c-4e7f-a0d5-ff207e27d68c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
     <soap:Header/>
     <soap:Body testSuite="Entity_g1" testCase="Document Data Submission">
@@ -4107,7 +4124,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 log.info "Assert ${dsCorrelations} number of correlations"
 
 context.withSql('DocRepositoryDB') { sql -> 
-		def found = sql.firstRow('select count(*) from ' + context.findProperty('DocumentRegistryTable') + ' where DocumentUniqueId = "1.2.3.4.5.6.78901.2345.6.7890.12";' )[0]
+		def found = sql.firstRow('select count(*) from ' + context.findProperty('DocumentRegistryTable') + ' where DocumentUniqueId = "CONNECT0";' )[0]
 		log.info "Found ${found} and expected ${dsCorrelations}"
 		assert dsCorrelations == found
 		}</script></con:config></con:testStep><con:properties><con:property><con:name>startDate</con:name><con:value>2018-06-20T13:19:14Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2018-06-20T13:29:14Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/20/2018 13:19:14</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2018-07-20T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:properties/>
@@ -4789,6 +4806,10 @@ if(passthruValue != null){
 }</script>
         </con:config>
       </con:testStep>
+      <con:testStep type="groovy" name="delete existing rows" id="63260c4b-a32f-48f9-a808-e6d310431733"><con:settings/><con:config><script>context.withSql('DocRepositoryDB') { sql -> 
+			sql.execute('delete from ' + context.findProperty('DocumentRegistryTable')+ ' where DocumentUniqueId like "CONNECT%"')
+			sql.execute('delete from ' + context.findProperty('DocumentRepositoryTable')+ ' where DocumentUniqueId like "CONNECT%"')
+			}</script></con:config></con:testStep>
       <con:testStep name="Doc Submission" type="request" id="25cd4074-c790-4cd3-b0fd-ec45131d4452">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -5125,8 +5146,21 @@ if(passthruValue != null){
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep>
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      </con:testStep><con:testStep type="groovy" name="Validate Addition in DB" id="e648d90d-8b11-44db-8675-6458a35fa410"><con:settings/><con:config><script>def documents = 1;
+
+log.info "Assert ${documents} number of correlations"
+
+context.withSql('DocRepositoryDB') { sql -> 
+		def found = sql.firstRow('select count(*) from ' + context.findProperty('DocumentRegistryTable') + ' where DocumentUniqueId = "CONNECT0";' )[0]
+		log.info "Found ${found} and expected ${documents} document metadata"
+		assert documents == found
+		}
+		
+context.withSql('DocRepositoryDB') { sql -> 
+		def found = sql.firstRow('select count(*) from ' + context.findProperty('DocumentRepositoryTable') + ' where DocumentUniqueId = "CONNECT0";' )[0]
+		log.info "Found ${found} and expected ${documents} documents"
+		assert documents == found
+		}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
@@ -6468,7 +6502,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>true</con:value>
+          <con:value>false</con:value>
         </con:property>
         <con:property>
           <con:name>startDate</con:name>
@@ -7451,7 +7485,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
     </con:property>
     <con:property>
       <con:name>DSDocument</con:name>
-      <con:value>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</con:value>
+      <con:value>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</con:value>
     </con:property>
     <con:property>
       <con:name>X12GenericBatchPayload</con:name>
@@ -7689,7 +7723,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:name>DSDefReq_EntityEndpoint_g0</con:name>
       <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
     </con:property>
-  <con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>DocumentRegistryTable</con:name><con:value>docregistry</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property></con:properties>
+  <con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>DocumentRegistryTable</con:name><con:value>docregistry</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>DocumentRepositoryTable</con:name><con:value>docrepository</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
