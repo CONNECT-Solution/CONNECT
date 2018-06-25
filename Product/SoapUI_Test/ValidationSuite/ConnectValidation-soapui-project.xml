@@ -7586,7 +7586,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value>C:\wildfly-8.2.1.Final\modules\system\layers\base\org\connectopensource\configuration\main</con:value>
+      <con:value/>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>
