@@ -5,7 +5,7 @@
     <exchange type="local">
       <name>adapter</name>
       <disabled>true</disabled>
-      <lastUpdated></lastUpdated>
+      <lastUpdated/>
       <organizationList>
         <organization>
           <ns2:name>DoD</ns2:name>
@@ -738,7 +738,61 @@
                   <ns2:version>LEVEL_a0</ns2:version>
                 </ns2:endpointConfiguration>
               </ns2:endpointConfigurationList>
-            </ns2:endpoint>
+              </ns2:endpoint>
+              <ns2:endpoint>
+                <ns2:name>documentdatasubmission</ns2:name>
+                <ns2:endpointConfigurationList>
+                  <ns2:endpointConfiguration>
+                    <ns2:url>http://localhost:8080/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</ns2:url>
+                    <ns2:version>1.0</ns2:version>
+                  </ns2:endpointConfiguration>
+                </ns2:endpointConfigurationList>
+              </ns2:endpoint>
+              <ns2:endpoint>
+                <ns2:name>documentdatasubmissionsecured</ns2:name>
+                <ns2:endpointConfigurationList>
+                  <ns2:endpointConfiguration>
+                    <ns2:url>https://localhost:8181/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionSecured</ns2:url>
+                    <ns2:version>1.0</ns2:version>
+                  </ns2:endpointConfiguration>
+                </ns2:endpointConfigurationList>
+              </ns2:endpoint>
+              <ns2:endpoint>
+                <ns2:name>adaptercomponentxdsservice</ns2:name>
+                <ns2:endpointConfigurationList>
+                  <ns2:endpointConfiguration>
+                    <ns2:url>http://localhost:8080/Adapter/DocumentDataSubmission/A_0/AdapterComponentDocDataSubmissionUnsecured</ns2:url>
+                    <ns2:version>LEVEL_a0</ns2:version>
+                  </ns2:endpointConfiguration>
+                </ns2:endpointConfigurationList>
+              </ns2:endpoint>
+              <ns2:endpoint>
+                <ns2:name>adaptercomponentxdsservicesecured</ns2:name>
+                <ns2:endpointConfigurationList>
+                  <ns2:endpointConfiguration>
+                    <ns2:url>https://localhost:8181/Adapter/DocumentDataSubmission/A_0/AdapterComponentDocDataSubmissionSecured</ns2:url>
+                    <ns2:version>LEVEL_a0</ns2:version>
+                  </ns2:endpointConfiguration>
+                </ns2:endpointConfigurationList>
+              </ns2:endpoint>
+              <ns2:endpoint>
+                <ns2:name>adapterxdsservice</ns2:name>
+                <ns2:endpointConfigurationList>
+                  <ns2:endpointConfiguration>
+                    <ns2:url>http://localhost:8080/Adapter/DocumentDataSubmission/A_0/AdapterDocDataSubmissionUnsecured</ns2:url>
+                    <ns2:version>LEVEL_a0</ns2:version>
+                  </ns2:endpointConfiguration>
+                </ns2:endpointConfigurationList>
+              </ns2:endpoint>
+              <ns2:endpoint>
+                <ns2:name>adapterxdsservicesecured</ns2:name>
+                <ns2:endpointConfigurationList>
+                  <ns2:endpointConfiguration>
+                    <ns2:url>https://localhost:8181/Adapter/DocumentDataSubmission/A_0/AdapterDocDataSubmissionSecured</ns2:url>
+                    <ns2:version>LEVEL_a0</ns2:version>
+                  </ns2:endpointConfiguration>
+                </ns2:endpointConfigurationList>
+              </ns2:endpoint>
           </ns2:endpointList>
           <ns2:targetRegion>US-NY</ns2:targetRegion>
           <ns2:targetRegion>US-VA</ns2:targetRegion>
