@@ -121,11 +121,8 @@ public class PatientCorrelationServiceImpl implements PatientCorrelationService 
 
     private String getLocalAA() {
         if (NullChecker.isNullish(localAA)) {
-            try {
-                localAA = getPropertyAccessor().getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, NhincConstants.ASSIGNING_AUTH_PROPERTY);
-            } catch (PropertyAccessException ex) {
-                LOG.error("Unable to get local assigning authority due to: {}", ex.getLocalizedMessage());
-            }
+            localAA = getPropertyAccessor().getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME,
+                NhincConstants.ASSIGNING_AUTH_PROPERTY, null);
         }
         return localAA;
     }
