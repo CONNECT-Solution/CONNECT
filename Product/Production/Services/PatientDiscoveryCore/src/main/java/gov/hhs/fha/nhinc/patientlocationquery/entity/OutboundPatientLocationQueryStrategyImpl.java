@@ -24,33 +24,42 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.inbound;
+package gov.hhs.fha.nhinc.patientlocationquery.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.Orchestratable;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
+import gov.hhs.fha.nhinc.patientlocationquery.nhin.proxy.NhinPatientLocationQueryProxy;
+import gov.hhs.fha.nhinc.patientlocationquery.nhin.proxy.NhinPatientLocationQueryProxyObjectFactory;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import java.util.Properties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author tjafri
- */
-public class PassthroughInboundPatientLocationQuery implements InboundPatientLocationQuery {
+class OutboundPatientLocationQueryStrategyImpl implements OrchestrationStrategy {
 
-    @Override
-    public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
-        AssertionType assertion, Properties webContextproperties) {
-        //Step 1: process request
-        //Step 2: audit log for response
-        //Step 3: send out the response
-        return sendToAdapter(request, assertion);
+    private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientLocationQueryStrategyImpl.class);
+
+    protected NhinPatientLocationQueryProxy getNhinDocDataSubmissionProxy() {
+        return new NhinPatientLocationQueryProxyObjectFactory().getNhinDocDataSubmissionProxy();
     }
 
-    protected PatientLocationQueryResponseType sendToAdapter(PatientLocationQueryRequestType request, AssertionType assertion) {
-        // the adapter should be responsible for adding the metadata-to-database
-        //AdapterDocDataSubmissionProxy proxy = adapterFactory.getAdapterDocDataSubmissionProxy();
-        //return proxy.registerDocumentSetB(request, assertion);
+    @Override
+    public void execute(Orchestratable message) {
+        if (message instanceof OutboundPatientLocationQueryOrchestratable) {
+            execute((OutboundPatientLocationQueryOrchestratable) message);
+        } else {
+            LOG.error("Not an OutboundDocDataSubmissionOrchestratable.");
+        }
+    }
 
-        return new PatientLocationQueryResponseType();
+    public void execute(OutboundPatientLocationQueryOrchestratable message) {
+        LOG.trace("Begin OutboundDocDataSubmissionOrchestratableImpl_g0.process");
+
+        NhinPatientLocationQueryProxy nhincDocSubmission = getNhinDocDataSubmissionProxy();
+        PatientLocationQueryResponseType response = nhincDocSubmission.processPatientLocationQuery(message.getRequest(),
+            message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+        //message.setResponse(response);
+
+        LOG.trace("End OutboundDocDataSubmissionOrchestratableImpl_g0.process");
     }
 }

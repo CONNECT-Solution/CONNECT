@@ -24,26 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.inbound;
+package gov.hhs.fha.nhinc.patientlocationquery.nhin.proxy;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import java.util.Properties;
 
-/**
- *
- * @author tjafri
- */
-public class StandardInboundPatientLocationQuery implements InboundPatientLocationQuery {
-
+public class NhinPatientLocationQueryProxyNoOpImpl implements NhinPatientLocationQueryProxy {
+    @NwhinInvocationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+        afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+        serviceType = "Patient Location Query", version = "1.0")
     @Override
     public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
-        AssertionType assertion, Properties webContextproperties) {
-        //Step 1: process request
-        //Step 2: audit log for response
-        // Step 3: send out the response
+        AssertionType assertion, NhinTargetCommunitiesType targetSystem, GATEWAY_API_LEVEL apiLevel) {
         return new PatientLocationQueryResponseType();
     }
-
 }

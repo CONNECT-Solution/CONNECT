@@ -24,26 +24,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.outbound;
+package gov.hhs.fha.nhinc.patientlocationquery.entity.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 
-/**
- *
- * @author tjafri
- */
-public class StandardOutboundPatientLocationQuery implements OutboundPatientLocationQuery {
+public interface EntityPatientLocationQueryProxy {
 
-    @Override
     public RespondingGatewayPatientLocationQueryResponseType processPatientLocationQuery(
-        PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType target) {
-        //Step 1: audit request
-        //Step 2 a: process request, if needed
-        //Step 2 b: send request to Nhin
-        //Step 3: return the response
-        return new RespondingGatewayPatientLocationQueryResponseType();
-    }
+        PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets);
 }

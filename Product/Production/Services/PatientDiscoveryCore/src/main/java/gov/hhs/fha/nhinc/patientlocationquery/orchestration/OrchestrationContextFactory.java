@@ -24,33 +24,35 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.inbound;
+package gov.hhs.fha.nhinc.patientlocationquery.orchestration;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
-import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import java.util.Properties;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
+import gov.hhs.fha.nhinc.orchestration.AbstractOrchestrationContextFactory;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
+import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryFactory;
 
-/**
- *
- * @author tjafri
- */
-public class PassthroughInboundPatientLocationQuery implements InboundPatientLocationQuery {
+public class OrchestrationContextFactory extends AbstractOrchestrationContextFactory {
+
+    private static OrchestrationContextFactory instance = new OrchestrationContextFactory();
+
+    private OrchestrationContextFactory() {
+    }
+
+    public static OrchestrationContextFactory getInstance() {
+        return instance;
+    }
 
     @Override
-    public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
-        AssertionType assertion, Properties webContextproperties) {
-        //Step 1: process request
-        //Step 2: audit log for response
-        //Step 3: send out the response
-        return sendToAdapter(request, assertion);
+    public OrchestrationContextBuilder getBuilder(HomeCommunityType nhinTargetCommunitiesType,
+        NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+        return OutboundPatientLocationQueryFactory.getInstance().createOrchestrationContextBuilder();
     }
 
-    protected PatientLocationQueryResponseType sendToAdapter(PatientLocationQueryRequestType request, AssertionType assertion) {
-        // the adapter should be responsible for adding the metadata-to-database
-        //AdapterDocDataSubmissionProxy proxy = adapterFactory.getAdapterDocDataSubmissionProxy();
-        //return proxy.registerDocumentSetB(request, assertion);
-
-        return new PatientLocationQueryResponseType();
+    public OrchestrationContextBuilder getBuilder(NhinTargetCommunitiesType target, NHIN_SERVICE_NAMES serviceName) {
+        return OutboundPatientLocationQueryFactory.getInstance().createOrchestrationContextBuilder();
     }
+
 }

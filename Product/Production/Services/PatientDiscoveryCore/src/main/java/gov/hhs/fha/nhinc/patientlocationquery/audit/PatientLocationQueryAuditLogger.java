@@ -24,33 +24,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.inbound;
+package gov.hhs.fha.nhinc.patientlocationquery.audit;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
-import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import java.util.Properties;
+import gov.hhs.fha.nhinc.audit.AuditLogger;
+import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
+import gov.hhs.fha.nhinc.patientlocationquery.audit.transform.PatientLocationQueryAuditTransforms;
+import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-/**
- *
- * @author tjafri
- */
-public class PassthroughInboundPatientLocationQuery implements InboundPatientLocationQuery {
+public class PatientLocationQueryAuditLogger extends AuditLogger<RegisterDocumentSetRequestType, RegistryResponseType> {
 
     @Override
-    public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
-        AssertionType assertion, Properties webContextproperties) {
-        //Step 1: process request
-        //Step 2: audit log for response
-        //Step 3: send out the response
-        return sendToAdapter(request, assertion);
-    }
-
-    protected PatientLocationQueryResponseType sendToAdapter(PatientLocationQueryRequestType request, AssertionType assertion) {
-        // the adapter should be responsible for adding the metadata-to-database
-        //AdapterDocDataSubmissionProxy proxy = adapterFactory.getAdapterDocDataSubmissionProxy();
-        //return proxy.registerDocumentSetB(request, assertion);
-
-        return new PatientLocationQueryResponseType();
+    protected AuditTransforms<RegisterDocumentSetRequestType, RegistryResponseType> getAuditTransforms() {
+        return new PatientLocationQueryAuditTransforms();
     }
 }
