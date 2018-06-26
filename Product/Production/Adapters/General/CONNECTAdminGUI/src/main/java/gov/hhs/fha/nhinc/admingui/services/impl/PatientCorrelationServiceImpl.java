@@ -37,7 +37,6 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.IIHelper;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyWebServiceUnsecuredImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import java.util.Date;
@@ -48,8 +47,6 @@ import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -57,7 +54,6 @@ import org.slf4j.LoggerFactory;
  */
 public class PatientCorrelationServiceImpl implements PatientCorrelationService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PatientCorrelationServiceImpl.class);
     private String localAA;
     private final PatientCorrelationProxy correlationClient = new PatientCorrelationProxyWebServiceUnsecuredImpl();
 
