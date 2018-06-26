@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.messaging.builder.impl;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.slf4j.Logger;
@@ -78,6 +79,7 @@ public abstract class AbstractAssertionBuilder implements AssertionBuilder {
     protected String accessConsentPolicy = null;
     protected String samlAuthInstant = null;
     protected String samlAuthClass = null;
+    protected String homeCommunityId = null;
 
     @Override
     public void build() {
@@ -160,6 +162,14 @@ public abstract class AbstractAssertionBuilder implements AssertionBuilder {
         this.accessConsentPolicy = accessConsentPolicy;
     }
 
+    public String getHomeCommunityId() {
+        return homeCommunityId;
+    }
+
+    public void setHomeCommunityId(String homeCommunityId) {
+        this.homeCommunityId = homeCommunityId;
+    }
+
     private void readAssertionFromPropertyFile() {
         try {
             PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
@@ -182,6 +192,8 @@ public abstract class AbstractAssertionBuilder implements AssertionBuilder {
             setAccessConsentPolicy(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_ACCESS_CONSENT));
             setSamlAuthInstant(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SAML_AUTH_INSTANT));
             setSamlAuthClass(propertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SAML_AUTH_CLASS));
+            setHomeCommunityId(propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY));
+            
         } catch (PropertyAccessException ex) {
             LOG.error("AdminGUI can not access assertioninfo property file: {}", ex.getLocalizedMessage(), ex);
         }

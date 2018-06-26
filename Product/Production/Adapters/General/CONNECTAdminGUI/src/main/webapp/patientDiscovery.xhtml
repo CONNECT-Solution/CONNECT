@@ -133,6 +133,10 @@
                                                                         #{patient.organizationName}
                                                                 </h:column>
                                                                 <h:column>
+                                                                    <f:facet name="header">Local Correlation</f:facet>
+                                                                        #{patient.correlation}
+                                                                </h:column>
+                                                                <h:column>
                                                                     <f:facet name="header"></f:facet>
                                                                     <p:commandButton id="viewDetails1" value="View Details" styleClass="btn btn-continue pull-right" icon="ui-icon-carat-1-e" iconPos="right" action="#{patientSearchBean.switchTab()}" update=":patientSearchTabView"/>
                                                                 </h:column>
