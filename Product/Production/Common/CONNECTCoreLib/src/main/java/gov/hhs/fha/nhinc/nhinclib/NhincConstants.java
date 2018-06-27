@@ -602,6 +602,7 @@ public class NhincConstants {
     public static final String ADAPTER_XDS_SERVICE_NAME = "adapterxdsservice";
     public static final String ADAPTER_XDS_SECURED_SERVICE_NAME = "adapterxdsservicesecured";
 
+<<<<<<< HEAD
     // exchange-management
     public static final String ADMIN_EXCHANGE_SAVE_EXCHANGE = "saveExchange";
     public static final String ADMIN_EXCHANGE_DELETE = "deleteExchange";
@@ -613,6 +614,10 @@ public class NhincConstants {
     public static final String ADMIN_EXCHANGE_SAVE_CONFIG = "saveExchangeConfig";
 
     public static final String PATIENT_LOCATION_QUERY_SERVICE_NAME = "PatientLocationQuery";
+=======
+    public static final String ADAPTER_PLQ_SERVICE_NAME = "adapterpatientlocationqueryservice";
+    public static final String ADAPTER_PLQ_SECURED_SERVICE_NAME = "adapterpatientlocationqueryservicesecured";
+>>>>>>> CONN-2172 PLQ adapter
 
     private NhincConstants() {
     }

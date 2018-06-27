@@ -24,26 +24,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.inbound;
+package gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
-import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import java.util.Properties;
+//import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
+import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author tjafri
- */
-public class PassthroughInboundPatientLocationQuery implements InboundPatientLocationQuery {
+public class AdapterPatientLocationQueryProxyNoOpImpl implements AdapterPatientLocationQueryProxy {
+    //private static final Logger LOG = LoggerFactory.getLogger(AdapterDocDataSubmissionProxyNoOpImpl.class);
 
     @Override
-    public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
-        AssertionType assertion, Properties webContextproperties) {
-        // Step 1: process request
-        // Step 2: audit log for response
-        // Step 3: send out the response
-        return new PatientLocationQueryResponseType();
+    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion) {
+        LOG.trace("Using NoOp Implementation for Adapter Doc Submission Service");
+        return MessageGeneratorUtilsDocData.getInstance().createRegistryResponseSuccess();
     }
-
 }
