@@ -57,7 +57,7 @@ public class AdapterPatientLocationQueryProxyWebServiceUnsecuredImpl implements 
             if (NullChecker.isNotNullish(url)) {
 
                 AdapterPatientLocationQueryRequestType request = new AdapterPatientLocationQueryRequestType();
-                request.setAdapterPatientLocationQueryRequest(msg);
+                request.setPatientLocationQueryRequest(msg.getPatientLocationQueryRequest());
                 request.setAssertion(assertion);
 
                 ServicePortDescriptor<AdapterPatientLocationQueryPortType> portDescriptor = new AdapterPatientLocationQueryServicePortDescriptor();
@@ -65,7 +65,7 @@ public class AdapterPatientLocationQueryProxyWebServiceUnsecuredImpl implements 
                 CONNECTClient<AdapterPatientLocationQueryPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientUnsecured(portDescriptor, url, assertion);
                 response = (AdapterPatientLocationQueryResponseType) client
-                    .invokePort(AdapterPatientLocationQueryPortType.class, "AdapterPatientLocationQuery", request);
+                    .invokePort(AdapterPatientLocationQueryPortType.class, "adapterPatientLocationQuery", request);
 
             } else {
                 LOG.error("Failed to call the web service ({}). The URL is null.",
@@ -73,7 +73,6 @@ public class AdapterPatientLocationQueryProxyWebServiceUnsecuredImpl implements 
             }
         } catch (Exception ex) {
             LOG.error("Error sending Adapter Patient Location Query Unsecured message: " + ex.getMessage(), ex);
-            // response = MessageGeneratorUtilsDocData.getInstance().createRegistryErrorResponse();
         }
 
         LOG.debug("End RegisterDocumentSetB");

@@ -26,7 +26,7 @@ public class RecordLocationServiceDao {
     public List<RecordLocatorService> getAllPatientsBy(String rlsId) {
         LOG.debug("Beginning Patient Location Query");
 
-        List<RecordLocatorService> RecLocService = new ArrayList<>();
+        List<RecordLocatorService> recLocService = new ArrayList<>();
         Session sess = null;
         try {
             sess = getSession();
@@ -38,9 +38,9 @@ public class RecordLocationServiceDao {
                     criteria.add(Restrictions.eq("rlsId", rlsId));
                 }
 
-                RecLocService = criteria.list();
+                recLocService = criteria.list();
 
-                LOG.debug("Completed retrieve of Patient Location Query. {} results returned.", RLS.size());
+                LOG.debug("Completed retrieve of Patient Location Query. {} results returned.", recLocService.size());
             } else {
                 LOG.error("Failed to obtain a session from the sessionFactory");
             }
@@ -48,7 +48,7 @@ public class RecordLocationServiceDao {
         } finally {
             GenericDBUtils.closeSession(sess);
         }
-        return RecLocService;
+        return recLocService;
     }
 
     protected static Session getSession() {
