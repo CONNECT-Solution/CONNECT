@@ -30,7 +30,6 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientLocationQueryAuditTransformsConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
@@ -39,8 +38,10 @@ import ihe.iti.xcpd._2009.PatientLocationQueryResponseType.PatientLocationRespon
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.namespace.QName;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hl7.v3.II;
@@ -56,6 +57,9 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractPatientLocationQueryAuditTransforms<T, K> extends AuditTransforms<T, K> {
 
+    private static final String QNAME_PLQ = "urn:ihe:iti:xcpd:2009";
+    private static final String PLQ_ELEMENT = "PatientLocationQueryRequest";
+    private static final String JAXB_CONTEXT_PLQ = "ihe.iti.xcpd._2009";
     private static final Logger LOG = LoggerFactory.getLogger(AbstractPatientLocationQueryAuditTransforms.class);
 
     protected AuditMessageType createPatientParticipantObjectIdentification(AuditMessageType auditMsg, String aa,
@@ -111,8 +115,11 @@ public abstract class AbstractPatientLocationQueryAuditTransforms<T, K> extends 
 
     protected byte[] getParticipantObjectQueryForRequest(PatientLocationQueryRequestType request) throws JAXBException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        if (request != null && request.getRequestedPatientId() != null) {
-            getMarshaller().marshal(request.getRequestedPatientId(), baos);
+        if (request != null) {
+            QName xmlqnamePLQ = new javax.xml.namespace.QName(QNAME_PLQ, PLQ_ELEMENT);
+            JAXBElement<PatientLocationQueryRequestType> jaxbRequest = new JAXBElement<>(xmlqnamePLQ,
+                PatientLocationQueryRequestType.class, request);
+            getMarshaller().marshal(jaxbRequest, baos);
         }
         return baos.toByteArray();
     }
@@ -157,7 +164,7 @@ public abstract class AbstractPatientLocationQueryAuditTransforms<T, K> extends 
     }
 
     protected Marshaller getMarshaller() throws JAXBException {
-        return new JAXBContextHandler().getJAXBContext(NhincConstants.JAXB_HL7_CONTEXT_NAME_HL7_V3).createMarshaller();
+        return new JAXBContextHandler().getJAXBContext(JAXB_CONTEXT_PLQ).createMarshaller();
     }
 
     @Override
@@ -211,7 +218,7 @@ public abstract class AbstractPatientLocationQueryAuditTransforms<T, K> extends 
     }
 
     private static List<II> getPatientIds(PatientLocationQueryResponseType response) {
-        List<II> oIIs =  new ArrayList<>();
+        List<II> oIIs = new ArrayList<>();
         if (response != null && CollectionUtils.isNotEmpty(response.getPatientLocationResponse())) {
             for (PatientLocationResponse subject : response.getPatientLocationResponse()) {
                 if (subject != null && subject.getCorrespondingPatientId() != null) {
@@ -224,8 +231,8 @@ public abstract class AbstractPatientLocationQueryAuditTransforms<T, K> extends 
         return oIIs;
     }
 
-    protected AuditMessageType getPatientParticipantObjectIdentificationForResponse(PatientLocationQueryResponseType response,
-        AuditMessageType auditMsg) {
+    protected AuditMessageType getPatientParticipantObjectIdentificationForResponse(
+        PatientLocationQueryResponseType response, AuditMessageType auditMsg) {
 
         List<II> oII = getPatientIds(response);
         if (CollectionUtils.isNotEmpty(oII)) {
@@ -235,7 +242,7 @@ public abstract class AbstractPatientLocationQueryAuditTransforms<T, K> extends 
                 } else {
                     createPatientParticipantObjectIdentification(auditMsg,
                         StringUtils.isNotBlank(entry.getRoot()) ? entry.getRoot().trim() : null,
-                            StringUtils.isNotBlank(entry.getExtension()) ? entry.getExtension().trim() : null);
+                        StringUtils.isNotBlank(entry.getExtension()) ? entry.getExtension().trim() : null);
                 }
             }
         } else {
@@ -244,24 +251,4 @@ public abstract class AbstractPatientLocationQueryAuditTransforms<T, K> extends 
 
         return auditMsg;
     }
-
-    protected AuditMessageType getQueryParamsParticipantObjectIdentificationForResponse(
-        PatientLocationQueryResponseType response, AuditMessageType auditMsg) throws JAXBException {
-
-        ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType(
-            PatientLocationQueryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID);
-        participantObject.setParticipantObjectQuery(getParticipantObjectQueryForResponse(response));
-        auditMsg.getParticipantObjectIdentification().add(participantObject);
-        return auditMsg;
-    }
-
-    private byte[] getParticipantObjectQueryForResponse(PatientLocationQueryResponseType response)
-        throws JAXBException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        if (response != null && CollectionUtils.isNotEmpty(response.getPatientLocationResponse())) {
-            getMarshaller().marshal(response.getPatientLocationResponse(), baos);
-        }
-        return baos.toByteArray();
-    }
 }
-
