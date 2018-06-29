@@ -27,12 +27,15 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
+import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Document;
 import gov.hhs.fha.nhinc.admingui.model.Patient;
 import gov.hhs.fha.nhinc.admingui.services.GatewayService;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.ByteArrayInputStream;
@@ -44,9 +47,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
@@ -98,6 +105,8 @@ public class PatientSearchBean {
     // TODO: Temporary should be removed, should use the patient object
     // documentList
     private List<Document> documentList;
+    
+    private UserLogin user;
 
     /**
      * Instantiate all the variables and load the lookup Data
@@ -123,10 +132,16 @@ public class PatientSearchBean {
     public void searchPatient() {
         // start with a clean slate
         clearDocumentQueryTab();
-        // Call the NwHIN PD to get the documents
-        patientFound = GatewayService.getInstance().discoverPatient(this);
-        // set the UI display message
-        patientMessage = patientFound ? PATIENT_FOUND : PATIENT_NOT_FOUND;
+        user = getCurrentUser();
+        
+        if (validateUser(user)) {
+            // Call the NwHIN PD to get the documents
+            patientFound = GatewayService.getInstance().discoverPatient(this);
+            // set the UI display message
+            patientMessage = patientFound ? PATIENT_FOUND : PATIENT_NOT_FOUND;
+        } else {
+            createErrorMessage(user.getUserName());
+        }
     }
 
     /**
@@ -637,5 +652,23 @@ public class PatientSearchBean {
      */
     public String getDocumentInfoModalWindowHeader() {
         return getDocumentTypeName() + " for " + getSelectedCurrentPatient().getName();
+    }
+
+    private UserLogin getCurrentUser() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        HttpSession session = (HttpSession) externalContext.getSession(true);
+        return (UserLogin) session.getAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE);
+    }
+
+    private boolean validateUser(UserLogin user) {
+        return user != null && NullChecker.isNotNullish(user.getFirstName()) && NullChecker.isNotNullish(user.getMiddleName())
+                && NullChecker.isNotNullish(user.getLastName()) && NullChecker.isNotNullish(user.getTransactionRole())
+                && NullChecker.isNotNullish(user.getTransactionRoleDesc());
+    }
+
+    private void createErrorMessage(String userName) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                "Error!", "Current user, " + userName + ", does not have valid assertion data."));
     }
 }
