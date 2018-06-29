@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
  * @author tran tang
  */
 public class PatientLocationQueryAuditTransforms extends
-AbstractPatientLocationQueryAuditTransforms<PatientLocationQueryRequestType, PatientLocationQueryResponseType> {
+    AbstractPatientLocationQueryAuditTransforms<PatientLocationQueryRequestType, PatientLocationQueryResponseType> {
 
     private static final Logger LOG = LoggerFactory.getLogger(PatientDiscoveryAuditTransforms.class);
 
@@ -48,9 +48,9 @@ AbstractPatientLocationQueryAuditTransforms<PatientLocationQueryRequestType, Pat
     protected AuditMessageType getParticipantObjectIdentificationForRequest(PatientLocationQueryRequestType request,
         AssertionType assertion, AuditMessageType auditMsg) {
 
-        auditMsg = getPatientParticipantObjectIdentificationForRequest(request, auditMsg);
+        getPatientParticipantObjectIdentificationForRequest(request, auditMsg);
         try {
-            auditMsg = getQueryParamsParticipantObjectIdentificationForRequest(request, auditMsg);
+            getQueryParamsParticipantObjectIdentificationForRequest(request, auditMsg);
         } catch (JAXBException ex) {
             LOG.error("Error while creating ParticipantObjectIdentificationQueryByParameters segment : {}",
                 ex.getLocalizedMessage(), ex);
@@ -63,10 +63,10 @@ AbstractPatientLocationQueryAuditTransforms<PatientLocationQueryRequestType, Pat
     protected AuditMessageType getParticipantObjectIdentificationForResponse(PatientLocationQueryRequestType request,
         PatientLocationQueryResponseType response, AssertionType assertion, AuditMessageType auditMsg) {
 
-        auditMsg = getPatientParticipantObjectIdentificationForResponse(response, auditMsg);
+        getPatientParticipantObjectIdentificationForResponse(response, auditMsg);
 
         try {
-            auditMsg = getQueryParamsParticipantObjectIdentificationForResponse(response, auditMsg);
+            getQueryParamsParticipantObjectIdentificationForRequest(request, auditMsg);
         } catch (JAXBException ex) {
             LOG.error("Error while creating ParticipantObjectIdentificationQueryByParameters segment : {}",
                 ex.getLocalizedMessage(), ex);
@@ -75,4 +75,3 @@ AbstractPatientLocationQueryAuditTransforms<PatientLocationQueryRequestType, Pat
         return auditMsg;
     }
 }
-

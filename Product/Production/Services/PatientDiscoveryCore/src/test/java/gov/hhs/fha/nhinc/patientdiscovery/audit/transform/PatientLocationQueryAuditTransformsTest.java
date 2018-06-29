@@ -26,11 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.audit.transform;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
@@ -48,6 +43,10 @@ import java.net.UnknownHostException;
 import java.util.Properties;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -57,9 +56,7 @@ import org.junit.Test;
  * @author achidamb
  */
 public class PatientLocationQueryAuditTransformsTest
-extends AuditTransformsTest<PatientLocationQueryRequestType, PatientLocationQueryResponseType> {
-    // NhincConstants--PatientLocationQuery
-    public static final String PATIENT_LOCATION_QUERY_SERVICE_NAME = "PatientLocationQuery";
+    extends AuditTransformsTest<PatientLocationQueryRequestType, PatientLocationQueryResponseType> {
 
     public PatientLocationQueryAuditTransformsTest() {
     }
@@ -118,18 +115,18 @@ extends AuditTransformsTest<PatientLocationQueryRequestType, PatientLocationQuer
         AssertionType assertion = createAssertion();
         LogEventRequestType auditRequest = transforms.transformRequestToAuditMsg(
             TestPatientDiscoveryMessageHelper.createPatientLocationQueryRequestType("D123401", "1.1"),
-            assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, webContextProperties,
-            PATIENT_LOCATION_QUERY_SERVICE_NAME);
+            NhincConstants.PATIENT_LOCATION_QUERY_SERVICE_NAME);
 
-        testGetEventIdentificationType(auditRequest, PATIENT_LOCATION_QUERY_SERVICE_NAME, Boolean.TRUE);
+        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_LOCATION_QUERY_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
         testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
-        assertEquals("AuditMessage.Request ServiceName mismatch", auditRequest.getEventType(),
-            PATIENT_LOCATION_QUERY_SERVICE_NAME);
+        assertSame("AuditMessage.Request ServiceName mismatch", auditRequest.getEventType(),
+            NhincConstants.PATIENT_LOCATION_QUERY_SERVICE_NAME);
     }
 
     @Test
@@ -172,18 +169,17 @@ extends AuditTransformsTest<PatientLocationQueryRequestType, PatientLocationQuer
                 "D123401", "1.1"),
             assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
-            PATIENT_LOCATION_QUERY_SERVICE_NAME);
+            NhincConstants.PATIENT_LOCATION_QUERY_SERVICE_NAME);
 
-        testGetEventIdentificationType(auditResponse, PATIENT_LOCATION_QUERY_SERVICE_NAME, Boolean.TRUE);
+        testGetEventIdentificationType(auditResponse, NhincConstants.PATIENT_LOCATION_QUERY_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditResponse, Boolean.FALSE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditResponse, Boolean.FALSE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditResponse, Boolean.FALSE, assertion);
         testAuditSourceIdentification(auditResponse.getAuditMessage().getAuditSourceIdentification(), assertion);
         assertParticipantObjectIdentification(auditResponse);
-        assertEquals("AuditMessage.Response ServiceName mismatch", auditResponse.getEventType(),
-            PATIENT_LOCATION_QUERY_SERVICE_NAME);
+        assertSame("AuditMessage.Response ServiceName mismatch", auditResponse.getEventType(),
+            NhincConstants.PATIENT_LOCATION_QUERY_SERVICE_NAME);
     }
-
 
     private void assertParticipantObjectIdentification(LogEventRequestType auditRequest) {
         assertNotNull("auditRequest is null", auditRequest);
@@ -191,15 +187,18 @@ extends AuditTransformsTest<PatientLocationQueryRequestType, PatientLocationQuer
         assertNotNull("ParticipantObjectIdentification is null",
             auditRequest.getAuditMessage().getParticipantObjectIdentification());
 
+        assertSame("Expecting 2 Participant Object identification objects", 2, auditRequest.getAuditMessage().
+            getParticipantObjectIdentification().size());
         ParticipantObjectIdentificationType participantPatient = auditRequest.getAuditMessage()
             .getParticipantObjectIdentification().get(0);
+        ParticipantObjectIdentificationType participantQuery = auditRequest.getAuditMessage()
+            .getParticipantObjectIdentification().get(1);
 
         assertNotNull("participantPatient is null", participantPatient);
 
         assertEquals("ParticipantPatient.ParticipantObjectID mismatch", "D123401^^^&1.1&ISO",
             participantPatient.getParticipantObjectID());
 
-        // TODO: assertSame vs assertEquals consistency when returning constants
         assertSame("ParticipantPatient.ParticipantObjectTypeCode object reference mismatch",
             PatientLocationQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
             participantPatient.getParticipantObjectTypeCode());
@@ -216,8 +215,27 @@ extends AuditTransformsTest<PatientLocationQueryRequestType, PatientLocationQuer
             PatientLocationQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_ID_TYPE_DISPLAY_NAME,
             participantPatient.getParticipantObjectIDTypeCode().getDisplayName());
 
-        assertNull("ParticipantQuery.ParticipantObjectName is not null", participantPatient.getParticipantObjectName());
+        assertNull("ParticipantPatient.ParticipantObjectName is not null", participantPatient.getParticipantObjectName());
 
+        assertSame("ParticipantQuery.ParticipantObjectTypeCode object reference mismatch",
+            PatientLocationQueryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_SYSTEM,
+            participantQuery.getParticipantObjectTypeCode());
+        assertSame("ParticipantQuery.ParticipantObjectTypeCodeRole object reference mismatch",
+            PatientLocationQueryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_TYPE_CODE_ROLE,
+            participantQuery.getParticipantObjectTypeCodeRole());
+        assertSame("ParticipantQuery.ParticipantObjectIDTypeCode.Code mismatch",
+            PatientLocationQueryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE,
+            participantQuery.getParticipantObjectIDTypeCode().getCode());
+        assertSame("ParticipantQuery.ParticipantObjectIDTypeCode.CodeSystemName mismatch",
+            PatientLocationQueryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_CODE_SYSTEM,
+            participantQuery.getParticipantObjectIDTypeCode().getCodeSystemName());
+        assertSame("ParticipantQuery.ParticipantObjectIDTypeCode.DisplayName mismatch",
+            PatientLocationQueryAuditTransformsConstants.PARTICIPANT_QUERYPARAMS_OBJ_ID_TYPE_DISPLAY_NAME,
+            participantQuery.getParticipantObjectIDTypeCode().getDisplayName());
+        assertNull("ParticipantQuery.ParticipantObjectName is not null",
+            participantQuery.getParticipantObjectName());
+        assertNotNull("ParticipantQuery.ParticipantObjectQuery is null",
+            participantQuery.getParticipantObjectQuery());
     }
 
     @Override
@@ -225,4 +243,3 @@ extends AuditTransformsTest<PatientLocationQueryRequestType, PatientLocationQuer
         return new PatientLocationQueryAuditTransforms();
     }
 }
-
