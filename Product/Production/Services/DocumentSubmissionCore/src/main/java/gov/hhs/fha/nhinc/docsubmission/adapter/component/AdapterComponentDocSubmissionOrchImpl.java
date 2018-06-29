@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.component;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docrepository.adapter.AdapterComponentDocRepositoryOrchImpl;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.RoutingObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.XDRRouting;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -49,9 +50,9 @@ public class AdapterComponentDocSubmissionOrchImpl {
     }
 
     /**
-     * Validates the document submission message and forwards the message to the given intended recipients </br>
-     * NOTE: The result of this invocation will be the result of the last recipient. All preceding invocation results
-     * will be ignored
+     * Validates the document submission message, processes the message, and forwards the message to the given intended
+     * recipients. </br>
+     * NOTE: The result of the forwarded requests will be ignored.
      *
      * @param msg
      * @param assertion
@@ -80,12 +81,14 @@ public class AdapterComponentDocSubmissionOrchImpl {
                 for (String bean : xdrBeans) {
                     LOG.debug("Bean name = {}", bean);
                     XDRRouting proxy = factory.getNhinXDRRouting(bean);
-                    result = proxy.provideAndRegisterDocumentSetB(msg, assertion);
+                    proxy.provideAndRegisterDocumentSetB(msg, assertion);
                 }
             } else {
                 LOG.debug("No beans to forward the message to");
-                result = helper.createPositiveAck();
             }
+
+            AdapterComponentDocRepositoryOrchImpl docRepoService = new AdapterComponentDocRepositoryOrchImpl();
+            result = docRepoService.documentRepositoryProvideAndRegisterDocumentSet(msg);
 
         }
         return result;

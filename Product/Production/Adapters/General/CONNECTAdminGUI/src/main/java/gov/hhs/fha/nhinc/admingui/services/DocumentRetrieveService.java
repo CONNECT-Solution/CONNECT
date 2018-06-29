@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.model.DocumentRetrieveResults;
 
@@ -42,6 +43,6 @@ public interface DocumentRetrieveService {
      * @return DoucmentRetrieveResults bean have HCID,RepositoryId,DocumentUniqueId,Document and MimeType from
      *         DocumentRetrieve Response.
      */
-    public DocumentRetrieveResults retrieveDocuments(DocumentRetrieve documentModel);
+    public DocumentRetrieveResults retrieveDocuments(DocumentRetrieve documentModel, AssertionType assertion);
 
 }

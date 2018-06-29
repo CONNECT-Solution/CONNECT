@@ -66,9 +66,8 @@ public class PatientDiscoveryMessageDirectorImpl extends AbstractMessageDirector
             message.setPRPAIN201305UV02(pdBuilder.getMessage());
         }
 
-        if (assertionBuilder != null) {
-            assertionBuilder.build();
-            message.setAssertion(assertionBuilder.getAssertion());
+        if (assertion != null) {
+            message.setAssertion(assertion);
         }
 
         if (targetBuilder != null) {

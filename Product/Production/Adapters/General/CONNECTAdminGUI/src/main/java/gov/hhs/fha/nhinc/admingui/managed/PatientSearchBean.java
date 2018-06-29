@@ -186,6 +186,7 @@ public class PatientSearchBean {
         genderList = HelperUtil.populateListGender();
         // populate document types
         documentTypeList = populateDocumentTypes();
+        GatewayService.getInstance().clearLocalCorrelation();
         return clearPatientTab();
     }
 

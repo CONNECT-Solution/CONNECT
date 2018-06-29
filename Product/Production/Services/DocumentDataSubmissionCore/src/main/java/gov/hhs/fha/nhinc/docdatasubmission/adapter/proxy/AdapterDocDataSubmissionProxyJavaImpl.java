@@ -26,18 +26,22 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docdatasubmission.adapter.AdapterDocDataSubmissionOrchImpl;
+import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class AdapterDocDataSubmissionProxyJavaImpl implements AdapterDocDataSubmissionProxy {
+
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocDataSubmissionProxyJavaImpl.class);
 
-
+    @AdapterDelegationEvent(serviceType = "Document Data Submission", version = "",
+        beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
+        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class)
     @Override
     public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg,
         AssertionType assertion) {

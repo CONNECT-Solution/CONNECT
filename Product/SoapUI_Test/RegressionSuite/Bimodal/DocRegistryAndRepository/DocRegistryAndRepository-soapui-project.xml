@@ -1407,8 +1407,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
       <con:settings/>
       <con:testStep name="Clear Documents" type="groovy" id="105339c6-0896-4c52-a1cb-74e1c13cdc2d">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('DocRepositoryDB') { sql -> 
+        <con:config><script>context.withSql('DocRepositoryDB') { sql -> 
   def table = context.findProperty('DocumentTable')
   def col = context.findProperty('DocCol')
   def val = context.findProperty('DocVal1')
@@ -1419,8 +1418,9 @@ context.setGatewayStandard(true);</con:tearDownScript>
 
   sql.execute('delete from ' + table1 + ' where ' + col1 + ' = ' + val1 )
   sql.execute("delete from " + table + " where " + col + " = " + val )
-}</script>
-        </con:config>
+  sql.execute("delete from " + table + " where DocumentUniqueId like 'CONNECT%'")
+  sql.execute("delete from eventcode")
+}</script></con:config>
       </con:testStep>
       <con:testStep name="Store Document" type="request" id="c1641204-cfdf-419c-8b70-dcc5d9c8a523">
         <con:settings/>
@@ -1681,7 +1681,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -1696,7 +1696,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
           <con:interface>DocumentRegistry_Binding_Soap</con:interface>
           <con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
           <con:request name="QueryByPatientId" id="c8af9122-2972-45a4-82cb-38d52f34fc50">
-            <con:settings/>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocRegistry}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
@@ -1720,14 +1720,9 @@ context.setGatewayStandard(true);</con:tearDownScript>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion" id="ab542964-6da8-4df9-8d04-d65260ad8e5f"/>
             <con:assertion type="XPath Match" id="5d375b41-97ff-4df8-9d8b-452304ce2b0b">
-              <con:configuration>
-                <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+              <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns4:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[1]/@value</path>
-                <content>${Store Document#Request#//xdsb:ProvideAndRegisterDocumentSetRequest[1]/lcm:SubmitObjectsRequest[1]/rim:RegistryObjectList[1]/rim:ExtrinsicObject[1]/rim:ExternalIdentifier[1]/@value}</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>true</ignoreNamspaceDifferences>
-              </con:configuration>
+//ns4:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[1]/@value</path><content>${#Project#DocUniqueId}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:assertion name="Document count is 1" type="XPath Match" id="751b4a7b-038f-4c81-a211-cedd6c27cb67">
               <con:configuration>
@@ -1740,10 +1735,10 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
@@ -1767,7 +1762,7 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
          <urn1:AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d" home="1.1">
             <urn1:Slot name="$XDSDocumentEntryUniqueId">
                <urn1:ValueList>
-                  <urn1:Value>2.1.11111.1.1</urn1:Value>
+                  <urn1:Value>${#Project#DocUniqueId}</urn1:Value>
                </urn1:ValueList>
             </urn1:Slot>
             <urn1:Slot name="$XDSDocumentEntryPatientId">
@@ -1785,14 +1780,9 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion" id="b72e528c-9734-4273-976f-aa1da780607e"/>
             <con:assertion type="XPath Match" id="629c7b5d-b0a5-4520-a88d-41402742d214">
-              <con:configuration>
-                <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+              <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns4:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[1]/@value</path>
-                <content>${Store Document#Request#//xdsb:ProvideAndRegisterDocumentSetRequest[1]/lcm:SubmitObjectsRequest[1]/rim:RegistryObjectList[1]/rim:ExtrinsicObject[1]/rim:ExternalIdentifier[1]/@value}</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>true</ignoreNamspaceDifferences>
-              </con:configuration>
+//ns4:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[1]/@value</path><content>${#Project#DocUniqueId}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:assertion name="Document count is 1" type="XPath Match" id="671ddd52-168d-4a6d-b23b-b457a7068798">
               <con:configuration>
@@ -1835,7 +1825,7 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -1881,14 +1871,9 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion" id="d59015d4-b28b-45a6-95ab-38a21a5e7e9a"/>
             <con:assertion type="XPath Match" id="e971e5f4-5a7a-4dba-8c7c-626e1e6650af">
-              <con:configuration>
-                <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+              <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns4:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[1]/@value</path>
-                <content>${Store Document#Request#//xdsb:ProvideAndRegisterDocumentSetRequest[1]/lcm:SubmitObjectsRequest[1]/rim:RegistryObjectList[1]/rim:ExtrinsicObject[1]/rim:ExternalIdentifier[1]/@value}</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>true</ignoreNamspaceDifferences>
-              </con:configuration>
+//ns4:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[1]/@value</path><content>${#Project#DocUniqueId}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:assertion name="Document count is 1" type="XPath Match" id="c37f298b-4fca-44e1-9fca-dea7093cb69c">
               <con:configuration>
@@ -1931,7 +1916,7 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -2078,7 +2063,7 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -2222,7 +2207,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
       <con:name>JMXPort</con:name>
       <con:value>9990</con:value>
     </con:property>
-  </con:properties>
+  <con:property><con:name>DocUniqueID</con:name><con:value>CONNECT0</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

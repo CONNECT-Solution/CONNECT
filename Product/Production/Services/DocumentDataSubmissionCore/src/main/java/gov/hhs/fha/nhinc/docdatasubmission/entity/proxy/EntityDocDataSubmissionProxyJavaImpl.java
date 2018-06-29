@@ -29,19 +29,19 @@ package gov.hhs.fha.nhinc.docdatasubmission.entity.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.docdatasubmission.outbound.StandardOutboundDocDataSubmission;
+import gov.hhs.fha.nhinc.docdatasubmission.outbound.PassthroughOutboundDocDataSubmission;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class EntityDocDataSubmissionProxyJavaImpl implements EntityDocDataSubmissionProxy {
 
-    private StandardOutboundDocDataSubmission outboundDocDataSubmission = new StandardOutboundDocDataSubmission();
+    private PassthroughOutboundDocDataSubmission outboundDocDataSubmission = new PassthroughOutboundDocDataSubmission();
 
     public EntityDocDataSubmissionProxyJavaImpl() {
         super();
     }
 
-    public EntityDocDataSubmissionProxyJavaImpl(StandardOutboundDocDataSubmission outboundDocDataSubmission) {
+    public EntityDocDataSubmissionProxyJavaImpl(PassthroughOutboundDocDataSubmission outboundDocDataSubmission) {
         this.outboundDocDataSubmission = outboundDocDataSubmission;
     }
 

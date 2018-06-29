@@ -27,47 +27,132 @@
 package gov.hhs.fha.nhinc.docdatasubmission.outbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.audit.DocDataSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.docdatasubmission.entity.OutboundDocDataSubmissionDelegate;
 import gov.hhs.fha.nhinc.docdatasubmission.entity.OutboundDocDataSubmissionOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PassthroughOutboundDocDataSubmission implements OutboundDocDataSubmission {
 
-    private DocDataSubmissionAuditLogger auditLogger = new DocDataSubmissionAuditLogger();
-    private OutboundDocDataSubmissionDelegate dsDelegate = new OutboundDocDataSubmissionDelegate();
+    private static final Logger LOG = LoggerFactory.getLogger(PassthroughOutboundDocDataSubmission.class);
+    private DocDataSubmissionAuditLogger auditLogger = null;
 
     public PassthroughOutboundDocDataSubmission() {
-        super();
-    }
-
-    public PassthroughOutboundDocDataSubmission(DocDataSubmissionAuditLogger auditLogger,
-        OutboundDocDataSubmissionDelegate dsDelegate) {
-        this.auditLogger = auditLogger;
-        this.dsDelegate = dsDelegate;
+        auditLogger = getDocDataSubmissionAuditLogger();
     }
 
     @Override
     public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType body, AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
 
+        RegistryResponseType response;
         MessageGeneratorUtils.getInstance().generateMessageId(assertion);
-        NhinTargetSystemType target = MessageGeneratorUtils.getInstance()
-            .convertFirstToNhinTargetSystemType(targets);
-        RespondingGatewayRegisterDocumentSetSecuredRequestType request = createAuditRequest(body, targets);
 
+        RespondingGatewayRegisterDocumentSetSecuredRequestType request = createRequestForInternalProcessing(body,
+            targets, urlInfo);
+        NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
         auditRequest(request.getRegisterDocumentSetRequest(), assertion, target);
 
-        OutboundDocDataSubmissionOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, body, assertion);
-        return ((OutboundDocDataSubmissionOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
+        response = getResponseFromTarget(request, assertion);
+        return response;
+    }
 
+    protected boolean hasNhinTargetHomeCommunityId(RespondingGatewayRegisterDocumentSetSecuredRequestType request) {
+
+        if (request != null && request.getNhinTargetCommunities() != null) {
+            List<NhinTargetCommunityType> targetCommunities = request.getNhinTargetCommunities()
+                .getNhinTargetCommunity();
+            return targetCommunities.get(0) != null && targetCommunities.get(0).getHomeCommunity() != null
+                && NullChecker.isNotNullish(targetCommunities.get(0).getHomeCommunity().getHomeCommunityId());
+        }
+        return false;
+    }
+
+    protected DocDataSubmissionAuditLogger getDocDataSubmissionAuditLogger() {
+        return new DocDataSubmissionAuditLogger();
+    }
+
+    protected SubjectHelper getSubjectHelper() {
+        return new SubjectHelper();
+    }
+
+    protected MessageGeneratorUtilsDocData getMessageGeneratorUtilsDocData() {
+        return MessageGeneratorUtilsDocData.getInstance();
+    }
+
+    protected OutboundDocDataSubmissionDelegate getOutboundDocDataSubmissionDelegate() {
+        return new OutboundDocDataSubmissionDelegate();
+    }
+
+    private static RespondingGatewayRegisterDocumentSetSecuredRequestType createRequestForInternalProcessing(
+        RegisterDocumentSetRequestType msg, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+        RespondingGatewayRegisterDocumentSetSecuredRequestType request
+            = new RespondingGatewayRegisterDocumentSetSecuredRequestType();
+        request.setRegisterDocumentSetRequest(msg);
+        request.setNhinTargetCommunities(targets);
+        request.setUrl(urlInfo);
+
+        return request;
+    }
+
+    private RegistryResponseType getResponseFromTarget(RespondingGatewayRegisterDocumentSetSecuredRequestType request,
+        AssertionType assertion) {
+
+        RegistryResponseType nhinResponse = new RegistryResponseType();
+        if (hasNhinTargetHomeCommunityId(request)) {
+
+            try {
+                NhinTargetSystemType nhinTargetSystemType = MessageGeneratorUtils.getInstance()
+                    .convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities());
+                nhinResponse = sendToNhinProxy(request, assertion, nhinTargetSystemType);
+            } catch (Exception e) {
+                String hcid = getNhinTargetHomeCommunityId(request);
+                nhinResponse = MessageGeneratorUtilsDocData.getInstance()
+                    .createRegistryBusyErrorResponse("Failed to send request to community " + hcid);
+                LOG.error("Fault encountered while trying to send message to the nhin {}", hcid, e);
+            }
+        } else {
+            LOG.warn("The request to the Nhin did not contain a target home community id.");
+        }
+
+        return nhinResponse;
+    }
+
+    private RegistryResponseType sendToNhinProxy(RespondingGatewayRegisterDocumentSetSecuredRequestType request,
+        AssertionType assertion, NhinTargetSystemType nhinTargetSystemType) {
+
+        OutboundDocDataSubmissionDelegate ddsDelegate = getOutboundDocDataSubmissionDelegate();
+        OutboundDocDataSubmissionOrchestratable ddsOrchestratable = createOrchestratable(ddsDelegate, request,
+            assertion);
+        ddsOrchestratable.setTarget(nhinTargetSystemType);
+        return ((OutboundDocDataSubmissionOrchestratable) ddsDelegate.process(ddsOrchestratable)).getResponse();
+
+    }
+
+    protected OutboundDocDataSubmissionOrchestratable createOrchestratable(OutboundDocDataSubmissionDelegate delegate,
+        RespondingGatewayRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+
+        OutboundDocDataSubmissionOrchestratable ddsOrchestratable = new OutboundDocDataSubmissionOrchestratable(
+            delegate);
+        ddsOrchestratable.setAssertion(assertion);
+        ddsOrchestratable.setRequest(request.getRegisterDocumentSetRequest());
+
+        return ddsOrchestratable;
     }
 
     private void auditRequest(RegisterDocumentSetRequestType request, AssertionType assertion,
@@ -76,25 +161,12 @@ public class PassthroughOutboundDocDataSubmission implements OutboundDocDataSubm
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.NHINC_XDS_SERVICE_NAME);
     }
 
-    private static OutboundDocDataSubmissionOrchestratable createOrchestratable(
-        OutboundDocDataSubmissionDelegate delegate,
-        RegisterDocumentSetRequestType request, AssertionType assertion) {
-
-        OutboundDocDataSubmissionOrchestratable dsOrchestratable = new OutboundDocDataSubmissionOrchestratable(
-            delegate);
-        dsOrchestratable.setAssertion(assertion);
-        dsOrchestratable.setRequest(request);
-
-        return dsOrchestratable;
+    private static HomeCommunityType getNhinTargetHomeCommunity(
+        RespondingGatewayRegisterDocumentSetSecuredRequestType request) {
+        return request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity();
     }
 
-    private static RespondingGatewayRegisterDocumentSetSecuredRequestType createAuditRequest(
-        RegisterDocumentSetRequestType msg, NhinTargetCommunitiesType targets) {
-
-        RespondingGatewayRegisterDocumentSetSecuredRequestType request = new RespondingGatewayRegisterDocumentSetSecuredRequestType();
-        request.setNhinTargetCommunities(targets);
-        request.setRegisterDocumentSetRequest(msg);
-
-        return request;
+    private static String getNhinTargetHomeCommunityId(RespondingGatewayRegisterDocumentSetSecuredRequestType request) {
+        return getNhinTargetHomeCommunity(request).getHomeCommunityId();
     }
 }

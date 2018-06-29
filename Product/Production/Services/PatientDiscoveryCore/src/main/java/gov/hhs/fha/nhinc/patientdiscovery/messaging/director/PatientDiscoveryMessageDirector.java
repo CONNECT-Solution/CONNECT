@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.messaging.director;
 
-import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.builder.Builder;
 import gov.hhs.fha.nhinc.messaging.builder.NhinTargetCommunitiesBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.messaging.builder.PRPAIN201305UV02Builder;
@@ -53,11 +53,11 @@ public interface PatientDiscoveryMessageDirector extends Builder {
     public void setPRPAIN201305UV02Builder(PRPAIN201305UV02Builder pdBuilder);
 
     /**
-     * Sets the assertion builder.
+     * Sets the assertion.
      *
-     * @param assertionBuilder the new assertion builder
+     * @param assertion the new assertiontype
      */
-    public void setAssertionBuilder(AssertionBuilder assertionBuilder);
+    public void setAssertion(AssertionType assertion);
 
     /**
      * Sets the target communities builder.

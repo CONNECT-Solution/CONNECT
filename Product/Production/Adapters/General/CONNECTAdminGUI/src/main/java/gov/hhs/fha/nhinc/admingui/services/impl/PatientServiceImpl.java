@@ -32,8 +32,7 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
  */
 import gov.hhs.fha.nhinc.admingui.services.PatientService;
 import gov.hhs.fha.nhinc.admingui.services.exception.PatientSearchException;
-import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
-import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.builder.impl.NhinTargetCommunitiesBuilderImpl;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceUnsecuredImpl;
@@ -44,7 +43,6 @@ import gov.hhs.fha.nhinc.patientdiscovery.model.Patient;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
 import gov.hhs.fha.nhinc.patientdiscovery.model.builder.PatientSearchResultsModelBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.model.builder.impl.PatientSearchResultsModelBuilderImpl;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import org.slf4j.Logger;
@@ -74,11 +72,11 @@ public class PatientServiceImpl implements PatientService {
      * @see PatientSearchResults
      */
     @Override
-    public PatientSearchResults queryPatient(Patient query) throws PatientSearchException {
+    public PatientSearchResults queryPatient(Patient query, AssertionType assertion) throws PatientSearchException {
 
         LOG.trace("Entering PatientServiceImpl.queryPatient()");
         pdMessageDirector = new PatientDiscoveryMessageDirectorImpl();
-        pdMessageDirector.setAssertionBuilder(new AssertionBuilderImpl());
+        pdMessageDirector.setAssertion(assertion);
         NhinTargetCommunitiesBuilderImpl targetCommunity = new NhinTargetCommunitiesBuilderImpl();
         if (NullChecker.isNullish(query.getOrganization())) {
             throw new PatientSearchException("Organization is a required field");

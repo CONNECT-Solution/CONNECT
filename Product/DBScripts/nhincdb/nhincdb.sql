@@ -248,7 +248,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON configdb.* to nhincuser;
 CREATE DATABASE IF NOT EXISTS docrepository;
 
 CREATE TABLE IF NOT EXISTS docrepository.docregistry (
-    documentid int(11) NOT NULL,
+    documentid int(11) NOT NULL AUTO_INCREMENT,
     DocumentUniqueId varchar(64) NOT NULL,
     DocumentTitle varchar(128) default NULL,
     authorPerson varchar(64) default NULL,
@@ -306,7 +306,7 @@ CREATE TABLE IF NOT EXISTS docrepository.docregistry (
 );
 
 CREATE TABLE IF NOT EXISTS docrepository.docrepository (
-  repoId int(11) NOT NULL,
+  repoId int(11) NOT NULL AUTO_INCREMENT,
   RawData longblob NOT NULL,
   DocumentUniqueId varchar(64) NOT NULL,
   RepositoryUniqueId varchar(128) NOT NULL,

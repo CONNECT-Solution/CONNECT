@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="EventLogging-Passthrough" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" id="f1e5061e-e51b-49d4-99dd-230008424227" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project activeEnvironment="Default" name="EventLogging-Passthrough" resourceRoot="${projectDir}" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" id="f1e5061e-e51b-49d4-99dd-230008424227" xmlns:con="http://eviware.com/soapui/config">
     <con:description>This test is designed to run in loopback mode.</con:description><con:settings/>
     <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="../../../target/wsdl/EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="a44e0143-86be-4cce-a748-026affa467f7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <con:settings/>
@@ -112,7 +112,430 @@
             <con:settings/>
         </con:operation>
     </con:interface>
-    <con:testSuite name="g1" id="744759b8-4e7d-4e83-a9c9-58ac306ccd25">
+    <con:interface xsi:type="con:WsdlInterface" id="ddab6a8f-968c-4df6-bdbe-8ac2b5ce66ef" wsaVersion="NONE" name="EntityXDS_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityxds}EntityXDS_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityDDS.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint></con:endpoints><con:operation id="aa4ebc0a-9131-41d2-bac7-b680bc52b094" isOneWay="false" action="" name="RegisterDocumentSet-b" bindingOperationName="RegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e7f11d71-57c9-4e9b-8210-aecd9c816941" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">\r
+   <soap:Header/>\r
+   <soap:Body>\r
+      <urn:RespondingGateway_RegisterDocumentSetRequest>\r
+         <urn:assertion>\r
+            <!--Optional:-->\r
+            <urn1:address>\r
+               <urn1:addressType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:addressType>\r
+               <urn1:city>?</urn1:city>\r
+               <urn1:country>?</urn1:country>\r
+               <urn1:state>?</urn1:state>\r
+               <urn1:streetAddress>?</urn1:streetAddress>\r
+               <urn1:zipCode>?</urn1:zipCode>\r
+            </urn1:address>\r
+            <!--Optional:-->\r
+            <urn1:dateOfBirth>?</urn1:dateOfBirth>\r
+            <!--Optional:-->\r
+            <urn1:explanationNonClaimantSignature>?</urn1:explanationNonClaimantSignature>\r
+            <!--Optional:-->\r
+            <urn1:haveSecondWitnessSignature>?</urn1:haveSecondWitnessSignature>\r
+            <!--Optional:-->\r
+            <urn1:haveSignature>?</urn1:haveSignature>\r
+            <!--Optional:-->\r
+            <urn1:haveWitnessSignature>?</urn1:haveWitnessSignature>\r
+            <urn1:homeCommunity>\r
+               <!--Optional:-->\r
+               <urn1:description>?</urn1:description>\r
+               <urn1:homeCommunityId>?</urn1:homeCommunityId>\r
+               <!--Optional:-->\r
+               <urn1:name>?</urn1:name>\r
+            </urn1:homeCommunity>\r
+            <!--Optional:-->\r
+            <urn1:nationalProviderId>?</urn1:nationalProviderId>\r
+            <!--Optional:-->\r
+            <urn1:personName>\r
+               <urn1:familyName>?</urn1:familyName>\r
+               <urn1:givenName>?</urn1:givenName>\r
+               <urn1:nameType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:nameType>\r
+               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>\r
+               <urn1:fullName>?</urn1:fullName>\r
+               <urn1:prefix>?</urn1:prefix>\r
+               <urn1:suffix>?</urn1:suffix>\r
+            </urn1:personName>\r
+            <!--Optional:-->\r
+            <urn1:phoneNumber>\r
+               <urn1:areaCode>?</urn1:areaCode>\r
+               <urn1:countryCode>?</urn1:countryCode>\r
+               <urn1:extension>?</urn1:extension>\r
+               <urn1:localNumber>?</urn1:localNumber>\r
+               <urn1:phoneNumberType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:phoneNumberType>\r
+            </urn1:phoneNumber>\r
+            <!--Optional:-->\r
+            <urn1:secondWitnessAddress>\r
+               <urn1:addressType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:addressType>\r
+               <urn1:city>?</urn1:city>\r
+               <urn1:country>?</urn1:country>\r
+               <urn1:state>?</urn1:state>\r
+               <urn1:streetAddress>?</urn1:streetAddress>\r
+               <urn1:zipCode>?</urn1:zipCode>\r
+            </urn1:secondWitnessAddress>\r
+            <!--Optional:-->\r
+            <urn1:secondWitnessName>\r
+               <urn1:familyName>?</urn1:familyName>\r
+               <urn1:givenName>?</urn1:givenName>\r
+               <urn1:nameType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:nameType>\r
+               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>\r
+               <urn1:fullName>?</urn1:fullName>\r
+               <urn1:prefix>?</urn1:prefix>\r
+               <urn1:suffix>?</urn1:suffix>\r
+            </urn1:secondWitnessName>\r
+            <!--Optional:-->\r
+            <urn1:secondWitnessPhone>\r
+               <urn1:areaCode>?</urn1:areaCode>\r
+               <urn1:countryCode>?</urn1:countryCode>\r
+               <urn1:extension>?</urn1:extension>\r
+               <urn1:localNumber>?</urn1:localNumber>\r
+               <urn1:phoneNumberType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:phoneNumberType>\r
+            </urn1:secondWitnessPhone>\r
+            <!--Optional:-->\r
+            <urn1:SSN>?</urn1:SSN>\r
+            <!--Zero or more repetitions:-->\r
+            <urn1:uniquePatientId>?</urn1:uniquePatientId>\r
+            <!--Optional:-->\r
+            <urn1:witnessAddress>\r
+               <urn1:addressType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:addressType>\r
+               <urn1:city>?</urn1:city>\r
+               <urn1:country>?</urn1:country>\r
+               <urn1:state>?</urn1:state>\r
+               <urn1:streetAddress>?</urn1:streetAddress>\r
+               <urn1:zipCode>?</urn1:zipCode>\r
+            </urn1:witnessAddress>\r
+            <!--Optional:-->\r
+            <urn1:witnessName>\r
+               <urn1:familyName>?</urn1:familyName>\r
+               <urn1:givenName>?</urn1:givenName>\r
+               <urn1:nameType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:nameType>\r
+               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>\r
+               <urn1:fullName>?</urn1:fullName>\r
+               <urn1:prefix>?</urn1:prefix>\r
+               <urn1:suffix>?</urn1:suffix>\r
+            </urn1:witnessName>\r
+            <!--Optional:-->\r
+            <urn1:witnessPhone>\r
+               <urn1:areaCode>?</urn1:areaCode>\r
+               <urn1:countryCode>?</urn1:countryCode>\r
+               <urn1:extension>?</urn1:extension>\r
+               <urn1:localNumber>?</urn1:localNumber>\r
+               <urn1:phoneNumberType>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:phoneNumberType>\r
+            </urn1:witnessPhone>\r
+            <urn1:userInfo>\r
+               <urn1:personName>\r
+                  <urn1:familyName>?</urn1:familyName>\r
+                  <urn1:givenName>?</urn1:givenName>\r
+                  <urn1:nameType>\r
+                     <urn1:code>?</urn1:code>\r
+                     <!--Optional:-->\r
+                     <urn1:codeSystem>?</urn1:codeSystem>\r
+                     <!--Optional:-->\r
+                     <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                     <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                     <urn1:displayName>?</urn1:displayName>\r
+                     <urn1:originalText>?</urn1:originalText>\r
+                     <!--Zero or more repetitions:-->\r
+                     <urn1:translation/>\r
+                  </urn1:nameType>\r
+                  <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>\r
+                  <urn1:fullName>?</urn1:fullName>\r
+                  <urn1:prefix>?</urn1:prefix>\r
+                  <urn1:suffix>?</urn1:suffix>\r
+               </urn1:personName>\r
+               <urn1:userName>?</urn1:userName>\r
+               <urn1:org>\r
+                  <!--Optional:-->\r
+                  <urn1:description>?</urn1:description>\r
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>\r
+                  <!--Optional:-->\r
+                  <urn1:name>?</urn1:name>\r
+               </urn1:org>\r
+               <urn1:roleCoded>\r
+                  <urn1:code>?</urn1:code>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystem>?</urn1:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn1:codeSystemName>?</urn1:codeSystemName>\r
+                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+                  <urn1:displayName>?</urn1:displayName>\r
+                  <urn1:originalText>?</urn1:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn1:translation/>\r
+               </urn1:roleCoded>\r
+            </urn1:userInfo>\r
+            <urn1:authorized>?</urn1:authorized>\r
+            <urn1:purposeOfDisclosureCoded>\r
+               <urn1:code>?</urn1:code>\r
+               <!--Optional:-->\r
+               <urn1:codeSystem>?</urn1:codeSystem>\r
+               <!--Optional:-->\r
+               <urn1:codeSystemName>?</urn1:codeSystemName>\r
+               <urn1:codeSystemVersion>?</urn1:codeSystemVersion>\r
+               <urn1:displayName>?</urn1:displayName>\r
+               <urn1:originalText>?</urn1:originalText>\r
+               <!--Zero or more repetitions:-->\r
+               <urn1:translation/>\r
+            </urn1:purposeOfDisclosureCoded>\r
+            <!--Optional:-->\r
+            <urn1:acpAttribute>?</urn1:acpAttribute>\r
+            <!--Optional:-->\r
+            <urn1:instanceAcpAttribute>?</urn1:instanceAcpAttribute>\r
+            <!--Optional:-->\r
+            <urn1:samlConditions>\r
+               <urn1:notBefore>?</urn1:notBefore>\r
+               <urn1:notOnOrAfter>?</urn1:notOnOrAfter>\r
+            </urn1:samlConditions>\r
+            <!--Optional:-->\r
+            <urn1:samlAuthnStatement>\r
+               <urn1:authInstant>?</urn1:authInstant>\r
+               <!--Optional:-->\r
+               <urn1:sessionIndex>?</urn1:sessionIndex>\r
+               <urn1:authContextClassRef>?</urn1:authContextClassRef>\r
+               <!--Optional:-->\r
+               <urn1:subjectLocalityAddress>?</urn1:subjectLocalityAddress>\r
+               <!--Optional:-->\r
+               <urn1:subjectLocalityDNSName>?</urn1:subjectLocalityDNSName>\r
+            </urn1:samlAuthnStatement>\r
+            <!--Optional:-->\r
+            <urn1:samlAuthzDecisionStatement>\r
+               <!--Optional:-->\r
+               <urn1:decision>?</urn1:decision>\r
+               <!--Optional:-->\r
+               <urn1:resource>?</urn1:resource>\r
+               <!--Optional:-->\r
+               <urn1:action>?</urn1:action>\r
+               <!--Optional:-->\r
+               <urn1:evidence>\r
+                  <!--Optional:-->\r
+                  <urn1:assertion>\r
+                     <!--Optional:-->\r
+                     <urn1:id>?</urn1:id>\r
+                     <!--Optional:-->\r
+                     <urn1:issueInstant>?</urn1:issueInstant>\r
+                     <!--Optional:-->\r
+                     <urn1:version>?</urn1:version>\r
+                     <!--Optional:-->\r
+                     <urn1:issuer>?</urn1:issuer>\r
+                     <!--Optional:-->\r
+                     <urn1:issuerFormat>?</urn1:issuerFormat>\r
+                     <!--Optional:-->\r
+                     <urn1:subject>?</urn1:subject>\r
+                     <!--Optional:-->\r
+                     <urn1:conditions>\r
+                        <!--Optional:-->\r
+                        <urn1:notBefore>?</urn1:notBefore>\r
+                        <!--Optional:-->\r
+                        <urn1:notOnOrAfter>?</urn1:notOnOrAfter>\r
+                     </urn1:conditions>\r
+                     <!--Zero or more repetitions:-->\r
+                     <urn1:accessConsentPolicy>?</urn1:accessConsentPolicy>\r
+                     <!--Zero or more repetitions:-->\r
+                     <urn1:instanceAccessConsentPolicy>?</urn1:instanceAccessConsentPolicy>\r
+                  </urn1:assertion>\r
+               </urn1:evidence>\r
+            </urn1:samlAuthzDecisionStatement>\r
+            <!--Optional:-->\r
+            <urn1:samlSignature>\r
+               <!--Optional:-->\r
+               <urn1:keyInfo>\r
+                  <!--Optional:-->\r
+                  <urn1:rsaKeyValueModulus>cid:43887842834</urn1:rsaKeyValueModulus>\r
+                  <!--Optional:-->\r
+                  <urn1:rsaKeyValueExponent>cid:513581959752</urn1:rsaKeyValueExponent>\r
+               </urn1:keyInfo>\r
+               <!--Optional:-->\r
+               <urn1:signatureValue>cid:100036495097</urn1:signatureValue>\r
+            </urn1:samlSignature>\r
+            <!--Optional:-->\r
+            <urn1:samlIssuer>\r
+               <!--Optional:-->\r
+               <urn1:issuer>?</urn1:issuer>\r
+               <!--Optional:-->\r
+               <urn1:issuerFormat>?</urn1:issuerFormat>\r
+            </urn1:samlIssuer>\r
+            <!--Zero or more repetitions:-->\r
+            <urn1:samlSubjectConfirmations>\r
+               <urn1:method>?</urn1:method>\r
+               <!--Optional:-->\r
+               <urn1:subjectCondition>\r
+                  <urn1:notBefore>?</urn1:notBefore>\r
+                  <urn1:notOnOrAfter>?</urn1:notOnOrAfter>\r
+               </urn1:subjectCondition>\r
+               <!--Optional:-->\r
+               <urn1:recipient>?</urn1:recipient>\r
+               <!--Optional:-->\r
+               <urn1:inResponseTo>?</urn1:inResponseTo>\r
+               <!--Optional:-->\r
+               <urn1:address>?</urn1:address>\r
+            </urn1:samlSubjectConfirmations>\r
+            <!--Optional:-->\r
+            <urn1:messageId>?</urn1:messageId>\r
+            <!--Zero or more repetitions:-->\r
+            <urn1:relatesToList>?</urn1:relatesToList>\r
+            <!--Optional:-->\r
+            <urn1:implementsSpecVersion>?</urn1:implementsSpecVersion>\r
+            <!--Optional:-->\r
+            <urn1:transactionTimeout>-1</urn1:transactionTimeout>\r
+            <!--Optional:-->\r
+            <urn1:keepAlive>?</urn1:keepAlive>\r
+            <!--Zero or more repetitions:-->\r
+            <urn1:CONNECTCustomHttpHeaders>\r
+               <urn1:headerName>?</urn1:headerName>\r
+               <urn1:headerValue>?</urn1:headerValue>\r
+            </urn1:CONNECTCustomHttpHeaders>\r
+         </urn:assertion>\r
+         <!--Optional:-->\r
+         <urn:nhinTargetCommunities>\r
+            <!--1 or more repetitions:-->\r
+            <urn1:nhinTargetCommunity>\r
+               <urn1:homeCommunity>\r
+                  <!--Optional:-->\r
+                  <urn1:description>?</urn1:description>\r
+                  <urn1:homeCommunityId>?</urn1:homeCommunityId>\r
+                  <!--Optional:-->\r
+                  <urn1:name>?</urn1:name>\r
+               </urn1:homeCommunity>\r
+               <!--Optional:-->\r
+               <urn1:list>?</urn1:list>\r
+               <!--Optional:-->\r
+               <urn1:region>?</urn1:region>\r
+            </urn1:nhinTargetCommunity>\r
+            <!--Optional:-->\r
+            <urn1:useSpecVersion>?</urn1:useSpecVersion>\r
+            <!--Optional:-->\r
+            <urn1:exchangeName>?</urn1:exchangeName>\r
+         </urn:nhinTargetCommunities>\r
+         <urn:RegisterDocumentSetRequest>\r
+            <urn2:SubmitObjectsRequest id="?" comment="?">\r
+               <!--Optional:-->\r
+               <urn3:RequestSlotList>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:Slot name="?" slotType="?">\r
+                     <urn4:ValueList>\r
+                        <urn4:Value>?</urn4:Value>\r
+                     </urn4:ValueList>\r
+                  </urn4:Slot>\r
+               </urn3:RequestSlotList>\r
+               <urn4:RegistryObjectList>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:Identifiable id="?" home="?">\r
+                     <!--Zero or more repetitions:-->\r
+                     <urn4:Slot name="?" slotType="?">\r
+                        <urn4:ValueList>\r
+                           <urn4:Value>?</urn4:Value>\r
+                        </urn4:ValueList>\r
+                     </urn4:Slot>\r
+                  </urn4:Identifiable>\r
+               </urn4:RegistryObjectList>\r
+            </urn2:SubmitObjectsRequest>\r
+         </urn:RegisterDocumentSetRequest>\r
+         <!--Optional:-->\r
+         <urn:url>\r
+            <urn1:url>?</urn1:url>\r
+            <urn1:id>?</urn1:id>\r
+         </urn:url>\r
+      </urn:RespondingGateway_RegisterDocumentSetRequest>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="{urn:gov:hhs:fha:nhinc:entityxds}RegisterDocumentSet-b"/></con:call></con:operation></con:interface><con:testSuite name="g1" id="744759b8-4e7d-4e83-a9c9-58ac306ccd25">
         <con:settings/>
         <con:runType>SEQUENTIAL</con:runType>
         <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="7e685188-254a-4e21-9f18-98674d0f4a82">
@@ -620,7 +1043,7 @@
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="07f553fe-1450-4225-bad3-d17c656a036c">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -1070,7 +1493,7 @@ log.info ("Setting the gateway to Passthrough");</con:setupScript>
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="098e2318-32c2-4068-a845-fd9c3e8bc011">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -1654,7 +2077,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="16ad7767-45ac-4b2b-98be-49b4ff234f8e">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -2084,7 +2507,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="4c1aa08b-66a7-46cd-b8e6-ee5e17d0d462">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -2541,7 +2964,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="4a066820-04ee-4c73-b2b0-900016578c06">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -3093,7 +3516,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="e3dd9923-1302-4d2b-96e1-769bcec392c5">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -3523,7 +3946,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="79d22fb5-68b0-4e91-8398-4509f804ad3c">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -3920,7 +4343,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="8b535650-dca9-4d8f-8971-ff55e9f1ea16">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -4391,7 +4814,7 @@ context.setGatewayStandard(isStandardMode);log.info "Set service in standard mod
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="cbd8f55e-e0d5-49c5-8d9b-e339e60e3cbb">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -4471,7 +4894,515 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:property>
             </con:properties>
         </con:testCase>
-        <con:properties>
+        <con:testCase id="afa07c91-a57a-4d44-bee2-b77e3b0a5ee8" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Data Submission" searchProperties="true"><con:settings/><con:testStep type="groovy" name="Clear Event Logs" id="85963319-206d-43b7-a47a-e6ba2141760e">
+                <con:settings/>
+                <con:config>
+                    <script>context.withSql('eventdb') { sql ->
+                        sql.execute('delete from ' + context.findProperty('EventLoggingTable'))
+                        }</script>
+                </con:config>
+            </con:testStep><con:testStep type="request" name="Document Data Submission" id="5f37d47f-6bfe-4291-912c-0b7f7d1ada1b"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityXDS_Binding</con:interface><con:operation>RegisterDocumentSet-b</con:operation><con:request name="Document Data Submission" id="4e55f44c-99ef-43be-8f1b-56336846d52c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+    <soap:Header/>
+    <soap:Body testSuite="Entity_g1" testCase="Document Data Submission">
+      <urn:RespondingGateway_RegisterDocumentSetRequest>
+        <urn:assertion>
+          <urn1:messageId>${#Project#messageID}</urn1:messageId>
+          <urn1:address>
+            <urn1:addressType>
+              <urn1:code>AddrCode</urn1:code>
+              <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+              <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+              <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+              <urn1:displayName>AddrCode</urn1:displayName>
+              <urn1:originalText>AddrCode</urn1:originalText>
+            </urn1:addressType>
+            <urn1:city>AddrCity</urn1:city>
+            <urn1:country>AddrCountry</urn1:country>
+            <urn1:state>AddrState</urn1:state>
+            <urn1:streetAddress>AddrStreet</urn1:streetAddress>
+            <urn1:zipCode>AddrZip</urn1:zipCode>
+          </urn1:address>
+          <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
+          <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
+          <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
+          <urn1:haveSignature>false</urn1:haveSignature>
+          <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
+          <urn1:homeCommunity>
+            <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+            <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+            <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+          </urn1:homeCommunity>
+          <urn1:personName>
+            <urn1:familyName>Smith</urn1:familyName>
+            <urn1:givenName>Sandy</urn1:givenName>
+            <urn1:nameType>
+              <urn1:code>nameCode</urn1:code>
+              <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+              <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+              <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+              <urn1:displayName>nameCode</urn1:displayName>
+              <urn1:originalText>nameCode</urn1:originalText>
+            </urn1:nameType>
+            <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+            <urn1:fullName>Sandy S. Smith</urn1:fullName>
+          </urn1:personName>
+          <urn1:phoneNumber>
+            <urn1:areaCode>321</urn1:areaCode>
+            <urn1:countryCode>1</urn1:countryCode>
+            <urn1:extension>5436</urn1:extension>
+            <urn1:localNumber>253-6849</urn1:localNumber>
+            <urn1:phoneNumberType>
+              <urn1:code>phoneCode</urn1:code>
+              <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+              <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+              <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+              <urn1:displayName>phoneCode</urn1:displayName>
+              <urn1:originalText>phoneCode</urn1:originalText>
+            </urn1:phoneNumberType>
+          </urn1:phoneNumber>
+          <urn1:secondWitnessAddress>
+            <urn1:addressType>
+              <urn1:code>AddrCode</urn1:code>
+              <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+              <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+              <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+              <urn1:displayName>AddrCode</urn1:displayName>
+              <urn1:originalText>AddrCode</urn1:originalText>
+            </urn1:addressType>
+            <urn1:city>Addr2City</urn1:city>
+            <urn1:country>Addr2Country</urn1:country>
+            <urn1:state>Addr2State</urn1:state>
+            <urn1:streetAddress>Addr2Street</urn1:streetAddress>
+            <urn1:zipCode>Addr2Zip</urn1:zipCode>
+          </urn1:secondWitnessAddress>
+          <urn1:secondWitnessName>
+            <urn1:familyName>Smith</urn1:familyName>
+            <urn1:givenName>Sammy</urn1:givenName>
+            <urn1:nameType>
+              <urn1:code>nameCode</urn1:code>
+              <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+              <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+              <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+              <urn1:displayName>nameCode</urn1:displayName>
+              <urn1:originalText>nameCode</urn1:originalText>
+            </urn1:nameType>
+            <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
+            <urn1:fullName>Sammy S. Smith</urn1:fullName>
+          </urn1:secondWitnessName>
+          <urn1:secondWitnessPhone>
+            <urn1:areaCode>321</urn1:areaCode>
+            <urn1:countryCode>1</urn1:countryCode>
+            <urn1:extension>5424</urn1:extension>
+            <urn1:localNumber>542-6823</urn1:localNumber>
+            <urn1:phoneNumberType>
+              <urn1:code>phoneCode</urn1:code>
+              <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+              <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+              <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+              <urn1:displayName>phoneCode</urn1:displayName>
+              <urn1:originalText>phoneCode</urn1:originalText>
+            </urn1:phoneNumberType>
+          </urn1:secondWitnessPhone>
+          <urn1:SSN>253-98-7546</urn1:SSN>
+          <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+          <urn1:witnessAddress>
+            <urn1:addressType>
+              <urn1:code>addrCode</urn1:code>
+              <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
+              <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
+              <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+              <urn1:displayName>addrCode</urn1:displayName>
+              <urn1:originalText>addrCode</urn1:originalText>
+            </urn1:addressType>
+            <urn1:city>Burnell</urn1:city>
+            <urn1:country>USA</urn1:country>
+            <urn1:state>FL</urn1:state>
+            <urn1:streetAddress>825 North</urn1:streetAddress>
+            <urn1:zipCode>32184</urn1:zipCode>
+          </urn1:witnessAddress>
+          <urn1:witnessName>
+            <urn1:familyName>Smith</urn1:familyName>
+            <urn1:givenName>Scott</urn1:givenName>
+            <urn1:nameType>
+              <urn1:code>nameCode</urn1:code>
+              <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+              <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+              <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+              <urn1:displayName>nameCode</urn1:displayName>
+              <urn1:originalText>nameCode</urn1:originalText>
+            </urn1:nameType>
+            <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
+            <urn1:fullName>Scott S. Smith</urn1:fullName>
+          </urn1:witnessName>
+          <urn1:witnessPhone>
+            <urn1:areaCode>321</urn1:areaCode>
+            <urn1:countryCode>1</urn1:countryCode>
+            <urn1:extension>8432</urn1:extension>
+            <urn1:localNumber>985-2239</urn1:localNumber>
+            <urn1:phoneNumberType>
+              <urn1:code>phoneCode</urn1:code>
+              <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+              <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+              <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+              <urn1:displayName>phoneCode</urn1:displayName>
+              <urn1:originalText>phoneCode</urn1:originalText>
+            </urn1:phoneNumberType>
+          </urn1:witnessPhone>
+          <urn1:userInfo>
+            <urn1:personName>
+              <urn1:familyName>Skagerberg</urn1:familyName>
+              <urn1:givenName>Karl</urn1:givenName>
+              <urn1:nameType>
+                <urn1:code>nameCode</urn1:code>
+                <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                <urn1:displayName>nameCode</urn1:displayName>
+                <urn1:originalText>nameCode</urn1:originalText>
+              </urn1:nameType>
+              <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+              <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
+            </urn1:personName>
+            <urn1:userName>kskagerb</urn1:userName>
+            <urn1:org>
+              <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+              <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+              <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+            </urn1:org>
+            <urn1:roleCoded>
+              <urn1:code>307969004</urn1:code>
+              <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
+              <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
+              <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+              <urn1:displayName>Public Health</urn1:displayName>
+              <urn1:originalText>Public Health</urn1:originalText>
+            </urn1:roleCoded>
+          </urn1:userInfo>
+          <urn1:authorized>true</urn1:authorized>
+          <urn1:purposeOfDisclosureCoded>
+            <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+            <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+            <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+            <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+            <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+            <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+          </urn1:purposeOfDisclosureCoded>
+          <urn1:samlAuthnStatement>
+            <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+            <urn1:sessionIndex>987</urn1:sessionIndex>
+            <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+            <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+            <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
+          </urn1:samlAuthnStatement>
+          <urn1:samlAuthzDecisionStatement>
+            <urn1:decision>Permit</urn1:decision>
+            <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+            <urn1:action>TestSaml</urn1:action>
+            <urn1:evidence>
+              <urn1:assertion>
+                <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                <urn1:version>2.0</urn1:version>
+                <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                <urn1:conditions>
+                  <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                  <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                </urn1:conditions>
+                <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+              </urn1:assertion>
+            </urn1:evidence>
+          </urn1:samlAuthzDecisionStatement>
+        </urn:assertion>
+        <urn:nhinTargetCommunities>
+          <urn1:nhinTargetCommunity>
+            <urn1:homeCommunity>
+              <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+              <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+              <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+          </urn1:nhinTargetCommunity>
+        </urn:nhinTargetCommunities>
+        <urn:RegisterDocumentSetRequest>
+          <urn2:SubmitObjectsRequest id="123" comment="comment">
+            <!--Optional:-->
+            <urn4:RegistryObjectList>
+              <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
+                <urn4:Slot name="creationTime">
+                  <urn4:ValueList>
+                    <urn4:Value>20051224</urn4:Value>
+                  </urn4:ValueList>
+                </urn4:Slot>
+                <urn4:Slot name="languageCode">
+                  <urn4:ValueList>
+                    <urn4:Value>en-us</urn4:Value>
+                  </urn4:ValueList>
+                </urn4:Slot>
+                <urn4:Slot name="serviceStartTime">
+                  <urn4:ValueList>
+                    <urn4:Value>200412230800</urn4:Value>
+                  </urn4:ValueList>
+                </urn4:Slot>
+                <urn4:Slot name="serviceStopTime">
+                  <urn4:ValueList>
+                    <urn4:Value>200412230801</urn4:Value>
+                  </urn4:ValueList>
+                </urn4:Slot>
+                <urn4:Slot name="sourcePatientId">
+                  <urn4:ValueList>
+                    <urn4:Value>ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                  </urn4:ValueList>
+                </urn4:Slot>
+                <urn4:Slot name="sourcePatientInfo">
+                  <urn4:ValueList>
+                    <urn4:Value>PID-3|ST-1000^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
+                    <urn4:Value>PID-5|Doe^John^^^</urn4:Value>
+                    <urn4:Value>PID-7|19560527</urn4:Value>
+                    <urn4:Value>PID-8|M</urn4:Value>
+                    <urn4:Value>PID-11|100 Main St^^Metropolis^Il^44130^USA</urn4:Value>
+                  </urn4:ValueList>
+                </urn4:Slot>
+                <urn4:Name>
+                  <urn4:LocalizedString value="Physical"/>
+                </urn4:Name>
+                <urn4:Description/>
+                <urn4:Classification id="cl01" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" classifiedObject="Document01">
+                  <urn4:Slot name="authorPerson">
+                    <urn4:ValueList>
+                      <urn4:Value>Gerald Smitty</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                  <urn4:Slot name="authorInstitution">
+                    <urn4:ValueList>
+                      <urn4:Value>Cleveland Clinic</urn4:Value>
+                      <urn4:Value>Parma Community</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                  <urn4:Slot name="authorRole">
+                    <urn4:ValueList>
+                      <urn4:Value>Attending</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                  <urn4:Slot name="authorSpecialty">
+                    <urn4:ValueList>
+                      <urn4:Value>Orthopedic</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                </urn4:Classification>
+                <urn4:Classification id="cl02" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" classifiedObject="Document01" nodeRepresentation="History and Physical">
+                  <urn4:Slot name="codingScheme">
+                    <urn4:ValueList>
+                      <urn4:Value>Connect-a-thon classCodes</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                  <urn4:Name>
+                    <urn4:LocalizedString value="History and Physical"/>
+                  </urn4:Name>
+                </urn4:Classification>
+                <urn4:Classification id="cl03" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" classifiedObject="Document01" nodeRepresentation="1.3.6.1.4.1.21367.2006.7.101">
+                  <urn4:Slot name="codingScheme">
+                    <urn4:ValueList>
+                      <urn4:Value>Connect-a-thon confidentialityCodes</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                  <urn4:Name>
+                    <urn4:LocalizedString value="Clinical-Staff"/>
+                  </urn4:Name>
+                </urn4:Classification>
+                <urn4:Classification id="cl04" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" classifiedObject="Document01" nodeRepresentation="CDAR2/IHE 1.0">
+                  <urn4:Slot name="codingScheme">
+                    <urn4:ValueList>
+                      <urn4:Value>Connect-a-thon formatCodes</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                  <urn4:Name>
+                    <urn4:LocalizedString value="CDAR2/IHE 1.0"/>
+                  </urn4:Name>
+                </urn4:Classification>
+                <urn4:Classification id="cl05" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" classifiedObject="Document01" nodeRepresentation="Outpatient">
+                  <urn4:Slot name="codingScheme">
+                    <urn4:ValueList>
+                      <urn4:Value>Connect-a-thon healthcareFacilityTypeCodes</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                  <urn4:Name>
+                    <urn4:LocalizedString value="Outpatient"/>
+                  </urn4:Name>
+                </urn4:Classification>
+                <urn4:Classification id="cl06" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" classifiedObject="Document01" nodeRepresentation="General Medicine">
+                  <urn4:Slot name="codingScheme">
+                    <urn4:ValueList>
+                      <urn4:Value>Connect-a-thon practiceSettingCodes</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                  <urn4:Name>
+                    <urn4:LocalizedString value="General Medicine"/>
+                  </urn4:Name>
+                </urn4:Classification>
+                <urn4:Classification id="cl07" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" classifiedObject="Document01" nodeRepresentation="34108-1">
+                  <urn4:Slot name="codingScheme">
+                    <urn4:ValueList>
+                      <urn4:Value>LOINC</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                  <urn4:Name>
+                    <urn4:LocalizedString value="Outpatient Evaluation And Management"/>
+                  </urn4:Name>
+                </urn4:Classification>
+                <urn4:ExternalIdentifier id="ei01" registryObject="Document01" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                  <urn4:Name>
+                    <urn4:LocalizedString value="XDSDocumentEntry.patientId"/>
+                  </urn4:Name>
+                </urn4:ExternalIdentifier>
+                <urn4:ExternalIdentifier id="ei02" registryObject="Document01" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" value="1.2.3.4.5.6.78901.2345.6.7890.12">
+                  <urn4:Name>
+                    <urn4:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+                  </urn4:Name>
+                </urn4:ExternalIdentifier>
+              </urn4:ExtrinsicObject>
+              <urn4:RegistryPackage id="SubmissionSet01">
+                <urn4:Slot name="submissionTime">
+                  <urn4:ValueList>
+                    <urn4:Value>20041225235050</urn4:Value>
+                  </urn4:ValueList>
+                </urn4:Slot>
+                <urn4:Name>
+                  <urn4:LocalizedString value="Physical"/>
+                </urn4:Name>
+                <urn4:Description>
+                  <urn4:LocalizedString value="Annual physical"/>
+                </urn4:Description>
+                <urn4:Classification id="cl08" classificationScheme="urn:uuid:a7058bb9-b4e4-4307-ba5b-e3f0ab85e12d" classifiedObject="SubmissionSet01">
+                  <urn4:Slot name="authorPerson">
+                    <urn4:ValueList>
+                      <urn4:Value>Sherry Dopplemeyer</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                  <urn4:Slot name="authorInstitution">
+                    <urn4:ValueList>
+                      <urn4:Value>Cleveland Clinic</urn4:Value>
+                      <urn4:Value>Berea Community</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                  <urn4:Slot name="authorRole">
+                    <urn4:ValueList>
+                      <urn4:Value>Purn4ary Surgon</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                  <urn4:Slot name="authorSpecialty">
+                    <urn4:ValueList>
+                      <urn4:Value>Orthopedic</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                </urn4:Classification>
+                <urn4:Classification id="cl09" classificationScheme="urn:uuid:aa543740-bdda-424e-8c96-df4873be8500" classifiedObject="SubmissionSet01" nodeRepresentation="History and Physical">
+                  <urn4:Slot name="codingScheme">
+                    <urn4:ValueList>
+                      <urn4:Value>Connect-a-thon contentTypeCodes</urn4:Value>
+                    </urn4:ValueList>
+                  </urn4:Slot>
+                  <urn4:Name>
+                    <urn4:LocalizedString value="History and Physical"/>
+                  </urn4:Name>
+                </urn4:Classification>
+                <urn4:ExternalIdentifier id="ei03" registryObject="SubmissionSet01" identificationScheme="urn:uuid:96fdda7c-d067-4183-912e-bf5ee74998a8" value="1.2.3.4.5.6.78901.2345.6.7890.12">
+                  <urn4:Name>
+                    <urn4:LocalizedString value="XDSSubmissionSet.uniqueId"/>
+                  </urn4:Name>
+                </urn4:ExternalIdentifier>
+                <urn4:ExternalIdentifier id="ei04" registryObject="SubmissionSet01" identificationScheme="urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832" value="3670984664">
+                  <urn4:Name>
+                    <urn4:LocalizedString value="XDSSubmissionSet.sourceId"/>
+                  </urn4:Name>
+                </urn4:ExternalIdentifier>
+                <urn4:ExternalIdentifier id="ei05" registryObject="SubmissionSet01" identificationScheme="urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
+                  <urn4:Name>
+                    <urn4:LocalizedString value="XDSSubmissionSet.patientId"/>
+                  </urn4:Name>
+                </urn4:ExternalIdentifier>
+              </urn4:RegistryPackage>
+              <urn4:Classification id="cl10" classifiedObject="SubmissionSet01" classificationNode="urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd"/>
+              <urn4:Association id="as01" associationType="HasMember" sourceObject="SubmissionSet01" targetObject="Document01">
+                <urn4:Slot name="SubmissionSetStatus">
+                  <urn4:ValueList>
+                    <urn4:Value>Original</urn4:Value>
+                  </urn4:ValueList>
+                </urn4:Slot>
+              </urn4:Association>
+            </urn4:RegistryObjectList>
+          </urn2:SubmitObjectsRequest>         
+        </urn:RegisterDocumentSetRequest>
+      </urn:RespondingGateway_RegisterDocumentSetRequest>
+    </soap:Body>
+</soap:Envelope>]]></con:request><con:assertion type="SOAP Response" id="97e9021d-1313-430c-8571-4658a4d177ba"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Verify Event Logs" id="1f64847e-8178-4cdc-a186-7ca3134f7561">
+                <con:settings/>
+                <con:config>
+                    <script>context.withSql('eventdb') {sql ->
+                        assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+                        assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+                        assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+                        assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+                        assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+                        assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+                        assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+                        assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+                        assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
+                        }</script>
+                </con:config>
+            </con:testStep><con:testStep type="groovy" name="Verify Elements in Event Log" id="418181c6-e445-4006-afaa-7192ef57d195">
+                <con:settings/>
+                <con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+       def resultset =sql.rows('select * from ' + context.findProperty('EventLoggingTable') + ' where serviceType="Document Data Submission"')
+       assert resultset.size !=0
+       resultset.each { item ->
+                        validateElements(item)
+       }
+}
+
+public validateElements(Object dbRecord){
+	def description = dbRecord.getProperty("description")
+	def messageId = dbRecord.getProperty("messageId")
+	def initiatingHcid = dbRecord.getProperty("initiatingHcid")
+	def name = dbRecord.getProperty("name")
+	def parsedObject = parseJsonString(description)
+	def respondingHcids = dbRecord.getProperty("respondingHcids");
+	
+	validateMessageId(name, messageId, parsedObject)
+	validateInitiatingHCID(initiatingHcid, parsedObject)
+	validateResponsdingHCIDs(respondingHcids, parsedObject)
+}
+
+public validateMessageId(String name, String messageId, Object parsedObject){
+     if(!name.equals("BEGIN_OUTBOUND_MESSAGE")){
+     	assert messageId != null
+     	assert messageId == parsedObject.message_id
+     }
+}
+
+public validateInitiatingHCID(String initiatingHcid, Object parsedObject){
+	assert initiatingHcid !=null
+	assert initiatingHcid == parsedObject.initiating_hcid
+}
+
+public validateResponsdingHCIDs(String respondingHcids, Object parsedObject){
+	def hcids="";
+	assert respondingHcids !=null
+	assert parsedObject.responding_hcids !=null
+	log.info "respondingHcids: "+respondingHcids
+	hcids=parsedObject.responding_hcids.join(',')
+	log.info "hcids: "+ hcids
+	assert respondingHcids == hcids
+}
+
+def parseJsonString(String description){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+	return slurper.parseText(json_string);
+}</script></con:config>
+            </con:testStep><con:properties/></con:testCase><con:properties>
             <con:property>
                 <con:name>Endpoint-DocRetrieve</con:name>
                 <con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value>
@@ -5023,7 +5954,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="6981d26d-8099-42e0-9e8f-41b4983fe03f">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -5472,7 +6403,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="3e5a1573-bd86-4e24-99ee-d12cdc49fee1">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -6055,7 +6986,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="9e5b0534-6f1f-4a82-b99f-c8af33ab22b5">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -6484,7 +7415,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="d1464308-da1e-4039-a038-50c58c77e9d2">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -6940,7 +7871,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="6d5b8e6e-ffe4-479a-bb59-c0354c05ee4a">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -7491,7 +8422,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="a17e266b-a702-441d-bcfb-c928cf0b9fac">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -7920,7 +8851,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="3f4d3376-4c6e-4b77-8cd7-47ef24a073f3">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -8316,7 +9247,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Element in Event Log">
+            <con:testStep type="groovy" name="Verify Element in Event Log" id="f3533a7b-ecbc-487e-bc38-1455c96726f1">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -8782,7 +9713,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                 </con:config>
             </con:testStep>
             
-            <con:testStep type="groovy" name="Verify Elements in Event Log">
+            <con:testStep type="groovy" name="Verify Elements in Event Log" id="bd64ac7f-4ca6-4718-a3fb-62089c700e6d">
                 <con:settings/>
                 <con:config><script>import groovy.json.*
 
@@ -9225,5 +10156,5 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
         }</con:afterLoadScript>
     <con:wssContainer/>
     <con:oAuth2ProfileContainer/>
-    <con:sensitiveInformation/>
+    <con:oAuth1ProfileContainer/><con:sensitiveInformation/>
 </con:soapui-project>
