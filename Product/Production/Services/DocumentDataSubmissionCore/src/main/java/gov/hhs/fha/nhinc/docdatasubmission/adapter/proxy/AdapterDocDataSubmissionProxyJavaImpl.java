@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docdatasubmission.adapter.AdapterDocDataSubmissionOrchImpl;
 import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.docrepository.adapter.AdapterComponentDocRepositoryOrchImpl;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
@@ -46,7 +46,7 @@ public class AdapterDocDataSubmissionProxyJavaImpl implements AdapterDocDataSubm
     public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg,
         AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter Doc Submission Service");
-        return AdapterDocDataSubmissionOrchImpl.registerDocumentSetB(msg, assertion);
+        return new AdapterComponentDocRepositoryOrchImpl().registerDocumentSet(msg);
     }
 
 }

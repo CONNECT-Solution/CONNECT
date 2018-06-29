@@ -60,8 +60,8 @@
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="${projectDir}/../target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="2dfa770e-6dc4-468e-9ac9-f761fe91635a" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     <con:endpoints>
-      <con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
-    </con:endpoints>
+      <con:endpoint>http://localhost:/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
+    <con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint></con:endpoints>
     <con:operation action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional" id="da72363f-5157-4f50-ab7f-ac197d89a105">
       <con:settings/>
     </con:operation>
@@ -796,7 +796,89 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" id="b3763060-06df-4642-b408-d19d339d8491" wsaVersion="NONE" name="EntityXDS_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityxds}EntityXDS_Binding" soapVersion="1_2" anonymous="optional" definition="../target/wsdl/EntityDDS.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint></con:endpoints><con:operation id="ed7ecd3d-a522-41a2-8e68-8bbaf99171c6" isOneWay="false" action="" name="RegisterDocumentSet-b" bindingOperationName="RegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="g1" id="15648530-46ad-479d-a785-8ee44ec5cd39">
+  <con:interface xsi:type="con:WsdlInterface" id="b3763060-06df-4642-b408-d19d339d8491" wsaVersion="NONE" name="EntityXDS_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityxds}EntityXDS_Binding" soapVersion="1_2" anonymous="optional" definition="../target/wsdl/EntityDDS.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:/Gateway/DocumentDataSubmission/1_0/EntityService/EntityDocDataSubmissionUnsecured</con:endpoint></con:endpoints><con:operation id="ed7ecd3d-a522-41a2-8e68-8bbaf99171c6" isOneWay="false" action="" name="RegisterDocumentSet-b" bindingOperationName="RegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="f31a3370-f4e8-4c9d-8b55-6b3fa42f5056" wsaVersion="NONE" name="EntityPatientLocationQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientlocationquery}EntityPatientLocationQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="target/wsdl/EntityPatientLocationQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:/Gateway/PatientLocationQuery/1_0/EntityPatientLocationQuery</con:endpoint></con:endpoints><con:operation id="43dc9f4f-bb36-47cf-9d90-52a6ea38a235" isOneWay="false" action="urn:gov:hhs:fha:nhinc:entitypatientlocationquery:RespondingGateway_PatientLocationQueryRequestMessage" name="RespondingGateway_PatientLocationQuery" bindingOperationName="RespondingGateway_PatientLocationQuery" type="Request-Response" outputName="RespondingGateway_PatientLocationQueryResponse" inputName="RespondingGateway_PatientLocationQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="33070da9-a6ac-4739-a494-84d6d20c0e3b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientLocationQuery</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xcpd:2009" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">\r
+   <soap:Header/>\r
+   <soap:Body>\r
+      <urn:RespondingGateway_PatientLocationQueryRequest>\r
+         <urn1:PatientLocationQueryRequest>\r
+            <urn1:RequestedPatientId nullFlavor="?" root="?" extension="?" assigningAuthorityName="?" displayable="?"/>\r
+         </urn1:PatientLocationQueryRequest>\r
+         <urn:assertion>
+            <urn1:homeCommunity>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+            <urn1:userInfo>
+               <urn1:personName>
+                  <urn1:familyName>Anderson</urn1:familyName>
+                  <urn1:givenName>Wilma</urn1:givenName>
+                  <urn1:nameType>
+                     <urn1:code>G</urn1:code>
+                  </urn1:nameType>
+                  <urn1:secondNameOrInitials>WA</urn1:secondNameOrInitials>
+                  <urn1:fullName>Wilma Anderson</urn1:fullName>
+                  <urn1:prefix>Mrs</urn1:prefix>
+               </urn1:personName>
+               <urn1:userName>wanderson</urn1:userName>
+               <urn1:org>
+                  <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+               </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>307969004</urn1:code>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Public Health</urn1:displayName>
+                  <urn1:originalText>Public Health</urn1:originalText>
+               </urn1:roleCoded>
+            </urn1:userInfo>
+            <urn1:authorized>true</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTH</urn1:code>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:conditions>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
+         </urn:assertion>
+         <urn:NhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
+      </urn:RespondingGateway_PatientLocationQueryRequest>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:entitypatientlocationquery:RespondingGateway_PatientLocationQueryRequestMessage"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="g1" id="15648530-46ad-479d-a785-8ee44ec5cd39">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="53f821fb-e99b-4318-a86d-66e62b517650" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
@@ -2732,7 +2814,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>

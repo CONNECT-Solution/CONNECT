@@ -26,14 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.entity;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-import gov.hhs.fha.nhinc.patientlocationquery.MessageGeneratorUtilsPatientLocationQuery;
-import gov.hhs.fha.nhinc.patientlocationquery.orchestration.OrchestrationContextFactory;
-import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,47 +38,38 @@ public class OutboundPatientLocationQueryDelegate implements OutboundDelegate {
 
     @Override
     public Orchestratable process(Orchestratable message) {
-        if (message instanceof OutboundOrchestratable) {
-            return process((OutboundOrchestratable) message);
-        }
-        return null;
+        return process(message);
     }
 
     @Override
     public OutboundOrchestratable process(OutboundOrchestratable message) {
-        LOG.debug("begin process");
         if (message instanceof OutboundPatientLocationQueryOrchestratable) {
             LOG.debug("processing PLQ orchestratable ");
-            OutboundPatientLocationQueryOrchestratable dsMessage = (OutboundPatientLocationQueryOrchestratable) message;
+            OutboundPatientLocationQueryOrchestratable msg = (OutboundPatientLocationQueryOrchestratable) message;
 
-            OrchestrationContextBuilder contextBuilder = getOrchestrationContextFactory()
-                .getBuilder(dsMessage.getTarget(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_DATA_SUBMISSION);
+            return (OutboundOrchestratable) new OutboundPatientLocationQueryOrchestrationContextBuilder()
+                .withAssertionType(msg.getAssertion())
+                .withNhinDelegate(msg.getDelegate())
+                .withRequest(msg.getRequest())
+                .withTarget(msg.getTarget())
+                .build()
+                .execute();
 
-            if (contextBuilder instanceof OutboundPatientLocationQueryOrchestrationContextBuilderImpl) {
-                ((OutboundPatientLocationQueryOrchestrationContextBuilderImpl) contextBuilder).init(message);
-            } else {
-                return null;
-            }
-            return (OutboundOrchestratable) contextBuilder.build().execute();
+        } else {
+            LOG.error("message is not an instance of OutboundPatientLocationQueryOrchestratable!");
+            throw new IllegalArgumentException("Message is not a Patient Location Query Orchestratable instance");
         }
-        LOG.error("message is not an instance of OutboundDocDataSubmissionOrchestratable!");
-        return null;
-    }
-
-    protected OrchestrationContextFactory getOrchestrationContextFactory() {
-        return OrchestrationContextFactory.getInstance();
     }
 
     @Override
     public void createErrorResponse(OutboundOrchestratable message, String error) {
+        // PLQ does not have any sort of element for error responses and therefore this method cannot be implemented
+        // We will be pushing the error on the console instead. (Or just simply not use this method)
+
         if (message == null) {
             LOG.debug("OutboundOrchestratable was null");
             return;
         }
-
-        PatientLocationQueryResponseType response = MessageGeneratorUtilsPatientLocationQuery.getInstance()
-            .createRegistryErrorResponseWithAckFailure(error);
-
-        //((OutboundDocDataSubmissionOrchestratable) message).setResponse(response);
+        LOG.error("Processing Outbound Patient Location failed. Reason: {}", error);
     }
 }

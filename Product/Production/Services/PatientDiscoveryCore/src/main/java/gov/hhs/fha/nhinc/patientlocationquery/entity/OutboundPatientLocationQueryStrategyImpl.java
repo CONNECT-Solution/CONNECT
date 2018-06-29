@@ -48,18 +48,19 @@ class OutboundPatientLocationQueryStrategyImpl implements OrchestrationStrategy 
         if (message instanceof OutboundPatientLocationQueryOrchestratable) {
             execute((OutboundPatientLocationQueryOrchestratable) message);
         } else {
-            LOG.error("Not an OutboundDocDataSubmissionOrchestratable.");
+            LOG.error("Not an OutboundPatientLocationQueryOrchestratable.");
         }
     }
 
     public void execute(OutboundPatientLocationQueryOrchestratable message) {
-        LOG.trace("Begin OutboundDocDataSubmissionOrchestratableImpl_g0.process");
+        LOG.trace("Begin OutboundPatientLocationQueryStrategyImpl.execute");
 
         NhinPatientLocationQueryProxy nhincDocSubmission = getNhinDocDataSubmissionProxy();
         PatientLocationQueryResponseType response = nhincDocSubmission.processPatientLocationQuery(message.getRequest(),
             message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
-        //message.setResponse(response);
 
-        LOG.trace("End OutboundDocDataSubmissionOrchestratableImpl_g0.process");
+        message.setResponse(response);
+
+        LOG.trace("End OutboundPatientLocationQueryStrategyImpl.execute");
     }
 }

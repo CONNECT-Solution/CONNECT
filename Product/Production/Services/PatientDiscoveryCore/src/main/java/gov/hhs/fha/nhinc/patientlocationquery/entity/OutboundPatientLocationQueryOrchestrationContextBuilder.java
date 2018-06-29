@@ -31,55 +31,39 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 
-public abstract class OutboundPatientLocationQueryOrchestrationContextBuilder implements OrchestrationContextBuilder {
+public class OutboundPatientLocationQueryOrchestrationContextBuilder implements OrchestrationContextBuilder {
 
     private AssertionType assertionType;
     private OutboundDelegate nhinDelegate;
     private PatientLocationQueryRequestType request;
     private NhinTargetCommunitiesType target;
 
-    @Override
-    public abstract OrchestrationContext build();
-
-    public void init(OutboundOrchestratable message) {
-        setAssertionType(message.getAssertion());
-        setRequest(((OutboundPatientLocationQueryOrchestratable) message).getRequest());
-        setTarget(((OutboundPatientLocationQueryOrchestratable) message).getTarget());
-        setNhinDelegate(((OutboundPatientLocationQueryOrchestratable) message).getNhinDelegate());
+    public OutboundPatientLocationQueryOrchestrationContextBuilder withAssertionType(AssertionType assertion) {
+        assertionType = assertion;
+        return this;
     }
 
-    public AssertionType getAssertionType() {
-        return assertionType;
+    public OutboundPatientLocationQueryOrchestrationContextBuilder withNhinDelegate(OutboundDelegate delegate) {
+        nhinDelegate = delegate;
+        return this;
     }
 
-    public void setAssertionType(AssertionType assertionType) {
-        this.assertionType = assertionType;
+    public OutboundPatientLocationQueryOrchestrationContextBuilder withRequest(PatientLocationQueryRequestType req) {
+        request = req;
+        return this;
     }
 
-    public OutboundDelegate getNhinDelegate() {
-        return nhinDelegate;
-    }
-
-    public void setNhinDelegate(OutboundDelegate nhinDelegate) {
-        this.nhinDelegate = nhinDelegate;
-    }
-
-    public PatientLocationQueryRequestType getRequest() {
-        return request;
-    }
-
-    public void setRequest(PatientLocationQueryRequestType request) {
-        this.request = request;
-    }
-
-    public NhinTargetCommunitiesType getTarget() {
-        return target;
-    }
-
-    public void setTarget(NhinTargetCommunitiesType nhinTargetCommunitiesType) {
+    public OutboundPatientLocationQueryOrchestrationContextBuilder withTarget(NhinTargetCommunitiesType nhinTargetCommunitiesType) {
         target = nhinTargetCommunitiesType;
+        return this;
+    }
+
+    @Override
+    public OrchestrationContext build() {
+        return new OrchestrationContext(
+            new OutboundPatientLocationQueryStrategyImpl(),
+            new OutboundPatientLocationQueryOrchestratable(nhinDelegate, request, target,assertionType));
     }
 }

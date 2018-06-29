@@ -40,17 +40,13 @@ public class PassthroughInboundPatientLocationQuery implements InboundPatientLoc
     @Override
     public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
         AssertionType assertion, Properties webContextproperties) {
-        //Step 1: process request
-        //Step 2: audit log for response
-        //Step 3: send out the response
+
+        //Future Story: audit log for response
+
         return sendToAdapter(request, assertion);
     }
 
     protected PatientLocationQueryResponseType sendToAdapter(PatientLocationQueryRequestType request, AssertionType assertion) {
-        // the adapter should be responsible for adding the metadata-to-database
-        //AdapterDocDataSubmissionProxy proxy = adapterFactory.getAdapterDocDataSubmissionProxy();
-        //return proxy.registerDocumentSetB(request, assertion);
-
         return new PatientLocationQueryResponseType();
     }
 }

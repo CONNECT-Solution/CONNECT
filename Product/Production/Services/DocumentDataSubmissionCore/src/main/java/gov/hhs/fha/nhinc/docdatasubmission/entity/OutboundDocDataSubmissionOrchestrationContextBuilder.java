@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.docdatasubmission.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
@@ -40,9 +39,6 @@ public abstract class OutboundDocDataSubmissionOrchestrationContextBuilder imple
     private OutboundDelegate nhinDelegate;
     private RegisterDocumentSetRequestType request;
     private NhinTargetSystemType target;
-
-    @Override
-    public abstract OrchestrationContext build();
 
     public void init(OutboundOrchestratable message) {
         setAssertionType(message.getAssertion());

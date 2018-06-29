@@ -117,23 +117,19 @@
         </property>
     </bean>
 
-    <bean id="entityUnsecuredPLQ"
-        class="gov.hhs.fha.nhinc.patientlocationquery.v10.entity.EntityPatientLocationQueryUnsecured">
+    <bean id="entityUnsecuredPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.v10.entity.EntityPatientLocationQueryUnsecured">
         <property name="outboundPLQ">
             <bean class="${patientlocationquery.outboundPatientLocationQuery}"/>
         </property>
     </bean>
 
-    <bean id="entitySecuredPLQ"
-        class="gov.hhs.fha.nhinc.patientlocationquery.v10.entity.EntityPatientLocationQuerySecured">
+    <bean id="entitySecuredPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.v10.entity.EntityPatientLocationQuerySecured">
         <property name="outboundPLQ">
             <bean class="${patientlocationquery.outboundPatientLocationQuery}"/>
         </property>
     </bean>
     
     <bean id="ptOutboundPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.outbound.PassthroughOutboundPatientLocationQuery"/>
-    <bean id="stOutboundPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.outbound.StandardOutboundPatientLocationQuery"/>
-    
     <bean id="ptInboundPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.inbound.PassthroughInboundPatientLocationQuery"/>
-    <bean id="stInboundPLQ" class="gov.hhs.fha.nhinc.patientlocationquery.inbound.StandardInboundPatientLocationQuery"/>
+   
 </beans>

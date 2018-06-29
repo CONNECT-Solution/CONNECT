@@ -28,21 +28,21 @@ package gov.hhs.fha.nhinc.patientlocationquery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 
 public class OutboundPatientLocationQueryOrchestratable implements OutboundOrchestratable {
 
-    protected NhinTargetCommunitiesType target = null;
+    private NhinTargetCommunitiesType target = null;
     private AssertionType assertion = null;
     private OutboundDelegate nhinDelegate = null;
     private PatientLocationQueryRequestType request = null;
-    private RespondingGatewayPatientLocationQueryResponseType response = null;
+    private PatientLocationQueryResponseType response = null;
 
     public OutboundPatientLocationQueryOrchestratable(OutboundDelegate delegate) {
         nhinDelegate = delegate;
@@ -58,10 +58,6 @@ public class OutboundPatientLocationQueryOrchestratable implements OutboundOrche
 
     @Override
     public OutboundDelegate getDelegate() {
-        return getNhinDelegate();
-    }
-
-    public OutboundDelegate getNhinDelegate() {
         return nhinDelegate;
     }
 
@@ -87,11 +83,11 @@ public class OutboundPatientLocationQueryOrchestratable implements OutboundOrche
         this.request = request;
     }
 
-    public RespondingGatewayPatientLocationQueryResponseType getResponse() {
+    public PatientLocationQueryResponseType getResponse() {
         return response;
     }
 
-    public void setResponse(RespondingGatewayPatientLocationQueryResponseType response) {
+    public void setResponse(PatientLocationQueryResponseType response) {
         this.response = response;
     }
 
