@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.patientlocationquery.entity.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 public class EntityPatientLocationQueryProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "PatientDiscoveryProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "PatientLocationQueryProxyConfig.xml";
     private static final String BEAN_NAME = "entitypatientlocationquery";
 
     @Override

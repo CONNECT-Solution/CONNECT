@@ -28,15 +28,12 @@ package gov.hhs.fha.nhinc.patientlocationquery.outbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientlocationquery.audit.PatientLocationQueryAuditLogger;
 import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryDelegate;
 import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryOrchestratable;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
-import java.util.List;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,47 +49,31 @@ public class PassthroughOutboundPatientLocationQuery implements OutboundPatientL
     @Override
     public RespondingGatewayPatientLocationQueryResponseType processPatientLocationQuery(
         PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType target) {
-        //Step 1: audit request
-        //Step 2 a: process request, if needed
-        //Step 2 b: send request to Nhin
-        //Step 3: return the response
+        //Future Story: audit request
         return sendToNhinProxy(request, assertion, target);
     }
 
-    protected boolean hasNhinTargetHomeCommunityId(RespondingGatewayRegisterDocumentSetSecuredRequestType request) {
-
-        if (request != null && request.getNhinTargetCommunities() != null) {
-            List<NhinTargetCommunityType> targetCommunities = request.getNhinTargetCommunities()
-                .getNhinTargetCommunity();
-            return targetCommunities.get(0) != null && targetCommunities.get(0).getHomeCommunity() != null
-                && NullChecker.isNotNullish(targetCommunities.get(0).getHomeCommunity().getHomeCommunityId());
-        }
-        return false;
-    }
-
-    private RespondingGatewayPatientLocationQueryResponseType sendToNhinProxy(PatientLocationQueryRequestType request,
+    protected RespondingGatewayPatientLocationQueryResponseType sendToNhinProxy(PatientLocationQueryRequestType request,
         AssertionType assertion, NhinTargetCommunitiesType target) {
 
-        OutboundPatientLocationQueryDelegate ddsDelegate = getOutboundDocDataSubmissionDelegate();
-        OutboundPatientLocationQueryOrchestratable ddsOrchestratable = createOrchestratable(ddsDelegate, request,
-            assertion);
-        ddsOrchestratable.setTarget(target);
-        return ((OutboundPatientLocationQueryOrchestratable) ddsDelegate.process(ddsOrchestratable)).getResponse();
+        OutboundPatientLocationQueryDelegate ddsDelegate = new OutboundPatientLocationQueryDelegate();
+        OutboundPatientLocationQueryOrchestratable ddsOrchestratable = createOrchestratable(ddsDelegate, request,assertion, target);
+
+        PatientLocationQueryResponseType response = ((OutboundPatientLocationQueryOrchestratable) ddsDelegate.process(ddsOrchestratable)).getResponse();
+
+        RespondingGatewayPatientLocationQueryResponseType responseType = new RespondingGatewayPatientLocationQueryResponseType();
+        responseType.setPatientLocationQueryResponse(response);
+        return responseType;
 
     }
 
     protected OutboundPatientLocationQueryOrchestratable createOrchestratable(OutboundPatientLocationQueryDelegate delegate,
-        PatientLocationQueryRequestType request, AssertionType assertion) {
+        PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType target) {
 
-        OutboundPatientLocationQueryOrchestratable ddsOrchestratable = new OutboundPatientLocationQueryOrchestratable(
-            delegate);
+        OutboundPatientLocationQueryOrchestratable ddsOrchestratable = new OutboundPatientLocationQueryOrchestratable(delegate);
         ddsOrchestratable.setAssertion(assertion);
         ddsOrchestratable.setRequest(request);
-
+        ddsOrchestratable.setTarget(target);
         return ddsOrchestratable;
-    }
-
-    protected OutboundPatientLocationQueryDelegate getOutboundDocDataSubmissionDelegate() {
-        return new OutboundPatientLocationQueryDelegate();
     }
 }

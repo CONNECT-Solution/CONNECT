@@ -61,8 +61,7 @@ public class EntityPatientLocationQueryProxyWebServiceSecuredImpl implements Ent
 
             ServicePortDescriptor<EntityPatientLocationQuerySecuredPortType> portDescriptor = getServicePortDescriptor();
 
-            CONNECTClient<EntityPatientLocationQuerySecuredPortType> client = getCONNECTClient(portDescriptor, url,
-                assertion);
+            CONNECTClient<EntityPatientLocationQuerySecuredPortType> client = getCONNECTClient(portDescriptor, url, assertion);
 
             RespondingGatewayPatientLocationQueryRequestType securedRequest = new RespondingGatewayPatientLocationQueryRequestType();
             securedRequest.setNhinTargetCommunities(targets);
@@ -73,7 +72,7 @@ public class EntityPatientLocationQueryProxyWebServiceSecuredImpl implements Ent
 
         } catch (Exception e) {
             LOG.error("Error calling respondingGatewayPatientLocationQuery: {}", e.getMessage(), e);
-            // TODO: Add error body.
+            throw new IllegalStateException("Error calling respondingGatewayPatientLocationQuery", e);
         }
 
         LOG.debug("End EntityPatientLocationQueryProxyWebServiceSecuredImpl.processPatientLocationQuery");

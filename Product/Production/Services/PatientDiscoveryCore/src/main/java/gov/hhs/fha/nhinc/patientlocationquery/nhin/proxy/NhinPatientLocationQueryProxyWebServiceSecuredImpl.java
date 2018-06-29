@@ -57,43 +57,34 @@ public class NhinPatientLocationQueryProxyWebServiceSecuredImpl implements NhinP
         return proxyHelper;
     }
 
-    protected CONNECTClient<RespondingGatewayPLQPortType> getCONNECTClientSecured(
-        ServicePortDescriptor<RespondingGatewayPLQPortType> portDescriptor, AssertionType assertion, String url,
-        String targetHomeCommunityId, String serviceName) {
-        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-            targetHomeCommunityId, serviceName);
-    }
-
     @NwhinInvocationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
         afterReturningBuilder = DefaultEventDescriptionBuilder.class,
         serviceType = "Patient Location Query", version = "")
     @Override
     public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
         AssertionType assertion, NhinTargetCommunitiesType targetSystem, GATEWAY_API_LEVEL apiLevel) {
-        LOG.debug("Begin registerDocumentSetb");
+        LOG.debug("Begin processPatientLocationQuery");
         PatientLocationQueryResponseType response = new PatientLocationQueryResponseType();
 
         try {
-
-            //Need to convert TargetCommunities to TargetSystem for lookup.
-
             NhinTargetSystemType nhinTargetSystemType = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targetSystem);
-            String url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(nhinTargetSystemType,NhincConstants.PLQ_SERVICE_NAME, apiLevel);
+            String url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(nhinTargetSystemType,NhincConstants.PLQ_NHIN_SERVICE_NAME, apiLevel);
 
             ServicePortDescriptor<RespondingGatewayPLQPortType> portDescriptor = new NhinPatientLocationQueryServicePortDescriptor();
 
-            CONNECTClient<RespondingGatewayPLQPortType> client = getCONNECTClientSecured(portDescriptor, assertion, url,
-                targetSystem.getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId(), NhincConstants.PLQ_SERVICE_NAME);
+            CONNECTClient<RespondingGatewayPLQPortType> client = CONNECTClientFactory.getInstance().getCONNECTClientSecured(
+                portDescriptor, assertion, url,
+                targetSystem.getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId(),
+                NhincConstants.PLQ_NHIN_SERVICE_NAME);
 
             response = (PatientLocationQueryResponseType) client.invokePort(RespondingGatewayPLQPortType.class,
-                "documentRegistryXDSRegisterDocumentSetB", request);
+                "respondingGatewayPatientLocationQuery", request);
 
         } catch (Exception ex) {
-            LOG.error("Error calling registerDocumentSetB: {}", ex.getMessage(), ex);
-            //response = getMessageGeneratorUtils().createRegistryErrorResponseWithAckFailure(ex.getMessage());
+            LOG.error("Error calling processPatientLocationQuery: {}", ex.getMessage(), ex);
         }
 
-        LOG.debug("End registerDocumentSetb");
+        LOG.debug("End processPatientLocationQuery");
         return response;
     }
 

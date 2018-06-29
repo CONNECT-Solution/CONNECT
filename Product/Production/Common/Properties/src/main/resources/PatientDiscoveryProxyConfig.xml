@@ -87,4 +87,5 @@
         <meta key="impltype" value="wssecured"/>
         <meta key="default" value="true"/>
     </bean>
+    
 </beans>

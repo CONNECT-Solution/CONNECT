@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author akong
@@ -52,6 +53,11 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
         AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
+
+        if (StringUtils.isEmpty(url)) {
+            throw new IllegalArgumentException("URL for a CONNECT Client must be provided. Got '" + url + "'");
+        }
+
         return new CONNECTCXFClientSecured<>(portDescriptor, assertion, url, targetHomeCommunityId, serviceName);
     }
 

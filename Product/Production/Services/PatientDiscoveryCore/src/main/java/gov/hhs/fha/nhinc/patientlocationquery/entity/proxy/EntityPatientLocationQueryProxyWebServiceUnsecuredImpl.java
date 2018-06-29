@@ -52,7 +52,7 @@ public class EntityPatientLocationQueryProxyWebServiceUnsecuredImpl implements E
     @Override
     public RespondingGatewayPatientLocationQueryResponseType processPatientLocationQuery(
         PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets) {
-        LOG.debug("Begin EntityDocDataSubmissionProxyWebServiceSecuredImpl.RegisterDocumentSetB");
+        LOG.debug("Begin EntityPatientLocationQueryProxyWebServiceUnsecuredImpl.processPatientLocationQuery");
         RespondingGatewayPatientLocationQueryResponseType response = new RespondingGatewayPatientLocationQueryResponseType();
 
         try {
@@ -70,11 +70,11 @@ public class EntityPatientLocationQueryProxyWebServiceUnsecuredImpl implements E
                 .invokePort(EntityPatientLocationQueryPortType.class, "respondingGatewayPatientLocationQuery", securedRequest);
 
         } catch (Exception e) {
-            LOG.error("Error calling RegisterDocumentSetB: {}", e.getMessage(), e);
-            // TODO: Add error body.
+            LOG.error("Error calling respondingGatewayPatientLocationQuery: {}", e.getMessage(), e);
+            throw new IllegalStateException("Error calling respondingGatewayPatientLocationQuery", e);
         }
 
-        LOG.debug("End EntityDocDataSubmissionProxyWebServiceSecuredImpl.RegisterDocumentSetB");
+        LOG.debug("End EntityPatientLocationQueryProxyWebServiceUnsecuredImpl.processPatientLocationQuery");
         return response;
     }
 

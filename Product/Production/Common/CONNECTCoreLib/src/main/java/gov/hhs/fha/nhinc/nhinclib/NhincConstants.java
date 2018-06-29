@@ -575,8 +575,11 @@ public class NhincConstants {
     public static final String ADMIN_EXCHANGE_SAVE_CONFIG = "saveExchangeConfig";
 
     // Patient Location Query
-    public static final String PLQ_SERVICE_NAME = "saveExchangeConfig";
-
+    public static final String PLQ_NHIN_SERVICE_NAME = "PatientLocationQuery";
+    public static final String PLQ_ENTITY_SERVICE_NAME = "patientlocationqueryservice";
+    public static final String PLQ_ENTITYSECURED_SERVICE_NAME = "patientlocationqueryservicesecured";
+    public static final String PLQ_ADAPTER_SERVICE_NAME = "adapterplqservice";
+    public static final String PLQ_ADAPTERSECURED_SERVICE_NAME = "adapterplqservicesecured";
 
     private NhincConstants() {
     }

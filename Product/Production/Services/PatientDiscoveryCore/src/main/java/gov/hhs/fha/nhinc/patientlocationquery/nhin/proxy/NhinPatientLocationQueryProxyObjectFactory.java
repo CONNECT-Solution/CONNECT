@@ -29,8 +29,8 @@ package gov.hhs.fha.nhinc.patientlocationquery.nhin.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 public class NhinPatientLocationQueryProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "PatientDiscoveryProxyConfig.xml";
-    private static final String BEAN_NAME = "nhinPLQ";
+    private static final String CONFIG_FILE_NAME = "PatientLocationQueryProxyConfig.xml";
+    private static final String BEAN_NAME = "nhinpatientlocationquery";
 
     @Override
     protected String getConfigFileName() {
