@@ -32,12 +32,17 @@ CREATE TABLE IF NOT EXISTS adminguidb.UserLogin (
     salt varchar(100) NOT NULL,
     sha2 varchar(100) NOT NULL,
     userName varchar(100) NOT NULL UNIQUE,
+	firstName varchar(100),
+	middleName varchar(100),
+	lastName varchar(100),
     userRole BIGINT unsigned NOT NULL,
+	transactionUserRole varchar(100),
+	transactionUserRoleDesc varchar(150),
     CONSTRAINT fk_role_user
-      FOREIGN KEY (userRole)
-      REFERENCES adminguidb.UserRole (roleId)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+        FOREIGN KEY (userRole)
+        REFERENCES adminguidb.UserRole (roleId)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 );
 
 INSERT INTO adminguidb.UserRole 

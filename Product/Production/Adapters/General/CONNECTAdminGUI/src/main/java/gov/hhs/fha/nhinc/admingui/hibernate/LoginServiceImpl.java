@@ -35,9 +35,12 @@ import gov.hhs.fha.nhinc.admingui.services.SHA2PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
 import gov.hhs.fha.nhinc.util.UtilException;
 import java.util.List;
+import java.util.Properties;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -53,6 +56,7 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService {
 
     public static final String CONNECT_ADMIN_USER = "CONNECTAdmin";
+    private static final String ROLE_PROPERTIES_FILENAME = "roleCodes";
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginServiceImpl.class);
 
@@ -108,7 +112,8 @@ public class LoginServiceImpl implements LoginService {
      * @see gov.hhs.fha.nhinc.admingui.services.LoginService#addUser(gov.hhs.fha.nhinc.admingui.model.User)
      */
     @Override
-    public UserLogin addUser(Login user, long role) throws UserLoginException {
+    public UserLogin addUser(Login user, long role, String firstName, String middleName,
+            String lastName, String transRoleDesc) throws UserLoginException {
         boolean isCreateUser;
         String passwordHash;
         byte[] saltValue;
@@ -124,6 +129,11 @@ public class LoginServiceImpl implements LoginService {
         userLoginEntity.setUserName(user.getUserName());
         userLoginEntity.setSha2(passwordHash);
         userLoginEntity.setSalt(new String(saltValue));
+        userLoginEntity.setFirstName(firstName);
+        userLoginEntity.setMiddleName(middleName);
+        userLoginEntity.setLastName(lastName);
+        userLoginEntity.setTransactionRole(getUserRoleCode(transRoleDesc));
+        userLoginEntity.setTransactionRoleDesc(transRoleDesc);
 
         UserRole userRole = getUserRole(role);
 
@@ -166,5 +176,27 @@ public class LoginServiceImpl implements LoginService {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         return (UserLogin) session.getAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE);
+    }
+    
+    private String getUserRoleCode(String roleDesc) {
+        String role = null;
+        String roleDescNoSpaces = roleDesc.replaceAll(" ", "_");
+        try {
+            role = getPropAccessor().getProperty(ROLE_PROPERTIES_FILENAME, roleDescNoSpaces);
+        } catch (PropertyAccessException ex) {
+            LOG.warn("Unable to get role code for property {}", roleDesc);
+        }
+        return role;
+    }
+
+    //TODO change this to give full URL for loading property file through resource property
+    @Override
+    public Properties getUserRoleList() throws PropertyAccessException {
+        getPropAccessor().setPropertyFile(ROLE_PROPERTIES_FILENAME);
+        return getPropAccessor().getProperties(ROLE_PROPERTIES_FILENAME);
+    }
+    
+    protected PropertyAccessor getPropAccessor() {
+        return PropertyAccessor.getInstance();
     }
 }
