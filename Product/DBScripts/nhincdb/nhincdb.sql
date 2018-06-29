@@ -544,7 +544,12 @@ CREATE TABLE IF NOT EXISTS adminguidb.UserLogin (
     salt varchar(100) NOT NULL,
     sha2 varchar(100) NOT NULL,
     userName varchar(100) NOT NULL UNIQUE,
+	firstName varchar(100),
+	middleName varchar(100),
+	lastName varchar(100),
     userRole BIGINT unsigned NOT NULL,
+	transactionUserRole varchar(100);
+	transactionUserRoleDesc varchar(150);
     CONSTRAINT fk_role_user
         FOREIGN KEY (userRole)
         REFERENCES adminguidb.UserRole (roleId)
@@ -558,6 +563,11 @@ VALUES
 (1, "ADMIN"),
 (2, "SUPER USER"),
 (3, "USER");
+
+INSERT INTO adminguidb.UserLogin
+(id, salt, sha2, userName, userRole)
+VALUES
+(1, "ABCD", "eFw9+D8egYfAGv1QjUMdVzI9dtvwiH3Amc6XlBoXZj03ebwzuQU8yoYzyLtz40JOn69a7P8zqtT7A6lEyIMBmw==", "CONNECTAdmin", 1);
 
 INSERT INTO adminguidb.PagePreference
 (pageName, pageDesc, accessPage, prefRoleId)
@@ -589,11 +599,6 @@ VALUES
 ("certificateManager.xhtml", "Certificate Management", 0, 1),
 ("certificateManager.xhtml", "Certificate Management", -1, 2),
 ("certificateManager.xhtml", "Certificate Management", -1, 3);
-
-INSERT INTO adminguidb.UserLogin
-(id, salt, sha2, userName, userRole)
-VALUES
-(1, "ABCD", "eFw9+D8egYfAGv1QjUMdVzI9dtvwiH3Amc6XlBoXZj03ebwzuQU8yoYzyLtz40JOn69a7P8zqtT7A6lEyIMBmw==", "CONNECTAdmin", 1);
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON adminguidb.* to nhincuser;
 -- end adminguidb
