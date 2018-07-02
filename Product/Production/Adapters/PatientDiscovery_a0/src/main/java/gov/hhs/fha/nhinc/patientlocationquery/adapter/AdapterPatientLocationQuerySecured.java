@@ -27,8 +27,12 @@
 package gov.hhs.fha.nhinc.patientlocationquery.adapter;
 
 import gov.hhs.fha.nhinc.adapterpatientlocationquerysecured.AdapterPatientLocationQuerySecuredPortType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType.PatientLocationResponse;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -46,7 +50,12 @@ public class AdapterPatientLocationQuerySecured implements AdapterPatientLocatio
     @Override
     public AdapterPatientLocationQueryResponseType adapterPatientLocationQuerySecured(
         AdapterPatientLocationQuerySecuredRequestType adapterPatientLocationQuerySecuredRequest) {
-        return new AdapterPatientLocationQueryResponseType();
+        // Call DAO here
+        //AdapterPatientLocationQueryResponseType response = new AdapterPatientLocationQueryResponseType();
+        //List<PatientLocationResponse> rlsList = response.getPatientLocationQueryResponse().getPatientLocationResponse();
+        //rlsList.add(new PatientLocationResponse()); // This would be a result from the DAO
+        AdapterPatientLocationQueryRequestType msg = new AdapterPatientLocationQueryRequestType();
+        return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
     }
 
     @Resource

@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
+import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,10 +37,11 @@ public class AdapterPatientLocationQueryProxyJavaImpl implements AdapterPatientL
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientLocationQueryProxyJavaImpl.class);
 
     @Override
-    public AdapterPatientLocationQueryResponseType AdapterPatientLocationQueryResponse(
+    public AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
         AdapterPatientLocationQueryRequestType msg, AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter Patient Location Query Service");
-        return AdapterPatientLocationQueryOrchImpl.AdapterPatientLocationQueryResponse(msg, assertion);
+
+        return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
     }
 
 }

@@ -8,18 +8,11 @@ import java.io.Serializable;
  */
 public class RecordLocatorService implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -5756784032763662810L;
     private Long id;
     private String rlsId;
     private String patientId;
     private String assigningAuthorityId;
-
-    public RecordLocatorService() {
-
-    }
 
     public String getAssigningAuthorityId() {
         return assigningAuthorityId;

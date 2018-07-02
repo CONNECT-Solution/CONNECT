@@ -19,9 +19,10 @@ import org.slf4j.LoggerFactory;
  * @author ptambellini
  *
  */
-public class RecordLocationServiceDao {
+public class RecordLocationServiceDAO {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RecordLocationServiceDao.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RecordLocationServiceDAO.class);
+    private static RecordLocationServiceDAO recordLocationService = new RecordLocationServiceDAO();
 
     public List<RecordLocatorService> getAllPatientsBy(String rlsId) {
         LOG.debug("Beginning Patient Location Query");

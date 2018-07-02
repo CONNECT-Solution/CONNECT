@@ -27,18 +27,18 @@
 package gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-//import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
-import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AdapterPatientLocationQueryProxyNoOpImpl implements AdapterPatientLocationQueryProxy {
-    //private static final Logger LOG = LoggerFactory.getLogger(AdapterDocDataSubmissionProxyNoOpImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientLocationQueryProxyNoOpImpl.class);
 
     @Override
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion) {
-        LOG.trace("Using NoOp Implementation for Adapter Doc Submission Service");
-        return MessageGeneratorUtilsDocData.getInstance().createRegistryResponseSuccess();
+    public AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
+        AdapterPatientLocationQueryRequestType msg, AssertionType assertion) {
+        LOG.trace("Using NoOp Implementation for Patient Location Query Service");
+        return new AdapterPatientLocationQueryResponseType();
     }
 }

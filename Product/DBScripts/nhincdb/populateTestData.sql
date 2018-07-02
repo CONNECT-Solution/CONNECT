@@ -122,10 +122,10 @@ UNLOCK TABLES;
 USE patientcorrelationdb;
 LOCK TABLES recordlocatorservice WRITE;
 
-INSERT INTO recordlocatorservice (RlsId,PatientId,AssigningAuthorityId) values ('urn:oid:3.3','555777','3.3');
-INSERT INTO recordlocatorservice (RlsId,PatientId,AssigningAuthorityId) values ('urn:oid:3.3','555777','3.3');
-INSERT INTO recordlocatorservice (RlsId,PatientId,AssigningAuthorityId) values ('urn:oid:3.3','555777','3.3');
-INSERT INTO recordlocatorservice (RlsId,PatientId,AssigningAuthorityId) values ('urn:oid:3.4','555776','3.4');
-INSERT INTO recordlocatorservice (RlsId,PatientId,AssigningAuthorityId) values ('urn:oid:3.3','555776','3.4');
+INSERT INTO recordlocatorservice (RlsId,PatientId,AssigningAuthorityId) values ('3','111222','1.1');
+INSERT INTO recordlocatorservice (RlsId,PatientId,AssigningAuthorityId) values ('3','111222','2.2');
+INSERT INTO recordlocatorservice (RlsId,PatientId,AssigningAuthorityId) values ('3','111223','3.4');
+INSERT INTO recordlocatorservice (RlsId,PatientId,AssigningAuthorityId) values ('4','111224','1.1');
+INSERT INTO recordlocatorservice (RlsId,PatientId,AssigningAuthorityId) values ('4','111225','4.4');
 
 UNLOCK TABLES;

@@ -47,7 +47,7 @@ public class AdapterPatientLocationQueryProxyWebServiceUnsecuredImpl implements 
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     @Override
-    public AdapterPatientLocationQueryResponseType AdapterPatientLocationQueryResponse(
+    public AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
         AdapterPatientLocationQueryRequestType msg, AssertionType assertion) {
         LOG.debug("Begin AdapterPatientLocationQueryResponse");
         AdapterPatientLocationQueryResponseType response = null;

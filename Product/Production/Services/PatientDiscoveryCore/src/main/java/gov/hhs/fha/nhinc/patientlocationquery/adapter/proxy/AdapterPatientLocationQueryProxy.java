@@ -37,6 +37,6 @@ public interface AdapterPatientLocationQueryProxy {
     @AdapterDelegationEvent(serviceType = "Patient Location Query", version = "",
         beforeBuilder = DefaultEventDescriptionBuilder.class,
         afterReturningBuilder = DefaultEventDescriptionBuilder.class)
-    public AdapterPatientLocationQueryResponseType AdapterPatientLocationQueryResponse(
+    public AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
         AdapterPatientLocationQueryRequestType msg, AssertionType assertion);
 }

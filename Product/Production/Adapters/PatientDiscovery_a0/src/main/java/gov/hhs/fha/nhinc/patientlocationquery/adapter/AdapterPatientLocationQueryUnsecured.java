@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientlocationquery.adapter;
 import gov.hhs.fha.nhinc.adapterpatientlocationquery.AdapterPatientLocationQueryPortType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
+import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -47,7 +48,8 @@ public class AdapterPatientLocationQueryUnsecured implements AdapterPatientLocat
     public AdapterPatientLocationQueryResponseType adapterPatientLocationQuery(
         AdapterPatientLocationQueryRequestType adapterPatientLocationQueryRequest) {
 
-        return new AdapterPatientLocationQueryResponseType();
+        AdapterPatientLocationQueryRequestType msg = new AdapterPatientLocationQueryRequestType();
+        return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
     }
 
     @Resource

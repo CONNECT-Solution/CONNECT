@@ -32,9 +32,9 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRe
 import gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy.AdapterPatientLocationQueryProxy;
 import gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy.AdapterPatientLocationQueryProxyObjectFactory;
 
-public class AdapterPatientLocatorQueryOrchImpl {
+public class AdapterPatientLocationQueryOrchImpl {
 
-    private AdapterPatientLocatorQueryOrchImpl() {
+    private AdapterPatientLocationQueryOrchImpl() {
 
     }
 
@@ -43,7 +43,7 @@ public class AdapterPatientLocatorQueryOrchImpl {
         AdapterPatientLocationQueryProxyObjectFactory factory = new AdapterPatientLocationQueryProxyObjectFactory();
         AdapterPatientLocationQueryProxy proxy = factory.getAdapterPatientLocationQueryProxy();
 
-        return proxy.AdapterPatientLocationQueryResponse(msg, assertion);
+        return proxy.adapterPatientLocationQueryResponse(msg, assertion);
     }
 
 }
