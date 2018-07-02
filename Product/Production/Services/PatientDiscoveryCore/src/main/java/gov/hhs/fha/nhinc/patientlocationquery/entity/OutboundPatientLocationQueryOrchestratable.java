@@ -63,7 +63,7 @@ public class OutboundPatientLocationQueryOrchestratable implements OutboundOrche
 
     @Override
     public NhinAggregator getAggregator() {
-        throw new UnsupportedOperationException("Document Submission does not support aggregation.");
+        throw new UnsupportedOperationException("Patient Location Query does not support aggregation.");
     }
 
     @Override

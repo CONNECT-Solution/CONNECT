@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.patientlocationquery.outbound;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
-import gov.hhs.fha.nhinc.patientlocationquery.audit.PatientLocationQueryAuditLogger;
 import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryDelegate;
 import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryOrchestratable;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
@@ -44,7 +43,6 @@ import org.slf4j.LoggerFactory;
 public class PassthroughOutboundPatientLocationQuery implements OutboundPatientLocationQuery {
 
     private static final Logger LOG = LoggerFactory.getLogger(PassthroughOutboundPatientLocationQuery.class);
-    private PatientLocationQueryAuditLogger auditLogger = new PatientLocationQueryAuditLogger();
 
     @Override
     public RespondingGatewayPatientLocationQueryResponseType processPatientLocationQuery(
