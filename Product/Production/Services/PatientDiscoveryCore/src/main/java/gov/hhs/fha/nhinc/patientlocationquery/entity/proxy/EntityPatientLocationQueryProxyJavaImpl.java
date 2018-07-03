@@ -35,20 +35,20 @@ import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 
 public class EntityPatientLocationQueryProxyJavaImpl implements EntityPatientLocationQueryProxy {
 
-    private OutboundPatientLocationQuery outboundDocDataSubmission = new PassthroughOutboundPatientLocationQuery();
+    private OutboundPatientLocationQuery outboundPatientLocationQuery = new PassthroughOutboundPatientLocationQuery();
 
     public EntityPatientLocationQueryProxyJavaImpl() {
         super();
     }
 
     public EntityPatientLocationQueryProxyJavaImpl(OutboundPatientLocationQuery outboundDocDataSubmission) {
-        this.outboundDocDataSubmission = outboundDocDataSubmission;
+        this.outboundPatientLocationQuery = outboundDocDataSubmission;
     }
 
     @Override
     public RespondingGatewayPatientLocationQueryResponseType processPatientLocationQuery(
         PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets) {
-        return outboundDocDataSubmission.processPatientLocationQuery(request, assertion, targets);
+        return outboundPatientLocationQuery.processPatientLocationQuery(request, assertion, targets);
     }
 
 }

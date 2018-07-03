@@ -39,8 +39,8 @@ class OutboundPatientLocationQueryStrategyImpl implements OrchestrationStrategy 
 
     private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientLocationQueryStrategyImpl.class);
 
-    protected NhinPatientLocationQueryProxy getNhinDocDataSubmissionProxy() {
-        return new NhinPatientLocationQueryProxyObjectFactory().getNhinDocDataSubmissionProxy();
+    protected NhinPatientLocationQueryProxy getNhinPatientLocationQueryProxy() {
+        return new NhinPatientLocationQueryProxyObjectFactory().getPatientLocationQueryProxy();
     }
 
     @Override
@@ -55,8 +55,8 @@ class OutboundPatientLocationQueryStrategyImpl implements OrchestrationStrategy 
     public void execute(OutboundPatientLocationQueryOrchestratable message) {
         LOG.trace("Begin OutboundPatientLocationQueryStrategyImpl.execute");
 
-        NhinPatientLocationQueryProxy nhincDocSubmission = getNhinDocDataSubmissionProxy();
-        PatientLocationQueryResponseType response = nhincDocSubmission.processPatientLocationQuery(message.getRequest(),
+        NhinPatientLocationQueryProxy plqProxy = getNhinPatientLocationQueryProxy();
+        PatientLocationQueryResponseType response = plqProxy.processPatientLocationQuery(message.getRequest(),
             message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
 
         message.setResponse(response);
