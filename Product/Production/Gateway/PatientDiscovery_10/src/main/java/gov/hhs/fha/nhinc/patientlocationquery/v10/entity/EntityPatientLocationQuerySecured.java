@@ -26,10 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.v10.entity;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.entitypatientlocationquerysecured.EntityPatientLocationQuerySecuredPortType;
+import gov.hhs.fha.nhinc.event.DefaultTargetEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.patientlocationquery.outbound.OutboundPatientLocationQuery;
 import javax.annotation.Resource;
@@ -50,6 +52,9 @@ public class EntityPatientLocationQuerySecured extends BaseService implements
     private OutboundPatientLocationQuery outboundPLQ;
     private WebServiceContext context;
 
+    @OutboundMessageEvent(beforeBuilder = DefaultTargetEventDescriptionBuilder.class,
+        afterReturningBuilder = DefaultTargetEventDescriptionBuilder.class,
+        serviceType = "Patient Location Query", version = "1.0")
     @Override
     public RespondingGatewayPatientLocationQueryResponseType respondingGatewayPatientLocationQuery(
         RespondingGatewayPatientLocationQuerySecuredRequestType request) {

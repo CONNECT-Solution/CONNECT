@@ -26,7 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.v10.nhin;
 
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultTargetEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.patientlocationquery.inbound.InboundPatientLocationQuery;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
@@ -54,6 +56,9 @@ public class NhinPatientLocationQuery extends BaseService implements RespondingG
     private WebServiceContext context;
     private static final Logger LOG = LoggerFactory.getLogger(NhinPatientLocationQuery.class);
 
+    @InboundMessageEvent(beforeBuilder = DefaultTargetEventDescriptionBuilder.class,
+        afterReturningBuilder = DefaultTargetEventDescriptionBuilder.class,
+        serviceType = "Patient Location Query", version = "1.0")
     @Override
     public PatientLocationQueryResponseType respondingGatewayPatientLocationQuery(PatientLocationQueryRequestType body) {
         AssertionType assertion = getAssertion(context, null);
