@@ -18,6 +18,27 @@ public class RecordLocatorService implements Serializable {
         return assigningAuthorityId;
     }
 
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the rlsId
+     */
+    public String getRlsId() {
+        return rlsId;
+    }
+
     public void setAssigningAuthorityId(String assigningAuthorityId) {
         assigningAuthorityId = assigningAuthorityId;
     }
@@ -32,10 +53,6 @@ public class RecordLocatorService implements Serializable {
 
     public void setRlsId(String rlsId) {
         rlsId = rlsId;
-    }
-
-    public String getrlsId() {
-        return rlsId;
     }
 
 }

@@ -151,12 +151,9 @@ public class NhincConstants {
     }
 
     // Authorization Framework
-    public static final String AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS
-        = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
-    public static final String AUTH_FRWK_NAME_ID_FORMAT_X509
-        = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
-    public static final String AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME
-        = "urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName";
+    public static final String AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
+    public static final String AUTH_FRWK_NAME_ID_FORMAT_X509 = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
+    public static final String AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME = "urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName";
     // SAML constants
     public static final String SAML_DEFAULT_ISSUER_NAME = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
     public static final String ACTION_NAMESPACE_STRING = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
@@ -321,8 +318,7 @@ public class NhincConstants {
     public static final String WS_ADDRESSING_URL_ANONYMOUS = "http://www.w3.org/2005/08/addressing/anonymous";
     public static final String WS_SOAP_HEADER_ACTION = "Action";
     public static final String WS_RETRIEVE_DOCUMENT_ACTION = "urn:ihe:iti:2007:RetrieveDocumentSet";
-    public static final String WS_PROVIDE_AND_REGISTER_DOCUMENT_ACTION
-        = "urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b";
+    public static final String WS_PROVIDE_AND_REGISTER_DOCUMENT_ACTION = "urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b";
     public static final String WS_SOAP_ATTR_MUSTUNDERSTAND = "mustUnderstand";
     public static final String WS_SOAP_HEADER_TO = "To";
     public static final String WS_SOAP_HEADER_REPLYTO = "ReplyTo";
@@ -338,8 +334,7 @@ public class NhincConstants {
     public static final String DOC_QUERY_SERVICE_NAME = "QueryForDocuments";
     public static final String ENTITY_DOC_QUERY_PROXY_SERVICE_NAME = "entitydocqueryproxy";
     public static final String ENTITY_DOC_QUERY_SECURED_SERVICE_NAME = "entitydocquerysecured";
-    public static final String NHINC_ADHOC_QUERY_SUCCESS_RESPONSE
-        = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
+    public static final String NHINC_ADHOC_QUERY_SUCCESS_RESPONSE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     public static final BigInteger NHINC_ADHOC_QUERY_NO_RESULT_COUNT = BigInteger.valueOf(0L);
     // Document Retrieve Constants
     public static final String ADAPTER_DOC_RETRIEVE_SERVICE_NAME = "adapterdocretrieve";
@@ -362,29 +357,20 @@ public class NhincConstants {
     public static final String PATIENT_DISCOVERY_ADAPTER_SERVICE_NAME = "adapterpatientdiscovery";
     public static final String ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "adapterpatientdiscoverysecured";
     public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_SERVICE_NAME = "adapterpatientdiscoveryasyncreq";
-    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_SERVICE_NAME
-        = "adapterpatientdiscoverysecuredasyncreq";
-    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_ERROR_SERVICE_NAME
-        = "adapterpatientdiscoveryasyncreqerror";
-    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME
-        = "adapterpatientdiscoverysecuredasyncreqerror";
+    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncreq";
+    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_ERROR_SERVICE_NAME = "adapterpatientdiscoveryasyncreqerror";
+    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncreqerror";
     public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_RESP_SERVICE_NAME = "adapterpatientdiscoveryasyncresp";
-    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_RESP_SERVICE_NAME
-        = "adapterpatientdiscoverysecuredasyncresp";
+    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_RESP_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncresp";
     public static final String ENTITY_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "entitypatientdiscoverysecured";
     public static final String ENTITY_PATIENT_DISCOVERY_SERVICE_NAME = "entitypatientdiscovery";
     public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_SERVICE_NAME = "entitypatientdiscoveryasyncreq";
-    public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_SERVICE_NAME
-        = "entitypatientdiscoverysecuredasyncreq";
+    public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_SERVICE_NAME = "entitypatientdiscoverysecuredasyncreq";
     public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_RESP_SERVICE_NAME = "entitypatientdiscoveryasyncresp";
-    public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_RESP_SERVICE_NAME
-        = "entitypatientdiscoverysecuredasyncresp";
-    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_SERVICE_NAME
-        = "adapterpatientdiscoveryasyncreqqueue";
-    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME
-        = "adapterpatientdiscoverysecuredasyncreqqueue";
-    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME
-        = "adapterpatientdiscoverydeferredreqqueueprocess";
+    public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_RESP_SERVICE_NAME = "entitypatientdiscoverysecuredasyncresp";
+    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_SERVICE_NAME = "adapterpatientdiscoveryasyncreqqueue";
+    public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncreqqueue";
+    public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME = "adapterpatientdiscoverydeferredreqqueueprocess";
     // Patient Discovery Error Constants
     public static final String PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE = "AnswerNotAvailable";
     public static final String PATIENT_DISCOVERY_RESPONDER_BUSY_ERR_CODE = "ResponderBusy";
@@ -392,8 +378,7 @@ public class NhincConstants {
     public static final String PATIENT_DISCOVERY_ADDRESS_MORE_CODE = "PatientAdressRequested";
     public static final String PATIENT_DISCOVERY_TELCOM_MORE_CODE = "PatientTelecomRequested";
     public static final String PATIENT_DISCOVERY_BIRTH_PLACE_NAME_MORE_CODE = "LivingSubjectBirthPlaceNameRequested";
-    public static final String PATIENT_DISCOVERY_BIRTH_PLACE_ADDRESS_MORE_CODE
-        = "LivingSubjectBirthPlaceAddressRequested";
+    public static final String PATIENT_DISCOVERY_BIRTH_PLACE_ADDRESS_MORE_CODE = "LivingSubjectBirthPlaceAddressRequested";
     public static final String PATIENT_DISCOVERY_MOTHERS_MAIDEN_NAME_MORE_CODE = "MothersMaidenNameRequested";
     public static final String PATIENT_DISCOVERY_SSN_MORE_CODE = "SSNRequested";
     // XDR Constants
@@ -423,8 +408,7 @@ public class NhincConstants {
     public static final String ADAPTER_XDR_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME = "adapterxdrsecuredasyncreqerror";
     public static final String ADAPTER_COMPONENT_XDR_RESPONSE_SERVICE_NAME = "adaptercomponentxdrresponse";
     public static final String XDR_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
-    public static final String XDR_RESP_ACK_STATUS_MSG
-        = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
+    public static final String XDR_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
     public static final String XDR_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
 
     // Administrative Distribution Constants
@@ -452,40 +436,24 @@ public class NhincConstants {
     public static final String CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "CORE_X12DSGenericBatchResponse";
 
     public static final String NHIN_CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME = "nhincore_x12dsgenericbatchrequest";
-    public static final String NHIN_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME
-        = "nhincore_x12dsgenericbatchrequestwssecured";
-    public static final String ENTITY_CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME
-        = "entitycore_x12dsgenericbatchrequest";
-    public static final String ENTITY_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME
-        = "entitycore_x12dsgenericbatchrequestsecured";
-    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME
-        = "adaptercore_x12dsgenericbatchrequest";
-    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME
-        = "adaptercore_x12dsgenericbatchrequestsecured";
-    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_NOOP_SERVICE_NAME
-        = "adaptercore_x12dsgenericbatchrequestnoop";
-    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_JAVA_SERVICE_NAME
-        = "adaptercore_x12dsgenericbatchrequestjava";
-    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_PROXY_SERVICE_NAME
-        = "adaptercore_x12dsgenericbatchrequestproxybean";
+    public static final String NHIN_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME = "nhincore_x12dsgenericbatchrequestwssecured";
+    public static final String ENTITY_CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME = "entitycore_x12dsgenericbatchrequest";
+    public static final String ENTITY_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME = "entitycore_x12dsgenericbatchrequestsecured";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequest";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_SECURED_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequestsecured";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_NOOP_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequestnoop";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_JAVA_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequestjava";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_REQUEST_PROXY_SERVICE_NAME = "adaptercore_x12dsgenericbatchrequestproxybean";
 
     public static final String NHIN_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "nhincore_x12dsgenericbatchresponse";
-    public static final String NHIN_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME
-        = "nhincore_x12dsgenericbatchresponsewssecured";
-    public static final String ENTITY_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME
-        = "entitycore_x12dsgenericbatchresponse";
-    public static final String ENTITY_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME
-        = "entitycore_x12dsgenericbatchresponsesecured";
-    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME
-        = "adaptercore_x12dsgenericbatchresponse";
-    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME
-        = "adaptercore_x12dsgenericbatchresponsesecured";
-    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_NOOP_SERVICE_NAME
-        = "adaptercore_x12dsgenericbatchresponsenoop";
-    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_JAVA_SERVICE_NAME
-        = "adaptercore_x12dsgenericbatchresponsejava";
-    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_PROXY_SERVICE_NAME
-        = "adaptercore_x12dsgenericbatchresponseproxybean";
+    public static final String NHIN_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME = "nhincore_x12dsgenericbatchresponsewssecured";
+    public static final String ENTITY_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "entitycore_x12dsgenericbatchresponse";
+    public static final String ENTITY_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME = "entitycore_x12dsgenericbatchresponsesecured";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponse";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_SECURED_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponsesecured";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_NOOP_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponsenoop";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_JAVA_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponsejava";
+    public static final String ADAPTER_CORE_X12DS_GENERICBATCH_RESPONSE_PROXY_SERVICE_NAME = "adaptercore_x12dsgenericbatchresponseproxybean";
 
     public static final String CORE_X12DS_GENERICBATCH_PROXY_CONFIG_FILE_NAME = "CORE_X12DSGenericBatchProxyConfig.xml";
     public static final String CORE_X12DS_ACK_ERROR_MSG = null;
@@ -511,20 +479,15 @@ public class NhincConstants {
     public static final String HIBERNATE_DIRECTCONFIG_REPOSITORY = "configdb.hibernate.cfg.xml";
     public static final String HIBERNATE_MESSAGE_MONITORING_REPOSITORY = "messagemonitoringdb.hibernate.cfg.xml";
     public static final String HIBERNATE_ADMINGUI_REPOSITORY = "admingui.hibernate.cfg.xml";
-    public static final String XDS_REGISTRY_ERROR_SEVERITY_WARNING
-        = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Warning";
-    public static final String XDS_REGISTRY_ERROR_SEVERITY_ERROR
-        = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";
+    public static final String XDS_REGISTRY_ERROR_SEVERITY_WARNING = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Warning";
+    public static final String XDS_REGISTRY_ERROR_SEVERITY_ERROR = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";
     public static final String DIRECT_SOAP_EDGE_SERVICE_NAME = "directsoapedge";
     // JMX configurations
     public static final String JMX_ENABLED_SYSTEM_PROPERTY = "org.connectopensource.enablejmx";
     public static final String JMX_CONFIGURATION_BEAN_NAME = "org.connectopensource.mbeans:type=Configuration";
-    public static final String JMX_DOCUMENT_QUERY_30_BEAN_NAME
-        = "org.connectopensource.mbeans:type=DocumentQuery30WebServices";
-    public static final String JMX_DOCUMENT_QUERY_20_BEAN_NAME
-        = "org.connectopensource.mbeans:type=DocumentQuery20WebServices";
-    public static final String JMX_PATIENT_DISCOVERY_10_BEAN_NAME
-        = "org.connectopensource.mbeans:type=PatientDiscovery10WebServices";
+    public static final String JMX_DOCUMENT_QUERY_30_BEAN_NAME = "org.connectopensource.mbeans:type=DocumentQuery30WebServices";
+    public static final String JMX_DOCUMENT_QUERY_20_BEAN_NAME = "org.connectopensource.mbeans:type=DocumentQuery20WebServices";
+    public static final String JMX_PATIENT_DISCOVERY_10_BEAN_NAME = "org.connectopensource.mbeans:type=PatientDiscovery10WebServices";
     // Standard Format for parsing String into Date
     public static final String DATE_PARSE_FORMAT = "yyyyMMddHHmmss";
     // Document Type property for UClient
@@ -602,7 +565,6 @@ public class NhincConstants {
     public static final String ADAPTER_XDS_SERVICE_NAME = "adapterxdsservice";
     public static final String ADAPTER_XDS_SECURED_SERVICE_NAME = "adapterxdsservicesecured";
 
-<<<<<<< HEAD
     // exchange-management
     public static final String ADMIN_EXCHANGE_SAVE_EXCHANGE = "saveExchange";
     public static final String ADMIN_EXCHANGE_DELETE = "deleteExchange";
@@ -614,10 +576,8 @@ public class NhincConstants {
     public static final String ADMIN_EXCHANGE_SAVE_CONFIG = "saveExchangeConfig";
 
     public static final String PATIENT_LOCATION_QUERY_SERVICE_NAME = "PatientLocationQuery";
-=======
     public static final String ADAPTER_PLQ_SERVICE_NAME = "adapterpatientlocationqueryservice";
     public static final String ADAPTER_PLQ_SECURED_SERVICE_NAME = "adapterpatientlocationqueryservicesecured";
->>>>>>> CONN-2172 PLQ adapter
 
     private NhincConstants() {
     }
