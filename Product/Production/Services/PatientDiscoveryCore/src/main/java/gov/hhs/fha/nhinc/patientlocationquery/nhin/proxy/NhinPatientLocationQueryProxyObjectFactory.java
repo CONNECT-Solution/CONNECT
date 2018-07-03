@@ -37,7 +37,7 @@ public class NhinPatientLocationQueryProxyObjectFactory extends ComponentProxyOb
         return CONFIG_FILE_NAME;
     }
 
-    public NhinPatientLocationQueryProxy getNhinDocDataSubmissionProxy() {
+    public NhinPatientLocationQueryProxy getPatientLocationQueryProxy() {
         return getBean(BEAN_NAME, NhinPatientLocationQueryProxy.class);
     }
 
