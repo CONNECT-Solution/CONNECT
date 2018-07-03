@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.DefaultTargetEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -57,9 +57,9 @@ public class NhinPatientLocationQueryProxyWebServiceSecuredImpl implements NhinP
         return proxyHelper;
     }
 
-    @NwhinInvocationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
-        afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-        serviceType = "Patient Location Query", version = "")
+    @NwhinInvocationEvent(beforeBuilder = DefaultTargetEventDescriptionBuilder.class,
+        afterReturningBuilder = DefaultTargetEventDescriptionBuilder.class,
+        serviceType = "Patient Location Query", version = "1.0")
     @Override
     public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
         AssertionType assertion, NhinTargetCommunitiesType targetSystem, GATEWAY_API_LEVEL apiLevel) {
