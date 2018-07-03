@@ -32,15 +32,14 @@ import ihe.iti.xcpd._2009.RespondingGatewayPLQPortType;
 public class NhinPatientLocationQueryServicePortDescriptor
 extends SOAP12ServicePortDescriptor<RespondingGatewayPLQPortType> {
 
+    private static final String NAMESPACE_URI = "urn:ihe:iti:xcpd:2009";
+    private static final String SERVICE_LOCAL_PART = "RespondingGateway_Service";
+    private static final String PORT_LOCAL_PART = "RespondingGateway_PLQ_Port_Soap";
 
     @Override
     public String getWSAddressingAction() {
         return "urn:ihe:iti:xcpd:2009:PatientLocationQuery";
     }
-
-    private static final String NAMESPACE_URI = "urn:ihe:iti:xcpd:2009";
-    private static final String SERVICE_LOCAL_PART = "RespondingGateway_Service";
-    private static final String PORT_LOCAL_PART = "RespondingGateway_PLQ_Port_Soap";
 
     public String getNamespaceUri() {
         return NAMESPACE_URI;
@@ -53,7 +52,6 @@ extends SOAP12ServicePortDescriptor<RespondingGatewayPLQPortType> {
     public String getPortLocalPart() {
         return PORT_LOCAL_PART;
     }
-
 
     @Override
     public Class<RespondingGatewayPLQPortType> getPortClass() {

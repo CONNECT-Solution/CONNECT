@@ -9,32 +9,28 @@ public class DefaultTargetEventDescriptionBuilder extends TargetEventDescription
 
     @Override
     public void buildTimeStamp() {
-
+        //Default implementation does nothing.
     }
 
 
     @Override
     public void buildStatuses() {
-
-
+      //Default implementation does nothing.
     }
 
     @Override
     public void buildPayloadTypes() {
-
-
+      //Default implementation does nothing.
     }
 
     @Override
     public void buildPayloadSizes() {
-
-
+      //Default implementation does nothing.
     }
 
     @Override
     public void buildErrorCodes() {
-
-
+      //Default implementation does nothing.
     }
 
     @Override
@@ -45,13 +41,9 @@ public class DefaultTargetEventDescriptionBuilder extends TargetEventDescription
 
     @Override
     public void setReturnValue(Object returnValue) {
-
-
+      //Default implementation does nothing.
     }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#buildMessageId()
-     */
     @Override
     public void buildMessageId() {
         super.buildMessageId();
