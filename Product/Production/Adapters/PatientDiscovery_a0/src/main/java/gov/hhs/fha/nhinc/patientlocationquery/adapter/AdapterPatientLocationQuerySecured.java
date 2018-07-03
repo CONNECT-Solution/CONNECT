@@ -50,10 +50,6 @@ public class AdapterPatientLocationQuerySecured implements AdapterPatientLocatio
     @Override
     public AdapterPatientLocationQueryResponseType adapterPatientLocationQuerySecured(
         AdapterPatientLocationQuerySecuredRequestType adapterPatientLocationQuerySecuredRequest) {
-        // Call DAO here
-        //AdapterPatientLocationQueryResponseType response = new AdapterPatientLocationQueryResponseType();
-        //List<PatientLocationResponse> rlsList = response.getPatientLocationQueryResponse().getPatientLocationResponse();
-        //rlsList.add(new PatientLocationResponse()); // This would be a result from the DAO
         AdapterPatientLocationQueryRequestType msg = new AdapterPatientLocationQueryRequestType();
         return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
     }

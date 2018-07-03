@@ -24,23 +24,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.adapter;
+package gov.hhs.fha.nhinc.patientlocationquery.outbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
-import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
+import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 
-public class AdapterPatientLocationQueryOrchImpl {
+/**
+ *
+ * @author tjafri
+ */
+public class StandardOutboundPatientLocationQuery implements OutboundPatientLocationQuery {
 
-    private AdapterPatientLocationQueryOrchImpl() {
-
+    @Override
+    public RespondingGatewayPatientLocationQueryResponseType processPatientLocationQuery(
+        PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType target) {
+        //Step 1: audit request
+        //Step 2 a: process request, if needed
+        //Step 2 b: send request to Nhin
+        //Step 3: return the response
+        return new RespondingGatewayPatientLocationQueryResponseType();
     }
-
-    public static AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
-        AdapterPatientLocationQueryRequestType msg, AssertionType assertion) {
-
-        return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
-    }
-
 }
