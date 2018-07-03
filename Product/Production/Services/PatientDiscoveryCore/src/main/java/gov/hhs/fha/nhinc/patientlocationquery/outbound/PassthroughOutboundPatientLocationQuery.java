@@ -35,16 +35,12 @@ import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQuer
 import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryOrchestratable;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author tjafri
  */
 public class PassthroughOutboundPatientLocationQuery implements OutboundPatientLocationQuery {
-
-    private static final Logger LOG = LoggerFactory.getLogger(PassthroughOutboundPatientLocationQuery.class);
 
     @OutboundProcessingEvent(beforeBuilder = DefaultTargetEventDescriptionBuilder.class,
         afterReturningBuilder = DefaultTargetEventDescriptionBuilder.class,
