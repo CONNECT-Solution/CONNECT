@@ -30,9 +30,9 @@ import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.entitypatientlocationquery.EntityPatientLocationQueryPortType;
+import gov.hhs.fha.nhinc.event.DefaultDelegatingEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.DefaultTargetedArgTransfomer;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
 import gov.hhs.fha.nhinc.patientlocationquery.outbound.OutboundPatientLocationQuery;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -52,20 +52,15 @@ public class EntityPatientLocationQueryUnsecured extends BaseService implements 
     private WebServiceContext context;
     private OutboundPatientLocationQuery outboundPLQ;
 
-    @OutboundMessageEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
-        afterReturningBuilder = RespondingGatewayPRPAIN201306UV02Builder.class, serviceType = "Patient Location Query",
-        version = "1.0")
+    @OutboundMessageEvent(beforeBuilder = DefaultTargetedArgTransfomer.class,
+        afterReturningBuilder = DefaultDelegatingEventDescriptionBuilder.class,
+        serviceType = "Patient Location Query", version = "1.0")
     @Override
     public RespondingGatewayPatientLocationQueryResponseType respondingGatewayPatientLocationQuery(
         RespondingGatewayPatientLocationQueryRequestType request) {
 
         return getOutboundPLQ().processPatientLocationQuery(request.getPatientLocationQueryRequest(), request.getAssertion(),
             request.getNhinTargetCommunities());
-    }
-
-
-    public void setContext(WebServiceContext context) {
-        this.context = context;
     }
 
     public OutboundPatientLocationQuery getOutboundPLQ() {

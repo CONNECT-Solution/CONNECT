@@ -57,7 +57,7 @@ public class EntityPatientLocationQueryProxyWebServiceSecuredImpl implements Ent
         RespondingGatewayPatientLocationQueryResponseType response = new RespondingGatewayPatientLocationQueryResponseType();
 
         try {
-            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDS_SECURED_SERVICE_NAME);
+            String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PLQ_ENTITYSECURED_SERVICE_NAME);
 
             ServicePortDescriptor<EntityPatientLocationQuerySecuredPortType> portDescriptor = getServicePortDescriptor();
 
