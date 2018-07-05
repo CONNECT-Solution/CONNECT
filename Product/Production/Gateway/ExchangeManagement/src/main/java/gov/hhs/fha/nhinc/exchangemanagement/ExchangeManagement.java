@@ -26,23 +26,47 @@
  */
 package gov.hhs.fha.nhinc.exchangemanagement;
 
+import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.common.exchangemanagement.DeleteExchangeRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.GetAssigningAuthoritiesByHCIDRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.GetEndpointUrlByAdapterRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.GetEndpointUrlByNhinTargetRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.GetEndpointUrlDefaultByServiceNameRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.GetEndpointUrlInternalByServiceNameRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.GetExchangeInfoViewRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.GetExchangeInfoViewResponseMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.GetHomeCommunityIdByAssigningAuthorityIdRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.GetOrganizationByHCIDRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.GetOrganizationByHCIDServiceNameRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.ListEndpointUrlInfoByNhinTargetCommunitiesRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.ListEndpointUrlInfoByNhinTargetCommunitiesResponseMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.ListEndpointsRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.ListEndpointsResponseMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.ListExchangesRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.ListExchangesResponseMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.ListOrganizationsByHCIDListRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.ListOrganizationsByHCIDServiceNameRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.ListOrganizationsByServiceNameRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.ListOrganizationsRequestMessageType;
-import gov.hhs.fha.nhinc.common.exchangemanagement.ListOrganizationsResponseMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.RefreshExchangeManagerRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.RefreshExchangeManagerResponseMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.SaveExchangeConfigRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.SaveExchangeRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.SimpleExchangeManagementResponseMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
+import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeManagerUtil;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,29 +78,30 @@ import org.slf4j.LoggerFactory;
 public class ExchangeManagement implements EntityExchangeManagementPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagement.class);
-    private final ExchangeManager exchangeManager = ExchangeManager.getInstance();
     private static final String ACT_SUCCESSFUL = "successful";
     private static final String ACT_FAIL = "fail";
     private static final String ACT_BUSY = "refresh locked";
 
+    private static final AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
+
     @Override
     public SimpleExchangeManagementResponseMessageType deleteExchange(DeleteExchangeRequestMessageType arg0) {
+        LOG.trace("deleteExchange--call");
         SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
         String exchangeName = arg0.getExchangeName();
 
         if (StringUtils.isBlank(exchangeName)) {
-            response.setMessage("exchange-name cannot be blank");
+            response.setMessage("ExchangeName is required");
             return response;
         }
 
-        if (exchangeManager.isRefreshLocked()) {
+        if (getExchangeManager().isRefreshLocked()) {
             response.setMessage(ACT_BUSY);
             return response;
         }
 
         try {
-            response.setStatus(exchangeManager.deleteExchange(exchangeName));
-            response.setMessage(ACT_SUCCESSFUL);
+            response.setStatus(getExchangeManager().deleteExchange(exchangeName));
         } catch (ExchangeManagerException e) {
             response.setMessage(ACT_FAIL);
             LOG.error("error during delete-exchange: {}", e.getLocalizedMessage(), e);
@@ -86,16 +111,16 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
 
     @Override
     public SimpleExchangeManagementResponseMessageType saveExchange(SaveExchangeRequestMessageType arg0) {
+        LOG.trace("saveExchange--call");
         SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
 
-        if (exchangeManager.isRefreshLocked()) {
+        if (getExchangeManager().isRefreshLocked()) {
             response.setMessage(ACT_BUSY);
             return response;
         }
 
         try {
-            response.setStatus(exchangeManager.saveExchange(arg0.getExchange()));
-            response.setMessage(ACT_SUCCESSFUL);
+            response.setStatus(getExchangeManager().saveExchange(arg0.getExchange()));
         } catch (ExchangeManagerException e) {
             response.setMessage(ACT_FAIL);
             LOG.error("error during save-exchange: {}", e.getLocalizedMessage(), e);
@@ -107,9 +132,10 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     @Override
     public RefreshExchangeManagerResponseMessageType refreshExchangeManager(
         RefreshExchangeManagerRequestMessageType arg0) {
+        LOG.trace("refreshExchangeManager--call");
         RefreshExchangeManagerResponseMessageType response = new RefreshExchangeManagerResponseMessageType();
 
-        if (exchangeManager.isRefreshLocked()) {
+        if (getExchangeManager().isRefreshLocked()) {
             LOG.info("exchange-manager is busy: {}", ACT_BUSY);
         } else {
             response.getExchangeDownloadStatusList().addAll(ExchangeManagerUtil.forceExchangesRefresh());
@@ -118,35 +144,347 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     }
 
     @Override
-    public GetExchangeInfoViewResponseMessageType getExchangeInfoView(GetExchangeInfoViewRequestMessageType arg0) {
-        return null;
+    public SimpleExchangeManagementResponseMessageType listOrganizations(ListOrganizationsRequestMessageType arg0) {
+        LOG.trace("listOrganizations--call");
+        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        String exchangeName = arg0.getExchangeName();
+
+        if (StringUtils.isNotBlank(exchangeName)) {
+            response.getOrganizationList().addAll(getExchangeManager().getAllOrganizationsBy(exchangeName));
+        } else {
+            try {
+                response.getOrganizationList().addAll(getExchangeManager().getAllOrganizations());
+            } catch (ExchangeManagerException ex) {
+                LOG.error("ListOrganizations--encounter error: {}", ex.getLocalizedMessage(), ex);
+                response.setMessage(ACT_FAIL);
+            }
+        }
+        return response;
+    }
+
+    @Override
+    public SimpleExchangeManagementResponseMessageType getOrganizationByHCID(
+        GetOrganizationByHCIDRequestMessageType arg0) {
+        LOG.trace("getOrganizationByHCID--call");
+        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        String hcid = arg0.getHcid();
+
+        if(StringUtils.isBlank(hcid)){
+            response.setMessage("HCID is required.");
+            return response;
+        }
+
+        try {
+            response.getOrganizationList().add(getExchangeManager().getOrganization(hcid));
+        } catch (ExchangeManagerException ex) {
+            LOG.error("getOrganizationByHCID encounter error: {}", ex.getLocalizedMessage(), ex);
+            response.setMessage(ACT_FAIL);
+        }
+
+        return response;
+    }
+
+    @Override
+    public SimpleExchangeManagementResponseMessageType listOrganizationByHCIDList(
+        ListOrganizationsByHCIDListRequestMessageType arg0) {
+        LOG.trace("listOrganizationByHCIDList--call");
+        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        Set<String> hcidSet = new HashSet<>();
+        hcidSet.addAll(arg0.getHcidList());
+
+        if (CollectionUtils.isEmpty(hcidSet)) {
+            response.setMessage("HCID is required.");
+            return response;
+        }
+
+        try {
+            for(String hcid : hcidSet){
+                if(StringUtils.isNotBlank(hcid)){
+                    response.getOrganizationList().add(getExchangeManager().getOrganization(hcid));
+                }
+            }
+        } catch (ExchangeManagerException ex) {
+            LOG.error("listOrganizationByHCIDList encounter error: {}", ex.getLocalizedMessage(), ex);
+            response.setMessage(ACT_FAIL);
+        }
+
+        return response;
+    }
+
+    @Override
+    public SimpleExchangeManagementResponseMessageType getOrganizationByHCIDServiceName(
+        GetOrganizationByHCIDServiceNameRequestMessageType arg0) {
+        LOG.trace("getOrganizationByHCIDServiceName--call");
+        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        String hcid = arg0.getHcid();
+        String serviceName = arg0.getServiceName();
+
+        if (StringUtils.isBlank(hcid) || StringUtils.isBlank(serviceName)) {
+            response.setMessage("HCID and ServiceName are required");
+            return response;
+        }
+
+        try {
+            response.getOrganizationList().add(getExchangeManager().getOrganizationByServiceName(hcid, serviceName));
+        } catch (ExchangeManagerException ex) {
+            LOG.error("getOrganizationByHCIDServiceName encounter error: {}", ex.getLocalizedMessage(), ex);
+            response.setMessage(ACT_FAIL);
+        }
+        return response;
+    }
+
+    @Override
+    public SimpleExchangeManagementResponseMessageType listOrganizationsByHCIDServiceName(
+        ListOrganizationsByHCIDServiceNameRequestMessageType arg0) {
+        LOG.trace("listOrganizationsByHCIDServiceName--call");
+        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        List<String> hcidList = getUniqueList(arg0.getHcidList());
+        String serviceName = arg0.getServiceName();
+
+        if (CollectionUtils.isEmpty(hcidList) || StringUtils.isBlank(serviceName)) {
+            response.setMessage("HCID and ServiceName are required");
+            return response;
+        }
+
+        try{
+            response.getOrganizationList()
+            .addAll(getExchangeManager().getOrganizationSetByServiceNameForHCID(hcidList, serviceName));
+        }catch(ExchangeManagerException ex){
+            LOG.error("listOrganizationsByHCIDServiceName encounter error: {}", ex.getLocalizedMessage(), ex);
+            response.setMessage(ACT_FAIL);
+        }
+        return response;
+    }
+
+    @Override
+    public SimpleExchangeManagementResponseMessageType listOrganizationsByServiceName(
+        ListOrganizationsByServiceNameRequestMessageType arg0) {
+        LOG.trace("listOrganizationsByServiceName--call");
+        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        String serviceName = arg0.getServiceName();
+
+        if (StringUtils.isBlank(serviceName)) {
+            response.setMessage("ServiceName is required");
+            return response;
+        }
+
+        try {
+            response.getOrganizationList().addAll(getExchangeManager().getAllOrganizationSetByServiceName(serviceName));
+        } catch (ExchangeManagerException ex) {
+            LOG.error("listOrganizationsByServiceName encounter error: {}", ex.getLocalizedMessage(), ex);
+            response.setMessage(ACT_FAIL);
+        }
+        return response;
+    }
+
+    @Override
+    public SimpleExchangeManagementResponseMessageType getEndpointUrlDefaultByServiceName(
+        GetEndpointUrlDefaultByServiceNameRequestMessageType arg0) {
+        LOG.trace("getEndpointUrlByServiceName--call");
+        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        String serviceName = arg0.getServiceName();
+        String hcid = arg0.getHcid();
+        String exchangeName = arg0.getExchangeName();
+
+        if (StringUtils.isBlank(hcid) || StringUtils.isBlank(serviceName)) {
+            response.setMessage("HCID and ServiceName is required");
+            return response;
+        }
+
+        if (StringUtils.isBlank(exchangeName)) {
+            exchangeName = null;
+        }
+
+        try {
+            response.setUrl(getExchangeManager().getDefaultEndpointURL(exchangeName, hcid, serviceName));
+        } catch (ExchangeManagerException ex) {
+            LOG.error("getEndpointUrlDefaultByServiceName encounter error: {}", ex.getLocalizedMessage(), ex);
+            response.setMessage(ACT_FAIL);
+        }
+        return response;
+    }
+
+    @Override
+    public SimpleExchangeManagementResponseMessageType getEndpointUrlInternalByServiceName(
+        GetEndpointUrlInternalByServiceNameRequestMessageType arg0) {
+        LOG.trace("getEndpointUrlInternalByServiceName--call");
+        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        String serviceName = arg0.getServiceName();
+
+        if (StringUtils.isBlank(serviceName)) {
+            response.setMessage("ServiceName is required");
+            return response;
+        }
+
+        try {
+            response.setUrl(getInternalExchangeManager().getEndpointURL(serviceName));
+        } catch (ExchangeManagerException ex) {
+            LOG.error("getEndpointUrlInternalByServiceName encounter error: {}", ex.getLocalizedMessage(), ex);
+            response.setMessage(ACT_FAIL);
+        }
+        return response;
+    }
+
+    @Override
+    public SimpleExchangeManagementResponseMessageType getEndpointUrlByNhinTarget(
+        GetEndpointUrlByNhinTargetRequestMessageType arg0) {
+        LOG.trace("getEndpointUrlByNhinTarget--call");
+        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        NhinTargetSystemType targetSystem = arg0.getNhinTargetSystem();
+        String serviceName = arg0.getServiceName();
+
+        if (null == targetSystem || StringUtils.isBlank(serviceName)) {
+            response.setMessage("NhinTargetSystem-element and ServiceName are required");
+            return response;
+        }
+
+        try {
+            response.setUrl(getExchangeManager().getEndpointURLFromNhinTarget(targetSystem, serviceName));
+        } catch (ExchangeManagerException ex) {
+            LOG.error("getEndpointUrlByNhinTarget encounter error: {}", ex.getLocalizedMessage(), ex);
+            response.setMessage(ACT_FAIL);
+        }
+        return response;
+    }
+
+    @Override
+    public ListEndpointUrlInfoByNhinTargetCommunitiesResponseMessageType listEndpointUrlInfoByNhinTargetCommunities(
+        ListEndpointUrlInfoByNhinTargetCommunitiesRequestMessageType arg0) {
+        LOG.trace("listEndpointUrlInfoByNhinTargetCommunities--call");
+        ListEndpointUrlInfoByNhinTargetCommunitiesResponseMessageType response = new ListEndpointUrlInfoByNhinTargetCommunitiesResponseMessageType();
+        NhinTargetCommunitiesType targets = arg0.getNhinTargetCommunities();
+        String serviceName = arg0.getServiceName();
+
+        if (null == targets || StringUtils.isBlank(serviceName)) {
+            return response;
+        }
+
+        try {
+            response.getUrlInfoList().addAll(convertUrlInfoTypeList(
+                getExchangeManager().getEndpointURLFromNhinTargetCommunities(targets, serviceName)));
+        } catch (ExchangeManagerException ex) {
+            LOG.error("listEndpointUrlInfoByNhinTargetCommunities encounter error: {}", ex.getLocalizedMessage(), ex);
+        }
+        return response;
+    }
+
+    @Override
+    public SimpleExchangeManagementResponseMessageType getEndpointUrlByAdapter(
+        GetEndpointUrlByAdapterRequestMessageType arg0) {
+        LOG.trace("getEndpointUrlByAdapter--call");
+        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        ADAPTER_API_LEVEL adapterLevel = ADAPTER_API_LEVEL.valueOf(arg0.getAdapterLevel());
+        String serviceName = arg0.getServiceName();
+
+        if (null == adapterLevel || StringUtils.isBlank(serviceName)) {
+            response.setMessage("adapterLevel and ServiceName are required");
+            return response;
+        }
+
+        try {
+            response.setUrl(getInternalExchangeManager().getEndpointURL(serviceName, adapterLevel));
+        } catch (ExchangeManagerException ex) {
+            LOG.error("getEndpointUrlByAdapter encounter error: {}", ex.getLocalizedMessage(), ex);
+            response.setMessage(ACT_FAIL);
+        }
+        return response;
+    }
+
+    @Override
+    public SimpleExchangeManagementResponseMessageType getHomeCommunityIdByAssigningAuthorityId(
+        GetHomeCommunityIdByAssigningAuthorityIdRequestMessageType arg0) {
+        LOG.trace("getHomeCommunityIdByAssigningAuthorityId--call");
+        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        String aaid = arg0.getAaId();
+
+        if (StringUtils.isBlank(aaid)) {
+            response.setMessage("AssigningAuthorityId is required");
+            return response;
+        }
+
+        response.setHcid(mappingDao.getHomeCommunityId(aaid));
+        return response;
+    }
+
+    @Override
+    public SimpleExchangeManagementResponseMessageType getAssigningAuthoritiesByHCID(
+        GetAssigningAuthoritiesByHCIDRequestMessageType arg0) {
+        LOG.trace("getAssigningAuthoritiesByHCID--call");
+        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        String hcid = arg0.getHcid();
+
+        if (StringUtils.isBlank(hcid)) {
+            response.setMessage("HomeCommunityId is required");
+            return response;
+        }
+
+        response.getAaidList().addAll(getUniqueList(mappingDao.getAssigningAuthoritiesByHomeCommunity(hcid)));
+        return response;
     }
 
     @Override
     public ListEndpointsResponseMessageType listEndpoints(ListEndpointsRequestMessageType arg0) {
-        return null;
-    }
-
-
-    @Override
-    public ListExchangesResponseMessageType listExchanges(ListExchangesRequestMessageType arg0) {
-        return null;
-    }
-
-    @Override
-    public ListOrganizationsResponseMessageType listOrganizations(ListOrganizationsRequestMessageType arg0) {
+        LOG.trace("listEndpoints--call");
         return null;
     }
 
     @Override
     public SimpleExchangeManagementResponseMessageType saveExchangeConfig(SaveExchangeConfigRequestMessageType arg0) {
+        LOG.trace("saveExchangeConfig--call");
+        return null;
+    }
+
+    @Override
+    public GetExchangeInfoViewResponseMessageType getExchangeInfoView(GetExchangeInfoViewRequestMessageType arg0) {
+        LOG.info("getExchangeInfoView--call");
+        return null;
+    }
+
+    @Override
+    public ListExchangesResponseMessageType listExchanges(ListExchangesRequestMessageType arg0) {
+        LOG.trace("listExchanges--call");
         return null;
     }
 
     private static SimpleExchangeManagementResponseMessageType newSimpleResponse() {
         SimpleExchangeManagementResponseMessageType retMsg = new SimpleExchangeManagementResponseMessageType();
         retMsg.setStatus(false);
+        retMsg.setMessage(ACT_SUCCESSFUL);
         return retMsg;
+    }
+
+    private static <T> List<T> getUniqueList(List<T> fromList) {
+        Set<T> uniqueList = new HashSet<>();
+        uniqueList.addAll(fromList);
+        List<T> retList = new ArrayList<>();
+        retList.addAll(uniqueList);
+        return retList;
+    }
+
+    private static InternalExchangeManager getInternalExchangeManager() {
+        return InternalExchangeManager.getInstance();
+    }
+
+    private static ExchangeManager getExchangeManager() {
+        return ExchangeManager.getInstance();
+    }
+
+    private static UrlInfoType convertUrlInfoType(UrlInfo urlInfo) {
+        if (null == urlInfo) {
+            return null;
+        }
+        UrlInfoType urlInfoType = new UrlInfoType();
+        urlInfoType.setId(urlInfo.getHcid());
+        urlInfoType.setUrl(urlInfo.getUrl());
+        return urlInfoType;
+    }
+
+    private static List<UrlInfoType> convertUrlInfoTypeList(List<UrlInfo> fromList) {
+        List<UrlInfoType> retList = new ArrayList<>();
+        for (UrlInfo urlInfo : fromList) {
+            retList.add(convertUrlInfoType(urlInfo));
+        }
+        return retList;
     }
 
 }
