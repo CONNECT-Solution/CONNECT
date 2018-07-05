@@ -24,26 +24,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.inbound;
+package gov.hhs.fha.nhinc.patientlocationquery.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
-import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import java.util.Properties;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
+import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
+import javax.xml.ws.Holder;
 
-/**
- *
- * @author tjafri
- */
-public class PassthroughInboundPatientLocationQuery implements InboundPatientLocationQuery {
+public class AdapterPatientLocationQueryResponseTypeHolderBuilder extends ArgTransformerEventDescriptionBuilder {
+
+    public AdapterPatientLocationQueryResponseTypeHolderBuilder() {
+        setDelegate(null);
+    }
 
     @Override
-    public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
-        AssertionType assertion, Properties webContextproperties) {
-        // Step 1: process request
-        // Step 2: audit log for response
-        // Step 3: send out the response
-        return new PatientLocationQueryResponseType();
+    public Object[] transformArguments(Object[] arguments) {
+        if (arguments == null || arguments[0] == null) {
+            return new Object[] {};
+        }
+        @SuppressWarnings("unchecked")
+        Holder<AdapterPatientLocationQueryResponseType> holder = (Holder<AdapterPatientLocationQueryResponseType>) arguments[0];
+        return new Object[] { holder.value };
+    }
+
+    @Override
+    public Object transformReturnValue(Object returnValue) {
+        return returnValue;
     }
 
 }

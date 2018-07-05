@@ -1,3 +1,5 @@
+package gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy;
+
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
@@ -24,26 +26,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.inbound;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
-import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import java.util.Properties;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
-/**
- *
- * @author tjafri
- */
-public class PassthroughInboundPatientLocationQuery implements InboundPatientLocationQuery {
+public class AdapterPatientLocationQueryProxyObjectFactory extends ComponentProxyObjectFactory {
+
+    private static final String CONFIG_FILE_NAME = "PatientLocationQueryProxyConfig.xml";
+    private static final String BEAN_NAME = "adapterpatientlocationquery";
 
     @Override
-    public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
-        AssertionType assertion, Properties webContextproperties) {
-        // Step 1: process request
-        // Step 2: audit log for response
-        // Step 3: send out the response
-        return new PatientLocationQueryResponseType();
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
+    }
+
+    public AdapterPatientLocationQueryProxy getAdapterPatientLocationQueryProxy() {
+        return getBean(BEAN_NAME, AdapterPatientLocationQueryProxy.class);
     }
 
 }
