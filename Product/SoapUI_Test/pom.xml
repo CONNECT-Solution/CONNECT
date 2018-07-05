@@ -206,6 +206,11 @@
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>ConfigAdminWebservices</artifactId>
                                 </dependency>
+								<dependency>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>ExchangeManagementWebservices</artifactId>
+                                    <version>${project.parent.version}</version>
+                                </dependency>
                             </artifactItems>
                             <includes>**/*.wsdl</includes>
                             <outputDirectory>${project.build.directory}/wsdl-extracted/</outputDirectory>
