@@ -40,7 +40,7 @@ public class RecordLocatorService implements Serializable {
     }
 
     public void setAssigningAuthorityId(String assigningAuthorityId) {
-        assigningAuthorityId = assigningAuthorityId;
+        this.assigningAuthorityId = assigningAuthorityId;
     }
 
     public String getPatientId() {
@@ -48,11 +48,11 @@ public class RecordLocatorService implements Serializable {
     }
 
     public void setPatientId(String patientId) {
-        patientId = patientId;
+        this.patientId = patientId;
     }
 
     public void setRlsId(String rlsId) {
-        rlsId = rlsId;
+        this.rlsId = rlsId;
     }
 
 }

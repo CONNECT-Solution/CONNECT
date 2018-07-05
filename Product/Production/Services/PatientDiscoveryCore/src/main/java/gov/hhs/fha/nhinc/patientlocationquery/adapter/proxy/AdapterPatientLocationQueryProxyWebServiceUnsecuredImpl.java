@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-//import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.patientlocationquery.adapter.descriptor.AdapterPatientLocationQueryServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.slf4j.Logger;
@@ -75,7 +74,7 @@ public class AdapterPatientLocationQueryProxyWebServiceUnsecuredImpl implements 
             LOG.error("Error sending Adapter Patient Location Query Unsecured message: " + ex.getMessage(), ex);
         }
 
-        LOG.debug("End RegisterDocumentSetB");
+        LOG.debug("End Adapter Patient Location Query Unsecured");
         return response;
     }
 

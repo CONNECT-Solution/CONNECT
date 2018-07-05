@@ -22,9 +22,12 @@ import org.slf4j.LoggerFactory;
 public class RecordLocationServiceDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(RecordLocationServiceDAO.class);
-    private static RecordLocationServiceDAO recordLocationService = new RecordLocationServiceDAO();
 
-    public List<RecordLocatorService> getAllPatientsBy(String rlsId) {
+    private RecordLocationServiceDAO() {
+
+    }
+
+    public static List<RecordLocatorService> getAllPatientsBy(String rlsId) {
         LOG.debug("Beginning Patient Location Query");
 
         List<RecordLocatorService> recLocService = new ArrayList<>();
@@ -61,4 +64,5 @@ public class RecordLocationServiceDAO {
         }
         return session;
     }
+
 }

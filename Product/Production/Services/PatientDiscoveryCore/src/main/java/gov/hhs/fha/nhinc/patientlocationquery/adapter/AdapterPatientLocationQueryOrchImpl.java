@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.adapter;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
@@ -38,7 +37,7 @@ public class AdapterPatientLocationQueryOrchImpl {
     }
 
     public static AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
-        AdapterPatientLocationQueryRequestType msg, AssertionType assertion) {
+        AdapterPatientLocationQueryRequestType msg) {
 
         return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
     }

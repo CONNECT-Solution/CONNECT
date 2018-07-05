@@ -34,9 +34,7 @@ public class PatientLocationQueryImpl implements PatientLocationQuery {
 
         List<RecordLocatorService> rlsList;
 
-        RecordLocationServiceDAO dao = new RecordLocationServiceDAO();
-
-        rlsList = dao.getAllPatientsBy(rlsId);
+        rlsList = RecordLocationServiceDAO.getAllPatientsBy(rlsId);
 
         LOG.debug("RecordLocationService.findAllPatientsBy() - End");
 
