@@ -24,57 +24,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.inbound;
+package gov.hhs.fha.nhinc.event;
 
-import static org.junit.Assert.assertNotNull;
+/**
+ * Handles responding gateway duty. What's a bit strange here is that the gateway accepts the wrapped PRPAIN201306UV02
+ * object as an argument or as the return value. The delegate builder expect that object as a return value. So while
+ * this is a delegating builder, it is <em>not</em> an argument transformer.
+ */
+public class DefaultDelegatingEventDescriptionBuilder extends DelegatingEventDescriptionBuilder {
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
-import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import java.util.Properties;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.mockito.Mockito;
+    DefaultTargetEventDescriptionBuilder eventDescBuilder = new DefaultTargetEventDescriptionBuilder();
 
-
-public class PassthroughInboundPatientLocationQueryTest {
-
-    PassthroughInboundPatientLocationQuery plqInbound;
-    PatientLocationQueryRequestType request;
-    AssertionType assertion;
-    Properties properties;
-
-    @BeforeClass
-    public static void setNHINCPropertyDirectory()
-    {
-        // We need to set this property so the PropertyAccessor class doesnt complain and error out.
-        System.setProperty("nhinc.properties.dir", System.getProperty("user.dir") + "/src/test/resources/");
-    }
-    @Before
-    public void setup() {
-
-        plqInbound =  Mockito.spy(PassthroughInboundPatientLocationQuery.class);
-        request = new PatientLocationQueryRequestType();
-        assertion = new AssertionType();
-        properties = new Properties();
+    public DefaultDelegatingEventDescriptionBuilder() {
+        super.setDelegate(eventDescBuilder);
     }
 
-
-
-    @Test
-    public void testProcessPatientLocationQuery() {
-        //Future story: Check if Audit Request was sent.
-        PatientLocationQueryResponseType result = plqInbound.processPatientLocationQuery(request, assertion, properties);
-        Mockito.verify(plqInbound).sendToAdapter(request, assertion);
-        assertNotNull(result);
-
+    @Override
+    public void setArguments(Object... arguments) {
+        getDelegate().setArguments(arguments);
     }
 
-    @Test
-    public void testSendToAdapter() {
-        PatientLocationQueryResponseType result = plqInbound.sendToAdapter(request, assertion);
-        assertNotNull(result);
+    @Override
+    public void setReturnValue(Object returnValue) {
+        getDelegate().setReturnValue(returnValue);
     }
-
 }
