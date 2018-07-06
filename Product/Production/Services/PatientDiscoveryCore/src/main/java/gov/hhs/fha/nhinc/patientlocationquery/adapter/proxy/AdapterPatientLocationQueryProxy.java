@@ -28,15 +28,15 @@ package gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy;
 
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 
 public interface AdapterPatientLocationQueryProxy {
 
     @AdapterDelegationEvent(serviceType = "Patient Location Query", version = "",
         beforeBuilder = DefaultEventDescriptionBuilder.class,
         afterReturningBuilder = DefaultEventDescriptionBuilder.class)
-    public AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
-        AdapterPatientLocationQueryRequestType msg, AssertionType assertion);
+    public PatientLocationQueryResponseType adapterPatientLocationQueryResponse(PatientLocationQueryRequestType request,
+        AssertionType assertion);
 }

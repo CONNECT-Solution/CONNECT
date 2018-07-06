@@ -30,6 +30,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
+import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,11 +39,18 @@ public class AdapterPatientLocationQueryProxyJavaImpl implements AdapterPatientL
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientLocationQueryProxyJavaImpl.class);
 
     @Override
-    public AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
-        AdapterPatientLocationQueryRequestType msg, AssertionType assertion) {
+    public PatientLocationQueryResponseType adapterPatientLocationQueryResponse(PatientLocationQueryRequestType request,
+        AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter Patient Location Query Service");
 
-        return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
+        AdapterPatientLocationQueryRequestType adapterRequest = new AdapterPatientLocationQueryRequestType();
+        adapterRequest.setPatientLocationQueryRequest(request);
+        adapterRequest.setAssertion(assertion);
+
+        AdapterPatientLocationQueryResponseType adapterResponse = PatientLocationQueryImpl.getPatientLocationQuery()
+            .getAdapterPLQResponse(adapterRequest);
+
+        return adapterResponse.getPatientLocationQueryResponse();
     }
 
 }

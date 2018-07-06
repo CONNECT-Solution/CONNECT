@@ -28,8 +28,6 @@ package gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adapterpatientlocationquerysecured.AdapterPatientLocationQuerySecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -37,6 +35,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientlocationquery.adapter.descriptor.AdapterPatientLocationQuerySecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,9 +47,9 @@ public class AdapterPatientLocationQueryProxyWebServiceSecuredImpl implements Ad
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     @Override
-    public AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
-        AdapterPatientLocationQueryRequestType msg, AssertionType assertion) {
-        AdapterPatientLocationQueryResponseType response = null;
+    public PatientLocationQueryResponseType adapterPatientLocationQueryResponse(PatientLocationQueryRequestType request,
+        AssertionType assertion) {
+        PatientLocationQueryResponseType response = null;
 
         try {
             String url = oProxyHelper
@@ -60,8 +60,8 @@ public class AdapterPatientLocationQueryProxyWebServiceSecuredImpl implements Ad
 
                 CONNECTClient<AdapterPatientLocationQuerySecuredPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientSecured(portDescriptor, url, assertion);
-                response = (AdapterPatientLocationQueryResponseType) client
-                    .invokePort(AdapterPatientLocationQuerySecuredPortType.class, "AdapterPatientLocationQuery", msg);
+                response = (PatientLocationQueryResponseType) client.invokePort(
+                    AdapterPatientLocationQuerySecuredPortType.class, "AdapterPatientLocationQuery", request);
             } else {
                 LOG.error("Failed to call the web service ({}).  The URL is null.",
                     NhincConstants.ADAPTER_PLQ_SECURED_SERVICE_NAME);
@@ -73,4 +73,5 @@ public class AdapterPatientLocationQueryProxyWebServiceSecuredImpl implements Ad
         }
         return response;
     }
+
 }

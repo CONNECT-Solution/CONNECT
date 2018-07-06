@@ -5,6 +5,8 @@ package gov.hhs.fha.nhinc.patientlocationquery.services;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySecuredResponseType;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.RecordLocatorService;
 import java.util.List;
 
@@ -22,4 +24,6 @@ public interface PatientLocationQuery {
      */
     AdapterPatientLocationQueryResponseType getAdapterPLQResponse(AdapterPatientLocationQueryRequestType msg);
 
+    AdapterPatientLocationQuerySecuredResponseType getAdapterPLQSecuredResponse(
+        AdapterPatientLocationQuerySecuredRequestType msg);
 }

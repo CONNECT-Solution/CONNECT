@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy;
 import gov.hhs.fha.nhinc.adapterpatientlocationquery.AdapterPatientLocationQueryPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -37,6 +36,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientlocationquery.adapter.descriptor.AdapterPatientLocationQueryServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,24 +47,24 @@ public class AdapterPatientLocationQueryProxyWebServiceUnsecuredImpl implements 
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     @Override
-    public AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
-        AdapterPatientLocationQueryRequestType msg, AssertionType assertion) {
+    public PatientLocationQueryResponseType adapterPatientLocationQueryResponse(PatientLocationQueryRequestType request,
+        AssertionType assertion) {
         LOG.debug("Begin AdapterPatientLocationQueryResponse");
-        AdapterPatientLocationQueryResponseType response = null;
+        PatientLocationQueryResponseType response = null;
 
         try {
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_PLQ_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
 
-                AdapterPatientLocationQueryRequestType request = new AdapterPatientLocationQueryRequestType();
-                request.setPatientLocationQueryRequest(msg.getPatientLocationQueryRequest());
-                request.setAssertion(assertion);
+                AdapterPatientLocationQueryRequestType adapterRequest = new AdapterPatientLocationQueryRequestType();
+                adapterRequest.setPatientLocationQueryRequest(request);
+                adapterRequest.setAssertion(assertion);
 
                 ServicePortDescriptor<AdapterPatientLocationQueryPortType> portDescriptor = new AdapterPatientLocationQueryServicePortDescriptor();
 
                 CONNECTClient<AdapterPatientLocationQueryPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientUnsecured(portDescriptor, url, assertion);
-                response = (AdapterPatientLocationQueryResponseType) client
+                response = (PatientLocationQueryResponseType) client
                     .invokePort(AdapterPatientLocationQueryPortType.class, "adapterPatientLocationQuery", request);
 
             } else {

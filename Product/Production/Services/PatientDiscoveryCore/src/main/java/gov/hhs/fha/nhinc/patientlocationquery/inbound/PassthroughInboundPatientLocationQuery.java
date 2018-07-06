@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientlocationquery.inbound;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.DefaultTargetEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy.AdapterPatientLocationQueryProxyObjectFactory;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import java.util.Properties;
@@ -53,6 +54,7 @@ public class PassthroughInboundPatientLocationQuery implements InboundPatientLoc
 
     protected PatientLocationQueryResponseType sendToAdapter(PatientLocationQueryRequestType request,
         AssertionType assertion) {
-        return new PatientLocationQueryResponseType();
+        return new AdapterPatientLocationQueryProxyObjectFactory().getAdapterPatientLocationQueryProxy()
+            .adapterPatientLocationQueryResponse(request, assertion);
     }
 }
