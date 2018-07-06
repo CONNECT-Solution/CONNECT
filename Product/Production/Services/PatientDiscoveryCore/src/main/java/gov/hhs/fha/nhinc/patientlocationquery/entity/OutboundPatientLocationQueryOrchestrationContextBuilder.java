@@ -24,26 +24,46 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.inbound;
+package gov.hhs.fha.nhinc.patientlocationquery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
-import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import java.util.Properties;
 
-/**
- *
- * @author tjafri
- */
-public class StandardInboundPatientLocationQuery implements InboundPatientLocationQuery {
+public class OutboundPatientLocationQueryOrchestrationContextBuilder implements OrchestrationContextBuilder {
 
-    @Override
-    public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
-        AssertionType assertion, Properties webContextproperties) {
-        //Step 1: process request
-        //Step 2: audit log for response
-        // Step 3: send out the response
-        return new PatientLocationQueryResponseType();
+    private AssertionType assertionType;
+    private OutboundDelegate nhinDelegate;
+    private PatientLocationQueryRequestType request;
+    private NhinTargetCommunitiesType target;
+
+    public OutboundPatientLocationQueryOrchestrationContextBuilder withAssertionType(AssertionType assertion) {
+        assertionType = assertion;
+        return this;
     }
 
+    public OutboundPatientLocationQueryOrchestrationContextBuilder withNhinDelegate(OutboundDelegate delegate) {
+        nhinDelegate = delegate;
+        return this;
+    }
+
+    public OutboundPatientLocationQueryOrchestrationContextBuilder withRequest(PatientLocationQueryRequestType req) {
+        request = req;
+        return this;
+    }
+
+    public OutboundPatientLocationQueryOrchestrationContextBuilder withTarget(NhinTargetCommunitiesType nhinTargetCommunitiesType) {
+        target = nhinTargetCommunitiesType;
+        return this;
+    }
+
+    @Override
+    public OrchestrationContext build() {
+        return new OrchestrationContext(
+            new OutboundPatientLocationQueryStrategyImpl(),
+            new OutboundPatientLocationQueryOrchestratable(nhinDelegate, request, target,assertionType));
+    }
 }

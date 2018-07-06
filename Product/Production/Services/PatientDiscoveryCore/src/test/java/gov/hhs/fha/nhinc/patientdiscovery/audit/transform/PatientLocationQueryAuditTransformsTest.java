@@ -26,6 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.audit.transform;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
@@ -43,10 +48,6 @@ import java.net.UnknownHostException;
 import java.util.Properties;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -117,16 +118,16 @@ public class PatientLocationQueryAuditTransformsTest
             TestPatientDiscoveryMessageHelper.createPatientLocationQueryRequestType("D123401", "1.1"),
             assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, webContextProperties,
-            NhincConstants.PATIENT_LOCATION_QUERY_SERVICE_NAME);
+            NhincConstants.PLQ_NHIN_SERVICE_NAME);
 
-        testGetEventIdentificationType(auditRequest, NhincConstants.PATIENT_LOCATION_QUERY_SERVICE_NAME, Boolean.TRUE);
+        testGetEventIdentificationType(auditRequest, NhincConstants.PLQ_NHIN_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
         testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
         testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
         assertParticipantObjectIdentification(auditRequest);
         assertSame("AuditMessage.Request ServiceName mismatch", auditRequest.getEventType(),
-            NhincConstants.PATIENT_LOCATION_QUERY_SERVICE_NAME);
+            NhincConstants.PLQ_NHIN_SERVICE_NAME);
     }
 
     @Test
@@ -169,16 +170,16 @@ public class PatientLocationQueryAuditTransformsTest
                 "D123401", "1.1"),
             assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
-            NhincConstants.PATIENT_LOCATION_QUERY_SERVICE_NAME);
+            NhincConstants.PLQ_NHIN_SERVICE_NAME);
 
-        testGetEventIdentificationType(auditResponse, NhincConstants.PATIENT_LOCATION_QUERY_SERVICE_NAME, Boolean.TRUE);
+        testGetEventIdentificationType(auditResponse, NhincConstants.PLQ_NHIN_SERVICE_NAME, Boolean.TRUE);
         testGetActiveParticipantSource(auditResponse, Boolean.FALSE, webContextProperties, localIp);
         testGetActiveParticipantDestination(auditResponse, Boolean.FALSE, webContextProperties, remoteObjectUrl);
         testCreateActiveParticipantFromUser(auditResponse, Boolean.FALSE, assertion);
         testAuditSourceIdentification(auditResponse.getAuditMessage().getAuditSourceIdentification(), assertion);
         assertParticipantObjectIdentification(auditResponse);
         assertSame("AuditMessage.Response ServiceName mismatch", auditResponse.getEventType(),
-            NhincConstants.PATIENT_LOCATION_QUERY_SERVICE_NAME);
+            NhincConstants.PLQ_NHIN_SERVICE_NAME);
     }
 
     private void assertParticipantObjectIdentification(LogEventRequestType auditRequest) {

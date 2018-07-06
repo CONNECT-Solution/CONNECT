@@ -24,29 +24,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
+package gov.hhs.fha.nhinc.event;
 
-import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.docrepository.adapter.AdapterComponentDocRepositoryOrchImpl;
-import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+public class DefaultTargetedArgTransfomer extends BeanPropertyArgumentTransformer {
 
-public class AdapterDocDataSubmissionProxyJavaImpl implements AdapterDocDataSubmissionProxy {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocDataSubmissionProxyJavaImpl.class);
-
-    @AdapterDelegationEvent(serviceType = "Document Data Submission", version = "",
-        beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class)
-    @Override
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg,
-        AssertionType assertion) {
-        LOG.trace("Using Java Implementation for Adapter Doc Submission Service");
-        return new AdapterComponentDocRepositoryOrchImpl().registerDocumentSet(msg);
+    public DefaultTargetedArgTransfomer() {
+        setDelegate(new DefaultTargetEventDescriptionBuilder());
     }
-
 }

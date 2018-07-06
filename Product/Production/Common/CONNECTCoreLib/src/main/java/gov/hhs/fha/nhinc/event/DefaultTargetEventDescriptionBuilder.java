@@ -24,29 +24,59 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
+package gov.hhs.fha.nhinc.event;
 
-import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
+import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.docrepository.adapter.AdapterComponentDocRepositoryOrchImpl;
-import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class AdapterDocDataSubmissionProxyJavaImpl implements AdapterDocDataSubmissionProxy {
+public class DefaultTargetEventDescriptionBuilder extends TargetEventDescriptionBuilder {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocDataSubmissionProxyJavaImpl.class);
+    ContextEventHelper helper = new ContextEventHelper();
 
-    @AdapterDelegationEvent(serviceType = "Document Data Submission", version = "",
-        beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class)
     @Override
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg,
-        AssertionType assertion) {
-        LOG.trace("Using Java Implementation for Adapter Doc Submission Service");
-        return new AdapterComponentDocRepositoryOrchImpl().registerDocumentSet(msg);
+    public void buildTimeStamp() {
+        //Default implementation does nothing.
+    }
+
+
+    @Override
+    public void buildStatuses() {
+      //Default implementation does nothing.
+    }
+
+    @Override
+    public void buildPayloadTypes() {
+      //Default implementation does nothing.
+    }
+
+    @Override
+    public void buildPayloadSizes() {
+      //Default implementation does nothing.
+    }
+
+    @Override
+    public void buildErrorCodes() {
+      //Default implementation does nothing.
+    }
+
+    @Override
+    public void setArguments(Object... arguments) {
+        extractAssertion(arguments);
+        extractTarget(arguments);
+    }
+
+    @Override
+    public void setReturnValue(Object returnValue) {
+      //Default implementation does nothing.
+    }
+
+    @Override
+    public void buildMessageId() {
+        super.buildMessageId();
+        Optional<AssertionType> assertion = getAssertion();
+        if (assertion.isPresent()) {
+            helper.getMessageId(assertion.get());
+        }
     }
 
 }

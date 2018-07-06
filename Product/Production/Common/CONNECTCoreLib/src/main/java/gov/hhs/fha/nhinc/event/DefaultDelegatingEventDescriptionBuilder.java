@@ -24,26 +24,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.outbound;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
-import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
+package gov.hhs.fha.nhinc.event;
 
 /**
- *
- * @author tjafri
+ * Handles responding gateway duty. What's a bit strange here is that the gateway accepts the wrapped PRPAIN201306UV02
+ * object as an argument or as the return value. The delegate builder expect that object as a return value. So while
+ * this is a delegating builder, it is <em>not</em> an argument transformer.
  */
-public class StandardOutboundPatientLocationQuery implements OutboundPatientLocationQuery {
+public class DefaultDelegatingEventDescriptionBuilder extends DelegatingEventDescriptionBuilder {
+
+    DefaultTargetEventDescriptionBuilder eventDescBuilder = new DefaultTargetEventDescriptionBuilder();
+
+    public DefaultDelegatingEventDescriptionBuilder() {
+        super.setDelegate(eventDescBuilder);
+    }
 
     @Override
-    public RespondingGatewayPatientLocationQueryResponseType processPatientLocationQuery(
-        PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType target) {
-        //Step 1: audit request
-        //Step 2 a: process request, if needed
-        //Step 2 b: send request to Nhin
-        //Step 3: return the response
-        return new RespondingGatewayPatientLocationQueryResponseType();
+    public void setArguments(Object... arguments) {
+        getDelegate().setArguments(arguments);
+    }
+
+    @Override
+    public void setReturnValue(Object returnValue) {
+        getDelegate().setReturnValue(returnValue);
     }
 }

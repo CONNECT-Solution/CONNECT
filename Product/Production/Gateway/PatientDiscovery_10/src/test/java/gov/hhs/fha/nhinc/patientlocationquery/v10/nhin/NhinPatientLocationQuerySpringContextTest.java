@@ -26,10 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.v10.nhin;
 
+import static org.junit.Assert.assertNotNull;
+
 import gov.hhs.fha.nhinc.patientlocationquery.inbound.PassthroughInboundPatientLocationQuery;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

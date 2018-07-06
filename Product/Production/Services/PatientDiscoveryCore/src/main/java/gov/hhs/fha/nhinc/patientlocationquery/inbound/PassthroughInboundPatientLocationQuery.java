@@ -26,7 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.inbound;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultTargetEventDescriptionBuilder;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import java.util.Properties;
@@ -37,13 +39,19 @@ import java.util.Properties;
  */
 public class PassthroughInboundPatientLocationQuery implements InboundPatientLocationQuery {
 
+    @InboundProcessingEvent(beforeBuilder = DefaultTargetEventDescriptionBuilder.class,
+        afterReturningBuilder = DefaultTargetEventDescriptionBuilder.class,
+        serviceType = "Patient Location Query", version = "1.0")
     @Override
     public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
         AssertionType assertion, Properties webContextproperties) {
-        //Step 1: process request
-        //Step 2: audit log for response
-        //Step 3: send out the response
-        return new PatientLocationQueryResponseType();
+
+        //Future Story: audit log for response
+
+        return sendToAdapter(request, assertion);
     }
 
+    protected PatientLocationQueryResponseType sendToAdapter(PatientLocationQueryRequestType request, AssertionType assertion) {
+        return new PatientLocationQueryResponseType();
+    }
 }

@@ -26,53 +26,63 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.outbound;
 
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
-import gov.hhs.fha.nhinc.event.DefaultTargetEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryDelegate;
 import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryOrchestratable;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
-import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.mockito.Mockito;
 
-/**
- *
- * @author tjafri
- */
-public class PassthroughOutboundPatientLocationQuery implements OutboundPatientLocationQuery {
+public class PassthroughOutboundPatientLocationQueryTest {
 
-    @OutboundProcessingEvent(beforeBuilder = DefaultTargetEventDescriptionBuilder.class,
-        afterReturningBuilder = DefaultTargetEventDescriptionBuilder.class,
-        serviceType = "Patient Location Query", version = "1.0")
-    @Override
-    public RespondingGatewayPatientLocationQueryResponseType processPatientLocationQuery(
-        PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType target) {
-        //Future Story: audit request
-        return sendToNhinProxy(request, assertion, target);
+    PassthroughOutboundPatientLocationQuery plqOutbound;
+    PatientLocationQueryRequestType request;
+    AssertionType assertion;
+    NhinTargetCommunitiesType target;
+
+    @BeforeClass
+    public static void setNHINCPropertyDirectory()
+    {
+        // We need to set this property so the PropertyAccessor class doesnt complain and error out.
+        System.setProperty("nhinc.properties.dir", System.getProperty("user.dir") + "/src/test/resources/");
+    }
+    @Before
+    public void setup() {
+
+        plqOutbound =  Mockito.spy(PassthroughOutboundPatientLocationQuery.class);
+        request = new PatientLocationQueryRequestType();
+        assertion = new AssertionType();
+        target = new NhinTargetCommunitiesType();
     }
 
-    protected RespondingGatewayPatientLocationQueryResponseType sendToNhinProxy(PatientLocationQueryRequestType request,
-        AssertionType assertion, NhinTargetCommunitiesType target) {
 
-        OutboundPatientLocationQueryDelegate ddsDelegate = new OutboundPatientLocationQueryDelegate();
-        OutboundPatientLocationQueryOrchestratable ddsOrchestratable = createOrchestratable(ddsDelegate, request,assertion, target);
+    @Test
+    public void testProcessPatientLocationQuery() {
 
-        PatientLocationQueryResponseType response = ((OutboundPatientLocationQueryOrchestratable) ddsDelegate.process(ddsOrchestratable)).getResponse();
-
-        RespondingGatewayPatientLocationQueryResponseType responseType = new RespondingGatewayPatientLocationQueryResponseType();
-        responseType.setPatientLocationQueryResponse(response);
-        return responseType;
+        //Future story: Check if Audit Request was sent.
+        RespondingGatewayPatientLocationQueryResponseType result = plqOutbound.processPatientLocationQuery(request, assertion, target);
+        Mockito.verify(plqOutbound).sendToNhinProxy(request, assertion, target);
+        assertNotNull(result);
 
     }
 
-    protected OutboundPatientLocationQueryOrchestratable createOrchestratable(OutboundPatientLocationQueryDelegate delegate,
-        PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType target) {
+    @Test
+    public void testCreateOrchestratable() {
+        OutboundPatientLocationQueryDelegate delegate = new OutboundPatientLocationQueryDelegate();
+        OutboundPatientLocationQueryOrchestratable result = plqOutbound.createOrchestratable(delegate, request, assertion, target);
 
-        OutboundPatientLocationQueryOrchestratable ddsOrchestratable = new OutboundPatientLocationQueryOrchestratable(delegate);
-        ddsOrchestratable.setAssertion(assertion);
-        ddsOrchestratable.setRequest(request);
-        ddsOrchestratable.setTarget(target);
-        return ddsOrchestratable;
+        assertSame(delegate, result.getDelegate());
+        assertSame(request, result.getRequest());
+        assertSame(assertion, result.getAssertion());
+        assertSame(target, result.getTarget());
+
     }
+
 }
