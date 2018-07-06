@@ -47,6 +47,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -105,6 +106,9 @@ public class PatientSearchBean {
     // TODO: Temporary should be removed, should use the patient object
     // documentList
     private List<Document> documentList;
+    private static final String PURPOSEOF_PROPERTIES_FILENAME = "PurposeOfUseOptions";
+    private Properties purposeOfProps;
+    private String selectedPurposeOf;
     
     private UserLogin user;
 
@@ -123,6 +127,16 @@ public class PatientSearchBean {
         genderList = HelperUtil.populateListGender();
         // populate document types
         documentTypeList = populateDocumentTypes();
+    }
+    
+    @PostConstruct
+    public void buildUserRoleList() {
+        try {
+            getPropAccessor().setPropertyFile(PURPOSEOF_PROPERTIES_FILENAME);    
+            purposeOfProps = getPropAccessor().getProperties(PURPOSEOF_PROPERTIES_FILENAME);           
+        } catch (PropertyAccessException ex) {
+            LOG.warn("Unable to access properties for purposeOfUse list.", ex.getLocalizedMessage());
+        }
     }
 
     /**
@@ -224,6 +238,10 @@ public class PatientSearchBean {
         getSelectedCurrentPatient().getDocumentList().clear();
         setSelectedDocument(0);
         return NavigationConstant.PATIENT_SEARCH_PAGE;
+    }
+    
+    public List<String> getPurposeOfList() {
+        return new ArrayList(purposeOfProps.keySet());
     }
 
     /**
@@ -450,6 +468,18 @@ public class PatientSearchBean {
         this.selectedDocument = selectedDocument;
     }
 
+    public String getSelectedPurposeOf() {
+        return selectedPurposeOf;
+    }
+
+    public void setSelectedPurposeOf(String selectedPurposeOf) {
+        this.selectedPurposeOf = selectedPurposeOf;
+    }
+    
+    public String getPurposeOfDescription() {
+        return purposeOfProps.getProperty(selectedPurposeOf);
+    }
+
     /**
      * Populate the Organization lookup data list from the UDDI. This logic needs to be moved to a Utility or to the
      * application bean.
@@ -510,6 +540,10 @@ public class PatientSearchBean {
      */
     public void setSelectedPatient(int selectedPatient) {
         this.selectedPatient = selectedPatient;
+    }
+    
+    public UserLogin getUser() {
+        return user;
     }
 
     /**
@@ -669,6 +703,10 @@ public class PatientSearchBean {
 
     private void createErrorMessage(String userName) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-                "Error!", "Current user, " + userName + ", does not have valid assertion data."));
+                "Error:  " + userName + ", does not have valid assertion data.", "Login as a valid user."));
+    }
+
+    protected PropertyAccessor getPropAccessor() {
+        return PropertyAccessor.getInstance();
     }
 }

@@ -124,7 +124,7 @@
                                             <div class="form-block" style="padding:0px;">
                                                 <div class="form-group" style="width:100%;">
                                                     <div class="table-responsive table-props">
-                                                        <p:dataTable id="auditResult" value="#{auditSearchBean.auditRecordList}" scrollable="true" scrollHeight="500" var="audit" rendered="#{auditSearchBean.auditFound}"  paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="20,30,50" styleClass="table table-striped table-domains">
+                                                        <p:dataTable id="auditResult" rows="20" value="#{auditSearchBean.auditRecordList}" scrollable="true" scrollHeight="500" var="audit" rendered="#{auditSearchBean.auditFound}"  paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="20,30,50" styleClass="table table-striped table-domains">
                                                             <p:column>
                                                                 <f:facet name="header">Date</f:facet>
                                                                     #{audit.eventTimestamp}
