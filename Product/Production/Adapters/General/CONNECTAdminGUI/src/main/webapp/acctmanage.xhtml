@@ -125,7 +125,7 @@
                                                         <h:outputLabel for="transactionRole" class="col-sm-3 control-label" id="labelTransactionRole" value="Transaction Role:" />      
                                                         <div class="col-sm-9">
                                                             <p:selectOneMenu effect="fade" id="transactionRole" value="#{manageUserBean.transactionRoleDesc}" filter="true" filterMatchMode="startsWith">
-                                                                <f:selectItem itemLabel="Select Role" itemValue="" />
+                                                                <f:selectItem itemLabel="Select Role" itemValue="" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{manageUserBean.userRoleList}" />
                                                             </p:selectOneMenu>
                                                         </div>

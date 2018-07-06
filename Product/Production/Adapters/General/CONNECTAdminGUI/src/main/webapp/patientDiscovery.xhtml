@@ -77,6 +77,16 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
+                                                    <h:outputLabel for="purposeOf" class="col-sm-3 control-label" id="labelPurposeOf" value="Purpose of Patient/Document Request:" />
+                                                    <div class="col-sm-9">
+                                                        <h:selectOneMenu class="form-control" id="purposeOf" value="#{patientSearchBean.selectedPurposeOf}" required="true" requiredMessage="Purpose of Use Required.">
+                                                            <f:selectItem itemLabel="---" itemValue="#{null}" noSelectionOption="true" />
+                                                            <f:selectItems value="#{patientSearchBean.purposeOfList}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <p:separator />
+                                                <div class="form-group">
                                                     <h:outputLabel for="inputFirstName" class="col-sm-3 control-label" id="labelFirstName" value="First Name:" />
                                                     <div class="col-sm-9">
                                                         <p:inputText styleClass="form-control" value="#{patientSearchBean.firstName}" id="inputFirstName" maxlength="20" required="true" requiredMessage="First Name required."/>

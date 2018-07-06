@@ -101,7 +101,7 @@ public class ManageUserBean {
             }
             
         } catch (PropertyAccessException ex) {
-            
+            LOG.warn("Unable to access properties for Role Code values.", ex.getLocalizedMessage());
         }
     }
 

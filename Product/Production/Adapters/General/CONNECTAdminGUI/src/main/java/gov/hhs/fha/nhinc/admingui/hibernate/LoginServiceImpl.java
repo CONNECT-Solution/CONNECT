@@ -184,12 +184,11 @@ public class LoginServiceImpl implements LoginService {
         try {
             role = getPropAccessor().getProperty(ROLE_PROPERTIES_FILENAME, roleDescNoSpaces);
         } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to get role code for property {}", roleDesc);
+            LOG.warn("Unable to get role code for property {}", roleDesc, ex.getLocalizedMessage());
         }
         return role;
     }
 
-    //TODO change this to give full URL for loading property file through resource property
     @Override
     public Properties getUserRoleList() throws PropertyAccessException {
         getPropAccessor().setPropertyFile(ROLE_PROPERTIES_FILENAME);
