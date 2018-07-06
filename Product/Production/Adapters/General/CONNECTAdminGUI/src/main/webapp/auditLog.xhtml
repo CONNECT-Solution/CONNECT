@@ -154,26 +154,17 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            </p:panel>
+                                            <!-- END: SEARCH FORM -->
 
-                                        </p:panel>
-                                        <!-- END: SEARCH FORM -->
-
-                                        <!-- BEGIN: SEARCH RESULTS -->
-                                        <p:outputLabel value="#{auditSearchBean.auditMessage}"
-                                            styleClass="uc-search-result-title"
-                                            style="margin-top:20px;margin-bottom:10px;" />
-                                        <div class="form-block" style="padding: 0px;">
-                                            <div class="form-group" style="width: 100%;">
-                                                <div class="table-responsive table-props">
-                                                    <p:dataTable id="auditResult"
-                                                        value="#{auditSearchBean.auditRecordList}" scrollable="true"
-                                                        scrollHeight="500" var="audit"
-                                                        rendered="#{auditSearchBean.auditFound}" paginator="true"
-                                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                        rowsPerPageTemplate="20,30,50"
-                                                        styleClass="table table-striped table-domains">
-                                                        <p:column>
-                                                            <f:facet name="header">Date</f:facet>
+                                            <!-- BEGIN: SEARCH RESULTS -->
+                                            <p:outputLabel value="#{auditSearchBean.auditMessage}" styleClass="uc-search-result-title" style="margin-top:20px;margin-bottom:10px;" />
+                                            <div class="form-block" style="padding:0px;">
+                                                <div class="form-group" style="width:100%;">
+                                                    <div class="table-responsive table-props">
+                                                        <p:dataTable id="auditResult" rows="20" value="#{auditSearchBean.auditRecordList}" scrollable="true" scrollHeight="500" var="audit" rendered="#{auditSearchBean.auditFound}"  paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="20,30,50" styleClass="table table-striped table-domains">
+                                                            <p:column>
+                                                                <f:facet name="header">Date</f:facet>
                                                                     #{audit.eventTimestamp}
                                                             </p:column>
                                                         <p:column>
