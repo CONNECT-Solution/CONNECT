@@ -40,18 +40,19 @@ import java.util.Properties;
 public class PassthroughInboundPatientLocationQuery implements InboundPatientLocationQuery {
 
     @InboundProcessingEvent(beforeBuilder = DefaultTargetEventDescriptionBuilder.class,
-        afterReturningBuilder = DefaultTargetEventDescriptionBuilder.class,
-        serviceType = "Patient Location Query", version = "1.0")
+        afterReturningBuilder = DefaultTargetEventDescriptionBuilder.class, serviceType = "Patient Location Query",
+        version = "1.0")
     @Override
     public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
         AssertionType assertion, Properties webContextproperties) {
 
-        //Future Story: audit log for response
+        // Future Story: audit log for response
 
         return sendToAdapter(request, assertion);
     }
 
-    protected PatientLocationQueryResponseType sendToAdapter(PatientLocationQueryRequestType request, AssertionType assertion) {
+    protected PatientLocationQueryResponseType sendToAdapter(PatientLocationQueryRequestType request,
+        AssertionType assertion) {
         return new PatientLocationQueryResponseType();
     }
 }

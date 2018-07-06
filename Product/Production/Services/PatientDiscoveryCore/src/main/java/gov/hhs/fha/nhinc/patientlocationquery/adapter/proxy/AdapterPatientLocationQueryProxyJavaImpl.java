@@ -24,37 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.adapter;
+package gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy;
 
-import gov.hhs.fha.nhinc.adapterpatientlocationquery.AdapterPatientLocationQueryPortType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.SOAPBinding;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author tjafri
- */
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterPatientLocationQueryUnsecured implements AdapterPatientLocationQueryPortType {
-
-    private WebServiceContext context;
+public class AdapterPatientLocationQueryProxyJavaImpl implements AdapterPatientLocationQueryProxy {
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientLocationQueryProxyJavaImpl.class);
 
     @Override
-    public AdapterPatientLocationQueryResponseType adapterPatientLocationQuery(
-        AdapterPatientLocationQueryRequestType adapterPatientLocationQueryRequest) {
+    public AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
+        AdapterPatientLocationQueryRequestType msg, AssertionType assertion) {
+        LOG.trace("Using Java Implementation for Adapter Patient Location Query Service");
 
-        AdapterPatientLocationQueryRequestType msg = new AdapterPatientLocationQueryRequestType();
         return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
-    }
-
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
     }
 
 }

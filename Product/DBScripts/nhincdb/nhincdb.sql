@@ -248,7 +248,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON configdb.* to nhincuser;
 CREATE DATABASE IF NOT EXISTS docrepository;
 
 CREATE TABLE IF NOT EXISTS docrepository.docregistry (
-    documentid int(11) NOT NULL AUTO_INCREMENT,
+    documentid int(11) NOT NULL,
     DocumentUniqueId varchar(64) NOT NULL,
     DocumentTitle varchar(128) default NULL,
     authorPerson varchar(64) default NULL,
@@ -306,7 +306,7 @@ CREATE TABLE IF NOT EXISTS docrepository.docregistry (
 );
 
 CREATE TABLE IF NOT EXISTS docrepository.docrepository (
-  repoId int(11) NOT NULL AUTO_INCREMENT,
+  repoId int(11) NOT NULL,
   RawData longblob NOT NULL,
   DocumentUniqueId varchar(64) NOT NULL,
   RepositoryUniqueId varchar(128) NOT NULL,
@@ -335,6 +335,7 @@ CREATE TABLE IF NOT EXISTS patientcorrelationdb.correlatedidentifiers (
     CorrelatedPatientAssignAuthId varchar(64) NOT NULL,
     CorrelatedPatientId varchar(128) NOT NULL,
     CorrelationExpirationDate datetime,
+    RlsId VARCHAR(128) default NULL,
     PRIMARY KEY  (correlationId)
 );
 
@@ -344,6 +345,14 @@ CREATE TABLE IF NOT EXISTS patientcorrelationdb.pddeferredcorrelation (
     AssigningAuthorityId varchar(64) NOT NULL,
     PatientId varchar(128) NOT NULL,
     CreationTime DATETIME NOT NULL,
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE IF NOT EXISTS patientcorrelationdb.recordlocatorservice (
+    Id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    RlsId VARCHAR(128) NOT NULL,
+    PatientId VARCHAR(128) NOT NULL,
+    AssigningAuthorityId VARCHAR(64) NOT NULL,
     PRIMARY KEY (Id)
 );
 

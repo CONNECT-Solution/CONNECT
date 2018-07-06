@@ -581,6 +581,8 @@ public class NhincConstants {
     public static final String PLQ_ENTITYSECURED_SERVICE_NAME = "patientlocationqueryservicesecured";
     public static final String PLQ_ADAPTER_SERVICE_NAME = "adapterplqservice";
     public static final String PLQ_ADAPTERSECURED_SERVICE_NAME = "adapterplqservicesecured";
+    public static final String ADAPTER_PLQ_SERVICE_NAME = "adapterpatientlocationqueryservice";
+    public static final String ADAPTER_PLQ_SECURED_SERVICE_NAME = "adapterpatientlocationqueryservicesecured";
 
     private NhincConstants() {
     }
