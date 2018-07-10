@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import javax.xml.ws.WebServiceException;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -35,6 +36,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  */
 public class CONNECTCXFClientFactory extends CONNECTClientFactory {
+
     /**
      * Returns a CONNECTClient configured for secured invocation.
      */
@@ -46,16 +48,15 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
     }
 
     /**
-     * Returns a CONNECTClient configured for secured invocation. This method
-     * allows the target hcid and service name to be passed to be used for
-     * purpose of/purpose for logic.
+     * Returns a CONNECTClient configured for secured invocation. This method allows the target hcid and service name to
+     * be passed to be used for purpose of/purpose for logic.
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
         AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
 
         if (StringUtils.isEmpty(url)) {
-            throw new IllegalArgumentException("URL for a CONNECT Client must be provided. Got '" + url + "'");
+            throw new WebServiceException("URL for a CONNECT Client must be provided. Got '" + url + "'");
         }
 
         return new CONNECTCXFClientSecured<>(portDescriptor, assertion, url, targetHomeCommunityId, serviceName);
