@@ -33,15 +33,15 @@ public class PatientLocationQueryImpl implements PatientLocationQuery {
     }
 
     @Override
-    public List<RecordLocatorService> getAllPatientsBy(String rlsId) {
+    public List<RecordLocatorService> getAllPatientsBy(String requestedPatientId) {
 
-        List<RecordLocatorService> rlsList;
+        List<RecordLocatorService> requestedPatientIdList;
 
-        rlsList = RecordLocationServiceDAO.getAllPatientsBy(rlsId);
+        requestedPatientIdList = RecordLocationServiceDAO.getAllPatientsBy(requestedPatientId);
 
         LOG.debug("RecordLocationService.findAllPatientsBy() - End");
 
-        return rlsList;
+        return requestedPatientIdList;
     }
 
     @Override
@@ -50,15 +50,15 @@ public class PatientLocationQueryImpl implements PatientLocationQuery {
         AdapterPatientLocationQueryResponseType response = new AdapterPatientLocationQueryResponseType();
         if (msg != null && msg.getPatientLocationQueryRequest() != null
             && msg.getPatientLocationQueryRequest().getRequestedPatientId() != null) {
-            II requestPatientId = msg.getPatientLocationQueryRequest().getRequestedPatientId();
-            String rlsid = msg.getPatientLocationQueryRequest().getRequestedPatientId().getExtension();
+            II requestedPatientId = msg.getPatientLocationQueryRequest().getRequestedPatientId();
+            String requestedPatientid = msg.getPatientLocationQueryRequest().getRequestedPatientId().getExtension();
 
-            List<RecordLocatorService> rlsList = getAllPatientsBy(rlsid);
+            List<RecordLocatorService> requestedPatientIdList = getAllPatientsBy(requestedPatientid);
 
             List<PatientLocationResponse> plqList = response.getPatientLocationQueryResponse()
                 .getPatientLocationResponse();
-            for (RecordLocatorService rec : rlsList) {
-                plqList.add(convertPatientLocationResponse(rec, requestPatientId));
+            for (RecordLocatorService rec : requestedPatientIdList) {
+                plqList.add(convertPatientLocationResponse(rec, requestedPatientId));
             }
             plqList.add(new PatientLocationResponse());
         }

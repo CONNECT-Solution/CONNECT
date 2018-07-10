@@ -27,7 +27,7 @@ public class RecordLocationServiceDAO {
 
     }
 
-    public static List<RecordLocatorService> getAllPatientsBy(String rlsId) {
+    public static List<RecordLocatorService> getAllPatientsBy(String requestedPatientId) {
         LOG.debug("Beginning Patient Location Query");
 
         List<RecordLocatorService> recLocService = new ArrayList<>();
@@ -38,8 +38,8 @@ public class RecordLocationServiceDAO {
 
                 Criteria criteria = sess.createCriteria(RecordLocatorService.class);
 
-                if (rlsId != null) {
-                    criteria.add(Restrictions.eq("rlsId", rlsId));
+                if (requestedPatientId != null) {
+                    criteria.add(Restrictions.eq("requestedPatientId", requestedPatientId));
                 }
 
                 recLocService = criteria.list();
