@@ -27,18 +27,22 @@
 package gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
+import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AdapterPatientLocationQueryProxyNoOpImpl implements AdapterPatientLocationQueryProxy {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientLocationQueryProxyNoOpImpl.class);
 
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy.AdapterPatientLocationQueryProxy#adapterPatientLocationQueryResponse(ihe.iti.xcpd._2009.PatientLocationQueryRequestType, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
+     */
     @Override
-    public AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
-        AdapterPatientLocationQueryRequestType msg, AssertionType assertion) {
+    public PatientLocationQueryResponseType adapterPatientLocationQueryResponse(PatientLocationQueryRequestType request,
+        AssertionType assertion) {
         LOG.trace("Using NoOp Implementation for Patient Location Query Service");
-        return new AdapterPatientLocationQueryResponseType();
+        return new PatientLocationQueryResponseType();
     }
 }

@@ -28,12 +28,16 @@ package gov.hhs.fha.nhinc.patientlocationquery.v10.entity;
 
 import static org.junit.Assert.assertNotNull;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.patientlocationquery.outbound.PassthroughOutboundPatientLocationQuery;
+import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -55,29 +59,42 @@ public class EntityPatientLocationQuerySpringContextTest {
     @Autowired
     PassthroughOutboundPatientLocationQuery outboundPLQ;
 
+
+
     @Test
-    public void outboundUnsecured() {
+    public void verifyBeanWiring() {
         assertNotNull(outboundPLQ);
-
-        RespondingGatewayPatientLocationQueryRequestType request
-            = new RespondingGatewayPatientLocationQueryRequestType();
-        RespondingGatewayPatientLocationQueryResponseType response = entityUnsecuredPLQ.
-            respondingGatewayPatientLocationQuery(request);
-
-        assertNotNull(response);
+        assertNotNull(entityUnsecuredPLQ);
+        assertNotNull(entityUnsecuredPLQ.getOutboundPLQ());
+        assertNotNull(entitySecuredPLQ);
+        assertNotNull(entitySecuredPLQ.getOutboundPLQ());
 
     }
 
     @Test
-    public void outboundSecured() {
-        assertNotNull(outboundPLQ);
-
-        RespondingGatewayPatientLocationQuerySecuredRequestType request
-            = new RespondingGatewayPatientLocationQuerySecuredRequestType();
-        RespondingGatewayPatientLocationQueryResponseType response = entitySecuredPLQ.
-            respondingGatewayPatientLocationQuery(request);
-
+    public void testOutboundUnsecuredResponse() {
+        RespondingGatewayPatientLocationQueryRequestType request = new RespondingGatewayPatientLocationQueryRequestType();
+        entityUnsecuredPLQ.setOutboundPLQ(getStubbedOutboundPLQ()); //Override the Autowired with our spy so we dont actually invoke SOAP services
+        RespondingGatewayPatientLocationQueryResponseType response = entityUnsecuredPLQ.respondingGatewayPatientLocationQuery(request);
         assertNotNull(response);
+    }
 
+
+    @Test
+    public void testOutboundSecuredResponse() {
+
+        RespondingGatewayPatientLocationQuerySecuredRequestType request = new RespondingGatewayPatientLocationQuerySecuredRequestType();
+        entitySecuredPLQ.setOutboundPLQ(getStubbedOutboundPLQ()); //Override the Autowired with our spy so we dont actually invoke SOAP services
+        RespondingGatewayPatientLocationQueryResponseType response = entitySecuredPLQ.respondingGatewayPatientLocationQuery(request);
+        assertNotNull(response);
+    }
+
+    private PassthroughOutboundPatientLocationQuery getStubbedOutboundPLQ() {
+        PassthroughOutboundPatientLocationQuery outboundSpy = Mockito.spy(outboundPLQ);
+        RespondingGatewayPatientLocationQueryResponseType  result = new RespondingGatewayPatientLocationQueryResponseType ();
+        Mockito.doReturn(result).when(outboundSpy).processPatientLocationQuery(Mockito.any(PatientLocationQueryRequestType.class),
+            Mockito.any(AssertionType.class),
+            Mockito.any(NhinTargetCommunitiesType.class));
+        return outboundSpy;
     }
 }

@@ -350,7 +350,7 @@ CREATE TABLE IF NOT EXISTS patientcorrelationdb.pddeferredcorrelation (
 
 CREATE TABLE IF NOT EXISTS patientcorrelationdb.recordlocatorservice (
     Id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    RlsId VARCHAR(128) NOT NULL,
+    requestedPatientId VARCHAR(128) NOT NULL,
     PatientId VARCHAR(128) NOT NULL,
     AssigningAuthorityId VARCHAR(64) NOT NULL,
     PRIMARY KEY (Id)

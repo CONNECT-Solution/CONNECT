@@ -60,7 +60,7 @@ public class PatientLocationQueryImpl implements PatientLocationQuery {
             for (RecordLocatorService rec : requestedPatientIdList) {
                 plqList.add(convertPatientLocationResponse(rec, requestedPatientId));
             }
-            plqList.add(new PatientLocationResponse());
+
         }
         return response;
     }
@@ -82,7 +82,6 @@ public class PatientLocationQueryImpl implements PatientLocationQuery {
             for (RecordLocatorService rec : rlsList) {
                 plqList.add(convertPatientLocationResponse(rec, requestPatientId));
             }
-            plqList.add(new PatientLocationResponse());
         }
         return response;
     }
