@@ -36,6 +36,7 @@
                 <module>DocRegistryAndRepository</module>
                 <module>DocumentRetrieveXDSErrorValidation</module>
                 <module>ValidatePDCommunicationErrorHandlingTest</module>
+                <module>ExchangeManagerTests</module>
             </modules>
         </profile>
     </profiles>
