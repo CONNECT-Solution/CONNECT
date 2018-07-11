@@ -9,6 +9,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySe
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySecuredResponseType;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.RecordLocatorService;
 import gov.hhs.fha.nhinc.patientlocationquery.dao.RecordLocationServiceDAO;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType.PatientLocationResponse;
 import java.util.List;
 import org.hl7.v3.II;
@@ -70,6 +71,7 @@ public class PatientLocationQueryImpl implements PatientLocationQuery {
         AdapterPatientLocationQuerySecuredRequestType msg) {
 
         AdapterPatientLocationQuerySecuredResponseType response = new AdapterPatientLocationQuerySecuredResponseType();
+        response.setPatientLocationQueryResponse(new PatientLocationQueryResponseType());
         if (msg != null && msg.getPatientLocationQueryRequest() != null
             && msg.getPatientLocationQueryRequest().getRequestedPatientId() != null) {
             II requestPatientId = msg.getPatientLocationQueryRequest().getRequestedPatientId();
@@ -77,6 +79,7 @@ public class PatientLocationQueryImpl implements PatientLocationQuery {
 
             List<RecordLocatorService> rlsList = getAllPatientsBy(rlsid);
 
+            response.setPatientLocationQueryResponse(new PatientLocationQueryResponseType());
             List<PatientLocationResponse> plqList = response.getPatientLocationQueryResponse()
                 .getPatientLocationResponse();
             for (RecordLocatorService rec : rlsList) {
