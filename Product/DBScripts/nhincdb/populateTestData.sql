@@ -122,10 +122,10 @@ UNLOCK TABLES;
 USE patientcorrelationdb;
 LOCK TABLES recordlocatorservice WRITE;
 
-INSERT INTO recordlocatorservice (requestedPatientId,PatientId,AssigningAuthorityId) values ('1','111222','1.1');
-INSERT INTO recordlocatorservice (requestedPatientId,PatientId,AssigningAuthorityId) values ('2','111222','2.2');
-INSERT INTO recordlocatorservice (requestedPatientId,PatientId,AssigningAuthorityId) values ('3','111223','3.4');
-INSERT INTO recordlocatorservice (requestedPatientId,PatientId,AssigningAuthorityId) values ('4','111224','1.1');
-INSERT INTO recordlocatorservice (requestedPatientId,PatientId,AssigningAuthorityId) values ('5','111225','4.4');
+INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N233','111222','1.1');
+INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N234','111222','2.2');
+INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N234','111223','3.4');
+INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N244','111224','1.1');
+INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N244','111225','4.4');
 
 UNLOCK TABLES;

@@ -30,9 +30,7 @@ import gov.hhs.fha.nhinc.adapterpatientlocationquerysecured.AdapterPatientLocati
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySecuredResponseType;
 import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
-import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.SOAPBinding;
 
 /**
@@ -42,17 +40,9 @@ import javax.xml.ws.soap.SOAPBinding;
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterPatientLocationQuerySecured implements AdapterPatientLocationQuerySecuredPortType {
 
-    private WebServiceContext context;
-
     @Override
     public AdapterPatientLocationQuerySecuredResponseType adapterPatientLocationQuerySecured(
         AdapterPatientLocationQuerySecuredRequestType request) {
-        context.toString();
         return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQSecuredResponse(request);
-    }
-
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
     }
 }

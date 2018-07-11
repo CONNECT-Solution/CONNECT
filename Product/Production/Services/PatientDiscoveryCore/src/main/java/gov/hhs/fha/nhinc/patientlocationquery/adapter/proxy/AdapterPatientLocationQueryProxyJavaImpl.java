@@ -26,9 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy;
 
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
+import gov.hhs.fha.nhinc.event.DefaultDelegatingEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.DefaultTargetedArgTransfomer;
 import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
@@ -38,6 +41,9 @@ import org.slf4j.LoggerFactory;
 public class AdapterPatientLocationQueryProxyJavaImpl implements AdapterPatientLocationQueryProxy {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientLocationQueryProxyJavaImpl.class);
 
+    @AdapterDelegationEvent(beforeBuilder = DefaultTargetedArgTransfomer.class,
+        afterReturningBuilder = DefaultDelegatingEventDescriptionBuilder.class,
+        serviceType = "Patient Location Query", version = "1.0")
     @Override
     public PatientLocationQueryResponseType adapterPatientLocationQueryResponse(PatientLocationQueryRequestType request,
         AssertionType assertion) {

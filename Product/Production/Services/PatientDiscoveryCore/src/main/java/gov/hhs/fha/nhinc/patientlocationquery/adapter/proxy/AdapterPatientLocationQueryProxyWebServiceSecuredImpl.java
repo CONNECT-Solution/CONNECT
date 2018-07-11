@@ -27,9 +27,12 @@
 package gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adapterpatientlocationquerysecured.AdapterPatientLocationQuerySecuredPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySecuredResponseType;
+import gov.hhs.fha.nhinc.event.DefaultDelegatingEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.DefaultTargetedArgTransfomer;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -48,6 +51,9 @@ public class AdapterPatientLocationQueryProxyWebServiceSecuredImpl implements Ad
         .getLogger(AdapterPatientLocationQueryProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
+    @AdapterDelegationEvent(beforeBuilder = DefaultTargetedArgTransfomer.class,
+        afterReturningBuilder = DefaultDelegatingEventDescriptionBuilder.class,
+        serviceType = "Patient Location Query", version = "1.0")
     @Override
     public PatientLocationQueryResponseType adapterPatientLocationQueryResponse(PatientLocationQueryRequestType request,
         AssertionType assertion) {

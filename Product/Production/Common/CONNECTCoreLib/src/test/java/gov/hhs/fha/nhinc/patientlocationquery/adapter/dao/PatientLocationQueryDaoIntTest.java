@@ -43,17 +43,14 @@ public class PatientLocationQueryDaoIntTest extends DAOIntegrationTest {
     public void testGetAllByRLSId() {
         //Tests the default insertions from the populate test data script.
 
-        List<RecordLocatorService> result = RecordLocationServiceDAO.getAllPatientsBy("111222");
+        List<RecordLocatorService> result = RecordLocationServiceDAO.getAllPatientsBy("38273N234");
         assertEquals(2, result.size());
 
-        result = RecordLocationServiceDAO.getAllPatientsBy("111223");
+        result = RecordLocationServiceDAO.getAllPatientsBy("38273N233");
         assertEquals(1, result.size());
 
-        result = RecordLocationServiceDAO.getAllPatientsBy("111224");
-        assertEquals(1, result.size());
-
-        result = RecordLocationServiceDAO.getAllPatientsBy("111225");
-        assertEquals(1, result.size());
+        result = RecordLocationServiceDAO.getAllPatientsBy("38273N244");
+        assertEquals(2, result.size());
 
         result = RecordLocationServiceDAO.getAllPatientsBy("N0n-Ex!sT@nT");
         assertEquals(0, result.size());
