@@ -24,20 +24,39 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.adapter;
+package gov.hhs.fha.nhinc.patientlocationquery.adapter.dao;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
-import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
+import static org.junit.Assert.assertEquals;
 
-public class AdapterPatientLocationQueryOrchImpl {
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.RecordLocatorService;
+import gov.hhs.fha.nhinc.patientlocationquery.dao.RecordLocationServiceDAO;
+import gov.hhs.fha.nhinc.test.DAOIntegrationTest;
+import java.util.List;
+import org.junit.Ignore;
+import org.junit.Test;
 
-    private AdapterPatientLocationQueryOrchImpl() {
-    }
+//UnIgnore to run DAO Integration test which will use a MySQL DB connection.
+@Ignore
+public class PatientLocationQueryDaoIntTest extends DAOIntegrationTest {
 
-    public static AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
-        AdapterPatientLocationQueryRequestType msg) {
-        return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
+    @Test
+    public void testGetAllByRLSId() {
+        //Tests the default insertions from the populate test data script.
+
+        List<RecordLocatorService> result = RecordLocationServiceDAO.getAllPatientsBy("111222");
+        assertEquals(2, result.size());
+
+        result = RecordLocationServiceDAO.getAllPatientsBy("111223");
+        assertEquals(1, result.size());
+
+        result = RecordLocationServiceDAO.getAllPatientsBy("111224");
+        assertEquals(1, result.size());
+
+        result = RecordLocationServiceDAO.getAllPatientsBy("111225");
+        assertEquals(1, result.size());
+
+        result = RecordLocationServiceDAO.getAllPatientsBy("N0n-Ex!sT@nT");
+        assertEquals(0, result.size());
     }
 
 }

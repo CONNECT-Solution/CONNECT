@@ -5,7 +5,6 @@ package gov.hhs.fha.nhinc.patientlocationquery.dao;
 
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.RecordLocatorService;
 import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -31,9 +30,9 @@ public class RecordLocationServiceDAO {
         LOG.debug("Beginning Patient Location Query");
 
         List<RecordLocatorService> recLocService = new ArrayList<>();
-        Session sess = null;
-        try {
-            sess = getSession();
+
+        try (Session sess = getSession()){
+
             if (sess != null) {
 
                 Criteria criteria = sess.createCriteria(RecordLocatorService.class);
@@ -49,8 +48,6 @@ public class RecordLocationServiceDAO {
                 LOG.error("Failed to obtain a session from the sessionFactory");
             }
 
-        } finally {
-            GenericDBUtils.closeSession(sess);
         }
         return recLocService;
     }
@@ -58,7 +55,9 @@ public class RecordLocationServiceDAO {
     protected static Session getSession() {
         Session session = null;
         try {
-            session = HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory().openSession();
+            session = HibernateUtilFactory.getPatientCorrHibernateUtil()
+                .getSessionFactory()
+                .openSession();
         } catch (HibernateException e) {
             LOG.error("Fail to openSession: {}, {}", e.getMessage(), e);
         }

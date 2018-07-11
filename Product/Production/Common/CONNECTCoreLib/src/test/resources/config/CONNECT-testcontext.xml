@@ -13,10 +13,10 @@
         http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
 
     <bean name="eventfactory" class="gov.hhs.fha.nhinc.event.EventFactoryFactoryBean" />
-
+<!--
     <bean name="txHibernateUtil" class="gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil"
         init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="false"/>
-
+!-->
     <bean name="eventHibernateUtil" class="gov.hhs.fha.nhinc.event.persistence.HibernateUtil"
         init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="false"/>
 

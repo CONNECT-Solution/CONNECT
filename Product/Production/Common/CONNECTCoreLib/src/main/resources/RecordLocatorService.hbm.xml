@@ -12,7 +12,7 @@
         <id column="ID" name="id" type="long">
             <generator class="increment"/>
         </id>
-        <property column="RlsId" length="128" name="rlsId" not-null="true" type="string"/>
+        <property column="requestedPatientId" length="128" name="requestedPatientId" not-null="true" type="string"/>
         <property column="PatientId" length="128" name="patientId" not-null="true" type="string"/>
         <property column="AssigningAuthorityId" length="64" name="assigningAuthorityId" not-null="true" type="string"/>
     </class>
