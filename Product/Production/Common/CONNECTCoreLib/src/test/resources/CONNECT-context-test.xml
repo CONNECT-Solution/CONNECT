@@ -12,6 +12,8 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
 
+    <context:annotation-config />
+
     <bean name="eventfactory" class="gov.hhs.fha.nhinc.event.EventFactoryFactoryBean" />
 
     <bean name="txHibernateUtil" class="gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil"
