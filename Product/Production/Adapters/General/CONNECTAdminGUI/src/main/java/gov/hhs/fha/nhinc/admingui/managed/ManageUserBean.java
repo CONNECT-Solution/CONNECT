@@ -89,6 +89,14 @@ public class ManageUserBean {
         
     }
     
+    /**
+     *
+     * @param loginservice
+     */
+    ManageUserBean(LoginService loginservice) {
+        loginService = loginservice;
+    }
+    
     @PostConstruct
     public void buildUserRoleList() {
         try {
@@ -100,16 +108,8 @@ public class ManageUserBean {
             }
             
         } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to access properties for Role Code values.", ex.getLocalizedMessage());
+            LOG.warn("Unable to access properties for Role Code values.", ex.getLocalizedMessage(), ex);
         }
-    }
-
-    /**
-     *
-     * @param loginservice
-     */
-    ManageUserBean(LoginService loginservice) {
-        loginService = loginservice;
     }
 
     /**
