@@ -688,20 +688,27 @@ public class PatientSearchBean {
         return getDocumentTypeName() + " for " + getSelectedCurrentPatient().getName();
     }
 
-    private UserLogin getCurrentUser() {
+    private static UserLogin getCurrentUser() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
         HttpSession session = (HttpSession) externalContext.getSession(true);
         return (UserLogin) session.getAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE);
     }
 
-    private boolean validateUser(UserLogin user) {
-        return user != null && NullChecker.isNotNullish(user.getFirstName()) && NullChecker.isNotNullish(user.getMiddleName())
-                && NullChecker.isNotNullish(user.getLastName()) && NullChecker.isNotNullish(user.getTransactionRole())
-                && NullChecker.isNotNullish(user.getTransactionRoleDesc());
+    private static boolean validateUser(UserLogin user) {
+        return user != null && validateUserNames(user.getFirstName(), user.getMiddleName(), user.getLastName())
+                && validateUserRole(user.getTransactionRole(), user.getTransactionRoleDesc());
+    }
+    
+    private static boolean validateUserNames(String first, String middle, String last) {
+        return NullChecker.isNotNullish(first) && NullChecker.isNotNullish(middle) && NullChecker.isNotNullish(last);
+    }
+    
+    private static boolean validateUserRole(String role, String description) {
+        return NullChecker.isNotNullish(role) && NullChecker.isNotNullish(description);
     }
 
-    private void createErrorMessage(String userName) {
+    private static void createErrorMessage(String userName) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
                 "Error:  " + userName + ", does not have valid assertion data.", "Login as a valid user."));
     }
