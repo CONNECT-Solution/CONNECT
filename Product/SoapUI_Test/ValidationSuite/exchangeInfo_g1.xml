@@ -167,6 +167,15 @@
                 </ns2:endpointConfiguration>
               </ns2:endpointConfigurationList>
             </ns2:endpoint>
+            <ns2:endpoint>
+              <ns2:name>PatientLocationQuery</ns2:name>
+                <ns2:endpointConfigurationList>
+                  <ns2:endpointConfiguration>
+                    <ns2:url>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientLocationQuery</ns2:url>
+                    <ns2:version>1.0</ns2:version>
+                  </ns2:endpointConfiguration>
+              </ns2:endpointConfigurationList>
+            </ns2:endpoint>
             </ns2:endpointList>
           <ns2:targetRegion>US-NY</ns2:targetRegion>
           <ns2:targetRegion>US-VA</ns2:targetRegion>
@@ -327,7 +336,16 @@
                   <ns2:version>1.0</ns2:version>
                 </ns2:endpointConfiguration>
               </ns2:endpointConfigurationList>
-            </ns2:endpoint>            
+            </ns2:endpoint>
+            <ns2:endpoint>
+              <ns2:name>PatientLocationQuery</ns2:name>
+                <ns2:endpointConfigurationList>
+                  <ns2:endpointConfiguration>
+                    <ns2:url>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientLocationQuery</ns2:url>
+                    <ns2:version>1.0</ns2:version>
+                  </ns2:endpointConfiguration>
+              </ns2:endpointConfigurationList>
+            </ns2:endpoint>
           </ns2:endpointList>
           <ns2:targetRegion>US-NY</ns2:targetRegion>
           <ns2:targetRegion>US-VA</ns2:targetRegion>
