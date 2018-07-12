@@ -548,8 +548,8 @@ CREATE TABLE IF NOT EXISTS adminguidb.UserLogin (
 	middleName varchar(100),
 	lastName varchar(100),
     userRole BIGINT unsigned NOT NULL,
-	transactionUserRole varchar(100);
-	transactionUserRoleDesc varchar(150);
+    transactionUserRole varchar(100),
+    transactionUserRoleDesc varchar(150),
     CONSTRAINT fk_role_user
         FOREIGN KEY (userRole)
         REFERENCES adminguidb.UserRole (roleId)
