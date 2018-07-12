@@ -24,37 +24,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.adapter;
+package gov.hhs.fha.nhinc.patientlocationquery.adapter.descriptor;
 
 import gov.hhs.fha.nhinc.adapterpatientlocationquery.AdapterPatientLocationQueryPortType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
-import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.SOAPBinding;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
-/**
- *
- * @author tjafri
- */
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterPatientLocationQueryUnsecured implements AdapterPatientLocationQueryPortType {
-
-    private WebServiceContext context;
+public class AdapterPatientLocationQueryServicePortDescriptor
+    extends SOAP12ServicePortDescriptor<AdapterPatientLocationQueryPortType> {
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterpatientlocationquery:AdapterPatientLocationQueryRequestMessage";
 
     @Override
-    public AdapterPatientLocationQueryResponseType adapterPatientLocationQuery(
-        AdapterPatientLocationQueryRequestType adapterPatientLocationQueryRequest) {
-
-        AdapterPatientLocationQueryRequestType msg = new AdapterPatientLocationQueryRequestType();
-        return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
+    public String getWSAddressingAction() {
+        return WS_ADDRESSING_ACTION;
     }
 
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
+    @Override
+    public Class<AdapterPatientLocationQueryPortType> getPortClass() {
+        return AdapterPatientLocationQueryPortType.class;
     }
-
 }

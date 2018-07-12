@@ -24,37 +24,52 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.adapter;
+package gov.hhs.fha.nhinc.patientcorrelation.nhinc.model;
 
-import gov.hhs.fha.nhinc.adapterpatientlocationquery.AdapterPatientLocationQueryPortType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
-import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.SOAPBinding;
+import java.io.Serializable;
 
 /**
  *
- * @author tjafri
+ * @author ptambellini
  */
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterPatientLocationQueryUnsecured implements AdapterPatientLocationQueryPortType {
+public class RecordLocatorService implements Serializable {
 
-    private WebServiceContext context;
+    private static final long serialVersionUID = -5756784032763662810L;
+    private Long id;
+    private String requestedPatientId;
+    private String patientId;
+    private String assigningAuthorityId;
 
-    @Override
-    public AdapterPatientLocationQueryResponseType adapterPatientLocationQuery(
-        AdapterPatientLocationQueryRequestType adapterPatientLocationQueryRequest) {
-
-        AdapterPatientLocationQueryRequestType msg = new AdapterPatientLocationQueryRequestType();
-        return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
+    public String getAssigningAuthorityId() {
+        return assigningAuthorityId;
     }
 
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRequestedPatientId() {
+        return requestedPatientId;
+    }
+
+    public void setRequestedPatientId(String requestedPatientId) {
+        this.requestedPatientId = requestedPatientId;
+    }
+
+    public void setAssigningAuthorityId(String assigningAuthorityId) {
+        this.assigningAuthorityId = assigningAuthorityId;
+    }
+
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
     }
 
 }

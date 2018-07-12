@@ -26,6 +26,11 @@
  */
 package gov.hhs.fha.nhinc.exchange.transform.fhir;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import gov.hhs.fha.nhinc.exchange.OrganizationListType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
@@ -47,10 +52,6 @@ import org.hl7.fhir.dstu3.formats.JsonParser;
 import org.hl7.fhir.dstu3.formats.XmlParser;
 import org.hl7.fhir.dstu3.model.Bundle;
 import org.hl7.fhir.exceptions.FHIRFormatError;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,11 +101,15 @@ public class FHIRTransformTest {
                 nhinService.getUDDIServiceName());
             if (serviceNames == null) {
                 LOG.error("Service {} does not have any FHIR property defined", nhinService.getUDDIServiceName());
-                missing.add(nhinService.name());
+                missing.add(nhinService.name() + ": " + nhinService.getUDDIServiceName());
             }
         }
 
         if (CollectionUtils.isNotEmpty(missing)) {
+            // If you are reading this, remember that the test has its own copy of the .properties file.
+            // If you added the property in the Properties project and this test is still failing, be sure to update
+            // this test's copy as well.
+
             fail("The following services defined in NhincConstants are missing property values in "
                 + NhincConstants.FHIR_DIRECTORY_FILE + ".properties: " + missing.toString());
         }

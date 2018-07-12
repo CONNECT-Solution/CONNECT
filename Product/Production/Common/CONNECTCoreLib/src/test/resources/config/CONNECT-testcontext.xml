@@ -16,7 +16,7 @@
 
     <bean name="txHibernateUtil" class="gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil"
         init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="false"/>
-
+        
     <bean name="eventHibernateUtil" class="gov.hhs.fha.nhinc.event.persistence.HibernateUtil"
         init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="false"/>
 

@@ -89,7 +89,10 @@ public class NhincConstants {
         CORE_X12DS_REALTIME(CORE_X12DS_REALTIME_SERVICE_NAME),
         CORE_X12DS_GENERICBATCH_REQUEST(CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME),
         CORE_X12DS_GENERICBATCH_RESPONSE(CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME),
-        DOCUMENT_DATA_SUBMISSION(NHINC_XDS_SERVICE_NAME);
+        DOCUMENT_DATA_SUBMISSION(NHINC_XDS_SERVICE_NAME),
+        PATIENT_LOCATION_QUERY(PLQ_NHIN_SERVICE_NAME);
+
+
 
         private String UDDIServiceName = null;
 
@@ -581,6 +584,8 @@ public class NhincConstants {
     public static final String PLQ_ENTITYSECURED_SERVICE_NAME = "patientlocationqueryservicesecured";
     public static final String PLQ_ADAPTER_SERVICE_NAME = "adapterplqservice";
     public static final String PLQ_ADAPTERSECURED_SERVICE_NAME = "adapterplqservicesecured";
+    public static final String ADAPTER_PLQ_SERVICE_NAME = "adapterpatientlocationqueryservice";
+    public static final String ADAPTER_PLQ_SECURED_SERVICE_NAME = "adapterpatientlocationqueryservicesecured";
 
     private NhincConstants() {
     }

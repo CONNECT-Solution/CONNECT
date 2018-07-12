@@ -26,16 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 
-import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public interface AdapterDocDataSubmissionProxy {
 
-    @AdapterDelegationEvent(serviceType = "Document Data Submission", version = "",
-        beforeBuilder = DefaultEventDescriptionBuilder.class,
-        afterReturningBuilder = DefaultEventDescriptionBuilder.class)
     public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion);
 }
