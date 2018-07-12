@@ -360,7 +360,7 @@ public class GatewayService {
         return null;
     }
     
-    private AssertionType addUserInfoAndPurposeOf(AssertionType assertion, UserLogin user, String purposeOfRole,
+    private static AssertionType addUserInfoAndPurposeOf(AssertionType assertion, UserLogin user, String purposeOfRole,
             String purposeOfDesc) {
         PersonNameType personName = new PersonNameType();
         personName.setGivenName(user.getFirstName());
