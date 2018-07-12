@@ -135,7 +135,7 @@ public class PatientSearchBean {
             getPropAccessor().setPropertyFile(PURPOSEOF_PROPERTIES_FILENAME);    
             purposeOfProps = getPropAccessor().getProperties(PURPOSEOF_PROPERTIES_FILENAME);           
         } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to access properties for purposeOfUse list.", ex.getLocalizedMessage());
+            LOG.warn("Unable to access properties for purposeOfUse list.", ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -154,7 +154,7 @@ public class PatientSearchBean {
             // set the UI display message
             patientMessage = patientFound ? PATIENT_FOUND : PATIENT_NOT_FOUND;
         } else {
-            createErrorMessage(user.getUserName());
+            createErrorMessage(user);
         }
     }
 
@@ -708,9 +708,13 @@ public class PatientSearchBean {
         return NullChecker.isNotNullish(role) && NullChecker.isNotNullish(description);
     }
 
-    private static void createErrorMessage(String userName) {
+    private static void createErrorMessage(UserLogin user) {
+        String userName = "";
+        if(user != null) {
+            userName = user.getUserName() + " ";
+        }
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-                "Error:  " + userName + ", does not have valid assertion data.", "Login as a valid user."));
+                "Error:  " + userName + "does not have valid assertion data.", "Login as a valid user."));
     }
 
     protected PropertyAccessor getPropAccessor() {

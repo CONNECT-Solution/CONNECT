@@ -179,14 +179,8 @@ public class LoginServiceImpl implements LoginService {
     }
     
     private String getUserRoleCode(String roleDesc) {
-        String role = null;
         String roleDescNoSpaces = roleDesc.replaceAll(" ", "_");
-        try {
-            role = getPropAccessor().getProperty(ROLE_PROPERTIES_FILENAME, roleDescNoSpaces);
-        } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to get role code for property {}", roleDesc, ex.getLocalizedMessage());
-        }
-        return role;
+        return getPropAccessor().getProperty(ROLE_PROPERTIES_FILENAME, roleDescNoSpaces, null);
     }
 
     @Override
