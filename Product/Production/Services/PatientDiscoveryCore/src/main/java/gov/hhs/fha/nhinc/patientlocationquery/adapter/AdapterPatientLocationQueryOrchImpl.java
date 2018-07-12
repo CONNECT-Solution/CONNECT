@@ -26,35 +26,18 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.adapter;
 
-import gov.hhs.fha.nhinc.adapterpatientlocationquery.AdapterPatientLocationQueryPortType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.SOAPBinding;
 
-/**
- *
- * @author tjafri
- */
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterPatientLocationQueryUnsecured implements AdapterPatientLocationQueryPortType {
+public class AdapterPatientLocationQueryOrchImpl {
 
-    private WebServiceContext context;
-
-    @Override
-    public AdapterPatientLocationQueryResponseType adapterPatientLocationQuery(
-        AdapterPatientLocationQueryRequestType adapterPatientLocationQueryRequest) {
-
-        AdapterPatientLocationQueryRequestType msg = new AdapterPatientLocationQueryRequestType();
-        return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
+    private AdapterPatientLocationQueryOrchImpl() {
     }
 
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
+    public static AdapterPatientLocationQueryResponseType adapterPatientLocationQueryResponse(
+        AdapterPatientLocationQueryRequestType msg) {
+        return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
     }
 
 }

@@ -82,6 +82,7 @@ public class NhinPatientLocationQueryProxyWebServiceSecuredImpl implements NhinP
 
         } catch (Exception ex) {
             LOG.error("Error calling processPatientLocationQuery: {}", ex.getMessage(), ex);
+            throw new IllegalStateException("Error calling NHIN processPatientLocationQuery", ex);
         }
 
         LOG.debug("End processPatientLocationQuery");

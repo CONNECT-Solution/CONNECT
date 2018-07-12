@@ -28,11 +28,14 @@ package gov.hhs.fha.nhinc.patientlocationquery.v10.nhin;
 
 import static org.junit.Assert.assertNotNull;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientlocationquery.inbound.PassthroughInboundPatientLocationQuery;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
+import java.util.Properties;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -52,9 +55,22 @@ public class NhinPatientLocationQuerySpringContextTest {
     PassthroughInboundPatientLocationQuery inboundPLQ;
 
     @Test
-    public void verifyInbound() {
+    public void verifyBeanWiring() {
+        assertNotNull(nhinPLQ);
         assertNotNull(inboundPLQ);
+        assertNotNull(nhinPLQ.getInboundPLQ());
+    }
+
+    @Test
+    public void testRespondingGatewayPatientLocationQuery() {
+        PassthroughInboundPatientLocationQuery inboundSpy = Mockito.spy(inboundPLQ);
+        PatientLocationQueryResponseType result = new PatientLocationQueryResponseType();
+        Mockito.doReturn(result).when(inboundSpy).processPatientLocationQuery(Mockito.any(PatientLocationQueryRequestType.class),
+            Mockito.any(AssertionType.class),
+            Mockito.any(Properties.class));
+
         PatientLocationQueryRequestType request = new PatientLocationQueryRequestType();
+        nhinPLQ.setInboundPLQ(inboundSpy); //Override the Autowired with our spy so we dont actually invoke SOAP services
         PatientLocationQueryResponseType response = nhinPLQ.respondingGatewayPatientLocationQuery(request);
         assertNotNull(response);
     }

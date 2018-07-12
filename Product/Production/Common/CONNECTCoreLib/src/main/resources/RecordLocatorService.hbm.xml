@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM "classpath://org/hibernate/hibernate-configuration-3.0.dtd">
+<!--
+    Document   : recordLocationService.hbm.xml
+    Created on : June 21, 2018, 3:08 PM
+    Author     : ptambellini
+    Description:
+        Purpose of the document follows.
+-->
+<hibernate-mapping package="gov.hhs.fha.nhinc.patientcorrelation.nhinc.model">
+    <class name="RecordLocatorService" table="recordlocatorservice">
+        <id column="ID" name="id" type="long">
+            <generator class="increment"/>
+        </id>
+        <property column="requestedPatientId" length="128" name="requestedPatientId" not-null="true" type="string"/>
+        <property column="PatientId" length="128" name="patientId" not-null="true" type="string"/>
+        <property column="AssigningAuthorityId" length="64" name="assigningAuthorityId" not-null="true" type="string"/>
+    </class>
+</hibernate-mapping>

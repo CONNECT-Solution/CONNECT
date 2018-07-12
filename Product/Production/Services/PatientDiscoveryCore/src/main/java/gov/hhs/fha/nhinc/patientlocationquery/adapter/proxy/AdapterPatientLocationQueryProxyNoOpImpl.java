@@ -24,37 +24,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientlocationquery.adapter;
+package gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy;
 
-import gov.hhs.fha.nhinc.adapterpatientlocationquery.AdapterPatientLocationQueryPortType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryResponseType;
-import gov.hhs.fha.nhinc.patientlocationquery.services.PatientLocationQueryImpl;
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.SOAPBinding;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultDelegatingEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.DefaultTargetedArgTransfomer;
+import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author tjafri
- */
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterPatientLocationQueryUnsecured implements AdapterPatientLocationQueryPortType {
+public class AdapterPatientLocationQueryProxyNoOpImpl implements AdapterPatientLocationQueryProxy {
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterPatientLocationQueryProxyNoOpImpl.class);
 
-    private WebServiceContext context;
 
+    @AdapterDelegationEvent(beforeBuilder = DefaultTargetedArgTransfomer.class,
+        afterReturningBuilder = DefaultDelegatingEventDescriptionBuilder.class,
+        serviceType = "Patient Location Query", version = "1.0")
     @Override
-    public AdapterPatientLocationQueryResponseType adapterPatientLocationQuery(
-        AdapterPatientLocationQueryRequestType adapterPatientLocationQueryRequest) {
-
-        AdapterPatientLocationQueryRequestType msg = new AdapterPatientLocationQueryRequestType();
-        return PatientLocationQueryImpl.getPatientLocationQuery().getAdapterPLQResponse(msg);
+    public PatientLocationQueryResponseType adapterPatientLocationQueryResponse(PatientLocationQueryRequestType request,
+        AssertionType assertion) {
+        LOG.trace("Using NoOp Implementation for Patient Location Query Service");
+        return new PatientLocationQueryResponseType();
     }
-
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
-    }
-
 }

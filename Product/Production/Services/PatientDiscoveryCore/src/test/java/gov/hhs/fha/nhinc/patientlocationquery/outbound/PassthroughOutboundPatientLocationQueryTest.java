@@ -36,7 +36,6 @@ import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQuer
 import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryOrchestratable;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -47,21 +46,21 @@ public class PassthroughOutboundPatientLocationQueryTest {
     AssertionType assertion;
     NhinTargetCommunitiesType target;
 
-    @BeforeClass
-    public static void setNHINCPropertyDirectory()
-    {
-        // We need to set this property so the PropertyAccessor class doesnt complain and error out.
-        System.setProperty("nhinc.properties.dir", System.getProperty("user.dir") + "/src/test/resources/");
-    }
+
     @Before
     public void setup() {
 
-        plqOutbound =  Mockito.spy(PassthroughOutboundPatientLocationQuery.class);
+        plqOutbound = Mockito.spy(new PassthroughOutboundPatientLocationQuery());
+        Mockito.doReturn(new RespondingGatewayPatientLocationQueryResponseType())
+            .when(plqOutbound)
+            .sendToNhinProxy(Mockito.any(PatientLocationQueryRequestType.class),
+            Mockito.any(AssertionType.class),
+            Mockito.any(NhinTargetCommunitiesType.class));
+
         request = new PatientLocationQueryRequestType();
         assertion = new AssertionType();
         target = new NhinTargetCommunitiesType();
     }
-
 
     @Test
     public void testProcessPatientLocationQuery() {
