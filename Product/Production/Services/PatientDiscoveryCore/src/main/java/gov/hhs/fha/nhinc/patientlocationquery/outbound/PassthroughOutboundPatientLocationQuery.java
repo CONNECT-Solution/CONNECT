@@ -26,10 +26,15 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.outbound;
 
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
+import gov.hhs.fha.nhinc.event.DefaultTargetEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryDelegate;
+import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryOrchestratable;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 
 /**
  *
@@ -37,13 +42,37 @@ import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
  */
 public class PassthroughOutboundPatientLocationQuery implements OutboundPatientLocationQuery {
 
+    @OutboundProcessingEvent(beforeBuilder = DefaultTargetEventDescriptionBuilder.class,
+        afterReturningBuilder = DefaultTargetEventDescriptionBuilder.class,
+        serviceType = "Patient Location Query", version = "1.0")
     @Override
     public RespondingGatewayPatientLocationQueryResponseType processPatientLocationQuery(
         PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType target) {
-        //Step 1: audit request
-        //Step 2 a: process request, if needed
-        //Step 2 b: send request to Nhin
-        //Step 3: return the response
-        return new RespondingGatewayPatientLocationQueryResponseType();
+        //Future Story: audit request
+        return sendToNhinProxy(request, assertion, target);
+    }
+
+    protected RespondingGatewayPatientLocationQueryResponseType sendToNhinProxy(PatientLocationQueryRequestType request,
+        AssertionType assertion, NhinTargetCommunitiesType target) {
+
+        OutboundPatientLocationQueryDelegate ddsDelegate = new OutboundPatientLocationQueryDelegate();
+        OutboundPatientLocationQueryOrchestratable ddsOrchestratable = createOrchestratable(ddsDelegate, request,assertion, target);
+
+        PatientLocationQueryResponseType response = ((OutboundPatientLocationQueryOrchestratable) ddsDelegate.process(ddsOrchestratable)).getResponse();
+
+        RespondingGatewayPatientLocationQueryResponseType responseType = new RespondingGatewayPatientLocationQueryResponseType();
+        responseType.setPatientLocationQueryResponse(response);
+        return responseType;
+
+    }
+
+    protected OutboundPatientLocationQueryOrchestratable createOrchestratable(OutboundPatientLocationQueryDelegate delegate,
+        PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType target) {
+
+        OutboundPatientLocationQueryOrchestratable ddsOrchestratable = new OutboundPatientLocationQueryOrchestratable(delegate);
+        ddsOrchestratable.setAssertion(assertion);
+        ddsOrchestratable.setRequest(request);
+        ddsOrchestratable.setTarget(target);
+        return ddsOrchestratable;
     }
 }

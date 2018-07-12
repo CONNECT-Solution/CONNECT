@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
@@ -24,24 +25,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+package gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy;
 
-public class AdapterDocDataSubmissionOrchImpl {
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
-    private AdapterDocDataSubmissionOrchImpl() {
+public class AdapterPatientLocationQueryProxyObjectFactory extends ComponentProxyObjectFactory {
 
+    private static final String CONFIG_FILE_NAME = "PatientLocationQueryProxyConfig.xml";
+    private static final String BEAN_NAME = "adapterpatientlocationquery";
+
+    @Override
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
     }
 
-    public static RegistryResponseType provideAndRegisterDocumentSetB(RegisterDocumentSetRequestType msg,
-        AssertionType assertion) {
-        AdapterDocDataSubmissionProxyObjectFactory factory = new AdapterDocDataSubmissionProxyObjectFactory();
-        AdapterDocDataSubmissionProxy proxy = factory.getAdapterDocDataSubmissionProxy();
-
-        return proxy.registerDocumentSetB(msg, assertion);
+    public AdapterPatientLocationQueryProxy getAdapterPatientLocationQueryProxy() {
+        return getBean(BEAN_NAME, AdapterPatientLocationQueryProxy.class);
     }
 
 }

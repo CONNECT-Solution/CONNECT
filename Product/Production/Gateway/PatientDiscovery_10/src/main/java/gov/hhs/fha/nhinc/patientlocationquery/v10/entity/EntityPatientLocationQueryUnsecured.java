@@ -26,10 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.v10.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.entitypatientlocationquery.EntityPatientLocationQueryPortType;
+import gov.hhs.fha.nhinc.event.DefaultDelegatingEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.DefaultTargetedArgTransfomer;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.patientlocationquery.outbound.OutboundPatientLocationQuery;
 import javax.annotation.Resource;
@@ -44,24 +46,21 @@ import javax.xml.ws.soap.SOAPBinding;
  */
 @Addressing(enabled = true)
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class EntityPatientLocationQueryUnsecured extends BaseService implements
-    EntityPatientLocationQueryPortType {
+public class EntityPatientLocationQueryUnsecured extends BaseService implements EntityPatientLocationQueryPortType {
 
-    private OutboundPatientLocationQuery outboundPLQ;
+    @Resource
     private WebServiceContext context;
+    private OutboundPatientLocationQuery outboundPLQ;
 
+    @OutboundMessageEvent(beforeBuilder = DefaultTargetedArgTransfomer.class,
+        afterReturningBuilder = DefaultDelegatingEventDescriptionBuilder.class,
+        serviceType = "Patient Location Query", version = "1.0")
     @Override
     public RespondingGatewayPatientLocationQueryResponseType respondingGatewayPatientLocationQuery(
         RespondingGatewayPatientLocationQueryRequestType request) {
 
-        AssertionType assertion = getAssertion(context, null);
-        return getOutboundPLQ().processPatientLocationQuery(request.getPatientLocationQueryRequest(), assertion,
+        return getOutboundPLQ().processPatientLocationQuery(request.getPatientLocationQueryRequest(), request.getAssertion(),
             request.getNhinTargetCommunities());
-    }
-
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
     }
 
     public OutboundPatientLocationQuery getOutboundPLQ() {

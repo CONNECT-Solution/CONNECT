@@ -26,7 +26,10 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.v10.nhin;
 
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultDelegatingEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.DefaultTargetedArgTransfomer;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.patientlocationquery.inbound.InboundPatientLocationQuery;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
@@ -37,8 +40,6 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 import javax.xml.ws.soap.SOAPBinding;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -52,8 +53,10 @@ public class NhinPatientLocationQuery extends BaseService implements RespondingG
     private InboundPatientLocationQuery inboundPLQ;
 
     private WebServiceContext context;
-    private static final Logger LOG = LoggerFactory.getLogger(NhinPatientLocationQuery.class);
 
+    @InboundMessageEvent(beforeBuilder = DefaultTargetedArgTransfomer.class,
+        afterReturningBuilder = DefaultDelegatingEventDescriptionBuilder.class,
+        serviceType = "Patient Location Query", version = "1.0")
     @Override
     public PatientLocationQueryResponseType respondingGatewayPatientLocationQuery(PatientLocationQueryRequestType body) {
         AssertionType assertion = getAssertion(context, null);

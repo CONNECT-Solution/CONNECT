@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/aop     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <!--
+        The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces
+        in the description separated with a comma like the following sample: {somebean,anotherbean}
+    -->
+    <description>Beans included in this file: {adapterpatientlocationquery,entitypatientlocationquery,nhinpatientlocationquery}</description>
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config />
+
+    <import resource="classpath:CONNECT-context.xml"/>
+    <import resource="classpath:eventlogging.xml"/>
+
+     <!--
+        Beans defined for entitypatientdiscovery
+    -->
+    <alias alias="entitypatientlocationquery" name="entitypatientlocationquerywsunsecured" />
+
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientlocationquery.entity.proxy.EntityPatientLocationQueryProxyJavaImpl" id="entitypatientlocationqueryjava" name="entitypatientlocationqueryjava">
+        <meta key="impltype" value="java"/>
+    </bean>
+
+    <!-- Unsecured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientlocationquery.entity.proxy.EntityPatientLocationQueryProxyWebServiceUnsecuredImpl" id="entitypatientlocationquerywsunsecured" name="entitypatientlocationquerywsunsecured">
+        <meta key="impltype" value="wsunsecured"/>
+    </bean>
+
+    <!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientlocationquery.entity.proxy.EntityPatientLocationQueryProxyWebServiceSecuredImpl" id="entitypatientlocationquerywssecured" name="entitypatientlocationquerywssecured">
+        <meta key="impltype" value="wssecured"/>
+        <meta key="default" value="true"/>
+    </bean>
+
+	<!-- No-op Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientlocationquery.entity.proxy.EntityPatientLocationQueryProxyNoOpImpl" id="entitypatientlocationquerynoop" name="entitypatientlocationquerynoop">
+        <meta key="impltype" value="noop"/>
+    </bean>
+
+    <!--
+        Beans defined for adapterpatientlocationquery
+    -->
+    <alias alias="adapterpatientlocationquery" name="adapterpatientlocationquerywssecured" />
+
+    <!-- No-op Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy.AdapterPatientLocationQueryProxyNoOpImpl" id="adapterpatientlocationquerynoop" name="adapterpatientlocationquerynoop">
+        <meta key="impltype" value="noop"/>
+    </bean>
+
+    <!-- Java Implementation -->
+     <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy.AdapterPatientLocationQueryProxyJavaImpl" id="adapterpatientlocationqueryjava" name="adapterpatientlocationqueryjava">
+        <meta key="impltype" value="java"/>
+    </bean>
+
+     <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy.AdapterPatientLocationQueryProxyWebServiceSecuredImpl" id="adapterpatientlocationquerywssecured" name="adapterpatientlocationquerywssecured">
+        <meta key="impltype" value="wssecured"/>
+    </bean>
+
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl" id="adapterpatientlocationquerywsunsecured" name="adapterpatientlocationquerywsunsecured">
+        <meta key="impltype" value="wsunsecured"/>
+    </bean>
+    
+    <!--
+        Beans defined for nhinpatientlocationquery
+    -->
+    <alias alias="nhinpatientlocationquery" name="nhinpatientlocationquerywssecured" />
+
+    <!-- No-op Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientlocationquery.nhin.proxy.NhinPatientLocationQueryProxyNoOpImpl" id="nhinpatientlocationquerynoop" name="nhinpatientlocationquerynoop">
+        <meta key="impltype" value="noop"/>
+    </bean>
+
+    <!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientlocationquery.nhin.proxy.NhinPatientLocationQueryProxyWebServiceSecuredImpl" id="nhinpatientlocationquerywssecured" name="nhinpatientlocationquerywssecured">
+        <meta key="impltype" value="wssecured"/>
+        <meta key="default" value="true"/>
+    </bean>
+
+</beans>

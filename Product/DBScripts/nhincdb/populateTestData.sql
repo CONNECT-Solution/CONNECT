@@ -118,3 +118,14 @@ INSERT INTO docregistry VALUES (41,'1.123401.66666','Schnur CONNECT TESTGATEWAY 
 INSERT INTO docregistry VALUES (42,'1.123402.22222','Schnur CONNECT TESTGATEWAY Document 1','Axolotl Elysium','Test Two Workgroup','Primary Care Provider','General','Active','34133-9','2.16.840.1.113883.6.1','Summarization of Episode Note','Confidential','Confidential','Confidential','2008-06-27 13:49:24','CDAR2/IHE 1.0','formatCodeScheme_value','formatCodeDisplayName_value','D123402^^^&3.3&ISO','2007-09-11 00:00:00','2008-06-27 00:00:00','urn:oasis:names:tc:ebxml-regrep:StatusType:Approved','Document 1 Schnur CONNECT TESTGATEWAY comments','ac0eec55d17eaa9c24054f8a7ecc5d3caa45d9f0','UTF-8','UTF-8','UTF-8','Scott Borst','Agilex Technologies','en-US','legal','text/xml','1.123402.11111','same','test','test','test',26934,'D123402^^^&1.1&ISO','pid1^^^domain','Schnur^Anna^^^','19560813','F','312 HILL ROAD^^HILLSBORO^MO^37660^US','test','test','test','1.123402.11111',0,0,'','',null,35);
 
 UNLOCK TABLES;
+
+USE patientcorrelationdb;
+LOCK TABLES recordlocatorservice WRITE;
+
+INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N233','111222','1.1');
+INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N234','111222','2.2');
+INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N234','111223','3.4');
+INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N244','111224','1.1');
+INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N244','111225','4.4');
+
+UNLOCK TABLES;
