@@ -26,10 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.inbound;
 
+import static java.lang.Boolean.FALSE;
+
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.DefaultTargetEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientlocationquery.adapter.proxy.AdapterPatientLocationQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientlocationquery.audit.PatientLocationQueryAuditLogger;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import java.util.Properties;
@@ -40,21 +44,29 @@ import java.util.Properties;
  */
 public class PassthroughInboundPatientLocationQuery implements InboundPatientLocationQuery {
 
+    PatientLocationQueryAuditLogger auditLogger = new PatientLocationQueryAuditLogger();
+
     @InboundProcessingEvent(beforeBuilder = DefaultTargetEventDescriptionBuilder.class,
-        afterReturningBuilder = DefaultTargetEventDescriptionBuilder.class, serviceType = "Patient Location Query",
-        version = "1.0")
+        afterReturningBuilder = DefaultTargetEventDescriptionBuilder.class,
+        serviceType = "Patient Location Query", version = "1.0")
     @Override
     public PatientLocationQueryResponseType processPatientLocationQuery(PatientLocationQueryRequestType request,
         AssertionType assertion, Properties webContextproperties) {
 
-        // Future Story: audit log for response
-
-        return sendToAdapter(request, assertion);
+        PatientLocationQueryResponseType response =  sendToAdapter(request, assertion);
+        auditResponse(request,response, assertion, webContextproperties);
+        return response;
     }
 
     protected PatientLocationQueryResponseType sendToAdapter(PatientLocationQueryRequestType request,
         AssertionType assertion) {
         return new AdapterPatientLocationQueryProxyObjectFactory().getAdapterPatientLocationQueryProxy()
             .adapterPatientLocationQueryResponse(request, assertion);
+    }
+
+    protected void auditResponse(PatientLocationQueryRequestType request, PatientLocationQueryResponseType response,
+        AssertionType assertion, Properties webContextProperties) {
+        auditLogger.auditResponseMessage(request, response, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, FALSE, webContextProperties, NhincConstants.PLQ_NHIN_SERVICE_NAME);
     }
 }

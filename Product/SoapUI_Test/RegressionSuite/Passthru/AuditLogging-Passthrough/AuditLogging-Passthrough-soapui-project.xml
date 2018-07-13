@@ -11122,7 +11122,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetCommunities>
+         <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
@@ -11130,7 +11130,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                   <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
-         </urn:nhinTargetCommunities>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_PatientLocationQueryRequest>\r
    </soap:Body>\r
 </soap:Envelope>]]></con:request><con:assertion type="SOAP Response" id="b89bd683-ea32-49f2-a4e0-7f1c2cb39b18"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="delay" name="Wait for Audit table to populate" id="78ad5b78-b1ba-4455-bf53-d698df810774">
@@ -11164,8 +11164,7 @@ else
         </con:config>
       </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="eac277b7-7ec5-4af2-844d-7483b1e21792">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePatientLocationQuery') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def userId_Outbound = sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePatientLocationQuery') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
@@ -11227,7 +11226,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 }
 if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
@@ -11284,12 +11283,10 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
      	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName" )
   	}
  }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="3236c72c-5a73-4f8c-abad-d96d198deff7">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePatientLocationQuery') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def userId_Inbound = sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePatientLocationQuery') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
@@ -11297,12 +11294,12 @@ def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 assert(!userId_Inbound.isEmpty())    
 
 parsedXmlMessage.EventIdentification.find{
-	assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
+	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
 	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
      assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
-	assert it.EventID.@code == context.findProperty( "EventIdentification_Responder.EventID.@code" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
 	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
-	assert it.EventID.@displayName == context.findProperty( "EventIdentification_Responder.EventID.@displayName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
 	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
 	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
 	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
@@ -11335,7 +11332,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 }
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
@@ -11376,7 +11373,6 @@ parsedXmlMessage.AuditSourceIdentification.find{
 }
 if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
-	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )	
 	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
 	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
      	assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
@@ -11396,15 +11392,27 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
  }
 }
 
-nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'DocSubmission',"false", log);
-testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
-        </con:config>
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'PatientLocationQuery',"false", log);
+testRunner.gotoStepByName( "Clear Audit Logs")]]></script></con:config>
       </con:testStep><con:testStep type="groovy" name="Success" id="641c61be-97c7-4cd2-b2ac-9cab2f7ee0d2">
         <con:settings/>
         <con:config>
           <script/>
         </con:config>
-      </con:testStep><con:properties/></con:testCase><con:properties>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+def propertiesFilename = projectPath + "/PatientLocationQueryAuditLog.properties"
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+ def props = new Properties()
+ props.load(new FileInputStream(propertiesFile))
+ props.each { key, value ->
+     testCase.setPropertyValue(key, value)
+ }
+}</con:setupScript><con:properties><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name><con:value>110153</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor.inbound</con:name><con:value>false</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>&lt;!--Destination--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID</con:name><con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientLocationQuery</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Patient Location Query</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name><con:value>false</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@code</con:name><con:value>ITI-56</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name><con:value>1010</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code</con:name><con:value>ITI-56</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.@ParticipantObjectID</con:name><con:value>PatientLocationQueryRequest</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name><con:value>Destination</con:value></con:property><con:property><con:name>&lt;!--Human</con:name><con:value>Requestor--></con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name><con:value>localhost</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Patient Number</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name><con:value>Source</con:value></con:property><con:property><con:name>ActiveParticipant.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name><con:value>192.168.1.2</con:value></con:property><con:property><con:name>&lt;!--ParticipantObjectIdentification</con:name><con:value>Query --></con:value></con:property><con:property><con:name>EventIdentification.@EventActionCode</con:name><con:value>E</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name><con:value>110152</con:value></con:property><con:property><con:name>EventIdentification.EventID.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name><con:value>DoD</con:value></con:property><con:property><con:name>EventIdentification.EventID.@displayName</con:name><con:value>Query</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name><con:value>SNOMED_CT</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@displayName</con:name><con:value>Patient Location Query</con:value></con:property><con:property><con:name>EventIdentification.EventID.@code</con:name><con:value>110112</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@code</con:name><con:value>307969004</con:value></con:property><con:property><con:name>EventIdentification.@EventDateTime</con:name><con:value>2015-04-02T13:47:30.199Z</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole</con:name><con:value>24</con:value></con:property><con:property><con:name>EventIdentification.@EventOutcomeIndicator</con:name><con:value>0</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>RFC-3881</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@displayName</con:name><con:value>Public Health</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserID</con:name><con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value></con:property><con:property><con:name>AuditMessage.xmlns</con:name><con:value>http://nhinc.services.com/schema/auditmessage</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name><con:value>2</con:value></con:property><con:property><con:name>&lt;!--Source--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name><con:value>1111^^^&amp;1.1&amp;ISO</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectName</con:name><con:value>1.1</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Responder.@ParticipantObjectID</con:name><con:value>D123401^^^&amp;1.1&amp;ISO</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.@UserID</con:name><con:value>kskagerb</con:value></con:property></con:properties></con:testCase><con:properties>
       <con:property>
         <con:name>Endpoint-DocRetrieve</con:name>
         <con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value>

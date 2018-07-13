@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.audit.transform;
+package gov.hhs.fha.nhinc.patientlocationquery.audit.transform;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 public class PatientLocationQueryAuditTransforms extends
     AbstractPatientLocationQueryAuditTransforms<PatientLocationQueryRequestType, PatientLocationQueryResponseType> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PatientDiscoveryAuditTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientLocationQueryAuditTransforms.class);
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(PatientLocationQueryRequestType request,

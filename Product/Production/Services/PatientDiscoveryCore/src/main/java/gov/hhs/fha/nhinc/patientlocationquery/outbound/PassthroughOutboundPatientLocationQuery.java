@@ -29,10 +29,14 @@ package gov.hhs.fha.nhinc.patientlocationquery.outbound;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.event.DefaultTargetEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientlocationquery.audit.PatientLocationQueryAuditLogger;
 import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryDelegate;
 import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryOrchestratable;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 
@@ -42,13 +46,15 @@ import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
  */
 public class PassthroughOutboundPatientLocationQuery implements OutboundPatientLocationQuery {
 
+    PatientLocationQueryAuditLogger auditLogger = new PatientLocationQueryAuditLogger();
+
     @OutboundProcessingEvent(beforeBuilder = DefaultTargetEventDescriptionBuilder.class,
         afterReturningBuilder = DefaultTargetEventDescriptionBuilder.class,
         serviceType = "Patient Location Query", version = "1.0")
     @Override
     public RespondingGatewayPatientLocationQueryResponseType processPatientLocationQuery(
         PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType target) {
-        //Future Story: audit request
+        auditRequest(request, assertion, target);
         return sendToNhinProxy(request, assertion, target);
     }
 
@@ -74,5 +80,12 @@ public class PassthroughOutboundPatientLocationQuery implements OutboundPatientL
         ddsOrchestratable.setRequest(request);
         ddsOrchestratable.setTarget(target);
         return ddsOrchestratable;
+    }
+
+    protected void auditRequest(PatientLocationQueryRequestType request, AssertionType assertion,
+        NhinTargetCommunitiesType target) {
+        NhinTargetSystemType targetType = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(target);
+        auditLogger.auditRequestMessage(request, assertion, targetType, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+            NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.PLQ_NHIN_SERVICE_NAME);
     }
 }
