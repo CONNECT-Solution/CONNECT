@@ -11122,7 +11122,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetCommunities>
+         <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
@@ -11130,7 +11130,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                   <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
-         </urn:nhinTargetCommunities>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_PatientLocationQueryRequest>\r
    </soap:Body>\r
 </soap:Envelope>]]></con:request><con:assertion type="SOAP Response" id="b89bd683-ea32-49f2-a4e0-7f1c2cb39b18"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="delay" name="Wait for Audit table to populate" id="78ad5b78-b1ba-4455-bf53-d698df810774">
@@ -11164,8 +11164,7 @@ else
         </con:config>
       </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="eac277b7-7ec5-4af2-844d-7483b1e21792">
         <con:settings/>
-        <con:config>
-          <script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
 def nhinAuditMessage_22_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePatientLocationQuery') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def userId_Outbound = sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypePatientLocationQuery') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"')[0]
 def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
@@ -11227,7 +11226,7 @@ if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && 
 }
 if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[2].each{ node ->
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
@@ -11284,8 +11283,7 @@ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeC
      	assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Set.ParticipantObjectIDTypeCode.@displayName" )
   	}
  }
-}]]></script>
-        </con:config>
+}]]></script></con:config>
       </con:testStep><con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="3236c72c-5a73-4f8c-abad-d96d198deff7">
         <con:settings/>
         <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
@@ -11296,12 +11294,12 @@ def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
 assert(!userId_Inbound.isEmpty())    
 
 parsedXmlMessage.EventIdentification.find{
-	assert it.@EventActionCode == context.findProperty( "EventIdentification_Responder.@EventActionCode" )
+	assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
 	//assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
      assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
-	assert it.EventID.@code == context.findProperty( "EventIdentification_Responder.EventID.@code" )
+	assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
 	assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
-	assert it.EventID.@displayName == context.findProperty( "EventIdentification_Responder.EventID.@displayName" )
+	assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
 	assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
 	assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
 	assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )	
@@ -11334,7 +11332,7 @@ if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && 
 }
 if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
 	parsedXmlMessage.ActiveParticipant[1].each{ node ->
-	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )	     
+	     assert node.@UserID == context.findProperty( "ActiveParticipant_Dest.@UserID" )	     
    	     if(!node.@UserName.isEmpty()){
 	     	assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserName" )
 	     }
@@ -11375,7 +11373,6 @@ parsedXmlMessage.AuditSourceIdentification.find{
 }
 if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
 	parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
-	     assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )	
 	     assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
 	     assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
      	assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
