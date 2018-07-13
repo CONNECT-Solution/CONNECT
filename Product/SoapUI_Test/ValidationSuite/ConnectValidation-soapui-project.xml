@@ -4210,7 +4210,12 @@ context.withSql('DocRepositoryDB') { sql ->
 		log.info "Found ${found} and expected ${dsCorrelations}"
 		assert dsCorrelations == found
 		}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2018-06-20T13:19:14Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2018-06-20T13:29:14Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/20/2018 13:19:14</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2018-07-20T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase id="d48d01ba-daea-4bf7-a7e5-b17dfce72098" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Location Query" searchProperties="true" disabled="true"><con:settings/><con:testStep type="request" name="Patient Location Query" id="d7a55af3-dfbd-48a9-a0d2-5d10cbe5b914"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityPatientLocationQueryBindingSoap</con:interface><con:operation>RespondingGateway_PatientLocationQuery</con:operation><con:request name="Patient Location Query" id="c6ddb16f-e527-4d8a-8575-b24c291df857"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientLocationQuery</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xcpd:2009" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2018-06-20T13:19:14Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2018-06-20T13:29:14Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/20/2018 13:19:14</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2018-07-20T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase id="d48d01ba-daea-4bf7-a7e5-b17dfce72098" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Location Query" searchProperties="true" disabled="true"><con:settings/><con:testStep type="groovy" name="clear-database on RequestPatientId" id="28b975e6-00b7-4a03-870b-b9241c7d4348"><con:settings/><con:config><script>log.info "info-log: delete-PatientCorrelation-RequestPatientID"
+context.withSql('PatientCorrelationDB') { sql -> 
+	def sqlDel  = 'delete from ' + context.findProperty('PatientCorrelationTable')+ ' where PatientAssigningAuthorityId="'+context.findProperty('LocalAA')+'" and PatientId="'+context.findProperty('PLQRequestPatientId')+'"'
+	log.info "info--log: sql-delete: ${sqlDel}"
+	sql.execute(sqlDel)
+}</script></con:config></con:testStep><con:testStep type="request" name="Patient Location Query" id="d7a55af3-dfbd-48a9-a0d2-5d10cbe5b914"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityPatientLocationQueryBindingSoap</con:interface><con:operation>RespondingGateway_PatientLocationQuery</con:operation><con:request name="Patient Location Query" id="c6ddb16f-e527-4d8a-8575-b24c291df857"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientLocationQuery</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xcpd:2009" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body>
       <urn:RespondingGateway_PatientLocationQueryRequest>
@@ -4294,19 +4299,47 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
    </soap:Body>
 </soap:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" id="9ef901b6-3d34-4e66-b483-d2b10008e6d6" name="Not SOAP Fault"/><con:assertion type="SOAP Response" id="20dc9b73-2174-4430-a2fb-1ed8b6a144e6"/><con:assertion type="XPath Match" id="29f542bd-6425-4e0d-9429-c5911d723d36" name="XPath Match - count(PatientLocationResponse)"><con:configuration><path>declare namespace ns1='urn:ihe:iti:xcpd:2009'; declare namespace ns3="urn:gov:hhs:fha:nhinc:common:nhinccommonentity";
 
-count(//ns3:RespondingGateway_PatientLocationQueryResponse/ns1:PatientLocationQueryResponse/ns1:PatientLocationResponse)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="delay" name="Delay - adding PLQ-response correlation-table" id="67f21d9d-aa6a-45f2-9856-695e3fe68348"><con:settings/><con:config><delay>3000</delay></con:config></con:testStep><con:testStep type="groovy" name="Validate PLQResponse in the correlation" id="10a67ec1-181b-49ee-b0c3-c532baae973a"><con:settings/><con:config><script>def aaId = context.findProperty('LocalAA')
-def patientId = context.findProperty('PLQRequestPatientId')
-def pcTable =context.findProperty('PatientCorrelationTable')
+count(//ns3:RespondingGateway_PatientLocationQueryResponse/ns1:PatientLocationQueryResponse/ns1:PatientLocationResponse)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="delay" name="Delay - adding PLQ-response correlation-table" id="67f21d9d-aa6a-45f2-9856-695e3fe68348"><con:settings/><con:config><delay>3000</delay></con:config></con:testStep><con:testStep type="groovy" name="verified rslData in patientCorrelation" id="aa4f769a-8785-42f0-9738-b7c48fe5e552"><con:settings/><con:config><script>//log.info "log-info: groovy-script: ${context}"
 
-log.info "plq-log: patientId: '${patientId}' aaId: '${aaId}'"
+//def response = context.expand( '${Patient Location Query#Response}' )
+//log.info "info-log: response: ${response}"
 
-context.withSql('PatientCorrelationDB') { sql -> 
-	def sqlQuery = 'select count(*) from '+context.findProperty('PatientCorrelationTable')+' where PatientAssigningAuthorityId = "'+context.findProperty('LocalAA')+'" and PatientId = "'+context.findProperty('PLQRequestPatientId')+'"' 
-	log.info "info--log: sql: ${sqlQuery}"
-	def found = sql.firstRow(sqlQuery)[0]
-	log.info "info--log: Found ${found}"
-	assert found > 0
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def plqResp = groovyUtils.getXmlHolder('Patient Location Query#Response');
+
+def xml = plqResp.getPrettyXml()
+log.info "info-log: xml: ${xml}"
+
+// Define a namespace
+plqResp.namespaces["ns3"] = "urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+plqResp.namespaces["ns21"] = "urn:ihe:iti:xcpd:2009"
+
+def root = new XmlSlurper().parseText(xml).declareNamespace(
+	ns3: 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity'
+	, ns21: 'urn:ihe:iti:xcpd:2009'
+	, soap: 'http://www.w3.org/2003/05/soap-envelope'
+)
+
+def plqs = root.'soap:Body'.'ns3:RespondingGateway_PatientLocationQueryResponse'.'ns21:PatientLocationQueryResponse';
+plqs.'ns21:PatientLocationResponse'.each { node -> 
+	log.info "info-log: ns21:PatientLocationResponse: each"
+	def hcid = node.'ns21:HomeCommunityId'
+	def respPatientId = node.'ns21:CorrespondingPatientId'.@extension
+	def respAAId = node.'ns21:CorrespondingPatientId'.@root
+	def reqPatientId = node.'ns21:RequestedPatientId'.@extension
+	def reqAAId = node.'ns21:RequestedPatientId'.@root
+	log.info "info-log: PatientLocationResponse: ${hcid}, ${respPatientId}, ${respAAId}, ${reqPatientId}, ${reqAAId}" 
+	
+	context.withSql('PatientCorrelationDB') { sql -> 
+		def sqlQuery = 'select count(*) from '+context.findProperty('PatientCorrelationTable')+' where PatientAssigningAuthorityId="'+reqAAId+'" and PatientId="'+reqPatientId+'" and CorrelatedPatientAssignAuthId="'+respAAId+'" and CorrelatedPatientId="'+respPatientId+'" and RlsId="'+hcid+'"' 
+		log.info "info--log: sql: ${sqlQuery}"
+		def found = sql.firstRow(sqlQuery)[0]
+		log.info "info--log: Found ${found}"
+		assert found == 1
+	}
+}
+
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2018-06-20T13:19:14Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2018-06-20T13:29:14Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/20/2018 13:19:14</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2018-07-20T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:properties/>
     <con:setupScript/>
     <con:tearDownScript/>
