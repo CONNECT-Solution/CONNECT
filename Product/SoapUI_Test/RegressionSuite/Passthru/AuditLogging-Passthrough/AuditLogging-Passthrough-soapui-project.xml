@@ -11405,9 +11405,6 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script></con:config>
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
-
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
 def propertiesFilename = projectPath + "/PatientLocationQueryAuditLog.properties"

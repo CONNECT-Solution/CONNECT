@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.patientlocationquery.audit.transform;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.patientdiscovery.audit.transform.PatientDiscoveryAuditTransforms;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import javax.xml.bind.JAXBException;
@@ -43,7 +42,7 @@ import org.slf4j.LoggerFactory;
 public class PatientLocationQueryAuditTransforms extends
     AbstractPatientLocationQueryAuditTransforms<PatientLocationQueryRequestType, PatientLocationQueryResponseType> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PatientDiscoveryAuditTransforms.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PatientLocationQueryAuditTransforms.class);
 
     @Override
     protected AuditMessageType getParticipantObjectIdentificationForRequest(PatientLocationQueryRequestType request,
