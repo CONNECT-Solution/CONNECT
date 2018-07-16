@@ -33,10 +33,13 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.SOAPBinding;
+
+import org.hl7.v3.AddPatientCorrelationPLQRequestType;
 import org.hl7.v3.AddPatientCorrelationRequestType;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsRequestType;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
+import org.hl7.v3.SimplePatientCorrelationResponseType;
 
 /**
  *
@@ -89,5 +92,11 @@ public class PatientCorrelationServiceUnsecured implements
     private String createMessageId(WebServiceContext context) {
         return extractor.getOrCreateAsyncMessageId(context);
     }
+
+	@Override
+	public SimplePatientCorrelationResponseType addPatientCorrelationPLQ(AddPatientCorrelationPLQRequestType arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -32,10 +32,13 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.SOAPBinding;
+
+import org.hl7.v3.AddPatientCorrelationPLQSecuredRequestType;
 import org.hl7.v3.AddPatientCorrelationSecuredRequestType;
 import org.hl7.v3.AddPatientCorrelationSecuredResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType;
 import org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType;
+import org.hl7.v3.SimplePatientCorrelationSecuredResponseType;
 
 /**
  *
@@ -71,5 +74,12 @@ public class PatientCorrelationServiceSecured implements gov.hhs.fha.nhinc.nhinc
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         return service.addPatientCorrelation(request, assertion);
     }
+
+	@Override
+	public SimplePatientCorrelationSecuredResponseType addPatientCorrelationPLQ(
+			AddPatientCorrelationPLQSecuredRequestType arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
