@@ -64,7 +64,7 @@ public class EntityDocQueryImplTest {
         impl.respondingGatewayCrossGatewayQuerySecured(request, context);
 
         verify(mockDQ).respondingGatewayCrossGatewayQuery(any(AdhocQueryRequest.class), any(AssertionType.class),
-                any(NhinTargetCommunitiesType.class));
+                any(NhinTargetCommunitiesType.class), any(WebServiceContext.class));
         verify(target).setUseSpecVersion(eq("3.0"));
     }
 

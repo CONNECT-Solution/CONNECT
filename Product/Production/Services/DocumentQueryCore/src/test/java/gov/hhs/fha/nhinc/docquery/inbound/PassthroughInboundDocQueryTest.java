@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docquery.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import java.util.Properties;
 import org.junit.Test;
 
 /**
@@ -50,8 +51,9 @@ public class PassthroughInboundDocQueryTest extends InboundDocQueryTest {
     private void passthroughInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted) {
 
         AssertionType mockAssertion = getMockAssertion(sendingHcid);
+        
         PassthroughInboundDocQuery passthroughDocQuery = new PassthroughInboundDocQuery(
-            getMockAdapterFactory(mockAssertion), getAuditLogger(true));
+            getMockAdapterFactory(mockAssertion, new Properties()), getAuditLogger(true));
 
         verifyInboundDocQuery(mockAssertion, sendingHcidFormatted, passthroughDocQuery,
             NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT);

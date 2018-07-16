@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.interceptor.SoapResponseInInterceptor;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
@@ -44,12 +45,14 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper.ErrorCodes;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
+import java.util.List;
 import javax.xml.ws.WebServiceException;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.lang.StringUtils;
+import org.apache.cxf.headers.Header;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,20 +73,21 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
     }
 
     /**
-     * @param apiLevel The gateway apiLevel to be implemented for webService (g0,g1)
-     * @return NhinDocQueryServicePortDescriptor Comprises of NameSpaceUri,ServiceName,Port,WSDLFile and
-     * WSAddressingAction.
+     * @param apiLevel The gateway apiLevel to be implemented for webService
+     * (g0,g1)
+     * @return NhinDocQueryServicePortDescriptor Comprises of
+     * NameSpaceUri,ServiceName,Port,WSDLFile and WSAddressingAction.
      */
     public ServicePortDescriptor<RespondingGatewayQueryPortType> getServicePortDescriptor(
-        final NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+            final NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         return new NhinDocQueryServicePortDescriptor();
     }
 
     public CONNECTClient<RespondingGatewayQueryPortType> getCONNECTClientSecured(
-        final ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor, final AssertionType assertion,
-        final String url, final NhinTargetSystemType target) {
+            final ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor, final AssertionType assertion,
+            final String url, final NhinTargetSystemType target) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-            target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME);
+                target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME);
     }
 
     protected ExchangeManager getCMInstance() {
@@ -100,10 +104,10 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
      * @return The AdhocQUery response from the web service.
      */
     @NwhinInvocationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder
-        = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
+            = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(final AdhocQueryRequest request,
-        final AssertionType assertion, final NhinTargetSystemType target) throws Exception {
+            final AssertionType assertion, final NhinTargetSystemType target, List<Header> headers) throws Exception {
         AdhocQueryResponse response;
         try {
             String url = target.getUrl();
@@ -113,47 +117,47 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
                 }
                 final UDDI_SPEC_VERSION version = UDDI_SPEC_VERSION.fromString(target.getUseSpecVersion());
                 url = getCMInstance().getEndpointURL(
-                    target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME, version);
+                        target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME, version);
                 LOG.debug("After target system URL look up. URL for service: " + NhincConstants.DOC_QUERY_SERVICE_NAME
-                    + " is: " + url);
+                        + " is: " + url);
             }
 
             final ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor = getServicePortDescriptor(
-                NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+                    NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
 
             final CONNECTClient<RespondingGatewayQueryPortType> client = getCONNECTClientSecured(portDescriptor,
-                assertion, url, target);
+                    assertion, url, target);
 
             response = (AdhocQueryResponse) client.invokePort(RespondingGatewayQueryPortType.class,
-                "respondingGatewayCrossGatewayQuery", request);
+                    "respondingGatewayCrossGatewayQuery", request);
+            addResponseHeaders(headers, client.getPort());
 
         } catch (final ExchangeManagerException e) {
             LOG.error("Error calling respondingGatewayCrossGatewayQuery", e);
-            final XDCommonResponseHelper helper = new XDCommonResponseHelper();
-            final RegistryResponseType registryError = helper.createError(e.getLocalizedMessage(),
-                ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
-
-            response = new AdhocQueryResponse();
-            response.setRegistryObjectList(new RegistryObjectListType());
-            response.setStatus(registryError.getStatus());
-            response.setRegistryErrorList(registryError.getRegistryErrorList());
-
+            response = buildErrorResponse(e.getLocalizedMessage());
         } catch (final WebServiceException wse) {
             LOG.error("Error calling respondingGatewayCrossGatewayQuery", wse);
-            final XDCommonResponseHelper helper = new XDCommonResponseHelper();
-            final String endpointAvailableError = NhincConstants.INIT_MULTISPEC_ERROR_NO_ENDPOINT_AVAILABLE
-                + target.getHomeCommunity().getHomeCommunityId() + ".";
-            final RegistryResponseType registryError = helper.createError(endpointAvailableError,
-                ErrorCodes.XDSRegistryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DQ);
-            response = new AdhocQueryResponse();
-            response.setRegistryObjectList(new RegistryObjectListType());
-            response.setStatus(registryError.getStatus());
-            response.setRegistryErrorList(registryError.getRegistryErrorList());
-
+            response = buildErrorResponse(NhincConstants.INIT_MULTISPEC_ERROR_NO_ENDPOINT_AVAILABLE
+                    + target.getHomeCommunity().getHomeCommunityId() + ".");
         } catch (final Exception ex) {
             LOG.error("Error calling respondingGatewayCrossGatewayQuery", ex);
             throw ex;
         }
+        return response;
+    }
+    
+    protected void addResponseHeaders(List<Header> responseHeaders, Object port) {
+        responseHeaders.addAll(SoapResponseInInterceptor.getResponseHeaders(port));
+    }
+
+    private static AdhocQueryResponse buildErrorResponse(String message) {
+        final XDCommonResponseHelper helper = new XDCommonResponseHelper();
+        final RegistryResponseType registryError = helper.createError(message,
+                ErrorCodes.XDSRegistryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DQ);
+        AdhocQueryResponse response = new AdhocQueryResponse();
+        response.setRegistryObjectList(new RegistryObjectListType());
+        response.setStatus(registryError.getStatus());
+        response.setRegistryErrorList(registryError.getRegistryErrorList());
         return response;
     }
 }

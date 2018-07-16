@@ -41,24 +41,28 @@ import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryAggregate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryAggregator;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
+import gov.hhs.fha.nhinc.messaging.server.ResponseHeaderHandler;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.apache.cxf.headers.Header;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class StandardOutboundDocQuery implements OutboundDocQuery {
 
     private static final Logger LOG = LoggerFactory.getLogger(StandardOutboundDocQuery.class);
+    private static final ResponseHeaderHandler respHeaderHandler = new ResponseHeaderHandler();
     private AggregationStrategy strategy;
     private AggregationService fanoutService;
     private DocQueryAuditLogger auditLogger = null;
     private DocQueryPolicyChecker policyChecker;
-
+    
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
      * takes the executor services as input.
@@ -83,12 +87,13 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
      * @param adhocQueryRequest The AdhocQueryRequest message received.
      * @param assertion Assertion received.
      * @param targets Target to send request.
+     * @param context
      * @return AdhocQueryResponse from Entity Interface.
      */
     @Override
     @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
-        AssertionType assertion, NhinTargetCommunitiesType targets) {
+        AssertionType assertion, NhinTargetCommunitiesType targets, WebServiceContext context) {
         LOG.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
         AdhocQueryResponse response;
 
@@ -126,6 +131,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
                 strategy.execute(aggregate);
 
                 response = request.getResponse();
+                addResponseHeadersToContext(context, request.getResponseHeaders());
             } else {
                 response = new AdhocQueryResponse();
                 response.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
@@ -168,5 +174,9 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
 
     protected String getSenderHcid() {
         return HomeCommunityMap.getLocalHomeCommunityId();
+    }
+    
+    protected void addResponseHeadersToContext(WebServiceContext context, List<Header> responseHeaders) {
+        respHeaderHandler.addResponseHeadersToContext(context, responseHeaders, NhincConstants.ALLOWABLE_INBOUND_RESPONSE_HEADERS);
     }
 }

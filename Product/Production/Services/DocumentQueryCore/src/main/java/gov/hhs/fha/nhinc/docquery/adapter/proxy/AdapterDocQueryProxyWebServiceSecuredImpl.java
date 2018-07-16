@@ -34,11 +34,15 @@ import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.interceptor.SoapResponseInInterceptor;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import java.util.List;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.apache.cxf.headers.Header;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,12 +69,13 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl extends BaseAdapterDocQue
      *
      * @param msg The AdhocQueryRequest message.
      * @param assertion Assertion received.
+     * @param webContextProperties
      * @return AdhocQuery Response from Adapter interface.
      */
     @AdapterDelegationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(final AdhocQueryRequest msg,
-            final AssertionType assertion) {
+            final AssertionType assertion, Properties webContextProperties) {
         AdhocQueryResponse response = null;
         String url;
         try {
@@ -91,6 +96,8 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl extends BaseAdapterDocQue
 
                     response = (AdhocQueryResponse) client.invokePort(AdapterDocQuerySecuredPortType.class,
                             "respondingGatewayCrossGatewayQuery", msg);
+                    
+                    addResponseHeaders(SoapResponseInInterceptor.getResponseHeaders(client.getPort()), webContextProperties);
                 }
             } else {
                 LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME
@@ -103,4 +110,10 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl extends BaseAdapterDocQue
 
         return response;
     }
+    
+    private static void addResponseHeaders(List<Header> headers, Properties webContextProperties) {
+        webContextProperties.put(NhincConstants.SOAP_HEADERS_PROPERTY, headers);
+    }
+    
+    
 }

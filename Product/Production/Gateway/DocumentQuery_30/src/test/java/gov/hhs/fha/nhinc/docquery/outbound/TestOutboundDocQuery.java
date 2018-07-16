@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docquery.outbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -40,7 +41,7 @@ public class TestOutboundDocQuery implements OutboundDocQuery {
 
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
-            AssertionType assertion, NhinTargetCommunitiesType targets) {
+            AssertionType assertion, NhinTargetCommunitiesType targets, WebServiceContext context) {
         return new AdhocQueryResponse();
     }
 

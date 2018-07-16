@@ -38,8 +38,11 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.ArrayList;
 import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import org.apache.cxf.headers.Header;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -68,6 +71,7 @@ public class NhinDocQueryWebServiceProxyTest {
 
     final Service mockService = context.mock(Service.class);
     final RespondingGatewayQueryPortType mockPort = context.mock(RespondingGatewayQueryPortType.class);
+    final List<Header> headers = new ArrayList<>();
 
     @SuppressWarnings("unchecked")
     private CONNECTClient<RespondingGatewayQueryPortType> client = mock(CONNECTClient.class);
@@ -79,7 +83,7 @@ public class NhinDocQueryWebServiceProxyTest {
     public void hasBeginOutboundProcessingEvent() throws Exception {
         Class<NhinDocQueryProxyWebServiceSecuredImpl> clazz = NhinDocQueryProxyWebServiceSecuredImpl.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
-            AssertionType.class, NhinTargetSystemType.class);
+            AssertionType.class, NhinTargetSystemType.class, List.class);
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);
         assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
@@ -92,7 +96,7 @@ public class NhinDocQueryWebServiceProxyTest {
     public void testNoMtom() throws Exception {
         NhinDocQueryProxyWebServiceSecuredImpl impl = getImpl();
         NhinTargetSystemType target = getTarget("1.1");
-        impl.respondingGatewayCrossGatewayQuery(request, assertion, target);
+        impl.respondingGatewayCrossGatewayQuery(request, assertion, target, headers);
         verify(client, never()).enableMtom();
     }
 
@@ -100,7 +104,7 @@ public class NhinDocQueryWebServiceProxyTest {
     public void testUsingGuidance() throws Exception {
         NhinDocQueryProxyWebServiceSecuredImpl impl = getImpl();
         NhinTargetSystemType target = getTarget("1.1");
-        impl.respondingGatewayCrossGatewayQuery(request, assertion, target);
+        impl.respondingGatewayCrossGatewayQuery(request, assertion, target, headers);
         verify(cache).getEndpointURL(any(String.class), any(String.class), any(UDDI_SPEC_VERSION.class));
     }
 
@@ -145,6 +149,11 @@ public class NhinDocQueryWebServiceProxyTest {
             @Override
             protected ExchangeManager getCMInstance() {
                 return cache;
+            }
+            
+            @Override
+            protected void addResponseHeaders(List<Header> responseHeaders, Object port) {
+                //do nothing
             }
         };
     }

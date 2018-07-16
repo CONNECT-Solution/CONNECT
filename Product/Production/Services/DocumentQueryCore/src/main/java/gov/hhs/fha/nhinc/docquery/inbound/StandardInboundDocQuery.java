@@ -101,7 +101,7 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
         AdhocQueryResponse resp;
 
         if (isPolicyValid(msg, assertion)) {
-            resp = sendToAdapter(msg, assertion);
+            resp = sendToAdapter(msg, assertion, webContextProperties);
         } else {
             resp = MessageGeneratorUtils.getInstance().createPolicyErrorResponse();
         }
@@ -113,8 +113,8 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
         return policyChecker.checkIncomingPolicy(msg, assertion);
     }
 
-    private AdhocQueryResponse sendToAdapter(AdhocQueryRequest msg, AssertionType assertion) {
-        return adapterFactory.getAdapterDocQueryProxy().respondingGatewayCrossGatewayQuery(msg, assertion);
+    private AdhocQueryResponse sendToAdapter(AdhocQueryRequest msg, AssertionType assertion, Properties webContextProperties) {
+        return adapterFactory.getAdapterDocQueryProxy().respondingGatewayCrossGatewayQuery(msg, assertion, webContextProperties);
     }
 
     protected String getLocalHomeCommunityId() {

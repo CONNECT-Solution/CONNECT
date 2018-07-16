@@ -28,8 +28,10 @@ package gov.hhs.fha.nhinc.docquery.nhin.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.apache.cxf.headers.Header;
 
 /**
  *
@@ -42,9 +44,10 @@ public interface NhinDocQueryProxy {
      * @param request Document Query Request received.
      * @param assertion Assertion received.
      * @param target NhinTargetCommunities to send DocQueryRequest.
+     * @param headers
      * @throws Exception Throws Exception.
      * @return List of Documents that match the search criteria.
      */
      AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
-            NhinTargetSystemType target) throws Exception;
+            NhinTargetSystemType target, List<Header> headers) throws Exception;
 }

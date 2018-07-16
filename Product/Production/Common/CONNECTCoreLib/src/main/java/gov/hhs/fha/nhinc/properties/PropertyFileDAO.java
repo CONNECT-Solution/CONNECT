@@ -28,10 +28,12 @@ package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.File;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import org.apache.commons.configuration.ConfigurationException;
@@ -71,6 +73,17 @@ public class PropertyFileDAO {
         }
     }
 
+    public Set getPropertySet(String propertyFileName, String propertyName) {
+        PropertiesConfiguration properties = propertyFilesHashmap.get(propertyFileName);
+        if (properties != null && properties.containsKey(propertyName)) {
+            List propertyValue = properties.getList(propertyName);
+            if(NullChecker.isNotNullish(propertyValue)) {
+                return new HashSet<>(propertyValue);
+            }
+        }
+        return Collections.emptySet();
+    }
+    
     public String getProperty(String propertyFileName, String propertyName) throws PropertyAccessException {
         PropertiesConfiguration properties = propertyFilesHashmap.get(propertyFileName);
         if (properties != null && properties.containsKey(propertyName)) {

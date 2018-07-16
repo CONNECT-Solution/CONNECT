@@ -126,7 +126,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
 
         AdhocQueryResponse response;
         response = proxyFactory.getNhinDocQueryProxy().respondingGatewayCrossGatewayQuery(message.getRequest(),
-                message.getAssertion(), message.getTarget());
+                message.getAssertion(), message.getTarget(), message.getResponseHeaders());
 
         message.setResponse(response);
 

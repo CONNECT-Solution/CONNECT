@@ -29,7 +29,9 @@ package gov.hhs.fha.nhinc.docquery._30.nhin;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
+import java.util.Properties;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -47,7 +49,12 @@ public class DocQueryImpl extends BaseService {
         if (assertion != null) {
             assertion.setImplementsSpecVersion(UDDI_SPEC_VERSION.SPEC_3_0.toString());
         }
+        
+        Properties webContextProperties = getWebContextProperties(context);
 
-        return inboundDocQuery.respondingGatewayCrossGatewayQuery(body, assertion, getWebContextProperties(context));
+        AdhocQueryResponse response = inboundDocQuery.respondingGatewayCrossGatewayQuery(body, assertion, webContextProperties);       
+        addSoapHeaders(webContextProperties.get(NhincConstants.SOAP_HEADERS_PROPERTY), context);
+        
+        return response;
     }
 }

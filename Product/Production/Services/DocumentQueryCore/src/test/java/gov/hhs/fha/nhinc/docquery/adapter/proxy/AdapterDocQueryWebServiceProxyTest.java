@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import java.lang.reflect.Method;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -52,7 +53,7 @@ public class AdapterDocQueryWebServiceProxyTest {
 
     private void assertAdapterDelegationEvent(Class<? extends AdapterDocQueryProxy> clazz) throws NoSuchMethodException {
         Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
-                AssertionType.class);
+                AssertionType.class, Properties.class);
         AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
         assertNotNull(annotation);
         assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());

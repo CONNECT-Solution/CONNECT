@@ -44,6 +44,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 import org.apache.commons.collections.MapUtils;
+import org.apache.cxf.headers.Header;
 import org.apache.cxf.helpers.CastUtils;
 import org.apache.cxf.jaxws.context.WrappedMessageContext;
 import org.apache.cxf.message.Message;
@@ -60,7 +61,8 @@ public abstract class BaseService {
 
     private final AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
     private static final Logger LOG = LoggerFactory.getLogger(BaseService.class);
-    private static HttpHeaderHelper headerHelper = new HttpHeaderHelper();
+    private static final HttpHeaderHelper headerHelper = new HttpHeaderHelper();
+    private static final ResponseHeaderHandler respHeaderHandler = new ResponseHeaderHandler();
 
     protected AssertionType getAssertion(WebServiceContext context) {
         return getAssertion(context, null);
@@ -83,6 +85,18 @@ public abstract class BaseService {
         }
         
         return assertion;
+    }
+    
+    protected void addSoapHeaders(Object addHeaders, WebServiceContext context) {
+        List<Header> addHeadersList;
+        
+        if(addHeaders != null && addHeaders instanceof List) {
+            addHeadersList = (List<Header>) addHeaders;
+        } else {
+            return;
+        }
+        
+        respHeaderHandler.addResponseHeadersToContext(context, addHeadersList, NhincConstants.ALLOWABLE_OUTBOUND_RESPONSE_HEADERS);
     }
 
     //Extract custom http headers from message context.
