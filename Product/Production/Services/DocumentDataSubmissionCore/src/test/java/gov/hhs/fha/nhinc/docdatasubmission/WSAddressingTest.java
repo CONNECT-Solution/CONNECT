@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docregistry;
+package gov.hhs.fha.nhinc.docdatasubmission;
 
 import gov.hhs.fha.nhinc.util.AbstractWSAddressingTest;
 
@@ -33,6 +33,6 @@ public class WSAddressingTest extends AbstractWSAddressingTest {
     // empty implementation - superclass does classpath resolution
     @Override
     protected String getPackageName() {
-        return "DocRegistryCore/target/classes/";
+        return "DocumentSubmissionCore/target/classes/";
     }
 }
