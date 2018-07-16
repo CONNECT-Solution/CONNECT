@@ -44,6 +44,7 @@ import net.sf.saxon.s9api.XQueryExecutable;
 import net.sf.saxon.s9api.XdmItem;
 import net.sf.saxon.s9api.XdmNode;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -116,12 +117,27 @@ public abstract class AbstractWSAddressingTest {
         Map<String, String> portTypeActionMap) {
         assertNotNull("No PortType/soapAction defined in WSDL: " + wsdl, portTypeFromWsdlMap);
         assertFalse("No soapAction defined in WSDL: " + wsdl, portTypeFromWsdlMap.isEmpty());
+
         for (String key : portTypeFromWsdlMap.keySet()) {
             if (portTypeActionMap.containsKey(key)) {
-                assertEquals("ServicePortDescriptor Action and WSDL soapAction do not match for WSDL: " + wsdl,
-                    portTypeActionMap.get(key), portTypeFromWsdlMap.get(key).get(0));
+                String result = retrieveActionFromWsdlMap(portTypeActionMap.get(key), portTypeFromWsdlMap.get(key));
+                if (StringUtils.isEmpty(result)) {
+                    assertEquals("ServicePortDescriptor Action and WSDL soapAction do not match for WSDL: " + wsdl,
+                        portTypeActionMap.get(key), result);
+                }
             }
         }
+    }
+
+    private static String retrieveActionFromWsdlMap(String wsActionInPortDesc, List<String> portTypeFromWsdlMap) {
+        if (CollectionUtils.isNotEmpty(portTypeFromWsdlMap)) {
+            for (String key : portTypeFromWsdlMap) {
+                if (wsActionInPortDesc.equals(key)) {
+                    return key;
+                }
+            }
+        }
+        return null;
     }
 
     private static Map<String, String> createMap(XdmNode source, XQueryEvaluator actionEvaluator,
