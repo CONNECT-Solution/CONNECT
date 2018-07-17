@@ -29,10 +29,10 @@ package gov.hhs.fha.nhinc.docdatasubmission.adapter.descriptor;
 import gov.hhs.fha.nhinc.adapterxds.AdapterXDSPortType;
 import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
-
 public class AdapterDocDataSubmissionServicePortDescriptor extends
     SOAP12ServicePortDescriptor<AdapterXDSPortType> {
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adaptercomponentxds:RegisterDocumentSet-b";
+
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterxds:RegisterDocumentSet-b";
 
     @Override
     public String getWSAddressingAction() {

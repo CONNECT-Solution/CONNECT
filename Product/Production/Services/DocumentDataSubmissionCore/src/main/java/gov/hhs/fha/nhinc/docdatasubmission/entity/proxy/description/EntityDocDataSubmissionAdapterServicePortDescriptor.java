@@ -15,7 +15,7 @@ public class EntityDocDataSubmissionAdapterServicePortDescriptor implements Serv
 
     @Override
     public String getWSAddressingAction() {
-        return "urn:gov:hhs:fha:nhinc:adapterxds:RegisterDocumentSet-b";
+        return "urn:gov:hhs:fha:nhinc:entityxds:RegisterDocumentSet-b";
     }
 
     @Override
