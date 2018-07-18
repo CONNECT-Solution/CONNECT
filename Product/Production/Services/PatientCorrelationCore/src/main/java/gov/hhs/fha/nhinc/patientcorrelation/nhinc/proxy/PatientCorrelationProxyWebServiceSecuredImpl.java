@@ -35,9 +35,11 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description.PatientCorrelationSecuredAddServicePortDescriptor;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description.PatientCorrelationSecuredRetrieveServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.AddPatientCorrelationSecuredRequestType;
 import org.hl7.v3.AddPatientCorrelationSecuredResponseType;
+import org.hl7.v3.AddPatientCorrelationPLQSecuredRequestType;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
@@ -49,8 +51,10 @@ import org.slf4j.LoggerFactory;
 /**
  *
  * @author jhoppesc
+ * @param <SimplePatientCorrelationResponseMessage>
+ * @param <PatientLocationQueryResponse>
  */
-public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorrelationProxy {
+public class PatientCorrelationProxyWebServiceSecuredImpl<SimplePatientCorrelationResponseMessage, PatientLocationQueryResponse> implements PatientCorrelationProxy {
     private static final Logger LOG = LoggerFactory.getLogger(PatientCorrelationProxyWebServiceSecuredImpl.class);
 
     private WebServiceProxyHelper oProxyHelper = null;
@@ -178,5 +182,40 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
 
         LOG.debug("End addPatientCorrelation");
         return response;
+
+    }
+	
+    @Override
+    public SimplePatientCorrelationResponseMessage addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords,
+            AssertionType assertion) {
+            AddPatientCorrelationPLQSecuredRequestType request = new AddPatientCorrelationPLQSecuredRequestType();
+            request.setPatientLocationQueryResponse(plqRecords);
+            SimplePatientCorrelationResponseMessage response = null;
+
+            try {
+                final String url = oProxyHelper
+                        .getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SECURED_SERVICE_NAME);
+
+                if (plqRecords == null) {
+                    LOG.error("Message was null");
+                } else {
+           
+                	final ServicePortDescriptor<PatientCorrelationSecuredPortType> portDescriptor = getRetrieveServicePortDescriptor(
+                			NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+
+                	final CONNECTClient<PatientCorrelationSecuredPortType> client = CONNECTClientFactory.getInstance()
+                		    .getCONNECTClientSecured(portDescriptor, url, assertion);
+   
+            response = (SimplePatientCorrelationResponseMessage) client.invokePort(PatientCorrelationSecuredPortType.class,
+                "addPatientCorrelationPLQ", request);
+                }
+            }
+                catch (final Exception ex) {
+                    LOG.error("Error calling addPatientCorrelationPLQ: {}", ex.getMessage(), ex);
+                }
+
+                LOG.debug("End addPatientCorrelationPLQ");
+                return response;
     }
 }
+

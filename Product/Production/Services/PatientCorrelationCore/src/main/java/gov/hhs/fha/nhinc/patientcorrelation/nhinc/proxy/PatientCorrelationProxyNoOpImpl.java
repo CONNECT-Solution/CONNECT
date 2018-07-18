@@ -27,10 +27,13 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
+
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
+import org.hl7.v3.SimplePatientCorrelationResponseType;
 
 /**
  *
@@ -66,5 +69,22 @@ public class PatientCorrelationProxyNoOpImpl implements PatientCorrelationProxy 
 
         return resp;
     }
+
+    /**
+     * This method add PatientCorrelations to database with record locator service id.But this method
+     * returns a null response back does not implement anything.
+     * @param response PatientLocationQueryResponse HL7 type of response received.
+     * @param assertion Assertion received.
+     * @return SimplePatientCorrelationResponse.
+     */
+
+    @Override
+	public SimplePatientCorrelationResponseType addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords, AssertionType assertion) {
+		 
+		SimplePatientCorrelationResponseType resp = new SimplePatientCorrelationResponseType();
+		
+		 return resp;
+		 
+	}
 
 }

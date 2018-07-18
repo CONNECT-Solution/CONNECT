@@ -35,6 +35,9 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201309UV02;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
+
+import org.hl7.v3.SimplePatientCorrelationResponseType;
 import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Matchers.any;
@@ -53,6 +56,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImplTest {
     private AssertionType mockAssertion = mock(AssertionType.class);
     private PRPAIN201301UV02 mock301 = mock(PRPAIN201301UV02.class);
     private PRPAIN201309UV02 mock309 = mock(PRPAIN201309UV02.class);
+    private PatientLocationQueryResponseType mockPLQrec = mock(PatientLocationQueryResponseType.class);
 
     @SuppressWarnings("unchecked")
     @Test
@@ -72,6 +76,18 @@ public class PatientCorrelationProxyWebServiceUnsecuredImplTest {
         PatientCorrelationProxyWebServiceUnsecuredImpl impl = getPatientCorrelationProxyWebServiceUnsecuredImpl();
         impl.retrievePatientCorrelations(mock309, mockAssertion);
 
+        verify(mockClient).invokePort(any(Class.class), any(String.class), any(Object.class));
+        verify(mockCONNECTClientFactory).getCONNECTClientUnsecured(any(ServicePortDescriptor.class), any(String.class),
+            any(AssertionType.class));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testAddPatientCorrelationPLQ() throws Exception {
+
+        PatientCorrelationProxyWebServiceUnsecuredImpl impl = getPatientCorrelationProxyWebServiceUnsecuredImpl();
+        impl.addPatientCorrelationPLQ(mockPLQrec, mockAssertion);
+        when(mockWebProxy.getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SERVICE_NAME)).thenReturn("");
         verify(mockClient).invokePort(any(Class.class), any(String.class), any(Object.class));
         verify(mockCONNECTClientFactory).getCONNECTClientUnsecured(any(ServicePortDescriptor.class), any(String.class),
             any(AssertionType.class));

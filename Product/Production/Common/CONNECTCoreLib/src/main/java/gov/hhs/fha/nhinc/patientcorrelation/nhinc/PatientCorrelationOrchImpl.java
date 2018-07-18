@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
+import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.ack.AckBuilder;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.config.ConfigurationManager;
@@ -38,6 +39,9 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201301UV.PRPAIN2
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PRPAIN201309UVParser;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveResponseBuilder;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType.PatientLocationResponse;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationPLQHelper;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -52,6 +56,7 @@ import org.hl7.v3.PRPAMT201307UV02DataSource;
 import org.hl7.v3.PRPAMT201307UV02ParameterList;
 import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
+import org.hl7.v3.SimplePatientCorrelationResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -253,4 +258,24 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         }
         return calendar.getTime();
     }
+
+	@Override
+	public  SimplePatientCorrelationResponseType addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords,
+			AssertionType assertion) {
+
+        if (plqRecords == null) {
+            LOG.warn("PLQRecords was null");
+            return null;
+        }
+        try {
+        	PatientCorrelationPLQHelper.addPatientCorrelationPLQRecords(plqRecords);
+	
+        } catch (final Exception ex) {
+            LOG.error("Error calling addPatientCorrelation: {}", ex.getMessage(), ex);
+            return null;
+        }
+
+        	return null;       	
+        		
+	}
 }

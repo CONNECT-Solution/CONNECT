@@ -24,26 +24,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
+package gov.hhs.fha.nhinc.patientlocationquery.descriptor;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description.AbstractSecuredServicePortDescriptor;
 
-import org.hl7.v3.AddPatientCorrelationResponseType;
-import org.hl7.v3.PRPAIN201301UV02;
-import org.hl7.v3.PRPAIN201309UV02;
-import org.hl7.v3.RetrievePatientCorrelationsResponseType;
-import org.hl7.v3.SimplePatientCorrelationResponseType;
-
-public interface PatientCorrelationOrch {
-
-    public abstract AddPatientCorrelationResponseType addPatientCorrelation(
-            PRPAIN201301UV02 addPatientCorrelationRequest, AssertionType assertion);
-
-    public abstract RetrievePatientCorrelationsResponseType retrievePatientCorrelations(
-            PRPAIN201309UV02 retrievePatientCorrelationsRequest, AssertionType assertion);
-    
-    public abstract SimplePatientCorrelationResponseType addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords,
-            AssertionType assertion);
-
+/**
+ * @author ptambellini
+ *
+ */
+public class PatientCorrelationSecuredAddPLQServicePortDescriptor extends AbstractSecuredServicePortDescriptor {
+  
+	@Override
+    public String getWSAddressingAction() {
+        return "urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation:AddPatientCorrelationPLQRequestMessageSecured";
+    }
 }

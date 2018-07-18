@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.outbound;
 
+import org.hl7.v3.AddPatientCorrelationPLQRequestType;
+import org.hl7.v3.SimplePatientCorrelationSecuredResponseType;
+
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -39,6 +42,7 @@ import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQuer
 import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
+import gov.hhs.fha.nhinc.patientlocationquery.outbound.PatientLocationQueryProxyWebServiceSecuredImpl;
 
 /**
  *
@@ -55,7 +59,8 @@ public class PassthroughOutboundPatientLocationQuery implements OutboundPatientL
     public RespondingGatewayPatientLocationQueryResponseType processPatientLocationQuery(
         PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType target) {
         auditRequest(request, assertion, target);
-        return sendToNhinProxy(request, assertion, target);
+    	RespondingGatewayPatientLocationQueryResponseType response = sendToNhinProxy(request, assertion, target);
+     	return response;
     }
 
     protected RespondingGatewayPatientLocationQueryResponseType sendToNhinProxy(PatientLocationQueryRequestType request,
@@ -87,5 +92,14 @@ public class PassthroughOutboundPatientLocationQuery implements OutboundPatientL
         NhinTargetSystemType targetType = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(target);
         auditLogger.auditRequestMessage(request, assertion, targetType, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.PLQ_NHIN_SERVICE_NAME);
+    }
+
+    protected  SimplePatientCorrelationSecuredResponseType   processPatientLocationQueryPLQ(RespondingGatewayPatientLocationQueryResponseType response, AssertionType assertion) {
+    	AddPatientCorrelationPLQRequestType request = new AddPatientCorrelationPLQRequestType();
+    	request.setPatientLocationQueryResponse(response.getPatientLocationQueryResponse());
+        request.setAssertion(assertion);
+    	SimplePatientCorrelationSecuredResponseType plqresponse = new PatientLocationQueryProxyWebServiceSecuredImpl().processPatientLocationQueryPLQ(request , assertion);
+    	
+    	return plqresponse;
     }
 }

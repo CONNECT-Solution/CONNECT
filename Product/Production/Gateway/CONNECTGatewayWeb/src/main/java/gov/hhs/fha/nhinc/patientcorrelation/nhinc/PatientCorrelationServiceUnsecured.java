@@ -95,7 +95,6 @@ public class PatientCorrelationServiceUnsecured implements
 
 	@Override
 	public SimplePatientCorrelationResponseType addPatientCorrelationPLQ(AddPatientCorrelationPLQRequestType arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

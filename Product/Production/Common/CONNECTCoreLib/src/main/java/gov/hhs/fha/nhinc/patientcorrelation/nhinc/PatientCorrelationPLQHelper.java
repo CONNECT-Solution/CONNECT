@@ -26,24 +26,46 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.CorrelatedIdentifiersDao;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType.PatientLocationResponse;
 
-import org.hl7.v3.AddPatientCorrelationResponseType;
-import org.hl7.v3.PRPAIN201301UV02;
-import org.hl7.v3.PRPAIN201309UV02;
-import org.hl7.v3.RetrievePatientCorrelationsResponseType;
-import org.hl7.v3.SimplePatientCorrelationResponseType;
+/**
+ *
+ * @author ptambellini
+ */
+public class PatientCorrelationPLQHelper {
 
-public interface PatientCorrelationOrch {
-
-    public abstract AddPatientCorrelationResponseType addPatientCorrelation(
-            PRPAIN201301UV02 addPatientCorrelationRequest, AssertionType assertion);
-
-    public abstract RetrievePatientCorrelationsResponseType retrievePatientCorrelations(
-            PRPAIN201309UV02 retrievePatientCorrelationsRequest, AssertionType assertion);
+    private static CorrelatedIdentifiersDao dao;
     
-    public abstract SimplePatientCorrelationResponseType addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords,
-            AssertionType assertion);
+    public static boolean addPatientCorrelationPLQRecords(PatientLocationQueryResponseType plqRecords) {
+        boolean result = false;
+   		for(PatientLocationResponse rec : plqRecords.getPatientLocationResponse()){
+		    if(null != rec.getCorrespondingPatientId() && null != rec.getRequestedPatientId()){
+		        AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
+		        CorrelatedIdentifiers newId = new CorrelatedIdentifiers();
+		        newId.setRlsId(rec.getHomeCommunityId());
+		        
+		        newId.setCorrelatedPatientId(rec.getCorrespondingPatientId().getExtension());
+		        newId.setCorrelatedPatientAssigningAuthorityId(rec.getCorrespondingPatientId().getRoot());
+		        
+		        newId.setPatientId(rec.getRequestedPatientId().getExtension());
+		        newId.setCorrelatedPatientAssigningAuthorityId(rec.getRequestedPatientId().getRoot());
+		        dao.addPatientCorrelation(newId);
+		        mappingDao.storeMapping(rec.getHomeCommunityId(), rec.getHomeCommunityId());
+		        result = true;
+		    }
+		}
 
+    	
+    return result;
+
+    }
+    
+    private PatientCorrelationPLQHelper() {
+    	
+    }
 }
+
