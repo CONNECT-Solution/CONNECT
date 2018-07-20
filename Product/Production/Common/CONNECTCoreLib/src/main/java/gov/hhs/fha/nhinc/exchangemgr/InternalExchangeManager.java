@@ -148,18 +148,14 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
         }
     }
 
-    @Override
-    public String getEndpointURL(String hcid, String sServiceName,
-        ADAPTER_API_LEVEL api_spec) throws ExchangeManagerException {
-        return getEndpointURL(hcid, sServiceName, getApiSpec(api_spec));
-    }
-
     public String getEndpointURL(String sServiceName, NhincConstants.UDDI_SPEC_VERSION version) throws
         ExchangeManagerException {
-        return getEndpointURL(ExchangeManagerHelper.getHomeCommunityFromPropFile(), sServiceName, version.toString());
+        return getEndpointURL(ExchangeManagerHelper.getHomeCommunityFromPropFile(), sServiceName, version.toString(),
+            null);
     }
 
-    private String getEndpointURL(String hcid, String sServiceName, String specVersion) throws ExchangeManagerException {
+    private String getEndpointURL(String hcid, String sServiceName, String specVersion, String exchangeName) throws
+        ExchangeManagerException {
         String endpointUrl = "";
         OrganizationType org = getOrganization(exchangeName, hcid);
         EndpointType epType = ExchangeManagerHelper.getServiceEndpointType(org, sServiceName);
@@ -172,8 +168,14 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
     }
 
     @Override
-    protected String getApiSpec(ADAPTER_API_LEVEL specLevel
-    ) {
+    public String getEndpointURL(String hcid, String sServiceName, ADAPTER_API_LEVEL apiSpec, String exchangeName)
+        throws
+        ExchangeManagerException {
+        return getEndpointURL(hcid, sServiceName, apiSpec.toString(), exchangeName);
+    }
+
+    @Override
+    protected String getApiSpec(ADAPTER_API_LEVEL specLevel) {
         return specLevel.toString();
     }
 
