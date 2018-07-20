@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -35,7 +35,9 @@ import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -81,7 +83,7 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
                 if (null != exInfo.getExchanges() && CollectionUtils.isNotEmpty(exInfo.getExchanges().getExchange())) {
                     for (ExchangeType ex : exInfo.getExchanges().getExchange()) {
                         if (null != ex.getOrganizationList() && CollectionUtils.isNotEmpty(ex.getOrganizationList().
-                                getOrganization())) {
+                            getOrganization())) {
                             Map<String, OrganizationType> innerMap = new HashMap<>();
                             for (OrganizationType org : ex.getOrganizationList().getOrganization()) {
                                 innerMap.put(org.getHcid(), org);
@@ -146,22 +148,19 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
         }
     }
 
-    @Override
-    public String getEndpointURL(String hcid, String sServiceName,
-            ADAPTER_API_LEVEL api_spec) throws ExchangeManagerException {
-        return getEndpointURL(hcid, sServiceName, getApiSpec(api_spec));
+    public String getEndpointURL(String sServiceName, NhincConstants.UDDI_SPEC_VERSION version) throws
+        ExchangeManagerException {
+        return getEndpointURL(ExchangeManagerHelper.getHomeCommunityFromPropFile(), sServiceName, version.toString(),
+            null);
     }
 
-    public String getEndpointURL(String sServiceName, NhincConstants.UDDI_SPEC_VERSION version) throws ExchangeManagerException {
-        return getEndpointURL(ExchangeManagerHelper.getHomeCommunityFromPropFile(), sServiceName, version.toString());
-    }
-
-    private String getEndpointURL(String hcid, String sServiceName, String specVersion) throws ExchangeManagerException {
+    private String getEndpointURL(String hcid, String sServiceName, String specVersion, String exchangeName) throws
+        ExchangeManagerException {
         String endpointUrl = "";
-        OrganizationType org = getOrganization(hcid);
+        OrganizationType org = getOrganization(exchangeName, hcid);
         EndpointType epType = ExchangeManagerHelper.getServiceEndpointType(org, sServiceName);
         EndpointConfigurationType configType = ExchangeManagerHelper.getEndPointConfigBasedOnSpecVersion(epType,
-                specVersion);
+            specVersion);
         if (null != configType) {
             endpointUrl = configType.getUrl();
         }
@@ -169,8 +168,14 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
     }
 
     @Override
-    protected String getApiSpec(ADAPTER_API_LEVEL specLevel
-    ) {
+    public String getEndpointURL(String hcid, String sServiceName, ADAPTER_API_LEVEL apiSpec, String exchangeName)
+        throws
+        ExchangeManagerException {
+        return getEndpointURL(hcid, sServiceName, apiSpec.toString(), exchangeName);
+    }
+
+    @Override
+    protected String getApiSpec(ADAPTER_API_LEVEL specLevel) {
         return specLevel.toString();
     }
 
@@ -190,12 +195,26 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
         }
 
         EndpointConfigurationType endpointUrl = ExchangeManagerHelper.getEndPointConfigBasedOnSpecVersion(
-                ExchangeManagerHelper.getServiceEndpointType(updateOrganization, serviceName),
-                NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0.name());
+            ExchangeManagerHelper.getServiceEndpointType(updateOrganization, serviceName),
+            NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0.name());
         endpointUrl.setUrl(url);
         getExchangeInfoDAO().saveExchangeInfo(exInfo);
 
         return true;
     }
 
+    @Override
+    public List<OrganizationType> getAllOrganizations() throws ExchangeManagerException {
+        refreshExchangeCacheIfRequired();
+        List<OrganizationType> orgList = new ArrayList<>();
+        for (Map<String, OrganizationType> aMap : getCache().values()) {
+            orgList.addAll(aMap.values());
+        }
+        return orgList;
+    }
+
+    @Override
+    public List<OrganizationType> getAllOrganizations(String exchangeName) throws ExchangeManagerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -31,13 +31,18 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
+import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
+import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -51,7 +56,12 @@ public class ExchangeManagerTest extends BaseExchangeManager {
 
     private static final String HCID_1 = "urn:oid:1.1";
     private static final String HCID_2 = "urn:oid:2.2";
+    private static final String HCID_3 = "urn:oid:3.3";
     private static final String DEFAULT_EXCHANGE = "NationwideExchange";
+    private static final String STATE_EXCHANGE = "StateExchange";
+    private static final String PD = "PatientDiscovery";
+    private static final String QD = "QueryForDocements";
+    private static final String RD = "RetrieveDocuments";
 
     @Test
     public void testGetOrganization() {
@@ -105,6 +115,46 @@ public class ExchangeManagerTest extends BaseExchangeManager {
     }
 
     @Test
+    public void testOverrideExchange() {
+        Exchange<UDDI_SPEC_VERSION> exMgr = createExternalExchangeManagerForOverride();
+        try {
+            OrganizationType org = exMgr.getOrganization("3.3");
+            assertNotNull("Organization is Null", org);
+            verifyOverridesEndpoint(org.getEndpointList().getEndpoint());
+        } catch (ExchangeManagerException ex) {
+            fail("Error running testOverrideExchange: " + ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetAllOrganizationExchangeWithOverrides() {
+        Exchange<UDDI_SPEC_VERSION> exMgr = createExternalExchangeManagerForOverride();
+        try {
+            List<OrganizationType> orgList = exMgr.getAllOrganizations();
+            assertEquals("List of Organization returned should be 3", 3, orgList.size());
+            for (OrganizationType org : orgList) {
+                if (HCID_3.equalsIgnoreCase(org.getHcid())) {
+                    verifyOverridesEndpoint(org.getEndpointList().getEndpoint());
+                }
+            }
+        } catch (ExchangeManagerException ex) {
+            fail("Error running testOverrideExchange: " + ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetAllOrganizationForAnExchangeWithOverrides() {
+        Exchange<UDDI_SPEC_VERSION> exMgr = createExternalExchangeManagerForOverride();
+        try {
+            List<OrganizationType> orgList = exMgr.getAllOrganizations(STATE_EXCHANGE);
+            assertEquals("List of Organization returned for default Exchange should be 1", 1, orgList.size());
+            verifyOverridesEndpoint(orgList.get(0).getEndpointList().getEndpoint());
+        } catch (ExchangeManagerException ex) {
+            fail("Error running testOverrideExchange: " + ex.getMessage());
+        }
+    }
+
+    @Test
     public void testDefaultExchangeDelete() {
         ExchangeManager exMgr = createExternalExchangeManagerForDeletingDefaultExchange();
         try {
@@ -115,6 +165,16 @@ public class ExchangeManagerTest extends BaseExchangeManager {
             assertNull("DefaultExchange is not deleted", exMgr.getDefaultExchange());
         } catch (ExchangeManagerException ex) {
             fail("Error running testDefaultExchange: " + ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testInvalidExchange() {
+        ExchangeManager exMgr = createExchangeManagerWithInvalidExType();
+        try {
+            assertTrue(exMgr.getCache().isEmpty());
+        } catch (ExchangeManagerException ex) {
+            fail("Error running testInvalidExchange: " + ex.getMessage());
         }
     }
 
@@ -156,6 +216,26 @@ public class ExchangeManagerTest extends BaseExchangeManager {
         };
     }
 
+    private ExchangeManager createExternalExchangeManagerForOverride() {
+        return new ExchangeManager() {
+            @Override
+            protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
+                return createExchangeInfoDAO(
+                    "/config/ExchangeManagerTest/exchangeInfoTestWithOverrides.xml");
+            }
+        };
+    }
+
+    private ExchangeManager createExchangeManagerWithInvalidExType() {
+        return new ExchangeManager() {
+            @Override
+            protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
+                return createExchangeInfoDAO(
+                    "/config/ExchangeManagerTest/exchangeInfoWithInvalidType.xml");
+            }
+        };
+    }
+
     private NhinTargetCommunitiesType createNhinTargetCommunitiesType(String hcid) {
         NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
         NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
@@ -169,5 +249,46 @@ public class ExchangeManagerTest extends BaseExchangeManager {
         HomeCommunityType homeCommunity = new HomeCommunityType();
         homeCommunity.setHomeCommunityId(hcid);
         return homeCommunity;
+    }
+
+    private void verifyOverridesEndpoint(List<EndpointType> endpoints) {
+        assertEquals("After sync with overrides, there should be 3 endpoints", 3, endpoints.size());
+        for (EndpointType ep : endpoints) {
+            if (PD.equalsIgnoreCase(ExchangeManagerHelper.getNhinServiceName(ep.getName()))) {
+                verifyEndpoints(ep, getPDEndpointsMap());
+            } else if (QD.equalsIgnoreCase(ExchangeManagerHelper.getNhinServiceName(ep.getName()))) {
+                verifyEndpoints(ep, getQDEndpointsMap());
+            } else if (RD.equalsIgnoreCase(ExchangeManagerHelper.getNhinServiceName(ep.getName()))) {
+                verifyEndpoints(ep, getRDEndpointsMap());
+            }
+        }
+    }
+
+    private Map<String, String> getPDEndpointsMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put("1.0", "https://stateExchange.com:443/CONNECTGateway/NhinService/NhinPatientDiscovery");
+        return map;
+    }
+
+    private Map<String, String> getQDEndpointsMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put("2.0",
+            "https://stateExchange.com:443/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery");
+        map.put("3.0", "https://stateExchange.com:443/CONNECTGateway/NhinService/NhinPatientDiscovery");
+        return map;
+    }
+
+    private Map<String, String> getRDEndpointsMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put("2.0", "https://localhost.com:443/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve");
+        map.put("3.0", "https://stateExchange.com:443/NhinService/Retrieve_Service/3_0/DocRetrieve");
+        return map;
+    }
+
+    private void verifyEndpoints(EndpointType ep, Map<String, String> specUrls) {
+        for (EndpointConfigurationType config : ep.getEndpointConfigurationList().getEndpointConfiguration()) {
+            assertTrue("Endppoint Spec Version do not match", specUrls.containsKey(config.getVersion()));
+            assertEquals("Endpoint url do not match", specUrls.get(config.getVersion()), config.getUrl());
+        }
     }
 }

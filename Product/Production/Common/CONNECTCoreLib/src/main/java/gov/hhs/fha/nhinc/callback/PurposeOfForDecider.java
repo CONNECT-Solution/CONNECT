@@ -59,11 +59,10 @@ public class PurposeOfForDecider {
         boolean purposeFor = false;
 
         String action = properties.getAction();
-        try {
-            serviceName = NHIN_SERVICE_NAMES.fromValueString(action);
-        } catch (IllegalArgumentException ex) {
-            LOG.warn("Could not read purpose of / for action: {}", ex.getLocalizedMessage());
-            LOG.trace("Could not read purpose of / for action: {}", ex.getLocalizedMessage(), ex);
+
+        serviceName = NHIN_SERVICE_NAMES.fromValueString(action);
+        if (null == serviceName) {
+            LOG.warn("Could not read purpose of / for action: service name is null for action {}", action);
             return purposeFor;
         }
 
@@ -75,7 +74,7 @@ public class PurposeOfForDecider {
             hcid = hcid.replace(NhincConstants.HCID_PREFIX, "");
         }
 
-        if (apiLevel == null && serviceName != null && hcid != null) {
+        if (apiLevel == null && hcid != null) {
             NhinEndpointManager nem = getNhinEndpointManager();
             apiLevel = nem.getApiVersion(hcid, serviceName);
         }
@@ -86,7 +85,7 @@ public class PurposeOfForDecider {
         }
 
         if (LOG.isDebugEnabled()) {
-            logPurposeDecision(purposeFor, hcid, serviceName != null ? serviceName.getUDDIServiceName() : null);
+            logPurposeDecision(purposeFor, hcid, serviceName.getUDDIServiceName());
         }
 
         return purposeFor;

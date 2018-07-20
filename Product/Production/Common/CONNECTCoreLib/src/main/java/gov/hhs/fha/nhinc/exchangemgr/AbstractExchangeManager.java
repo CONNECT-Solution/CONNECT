@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -63,14 +63,10 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     protected abstract T getApiSpecEnum(String version);
 
     @Override
-    public List<OrganizationType> getAllOrganizations() throws ExchangeManagerException {
-        refreshExchangeCacheIfRequired();
-        List<OrganizationType> orgList = new ArrayList<>();
-        for (Map<String, OrganizationType> aMap : getCache().values()) {
-            orgList.addAll(aMap.values());
-        }
-        return orgList;
-    }
+    public abstract List<OrganizationType> getAllOrganizations(String exchangeName) throws ExchangeManagerException;
+
+    @Override
+    public abstract List<OrganizationType> getAllOrganizations() throws ExchangeManagerException;
 
     @Override
     public String getOrganizationName(String hcid) throws ExchangeManagerException {
@@ -95,7 +91,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
 
     @Override
     public OrganizationType getOrganizationByServiceName(String hcid, String sUniformServiceName) throws
-            ExchangeManagerException {
+        ExchangeManagerException {
         OrganizationType org = getOrganization(hcid);
         if (null != org && ExchangeManagerHelper.organizationHasService(org, sUniformServiceName)) {
             return org;
@@ -105,7 +101,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
 
     @Override
     public Set<OrganizationType> getOrganizationSetByServiceNameForHCID(List<String> hcids,
-            String sUniformServiceName) throws ExchangeManagerException {
+        String sUniformServiceName) throws ExchangeManagerException {
         if (hcids == null) {
             return null;
         }
@@ -120,10 +116,10 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     }
 
     @Override
-    public Set<OrganizationType> getAllOrganizationSetByServiceName(String sUniformServiceName) throws
-            ExchangeManagerException {
+    public Set<OrganizationType> getAllOrganizationSetByServiceName(String sUniformServiceName, String exchangeName)
+        throws ExchangeManagerException {
         Set<OrganizationType> set = null;
-        List<OrganizationType> orgList = getAllOrganizations();
+        List<OrganizationType> orgList = getAllOrganizations(exchangeName);
         if (CollectionUtils.isNotEmpty(orgList)) {
             set = new HashSet<>();
             for (OrganizationType org : orgList) {
@@ -137,13 +133,13 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
 
     @Override
     public List<NhincConstants.UDDI_SPEC_VERSION> getSpecVersions(String hcid,
-            NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+        NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         List<NhincConstants.UDDI_SPEC_VERSION> specVersions = null;
         try {
             OrganizationType org = getOrganization(hcid);
             specVersions = new ArrayList<>();
             if (null != org && org.getEndpointList() != null && CollectionUtils.isNotEmpty(org.getEndpointList().
-                    getEndpoint())) {
+                getEndpoint())) {
                 for (EndpointType epType : org.getEndpointList().getEndpoint()) {
                     if (ExchangeManagerHelper.hasService(epType, serviceName.getUDDIServiceName())) {
                         specVersions = ExchangeManagerHelper.getSpecVersions(epType);
@@ -158,8 +154,9 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     }
 
     @Override
-    public String getDefaultEndpointURL(String exchangeName, String hcid, String sUniformServiceName)
-            throws ExchangeManagerException {
+    public String getDefaultEndpointURL(String hcid, String sUniformServiceName, String exchangeName)
+        throws ExchangeManagerException {
+        LOG.info("Picking endpoint from {} exchange", null == exchangeName ? this.getDefaultExchange() : exchangeName);
         OrganizationType org = this.getOrganization(exchangeName, hcid);
         if (null == org) {
             return "";
@@ -169,10 +166,10 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
             for (EndpointType epType : org.getEndpointList().getEndpoint()) {
                 if (ExchangeManagerHelper.hasService(epType, sUniformServiceName)) {
                     NhincConstants.UDDI_SPEC_VERSION highestVersion = ExchangeManagerHelper.getHighestUDDISpecVersion(
-                            ExchangeManagerHelper.
-                                    getSpecVersions(epType));
+                        ExchangeManagerHelper.
+                            getSpecVersions(epType));
                     return ExchangeManagerHelper.getEndpointURLBySpecVersion(epType.getEndpointConfigurationList(),
-                            highestVersion);
+                        highestVersion);
                 }
             }
         }
@@ -180,30 +177,48 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     }
 
     @Override
-    public abstract String getEndpointURL(String hcid, String sServiceName, T api_spec) throws ExchangeManagerException;
+    public String getEndpointURL(String hcid, String sServiceName, T apiSpec) throws
+        ExchangeManagerException {
+        return getEndpointURL(hcid, sServiceName, apiSpec, null);
+    }
 
     @Override
-    public String getEndpointURL(String sUniformServiceName) throws
-            ExchangeManagerException {
+    public abstract String getEndpointURL(String hcid, String sServiceName, T apiSpec, String exchangeName) throws
+        ExchangeManagerException;
+
+    @Override
+    public String getEndpointURL(String sServiceName) throws ExchangeManagerException {
+        String exchangeName = null;
+        return this.getEndpointURL(sServiceName, exchangeName);
+    }
+
+    @Override
+    public String getEndpointURL(String sServiceName, String exchangeName) throws
+        ExchangeManagerException {
         String sHomeCommunityId;
         String sEndpointURL = null;
         sHomeCommunityId = ExchangeManagerHelper.getHomeCommunityFromPropFile();
 
         if (StringUtils.isNotEmpty(sHomeCommunityId)) {
-            sEndpointURL = getDefaultEndpointURL(null, sHomeCommunityId, sUniformServiceName);
+            sEndpointURL = getDefaultEndpointURL(sHomeCommunityId, sServiceName, exchangeName);
         }
         return sEndpointURL;
     }
 
     @Override
-    public String getEndpointURL(String sServiceName, T api_spec) throws
-            ExchangeManagerException {
-        return getEndpointURL(ExchangeManagerHelper.getHomeCommunityFromPropFile(), sServiceName, api_spec);
+    public String getEndpointURL(String sServiceName, T apiSpec) throws ExchangeManagerException {
+        return getEndpointURL(sServiceName, apiSpec, null);
+    }
+
+    @Override
+    public String getEndpointURL(String sServiceName, T apiSpec, String exchangeName) throws
+        ExchangeManagerException {
+        return getEndpointURL(ExchangeManagerHelper.getHomeCommunityFromPropFile(), sServiceName, apiSpec, null);
     }
 
     @Override
     public String getEndpointURLFromNhinTarget(NhinTargetSystemType targetSystem, String serviceName) throws
-            ExchangeManagerException {
+        ExchangeManagerException {
         String sEndpointURL = null;
 
         if (targetSystem != null) {
@@ -211,7 +226,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
                 // Extract the URL from the Endpoint Reference
                 LOG.debug("Attempting to look up URL by EPR");
                 if (targetSystem.getEpr() != null && targetSystem.getEpr().getAddress() != null
-                        && StringUtils.isNotEmpty(targetSystem.getEpr().getAddress().getValue())) {
+                    && StringUtils.isNotEmpty(targetSystem.getEpr().getAddress().getValue())) {
                     sEndpointURL = targetSystem.getEpr().getAddress().getValue();
                 }
             } else if (StringUtils.isNotEmpty(targetSystem.getUrl())) {
@@ -219,22 +234,22 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
                 LOG.debug("Attempting to look up URL by URL");
                 sEndpointURL = targetSystem.getUrl();
             } else if (targetSystem.getHomeCommunity() != null
-                    && StringUtils.isNotEmpty(targetSystem.getHomeCommunity().getHomeCommunityId())
-                    && StringUtils.isNotEmpty(serviceName)) {
+                && StringUtils.isNotEmpty(targetSystem.getHomeCommunity().getHomeCommunityId())
+                && StringUtils.isNotEmpty(serviceName)) {
                 // Get the URL based on Home Community Id and Service Name
                 String homeCommunityId = HomeCommunityMap
-                        .formatHomeCommunityId(targetSystem.getHomeCommunity().getHomeCommunityId());
+                    .formatHomeCommunityId(targetSystem.getHomeCommunity().getHomeCommunityId());
                 final String userSpecVersion = targetSystem.getUseSpecVersion();
                 if (!StringUtils.isEmpty(userSpecVersion)) {
                     final T version = getApiSpecEnum(userSpecVersion);
                     LOG.debug(
-                            "Attempting to look up URL by home communinity id:{}, and service name: {}, and version {}",
-                            homeCommunityId, serviceName, version.toString());
-                    sEndpointURL = getEndpointURL(homeCommunityId, serviceName, version);
+                        "Attempting to look up URL by home communinity id:{},exchangeName: {}, service name: {}, and version {}",
+                        homeCommunityId, targetSystem.getExchangeName(), serviceName, version.toString());
+                    sEndpointURL = getEndpointURL(homeCommunityId, serviceName, version, targetSystem.getExchangeName());
                 } else {
-                    LOG.debug("Retrieve endpoint from service Name {}", serviceName);
-                    sEndpointURL = getDefaultEndpointURL(targetSystem.getExchangeName(), homeCommunityId,
-                            serviceName);
+                    LOG.debug("Retrieve endpoint for service {} in Exchange {}", serviceName, targetSystem.
+                        getExchangeName());
+                    sEndpointURL = getDefaultEndpointURL(homeCommunityId, serviceName, targetSystem.getExchangeName());
                 }
             }
         }
@@ -244,19 +259,34 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
 
     @Override
     public List<UrlInfo> getEndpointURLFromNhinTargetCommunities(NhinTargetCommunitiesType targets, String serviceName)
-            throws ExchangeManagerException {
+        throws ExchangeManagerException {
         Set<UrlInfo> endpointUrlSet = new HashSet<>();
+        String exchangeName = null == targets ? this.getDefaultExchange() : targets.getExchangeName();
+        LOG.info("Picking endpoint(s) from {}", exchangeName);
+        if (null == targets || CollectionUtils.isEmpty(targets.getNhinTargetCommunity())) {
+            // This is the broadcast/fanout scenario so retrieve the entire list of URLs for the specified service
+            Set<OrganizationType> orgList = getAllOrganizationSetByServiceName(serviceName, exchangeName);
+            for (OrganizationType org : orgList) {
+                String hcid = org.getHcid();
+                String endpt = getDefaultEndpointURL(hcid, serviceName, exchangeName);
 
-        if (targets != null && CollectionUtils.isNotEmpty(targets.getNhinTargetCommunity())) {
+                if (StringUtils.isNotEmpty(endpt)) {
+                    UrlInfo entry = new UrlInfo();
+                    entry.setHcid(hcid);
+                    entry.setUrl(endpt);
+                    endpointUrlSet.add(entry);
+                }
+            }
+        } else {
             for (NhinTargetCommunityType target : targets.getNhinTargetCommunity()) {
                 if (target.getHomeCommunity() != null
-                        && StringUtils.isNotEmpty(target.getHomeCommunity().getHomeCommunityId())) {
+                    && StringUtils.isNotEmpty(target.getHomeCommunity().getHomeCommunityId())) {
                     LOG.debug("Looking up URL by home community id");
-                    String endpt = getDefaultEndpointURL(targets.getExchangeName(),
-                            target.getHomeCommunity().getHomeCommunityId(), serviceName);
+                    String endpt = getDefaultEndpointURL(
+                        target.getHomeCommunity().getHomeCommunityId(), serviceName, exchangeName);
 
                     if (StringUtils.isNotEmpty(endpt) || NullChecker.isNullish(endpt)
-                            && serviceName.equals(NhincConstants.DOC_QUERY_SERVICE_NAME)) {
+                        && serviceName.equals(NhincConstants.DOC_QUERY_SERVICE_NAME)) {
                         UrlInfo entry = new UrlInfo();
                         entry.setHcid(target.getHomeCommunity().getHomeCommunityId());
                         entry.setUrl(endpt);
@@ -265,7 +295,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
                 }
                 if (target.getRegion() != null) {
                     LOG.debug("Looking up URL by region");
-                    filterByRegion(targets.getExchangeName(), endpointUrlSet, target.getRegion(), serviceName);
+                    filterByRegion(exchangeName, endpointUrlSet, target.getRegion(), serviceName);
                 }
 
                 if (target.getList() != null) {
@@ -273,38 +303,22 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
                     LOG.warn("The List target feature has not been implemented yet");
                 }
             }
-        } else {
-            // This is the broadcast scenario so retrieve the entire list of URLs for the specified service
-            for (OrganizationType org : getAllOrganizationSetByServiceName(serviceName)) {
-                String hcid = org.getHcid();
-                String endpt = getDefaultEndpointURL(null, hcid, serviceName);
-
-                if (StringUtils.isNotEmpty(endpt)) {
-                    UrlInfo entry = new UrlInfo();
-                    entry.setHcid(hcid);
-                    entry.setUrl(endpt);
-                    endpointUrlSet.add(entry);
-                }
-
-            }
         }
         List<UrlInfo> endpointUrlList = new ArrayList<>(endpointUrlSet);
-
         logURLList(endpointUrlList);
-
         return endpointUrlList;
     }
 
     private void filterByRegion(String exchangeName, Set<UrlInfo> urlSet, String region, String serviceName)
-            throws ExchangeManagerException {
-        Set<OrganizationType> orgSet = getAllOrganizationSetByServiceName(serviceName);
+        throws ExchangeManagerException {
+        Set<OrganizationType> orgSet = getAllOrganizationSetByServiceName(serviceName, exchangeName);
         if (orgSet != null) {
             for (OrganizationType org : orgSet) {
                 if (CollectionUtils.isNotEmpty(org.getTargetRegion())) {
                     for (String state : org.getTargetRegion()) {
                         if (state.equalsIgnoreCase(region)) {
                             String hcid = org.getHcid();
-                            String url = getDefaultEndpointURL(exchangeName, hcid, serviceName);
+                            String url = getDefaultEndpointURL(hcid, serviceName, exchangeName);
                             if (StringUtils.isNotEmpty(url) && StringUtils.isNotEmpty(hcid)) {
                                 UrlInfo entry = new UrlInfo();
                                 entry.setHcid(hcid);

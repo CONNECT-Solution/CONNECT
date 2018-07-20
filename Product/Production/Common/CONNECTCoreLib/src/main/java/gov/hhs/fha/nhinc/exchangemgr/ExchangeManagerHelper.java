@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.exchangemgr;
 
-import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
-import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
-
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeListType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
@@ -39,10 +36,14 @@ import gov.hhs.fha.nhinc.exchange.directory.EndpointListType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
+import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
@@ -63,7 +64,9 @@ public class ExchangeManagerHelper {
     }
 
     public static boolean organizationHasService(OrganizationType org, String sUniformServiceName) {
-        if (org.getEndpointList() != null && CollectionUtils.isNotEmpty(org.getEndpointList().getEndpoint())) {
+
+        if (StringUtils.isNotBlank(sUniformServiceName) && org.getEndpointList() != null && CollectionUtils.isNotEmpty(
+            org.getEndpointList().getEndpoint())) {
             for (EndpointType epType : org.getEndpointList().getEndpoint()) {
                 if (hasService(epType, sUniformServiceName)) {
                     return true;
@@ -74,7 +77,8 @@ public class ExchangeManagerHelper {
     }
 
     public static boolean hasService(EndpointType epType, String sUniformServiceName) {
-        if (epType != null && CollectionUtils.isNotEmpty(epType.getName())) {
+        if (StringUtils.isNotBlank(sUniformServiceName) && epType != null && CollectionUtils.
+            isNotEmpty(epType.getName())) {
             for (String name : epType.getName()) {
                 if (sUniformServiceName.equalsIgnoreCase(name)) {
                     return true;
@@ -89,7 +93,9 @@ public class ExchangeManagerHelper {
         if (null != epType && null != epType.getEndpointConfigurationList() && CollectionUtils.isNotEmpty(
             epType.getEndpointConfigurationList().getEndpointConfiguration())) {
             for (EndpointConfigurationType config : epType.getEndpointConfigurationList().getEndpointConfiguration()) {
-                specVersionList.add(NhincConstants.UDDI_SPEC_VERSION.fromString(config.getVersion()));
+                if (StringUtils.isNotBlank(config.getVersion())) {
+                    specVersionList.add(NhincConstants.UDDI_SPEC_VERSION.fromString(config.getVersion()));
+                }
             }
         }
         return specVersionList;
@@ -249,15 +255,14 @@ public class ExchangeManagerHelper {
     }
 
     public static List<ExchangeType> getExchangeTypeBy(ExchangeInfoType exchangeInfo, boolean requiredElement) {
+        List<ExchangeType> exList = new ArrayList<>();
         if (null != exchangeInfo) {
             if (requiredElement && null == exchangeInfo.getExchanges()) {
                 exchangeInfo.setExchanges(new ExchangeListType());
             }
-            if (null != exchangeInfo.getExchanges()) {
-                return exchangeInfo.getExchanges().getExchange();
-            }
+            exList.addAll(getDisplayExchangeList(exchangeInfo));
         }
-        return new ArrayList<>();
+        return exList;
     }
 
     public static ExchangeType findExchangeTypeBy(List<ExchangeType> exchanges, String exchangeName) {
@@ -353,6 +358,29 @@ public class ExchangeManagerHelper {
         return null;
     }
 
+    public static String getNhinServiceName(List<String> serviceNames) {
+        for (String name : serviceNames) {
+            if (isServiceNameMatch(name)) {
+                return NhincConstants.NHIN_SERVICE_NAMES.fromValueString(name).getUDDIServiceName();
+            }
+        }
+        return null;
+    }
+
+    public static Map<String, String> getSpecVersionsAndUrlMap(EndpointType epType) {
+        Map<String, String> specVersionUrlMap = new HashMap<>();
+        if (null != epType && null != epType.getEndpointConfigurationList() && CollectionUtils.isNotEmpty(
+            epType.getEndpointConfigurationList().getEndpointConfiguration())) {
+            for (EndpointConfigurationType config : epType.getEndpointConfigurationList().getEndpointConfiguration()) {
+                if (StringUtils.isNotBlank(config.getVersion()) && StringUtils.isNotBlank(config.getUrl())) {
+                    specVersionUrlMap.put(NhincConstants.UDDI_SPEC_VERSION.fromString(config.getVersion()).toString(),
+                        config.getUrl());
+                }
+            }
+        }
+        return specVersionUrlMap;
+    }
+
     //private-methods
     private static boolean containsIgnoreCaseBy(List<String> stringContainers, String compareTo) {
         if (CollectionUtils.isNotEmpty(stringContainers)) {
@@ -365,4 +393,48 @@ public class ExchangeManagerHelper {
         return false;
     }
 
+    public static EXCHANGE_TYPE[] getDisplayExchangeTypes() {
+        EXCHANGE_TYPE[] allTypes = EXCHANGE_TYPE.values();
+        List<EXCHANGE_TYPE> guiTypes = new ArrayList<>();
+        for (EXCHANGE_TYPE allType : allTypes) {
+            if (!isExchangeOverride(allType.toString())) {
+                guiTypes.add(allType);
+            }
+        }
+        return guiTypes.toArray(new EXCHANGE_TYPE[guiTypes.size()]);
+    }
+
+    public static List<ExchangeType> getAllExchanges(ExchangeInfoType exchangeInfo, boolean requiredElement) {
+        if (null != exchangeInfo) {
+            if (requiredElement && null == exchangeInfo.getExchanges()) {
+                exchangeInfo.setExchanges(new ExchangeListType());
+            }
+            if (null != exchangeInfo.getExchanges() && CollectionUtils.isNotEmpty(exchangeInfo.
+                getExchanges().getExchange())) {
+                return exchangeInfo.getExchanges().getExchange();
+            }
+        }
+        return new ArrayList<>();
+    }
+
+    private static boolean isExchangeOverride(String exType) {
+        return NhincConstants.EXCHANGE_TYPE.OVERRIDES.toString().equalsIgnoreCase(exType);
+    }
+
+    private static List<ExchangeType> getDisplayExchangeList(ExchangeInfoType exchangeInfo) {
+        List<ExchangeType> exList = new ArrayList<>();
+        if (null != exchangeInfo.getExchanges() && CollectionUtils.isNotEmpty(exchangeInfo.
+            getExchanges().getExchange())) {
+            for (ExchangeType ex : exchangeInfo.getExchanges().getExchange()) {
+                if (!isExchangeOverride(ex.getType())) {
+                    exList.add(ex);
+                }
+            }
+        }
+        return exList;
+    }
+
+    private static boolean isServiceNameMatch(String name) {
+        return StringUtils.isNotBlank(name) && null != NhincConstants.NHIN_SERVICE_NAMES.fromValueString(name);
+    }
 }
