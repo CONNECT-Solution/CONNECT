@@ -249,7 +249,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
                 loadExchangeInfo();
             }
             List<ExchangeType> exchanges = ExchangeManagerHelper.getAllExchanges(exInfo, true);
-            ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, exchangeAdd.getName());
+            ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, exchangeUpdate.getName());
             if (null != exchangeFound) {
                 LOG.info("saveExchange--updated-exchangeFound");
                 exchangeFound.setDisabled(exchangeUpdate.isDisabled());

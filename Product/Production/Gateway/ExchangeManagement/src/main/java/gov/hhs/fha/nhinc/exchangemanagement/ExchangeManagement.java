@@ -82,7 +82,8 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     private static final String ACT_FAIL = "fail";
     private static final String ACT_BUSY = "refresh locked";
 
-    private static final AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
+    private static final AssigningAuthorityHomeCommunityMappingDAO mappingDao
+        = new AssigningAuthorityHomeCommunityMappingDAO();
 
     @Override
     public SimpleExchangeManagementResponseMessageType deleteExchange(DeleteExchangeRequestMessageType request) {
@@ -169,7 +170,7 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
         SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
         String hcid = request.getHcid();
 
-        if(StringUtils.isBlank(hcid)){
+        if (StringUtils.isBlank(hcid)) {
             response.setMessage("HCID is required.");
             return response;
         }
@@ -198,8 +199,8 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
         }
 
         try {
-            for(String hcid : hcidSet){
-                if(StringUtils.isNotBlank(hcid)){
+            for (String hcid : hcidSet) {
+                if (StringUtils.isNotBlank(hcid)) {
                     response.getOrganizationList().add(getExchangeManager().getOrganization(hcid));
                 }
             }
@@ -246,10 +247,10 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
             return response;
         }
 
-        try{
+        try {
             response.getOrganizationList()
-            .addAll(getExchangeManager().getOrganizationSetByServiceNameForHCID(hcidList, serviceName));
-        }catch(ExchangeManagerException ex){
+                .addAll(getExchangeManager().getOrganizationSetByServiceNameForHCID(hcidList, serviceName));
+        } catch (ExchangeManagerException ex) {
             LOG.error("listOrganizationsByHCIDServiceName encounter error: {}", ex.getLocalizedMessage(), ex);
             response.setMessage(ACT_FAIL);
         }
@@ -269,7 +270,8 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
         }
 
         try {
-            response.getOrganizationList().addAll(getExchangeManager().getAllOrganizationSetByServiceName(serviceName));
+            response.getOrganizationList().addAll(getExchangeManager().getAllOrganizationSetByServiceName(serviceName,
+                null));
         } catch (ExchangeManagerException ex) {
             LOG.error("listOrganizationsByServiceName encounter error: {}", ex.getLocalizedMessage(), ex);
             response.setMessage(ACT_FAIL);
@@ -296,7 +298,7 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
         }
 
         try {
-            response.setUrl(getExchangeManager().getDefaultEndpointURL(exchangeName, hcid, serviceName));
+            response.setUrl(getExchangeManager().getDefaultEndpointURL(hcid, serviceName, exchangeName));
         } catch (ExchangeManagerException ex) {
             LOG.error("getEndpointUrlDefaultByServiceName encounter error: {}", ex.getLocalizedMessage(), ex);
             response.setMessage(ACT_FAIL);
@@ -351,7 +353,8 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     public ListEndpointUrlInfoByNhinTargetCommunitiesResponseMessageType listEndpointUrlInfoByNhinTargetCommunities(
         ListEndpointUrlInfoByNhinTargetCommunitiesRequestMessageType request) {
         LOG.trace("listEndpointUrlInfoByNhinTargetCommunities--call");
-        ListEndpointUrlInfoByNhinTargetCommunitiesResponseMessageType response = new ListEndpointUrlInfoByNhinTargetCommunitiesResponseMessageType();
+        ListEndpointUrlInfoByNhinTargetCommunitiesResponseMessageType response
+            = new ListEndpointUrlInfoByNhinTargetCommunitiesResponseMessageType();
         NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
         String serviceName = request.getServiceName();
 
