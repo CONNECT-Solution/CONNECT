@@ -28,6 +28,9 @@ package gov.hhs.fha.nhinc.patientlocationquery.adapter.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.CorrelatedIdentifiersDaoImpl;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.QualifiedPatientIdentifier;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.RecordLocatorService;
 import gov.hhs.fha.nhinc.patientlocationquery.dao.RecordLocationServiceDAO;
 import gov.hhs.fha.nhinc.test.DAOIntegrationTest;
@@ -54,6 +57,31 @@ public class PatientLocationQueryDaoIntTest extends DAOIntegrationTest {
 
         result = RecordLocationServiceDAO.getAllPatientsBy("N0n-Ex!sT@nT");
         assertEquals(0, result.size());
+    }
+
+    @Test
+    public void testPLQResponseOutbound() {
+        //Tests the Patient Location Query insertions to correlated identifiers table.
+        CorrelatedIdentifiersDaoImpl dao = new CorrelatedIdentifiersDaoImpl();
+
+        CorrelatedIdentifiers rec = new CorrelatedIdentifiers();
+        QualifiedPatientIdentifier newrec = new QualifiedPatientIdentifier();
+
+        rec.setRlsId("2.2");
+        rec.setCorrelatedPatientId("355443");
+        rec.setPatientAssigningAuthorityId("1.1");
+        rec.setPatientId("D254321");
+        rec.setCorrelatedPatientAssigningAuthorityId("3.3");
+
+
+        dao.addPatientCorrelation(rec);
+        newrec.setAssigningAuthority("1.1");
+        newrec.setPatientId("D254321");
+
+        List<QualifiedPatientIdentifier> result = dao.retrievePatientCorrelation(newrec);
+        assertEquals(1, result.size());
+        dao.removePatientCorrelation(rec);
+
     }
 
 }

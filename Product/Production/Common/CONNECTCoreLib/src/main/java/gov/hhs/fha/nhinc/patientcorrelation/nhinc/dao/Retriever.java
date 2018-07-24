@@ -182,7 +182,9 @@ public class Retriever {
             criteria.setPatientAssigningAuthorityId(correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId());
             criteria.setCorrelatedPatientId(correlatedIdentifers.getPatientId());
             criteria.setCorrelatedPatientAssigningAuthorityId(correlatedIdentifers.getPatientAssigningAuthorityId());
-
+            if (NullChecker.isNotNullish(correlatedIdentifers.getrlsId())) {
+            criteria.setRlsId(correlatedIdentifers.getrlsId());
+            }
             existingCorrelations = retrievePatientCorrelation(criteria);
             exists = NullChecker.isNotNullish(existingCorrelations);
         }
