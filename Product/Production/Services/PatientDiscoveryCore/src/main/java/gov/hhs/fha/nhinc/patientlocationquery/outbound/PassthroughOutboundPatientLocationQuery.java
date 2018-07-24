@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.outbound;
 
-import org.hl7.v3.AddPatientCorrelationPLQRequestType;
-import org.hl7.v3.SimplePatientCorrelationSecuredResponseType;
-
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -36,13 +33,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.event.DefaultTargetEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxy;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientlocationquery.audit.PatientLocationQueryAuditLogger;
 import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryDelegate;
 import gov.hhs.fha.nhinc.patientlocationquery.entity.OutboundPatientLocationQueryOrchestratable;
 import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import gov.hhs.fha.nhinc.patientlocationquery.outbound.PatientLocationQueryProxyWebServiceSecuredImpl;
 
 /**
  *
@@ -59,8 +57,10 @@ public class PassthroughOutboundPatientLocationQuery implements OutboundPatientL
     public RespondingGatewayPatientLocationQueryResponseType processPatientLocationQuery(
         PatientLocationQueryRequestType request, AssertionType assertion, NhinTargetCommunitiesType target) {
         auditRequest(request, assertion, target);
-    	RespondingGatewayPatientLocationQueryResponseType response = sendToNhinProxy(request, assertion, target);
-     	return response;
+        RespondingGatewayPatientLocationQueryResponseType response = sendToNhinProxy(request, assertion, target);
+        processPatientLocationQueryPLQ(response, assertion);
+
+        return response;
     }
 
     protected RespondingGatewayPatientLocationQueryResponseType sendToNhinProxy(PatientLocationQueryRequestType request,
@@ -94,12 +94,10 @@ public class PassthroughOutboundPatientLocationQuery implements OutboundPatientL
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.PLQ_NHIN_SERVICE_NAME);
     }
 
-    protected  SimplePatientCorrelationSecuredResponseType   processPatientLocationQueryPLQ(RespondingGatewayPatientLocationQueryResponseType response, AssertionType assertion) {
-    	AddPatientCorrelationPLQRequestType request = new AddPatientCorrelationPLQRequestType();
-    	request.setPatientLocationQueryResponse(response.getPatientLocationQueryResponse());
-        request.setAssertion(assertion);
-    	SimplePatientCorrelationSecuredResponseType plqresponse = new PatientLocationQueryProxyWebServiceSecuredImpl().processPatientLocationQueryPLQ(request , assertion);
-    	
-    	return plqresponse;
+    protected void processPatientLocationQueryPLQ(RespondingGatewayPatientLocationQueryResponseType response, AssertionType assertion) {
+
+        PatientCorrelationProxyObjectFactory patCorrelationFactory = new PatientCorrelationProxyObjectFactory();
+        PatientCorrelationProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationProxy();
+        patCorrelationProxy.addPatientCorrelationPLQ(response.getPatientLocationQueryResponse(), assertion);
     }
 }

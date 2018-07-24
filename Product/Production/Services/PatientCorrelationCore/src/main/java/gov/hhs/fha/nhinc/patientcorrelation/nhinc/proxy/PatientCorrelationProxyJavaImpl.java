@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,12 +31,10 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationOrch;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationOrchImpl;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.CorrelatedIdentifiersDaoImpl;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
-import org.hl7.v3.SimplePatientCorrelationResponseType;
 
 /**
  *
@@ -55,7 +53,7 @@ public class PatientCorrelationProxyJavaImpl implements PatientCorrelationProxy 
      */
     @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request,
-            AssertionType assertion) {
+        AssertionType assertion) {
         return orchestration.retrievePatientCorrelations(request, assertion);
     }
 
@@ -76,8 +74,8 @@ public class PatientCorrelationProxyJavaImpl implements PatientCorrelationProxy 
      * @param assertion Assertion received.
      * @return SimplePatientCorrelationResponse.
      */
-	@Override
-	public SimplePatientCorrelationResponseType addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords, AssertionType assertion) {
-		return orchestration.addPatientCorrelationPLQ(plqRecords, assertion);
-	}
+    @Override
+    public void addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords, AssertionType assertion) {
+        orchestration.addPatientCorrelationPLQ(plqRecords, assertion);
+    }
 }

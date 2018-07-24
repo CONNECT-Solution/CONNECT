@@ -26,14 +26,13 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201309UV02;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
-import org.hl7.v3.SimplePatientCorrelationResponseType;
+
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 
 public interface PatientCorrelationOrch {
 
@@ -43,7 +42,7 @@ public interface PatientCorrelationOrch {
     public abstract RetrievePatientCorrelationsResponseType retrievePatientCorrelations(
             PRPAIN201309UV02 retrievePatientCorrelationsRequest, AssertionType assertion);
     
-    public abstract SimplePatientCorrelationResponseType addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords,
+    public abstract void addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords,
             AssertionType assertion);
 
 }

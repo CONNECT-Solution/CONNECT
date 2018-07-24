@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
-import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.ack.AckBuilder;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.config.ConfigurationManager;
@@ -40,8 +39,6 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PRPAIN2
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveResponseBuilder;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import ihe.iti.xcpd._2009.PatientLocationQueryResponseType.PatientLocationResponse;
-import gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationPLQHelper;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -56,7 +53,6 @@ import org.hl7.v3.PRPAMT201307UV02DataSource;
 import org.hl7.v3.PRPAMT201307UV02ParameterList;
 import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
-import org.hl7.v3.SimplePatientCorrelationResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,9 +73,9 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
 
     @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(
-            PRPAIN201309UV02 retrievePatientCorrelationsRequest, AssertionType assertion) {
+        PRPAIN201309UV02 retrievePatientCorrelationsRequest, AssertionType assertion) {
         PRPAMT201307UV02PatientIdentifier patIdentifier = PRPAIN201309UVParser
-                .parseHL7PatientPersonFrom201309Message(retrievePatientCorrelationsRequest);
+            .parseHL7PatientPersonFrom201309Message(retrievePatientCorrelationsRequest);
         if (patIdentifier == null) {
             return null;
         }
@@ -95,26 +91,26 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         // only non-expired patient correlation records will be returned
         // expired correlation records will be removed by the following call.
         List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = retrieveQualifiedPatientIdentifiers(
-                inputQualifiedPatientIdentifier, dataSourceList);
+            inputQualifiedPatientIdentifier, dataSourceList);
         List<II> iiList = buildList(qualifiedPatientIdentifiers);
         PRPAIN201310UV02 IN201310 = PixRetrieveResponseBuilder
-                .createPixRetrieveResponse(retrievePatientCorrelationsRequest, iiList);
+            .createPixRetrieveResponse(retrievePatientCorrelationsRequest, iiList);
         RetrievePatientCorrelationsResponseType result = new RetrievePatientCorrelationsResponseType();
         result.setPRPAIN201310UV02(IN201310);
         return result;
     }
 
     protected List<QualifiedPatientIdentifier> retrieveQualifiedPatientIdentifiers(
-            QualifiedPatientIdentifier inputQualifiedPatientIdentifier, List<String> dataSourceList) {
+        QualifiedPatientIdentifier inputQualifiedPatientIdentifier, List<String> dataSourceList) {
 
         return dao.retrievePatientCorrelation(inputQualifiedPatientIdentifier, dataSourceList);
     }
 
     @Override
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 addPatientCorrelationRequest,
-            AssertionType assertion) {
+        AssertionType assertion) {
         PRPAMT201301UV02Patient patient = PRPAIN201301UVParser
-                .parseHL7PatientPersonFrom201301Message(addPatientCorrelationRequest);
+            .parseHL7PatientPersonFrom201301Message(addPatientCorrelationRequest);
         String patientId;
         String patientAssigningAuthId;
         String correlatedPatientId;
@@ -176,7 +172,7 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
     private static List<String> extractDataSourceList(PRPAIN201309UV02 IN201309) {
         List<String> dataSourceStringList = new ArrayList<>();
         PRPAMT201307UV02ParameterList parameterList = PRPAIN201309UVParser
-                .parseHL7ParameterListFrom201309Message(IN201309);
+            .parseHL7ParameterListFrom201309Message(IN201309);
 
         List<PRPAMT201307UV02DataSource> dataSources = parameterList.getDataSource();
         if (!dataSources.isEmpty()) {
@@ -259,23 +255,20 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         return calendar.getTime();
     }
 
-	@Override
-	public  SimplePatientCorrelationResponseType addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords,
-			AssertionType assertion) {
+    @Override
+    public  void addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords,
+        AssertionType assertion) {
 
         if (plqRecords == null) {
             LOG.warn("PLQRecords was null");
-            return null;
         }
         try {
-        	PatientCorrelationPLQHelper.addPatientCorrelationPLQRecords(plqRecords);
-	
+            PatientCorrelationPLQHelper.addPatientCorrelationPLQRecords(plqRecords);
+
         } catch (final Exception ex) {
             LOG.error("Error calling addPatientCorrelation: {}", ex.getMessage(), ex);
-            return null;
         }
 
-        	return null;       	
-        		
-	}
+
+    }
 }

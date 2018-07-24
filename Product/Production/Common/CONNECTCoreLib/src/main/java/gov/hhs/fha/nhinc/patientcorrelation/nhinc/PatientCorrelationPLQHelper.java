@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.CorrelatedIdentifiersDao;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.CorrelatedIdentifiersDaoImpl;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType.PatientLocationResponse;
@@ -38,34 +39,36 @@ import ihe.iti.xcpd._2009.PatientLocationQueryResponseType.PatientLocationRespon
  */
 public class PatientCorrelationPLQHelper {
 
-    private static CorrelatedIdentifiersDao dao;
-    
-    public static boolean addPatientCorrelationPLQRecords(PatientLocationQueryResponseType plqRecords) {
-        boolean result = false;
-   		for(PatientLocationResponse rec : plqRecords.getPatientLocationResponse()){
-		    if(null != rec.getCorrespondingPatientId() && null != rec.getRequestedPatientId()){
-		        AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
-		        CorrelatedIdentifiers newId = new CorrelatedIdentifiers();
-		        newId.setRlsId(rec.getHomeCommunityId());
-		        
-		        newId.setCorrelatedPatientId(rec.getCorrespondingPatientId().getExtension());
-		        newId.setCorrelatedPatientAssigningAuthorityId(rec.getCorrespondingPatientId().getRoot());
-		        
-		        newId.setPatientId(rec.getRequestedPatientId().getExtension());
-		        newId.setCorrelatedPatientAssigningAuthorityId(rec.getRequestedPatientId().getRoot());
-		        dao.addPatientCorrelation(newId);
-		        mappingDao.storeMapping(rec.getHomeCommunityId(), rec.getHomeCommunityId());
-		        result = true;
-		    }
-		}
-
-    	
-    return result;
-
-    }
-    
     private PatientCorrelationPLQHelper() {
-    	
+
     }
+
+    private static CorrelatedIdentifiersDao dao = new CorrelatedIdentifiersDaoImpl();
+
+    public static boolean addPatientCorrelationPLQRecords(PatientLocationQueryResponseType plqRecords) {
+        dao = new CorrelatedIdentifiersDaoImpl();
+        boolean result = false;
+        for(PatientLocationResponse rec : plqRecords.getPatientLocationResponse()){
+            if(null != rec.getCorrespondingPatientId() && null != rec.getRequestedPatientId()){
+                AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
+                CorrelatedIdentifiers newId = new CorrelatedIdentifiers();
+                newId.setRlsId(rec.getHomeCommunityId());
+
+                newId.setCorrelatedPatientId(rec.getCorrespondingPatientId().getExtension());
+                newId.setCorrelatedPatientAssigningAuthorityId(rec.getCorrespondingPatientId().getRoot());
+
+                newId.setPatientId(rec.getRequestedPatientId().getExtension());
+                newId.setPatientAssigningAuthorityId(rec.getRequestedPatientId().getRoot());
+                dao.addPatientCorrelation(newId);
+                mappingDao.storeMapping(rec.getHomeCommunityId(), rec.getHomeCommunityId());
+                result = true;
+            }
+        }
+
+
+        return result;
+
+    }
+
 }
 
