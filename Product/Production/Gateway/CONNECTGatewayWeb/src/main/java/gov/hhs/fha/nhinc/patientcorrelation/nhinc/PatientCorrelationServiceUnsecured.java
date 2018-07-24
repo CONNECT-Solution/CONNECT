@@ -96,7 +96,7 @@ gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationPortType {
     public SimplePatientCorrelationResponseType addPatientCorrelationPLQ(AddPatientCorrelationPLQRequestType request) {
         SimplePatientCorrelationResponseType response = new SimplePatientCorrelationResponseType();
         PatientCorrelationPLQHelper.addPatientCorrelationPLQRecords(request.getPatientLocationQueryResponse());
-        response.setMessage("It is done.");
+        response.setMessage("Response has been received and processed.");
 
         return response;
 

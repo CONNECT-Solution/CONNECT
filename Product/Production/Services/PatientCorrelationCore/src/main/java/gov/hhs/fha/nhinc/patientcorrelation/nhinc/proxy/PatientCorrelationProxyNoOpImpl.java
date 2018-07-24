@@ -73,7 +73,6 @@ public class PatientCorrelationProxyNoOpImpl implements PatientCorrelationProxy 
      * returns a null response back does not implement anything.
      * @param response PatientLocationQueryResponse HL7 type of response received.
      * @param assertion Assertion received.
-     * @return SimplePatientCorrelationResponse.
      */
 
     @Override

@@ -261,14 +261,9 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
 
         if (plqRecords == null) {
             LOG.warn("PLQRecords was null");
+            return;
         }
-        try {
-            PatientCorrelationPLQHelper.addPatientCorrelationPLQRecords(plqRecords);
-
-        } catch (final Exception ex) {
-            LOG.error("Error calling addPatientCorrelation: {}", ex.getMessage(), ex);
-        }
-
+        PatientCorrelationPLQHelper.addPatientCorrelationPLQRecords(plqRecords);
 
     }
 }

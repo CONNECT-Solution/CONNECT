@@ -79,7 +79,7 @@ public class PatientCorrelationServiceSecured implements gov.hhs.fha.nhinc.nhinc
         AddPatientCorrelationPLQSecuredRequestType request) {
         SimplePatientCorrelationSecuredResponseType response = new SimplePatientCorrelationSecuredResponseType();
         PatientCorrelationPLQHelper.addPatientCorrelationPLQRecords(request.getPatientLocationQueryResponse());
-        response.setMessage("It is done.");
+        response.setMessage("Response has been received and processed.");
 
         return response;
 

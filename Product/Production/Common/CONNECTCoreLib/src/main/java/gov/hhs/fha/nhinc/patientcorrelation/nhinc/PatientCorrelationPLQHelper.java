@@ -43,10 +43,8 @@ public class PatientCorrelationPLQHelper {
 
     }
 
-    private static CorrelatedIdentifiersDao dao = new CorrelatedIdentifiersDaoImpl();
-
     public static boolean addPatientCorrelationPLQRecords(PatientLocationQueryResponseType plqRecords) {
-        dao = new CorrelatedIdentifiersDaoImpl();
+        CorrelatedIdentifiersDao dao = new CorrelatedIdentifiersDaoImpl();
         boolean result = false;
         for(PatientLocationResponse rec : plqRecords.getPatientLocationResponse()){
             if(null != rec.getCorrespondingPatientId() && null != rec.getRequestedPatientId()){

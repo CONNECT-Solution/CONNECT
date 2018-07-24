@@ -72,7 +72,6 @@ public class PatientCorrelationProxyJavaImpl implements PatientCorrelationProxy 
      * This method add PatientCorrelations to database with record locator service id.
      * @param response PatientLocationQueryResponse HL7 type of response received.
      * @param assertion Assertion received.
-     * @return SimplePatientCorrelationResponse.
      */
     @Override
     public void addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords, AssertionType assertion) {
