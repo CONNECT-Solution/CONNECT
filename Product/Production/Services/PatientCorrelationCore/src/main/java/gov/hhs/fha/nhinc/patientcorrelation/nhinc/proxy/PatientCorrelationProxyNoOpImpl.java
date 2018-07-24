@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201309UV02;
@@ -47,7 +48,7 @@ public class PatientCorrelationProxyNoOpImpl implements PatientCorrelationProxy 
      */
     @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request,
-            AssertionType assertion) {
+        AssertionType assertion) {
         RetrievePatientCorrelationsResponseType resp = new RetrievePatientCorrelationsResponseType();
 
         return resp;
@@ -65,6 +66,19 @@ public class PatientCorrelationProxyNoOpImpl implements PatientCorrelationProxy 
         AddPatientCorrelationResponseType resp = new AddPatientCorrelationResponseType();
 
         return resp;
+    }
+
+    /**
+     * This method add PatientCorrelations to database with record locator service id.But this method
+     * returns a null response back does not implement anything.
+     * @param response PatientLocationQueryResponse HL7 type of response received.
+     * @param assertion Assertion received.
+     */
+
+    @Override
+    public void addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords, AssertionType assertion) {
+
+        //Do nothing because there isn't an implementation.
     }
 
 }

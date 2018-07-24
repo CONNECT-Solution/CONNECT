@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201309UV02;
@@ -35,6 +36,7 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 /**
  *
  * @author jhoppesc
+ *
  */
 public interface PatientCorrelationProxy {
 
@@ -44,8 +46,8 @@ public interface PatientCorrelationProxy {
      * @param assertion Assertion received.
      * @return PatientCorrelationresponse.
      */
-     RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request,
-            AssertionType assertion);
+    RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request,
+        AssertionType assertion);
 
     /**
      * This method add PatientCorrelations to database.
@@ -53,6 +55,9 @@ public interface PatientCorrelationProxy {
      * @param assertion Assertion received.
      * @return PatientCorrelationResponse.
      */
-     AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 request, AssertionType assertion);
+    AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 request, AssertionType assertion);
+
+    void addPatientCorrelationPLQ(PatientLocationQueryResponseType plqRecords,
+        AssertionType assertion);
 
 }

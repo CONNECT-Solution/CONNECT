@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -33,7 +33,6 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.SOAPBinding;
-
 import org.hl7.v3.AddPatientCorrelationPLQRequestType;
 import org.hl7.v3.AddPatientCorrelationRequestType;
 import org.hl7.v3.AddPatientCorrelationResponseType;
@@ -47,7 +46,7 @@ import org.hl7.v3.SimplePatientCorrelationResponseType;
  */
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class PatientCorrelationServiceUnsecured implements
-    gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationPortType {
+gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationPortType {
 
     @Resource
     private WebServiceContext context;
@@ -93,10 +92,14 @@ public class PatientCorrelationServiceUnsecured implements
         return extractor.getOrCreateAsyncMessageId(context);
     }
 
-	@Override
-	public SimplePatientCorrelationResponseType addPatientCorrelationPLQ(AddPatientCorrelationPLQRequestType arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public SimplePatientCorrelationResponseType addPatientCorrelationPLQ(AddPatientCorrelationPLQRequestType request) {
+        SimplePatientCorrelationResponseType response = new SimplePatientCorrelationResponseType();
+        PatientCorrelationPLQHelper.addPatientCorrelationPLQRecords(request.getPatientLocationQueryResponse());
+        response.setMessage("Response has been received and processed.");
+
+        return response;
+
+    }
 
 }
