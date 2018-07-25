@@ -35,6 +35,7 @@ import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 
 public class NhinPatientLocationQueryProxyNoOpImpl implements NhinPatientLocationQueryProxy {
+
     @NwhinInvocationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
         afterReturningBuilder = DefaultEventDescriptionBuilder.class,
         serviceType = "Patient Location Query", version = "1.0")

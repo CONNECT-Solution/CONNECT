@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientlocationquery.v10.entity;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.entitypatientlocationquery.EntityPatientLocationQueryPortType;
@@ -59,7 +60,8 @@ public class EntityPatientLocationQueryUnsecured extends BaseService implements 
     public RespondingGatewayPatientLocationQueryResponseType respondingGatewayPatientLocationQuery(
         RespondingGatewayPatientLocationQueryRequestType request) {
 
-        return getOutboundPLQ().processPatientLocationQuery(request.getPatientLocationQueryRequest(), request.getAssertion(),
+        AssertionType assertion = getAssertion(context, request.getAssertion());
+        return getOutboundPLQ().processPatientLocationQuery(request.getPatientLocationQueryRequest(), assertion,
             request.getNhinTargetCommunities());
     }
 
