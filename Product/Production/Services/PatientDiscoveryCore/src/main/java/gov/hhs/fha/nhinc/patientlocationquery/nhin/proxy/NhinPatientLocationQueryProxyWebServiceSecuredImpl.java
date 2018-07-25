@@ -67,15 +67,19 @@ public class NhinPatientLocationQueryProxyWebServiceSecuredImpl implements NhinP
         PatientLocationQueryResponseType response = new PatientLocationQueryResponseType();
 
         try {
-            NhinTargetSystemType nhinTargetSystemType = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targetSystem);
-            String url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(nhinTargetSystemType,NhincConstants.PLQ_NHIN_SERVICE_NAME, apiLevel);
+            NhinTargetSystemType nhinTargetSystemType = MessageGeneratorUtils.getInstance().
+                convertFirstToNhinTargetSystemType(targetSystem);
+            String url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(nhinTargetSystemType,
+                NhincConstants.PLQ_NHIN_SERVICE_NAME, apiLevel);
 
-            ServicePortDescriptor<RespondingGatewayPLQPortType> portDescriptor = new NhinPatientLocationQueryServicePortDescriptor();
+            ServicePortDescriptor<RespondingGatewayPLQPortType> portDescriptor
+                = new NhinPatientLocationQueryServicePortDescriptor();
 
-            CONNECTClient<RespondingGatewayPLQPortType> client = CONNECTClientFactory.getInstance().getCONNECTClientSecured(
-                portDescriptor, assertion, url,
-                targetSystem.getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId(),
-                NhincConstants.PLQ_NHIN_SERVICE_NAME);
+            CONNECTClient<RespondingGatewayPLQPortType> client = CONNECTClientFactory.getInstance().
+                getCONNECTClientSecured(
+                    portDescriptor, assertion, url,
+                    targetSystem.getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId(),
+                    NhincConstants.PLQ_NHIN_SERVICE_NAME);
 
             response = (PatientLocationQueryResponseType) client.invokePort(RespondingGatewayPLQPortType.class,
                 "respondingGatewayPatientLocationQuery", request);
