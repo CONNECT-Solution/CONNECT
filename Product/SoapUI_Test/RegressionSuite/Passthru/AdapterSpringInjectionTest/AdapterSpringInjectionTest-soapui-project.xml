@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="AdapterSpringInjectionTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="449331bb-af1f-4163-a65d-a91b4cb5a884" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="AdapterSpringInjectionTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.3.0" activeEnvironment="Default" id="449331bb-af1f-4163-a65d-a91b4cb5a884" xmlns:con="http://eviware.com/soapui/config">
   <con:description>When unsecured adapter endpoints are used, security headers should never be present and vice versa. These
 tests do the following:
 
@@ -801,7 +801,7 @@ tests do the following:
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquery}AdapterDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQueryUnsecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrieve}AdapterDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieve</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayRetrieve" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveResponse" inputName="RespondingGateway_CrossGatewayRetrieveRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieve</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquery}AdapterDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocQuery.wsdl" id="936870a1-798c-4b8f-a165-83c671271482" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQueryUnsecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="8ac66b52-c048-48a7-8b9a-8025f90b1480"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrieve}AdapterDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocRetrieve.wsdl" id="5bed552b-8d6e-4686-a33e-728ded5ab49f" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieve</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayRetrieve" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveResponse" inputName="RespondingGateway_CrossGatewayRetrieveRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="0ecdbdd4-1281-4ea4-8ea7-98ea224eba73"><con:settings/><con:call name="Request 1" id="ef656b01-d79a-43d6-b6ac-877c6359266b"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieve</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body>
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -1183,7 +1183,7 @@ tests do the following:
          </urn:assertion>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterdocretrieve/AdapterDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="Adapter_AdministrativeDistribution_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapteradmindistribution}Adapter_AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistribution</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistribution</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterdocretrieve/AdapterDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="Adapter_AdministrativeDistribution_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapteradmindistribution}Adapter_AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterAdminDist.wsdl" id="6b58143a-ffe6-4fbb-88ca-9605c3e70d3d" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistribution</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional" id="ed6851d5-fa1e-4ff1-b520-329447a83c22"><con:settings/><con:call name="Request 1" id="fa1f4588-386d-4dd2-ae32-f30f0c37c7dd"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistribution</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body>
       <urn:RespondingGateway_SendAlertMessage>
@@ -1657,7 +1657,7 @@ tests do the following:
          </urn:assertion>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage"/></con:call><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistribution</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage"/></con:call><con:call name="Request 1" id="6b267ef3-3e72-4adf-9ccb-a3e90f2e2088"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistribution</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body>
       <urn:RespondingGateway_SendAlertMessage>
@@ -2131,7 +2131,7 @@ tests do the following:
          </urn:assertion>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DocumentRegistry_Binding_Soap" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterComponentDocRegistry.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${DefaultHttpPort}/CONNECTAdapter/DocumentRegistry_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201301UV02" name="DocumentRegistry_PRPA_IN201301UV02" bindingOperationName="DocumentRegistry_PRPA_IN201301UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${DefaultHttpPort}/CONNECTAdapter/DocumentRegistry_Service</con:endpoint><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:hl7-org:v3:PRPA_IN201301UV02"/></con:call></con:operation><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201302UV02" name="DocumentRegistry_PRPA_IN201302UV02" bindingOperationName="DocumentRegistry_PRPA_IN201302UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201304UV02" name="DocumentRegistry_PRPA_IN201304UV02" bindingOperationName="DocumentRegistry_PRPA_IN201304UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RegisterDocumentSet-b" name="DocumentRegistry_RegisterDocumentSet-b" bindingOperationName="DocumentRegistry_RegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RegistryStoredQuery" name="DocumentRegistry_RegistryStoredQuery" bindingOperationName="DocumentRegistry_RegistryStoredQuery" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DocumentRepository_Binding" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterComponentDocRepository.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTAdapter/DocumentRepository_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b" name="DocumentRepository_ProvideAndRegisterDocumentSet-b" bindingOperationName="DocumentRepository_ProvideAndRegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTAdapter/DocumentRepository_Service</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:ihe:iti:xds-b:2007" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DocumentRegistry_Binding_Soap" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterComponentDocRegistry.wsdl" id="fc8da135-9704-4fe4-bf56-9924af943341" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${DefaultHttpPort}/CONNECTAdapter/DocumentRegistry_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201301UV02" name="DocumentRegistry_PRPA_IN201301UV02" bindingOperationName="DocumentRegistry_PRPA_IN201301UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="1ce8ad4c-1d62-438c-bc79-69e465889b8a"><con:settings/><con:call name="Request 1" id="86c46723-6610-43c0-a9db-01436a1cd2cc"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${DefaultHttpPort}/CONNECTAdapter/DocumentRegistry_Service</con:endpoint><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:hl7-org:v3:PRPA_IN201301UV02"/></con:call></con:operation><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201302UV02" name="DocumentRegistry_PRPA_IN201302UV02" bindingOperationName="DocumentRegistry_PRPA_IN201302UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" id="395f630c-9385-44bc-af5f-44c554aabfb6"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:hl7-org:v3:PRPA_IN201304UV02" name="DocumentRegistry_PRPA_IN201304UV02" bindingOperationName="DocumentRegistry_PRPA_IN201304UV02" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" id="5b96763e-603f-4e1a-a7e1-f2ebeb15fa98"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RegisterDocumentSet-b" name="DocumentRegistry_RegisterDocumentSet-b" bindingOperationName="DocumentRegistry_RegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" id="c961ce64-4657-407d-8feb-e2b810c911d0"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RegistryStoredQuery" name="DocumentRegistry_RegistryStoredQuery" bindingOperationName="DocumentRegistry_RegistryStoredQuery" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" id="c07c6911-229a-44cb-a713-927dc523021a"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DocumentRepository_Binding" type="wsdl" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterComponentDocRepository.wsdl" id="6a31ceb0-c90c-4757-8aac-d061d4b76916" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTAdapter/DocumentRepository_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b" name="DocumentRepository_ProvideAndRegisterDocumentSet-b" bindingOperationName="DocumentRepository_ProvideAndRegisterDocumentSet-b" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="9145d603-5f66-491d-aded-e77fecd6310b"><con:settings/><con:call name="Request 1" id="d2389b18-d2d6-485f-8bf3-c52b577013cd"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTAdapter/DocumentRepository_Service</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:ihe:iti:xds-b:2007" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body>
       <urn:ProvideAndRegisterDocumentSetRequest>
@@ -2161,7 +2161,7 @@ tests do the following:
          <urn:Document id="?">cid:278362480803</urn:Document>
       </urn:ProvideAndRegisterDocumentSetRequest>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b"/></con:call></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RetrieveDocumentSet" name="DocumentRepository_RetrieveDocumentSet" bindingOperationName="DocumentRepository_RetrieveDocumentSet" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTAdapter/DocumentRepository_Service</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:ihe:iti:xds-b:2007">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b"/></con:call></con:operation><con:operation isOneWay="false" action="urn:ihe:iti:2007:RetrieveDocumentSet" name="DocumentRepository_RetrieveDocumentSet" bindingOperationName="DocumentRepository_RetrieveDocumentSet" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="be13e3f0-67e0-4e8b-9536-bf8c5f735355"><con:settings/><con:call name="Request 1" id="87edbf32-f0dc-487c-adba-569c444cc7ad"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTAdapter/DocumentRepository_Service</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body>
       <urn:RetrieveDocumentSetRequest>
@@ -2174,7 +2174,7 @@ tests do the following:
          </urn:DocumentRequest>
       </urn:RetrieveDocumentSetRequest>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:RetrieveDocumentSet"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterComponentXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adaptercomponentxdr}AdapterComponentXDR_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterComponentXDR.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterComponentDocSubmissionUnsecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="ProvideAndRegisterDocumentSetb" bindingOperationName="ProvideAndRegisterDocumentSetb" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterComponentDocSubmissionUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:ihe:iti:2007:RetrieveDocumentSet"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterComponentXDR_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adaptercomponentxdr}AdapterComponentXDR_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterComponentXDR.wsdl" id="1bc444b2-badb-4c58-b705-ce4f8468bccf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterComponentDocSubmissionUnsecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="ProvideAndRegisterDocumentSetb" bindingOperationName="ProvideAndRegisterDocumentSetb" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="a9bf63b8-b561-4f96-a755-950306e92c89"><con:settings/><con:call name="Request 1" id="f16cbbaa-9c25-4ac8-b995-8c38883b279f"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterComponentDocSubmissionUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body>
       <urn:Adapter_ProvideAndRegisterDocumentSetRequest>
@@ -2575,7 +2575,7 @@ tests do the following:
          <urn:url>?</urn:url>
       </urn:Adapter_ProvideAndRegisterDocumentSetRequest>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adaptercomponentxdr:ProvideAndRegisterDocumentSet-b"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterComponentXDRResponse_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adaptercomponentxdrresponse}AdapterComponentXDRResponse_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterComponentXDRResponse.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterComponentXDRResponse_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="ProvideAndRegisterDocumentSet-bResponse" bindingOperationName="ProvideAndRegisterDocumentSet-bResponse" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterComponentXDRResponse_Service</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adaptercomponentxdr:ProvideAndRegisterDocumentSet-b"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterComponentXDRResponse_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adaptercomponentxdrresponse}AdapterComponentXDRResponse_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterComponentXDRResponse.wsdl" id="6b29e805-3ccc-4e71-aef2-4519dcdffb43" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterComponentXDRResponse_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="ProvideAndRegisterDocumentSet-bResponse" bindingOperationName="ProvideAndRegisterDocumentSet-bResponse" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="7031e3e1-c5a8-4716-86c6-a956f57ae88f"><con:settings/><con:call name="Request 1" id="46ce6338-8fad-4e0a-a811-5f7d4ce4f18e"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterComponentXDRResponse_Service</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body>
       <urn:AdapterRegistryResponse>
@@ -2964,7 +2964,7 @@ tests do the following:
          </urn:RegistryResponse>
       </urn:AdapterRegistryResponse>
    </soap:Body>
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adaptercomponentxdrresponse:XDRResponseInputMessage"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="AdapterDocQuerySecuredBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquerysecured}AdapterDocQuerySecuredBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocQuerySecured.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQuerySecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:adapterdocquerysecured:AdapterDocQueryRequestSecuredMessage" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="AdapterDocRetrieveSecuredBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievesecured}AdapterDocRetrieveSecuredBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocRetrieveSecured.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveSecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayRetrieve" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveSecuredResponse" inputName="RespondingGateway_CrossGatewayRetrieveSecuredRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="AdapterXDRSecured_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterxdrsecured}AdapterXDRSecured_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterXDRSecured.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionSecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="ProvideAndRegisterDocumentSetb" bindingOperationName="ProvideAndRegisterDocumentSetb" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="Adapter_AdministrativeDistributionSecured_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapteradmindistribution}Adapter_AdministrativeDistributionSecured_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterAdminDistSecured.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistributionSecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="SecuredAdapterSpringInjection" id="15648530-46ad-479d-a785-8ee44ec5cd39">
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adaptercomponentxdrresponse:XDRResponseInputMessage"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="AdapterDocQuerySecuredBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquerysecured}AdapterDocQuerySecuredBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocQuerySecured.wsdl" id="6c28066c-4645-4deb-8279-36ac7a411cd3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQuerySecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:adapterdocquerysecured:AdapterDocQueryRequestSecuredMessage" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" id="f4ef69f5-facc-441f-90a6-a8e7fcc123bc"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="AdapterDocRetrieveSecuredBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievesecured}AdapterDocRetrieveSecuredBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterDocRetrieveSecured.wsdl" id="2c9b3f70-236c-4ed1-9bf4-f92701bf882a" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveSecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayRetrieve" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveSecuredResponse" inputName="RespondingGateway_CrossGatewayRetrieveSecuredRequest" receivesAttachments="false" sendsAttachments="false" id="dd3a9527-54ee-4882-93b9-5e457a5b5bed"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="AdapterXDRSecured_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterxdrsecured}AdapterXDRSecured_Binding" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterXDRSecured.wsdl" id="2740fcdf-01a4-4038-aeeb-309d9d7fd8ff" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionSecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="ProvideAndRegisterDocumentSetb" bindingOperationName="ProvideAndRegisterDocumentSetb" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" id="5673484f-3489-40c1-bda9-da36c34afac0"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="200508" name="Adapter_AdministrativeDistributionSecured_Binding_Soap12" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapteradmindistribution}Adapter_AdministrativeDistributionSecured_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterAdminDistSecured.wsdl" id="490ddf1c-5a40-4a5e-b8db-c53264ab4444" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistributionSecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional" id="00b01733-d4c6-4afb-939d-a56b9d55bc8e"><con:settings/></con:operation></con:interface><con:testSuite name="SecuredAdapterSpringInjection" id="15648530-46ad-479d-a785-8ee44ec5cd39">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     
@@ -3356,7 +3356,7 @@ if(!runMock){
 </soap:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
-        <con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+        <con:assertion type="XPath Match" id="c0d6e673-0df3-4437-99b6-c58becccf115"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
 declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
 	//wsse:Security[1]/@soap:mustUnderstand="true"</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config>
       </con:testStep>
@@ -3403,7 +3403,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>true</con:value>
+          <con:value>false</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3636,14 +3636,14 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="mockresponse" name="mockDocQuerySecuredAdapter"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="update config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterDocQuerySecuredBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayQuery</con:operation><con:path>/AdapterDocQuerySecured</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+      </con:testStep><con:testStep type="mockresponse" name="mockDocQuerySecuredAdapter" id="df7b8347-33a5-4547-8bdb-c7a89b19fbb3"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="update config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterDocQuerySecuredBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayQuery</con:operation><con:path>/AdapterDocQuerySecured</con:path><con:port>1720</con:port><con:response id="71fb38b6-876d-488f-b949-87537ab85770"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
   <soap:Body>
     <ns3:AdhocQueryResponse xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success">
       <RegistryObjectList/>
     </ns3:AdhocQueryResponse>
   </soap:Body>
-</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match" id="82a0a9c6-09a7-4a01-ba2b-bcaaeb1977b4"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
 declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
 
 	//wsse:Security[1]/@soap:mustUnderstand="true"</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -3677,7 +3677,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>true</con:value>
+          <con:value>false</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3864,7 +3864,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="Mock Document Retrieve Secured Adapter"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterDocRetrieveSecuredBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:path>/AdapterDocRetrieveSecured</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:ihe:iti:xds-b:2007" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+      <con:testStep type="mockresponse" name="Mock Document Retrieve Secured Adapter" id="3a3d7b46-0a74-4b1c-9212-5f4e79a03267"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterDocRetrieveSecuredBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:path>/AdapterDocRetrieveSecured</con:path><con:port>1720</con:port><con:response id="270fa68d-204e-4401-a70b-4ca656bbca14"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:ihe:iti:xds-b:2007" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body>
       <urn:RetrieveDocumentSetResponse>
@@ -3899,7 +3899,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
          </urn:DocumentResponse>
       </urn:RetrieveDocumentSetResponse>
    </soap:Body>
-</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match" id="060ec807-5e09-4cb0-a121-250b827c84a6"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
 declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
 
 	//wsse:Security[1]/@soap:mustUnderstand="true"</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -3933,7 +3933,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>true</con:value>
+          <con:value>false</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4309,7 +4309,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="Mock Doc Submission Secured Adapter"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterXDRSecured_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:path>/AdapterDocSubmissionXDRSecured</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+      <con:testStep type="mockresponse" name="Mock Doc Submission Secured Adapter" id="b5035d6b-ee13-4986-ac16-5a792cd44512"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterXDRSecured_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:path>/AdapterDocSubmissionXDRSecured</con:path><con:port>1720</con:port><con:response id="e62200a6-d845-4152-b86a-b00a0ea0e9ec"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body>
       <urn:RegistryResponse status="?" requestId="?">
@@ -4329,7 +4329,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
          </urn:RegistryErrorList>
       </urn:RegistryResponse>
    </soap:Body>
-</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match" id="8316f755-279f-4ade-9d31-ba9dc44f1ab1"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
 declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
 
 	//wsse:Security[1]/@soap:mustUnderstand="true"</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -4359,7 +4359,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>true</con:value>
+          <con:value>false</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4598,7 +4598,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -4614,7 +4614,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
         </con:config>
       </con:testStep>
       
-      <con:testStep type="mockresponse" name="Mock AD Secured Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Adapter_AdministrativeDistributionSecured_Binding_Soap12</con:interface><con:operation>SendAlertMessage</con:operation><con:path>/AdapterAdminDistSecured</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent xsi:nil="true"/><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+      <con:testStep type="mockresponse" name="Mock AD Secured Response" id="dacc7f57-9183-4ba7-978d-d42a78c50315"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Adapter_AdministrativeDistributionSecured_Binding_Soap12</con:interface><con:operation>SendAlertMessage</con:operation><con:path>/AdapterAdminDistSecured</con:path><con:port>1720</con:port><con:response id="1295005a-7451-48d0-baae-e1331f78fa9a"><con:settings/><con:responseContent xsi:nil="true"/><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
@@ -4651,14 +4651,14 @@ if(context.findProperty("PassThruOn").toBoolean()){
     <con:reportParameters/>
   </con:testSuite>
   
-  <con:testSuite name="UnsecuredAdapterSpringInjection">
+  <con:testSuite name="UnsecuredAdapterSpringInjection" id="ab201f18-6179-4385-92b1-08488ee0e96c">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     
     
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="9a7e226f-74d7-431f-b2d7-a00836f8d5af">
       <con:settings/>
-      <con:testStep name="clear correlations table" type="groovy">
+      <con:testStep name="clear correlations table" type="groovy" id="fcda6630-6d01-4ac1-ba36-db8d541f2dc6">
         <con:settings/>
         <con:config>
           <script>context.withSql('PatientCorrelationDB') { sql -> 
@@ -4666,7 +4666,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 			}</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Check Passthru">
+      <con:testStep type="groovy" name="Check Passthru" id="b68e8600-91f4-4c48-958c-fdb3435ab19c">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -4691,7 +4691,7 @@ if(passthruValue != null){
 	testRunner.gotoStepByName("Patient Discovery");
 }</script></con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Set Up PassThru">
+      <con:testStep type="groovy" name="Set Up PassThru" id="98a634bc-aaef-40c6-b111-390e80a61a34">
         <con:settings/>
         <con:config><script>log.info "Setting Patient Discovery Adapter to unsecured";
 def dir = context.findProperty('GatewayPropDir');
@@ -4709,7 +4709,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);</script></con:config>
       </con:testStep>
-      <con:testStep name="Patient Discovery" type="request">
+      <con:testStep name="Patient Discovery" type="request" id="449c3fc7-7017-4efd-be9c-f302a8b39a3a">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
@@ -4916,7 +4916,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="groovy" name="Skip Mock">
+      <con:testStep type="groovy" name="Skip Mock" id="435b74db-bf38-49f2-96ae-e73a462fa3a8">
         <con:settings/>
         <con:config>
           <script>def runMock = context.findProperty("PassThruOn").toBoolean();
@@ -4926,7 +4926,7 @@ if(!runMock){
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="Mock Response">
+      <con:testStep type="mockresponse" name="Mock Response" id="e53e9088-63e2-4d15-911a-3eb385152956">
         <con:settings/>
         <con:config xsi:type="con:MockResponseStep" startStep="Set Up PassThru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPatientDiscoveryBindingSoap</con:interface>
@@ -5052,11 +5052,11 @@ if(!runMock){
 </soap:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
-        <con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+        <con:assertion type="XPath Match" id="44765268-976f-42fd-9406-c0f2e1650ac5"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
 declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
 	//wsse:Security[1]/@soap:mustUnderstand="true"</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config>
       </con:testStep>
-      <con:testStep name="count correlations" type="groovy">
+      <con:testStep name="count correlations" type="groovy" id="2632cbce-52d4-47eb-bfbf-168efcc91103">
         <con:settings/>
         <con:config>
           <script>def pdCorrelations = 1;
@@ -5108,7 +5108,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
     
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="11c12736-8b6f-48cf-a3d2-8ee2b0ff1735">
       <con:settings/>
-      <con:testStep type="groovy" name="Check Passthru">
+      <con:testStep type="groovy" name="Check Passthru" id="4c4828e4-6852-4f8f-abf2-35602324bcfa">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -5144,7 +5144,7 @@ def replaceAlias = 'adapterdocquerywsunsecured';
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml",
 	alias, aliasName, replaceAlias, log);</script></con:config>
       </con:testStep>
-      <con:testStep name="update config" type="groovy">
+      <con:testStep name="update config" type="groovy" id="fb7290e8-9f78-4b64-aa93-7f8346f32096">
         <con:settings/>
         <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);
 def dir = context.findProperty('GatewayPropDir');
@@ -5154,7 +5154,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocquery", "http://localhost:1720/AdapterDocQuery", "2.0",
 	log);</script></con:config>
       </con:testStep>
-      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy" id="c5064043-1db5-4322-b305-117d5a8a5949">
         <con:settings/>
         <con:config>
           <script>context.withSql('PatientCorrelationDB') { sql -> 
@@ -5172,7 +5172,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 		}</script>
         </con:config>
       </con:testStep>
-      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy" id="b0fbca7f-6d09-4dfd-bf56-1d34b639dc26">
         <con:settings/>
         <con:config>
           <script>context.withSql('AAMappingDB') { sql -> 
@@ -5189,7 +5189,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
         </con:config>
       </con:testStep>
       
-      <con:testStep name="Document Query" type="request">
+      <con:testStep name="Document Query" type="request" id="ed4447c9-4fa7-4ab0-96d6-a7a4fa2005c4">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -5344,21 +5344,21 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="mockresponse" name="mockdocqueryadapter"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="update config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterDocQueryBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayQuery</con:operation><con:path>/AdapterDocQuery</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+      </con:testStep><con:testStep type="mockresponse" name="mockdocqueryadapter" id="d55bbdd6-4626-4615-8923-80c6c8c2fa0b"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="update config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterDocQueryBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayQuery</con:operation><con:path>/AdapterDocQuery</con:path><con:port>1720</con:port><con:response id="deac6f50-05a6-427c-9964-2d0cbbe4d84f"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
   <soap:Header/>
   <soap:Body>
     <urn:AdhocQueryResponse xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" requestId="1" startIndex="0" totalResultCount="0">
-      <ns2:ResponseSlotList>
+      <urn2:ResponseSlotList>
         <!--Zero or more repetitions:-->
         <urn2:Slot name="?" slotType="?">
           <urn2:ValueList>
             <urn2:Value>?</urn2:Value>
           </urn2:ValueList>
         </urn2:Slot>
-      </urn1:ResponseSlotList>
+      </urn2:ResponseSlotList>
     </urn:AdhocQueryResponse>
   </soap:Body>
-</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match" id="272b437e-cb4a-46d9-8867-21b40172b7d1"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-
 secext-1.0.xsd"
 declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
 
@@ -5400,7 +5400,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="f19f84c8-f98d-4fc2-8429-b2a30055d98a">
       <con:settings/>
-      <con:testStep type="groovy" name="Check Passthru">
+      <con:testStep type="groovy" name="Check Passthru" id="1c1473fa-8c4c-452b-b50b-74de960d874c">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -5441,7 +5441,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterdocretrieve", "http://localhost:1720/AdapterDocRetrieve", "2.0",
 	log);</script></con:config>
       </con:testStep>
-      <con:testStep name="Document Retrieve" type="request">
+      <con:testStep name="Document Retrieve" type="request" id="523ff1cc-831e-444a-9dff-02f2de075e59">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocRetrieveBindingSoap</con:interface>
@@ -5590,7 +5590,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="mockdocretrieve"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:path>/AdapterDocRetrieve</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:ihe:iti:xds-b:2007" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+      <con:testStep type="mockresponse" name="mockdocretrieve" id="a23b4baa-d98b-4533-850d-2829d2b29c38"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterDocRetrieveBindingSoap</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:path>/AdapterDocRetrieve</con:path><con:port>1720</con:port><con:response id="88ccad1c-17d4-4c6b-8bdd-73270aa4f818"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:ihe:iti:xds-b:2007" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body>
       <urn:RetrieveDocumentSetResponse>
@@ -5625,7 +5625,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
          </urn:DocumentResponse>
       </urn:RetrieveDocumentSetResponse>
    </soap:Body>
-</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match" id="d819e1d6-9122-4791-a614-99ecf3d383ae"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-
 secext-1.0.xsd"
 declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
 
@@ -5667,7 +5667,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="1c8ddbe2-6bdd-4d5a-89b8-1c9ebb9bb617">
       <con:settings/>
-      <con:testStep type="groovy" name="Check Passthru">
+      <con:testStep type="groovy" name="Check Passthru" id="79847b6a-f851-4b65-8c89-73f8fd6648a0">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -5708,7 +5708,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapterxdr", "http://localhost:1720/AdapterDocSubmissionXDR", "2.0",
 	log);</script></con:config>
       </con:testStep>
-      <con:testStep name="Doc Submission" type="request">
+      <con:testStep name="Doc Submission" type="request" id="925a87c8-e7e3-4364-9ec3-4e8386a25e05">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityXDR_Binding</con:interface>
@@ -6045,7 +6045,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="mockdocsubmissionXDR"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterComponentXDR_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:path>/AdapterDocSubmissionXDR</con:path><con:port>1720</con:port><con:response><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@encode_attachments">false</con:setting></con:settings><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+      <con:testStep type="mockresponse" name="mockdocsubmissionXDR" id="3735357d-9c4d-49dc-9540-54a19a789f21"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterComponentXDR_Binding</con:interface><con:operation>ProvideAndRegisterDocumentSetb</con:operation><con:path>/AdapterDocSubmissionXDR</con:path><con:port>1720</con:port><con:response id="af800c3d-f2cf-4ab8-a43f-2703ceca4638"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@encode_attachments">false</con:setting></con:settings><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body>
       <urn:RegistryResponse status="?" requestId="?">
@@ -6065,7 +6065,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
          </urn:RegistryErrorList>
       </urn:RegistryResponse>
    </soap:Body>
-</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match" id="5750b372-42de-400f-8041-813abe2dfcff"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-
 secext-1.0.xsd"
 declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
 
@@ -6103,7 +6103,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
     </con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="ae54eee0-ba92-4b8b-8830-4af94a834de1">
       <con:settings/>
-      <con:testStep type="groovy" name="Check Passthru">
+      <con:testStep type="groovy" name="Check Passthru" id="6aab8205-bdac-465b-85b9-640c8ad1a421">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -6143,7 +6143,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
 	"adapteradmindist", "http://localhost:1720/AdapterAD", "2.0",
 	log);</script></con:config>
       </con:testStep>
-      <con:testStep name="Admin Distribution" type="request">
+      <con:testStep name="Admin Distribution" type="request" id="033ecec4-7984-4602-9856-664fae89bccc">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdministrativeDistribution_Binding_Soap12_g1</con:interface>
@@ -6355,13 +6355,13 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep type="delay" name="Delay">
+      <con:testStep type="delay" name="Delay" id="9afad7dd-e493-4ce9-96d0-36a623a876ff">
         <con:settings/>
         <con:config>
           <delay>10000</delay>
         </con:config>
       </con:testStep>
-      <con:testStep type="mockresponse" name="Mock AD Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Adapter_AdministrativeDistribution_Binding_Soap12</con:interface><con:operation>SendAlertMessage</con:operation><con:path>/AdapterAD</con:path><con:port>1720</con:port><con:response><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@encode_attachments">false</con:setting></con:settings><con:responseContent xsi:nil="true"/><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-
+      <con:testStep type="mockresponse" name="Mock AD Response" id="bb12a1c3-d23a-4b11-8362-944b1da0019d"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Check Passthru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Adapter_AdministrativeDistribution_Binding_Soap12</con:interface><con:operation>SendAlertMessage</con:operation><con:path>/AdapterAD</con:path><con:port>1720</con:port><con:response id="2cd2f2c6-d2c1-4c49-af48-eac930c295ed"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockResponse@encode_attachments">false</con:setting></con:settings><con:responseContent xsi:nil="true"/><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match" id="48ecb7ce-c90b-4311-ba6c-b78da3996b6d"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-
 secext-1.0.xsd"
 declare namespace soap="http://www.w3.org/2003/05/soap-envelope"
 
