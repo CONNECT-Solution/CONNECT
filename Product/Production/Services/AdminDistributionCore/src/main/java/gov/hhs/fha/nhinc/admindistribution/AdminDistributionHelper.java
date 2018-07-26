@@ -146,7 +146,7 @@ public class AdminDistributionHelper {
      */
     public String getAdapterUrl(String adapterServcice, NhincConstants.ADAPTER_API_LEVEL adapterApiLevel) {
         try {
-            return InternalExchangeManager.getInstance().getEndpointURL(null, adapterServcice, adapterApiLevel);
+            return InternalExchangeManager.getInstance().getEndpointURL(adapterServcice, adapterApiLevel);
         } catch (ExchangeManagerException ex) {
             LOG.error("Error: Failed to retrieve url for service {}: {}",
                 NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME, ex.getLocalizedMessage(), ex);
