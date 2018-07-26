@@ -5348,14 +5348,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
   <soap:Header/>
   <soap:Body>
     <urn:AdhocQueryResponse xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" requestId="1" startIndex="0" totalResultCount="0">
-      <urn2:ResponseSlotList>
-        <!--Zero or more repetitions:-->
-        <urn2:Slot name="?" slotType="?">
-          <urn2:ValueList>
-            <urn2:Value>?</urn2:Value>
-          </urn2:ValueList>
-        </urn2:Slot>
-      </urn2:ResponseSlotList>
+      <urn2:RegistryObjectList/>
     </urn:AdhocQueryResponse>
   </soap:Body>
 </soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match" id="272b437e-cb4a-46d9-8867-21b40172b7d1"><con:configuration><path>declare namespace wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-
