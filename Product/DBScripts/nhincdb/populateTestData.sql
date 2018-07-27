@@ -119,7 +119,7 @@ INSERT INTO docregistry VALUES (42,'1.123402.22222','Schnur CONNECT TESTGATEWAY 
 
 UNLOCK TABLES;
 
-USE patientcorrelationdb;
+USE patientdb;
 LOCK TABLES recordlocatorservice WRITE;
 
 INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N233','111222','1.1');

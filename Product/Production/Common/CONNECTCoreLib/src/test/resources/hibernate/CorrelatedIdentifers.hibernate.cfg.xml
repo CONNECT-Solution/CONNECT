@@ -25,7 +25,6 @@
 		
         <mapping resource="CorrelatedIdentifers.hbm.xml"/>
         <mapping resource="PDDeferredCorrelation.hbm.xml"/>
-        <mapping resource="RecordLocatorService.hbm.xml"/>
 
     </session-factory>
 

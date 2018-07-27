@@ -348,14 +348,6 @@ CREATE TABLE IF NOT EXISTS patientcorrelationdb.pddeferredcorrelation (
     PRIMARY KEY (Id)
 );
 
-CREATE TABLE IF NOT EXISTS patientcorrelationdb.recordlocatorservice (
-    Id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-    RequestedPatientId VARCHAR(128) NOT NULL,
-    PatientId VARCHAR(128) NOT NULL,
-    AssigningAuthorityId VARCHAR(64) NOT NULL,
-    PRIMARY KEY (Id)
-);
-
 GRANT SELECT,INSERT,UPDATE,DELETE ON patientcorrelationdb.* to nhincuser;
 -- end patientcorrelationdb
 
@@ -473,6 +465,14 @@ CREATE TABLE IF NOT EXISTS patientdb.phonenumber (
         ON DELETE NO ACTION
         ON UPDATE NO ACTION
 ) COMMENT = 'Phone Numbers';
+
+CREATE TABLE IF NOT EXISTS patientdb.recordlocatorservice (
+    Id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    RequestedPatientId VARCHAR(128) NOT NULL,
+    PatientId VARCHAR(128) NOT NULL,
+    AssigningAuthorityId VARCHAR(64) NOT NULL,
+    PRIMARY KEY (Id)
+);
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON patientdb.* to nhincuser;
 -- end patientdb

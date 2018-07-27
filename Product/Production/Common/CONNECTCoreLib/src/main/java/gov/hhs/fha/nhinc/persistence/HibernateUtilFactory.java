@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -49,6 +49,7 @@ public class HibernateUtilFactory {
     private static gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil docRepoHibernateUtil;
     private static gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil patientCorrHibernateUtil;
     private static gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil msgMonitorHibernateUtil;
+    private static gov.hhs.fha.nhinc.patientdiscovery.persistence.HibernateUtil patientDiscoveryHibernateUtil;
 
     /**
      * Private constructor to hide the public one.
@@ -66,7 +67,7 @@ public class HibernateUtilFactory {
     private static class ClassPathSingleton {
 
         public static final ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext(
-                new String[] { "classpath:CONNECT-context.xml" });
+            new String[] { "classpath:CONNECT-context.xml" });
 
         private ClassPathSingleton() {
         }
@@ -83,7 +84,7 @@ public class HibernateUtilFactory {
         LOG.debug("Memory address transactionHibernateUtil {}", context.getId());
         if (transactionHibernateUtil == null) {
             transactionHibernateUtil = context.getBean(NhincConstants.TRANSACTION_HIBERNATE_BEAN,
-                    gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil.class);
+                gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil.class);
         }
         return transactionHibernateUtil;
     }
@@ -94,7 +95,7 @@ public class HibernateUtilFactory {
         LOG.debug("Memory address eventHibernateUtil {}", context.getId());
         if (eventHibernateUtil == null) {
             eventHibernateUtil = context.getBean(NhincConstants.EVENT_HIBERNATE_BEAN,
-                    gov.hhs.fha.nhinc.event.persistence.HibernateUtil.class);
+                gov.hhs.fha.nhinc.event.persistence.HibernateUtil.class);
         }
         return eventHibernateUtil;
     }
@@ -109,7 +110,7 @@ public class HibernateUtilFactory {
 
         if (asyncMsgsHibernateUtil == null) {
             asyncMsgsHibernateUtil = context.getBean(NhincConstants.ASYNC_MSG_HIBERNATE_BEAN,
-                    gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil.class);
+                gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil.class);
         }
 
         return asyncMsgsHibernateUtil;
@@ -127,7 +128,7 @@ public class HibernateUtilFactory {
 
         if (connManHibernateUtil == null) {
             connManHibernateUtil = context.getBean(NhincConstants.CONNECTION_HIBERNATE_BEAN,
-                    gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil.class);
+                gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil.class);
         }
         return connManHibernateUtil;
     }
@@ -143,7 +144,7 @@ public class HibernateUtilFactory {
         LOG.debug("Memory address getDocRepoHibernateUtil {}", context.getId());
         if (docRepoHibernateUtil == null) {
             docRepoHibernateUtil = context.getBean(NhincConstants.DOCREPO_HIBERNATE_BEAN,
-                    gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil.class);
+                gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil.class);
         }
         return docRepoHibernateUtil;
     }
@@ -159,7 +160,7 @@ public class HibernateUtilFactory {
         LOG.debug("Memory address getPatientCorrHibernateUtil {}", context.getId());
         if (patientCorrHibernateUtil == null) {
             patientCorrHibernateUtil = context.getBean(NhincConstants.PATIENT_CORR_HIBERNATE_BEAN,
-                    gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil.class);
+                gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil.class);
         }
         return patientCorrHibernateUtil;
     }
@@ -175,9 +176,20 @@ public class HibernateUtilFactory {
         LOG.debug("Memory address geMsgMonitorHibernateUtil {}", context.getId());
         if (msgMonitorHibernateUtil == null) {
             msgMonitorHibernateUtil = context.getBean(NhincConstants.MSG_MONITOR_HIBERNATE_BEAN,
-                    gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil.class);
+                gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil.class);
         }
         return msgMonitorHibernateUtil;
+    }
+
+    public static gov.hhs.fha.nhinc.patientdiscovery.persistence.HibernateUtil getPatientDiscoveryHibernateUtil() {
+        ClassPathXmlApplicationContext context = ClassPathSingleton.CONTEXT;
+
+        LOG.debug("Memory address getPatientDiscoveryHibernateUtil {}", context.getId());
+        if (patientDiscoveryHibernateUtil == null) {
+            patientDiscoveryHibernateUtil = context.getBean(NhincConstants.PATIENT_DISCOVERY_HIBERNATE_BEAN,
+                gov.hhs.fha.nhinc.patientdiscovery.persistence.HibernateUtil.class);
+        }
+        return patientDiscoveryHibernateUtil;
     }
 
 }
