@@ -78,7 +78,7 @@ public class RecordLocationServiceDAO {
     protected static Session getSession() {
         Session session = null;
         try {
-            session = HibernateUtilFactory.getPatientCorrHibernateUtil()
+            session = HibernateUtilFactory.getPatientDiscoveryHibernateUtil()
                 .getSessionFactory()
                 .openSession();
         } catch (HibernateException e) {
