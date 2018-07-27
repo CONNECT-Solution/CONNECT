@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -53,14 +53,14 @@ public class AdapterComponentDocRepositoryProxyBeanImpl implements AdapterCompon
 
     @Override
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType request,
-            AssertionType assertion) {
+        AssertionType assertion) {
         LOG.debug("Using Bean Implementation for Adapter Component Doc Repository Service");
         return createRetrieveDocumentSetResponseType();
     }
 
     @Override
     public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion) {
+        AssertionType assertion) {
         LOG.debug("Using Bean Implementation for Adapter Component Doc Repository Service");
         return new RegistryResponseType();
     }
@@ -70,6 +70,7 @@ public class AdapterComponentDocRepositoryProxyBeanImpl implements AdapterCompon
     }
 
     public void setRepositoryUniqueId(String repositoryId) {
+        /* This is a test. */
         this.repositoryId = repositoryId;
     }
 
@@ -92,20 +93,20 @@ public class AdapterComponentDocRepositoryProxyBeanImpl implements AdapterCompon
         registryResponse.setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
 
         DocumentResponse documentResponse = new DocumentResponse();
-        if (this.hcid != null) {
+        if (hcid != null) {
             documentResponse.setHomeCommunityId(hcid);
         }
-        if (this.repositoryId != null) {
-            documentResponse.setRepositoryUniqueId(this.repositoryId);
+        if (repositoryId != null) {
+            documentResponse.setRepositoryUniqueId(repositoryId);
         }
-        if (this.documentUniqueId != null) {
-            documentResponse.setDocumentUniqueId(this.documentUniqueId);
+        if (documentUniqueId != null) {
+            documentResponse.setDocumentUniqueId(documentUniqueId);
         }
-        if (this.mimeType != null) {
+        if (mimeType != null) {
             documentResponse.setMimeType(mimeType);
         }
-        if (this.document != null) {
-            documentResponse.setDocument(LargeFileUtils.getInstance().convertToDataHandler(this.document));
+        if (document != null) {
+            documentResponse.setDocument(LargeFileUtils.getInstance().convertToDataHandler(document));
         }
 
         response.setRegistryResponse(registryResponse);

@@ -4,7 +4,7 @@
         <artifactId>Product</artifactId>
         <version>5.2.0-SNAPSHOT</version>
     </parent>
-
+	<!-- ci_merge jenkins test -->
     <artifactId>SoapUI_Test</artifactId>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
