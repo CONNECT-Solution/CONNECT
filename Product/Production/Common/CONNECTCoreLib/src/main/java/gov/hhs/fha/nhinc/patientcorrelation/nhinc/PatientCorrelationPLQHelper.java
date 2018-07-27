@@ -50,7 +50,7 @@ public class PatientCorrelationPLQHelper {
             if(null != rec.getCorrespondingPatientId() && null != rec.getRequestedPatientId()){
                 AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
                 CorrelatedIdentifiers newId = new CorrelatedIdentifiers();
-                newId.setRlsId(rec.getHomeCommunityId());
+                newId.setRlsId(rec.getRequestedPatientId().getRoot());
 
                 newId.setCorrelatedPatientId(rec.getCorrespondingPatientId().getExtension());
                 newId.setCorrelatedPatientAssigningAuthorityId(rec.getCorrespondingPatientId().getRoot());
