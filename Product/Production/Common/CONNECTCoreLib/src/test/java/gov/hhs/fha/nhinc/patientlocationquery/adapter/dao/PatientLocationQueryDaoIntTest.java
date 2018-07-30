@@ -35,10 +35,11 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.RecordLocatorService;
 import gov.hhs.fha.nhinc.patientlocationquery.dao.RecordLocationServiceDAO;
 import gov.hhs.fha.nhinc.test.DAOIntegrationTest;
 import java.util.List;
+import org.junit.Ignore;
 import org.junit.Test;
 
 //UnIgnore to run DAO Integration test which will use a MySQL DB connection.
-//@Ignore
+@Ignore
 public class PatientLocationQueryDaoIntTest extends DAOIntegrationTest {
 
     @Test
