@@ -27,8 +27,6 @@
 package gov.hhs.fha.nhinc.persistence;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -38,8 +36,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  */
 public class HibernateUtilFactory {
-
-    private static final Logger LOG = LoggerFactory.getLogger(HibernateUtilFactory.class);
 
     // HibernateUtil members for the utility classes belonging to CoreLib
     private static gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil transactionHibernateUtil;
