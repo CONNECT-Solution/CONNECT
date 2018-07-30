@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>InitServlet</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.gateway.servlet.InitServlet</servlet-class>
+        <servlet-class>gov.hhs.fha.nhinc.docquery._30.servlet.InitServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 

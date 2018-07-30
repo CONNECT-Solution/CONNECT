@@ -24,23 +24,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event.initiator;
+package gov.hhs.fha.nhinc.docquery._30.servlet;
 
-import gov.hhs.fha.nhinc.event.BaseEvent;
+import gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet;
+import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
+import gov.hhs.fha.nhinc.docquery.configuration.jmx.DocumentQuery30WebServices;
+import java.util.Collections;
+import java.util.Set;
+import javax.servlet.ServletContext;
 
 /**
- * @author zmelnick
- *
+ * @author paul.eftis, msw
  */
-abstract class InitiatorEvent extends BaseEvent {
+public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
 
-    public InitiatorEvent() {
-        super();
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = -4229185731377926278L;
+
+    @Override
+    public Set<WebServicesMXBean> getWebServiceMXBean(ServletContext sc) {
+        WebServicesMXBean bean = new DocumentQuery30WebServices(sc);
+        return Collections.singleton(bean);
     }
 
-    public InitiatorEvent(String messageID, String transactionID, String description) {
-        setMessageID(messageID);
-        setTransactionID(transactionID);
-        setDescription(description);
-    }
 }

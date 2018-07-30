@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
+import gov.hhs.fha.nhinc.patientdiscovery._10.servlet.InitServlet;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.OutboundPatientDiscovery;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
