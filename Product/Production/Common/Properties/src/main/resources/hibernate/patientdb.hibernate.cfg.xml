@@ -30,5 +30,6 @@
         <mapping resource="Identifier.hbm.xml"/>
         <mapping resource="Personname.hbm.xml"/>
         <mapping resource="Phonenumber.hbm.xml"/>
+        <mapping resource="RecordLocatorService.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
