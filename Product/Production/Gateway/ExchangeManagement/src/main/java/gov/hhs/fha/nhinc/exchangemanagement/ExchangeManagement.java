@@ -57,12 +57,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.exchange.OrganizationListType;
+import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeManagerUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -81,6 +84,7 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     private static final String ACT_SUCCESSFUL = "successful";
     private static final String ACT_FAIL = "fail";
     private static final String ACT_BUSY = "refresh locked";
+    private static final String ACT_HCID_SERVICENAME_MISSING = "HCID and ServiceName are required";
 
     private static final AssigningAuthorityHomeCommunityMappingDAO mappingDao
         = new AssigningAuthorityHomeCommunityMappingDAO();
@@ -88,46 +92,38 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     @Override
     public SimpleExchangeManagementResponseMessageType deleteExchange(DeleteExchangeRequestMessageType request) {
         LOG.trace("deleteExchange--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
         String exchangeName = request.getExchangeName();
 
         if (StringUtils.isBlank(exchangeName)) {
-            response.setMessage("ExchangeName is required");
-            return response;
+            return buildSimpleResponse(Boolean.FALSE, "ExchangeName is required");
         }
 
         if (getExchangeManager().isRefreshLocked()) {
-            response.setMessage(ACT_BUSY);
-            return response;
+            return buildSimpleResponse(Boolean.FALSE, ACT_BUSY);
         }
 
         try {
-            response.setStatus(getExchangeManager().deleteExchange(exchangeName));
+            return buildSimpleResponse(getExchangeManager().deleteExchange(exchangeName), ACT_SUCCESSFUL);
         } catch (ExchangeManagerException e) {
-            response.setMessage(ACT_FAIL);
             LOG.error("error during delete-exchange: {}", e.getLocalizedMessage(), e);
+            return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
-        return response;
     }
 
     @Override
     public SimpleExchangeManagementResponseMessageType saveExchange(SaveExchangeRequestMessageType request) {
         LOG.trace("saveExchange--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
 
         if (getExchangeManager().isRefreshLocked()) {
-            response.setMessage(ACT_BUSY);
-            return response;
+            return buildSimpleResponse(Boolean.FALSE, ACT_BUSY);
         }
 
         try {
-            response.setStatus(getExchangeManager().saveExchange(request.getExchange()));
+            return buildSimpleResponse(getExchangeManager().saveExchange(request.getExchange()), ACT_SUCCESSFUL);
         } catch (ExchangeManagerException e) {
-            response.setMessage(ACT_FAIL);
             LOG.error("error during save-exchange: {}", e.getLocalizedMessage(), e);
+            return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
-
-        return response;
     }
 
     @Override
@@ -147,18 +143,17 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     @Override
     public SimpleExchangeManagementResponseMessageType listOrganizations(ListOrganizationsRequestMessageType request) {
         LOG.trace("listOrganizations--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
-        String exchangeName = request.getExchangeName();
+        SimpleExchangeManagementResponseMessageType response;
+        String exchangeName = StringUtils.isBlank(request.getExchangeName()) ? null : request.getExchangeName().trim();
 
-        if (StringUtils.isNotBlank(exchangeName)) {
-            response.getOrganizationList().addAll(getExchangeManager().getAllOrganizationsBy(exchangeName));
-        } else {
-            try {
-                response.getOrganizationList().addAll(getExchangeManager().getAllOrganizations());
-            } catch (ExchangeManagerException ex) {
-                LOG.error("ListOrganizations--encounter error: {}", ex.getLocalizedMessage(), ex);
-                response.setMessage(ACT_FAIL);
-            }
+        try {
+            OrganizationListType orglist = buildOrganizationListType(getExchangeManager().getAllOrganizations(
+                exchangeName));
+            response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+            response.setOrganizationList(orglist);
+        } catch (ExchangeManagerException ex) {
+            LOG.error("ListOrganizations--encounter error: {}", ex.getLocalizedMessage(), ex);
+            response = buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
         return response;
     }
@@ -167,19 +162,21 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     public SimpleExchangeManagementResponseMessageType getOrganizationByHCID(
         GetOrganizationByHCIDRequestMessageType request) {
         LOG.trace("getOrganizationByHCID--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        SimpleExchangeManagementResponseMessageType response;
         String hcid = request.getHcid();
-
+        String exchangeName = StringUtils.isBlank(request.getExchangeName()) ? null : request.getExchangeName().trim();
         if (StringUtils.isBlank(hcid)) {
-            response.setMessage("HCID is required.");
-            return response;
+            return buildSimpleResponse(Boolean.FALSE, "HCID is required.");
         }
 
         try {
-            response.getOrganizationList().add(getExchangeManager().getOrganization(hcid));
+            OrganizationListType orglist = buildOrganizationListType(getExchangeManager().getOrganization(exchangeName,
+                hcid));
+            response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+            response.setOrganizationList(orglist);
         } catch (ExchangeManagerException ex) {
             LOG.error("getOrganizationByHCID encounter error: {}", ex.getLocalizedMessage(), ex);
-            response.setMessage(ACT_FAIL);
+            response = buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
 
         return response;
@@ -189,26 +186,21 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     public SimpleExchangeManagementResponseMessageType listOrganizationByHCIDList(
         ListOrganizationsByHCIDListRequestMessageType request) {
         LOG.trace("listOrganizationByHCIDList--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
-        Set<String> hcidSet = new HashSet<>();
-        hcidSet.addAll(request.getHcidList());
-
-        if (CollectionUtils.isEmpty(hcidSet)) {
-            response.setMessage("HCID is required.");
-            return response;
+        SimpleExchangeManagementResponseMessageType response;
+        String exchangeName = StringUtils.isBlank(request.getExchangeName()) ? null : request.getExchangeName().trim();
+        if (CollectionUtils.isEmpty(request.getHcidList())) {
+            return buildSimpleResponse(Boolean.FALSE, "HCID is required.");
         }
 
         try {
-            for (String hcid : hcidSet) {
-                if (StringUtils.isNotBlank(hcid)) {
-                    response.getOrganizationList().add(getExchangeManager().getOrganization(hcid));
-                }
-            }
+            OrganizationListType orglist = (buildOrganizationListType(getExchangeManager().getOrganizationSet(
+                request.getHcidList(), exchangeName)));
+            response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+            response.setOrganizationList(orglist);
         } catch (ExchangeManagerException ex) {
             LOG.error("listOrganizationByHCIDList encounter error: {}", ex.getLocalizedMessage(), ex);
-            response.setMessage(ACT_FAIL);
+            response = buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
-
         return response;
     }
 
@@ -216,20 +208,22 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     public SimpleExchangeManagementResponseMessageType getOrganizationByHCIDServiceName(
         GetOrganizationByHCIDServiceNameRequestMessageType request) {
         LOG.trace("getOrganizationByHCIDServiceName--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        SimpleExchangeManagementResponseMessageType response;
         String hcid = request.getHcid();
         String serviceName = request.getServiceName();
-
+        String exchangeName = StringUtils.isBlank(request.getExchangeName()) ? null : request.getExchangeName().trim();
         if (StringUtils.isBlank(hcid) || StringUtils.isBlank(serviceName)) {
-            response.setMessage("HCID and ServiceName are required");
-            return response;
+            return buildSimpleResponse(Boolean.FALSE, ACT_HCID_SERVICENAME_MISSING);
         }
 
         try {
-            response.getOrganizationList().add(getExchangeManager().getOrganizationByServiceName(hcid, serviceName));
+            OrganizationListType orglist = buildOrganizationListType(getExchangeManager().getOrganizationByServiceName(
+                hcid, serviceName, exchangeName));
+            response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+            response.setOrganizationList(orglist);
         } catch (ExchangeManagerException ex) {
             LOG.error("getOrganizationByHCIDServiceName encounter error: {}", ex.getLocalizedMessage(), ex);
-            response.setMessage(ACT_FAIL);
+            response = buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
         return response;
     }
@@ -238,21 +232,22 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     public SimpleExchangeManagementResponseMessageType listOrganizationsByHCIDServiceName(
         ListOrganizationsByHCIDServiceNameRequestMessageType request) {
         LOG.trace("listOrganizationsByHCIDServiceName--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        SimpleExchangeManagementResponseMessageType response;
         List<String> hcidList = getUniqueList(request.getHcidList());
         String serviceName = request.getServiceName();
-
+        String exchangeName = StringUtils.isBlank(request.getExchangeName()) ? null : request.getExchangeName().trim();
         if (CollectionUtils.isEmpty(hcidList) || StringUtils.isBlank(serviceName)) {
-            response.setMessage("HCID and ServiceName are required");
-            return response;
+            return buildSimpleResponse(Boolean.FALSE, ACT_HCID_SERVICENAME_MISSING);
         }
 
         try {
-            response.getOrganizationList()
-                .addAll(getExchangeManager().getOrganizationSetByServiceNameForHCID(hcidList, serviceName));
+            OrganizationListType orglist = buildOrganizationListType(getExchangeManager().
+                getOrganizationSetByServiceNameForHCID(hcidList, serviceName, exchangeName));
+            response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+            response.setOrganizationList(orglist);
         } catch (ExchangeManagerException ex) {
             LOG.error("listOrganizationsByHCIDServiceName encounter error: {}", ex.getLocalizedMessage(), ex);
-            response.setMessage(ACT_FAIL);
+            response = buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
         return response;
     }
@@ -261,20 +256,21 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     public SimpleExchangeManagementResponseMessageType listOrganizationsByServiceName(
         ListOrganizationsByServiceNameRequestMessageType request) {
         LOG.trace("listOrganizationsByServiceName--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        SimpleExchangeManagementResponseMessageType response;
         String serviceName = request.getServiceName();
-
+        String exchangeName = StringUtils.isBlank(request.getExchangeName()) ? null : request.getExchangeName().trim();
         if (StringUtils.isBlank(serviceName)) {
-            response.setMessage("ServiceName is required");
-            return response;
+            return buildSimpleResponse(Boolean.FALSE, "ServiceName is required");
         }
 
         try {
-            response.getOrganizationList().addAll(getExchangeManager().getAllOrganizationSetByServiceName(serviceName,
-                null));
+            OrganizationListType orglist = buildOrganizationListType(getExchangeManager().
+                getAllOrganizationSetByServiceName(serviceName, exchangeName));
+            response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+            response.setOrganizationList(orglist);
         } catch (ExchangeManagerException ex) {
             LOG.error("listOrganizationsByServiceName encounter error: {}", ex.getLocalizedMessage(), ex);
-            response.setMessage(ACT_FAIL);
+            response = buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
         return response;
     }
@@ -283,25 +279,22 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     public SimpleExchangeManagementResponseMessageType getEndpointUrlDefaultByServiceName(
         GetEndpointUrlDefaultByServiceNameRequestMessageType request) {
         LOG.trace("getEndpointUrlByServiceName--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        SimpleExchangeManagementResponseMessageType response;
         String serviceName = request.getServiceName();
         String hcid = request.getHcid();
-        String exchangeName = request.getExchangeName();
+        String exchangeName = StringUtils.isBlank(request.getExchangeName()) ? null : request.getExchangeName().trim();
 
         if (StringUtils.isBlank(hcid) || StringUtils.isBlank(serviceName)) {
-            response.setMessage("HCID and ServiceName is required");
-            return response;
-        }
-
-        if (StringUtils.isBlank(exchangeName)) {
-            exchangeName = null;
+            return buildSimpleResponse(Boolean.FALSE, ACT_HCID_SERVICENAME_MISSING);
         }
 
         try {
-            response.setUrl(getExchangeManager().getDefaultEndpointURL(hcid, serviceName, exchangeName));
+            String url = getExchangeManager().getDefaultEndpointURL(hcid, serviceName, exchangeName);
+            response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+            response.setUrl(url);
         } catch (ExchangeManagerException ex) {
             LOG.error("getEndpointUrlDefaultByServiceName encounter error: {}", ex.getLocalizedMessage(), ex);
-            response.setMessage(ACT_FAIL);
+            response = buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
         return response;
     }
@@ -310,19 +303,20 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     public SimpleExchangeManagementResponseMessageType getEndpointUrlInternalByServiceName(
         GetEndpointUrlInternalByServiceNameRequestMessageType request) {
         LOG.trace("getEndpointUrlInternalByServiceName--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        SimpleExchangeManagementResponseMessageType response;
         String serviceName = request.getServiceName();
 
         if (StringUtils.isBlank(serviceName)) {
-            response.setMessage("ServiceName is required");
-            return response;
+            return buildSimpleResponse(Boolean.FALSE, "ServiceName is required");
         }
 
         try {
-            response.setUrl(getInternalExchangeManager().getEndpointURL(serviceName));
+            String url = getInternalExchangeManager().getEndpointURL(serviceName);
+            response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+            response.setUrl(url);
         } catch (ExchangeManagerException ex) {
             LOG.error("getEndpointUrlInternalByServiceName encounter error: {}", ex.getLocalizedMessage(), ex);
-            response.setMessage(ACT_FAIL);
+            response = buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
         return response;
     }
@@ -331,20 +325,21 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     public SimpleExchangeManagementResponseMessageType getEndpointUrlByNhinTarget(
         GetEndpointUrlByNhinTargetRequestMessageType request) {
         LOG.trace("getEndpointUrlByNhinTarget--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        SimpleExchangeManagementResponseMessageType response;
         NhinTargetSystemType targetSystem = request.getNhinTargetSystem();
         String serviceName = request.getServiceName();
 
         if (null == targetSystem || StringUtils.isBlank(serviceName)) {
-            response.setMessage("NhinTargetSystem-element and ServiceName are required");
-            return response;
+            return buildSimpleResponse(Boolean.FALSE, "NhinTargetSystem-element and ServiceName are required");
         }
 
         try {
-            response.setUrl(getExchangeManager().getEndpointURLFromNhinTarget(targetSystem, serviceName));
+            String url = getExchangeManager().getEndpointURLFromNhinTarget(targetSystem, serviceName);
+            response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+            response.setUrl(url);
         } catch (ExchangeManagerException ex) {
             LOG.error("getEndpointUrlByNhinTarget encounter error: {}", ex.getLocalizedMessage(), ex);
-            response.setMessage(ACT_FAIL);
+            response = buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
         return response;
     }
@@ -375,20 +370,21 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     public SimpleExchangeManagementResponseMessageType getEndpointUrlByAdapter(
         GetEndpointUrlByAdapterRequestMessageType request) {
         LOG.trace("getEndpointUrlByAdapter--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        SimpleExchangeManagementResponseMessageType response;
         ADAPTER_API_LEVEL adapterLevel = ADAPTER_API_LEVEL.valueOf(request.getAdapterLevel());
         String serviceName = request.getServiceName();
 
         if (null == adapterLevel || StringUtils.isBlank(serviceName)) {
-            response.setMessage("adapterLevel and ServiceName are required");
-            return response;
+            return buildSimpleResponse(Boolean.FALSE, "adapterLevel and ServiceName are required");
         }
 
         try {
-            response.setUrl(getInternalExchangeManager().getEndpointURL(serviceName, adapterLevel));
+            String url = getInternalExchangeManager().getEndpointURL(serviceName, adapterLevel);
+            response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+            response.setUrl(url);
         } catch (ExchangeManagerException ex) {
             LOG.error("getEndpointUrlByAdapter encounter error: {}", ex.getLocalizedMessage(), ex);
-            response.setMessage(ACT_FAIL);
+            response = buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
         return response;
     }
@@ -397,14 +393,13 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     public SimpleExchangeManagementResponseMessageType getHomeCommunityIdByAssigningAuthorityId(
         GetHomeCommunityIdByAssigningAuthorityIdRequestMessageType request) {
         LOG.trace("getHomeCommunityIdByAssigningAuthorityId--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        SimpleExchangeManagementResponseMessageType response;
         String aaid = request.getAaId();
 
         if (StringUtils.isBlank(aaid)) {
-            response.setMessage("AssigningAuthorityId is required");
-            return response;
+            return buildSimpleResponse(Boolean.FALSE, "AssigningAuthorityId is required");
         }
-
+        response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
         response.setHcid(mappingDao.getHomeCommunityId(aaid));
         return response;
     }
@@ -413,14 +408,13 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     public SimpleExchangeManagementResponseMessageType getAssigningAuthoritiesByHCID(
         GetAssigningAuthoritiesByHCIDRequestMessageType request) {
         LOG.trace("getAssigningAuthoritiesByHCID--call");
-        SimpleExchangeManagementResponseMessageType response = newSimpleResponse();
+        SimpleExchangeManagementResponseMessageType response;
         String hcid = request.getHcid();
 
         if (StringUtils.isBlank(hcid)) {
-            response.setMessage("HomeCommunityId is required");
-            return response;
+            return buildSimpleResponse(Boolean.FALSE, "HomeCommunityId is required");
         }
-
+        response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
         response.getAaidList().addAll(getUniqueList(mappingDao.getAssigningAuthoritiesByHomeCommunity(hcid)));
         return response;
     }
@@ -450,10 +444,10 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
         return null;
     }
 
-    private static SimpleExchangeManagementResponseMessageType newSimpleResponse() {
+    private static SimpleExchangeManagementResponseMessageType buildSimpleResponse(Boolean status, String message) {
         SimpleExchangeManagementResponseMessageType retMsg = new SimpleExchangeManagementResponseMessageType();
-        retMsg.setStatus(false);
-        retMsg.setMessage(ACT_SUCCESSFUL);
+        retMsg.setStatus(status);
+        retMsg.setMessage(message);
         return retMsg;
     }
 
@@ -491,4 +485,21 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
         return retList;
     }
 
+    private static OrganizationListType buildOrganizationListType(Collection<OrganizationType> orgs) {
+        OrganizationListType orgListType = null;
+        if (CollectionUtils.isNotEmpty(orgs)) {
+            orgListType = new OrganizationListType();
+            orgListType.getOrganization().addAll(orgs);
+        }
+        return orgListType;
+    }
+
+    private static OrganizationListType buildOrganizationListType(OrganizationType org) {
+        OrganizationListType orgListType = null;
+        if (null != org) {
+            orgListType = new OrganizationListType();
+            orgListType.getOrganization().add(org);
+        }
+        return orgListType;
+    }
 }
