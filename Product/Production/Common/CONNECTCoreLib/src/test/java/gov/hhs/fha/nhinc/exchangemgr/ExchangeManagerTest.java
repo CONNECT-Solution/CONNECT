@@ -82,7 +82,7 @@ public class ExchangeManagerTest extends BaseExchangeManager {
             List<String> hcids = new ArrayList<>();
             hcids.add(HCID_1);
             hcids.add(HCID_2);
-            Set<OrganizationType> orgSet = exMgr.getOrganizationSet(hcids);
+            Set<OrganizationType> orgSet = exMgr.getOrganizationSet(hcids, null);
             assertEquals("DefaultExchange does not match", null, exMgr.getDefaultExchange());
             assertEquals("Search Result size not correct", hcids.size(), orgSet.size());
         } catch (ExchangeManagerException ex) {
