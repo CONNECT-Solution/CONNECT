@@ -59,7 +59,7 @@ public class PatientCorrelationPLQHelper {
 
     public static boolean addPatientCorrelationPLQRecords(PatientLocationQueryResponseType plqRecords) {
         CorrelatedIdentifiersDao dao = new CorrelatedIdentifiersDaoImpl();
-        boolean result = false;
+        AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
 
         if (null != plqRecords && CollectionUtils.isEmpty(plqRecords.getPatientLocationResponse())) {
             LOG.info("No Patient-Location-Response");
@@ -70,28 +70,28 @@ public class PatientCorrelationPLQHelper {
         String localAAID = getLocalAAID();
         if (StringUtils.isBlank(localAAID)) {
             LOG.error("local-AAID is blank.");
-            return result;
+            return false;
         }
         aaidList.add(localAAID);
 
         QualifiedPatientIdentifier qpIdentifier = getQualifiedPatientIdentifier(plqRecords);
         if (null == qpIdentifier) {
             LOG.error("RequestedPatientId is not found in the Patient-Location-Query records");
-            return result;
+            return false;
         }
 
         List<QualifiedPatientIdentifier> qList = dao.retrievePatientCorrelation(qpIdentifier, aaidList);
         if (CollectionUtils.isEmpty(qList)) {
             LOG.error("Local-QualifiedPatientIdentifier is not found for the RequestedPatient: {}, {}",
                 qpIdentifier.getPatientId(), qpIdentifier.getAssigningAuthorityId());
-            return result;
+            return false;
         }
 
         QualifiedPatientIdentifier localPatient = qList.get(0);
 
         for(PatientLocationResponse rec : plqRecords.getPatientLocationResponse()){
             if(null != rec.getCorrespondingPatientId() && null != rec.getRequestedPatientId()){
-                AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
+
                 CorrelatedIdentifiers newId = new CorrelatedIdentifiers();
                 newId.setRlsId(rec.getRequestedPatientId().getRoot());
 
@@ -106,12 +106,10 @@ public class PatientCorrelationPLQHelper {
 
                 dao.addPatientCorrelation(newId);
                 mappingDao.storeMapping(rec.getHomeCommunityId(), rec.getHomeCommunityId());
-                result = true;
             }
         }
 
-
-        return result;
+        return true;
 
     }
 
