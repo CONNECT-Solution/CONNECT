@@ -75,13 +75,14 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     }
 
     @Override
-    public Set<OrganizationType> getOrganizationSet(List<String> hcids) throws ExchangeManagerException {
+    public Set<OrganizationType> getOrganizationSet(List<String> hcids, String exchangeName) throws
+        ExchangeManagerException {
         if (hcids == null) {
             return null;
         }
         Set<OrganizationType> set = new HashSet<>();
         for (String hcid : hcids) {
-            OrganizationType org = getOrganization(hcid);
+            OrganizationType org = getOrganization(exchangeName, hcid);
             if (org != null) {
                 set.add(org);
             }
@@ -90,9 +91,9 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     }
 
     @Override
-    public OrganizationType getOrganizationByServiceName(String hcid, String sUniformServiceName) throws
-        ExchangeManagerException {
-        OrganizationType org = getOrganization(hcid);
+    public OrganizationType getOrganizationByServiceName(String hcid, String sUniformServiceName, String exchangeName)
+        throws ExchangeManagerException {
+        OrganizationType org = getOrganization(exchangeName, hcid);
         if (null != org && ExchangeManagerHelper.organizationHasService(org, sUniformServiceName)) {
             return org;
         }
@@ -101,13 +102,13 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
 
     @Override
     public Set<OrganizationType> getOrganizationSetByServiceNameForHCID(List<String> hcids,
-        String sUniformServiceName) throws ExchangeManagerException {
+        String sUniformServiceName, String exchangeName) throws ExchangeManagerException {
         if (hcids == null) {
             return null;
         }
         Set<OrganizationType> set = new HashSet<>();
         for (String hcid : hcids) {
-            OrganizationType org = getOrganization(hcid);
+            OrganizationType org = getOrganization(exchangeName, hcid);
             if (org != null && ExchangeManagerHelper.organizationHasService(org, sUniformServiceName)) {
                 set.add(org);
             }

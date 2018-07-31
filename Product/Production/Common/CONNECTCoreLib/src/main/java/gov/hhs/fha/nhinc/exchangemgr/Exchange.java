@@ -78,10 +78,12 @@ public interface Exchange<T> {
      * This method returns the Organization information for the list of home communities.
      *
      * @param hcids
+     * @param exchangeName
      * @return The Organizations found.
      * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      */
-    public Set<OrganizationType> getOrganizationSet(List<String> hcids) throws ExchangeManagerException;
+    public Set<OrganizationType> getOrganizationSet(List<String> hcids, String exchangeName) throws
+        ExchangeManagerException;
 
     /**
      * TODO ask and fix this method This method retrieves the Organizations that contains the specific home community
@@ -94,11 +96,12 @@ public interface Exchange<T> {
      *
      * @param hcid The home community ID of the gateway that is being looked up.
      * @param sUniformServiceName The name of the service to locate.
+     * @param exchangeName
      * @return Organization information along with only the requested service. if the service is not found, then null is
      * returned.
      * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      */
-    public OrganizationType getOrganizationByServiceName(String hcid, String sUniformServiceName)
+    public OrganizationType getOrganizationByServiceName(String hcid, String sUniformServiceName, String exchangeName)
         throws ExchangeManagerException;
 
     /**
@@ -112,12 +115,13 @@ public interface Exchange<T> {
      *
      * @param sahcid The home community IDs of the gateways that is being looked up.
      * @param sUniformServiceName The name of the service to locate.
+     * @param exchangeName
      * @return The Business Entity information along with only the requested service. If the service is not found, it
      * will not be returned even if the business entity information exists.
      * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      */
     public Set<OrganizationType> getOrganizationSetByServiceNameForHCID(List<String> sahcid,
-        String sUniformServiceName) throws ExchangeManagerException;
+        String sUniformServiceName, String exchangeName) throws ExchangeManagerException;
 
     /**
      * This method retrieves the business entity information and service information for the set of home communities
