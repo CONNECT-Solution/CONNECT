@@ -159,7 +159,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 
     protected Session getSession() {
         try{
-            session = HibernateUtilFactory.getPatientDiscoveryHibernateUtil().getSessionFactory().getCurrentSession();
+            session = HibernateUtilFactory.getPatientDiscoveryHibernateUtil().getSessionFactory().openSession();
         }catch(HibernateException e){
             LOG.error("Error getSession, while openSession: {}, {}",e.getMessage(), e);
         }
