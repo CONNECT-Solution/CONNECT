@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.exchangemgr;
 
+import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
+import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
+
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeListType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
@@ -40,8 +43,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
-import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -436,5 +437,25 @@ public class ExchangeManagerHelper {
 
     private static boolean isServiceNameMatch(String name) {
         return StringUtils.isNotBlank(name) && null != NhincConstants.NHIN_SERVICE_NAMES.fromValueString(name);
+    }
+
+    private static ExchangeType copyExchangeType(ExchangeType exchange) {
+        ExchangeType newEx = new ExchangeType();
+        newEx.setDisabled(exchange.isDisabled());
+        newEx.setKey(exchange.getKey());
+        newEx.setLastUpdated(exchange.getLastUpdated());
+        newEx.setName(exchange.getName());
+        newEx.setTLSVersions(exchange.getTLSVersions());
+        newEx.setType(exchange.getType());
+        newEx.setUrl(exchange.getUrl());
+        return newEx;
+    }
+
+    public static List<ExchangeType> copyExchangeTypeList(List<ExchangeType> exchangeList) {
+        List<ExchangeType> newList = new ArrayList<>();
+        for (ExchangeType exchange : exchangeList) {
+            newList.add(copyExchangeType(exchange));
+        }
+        return newList;
     }
 }

@@ -42,6 +42,7 @@ import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -79,6 +80,9 @@ public class ExchangeManagerBean {
     private List<OrganizationType> organizations;
     private List<ExchangeDownloadStatusType> exDownloadStatus;
     private List<ExchangeType> exchanges;
+
+    private List<ConnectionEndpoint> endpoints = new ArrayList<>();
+    private int cachedEndpointHashCode;
 
     @PostConstruct
     public void initialize() {
@@ -192,10 +196,7 @@ public class ExchangeManagerBean {
     }
 
     public List<ConnectionEndpoint> getConnectionEndpoints() {
-        if (StringUtils.isNotBlank(filterOrganization) && StringUtils.isNotBlank(filterExchange)) {
-            return exchangeService.getAllConnectionEndpoints(filterExchange, filterOrganization);
-        }
-        return new ArrayList<>();
+        return refreshCacheEndpoints(filterExchange, filterOrganization);
     }
 
     public boolean refreshOrganizations() {
@@ -366,5 +367,24 @@ public class ExchangeManagerBean {
             return builder.toString();
         }
         return DEFAULT_VALUE;
+    }
+
+    private static int getEndpointHashCode(String filterExchange, String filterOrganization) {
+        return Arrays.hashCode(new Object[] { filterExchange, filterOrganization });
+    }
+
+    private List<ConnectionEndpoint> refreshCacheEndpoints(String filterExchange, String filterOrganization) {
+        if(StringUtils.isBlank(filterOrganization) || StringUtils.isBlank(filterExchange)){
+            return endpoints;
+        }
+
+        if (cachedEndpointHashCode == getEndpointHashCode(filterExchange, filterOrganization)
+            && CollectionUtils.isNotEmpty(endpoints)) {
+            return endpoints;
+        }
+
+        endpoints = exchangeService.getAllConnectionEndpoints(filterExchange, filterOrganization);
+        cachedEndpointHashCode = getEndpointHashCode(filterExchange, filterOrganization);
+        return endpoints;
     }
 }
