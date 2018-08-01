@@ -10892,7 +10892,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
         </con:property>
       </con:properties>
     </con:testCase>
-    <con:testCase id="f95bf17b-ee3b-4feb-939c-476092a74c9c" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Location Query" searchProperties="true" disabled="true"><con:settings/><con:testStep type="groovy" name="Clear Audit Logs" id="40d53941-fd0e-49ce-903c-418405167b05">
+    <con:testCase id="f95bf17b-ee3b-4feb-939c-476092a74c9c" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Location Query" searchProperties="true"><con:settings/><con:testStep type="groovy" name="Clear Audit Logs" id="40d53941-fd0e-49ce-903c-418405167b05">
         <con:settings/>
         <con:config>
           <script>context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
