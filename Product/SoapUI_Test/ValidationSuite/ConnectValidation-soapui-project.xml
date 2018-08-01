@@ -2490,7 +2490,7 @@ if(passthruValue != null){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -4221,13 +4221,13 @@ context.withSql('PatientCorrelationDB') { sql ->
 	def sqlIns  = 'Insert into correlatedidentifiers (PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) values ("1.1", "D123401", "2.2", "38273N244")'
 	log.info "info--log: sql-insert: ${sqlIns}"
 	sql.execute(sqlIns)
-}</script></con:config></con:testStep><con:testStep type="request" name="Patient Location Query" id="d7a55af3-dfbd-48a9-a0d2-5d10cbe5b914"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityPatientLocationQueryBindingSoap</con:interface><con:operation>RespondingGateway_PatientLocationQuery</con:operation><con:request name="Patient Location Query" id="c6ddb16f-e527-4d8a-8575-b24c291df857"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientLocationQuery</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xcpd:2009" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+}</script></con:config></con:testStep><con:testStep type="request" name="Patient Location Query" id="d7a55af3-dfbd-48a9-a0d2-5d10cbe5b914"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityPatientLocationQueryBindingSoap</con:interface><con:operation>RespondingGateway_PatientLocationQuery</con:operation><con:request name="Patient Location Query" id="c6ddb16f-e527-4d8a-8575-b24c291df857"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientLocationQuery</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn2="urn:ihe:iti:xcpd:2009" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body>
       <urn:RespondingGateway_PatientLocationQueryRequest>
-         <urn1:PatientLocationQueryRequest>
-            <urn1:RequestedPatientId root="${#Project#RemoteAA}" extension="${#Project#PLQRequestPatientId}" />
-         </urn1:PatientLocationQueryRequest>
+         <urn2:PatientLocationQueryRequest>
+            <urn2:RequestedPatientId root="${#Project#RemoteAA}" extension="${#Project#PLQRequestPatientId}" />
+         </urn2:PatientLocationQueryRequest>
          <urn:assertion>
             <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
