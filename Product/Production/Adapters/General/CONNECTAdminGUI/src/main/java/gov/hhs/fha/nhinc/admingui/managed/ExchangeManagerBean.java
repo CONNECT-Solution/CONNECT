@@ -269,7 +269,7 @@ public class ExchangeManagerBean {
     }
 
     public boolean pingAllEndpoint() {
-        List<ConnectionEndpoint> endpoints = getConnectionEndpoints();
+        refreshCacheEndpoints(filterExchange, filterOrganization);
         if (CollectionUtils.isEmpty(endpoints)) {
             LOG.debug("ping-all connection-endpoints: none found.");
             return false;

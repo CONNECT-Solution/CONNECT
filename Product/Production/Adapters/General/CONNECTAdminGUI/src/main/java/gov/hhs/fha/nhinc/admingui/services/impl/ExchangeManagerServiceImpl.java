@@ -65,7 +65,6 @@ import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchangemanagement.EntityExchangeManagementPortType;
-import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -74,6 +73,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -85,7 +85,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExchangeManagerServiceImpl implements ExchangeManagerService {
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagerServiceImpl.class);
-    private final ExchangeManager exchangeManager = ExchangeManager.getInstance();
     private final PingService pingService = new PingServiceImpl();
     private static final String DATE_FORMAT = "MM-dd-yy hh:mm:ss";
     private static final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
@@ -289,13 +288,9 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         return new ArrayList<>();
     }
 
-    private void logDebug(String msg, Object... objects) {
+    private static void logDebug(String msg, Object... objects) {
         if (LOG.isDebugEnabled()) {
-            List<String> strList = new ArrayList<>();
-            for (Object item : objects) {
-                strList.add(item.toString());
-            }
-            LOG.debug("{}: {}", msg, String.join(", ", strList));
+            LOG.debug("{}: {}", msg, StringUtils.join(objects, ", "));
         }
     }
 }
