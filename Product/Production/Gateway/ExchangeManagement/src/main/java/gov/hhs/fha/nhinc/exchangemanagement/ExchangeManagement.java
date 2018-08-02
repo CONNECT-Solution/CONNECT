@@ -357,7 +357,7 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
         String serviceName = request.getServiceName();
 
         if (null == targets || StringUtils.isBlank(serviceName)) {
-            response.setMessage("Nhin-Targe-Communities and ServiceName are required.");
+            response.setMessage("Nhin-Target-Communities and ServiceName are required.");
             return response;
         }
 
