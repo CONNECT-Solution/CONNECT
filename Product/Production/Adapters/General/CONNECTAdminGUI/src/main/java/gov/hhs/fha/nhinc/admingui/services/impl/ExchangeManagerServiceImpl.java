@@ -29,7 +29,12 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
 import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.getEndpointConfigurationTypeBy;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_DELETE;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_INFOVIEW;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_LIST_ENDPOINTS;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_LIST_EXCHANGES;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_LIST_ORGANIZATIONS;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_REFRESH;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_SAVE_CONFIG;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_SAVE_EXCHANGE;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ENTITY_EXCHANGE_MANAGEMENT_SERVICE_NAME;
 
@@ -40,8 +45,16 @@ import gov.hhs.fha.nhinc.admingui.services.PingService;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.common.exchangemanagement.DeleteExchangeRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.ExchangeDownloadStatusType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.GetExchangeInfoViewRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.GetExchangeInfoViewResponseMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.ListEndpointsRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.ListEndpointsResponseMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.ListExchangesRequestMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.ListExchangesResponseMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.ListOrganizationsRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.RefreshExchangeManagerRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.RefreshExchangeManagerResponseMessageType;
+import gov.hhs.fha.nhinc.common.exchangemanagement.SaveExchangeConfigRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.SaveExchangeRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.SimpleExchangeManagementResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -52,7 +65,6 @@ import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchangemanagement.EntityExchangeManagementPortType;
-import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -61,6 +73,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -72,7 +85,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExchangeManagerServiceImpl implements ExchangeManagerService {
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagerServiceImpl.class);
-    private final ExchangeManager exchangeManager = ExchangeManager.getInstance();
     private final PingService pingService = new PingServiceImpl();
     private static final String DATE_FORMAT = "MM-dd-yy hh:mm:ss";
     private static final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
@@ -87,7 +99,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         try {
             SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
                 ADMIN_EXCHANGE_SAVE_EXCHANGE, request);
-            LOG.debug("{}: {}, {}", ADMIN_EXCHANGE_SAVE_EXCHANGE, response.isStatus(), response.getMessage());
+            logDebug(ADMIN_EXCHANGE_SAVE_EXCHANGE, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during save-exchange: {}", e.getLocalizedMessage(), e);
@@ -104,7 +116,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         try {
             SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
                 ADMIN_EXCHANGE_DELETE, request);
-            LOG.debug("{}: {}, {}", ADMIN_EXCHANGE_DELETE, response.isStatus(), response.getMessage());
+            logDebug(ADMIN_EXCHANGE_DELETE, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during delete-exchange: {}", e.getLocalizedMessage(), e);
@@ -114,17 +126,57 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
 
     @Override
     public List<ExchangeType> getAllExchanges() {
-        return exchangeManager.getAllExchanges();
+        ListExchangesRequestMessageType request = new ListExchangesRequestMessageType();
+        request.setConfigAssertion(buildConfigAssertion());
+
+        try {
+            ListExchangesResponseMessageType response = (ListExchangesResponseMessageType) clientInvokePort(
+                ADMIN_EXCHANGE_LIST_EXCHANGES, request);
+            logDebug(ADMIN_EXCHANGE_LIST_EXCHANGES, response.getExchangesList().size());
+            return response.getExchangesList();
+        } catch (Exception e) {
+            LOG.error("error during list-exchanges: {}", e.getLocalizedMessage(), e);
+        }
+        return new ArrayList<>();
     }
 
     @Override
     public List<OrganizationType> getAllOrganizations(String exchangeName) {
-        return exchangeManager.getAllOrganizationsBy(exchangeName);
+
+        ListOrganizationsRequestMessageType request = new ListOrganizationsRequestMessageType();
+        request.setConfigAssertion(buildConfigAssertion());
+        request.setExchangeName(exchangeName);
+
+        try {
+            SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
+                ADMIN_EXCHANGE_LIST_ORGANIZATIONS, request);
+
+            logDebug(ADMIN_EXCHANGE_LIST_ORGANIZATIONS, getOrganizationListFrom(response).size());
+            return getOrganizationListFrom(response);
+        } catch (Exception e) {
+            LOG.error("error during list-organizations: {}", e.getLocalizedMessage(), e);
+        }
+        return new ArrayList<>();
     }
 
     @Override
     public List<ConnectionEndpoint> getAllConnectionEndpoints(String exchangeName, String hcid) {
-        List<EndpointType> orgEndpoints = exchangeManager.getAllEndpointTypesBy(exchangeName, hcid);
+
+        List<EndpointType> orgEndpoints = new ArrayList<>();
+        ListEndpointsRequestMessageType request = new ListEndpointsRequestMessageType();
+        request.setConfigAssertion(buildConfigAssertion());
+        request.setHcid(hcid);
+        request.setExchangeName(exchangeName);
+
+        try {
+            ListEndpointsResponseMessageType response = (ListEndpointsResponseMessageType) clientInvokePort(
+                ADMIN_EXCHANGE_LIST_ENDPOINTS, request);
+            logDebug(ADMIN_EXCHANGE_LIST_ENDPOINTS, response.getEndpointsList());
+            orgEndpoints = response.getEndpointsList();
+        } catch (Exception e) {
+            LOG.error("error during list-endpoints: {}", e.getLocalizedMessage(), e);
+        }
+
         List<ConnectionEndpoint> endpoints = new ArrayList<>();
 
         for (EndpointType endpoint : orgEndpoints) {
@@ -149,17 +201,40 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
 
     @Override
     public ExchangeInfoType getExchangeInfoView() {
-        return exchangeManager.getExchangeInfoView();
+
+        GetExchangeInfoViewRequestMessageType request = new GetExchangeInfoViewRequestMessageType();
+        request.setConfigAssertion(buildConfigAssertion());
+
+        try {
+            GetExchangeInfoViewResponseMessageType response = (GetExchangeInfoViewResponseMessageType) clientInvokePort(
+                ADMIN_EXCHANGE_INFOVIEW, request);
+            logDebug(ADMIN_EXCHANGE_INFOVIEW, response.getExchangeInfo().getRefreshInterval(),
+                response.getExchangeInfo().getMaxNumberOfBackups(), response.getExchangeInfo().getDefaultExchange());
+            return response.getExchangeInfo();
+        } catch (Exception e) {
+            LOG.error("error during get-exchange-info-view: {}", e.getLocalizedMessage(), e);
+        }
+        return new ExchangeInfoType();
     }
 
     @Override
     public boolean saveGeneralSetting(ExchangeInfoType exchangeInfo) {
+
+        SaveExchangeConfigRequestMessageType request = new SaveExchangeConfigRequestMessageType();
+        request.setConfigAssertion(buildConfigAssertion());
+        request.setDefaultExchange(exchangeInfo.getDefaultExchange());
+        request.setMaxNumberOfBackups(exchangeInfo.getMaxNumberOfBackups());
+        request.setRefreshInterval(exchangeInfo.getRefreshInterval());
+
         try {
-            return exchangeManager.updateExchangeInfo(exchangeInfo.getRefreshInterval(),
-                exchangeInfo.getMaxNumberOfBackups(), exchangeInfo.getDefaultExchange());
-        } catch (ExchangeManagerException e) {
-            LOG.error("error during delete-exchange: {}", e.getLocalizedMessage(), e);
+            SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
+                ADMIN_EXCHANGE_SAVE_CONFIG, request);
+            logDebug(ADMIN_EXCHANGE_SAVE_CONFIG, response.isStatus());
+            return response.isStatus();
+        } catch (Exception e) {
+            LOG.error("error during save-exchange-config: {}", e.getLocalizedMessage(), e);
         }
+
         return false;
     }
 
@@ -171,7 +246,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         try {
             RefreshExchangeManagerResponseMessageType response = (RefreshExchangeManagerResponseMessageType) clientInvokePort(
                 ADMIN_EXCHANGE_REFRESH, request);
-            LOG.debug("{}: {}", ADMIN_EXCHANGE_REFRESH, response.getExchangeDownloadStatusList().size());
+            logDebug(ADMIN_EXCHANGE_REFRESH, response.getExchangeDownloadStatusList().size());
             return response.getExchangeDownloadStatusList();
         } catch (Exception e) {
             LOG.error("error during refresh-exchange: {}", e.getLocalizedMessage(), e);
@@ -203,5 +278,19 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
 
     private static <T> Object clientInvokePort(String serviceName, T request) throws Exception {
         return getClient().invokePort(EntityExchangeManagementPortType.class, serviceName, request);
+    }
+
+    private static List<OrganizationType> getOrganizationListFrom(
+        SimpleExchangeManagementResponseMessageType response) {
+        if (null != response && null != response.getOrganizationList()) {
+            return response.getOrganizationList().getOrganization();
+        }
+        return new ArrayList<>();
+    }
+
+    private static void logDebug(String msg, Object... objects) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("{}: {}", msg, StringUtils.join(objects, ", "));
+        }
     }
 }

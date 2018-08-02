@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.exchangemanagement;
 
+import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.copyExchangeTypeList;
+import static java.lang.Boolean.FALSE;
+
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.common.exchangemanagement.DeleteExchangeRequestMessageType;
 import gov.hhs.fha.nhinc.common.exchangemanagement.GetAssigningAuthoritiesByHCIDRequestMessageType;
@@ -87,7 +90,7 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     private static final String ACT_HCID_SERVICENAME_MISSING = "HCID and ServiceName are required";
 
     private static final AssigningAuthorityHomeCommunityMappingDAO mappingDao
-        = new AssigningAuthorityHomeCommunityMappingDAO();
+    = new AssigningAuthorityHomeCommunityMappingDAO();
 
     @Override
     public SimpleExchangeManagementResponseMessageType deleteExchange(DeleteExchangeRequestMessageType request) {
@@ -193,8 +196,8 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
         }
 
         try {
-            OrganizationListType orglist = (buildOrganizationListType(getExchangeManager().getOrganizationSet(
-                request.getHcidList(), exchangeName)));
+            OrganizationListType orglist = buildOrganizationListType(getExchangeManager().getOrganizationSet(
+                request.getHcidList(), exchangeName));
             response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
             response.setOrganizationList(orglist);
         } catch (ExchangeManagerException ex) {
@@ -349,11 +352,12 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
         ListEndpointUrlInfoByNhinTargetCommunitiesRequestMessageType request) {
         LOG.trace("listEndpointUrlInfoByNhinTargetCommunities--call");
         ListEndpointUrlInfoByNhinTargetCommunitiesResponseMessageType response
-            = new ListEndpointUrlInfoByNhinTargetCommunitiesResponseMessageType();
+        = new ListEndpointUrlInfoByNhinTargetCommunitiesResponseMessageType();
         NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
         String serviceName = request.getServiceName();
 
         if (null == targets || StringUtils.isBlank(serviceName)) {
+            response.setMessage("Nhin-Target-Communities and ServiceName are required.");
             return response;
         }
 
@@ -422,26 +426,47 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
     @Override
     public ListEndpointsResponseMessageType listEndpoints(ListEndpointsRequestMessageType request) {
         LOG.trace("listEndpoints--call");
-        return null;
+        String hcid = request.getHcid();
+        String exchangeName = request.getExchangeName();
+        ListEndpointsResponseMessageType response = new ListEndpointsResponseMessageType();
+
+        if (StringUtils.isBlank(hcid) || StringUtils.isBlank(exchangeName)) {
+            response.setMessage("HCID and Exchange-namme are required.");
+            return response;
+        }
+
+        response.getEndpointsList().addAll(getExchangeManager().getAllEndpointTypesBy(exchangeName, hcid));
+        return response;
     }
 
     @Override
     public SimpleExchangeManagementResponseMessageType saveExchangeConfig(
         SaveExchangeConfigRequestMessageType request) {
         LOG.trace("saveExchangeConfig--call");
-        return null;
+        try{
+            Boolean updateStatus = Boolean.valueOf(getExchangeManager().updateExchangeInfo(request.getRefreshInterval(),
+                request.getMaxNumberOfBackups(), request.getDefaultExchange()));
+            return buildSimpleResponse(updateStatus, ACT_SUCCESSFUL);
+        } catch (ExchangeManagerException ex) {
+            LOG.error("error while update-exchange-config: {}", ex.getMessage(), ex);
+            return buildSimpleResponse(FALSE, ACT_FAIL);
+        }
     }
 
     @Override
     public GetExchangeInfoViewResponseMessageType getExchangeInfoView(GetExchangeInfoViewRequestMessageType request) {
-        LOG.info("getExchangeInfoView--call");
-        return null;
+        LOG.trace("getExchangeInfoView--call");
+        GetExchangeInfoViewResponseMessageType response = new GetExchangeInfoViewResponseMessageType();
+        response.setExchangeInfo(getExchangeManager().getExchangeInfoView());
+        return response;
     }
 
     @Override
     public ListExchangesResponseMessageType listExchanges(ListExchangesRequestMessageType request) {
         LOG.trace("listExchanges--call");
-        return null;
+        ListExchangesResponseMessageType response = new ListExchangesResponseMessageType();
+        response.getExchangesList().addAll(copyExchangeTypeList(getExchangeManager().getAllExchanges()));
+        return response;
     }
 
     private static SimpleExchangeManagementResponseMessageType buildSimpleResponse(Boolean status, String message) {

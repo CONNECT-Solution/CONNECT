@@ -183,7 +183,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
     public List<OrganizationType> getAllOrganizations(String exchangeName) throws ExchangeManagerException {
         refreshExchangeCacheIfRequired();
         List<OrganizationType> orgList = new ArrayList<>();
-        String exName = (StringUtils.isNotEmpty(exchangeName) ? exchangeName : getDefaultExchange());
+        String exName = StringUtils.isNotEmpty(exchangeName) ? exchangeName : getDefaultExchange();
 
         Map<String, OrganizationType> orgMap = exCache.get(exName);
         for (Entry<String, OrganizationType> hcidKey : orgMap.entrySet()) {
