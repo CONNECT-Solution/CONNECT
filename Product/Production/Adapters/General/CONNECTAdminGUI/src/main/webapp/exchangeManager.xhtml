@@ -72,14 +72,14 @@
                                                         <h:outputLabel class="control-label" for="inputRefreshInterval"
                                                             value="Refresh Interval (Minutes):" />
                                                         <p:inputText styleClass="form-control"
-                                                                     value="#{exchangeManagerBean.generalSetting.refreshInterval}"
+                                                            value="#{exchangeManagerBean.generalSetting.refreshInterval}"
                                                             id="inputRefreshInterval" maxlength="250" />
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <h:outputLabel class="control-label"
                                                             for="inputMaxNumberOfBackups" value="Maximum No Of Backups:" />
                                                         <p:inputText styleClass="form-control"
-                                                                     value="#{exchangeManagerBean.generalSetting.maxNumberOfBackups}"
+                                                            value="#{exchangeManagerBean.generalSetting.maxNumberOfBackups}"
                                                             id="inputMaxNumberOfBackups" maxlength="250" />
                                                     </div>
                                                     <div class="col-sm-4">
@@ -152,25 +152,26 @@
                                                         <h:outputText value="#{rec.url}" />
                                                     </p:column>
                                                     <p:column headerText="Last Updated">
-                                                        <h:outputText
-                                                            value="#{rec.lastUpdated}">
+                                                        <h:outputText value="#{rec.lastUpdated}">
                                                             <f:converter converterId="xmlGregorianConverter" />
-                                                            <f:attribute name="pattern" value="MM-dd-yyyy HH:mm:ss"/>
+                                                            <f:attribute name="pattern" value="MM-dd-yyyy HH:mm:ss" />
                                                         </h:outputText>
                                                     </p:column>
                                                     <p:column headerText="Refresh Exchange">
                                                         <p:commandButton
                                                             actionListener="#{exchangeManagerBean.toggleIsEnabledFor(rec)}"
                                                             value="Enabled" rendered="#{not rec.disabled}"
-                                                            update="dataTableExchange" disabled="#{exchangeManagerBean.refreshLocked}"
+                                                            update="dataTableExchange"
+                                                            disabled="#{exchangeManagerBean.refreshLocked}"
                                                             icon="glyphicon glyphicon-ok-sign"
-                                                            styleClass="btn btn-outline-primary btn-sm" />
+                                                            styleClass="btn btn-outline-success btn-sm" />
                                                         <p:commandButton
                                                             actionListener="#{exchangeManagerBean.toggleIsEnabledFor(rec)}"
                                                             value="Disabled" rendered="#{rec.disabled}"
-                                                            update="dataTableExchange" disabled="#{exchangeManagerBean.refreshLocked}"
+                                                            update="dataTableExchange"
+                                                            disabled="#{exchangeManagerBean.refreshLocked}"
                                                             icon="glyphicon glyphicon-remove-sign"
-                                                            styleClass="btn btn-outline-primary btn-sm" />
+                                                            styleClass="btn btn-outline-danger btn-sm" />
                                                     </p:column>
                                                 </p:dataTable>
 
@@ -252,7 +253,8 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <h:outputLabel class="control-label" value="Description:&#160;" />
+                                                            <h:outputLabel class="control-label"
+                                                                value="Description:&#160;" />
                                                             <h:outputText id="displayDescription"
                                                                 value="#{exchangeManagerBean.orgDescription}" />
                                                         </div>
@@ -268,32 +270,38 @@
                                                     styleClass="table table-striped table-domains" var="rec"
                                                     value="#{exchangeManagerBean.connectionEndpoints}"
                                                     selection="#{exchangeManagerBean.selectedEndpoint}"
-                                                    rowKey="#{rec.serviceUrl}^^^#{rec.serviceSpec}">
+                                                    rowKey="#{rec.serviceUrl}^^^#{rec.serviceSpec}" scrollable="true"
+                                                    scrollHeight="400" tableStyle="width:auto">
 
                                                     <p:ajax event="rowSelectRadio" process="@this"
                                                         update=":@form:pingService" />
 
                                                     <p:column headerText="" selectionMode="single" />
-                                                    <p:column headerText="Service Name">
-                                                        <h:outputText value="#{rec.name}" />
-                                                    </p:column>
-                                                    <p:column headerText="URL">
-                                                        <h:outputText value="#{rec.serviceUrl}" />
-                                                    </p:column>
-                                                    <p:column headerText="Version">
-                                                        <h:outputText value="#{rec.serviceSpec}" />
-                                                    </p:column>
-                                                    <p:column headerText="Ping Status">
-                                                        <h:outputText rendered="#{rec.pingStatus == 'Pass'}"
-                                                            value="PASS" style="color: green" />
-                                                        <h:outputText rendered="#{rec.pingStatus == 'Fail'}"
-                                                            value="FAIL" style="color: red" />
-                                                        <h:outputText rendered="#{rec.pingStatus == 'None'}" value="--" />
-                                                    </p:column>
-                                                    <p:column headerText="Last Ping">
-                                                        <h:outputText value="#{rec.pingTimestamp}">
-                                                            <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
-                                                        </h:outputText>
+                                                    <p:column headerText="Endpoint details - ServiceName, Spec, PingStatus and URL">
+                                                        <div class="ui-g">
+                                                            <div class="ui-g-5">
+                                                                <h:outputText value="#{rec.name}" />
+                                                            </div>
+                                                            <div class="ui-g-2">
+                                                                <h:outputText value="#{rec.serviceSpec}" />
+                                                            </div>
+                                                            <div class="ui-g-2">
+                                                                <h:outputText rendered="#{rec.pingStatus == 'Pass'}"
+                                                                    value="PASS" style="color: green" />
+                                                                <h:outputText rendered="#{rec.pingStatus == 'Fail'}"
+                                                                    value="FAIL" style="color: red" />
+                                                                <h:outputText rendered="#{rec.pingStatus == 'None'}"
+                                                                    value="--" />
+                                                            </div>
+                                                            <div class="ui-g-3">
+                                                                <h:outputText value="#{rec.pingTimestamp}">
+                                                                    <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
+                                                                </h:outputText>
+                                                            </div>
+                                                            <div class="ui-g-12">
+                                                                <h:outputText value="#{rec.serviceUrl}" />
+                                                            </div>
+                                                        </div>
                                                     </p:column>
                                                 </p:dataTable>
 
