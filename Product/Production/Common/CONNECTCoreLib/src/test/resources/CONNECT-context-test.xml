@@ -34,5 +34,8 @@
     <bean name="patientCorrHibernateUtil" class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil"
         init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="false"/>
 
+    <bean name="patientDbHibernateUtil" class="gov.hhs.fha.nhinc.patientdiscovery.persistence.HibernateUtil"
+        init-method="buildSessionFactory" destroy-method="closeSessionFactory" lazy-init="false"/>
+
 
 </beans>
