@@ -920,7 +920,7 @@
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
-                            <ns2:name>adapterplqservice</ns2:name>
+                            <ns2:name>adapterpatientlocationqueryservice</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
                                     <ns2:url>http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientLocationQuery</ns2:url>
@@ -929,7 +929,7 @@
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
-                            <ns2:name>adapterplqservicesecured</ns2:name>
+                            <ns2:name>adapterpatientlocationqueryservicesecured</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
                                     <ns2:url>https://localhost:8181/Adapter/PatientDiscovery/A_0/AdapterPatientLocationQuerySecured</ns2:url>
