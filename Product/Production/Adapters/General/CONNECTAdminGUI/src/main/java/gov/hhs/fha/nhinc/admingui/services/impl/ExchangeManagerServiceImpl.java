@@ -100,7 +100,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         try {
             SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
                 ADMIN_EXCHANGE_SAVE_EXCHANGE, request);
-            LOG.debug("{}: {}, {}", ADMIN_EXCHANGE_SAVE_EXCHANGE, response.isStatus(), response.getMessage());
+            logDebug(ADMIN_EXCHANGE_SAVE_EXCHANGE, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during save-exchange: {}", e.getLocalizedMessage(), e);
@@ -117,7 +117,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         try {
             SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
                 ADMIN_EXCHANGE_DELETE, request);
-            LOG.debug("{}: {}, {}", ADMIN_EXCHANGE_DELETE, response.isStatus(), response.getMessage());
+            logDebug(ADMIN_EXCHANGE_DELETE, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during delete-exchange: {}", e.getLocalizedMessage(), e);
@@ -133,7 +133,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         try {
             ListExchangesResponseMessageType response = (ListExchangesResponseMessageType) clientInvokePort(
                 ADMIN_EXCHANGE_LIST_EXCHANGES, request);
-            LOG.debug("{}: {}", ADMIN_EXCHANGE_LIST_EXCHANGES, response.getExchangesList().size());
+            logDebug(ADMIN_EXCHANGE_LIST_EXCHANGES, response.getExchangesList().size());
             return response.getExchangesList();
         } catch (Exception e) {
             LOG.error("error during list-exchanges: {}", e.getLocalizedMessage(), e);
@@ -152,7 +152,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
             SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
                 ADMIN_EXCHANGE_LIST_ORGANIZATIONS, request);
 
-            LOG.debug("{}: {}", ADMIN_EXCHANGE_LIST_ORGANIZATIONS, getOrganizationListFrom(response).size());
+            logDebug(ADMIN_EXCHANGE_LIST_ORGANIZATIONS, getOrganizationListFrom(response).size());
             return getOrganizationListFrom(response);
         } catch (Exception e) {
             LOG.error("error during list-organizations: {}", e.getLocalizedMessage(), e);
@@ -172,7 +172,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         try {
             ListEndpointsResponseMessageType response = (ListEndpointsResponseMessageType) clientInvokePort(
                 ADMIN_EXCHANGE_LIST_ENDPOINTS, request);
-            LOG.debug("{}: {}", ADMIN_EXCHANGE_LIST_ENDPOINTS, response.getEndpointsList());
+            logDebug(ADMIN_EXCHANGE_LIST_ENDPOINTS, response.getEndpointsList());
             orgEndpoints = response.getEndpointsList();
         } catch (Exception e) {
             LOG.error("error during list-endpoints: {}", e.getLocalizedMessage(), e);
@@ -209,7 +209,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         try {
             GetExchangeInfoViewResponseMessageType response = (GetExchangeInfoViewResponseMessageType) clientInvokePort(
                 ADMIN_EXCHANGE_INFOVIEW, request);
-            LOG.debug("{}: {}, {}, {}", ADMIN_EXCHANGE_INFOVIEW, response.getExchangeInfo().getRefreshInterval(),
+            logDebug(ADMIN_EXCHANGE_INFOVIEW, response.getExchangeInfo().getRefreshInterval(),
                 response.getExchangeInfo().getMaxNumberOfBackups(), response.getExchangeInfo().getDefaultExchange());
             return response.getExchangeInfo();
         } catch (Exception e) {
@@ -230,7 +230,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         try {
             SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
                 ADMIN_EXCHANGE_SAVE_CONFIG, request);
-            LOG.debug("{}: {}", ADMIN_EXCHANGE_SAVE_CONFIG, response.isStatus());
+            logDebug(ADMIN_EXCHANGE_SAVE_CONFIG, response.isStatus());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during save-exchange-config: {}", e.getLocalizedMessage(), e);
@@ -247,7 +247,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         try {
             RefreshExchangeManagerResponseMessageType response = (RefreshExchangeManagerResponseMessageType) clientInvokePort(
                 ADMIN_EXCHANGE_REFRESH, request);
-            LOG.debug("{}: {}", ADMIN_EXCHANGE_REFRESH, response.getExchangeDownloadStatusList().size());
+            logDebug(ADMIN_EXCHANGE_REFRESH, response.getExchangeDownloadStatusList().size());
             return response.getExchangeDownloadStatusList();
         } catch (Exception e) {
             LOG.error("error during refresh-exchange: {}", e.getLocalizedMessage(), e);
@@ -287,5 +287,15 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
             return response.getOrganizationList().getOrganization();
         }
         return new ArrayList<>();
+    }
+
+    private void logDebug(String msg, Object... objects) {
+        if (LOG.isDebugEnabled()) {
+            List<String> strList = new ArrayList<>();
+            for (Object item : objects) {
+                strList.add(item.toString());
+            }
+            LOG.debug("{}: {}", msg, String.join(", ", strList));
+        }
     }
 }
