@@ -122,10 +122,10 @@ UNLOCK TABLES;
 USE patientdb;
 LOCK TABLES recordlocatorservice WRITE;
 
-INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N233','111222','1.1');
+INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N233','D123400','1.1');
 INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N234','111222','2.2');
 INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N234','111223','3.4');
-INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N244','111224','1.1');
+INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N244','D123401','1.1');
 INSERT INTO recordlocatorservice (RequestedPatientId,PatientId,AssigningAuthorityId) values ('38273N244','111225','4.4');
 
 UNLOCK TABLES;
