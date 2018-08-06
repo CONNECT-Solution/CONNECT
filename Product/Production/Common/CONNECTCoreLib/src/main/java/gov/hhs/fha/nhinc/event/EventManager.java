@@ -34,11 +34,10 @@ import java.util.Observable;
  */
 public class EventManager extends Observable implements EventRecorder, EventLoggerRegistrar {
 
+    public static final EventManager INSTANCE = new EventManager();
+
     private EventManager() {
     }
-
-   public static final EventManager INSTANCE = new EventManager();
-
 
     public static EventManager getInstance() {
         return INSTANCE;

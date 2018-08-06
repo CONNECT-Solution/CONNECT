@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -80,10 +80,11 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
     @SuppressWarnings("static-access")
     public void init(ServletConfig config) throws ServletException {
         LOG.debug("InitServlet start...");
-        executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
-        largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance()
+        ExecutorService newExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
+        setExecutorService(newExecutor);
+        ExecutorService newLargeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance()
                 .getLargeJobExecutorPoolSize());
-
+        setLargeJobExecutorService(newLargeJobExecutor);
         super.init(config);
     }
 
@@ -96,6 +97,10 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
         return executor;
     }
 
+    public static void setExecutorService(ExecutorService newExecutor) {
+        executor = newExecutor;
+    }
+
     /**
      * Gets the large job executor service.
      *
@@ -105,6 +110,9 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
         return largeJobExecutor;
     }
 
+    public static void setLargeJobExecutorService(ExecutorService newLargeJobExecutor) {
+        largeJobExecutor = newLargeJobExecutor;
+    }
     /**
      * Destroys the servlet. Since we don't want to halt the servlet destroy process, we don't propagate any exceptions
      * through this method.
