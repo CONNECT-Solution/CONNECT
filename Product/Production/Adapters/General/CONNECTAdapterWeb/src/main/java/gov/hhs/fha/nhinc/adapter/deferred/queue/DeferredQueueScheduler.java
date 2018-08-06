@@ -12,15 +12,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.PeriodicTrigger;
 
 @EnableScheduling
 @Configuration
 @ComponentScan(basePackages = { "gov.hhs.fha.nhinc" })
-public class DeferredQueueScheduler implements SchedulingConfigurer {
+public class DeferredQueueScheduler {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeferredQueueScheduler.class);
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
@@ -62,12 +60,6 @@ public class DeferredQueueScheduler implements SchedulingConfigurer {
         scheduler.setWaitForTasksToCompleteOnShutdown(false);
         return (ScheduledFuture<DeferredQueueTimerTask>) scheduler.schedule(new DeferredQueueTimerTask(),
             periodicTrigger);
-
-    }
-
-    @Override
-    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-        taskRegistrar.setScheduler(threadPoolTaskScheduler());
 
     }
 }
