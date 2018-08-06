@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -24,13 +24,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.gateway.servlet;
+package gov.hhs.fha.nhinc.patientdiscovery._10.servlet;
 
 import gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet;
 import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
-import gov.hhs.fha.nhinc.docquery.configuration.jmx.DocumentQuery20WebServices;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-import java.util.Collections;
+import gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx.PatientDiscovery10WebServices;
+import gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx.PatientDiscoveryDeferredReq10WebServices;
+import gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx.PatientDiscoveryDeferredResp10WebServices;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -47,9 +49,9 @@ import org.slf4j.LoggerFactory;
  * creates a new thread in this case
  *
  * 3. Also creates a second largeJobExecutor with a fixed size thread pool (largeJobExecutor is used for TaskExecutors
- * that get a callable list of size comparable to the size of the main ExecutorService)
+ * that get a callable list of size comparable to the size of the main ExecutorService).
  *
- * 4. See {@link gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet} for JMX related super class.
+ * 4. See {@link gov.fha.hhs.nhinc.gateway.AbstractJMXEnabledServlet} for JMX init and destroy functionality.
  *
  * @author paul.eftis, msw
  */
@@ -68,20 +70,21 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
     private static ExecutorService largeJobExecutor = null;
 
     /**
-     * Inits the servlet, first initializes the parallel fanout executors, then calls super.init().
+     * Initializes the servlet with parallel fanout executors as well as calling super.init().
      *
      * @param config the config
      * @throws ServletException the servlet exception
-     * @see gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet#init(javax.servlet.ServletConfig)
+     * @see gov.fha.hhs.nhinc.gateway.AbstractJMXEnabledServlet#init(javax.servlet.ServletConfig)
      */
     @Override
     @SuppressWarnings("static-access")
     public void init(ServletConfig config) throws ServletException {
         LOG.debug("InitServlet start...");
-        executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
-        largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance()
+        ExecutorService newExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
+        setExecutorService(newExecutor);
+        ExecutorService newLargeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance()
                 .getLargeJobExecutorPoolSize());
-
+        setLargeJobExecutorService(newLargeJobExecutor);
         super.init(config);
     }
 
@@ -94,6 +97,10 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
         return executor;
     }
 
+    public static void setExecutorService(ExecutorService newExecutor) {
+        executor = newExecutor;
+    }
+
     /**
      * Gets the large job executor service.
      *
@@ -103,9 +110,12 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
         return largeJobExecutor;
     }
 
+    public static void setLargeJobExecutorService(ExecutorService newLargeJobExecutor) {
+        largeJobExecutor = newLargeJobExecutor;
+    }
     /**
-     * Destroys the servlet. First destroys the parallel fanout executors, then calls super.destroy(). Since we don't
-     * want to halt the servlet from destroying, no exceptions are propagated through this method.
+     * Destroys the servlet. Since we don't want to halt the servlet destroy process, we don't propagate any exceptions
+     * through this method.
      *
      * @see gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet#destroy()
      */
@@ -116,29 +126,30 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
             try {
                 executor.shutdown();
             } catch (Exception e) {
-                LOG.error("Error stopping executor.", e);
+                LOG.error("Error shutting down executor.", e);
             }
         }
         if (largeJobExecutor != null) {
             try {
                 largeJobExecutor.shutdown();
             } catch (Exception e) {
-                LOG.error("Error stopping large job executor.", e);
+                LOG.error("Error shutting down large job executor.", e);
             }
         }
 
         super.destroy();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet#getWebServiceMXBean()
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet#getWebServiceMXBean(javax.servlet.ServletContext)
      */
     @Override
     public Set<WebServicesMXBean> getWebServiceMXBean(ServletContext sc) {
-        WebServicesMXBean bean = new DocumentQuery20WebServices(sc);
-        return Collections.singleton(bean);
+        Set<WebServicesMXBean> beans = new HashSet<>();
+        beans.add(new PatientDiscovery10WebServices(sc));
+        beans.add(new PatientDiscoveryDeferredReq10WebServices(sc));
+        beans.add(new PatientDiscoveryDeferredResp10WebServices(sc));
+        return beans;
     }
 
 }

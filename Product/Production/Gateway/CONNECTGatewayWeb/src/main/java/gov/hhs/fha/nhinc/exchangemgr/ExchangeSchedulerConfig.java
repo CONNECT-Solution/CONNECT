@@ -47,11 +47,13 @@ public class ExchangeSchedulerConfig {
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeSchedulerConfig.class);
     private static final int DEFAULT_EXCHANGE_REFRESH_INTERVAL = 1440; // a day in minutes
 
-    @Bean
+    @Bean(name = "exchangeQueueTaskScheduler", destroyMethod = "shutdown")
     public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
         ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
         threadPoolTaskScheduler.setPoolSize(1);
         threadPoolTaskScheduler.setThreadNamePrefix("ExchangeThreadPoolTaskScheduler");
+        // do not wait for completion of the task
+        threadPoolTaskScheduler.setWaitForTasksToCompleteOnShutdown(false);
         return threadPoolTaskScheduler;
     }
 

@@ -3,7 +3,6 @@
  */
 package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -26,11 +25,13 @@ public class DeferredQueueScheduler {
     private static final String DEFERRED_QUEUE_REFRESH_DURATION_PROPERTY = "DeferredQueueRefreshDuration";
     private static final int DEFERRED_QUEUE_REFRESH_DURATION_DEFAULT = 600; // (10 minutes)
 
-    @Bean
+    @Bean(name = "deferredQueueTaskScheduler", destroyMethod = "shutdown")
     public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
         ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
         threadPoolTaskScheduler.setPoolSize(1);
         threadPoolTaskScheduler.setThreadNamePrefix("DeferredQueueThreadPoolTaskScheduler");
+        // do not wait for completion of the task
+        threadPoolTaskScheduler.setWaitForTasksToCompleteOnShutdown(false);
         return threadPoolTaskScheduler;
     }
 
@@ -42,11 +43,11 @@ public class DeferredQueueScheduler {
         int intervalSeconds = DEFERRED_QUEUE_REFRESH_DURATION_DEFAULT;
         try {
             String sDuration = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE,
-                DEFERRED_QUEUE_REFRESH_DURATION_PROPERTY);
+                DEFERRED_QUEUE_REFRESH_DURATION_PROPERTY, String.valueOf(DEFERRED_QUEUE_REFRESH_DURATION_DEFAULT));
 
             intervalSeconds = Integer.parseInt(sDuration);
 
-        } catch (PropertyAccessException | NumberFormatException e) {
+        } catch (NumberFormatException e) {
             LOG.error("Could not set interval rate. Defaulting to {} seconds by default. Error is : {}",
                 DEFERRED_QUEUE_REFRESH_DURATION_DEFAULT, e.getMessage());
             LOG.error("Exception Occurred:", e);
@@ -55,6 +56,8 @@ public class DeferredQueueScheduler {
         PeriodicTrigger periodicTrigger = new PeriodicTrigger(intervalSeconds, TimeUnit.SECONDS);
         periodicTrigger.setInitialDelay(intervalSeconds);
 
+        scheduler.setRemoveOnCancelPolicy(true);
+        scheduler.setWaitForTasksToCompleteOnShutdown(false);
         return (ScheduledFuture<DeferredQueueTimerTask>) scheduler.schedule(new DeferredQueueTimerTask(),
             periodicTrigger);
 

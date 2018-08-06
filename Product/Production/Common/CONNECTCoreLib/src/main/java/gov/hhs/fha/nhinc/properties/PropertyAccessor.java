@@ -26,11 +26,11 @@
  */
 package gov.hhs.fha.nhinc.properties;
 
-import org.apache.commons.lang3.StringUtils;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.File;
 import java.util.Properties;
 import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -116,7 +116,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      * @throws PropertyAccessException the property access exception
      */
     @Override
-    public void setProperty(String propertyFileName, String key, String value) throws PropertyAccessException {
+    public synchronized void setProperty(String propertyFileName, String key, String value) throws PropertyAccessException {
         loadPropertyFile(propertyFileName);
 
         propertyFileDAO.setProperty(propertyFileName, key, value);
