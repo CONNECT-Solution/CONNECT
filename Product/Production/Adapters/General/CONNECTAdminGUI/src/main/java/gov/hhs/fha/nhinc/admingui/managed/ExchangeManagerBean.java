@@ -81,8 +81,8 @@ public class ExchangeManagerBean {
     private List<OrganizationType> organizations;
     private List<ExchangeDownloadStatusType> exDownloadStatus;
     private List<ExchangeType> exchanges;
-    private int cachedExchangesHashCode = 0;
-    private int cachedExchangesUpdatedHashCode = 1;
+    private long cachedExchangesTimestamp = 0;
+    private long cachedExchangesTimestampUpdated = 1;
 
     private List<ConnectionEndpoint> endpoints = new ArrayList<>();
     private int cachedEndpointHashCode;
@@ -379,16 +379,16 @@ public class ExchangeManagerBean {
     }
 
     private void modifiedExchangesCache() {
-        cachedExchangesUpdatedHashCode = getHashCodeBy(new Date());
+        cachedExchangesTimestampUpdated = new Date().getTime();
     }
 
     private void updatedExchangesCaches() {
-        cachedExchangesHashCode = getHashCodeBy(new Date());
-        cachedExchangesUpdatedHashCode = cachedExchangesHashCode;
+        cachedExchangesTimestamp = new Date().getTime();
+        cachedExchangesTimestampUpdated = cachedExchangesTimestamp;
     }
 
     private List<ExchangeType> refreshCacheExchanges() {
-        if (cachedExchangesHashCode == cachedExchangesUpdatedHashCode) {
+        if (cachedExchangesTimestamp == cachedExchangesTimestampUpdated) {
             return exchanges;
         }
 
