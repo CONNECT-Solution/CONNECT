@@ -126,8 +126,10 @@
                                     <p:accordionPanel id="accordionExchange">
                                         <p:tab title="Exchanges">
                                             <h:form id="formExchange" class="form-horizontal">
-                                                <p:messages id="msgsExchange" redisplay="false" autoUpdate="true"
-                                                    closable="true" severity="warning" />
+                                                <p:messages id="msgsExchange" redisplay="false" closable="true"
+                                                    severity="warning">
+                                                    <p:autoUpdate />
+                                                </p:messages>
 
                                                 <p:dataTable id="dataTableExchange"
                                                     styleClass="table table-striped table-domains" var="rec"
@@ -277,7 +279,8 @@
                                                         update=":@form:pingService" />
 
                                                     <p:column headerText="" selectionMode="single" />
-                                                    <p:column headerText="Endpoint details - ServiceName, Spec, PingStatus and URL">
+                                                    <p:column
+                                                        headerText="Endpoint details - ServiceName, Spec, PingStatus and URL">
                                                         <div class="ui-g">
                                                             <div class="ui-g-5">
                                                                 <h:outputText value="#{rec.name}" />

@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.admingui.managed;
 
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.getHashCodeBy;
 
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
@@ -42,7 +43,7 @@ import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -80,6 +81,8 @@ public class ExchangeManagerBean {
     private List<OrganizationType> organizations;
     private List<ExchangeDownloadStatusType> exDownloadStatus;
     private List<ExchangeType> exchanges;
+    private int cachedExchangesHashCode = 0;
+    private int cachedExchangesUpdatedHashCode = 1;
 
     private List<ConnectionEndpoint> endpoints = new ArrayList<>();
     private int cachedEndpointHashCode;
@@ -142,7 +145,7 @@ public class ExchangeManagerBean {
         if (null == orgFilter) {
             return DEFAULT_VALUE;
         }
-        return getOrgDescription(orgFilter.getDescription());
+        return StringUtils.join(orgFilter.getDescription(), "\n");
     }
 
     public String getOrgContacts() {
@@ -158,6 +161,7 @@ public class ExchangeManagerBean {
 
     public void setFilterExchange(String exchange) {
         filterExchange = exchange;
+        filterOrganization = null;
         refreshOrganizations();
     }
 
@@ -187,12 +191,11 @@ public class ExchangeManagerBean {
 
     // datatable-list
     public List<ExchangeType> getExchanges() {
-        exchanges = exchangeService.getAllExchanges();
-        return exchanges;
+        return refreshCacheExchanges();
     }
 
     public List<ExchangeType> getListFilterExchanges() {
-        return exchangeService.getAllExchanges();
+        return refreshCacheExchanges();
     }
 
     public List<ConnectionEndpoint> getConnectionEndpoints() {
@@ -223,6 +226,7 @@ public class ExchangeManagerBean {
     public void refreshExchangeInfo() {
         exDownloadStatus = exchangeService.refreshExchangeManager();
         execPFShowDialog(DLG_REFRESH_EXCHANGE);
+        modifiedExchangesCache();
     }
 
     public void newExchange() {
@@ -247,6 +251,7 @@ public class ExchangeManagerBean {
             }
             bSave = exchangeService.saveExchange(formExchange);
             if (bSave) {
+                modifiedExchangesCache();
                 execPFHideDialog(DLG_SAVE_EXCHANGE);
             }
         }
@@ -258,6 +263,7 @@ public class ExchangeManagerBean {
         if (null != selectedExchange && StringUtils.isNotBlank(selectedExchange.getName())) {
             bDelete = exchangeService.deleteExchange(selectedExchange.getName());
             if (bDelete) {
+                modifiedExchangesCache();
                 selectedExchange = null;
             }
         }
@@ -357,34 +363,37 @@ public class ExchangeManagerBean {
         return contact.getFullName().get(0);
     }
 
-    private static String getOrgDescription(List<String> descList) {
-        if (CollectionUtils.isNotEmpty(descList)) {
-            StringBuilder builder = new StringBuilder();
-            for (String str : descList) {
-                builder.append(str);
-                builder.append("\n");
-            }
-            return builder.toString();
-        }
-        return DEFAULT_VALUE;
-    }
-
-    private static int getEndpointHashCode(String filterExchange, String filterOrganization) {
-        return Arrays.hashCode(new Object[] { filterExchange, filterOrganization });
-    }
-
     private List<ConnectionEndpoint> refreshCacheEndpoints(String filterExchange, String filterOrganization) {
         if(StringUtils.isBlank(filterOrganization) || StringUtils.isBlank(filterExchange)){
             return endpoints;
         }
 
-        if (cachedEndpointHashCode == getEndpointHashCode(filterExchange, filterOrganization)
+        if (cachedEndpointHashCode == getHashCodeBy(filterExchange, filterOrganization)
             && CollectionUtils.isNotEmpty(endpoints)) {
             return endpoints;
         }
 
         endpoints = exchangeService.getAllConnectionEndpoints(filterExchange, filterOrganization);
-        cachedEndpointHashCode = getEndpointHashCode(filterExchange, filterOrganization);
+        cachedEndpointHashCode = getHashCodeBy(filterExchange, filterOrganization);
         return endpoints;
+    }
+
+    private void modifiedExchangesCache() {
+        cachedExchangesUpdatedHashCode = getHashCodeBy(new Date());
+    }
+
+    private void updatedExchangesCaches() {
+        cachedExchangesHashCode = getHashCodeBy(new Date());
+        cachedExchangesUpdatedHashCode = cachedExchangesHashCode;
+    }
+
+    private List<ExchangeType> refreshCacheExchanges() {
+        if (cachedExchangesHashCode == cachedExchangesUpdatedHashCode) {
+            return exchanges;
+        }
+
+        exchanges = exchangeService.getAllExchanges();
+        updatedExchangesCaches();
+        return exchanges;
     }
 }
