@@ -40,6 +40,7 @@ import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -368,5 +369,9 @@ public class HelperUtil {
         }
 
         return null;
+    }
+
+    public static int getHashCodeBy(Object... values) {
+        return Arrays.hashCode(values);
     }
 }
