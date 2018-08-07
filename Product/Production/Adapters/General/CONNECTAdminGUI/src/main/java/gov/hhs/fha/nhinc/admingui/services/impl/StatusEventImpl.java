@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -48,12 +48,14 @@ public class StatusEventImpl implements StatusEvent {
     private static final String PD_SERVICE_TYPE = "Patient Discovery";
     private static final String PD_DEF_REQ_SERVICE_TYPE = "Patient Discovery Deferred Request";
     private static final String PD_DEF_RESP_SERVICE_TYPE = "Patient Discovery Deferred Response";
+    private static final String PLQ_SERVICE_TYPE = "Patient Location Query";
+    private static final String DDS_SERVICE_TYPE = "Document Data Submission";
     private static final String DQ_SERVICE_TYPE = "Document Query";
     private static final String DR_SERVICE_TYPE = "Retrieve Document";
     private static final String DS_SERVICE_TYPE = "Document Submission";
     private static final String DS_DEF_REQ_SERVICE_TYPE = "Document Submission Deferred Request";
     private static final String DS_DEF_RESP_SERVICE_TYPE = "Document Submission Deferred Response";
-    
+
     public static final String INBOUND_EVENT_TYPE = "END_INBOUND_MESSAGE";
     public static final String OUTBOUND_EVENT_TYPE = "END_INVOCATION_TO_NWHIN";
 
@@ -63,11 +65,11 @@ public class StatusEventImpl implements StatusEvent {
         outboundCounts.clear();
         List inboundResults = getEventLoggerDao().getCounts(INBOUND_EVENT_TYPE, EVENT_SERVICETYPE_NAME);
         List outboundResults = getEventLoggerDao().getCounts(OUTBOUND_EVENT_TYPE, EVENT_SERVICETYPE_NAME);
-        
+
         inboundCounts = setEvents(inboundResults);
         outboundCounts = setEvents(outboundResults);
     }
-    
+
     @Override
     public long getTotalInboundRequests() {
         long count = 0;
@@ -77,7 +79,7 @@ public class StatusEventImpl implements StatusEvent {
         }
         return count;
     }
-    
+
     @Override
     public long getTotatOutboundRequests() {
         long count = 0;
@@ -87,7 +89,7 @@ public class StatusEventImpl implements StatusEvent {
         }
         return count;
     }
-    
+
     @Override
     public Map<String, Integer> getServiceList() {
         List serviceList = getEventLoggerDao().getCounts(null, EVENT_SERVICETYPE_NAME);
@@ -113,9 +115,12 @@ public class StatusEventImpl implements StatusEvent {
 
     private static HashMap<String, Integer> setEvents(List results) {
         int patientDiscoveryCount = 0;
+        int patientLocationQueryCount = 0;
+        int docDataSubmissionCount = 0;
         int docSubmissionCount = 0;
         int docQueryCount = 0;
         int docRetrieveCount = 0;
+
 
         for (Object result : results) {
             if (result instanceof Object[] && ((Object[]) result).length == 2) {
@@ -131,6 +136,10 @@ public class StatusEventImpl implements StatusEvent {
                     docRetrieveCount += count;
                 } else if (isDSServiceType(serviceType)) {
                     docSubmissionCount += count;
+                } else if (serviceType.equalsIgnoreCase(DDS_SERVICE_TYPE)) {
+                    docDataSubmissionCount += count;
+                } else if (serviceType.equalsIgnoreCase(PLQ_SERVICE_TYPE)) {
+                    patientLocationQueryCount += count;
                 }
             }
         }
@@ -140,18 +149,19 @@ public class StatusEventImpl implements StatusEvent {
         events.put(DQ_SERVICE_TYPE, docQueryCount);
         events.put(DS_SERVICE_TYPE, docSubmissionCount);
         events.put(DR_SERVICE_TYPE, docRetrieveCount);
-        
+        events.put(DDS_SERVICE_TYPE, docDataSubmissionCount);
+        events.put(PLQ_SERVICE_TYPE, patientLocationQueryCount);
         return events;
     }
-    
+
     private static boolean isPDServiceType(String serviceType) {
         return serviceType.equalsIgnoreCase(PD_SERVICE_TYPE) || serviceType.equalsIgnoreCase(PD_DEF_REQ_SERVICE_TYPE)
-                        || serviceType.equalsIgnoreCase(PD_DEF_RESP_SERVICE_TYPE);
+            || serviceType.equalsIgnoreCase(PD_DEF_RESP_SERVICE_TYPE);
     }
-    
+
     private static boolean isDSServiceType(String serviceType) {
         return serviceType.equalsIgnoreCase(DS_SERVICE_TYPE) || serviceType.equalsIgnoreCase(DS_DEF_REQ_SERVICE_TYPE)
-                        || serviceType.equalsIgnoreCase(DS_DEF_RESP_SERVICE_TYPE);
+            || serviceType.equalsIgnoreCase(DS_DEF_RESP_SERVICE_TYPE);
     }
 
 }

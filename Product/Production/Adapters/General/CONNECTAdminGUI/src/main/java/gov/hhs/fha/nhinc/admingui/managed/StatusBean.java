@@ -109,7 +109,7 @@ public class StatusBean {
             eventPieChart.getData().put(serviceEntry.getKey(), serviceEntry.getValue());
         }
         eventPieChart.setFill(false);
-        eventPieChart.setSeriesColors("10253F, CC0000, 33D6FF, FFCC00");
+        eventPieChart.setSeriesColors("10253F, CC0000, 33D6FF, FFCC00, 98FB98, FFA500");
         eventPieChart.setShowDataLabels(true);
         eventPieChart.setSliceMargin(5);
         eventPieChart.setLegendPosition("se");
