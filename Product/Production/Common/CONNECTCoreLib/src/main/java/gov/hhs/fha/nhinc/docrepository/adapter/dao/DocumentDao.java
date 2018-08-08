@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -25,6 +25,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.dao;
+
+import static gov.hhs.fha.nhinc.util.GenericDBUtils.isGeOrIsNull;
+import static gov.hhs.fha.nhinc.util.GenericDBUtils.isLeOrIsNull;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
@@ -157,7 +160,7 @@ public class DocumentDao {
                     Criterion criterion = null;
                     for (String classCode : classCodes) {
                         if (LOG.isDebugEnabled()) {
-                            LOG.debug("Document query - class code: " + classCode);
+                            LOG.debug("Document query - class code: {}", classCode);
                         }
                         String newClassCode;
                         String newCodeScheme;
@@ -186,54 +189,54 @@ public class DocumentDao {
 
                 if (creationTimeFrom != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - creation time from: " + logDateFormatter.format(creationTimeFrom));
+                        LOG.debug("Document query - creation time from: {}", logDateFormatter.format(creationTimeFrom));
                     }
                     criteria.add(Expression.ge("creationTime", creationTimeFrom));
                 }
 
                 if (creationTimeTo != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - creation time to: " + logDateFormatter.format(creationTimeTo));
+                        LOG.debug("Document query - creation time to: {}", logDateFormatter.format(creationTimeTo));
                     }
                     criteria.add(Expression.le("creationTime", creationTimeTo));
                 }
 
                 if (serviceStartTimeFrom != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - service start time from: "
-                            + logDateFormatter.format(serviceStartTimeFrom));
+                        LOG.debug("Document query - service start time from: {}",
+                            logDateFormatter.format(serviceStartTimeFrom));
                     }
-                    criteria.add(Expression.ge("serviceStartTime", serviceStartTimeFrom));
+                    criteria.add(isGeOrIsNull("serviceStartTime", serviceStartTimeFrom));
                 }
 
                 if (serviceStartTimeTo != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug(
-                            "Document query - service start time to: " + logDateFormatter.format(serviceStartTimeTo));
+                        LOG.debug("Document query - service start time to: {}",
+                            logDateFormatter.format(serviceStartTimeTo));
                     }
-                    criteria.add(Expression.le("serviceStartTime", serviceStartTimeTo));
+                    criteria.add(isLeOrIsNull("serviceStartTime", serviceStartTimeTo));
                 }
 
                 if (serviceStopTimeFrom != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug(
-                            "Document query - service stop time from: " + logDateFormatter.format(serviceStopTimeFrom));
+                        LOG.debug("Document query - service stop time from: {}",
+                            logDateFormatter.format(serviceStopTimeFrom));
                     }
-                    criteria.add(Expression.ge("serviceStopTime", serviceStopTimeFrom));
+                    criteria.add(isGeOrIsNull("serviceStopTime", serviceStopTimeFrom));
                 }
 
                 if (serviceStopTimeTo != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug(
-                            "Document query - service stop time to: " + logDateFormatter.format(serviceStopTimeTo));
+                        LOG.debug("Document query - service stop time to: {}",
+                            logDateFormatter.format(serviceStopTimeTo));
                     }
-                    criteria.add(Expression.le("serviceStopTime", serviceStopTimeTo));
+                    criteria.add(isLeOrIsNull("serviceStopTime", serviceStopTimeTo));
                 }
 
                 if (statuses != null && !statuses.isEmpty()) {
                     if (LOG.isDebugEnabled()) {
                         for (String status : statuses) {
-                            LOG.debug("Document query - status: " + status);
+                            LOG.debug("Document query - status: {}", status);
                         }
                     }
                     criteria.add(Expression.in("status", statuses));
@@ -242,7 +245,7 @@ public class DocumentDao {
                 if (documentUniqueIds != null && !documentUniqueIds.isEmpty()) {
                     if (LOG.isDebugEnabled()) {
                         for (String documentUniqueId : documentUniqueIds) {
-                            LOG.debug("Document query - document unique id: " + documentUniqueId);
+                            LOG.debug("Document query - document unique id: {}", documentUniqueId);
                         }
                     }
                     criteria.add(Expression.in("documentUniqueId", documentUniqueIds));
@@ -250,7 +253,7 @@ public class DocumentDao {
 
                 if (params.getOnDemand() != null) {
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - onDemand: " + params.getOnDemand());
+                        LOG.debug("Document query - onDemand: {}", params.getOnDemand());
                     }
                     criteria.add(Expression.eq("onDemand", params.getOnDemand()));
                 }
@@ -261,13 +264,12 @@ public class DocumentDao {
             }
 
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Completed retrieve of document query. "
-                    + (documents == null ? "0" : Integer.toString(documents.size())) + " results returned.");
+                LOG.debug("Completed retrieve of document query. {} results returned.",
+                    documents == null ? "0" : Integer.toString(documents.size()));
             }
         } finally {
             GenericDBUtils.closeSession(sess);
         }
         return documents;
     }
-
 }
