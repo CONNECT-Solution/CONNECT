@@ -34,6 +34,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -195,5 +197,13 @@ public class GenericDBUtils {
             closeSession(session);
         }
         return queryList;
+    }
+
+    public static LogicalExpression getOrIsNullIsLe(String colName, Object colValue) {
+        return Restrictions.or(Restrictions.isNull(colName), Restrictions.le(colName, colValue));
+    }
+
+    public static LogicalExpression getOrIsNullIsGe(String colName, Object colValue) {
+        return Restrictions.or(Restrictions.isNull(colName), Restrictions.ge(colName, colValue));
     }
 }
