@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -42,7 +42,6 @@ import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileResponseType;
-import gov.hhs.fha.nhinc.nhinccomponentpropaccessor.NhincComponentPropAccessorPortType;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.SOAPBinding;
 import org.slf4j.Logger;
@@ -53,7 +52,8 @@ import org.slf4j.LoggerFactory;
  * @author Sai Valluripalli
  */
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincComponentPropAccessor implements NhincComponentPropAccessorPortType {
+public class NhincComponentPropAccessor
+        implements gov.hhs.fha.nhinc.nhinccomponentpropaccessor.NhincComponentPropAccessorPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(NhincComponentPropAccessor.class);
 
@@ -159,7 +159,7 @@ public class NhincComponentPropAccessor implements NhincComponentPropAccessorPor
      */
     @Override
     public GetPropertyFileLocationResponseType getPropertyFileLocation(
-        GetPropertyFileLocationRequestType getPropertyFileLocationRequest) {
+            GetPropertyFileLocationRequestType getPropertyFileLocationRequest) {
         GetPropertyFileLocationResponseType oOutput = null;
 
         try {
