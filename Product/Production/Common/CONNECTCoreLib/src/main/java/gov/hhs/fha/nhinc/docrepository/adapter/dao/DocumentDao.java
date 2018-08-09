@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
-import static gov.hhs.fha.nhinc.util.GenericDBUtils.isGeOrIsNull;
-import static gov.hhs.fha.nhinc.util.GenericDBUtils.isLeOrIsNull;
+import static gov.hhs.fha.nhinc.util.GenericDBUtils.getOrIsNullIsGe;
+import static gov.hhs.fha.nhinc.util.GenericDBUtils.getOrIsNullIsLe;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
@@ -36,11 +36,12 @@ import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +53,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DocumentDao {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentDao.class);
+    private static final String LOG_DOCUMENT_QUERY = "Document query - {}: {}";
 
     public boolean save(Document document) {
         return GenericDBUtils.save(getSession(), document);
@@ -82,7 +84,7 @@ public class DocumentDao {
     }
 
     public List<Document> findAllBy(long patientId) {
-        return GenericDBUtils.findAllBy(getSession(), Document.class, Expression.eq("patientRecordId", patientId));
+        return GenericDBUtils.findAllBy(getSession(), Document.class, Restrictions.eq("patientRecordId", patientId));
     }
 
     protected Session getSession() {
@@ -105,158 +107,12 @@ public class DocumentDao {
     public List<Document> findDocuments(DocumentQueryParams params) {
         LOG.debug("Beginning document query");
 
-        String patientId = null;
-        List<String> classCodes = null;
-        String classCodeScheme = null;
-        Date creationTimeFrom = null;
-        Date creationTimeTo = null;
-        Date serviceStartTimeFrom = null;
-        Date serviceStartTimeTo = null;
-        Date serviceStopTimeFrom = null;
-        Date serviceStopTimeTo = null;
-        List<String> statuses = null;
-        List<String> documentUniqueIds = null;
-        if (params != null) {
-            patientId = params.getPatientId();
-            classCodes = params.getClassCodes();
-            classCodeScheme = params.getClassCodeScheme();
-            creationTimeFrom = params.getCreationTimeFrom();
-            creationTimeTo = params.getCreationTimeTo();
-            serviceStartTimeFrom = params.getServiceStartTimeFrom();
-            serviceStartTimeTo = params.getServiceStartTimeTo();
-            serviceStopTimeFrom = params.getServiceStopTimeFrom();
-            serviceStopTimeTo = params.getServiceStopTimeTo();
-            statuses = params.getStatuses();
-            documentUniqueIds = params.getDocumentUniqueIds();
-        }
         List<Document> documents = null;
         Session sess = null;
         try {
             sess = getSession();
             if (sess != null) {
-                SimpleDateFormat logDateFormatter = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
-                Criteria criteria = sess.createCriteria(Document.class);
-
-                if (patientId != null) {
-                    criteria.add(Expression.eq("patientId", patientId));
-                }
-
-                if (classCodes != null && !classCodes.isEmpty()) {
-                    /**************************************************************
-                     * The class code and class code scheme combination can come in two different formats:
-                     *
-                     * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList> <ns7:Value>34133-9</ns7:Value>
-                     * </ns7:ValueList> </ns7:Slot> <ns7:Slot name="$XDSDocumentEntryClassCodeScheme"> <ns7:ValueList>
-                     * <ns7:Value>2.16.840.1.113883.6 .1</ns7:Value> </ns7:ValueList> </ns7:Slot>
-                     *
-                     * or
-                     *
-                     * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList> <ns7:Value>(
-                     * '34133-9^^2.16.840.1.113883.6.1')</ns7:Value> </ns7:ValueList> </ns7:Slot>
-                     *
-                     * The code below can deal with both formats.
-                     *
-                     *************************************************************/
-                    Criterion criterion = null;
-                    for (String classCode : classCodes) {
-                        if (LOG.isDebugEnabled()) {
-                            LOG.debug("Document query - class code: {}", classCode);
-                        }
-                        String newClassCode;
-                        String newCodeScheme;
-
-                        if (classCode.contains("^^")) {
-                            int index = classCode.indexOf("^^");
-                            newClassCode = classCode.substring(0, index);
-                            newCodeScheme = classCode.substring(index + 2);
-                        } else {
-                            newClassCode = classCode;
-                            newCodeScheme = classCodeScheme;
-                        }
-
-                        Criterion andCrit = Expression.eq("classCode", newClassCode);
-                        if (newCodeScheme != null && !newCodeScheme.isEmpty()) {
-                            andCrit = Restrictions.and(andCrit, Expression.eq("classCodeScheme", newCodeScheme));
-                        }
-                        if (criterion == null) {
-                            criterion = andCrit;
-                        } else {
-                            criterion = Restrictions.or(criterion, andCrit);
-                        }
-                    }
-                    criteria.add(criterion);
-                }
-
-                if (creationTimeFrom != null) {
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - creation time from: {}", logDateFormatter.format(creationTimeFrom));
-                    }
-                    criteria.add(Expression.ge("creationTime", creationTimeFrom));
-                }
-
-                if (creationTimeTo != null) {
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - creation time to: {}", logDateFormatter.format(creationTimeTo));
-                    }
-                    criteria.add(Expression.le("creationTime", creationTimeTo));
-                }
-
-                if (serviceStartTimeFrom != null) {
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - service start time from: {}",
-                            logDateFormatter.format(serviceStartTimeFrom));
-                    }
-                    criteria.add(isGeOrIsNull("serviceStartTime", serviceStartTimeFrom));
-                }
-
-                if (serviceStartTimeTo != null) {
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - service start time to: {}",
-                            logDateFormatter.format(serviceStartTimeTo));
-                    }
-                    criteria.add(isLeOrIsNull("serviceStartTime", serviceStartTimeTo));
-                }
-
-                if (serviceStopTimeFrom != null) {
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - service stop time from: {}",
-                            logDateFormatter.format(serviceStopTimeFrom));
-                    }
-                    criteria.add(isGeOrIsNull("serviceStopTime", serviceStopTimeFrom));
-                }
-
-                if (serviceStopTimeTo != null) {
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - service stop time to: {}",
-                            logDateFormatter.format(serviceStopTimeTo));
-                    }
-                    criteria.add(isLeOrIsNull("serviceStopTime", serviceStopTimeTo));
-                }
-
-                if (statuses != null && !statuses.isEmpty()) {
-                    if (LOG.isDebugEnabled()) {
-                        for (String status : statuses) {
-                            LOG.debug("Document query - status: {}", status);
-                        }
-                    }
-                    criteria.add(Expression.in("status", statuses));
-                }
-
-                if (documentUniqueIds != null && !documentUniqueIds.isEmpty()) {
-                    if (LOG.isDebugEnabled()) {
-                        for (String documentUniqueId : documentUniqueIds) {
-                            LOG.debug("Document query - document unique id: {}", documentUniqueId);
-                        }
-                    }
-                    criteria.add(Expression.in("documentUniqueId", documentUniqueIds));
-                }
-
-                if (params.getOnDemand() != null) {
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("Document query - onDemand: {}", params.getOnDemand());
-                    }
-                    criteria.add(Expression.eq("onDemand", params.getOnDemand()));
-                }
+                Criteria criteria = createDocumentCriteria(sess, params);
 
                 documents = criteria.list();
             } else {
@@ -271,5 +127,135 @@ public class DocumentDao {
             GenericDBUtils.closeSession(sess);
         }
         return documents;
+    }
+
+    private static Criteria createDocumentCriteria(Session sess, DocumentQueryParams params){
+
+        Criteria criteria = sess.createCriteria(Document.class);
+
+        if (StringUtils.isNotBlank(params.getPatientId())) {
+            criteria.add(Restrictions.eq("patientId", params.getPatientId()));
+        }
+
+        if (CollectionUtils.isNotEmpty(params.getClassCodes())) {
+            criteria.add(getClassCode(params.getClassCodes(), params.getClassCodeScheme()));
+        }
+
+        addCriteriaBetweenDate(criteria, "creationTime", params.getCreationTimeFrom(), params.getCreationTimeTo());
+
+        addCriteriaBetweenDateWithNull(criteria, "serviceStartTime", params.getServiceStartTimeFrom(),
+            params.getServiceStartTimeTo());
+
+        addCriteriaBetweenDateWithNull(criteria, "serviceStopTime", params.getServiceStopTimeFrom(),
+            params.getServiceStopTimeTo());
+
+        addCriteriaWithIn(criteria, "status", params.getStatuses());
+
+        addCriteriaWithIn(criteria, "documentUniqueId", params.getDocumentUniqueIds());
+
+        addCriteriaWithEq(criteria, "onDemand", params.getOnDemand());
+
+        return criteria;
+    }
+
+    private static void addCriteriaWithIn(Criteria criteria, String colName, List<String> valueList) {
+        if (CollectionUtils.isNotEmpty(valueList)) {
+            if (LOG.isDebugEnabled()) {
+                for (String item : valueList) {
+                    LOG.debug(LOG_DOCUMENT_QUERY, colName, item);
+                }
+            }
+            criteria.add(Restrictions.in(colName, valueList));
+        }
+    }
+
+    private static void addCriteriaWithEq(Criteria criteria, String colName, Object colValue) {
+        if (colValue != null) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug(LOG_DOCUMENT_QUERY, colName, colValue);
+            }
+            criteria.add(Restrictions.eq(colName, colValue));
+        }
+    }
+
+    private static void addCriteriaBetweenDateWithNull(Criteria criteria, String colName, Date dateFrom, Date dateTo) {
+        SimpleDateFormat logDateFormatter = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
+        if (dateFrom != null) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Document query - {} from: {}", colName, logDateFormatter.format(dateFrom));
+            }
+            criteria.add(getOrIsNullIsGe(colName, dateFrom));
+        }
+
+        if (dateTo != null) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Document query - {} to: {}", colName, logDateFormatter.format(dateTo));
+            }
+            criteria.add(getOrIsNullIsLe(colName, dateTo));
+        }
+    }
+
+    private static void addCriteriaBetweenDate(Criteria criteria, String colName, Date dateFrom, Date dateTo) {
+        SimpleDateFormat logDateFormatter = new SimpleDateFormat("yyyyMMdd hh:mm:ss a");
+        if (dateFrom != null) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Document query - {} from: {}", colName, logDateFormatter.format(dateFrom));
+            }
+            criteria.add(Restrictions.ge(colName, dateFrom));
+        }
+
+        if (dateTo != null) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Document query - {} to: {}", colName, logDateFormatter.format(dateTo));
+            }
+            criteria.add(Restrictions.le(colName, dateTo));
+        }
+    }
+
+    private static Criterion getClassCode(List<String> classCodes, String classCodeScheme) {
+
+        /**************************************************************
+         * The class code and class code scheme combination can come in two different formats:
+         *
+         * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList> <ns7:Value>34133-9</ns7:Value> </ns7:ValueList>
+         * </ns7:Slot> <ns7:Slot name="$XDSDocumentEntryClassCodeScheme"> <ns7:ValueList> <ns7:Value>2.16.840.1.113883.6
+         * .1</ns7:Value> </ns7:ValueList> </ns7:Slot>
+         *
+         * or
+         *
+         * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList> <ns7:Value>(
+         * '34133-9^^2.16.840.1.113883.6.1')</ns7:Value> </ns7:ValueList> </ns7:Slot>
+         *
+         * The code below can deal with both formats.
+         *
+         *************************************************************/
+        Criterion criterion = null;
+        for (String classCode : classCodes) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug(LOG_DOCUMENT_QUERY, "Class Code", classCode);
+            }
+            String newClassCode;
+            String newCodeScheme;
+
+            if (classCode.contains("^^")) {
+                int index = classCode.indexOf("^^");
+                newClassCode = classCode.substring(0, index);
+                newCodeScheme = classCode.substring(index + 2);
+            } else {
+                newClassCode = classCode;
+                newCodeScheme = classCodeScheme;
+            }
+
+            Criterion andCrit = Restrictions.eq("classCode", newClassCode);
+            if (StringUtils.isNotEmpty(newCodeScheme)) {
+                andCrit = Restrictions.and(andCrit, Restrictions.eq("classCodeScheme", newCodeScheme));
+            }
+            if (criterion == null) {
+                criterion = andCrit;
+            } else {
+                criterion = Restrictions.or(criterion, andCrit);
+            }
+        }
+        return criterion;
     }
 }

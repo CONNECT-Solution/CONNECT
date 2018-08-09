@@ -169,11 +169,11 @@ public class GenericDBUtils {
         return queryList;
     }
 
-    public static LogicalExpression isLeOrIsNull(String colName, Object colValue) {
+    public static LogicalExpression getOrIsNullIsLe(String colName, Object colValue) {
         return Restrictions.or(Restrictions.isNull(colName), Restrictions.le(colName, colValue));
     }
 
-    public static LogicalExpression isGeOrIsNull(String colName, Object colValue) {
+    public static LogicalExpression getOrIsNullIsGe(String colName, Object colValue) {
         return Restrictions.or(Restrictions.isNull(colName), Restrictions.ge(colName, colValue));
     }
 }

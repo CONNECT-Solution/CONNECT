@@ -51,12 +51,12 @@ public class NoFutureDateValidator implements Validator {
         Date inputDate = (Date) value;
         boolean isRequired = (boolean) component.getAttributes().get("required");
 
-        if (isRequired == true && HelperUtil.diffByDays(inputDate, nowDate) > 0) {
+        if (isRequired && HelperUtil.diffByDays(inputDate, nowDate) > 0) {
             LOG.trace("NoFutureDateValidator fail-validation");
 
             String errorMessage = (String)component.getAttributes().get("errorMessage");
             if(null == errorMessage){
-                errorMessage = MessageFormat.format("'{0}' cannot be after this date: '{1}'.", component.getId(),
+                errorMessage = MessageFormat.format("{0} cannot be after this date: {1}.", component.getId(),
                     nowDate);
             }
             throw new ValidatorException(HelperUtil.getMsgError(errorMessage));
