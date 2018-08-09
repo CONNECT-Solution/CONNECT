@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.connectopensource</groupId>
     <artifactId>Deploy</artifactId>
-    <version>5.1.2</version>
+    <version>5.1.2-RC2</version>
   </parent>
 
   <artifactId>CONNECT-WL</artifactId>

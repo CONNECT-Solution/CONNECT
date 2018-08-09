@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Standard</artifactId>
-        <version>5.1.2</version>
+        <version>5.1.2-RC2</version>
     </parent>
 
     <artifactId>EntityDocQuery</artifactId>
