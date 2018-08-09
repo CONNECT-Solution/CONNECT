@@ -31,6 +31,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import javax.xml.ws.BindingProvider;
+import org.apache.cxf.endpoint.ClientImpl;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,6 +75,13 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
         } else {
             timeout = getTimeoutFromConfig();
         }
+        ((BindingProvider)getPort()).getRequestContext().put(ClientImpl.SYNC_TIMEOUT, timeout);
+        ((BindingProvider)getPort()).getRequestContext().put("com.sun.xml.internal.ws.request.timeout", timeout);
+        ((BindingProvider)getPort()).getRequestContext().put("com.sun.xml.internal.ws.connect.timeout", timeout);
+        ((BindingProvider)getPort()).getRequestContext().put("com.sun.xml.ws.request.timeout", timeout);
+        ((BindingProvider)getPort()).getRequestContext().put("com.sun.xml.ws.connect.timeout", timeout);
+        ((BindingProvider)getPort()).getRequestContext().put("javax.xml.ws.client.requestTimeout", timeout);
+        ((BindingProvider)getPort()).getRequestContext().put("javax.xml.ws.client.connectTimeout", timeout);
         httpClientPolicy.setReceiveTimeout(timeout);
         httpClientPolicy.setConnectionTimeout(timeout);
     }
