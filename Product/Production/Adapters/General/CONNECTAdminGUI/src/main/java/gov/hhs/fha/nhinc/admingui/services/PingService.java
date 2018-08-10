@@ -34,5 +34,5 @@ public interface PingService {
 
     public int ping(String url);
 
-    public void resetTimeoutList();
+    public void resetDeadhostList();
 }

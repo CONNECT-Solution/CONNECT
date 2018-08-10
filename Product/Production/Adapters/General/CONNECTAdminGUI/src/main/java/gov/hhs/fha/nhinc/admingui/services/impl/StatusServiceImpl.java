@@ -95,7 +95,7 @@ public class StatusServiceImpl implements StatusService {
     @Override
     public List<AvailableService> buildServices() {
         List<AvailableService> services = new ArrayList<>();
-        PING_SERVICE.resetTimeoutList();
+        PING_SERVICE.resetDeadhostList();
 
         ConnectionHelper cHelper = new ConnectionHelper();
         OrganizationType localOrg = cHelper.getLocalOrganization();

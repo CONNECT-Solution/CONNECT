@@ -257,6 +257,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
     @Override
     public int pingService(ConnectionEndpoint connEndpoint) {
         if (null != connEndpoint) {
+            pingService.resetDeadhostList();
             connEndpoint.setResponseCode(pingService.ping(connEndpoint.getServiceUrl()));
             connEndpoint.setPingTimestamp(HelperUtil.getDateNow(DATE_FORMAT));
             EndpointManagerCache.getInstance().addOrUpdateEndpoint(connEndpoint.getServiceUrl(), new Date(),

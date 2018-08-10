@@ -37,11 +37,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Set;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,16 +59,16 @@ public class PingServiceImpl implements PingService {
     private static final String LOG_WSDL_KEY = "logWsdlPing";
     private static final String MSG_EXCEPTION_TIMEOUT = "Connection timed out";
 
-    private Set<String> timeoutList = new HashSet<>();
+    private Set<String> deadhostList = new HashSet<>();
 
     @Override
     public int ping(String url) {
-        int responseCode = HTTP_CLIENT_TIMEOUT;
+        Integer responseCode = null;
         URL webserviceUrl = null;
 
         try {
             webserviceUrl = new URL(prepUrl(url));
-            if (!timeoutList.contains(webserviceUrl.getHost())) {
+            if (!deadhostList.contains(webserviceUrl.getHost())) {
                 HttpsURLConnection.setDefaultHostnameVerifier(getHostNameVerifier());
                 HttpURLConnection con = (HttpURLConnection) webserviceUrl.openConnection();
                 responseCode = con.getResponseCode();
@@ -79,8 +81,8 @@ public class PingServiceImpl implements PingService {
             LOG.warn("Problem pinging endpoint: {}", ex.getLocalizedMessage());
             LOG.trace("Problem pinging endpoint: {}", ex.getLocalizedMessage(), ex);
 
-            if (null != webserviceUrl && ex.getMessage().indexOf(MSG_EXCEPTION_TIMEOUT) > -1) {
-                timeoutList.add(webserviceUrl.getHost());
+            if (null == responseCode && null != webserviceUrl && ex.getMessage().indexOf(MSG_EXCEPTION_TIMEOUT) > -1) {
+                deadhostList.add(getStringHostPort(webserviceUrl.getHost(), webserviceUrl.getPort()));
                 responseCode = HTTP_CLIENT_TIMEOUT;
             }
         }
@@ -119,9 +121,11 @@ public class PingServiceImpl implements PingService {
     }
 
     @Override
-    public void resetTimeoutList() {
+    public void resetDeadhostList() {
         LOG.info("Timeout-servers-list is resetted");
-        timeoutList = new HashSet<>();
+        if (CollectionUtils.isNotEmpty(deadhostList)) {
+            deadhostList = new HashSet<>();
+        }
     }
 
     private static String readInputStreamFrom(HttpURLConnection urlConn) throws IOException {
@@ -133,5 +137,9 @@ public class PingServiceImpl implements PingService {
             }
             return pingOutput.toString();
         }
+    }
+
+    private static String getStringHostPort(Object... args) {
+        return MessageFormat.format("{0}:{1}", args);
     }
 }
