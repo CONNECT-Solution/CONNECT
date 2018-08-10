@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -37,17 +37,18 @@ import java.util.HashMap;
 public class EndpointManagerCache implements EndpointManager {
 
     private static final HashMap<String, EndpointCacheInfo> endpointCache = new HashMap<>();
+    private static final EndpointManagerCache INSTANCE = new EndpointManagerCache();
 
     private EndpointManagerCache() {
     }
 
     public static EndpointManagerCache getInstance() {
-        return EndpointManagerCacheHolder.INSTANCE;
+        return INSTANCE;
     }
 
     @Override
-    public void addOrUpdateEndpoint(String url, Date timestamp, boolean pingResult) {
-        endpointCache.put(url, new EndpointCacheInfo(url, timestamp, pingResult));
+    public void addOrUpdateEndpoint(String url, Date timestamp, boolean pingResult, int code) {
+        endpointCache.put(url, new EndpointCacheInfo(url, timestamp, pingResult, code));
     }
 
     @Override
@@ -67,21 +68,18 @@ public class EndpointManagerCache implements EndpointManager {
         return endpointCache.values();
     }
 
-    private static class EndpointManagerCacheHolder {
-
-        private static final EndpointManagerCache INSTANCE = new EndpointManagerCache();
-    }
-
     public class EndpointCacheInfo {
 
         private String url;
         private Date timestamp;
         private boolean successfulPing;
+        private int httpCode;
 
-        public EndpointCacheInfo(String url, Date timestamp, boolean successfulPing) {
+        public EndpointCacheInfo(String url, Date timestamp, boolean successfulPing, int httpCode) {
             this.url = url;
             this.timestamp = timestamp;
             this.successfulPing = successfulPing;
+            this.httpCode = httpCode;
         }
 
         public String getUrl() {
@@ -106,6 +104,14 @@ public class EndpointManagerCache implements EndpointManager {
 
         public void setSuccessfulPing(boolean successfulPing) {
             this.successfulPing = successfulPing;
+        }
+
+        public int getHttpCode() {
+            return httpCode;
+        }
+
+        public void setHttpCode(int httpCode) {
+            this.httpCode = httpCode;
         }
 
     }
