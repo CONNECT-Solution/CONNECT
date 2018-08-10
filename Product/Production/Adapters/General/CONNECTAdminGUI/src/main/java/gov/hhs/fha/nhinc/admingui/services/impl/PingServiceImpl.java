@@ -37,8 +37,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
@@ -57,7 +57,7 @@ public class PingServiceImpl implements PingService {
     private static final String LOG_WSDL_KEY = "logWsdlPing";
     private static final String MSG_EXCEPTION_TIMEOUT = "Connection timed out";
 
-    private List<String> timeoutList = new ArrayList<>();
+    private Set<String> timeoutList = new HashSet<>();
 
     @Override
     public int ping(String url) {
@@ -121,7 +121,7 @@ public class PingServiceImpl implements PingService {
     @Override
     public void resetTimeoutList() {
         LOG.info("Timeout-servers-list is resetted");
-        timeoutList = new ArrayList<>();
+        timeoutList = new HashSet<>();
     }
 
     private static String readInputStreamFrom(HttpURLConnection urlConn) throws IOException {
