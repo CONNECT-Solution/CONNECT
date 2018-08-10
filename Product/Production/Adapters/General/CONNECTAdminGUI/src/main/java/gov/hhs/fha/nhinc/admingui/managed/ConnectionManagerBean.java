@@ -133,7 +133,7 @@ public class ConnectionManagerBean {
         if (selectedEndpoint != null) {
             selectedEndpoint.setResponseCode(pingService.ping(selectedEndpoint.getServiceUrl()));
             EndpointManagerCache.getInstance().addOrUpdateEndpoint(selectedEndpoint.getServiceUrl(), new Date(),
-                selectedEndpoint.isPass(), selectedEndpoint.getResponseCode());
+                selectedEndpoint.isPingSuccessful(), selectedEndpoint.getResponseCode());
         }
     }
 

@@ -260,7 +260,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
             connEndpoint.setResponseCode(pingService.ping(connEndpoint.getServiceUrl()));
             connEndpoint.setPingTimestamp(HelperUtil.getDateNow(DATE_FORMAT));
             EndpointManagerCache.getInstance().addOrUpdateEndpoint(connEndpoint.getServiceUrl(), new Date(),
-                connEndpoint.isPass(), connEndpoint.getResponseCode());
+                connEndpoint.isPingSuccessful(), connEndpoint.getResponseCode());
             return connEndpoint.getResponseCode();
         }
         return 0;

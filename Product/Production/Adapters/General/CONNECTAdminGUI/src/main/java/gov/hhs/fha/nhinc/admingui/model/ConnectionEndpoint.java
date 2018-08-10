@@ -82,7 +82,7 @@ public class ConnectionEndpoint {
         }
     }
 
-    public boolean isPass() {
+    public boolean isPingSuccessful() {
         return responseCode == HTTP_OK;
     }
 
