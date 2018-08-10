@@ -58,17 +58,19 @@ public class PingServiceImpl implements PingService {
     private static final String WSDL_SUFFIX = "?wsdl";
     private static final String LOG_WSDL_KEY = "logWsdlPing";
     private static final String MSG_EXCEPTION_TIMEOUT = "Connection timed out";
+    public static final boolean DO_NOT_IGNORE_DEADHOST = false;
+    public static final boolean IGNORE_DEADHOST = true;
 
     private Set<String> deadhostList = new HashSet<>();
 
     @Override
-    public int ping(String url) {
+    public int ping(String url, boolean ignoreDeadhostList) {
         Integer responseCode = null;
         URL webserviceUrl = null;
 
         try {
             webserviceUrl = new URL(prepUrl(url));
-            if (!deadhostList.contains(webserviceUrl.getHost())) {
+            if (checkNotInDeadhostList(webserviceUrl, ignoreDeadhostList)) {
                 HttpsURLConnection.setDefaultHostnameVerifier(getHostNameVerifier());
                 HttpURLConnection con = (HttpURLConnection) webserviceUrl.openConnection();
                 responseCode = con.getResponseCode();
@@ -141,5 +143,13 @@ public class PingServiceImpl implements PingService {
 
     private static String getStringHostPort(Object... args) {
         return MessageFormat.format("{0}:{1}", args);
+    }
+
+    private boolean checkNotInDeadhostList(URL url, boolean ignoreDeadhostList) {
+        if (ignoreDeadhostList) {
+            return true;
+        }
+
+        return !deadhostList.contains(getStringHostPort(url.getHost(), url.getPort()));
     }
 }
