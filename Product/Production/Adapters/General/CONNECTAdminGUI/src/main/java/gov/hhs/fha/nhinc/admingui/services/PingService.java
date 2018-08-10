@@ -32,7 +32,7 @@ package gov.hhs.fha.nhinc.admingui.services;
  */
 public interface PingService {
 
-    public int ping(String url);
+    public int ping(String url, boolean ignoreDeadhostList);
 
     public void resetDeadhostList();
 }

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import static gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl.IGNORE_DEADHOST;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
 import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.getEndpointConfigurationTypeBy;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_DELETE;
@@ -257,8 +258,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
     @Override
     public int pingService(ConnectionEndpoint connEndpoint) {
         if (null != connEndpoint) {
-            pingService.resetDeadhostList();
-            connEndpoint.setResponseCode(pingService.ping(connEndpoint.getServiceUrl()));
+            connEndpoint.setResponseCode(pingService.ping(connEndpoint.getServiceUrl(), IGNORE_DEADHOST));
             connEndpoint.setPingTimestamp(HelperUtil.getDateNow(DATE_FORMAT));
             EndpointManagerCache.getInstance().addOrUpdateEndpoint(connEndpoint.getServiceUrl(), new Date(),
                 connEndpoint.isPingSuccessful(), connEndpoint.getResponseCode());

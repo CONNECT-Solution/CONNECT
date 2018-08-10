@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
+import static gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl.IGNORE_DEADHOST;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.formatDate;
 
 import gov.hhs.fha.nhinc.admingui.application.EndpointManagerCache;
@@ -131,7 +132,7 @@ public class ConnectionManagerBean {
 
     public void ping() {
         if (selectedEndpoint != null) {
-            selectedEndpoint.setResponseCode(pingService.ping(selectedEndpoint.getServiceUrl()));
+            selectedEndpoint.setResponseCode(pingService.ping(selectedEndpoint.getServiceUrl(), IGNORE_DEADHOST));
             EndpointManagerCache.getInstance().addOrUpdateEndpoint(selectedEndpoint.getServiceUrl(), new Date(),
                 selectedEndpoint.isPingSuccessful(), selectedEndpoint.getResponseCode());
         }
