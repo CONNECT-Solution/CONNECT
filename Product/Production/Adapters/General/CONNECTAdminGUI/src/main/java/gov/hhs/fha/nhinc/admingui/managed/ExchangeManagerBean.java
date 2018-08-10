@@ -199,7 +199,7 @@ public class ExchangeManagerBean {
     }
 
     public List<ConnectionEndpoint> getConnectionEndpoints() {
-        return refreshCacheEndpoints(filterExchange, filterOrganization);
+        return refreshCacheEndpoints();
     }
 
     public boolean refreshOrganizations() {
@@ -270,12 +270,12 @@ public class ExchangeManagerBean {
         return bDelete;
     }
 
-    public boolean pingEndpoint() {
+    public int pingEndpoint() {
         return exchangeService.pingService(selectedEndpoint);
     }
 
     public boolean pingAllEndpoint() {
-        refreshCacheEndpoints(filterExchange, filterOrganization);
+        refreshCacheEndpoints();
         if (CollectionUtils.isEmpty(endpoints)) {
             LOG.debug("ping-all connection-endpoints: none found.");
             return false;
@@ -363,7 +363,7 @@ public class ExchangeManagerBean {
         return contact.getFullName().get(0);
     }
 
-    private List<ConnectionEndpoint> refreshCacheEndpoints(String filterExchange, String filterOrganization) {
+    private List<ConnectionEndpoint> refreshCacheEndpoints() {
         if(StringUtils.isBlank(filterOrganization) || StringUtils.isBlank(filterExchange)){
             return endpoints;
         }

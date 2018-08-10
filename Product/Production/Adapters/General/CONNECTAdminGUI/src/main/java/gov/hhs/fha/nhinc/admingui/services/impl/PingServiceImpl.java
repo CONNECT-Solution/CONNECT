@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,16 +26,19 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import static java.net.HttpURLConnection.HTTP_CLIENT_TIMEOUT;
+
 import gov.hhs.fha.nhinc.admingui.services.PingService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.util.StreamUtils;
 import java.io.BufferedReader;
-import java.io.InputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
@@ -52,61 +55,56 @@ public class PingServiceImpl implements PingService {
 
     private static final String WSDL_SUFFIX = "?wsdl";
     private static final String LOG_WSDL_KEY = "logWsdlPing";
+    private static final String MSG_EXCEPTION_TIMEOUT = "Connection timed out";
+
+    private List<String> timeoutList = new ArrayList<>();
 
     @Override
-    public boolean ping(String url) {
-        InputStream is = null;
-        InputStreamReader isReader = null;
-        BufferedReader in = null;
+    public int ping(String url) {
+        int responseCode = HTTP_CLIENT_TIMEOUT;
+        URL webserviceUrl = null;
 
         try {
-            URL webserviceUrl = new URL(prepUrl(url));
-            HttpsURLConnection.setDefaultHostnameVerifier(getHostNameVerifier());
-            HttpURLConnection con = (HttpURLConnection) webserviceUrl.openConnection();
-
-            is = con.getInputStream();
-            isReader = new InputStreamReader(is);
-
-            in = new BufferedReader(isReader);
-            String inputLine;
-            StringBuilder pingOutput = new StringBuilder();
-
-            while ((inputLine = in.readLine()) != null) {
-                pingOutput.append(inputLine);
+            webserviceUrl = new URL(prepUrl(url));
+            if (!timeoutList.contains(webserviceUrl.getHost())) {
+                HttpsURLConnection.setDefaultHostnameVerifier(getHostNameVerifier());
+                HttpURLConnection con = (HttpURLConnection) webserviceUrl.openConnection();
+                responseCode = con.getResponseCode();
+                logWsdl(readInputStreamFrom(con));
+                con.disconnect();
+            } else {
+                LOG.warn("skip-known-timeout-server-host: {}", url);
             }
-
-            logWsdl(pingOutput.toString());
-            con.disconnect();
-            return true;
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             LOG.warn("Problem pinging endpoint: {}", ex.getLocalizedMessage());
             LOG.trace("Problem pinging endpoint: {}", ex.getLocalizedMessage(), ex);
-        } finally {
-            StreamUtils.closeStreamSilently(is);
-            StreamUtils.closeFileSilently(isReader);
-            StreamUtils.closeFileSilently(in);
+
+            if (null != webserviceUrl && ex.getMessage().indexOf(MSG_EXCEPTION_TIMEOUT) > -1) {
+                timeoutList.add(webserviceUrl.getHost());
+                responseCode = HTTP_CLIENT_TIMEOUT;
+            }
         }
 
-        return false;
+        return responseCode;
     }
 
-    private String prepUrl(String serviceUrl) {
+    private static String prepUrl(String serviceUrl) {
         if (!serviceUrl.endsWith(WSDL_SUFFIX)) {
-            serviceUrl = serviceUrl.concat(WSDL_SUFFIX);
+            return serviceUrl.concat(WSDL_SUFFIX);
         }
         return serviceUrl;
     }
 
-    private HostnameVerifier getHostNameVerifier() {
+    private static HostnameVerifier getHostNameVerifier() {
         return new HostnameVerifier() {
             @Override
             public boolean verify(String hostname, SSLSession sslSession) {
-                return true;
+                return hostname.equalsIgnoreCase(sslSession.getPeerHost());
             }
         };
     }
 
-    protected void logWsdl(String output) {
+    protected static void logWsdl(String output) {
         try {
             PropertyAccessor propAccessor = PropertyAccessor.getInstance();
             String logOutputValue = propAccessor.getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, LOG_WSDL_KEY);
@@ -117,6 +115,23 @@ public class PingServiceImpl implements PingService {
         } catch (PropertyAccessException ex) {
             LOG.warn("Could not access properties: {}", ex.getLocalizedMessage());
             LOG.trace("Could not access properties: {}", ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    @Override
+    public void resetTimeoutList() {
+        LOG.info("Timeout-servers-list is resetted");
+        timeoutList = new ArrayList<>();
+    }
+
+    private static String readInputStreamFrom(HttpURLConnection urlConn) throws IOException {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(urlConn.getInputStream()))) {
+            String inputLine;
+            StringBuilder pingOutput = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                pingOutput.append(inputLine);
+            }
+            return pingOutput.toString();
         }
     }
 }
