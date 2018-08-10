@@ -75,7 +75,7 @@ public class PingServiceImpl implements PingService {
                 logWsdl(readInputStreamFrom(con));
                 con.disconnect();
             } else {
-                LOG.warn("skip-known-timeout-server-host: {}", url);
+                LOG.warn("skipping ping known dead host: {}", url);
             }
         } catch (IOException ex) {
             LOG.warn("Problem pinging endpoint: {}", ex.getLocalizedMessage());
@@ -122,7 +122,7 @@ public class PingServiceImpl implements PingService {
 
     @Override
     public void resetDeadhostList() {
-        LOG.info("Timeout-servers-list is resetted");
+        LOG.trace("reset dead host list");
         if (CollectionUtils.isNotEmpty(deadhostList)) {
             deadhostList = new HashSet<>();
         }
