@@ -58,7 +58,6 @@ public class PingServiceImpl implements PingService {
     private static final String WSDL_SUFFIX = "?wsdl";
     private static final String LOG_WSDL_KEY = "logWsdlPing";
     private static final String MSG_EXCEPTION_TIMEOUT = "Connection timed out";
-    public static final boolean DO_NOT_IGNORE_DEADHOST = false;
     public static final boolean IGNORE_DEADHOST = true;
 
     private Set<String> deadhostList = new HashSet<>();
