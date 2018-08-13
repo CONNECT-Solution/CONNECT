@@ -55,5 +55,5 @@ public interface ExchangeManagerService {
 
     public List<ExchangeDownloadStatusType> refreshExchangeManager();
 
-    public boolean pingService(ConnectionEndpoint connEndpoint);
+    public int pingService(ConnectionEndpoint connEndpoint);
 }

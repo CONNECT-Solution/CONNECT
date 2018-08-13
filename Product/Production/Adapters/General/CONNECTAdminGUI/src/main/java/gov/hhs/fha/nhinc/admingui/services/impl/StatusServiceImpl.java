@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import static gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl.IGNORE_DEADHOST;
 import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.getEndpointConfigurationTypeBy;
 
 import gov.hhs.fha.nhinc.admingui.application.ApplicationInfo;
@@ -83,9 +84,8 @@ public class StatusServiceImpl implements StatusService {
 
         if (totalMemoryUsed > 0) {
             return Long.toString(totalMemoryUsed) + " MB";
-        } else {
-            return null;
         }
+        return null;
     }
 
     @Override
@@ -96,6 +96,7 @@ public class StatusServiceImpl implements StatusService {
     @Override
     public List<AvailableService> buildServices() {
         List<AvailableService> services = new ArrayList<>();
+        PING_SERVICE.resetDeadhostList();
 
         ConnectionHelper cHelper = new ConnectionHelper();
         OrganizationType localOrg = cHelper.getLocalOrganization();
@@ -125,7 +126,7 @@ public class StatusServiceImpl implements StatusService {
                 for (EndpointConfigurationType url : getEndpointConfigurationTypeBy(endpoint)) {
                     AvailableService aService = new AvailableService();
                     aService.setServiceName(MessageFormat.format("{0} - {1}", serviceName, url.getVersion()));
-                    aService.setAvailable(PING_SERVICE.ping(url.getUrl()));
+                    aService.setResponseCode(PING_SERVICE.ping(url.getUrl(), !IGNORE_DEADHOST));
 
                     services.add(aService);
                 }
