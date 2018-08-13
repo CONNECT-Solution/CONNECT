@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
-import static gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl.DO_NOT_IGNORE_DEADHOST;
+import static gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl.IGNORE_DEADHOST;
 import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.getEndpointConfigurationTypeBy;
 
 import gov.hhs.fha.nhinc.admingui.application.ApplicationInfo;
@@ -126,7 +126,7 @@ public class StatusServiceImpl implements StatusService {
                 for (EndpointConfigurationType url : getEndpointConfigurationTypeBy(endpoint)) {
                     AvailableService aService = new AvailableService();
                     aService.setServiceName(MessageFormat.format("{0} - {1}", serviceName, url.getVersion()));
-                    aService.setResponseCode(PING_SERVICE.ping(url.getUrl(), DO_NOT_IGNORE_DEADHOST));
+                    aService.setResponseCode(PING_SERVICE.ping(url.getUrl(), !IGNORE_DEADHOST));
 
                     services.add(aService);
                 }
