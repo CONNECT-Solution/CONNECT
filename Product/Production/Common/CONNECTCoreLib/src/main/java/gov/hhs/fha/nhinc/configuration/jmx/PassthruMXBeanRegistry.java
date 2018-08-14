@@ -72,8 +72,8 @@ public class PassthruMXBeanRegistry {
         registeredBeans.add(bean);
     }
 
-    public void unregisteredBean(WebServicesMXBean bean) {
-        registeredBeans.remove(bean);
+    public boolean unregisterBean(WebServicesMXBean bean) {
+        return registeredBeans.remove(bean);
     }
 
 

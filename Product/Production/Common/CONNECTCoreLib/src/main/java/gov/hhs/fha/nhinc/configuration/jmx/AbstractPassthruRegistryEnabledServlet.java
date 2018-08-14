@@ -77,7 +77,7 @@ public abstract class AbstractPassthruRegistryEnabledServlet extends HttpServlet
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         for (WebServicesMXBean bean : beans) {
             LOG.info("Removing MX Bean for service {} due to InitServlet shutdown", bean.getServiceName().name());
-            registry.unregisteredBean(bean);
+            registry.unregisterBean(bean);
         }
 
         super.destroy();

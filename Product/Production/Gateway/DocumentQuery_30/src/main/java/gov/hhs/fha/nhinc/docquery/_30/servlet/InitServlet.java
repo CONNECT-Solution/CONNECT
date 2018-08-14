@@ -26,25 +26,36 @@
  */
 package gov.hhs.fha.nhinc.docquery._30.servlet;
 
-import gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet;
 import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
 import gov.hhs.fha.nhinc.docquery.configuration.jmx.DocumentQuery30WebServices;
+import gov.hhs.fha.nhinc.registrar.AbstractMXBeanRegistrar;
 import java.util.Collections;
 import java.util.Set;
-import javax.servlet.ServletContext;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import org.springframework.stereotype.Component;
 
 /**
  * @author paul.eftis, msw
  */
-public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
-
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = -4229185731377926278L;
+@Component
+public class InitServlet  extends AbstractMXBeanRegistrar {
 
     @Override
-    public Set<WebServicesMXBean> getWebServiceMXBean(ServletContext sc) {
-        WebServicesMXBean bean = new DocumentQuery30WebServices(sc);
-        return Collections.singleton(bean);
+    @PostConstruct
+    public void init() {
+        super.init();
     }
 
+    @Override
+    @PreDestroy
+    public void destroy() {
+        super.destroy();
+    }
+
+    @Override
+    public Set<WebServicesMXBean> getWebServiceMXBean() {
+        WebServicesMXBean bean = new DocumentQuery30WebServices();
+        return Collections.singleton(bean);
+    }
 }

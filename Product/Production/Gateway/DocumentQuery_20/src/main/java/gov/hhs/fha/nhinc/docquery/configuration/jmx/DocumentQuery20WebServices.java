@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured;
 import gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery;
 import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
 import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
-import javax.servlet.ServletContext;
 
 /**
  * The Class DocumentQuery30WebServices.
@@ -43,15 +42,6 @@ public class DocumentQuery20WebServices extends AbstractDQWebServicesMXBean {
 
 	private final serviceEnum serviceName = serviceEnum.QueryForDocuments;
 
-	/**
-	 * Instantiates a new document query30 web services.
-	 *
-	 * @param sc
-	 *            the sc
-	 */
-	public DocumentQuery20WebServices(ServletContext sc) {
-		super(sc);
-	}
 
 	/**
 	 * Configure Standard inbound implementation. The inbound orchestration
@@ -226,7 +216,7 @@ public class DocumentQuery20WebServices extends AbstractDQWebServicesMXBean {
 
 	@Override
 	public serviceEnum getServiceName() {
-		return this.serviceName;
+		return serviceName;
 	}
 
 	/*

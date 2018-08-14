@@ -5,11 +5,14 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     version="2.5">
 
+<!--
     <servlet>
         <servlet-name>InitServlet</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.docquery._20.servlet.InitServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
-    </servlet>
+    </servlet> 
+ -->
+
 
     <servlet>
         <servlet-name>cxf</servlet-name>
