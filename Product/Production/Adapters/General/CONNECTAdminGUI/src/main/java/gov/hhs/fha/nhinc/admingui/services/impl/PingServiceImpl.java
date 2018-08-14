@@ -84,11 +84,10 @@ public class PingServiceImpl implements PingService {
 
             if (null == responseCode && null != webserviceUrl && ex.getMessage().indexOf(MSG_EXCEPTION_TIMEOUT) > -1) {
                 deadhostList.add(getStringHostPort(webserviceUrl.getHost(), webserviceUrl.getPort()));
-                responseCode = HTTP_CLIENT_TIMEOUT;
             }
         }
 
-        return responseCode;
+        return null == responseCode ? HTTP_CLIENT_TIMEOUT : responseCode.intValue();
     }
 
     private static String prepUrl(String serviceUrl) {
