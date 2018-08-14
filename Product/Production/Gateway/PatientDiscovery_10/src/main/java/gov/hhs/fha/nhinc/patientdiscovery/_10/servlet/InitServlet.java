@@ -40,9 +40,10 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
- * Started on webapplication init, creates the main ExecutorService and CamelContext instances Note the following: 1.
+ * Started on spring init, creates the main ExecutorService and CamelContext instances Note the following: 1.
  * Main ExecutorService creates a new thread pool of size specified on construction, independent/in addition to
  * glassfish thread pool(s) set in domain.xml. 2. ExecutorService automatically handles any thread death condition and
  * creates a new thread in this case
@@ -55,8 +56,8 @@ import org.slf4j.LoggerFactory;
  * @author paul.eftis, msw
  */
 
-//@Component
-public class InitServlet  extends AbstractMXBeanRegistrar {
+@Component
+public class InitServlet extends AbstractMXBeanRegistrar {
 
     private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
     private static ExecutorService executor = null;
@@ -66,9 +67,9 @@ public class InitServlet  extends AbstractMXBeanRegistrar {
     @Override
     public void init() {
         LOG.info("PatientDiscovery InitServlet starting...");
-        ExecutorService newExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getExecutorPoolSize());
+        ExecutorService newExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
         setExecutorService(newExecutor);
-        ExecutorService newLargeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getLargeJobExecutorPoolSize());
+        ExecutorService newLargeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getLargeJobExecutorPoolSize());
         setLargeJobExecutorService(newLargeJobExecutor);
         super.init();
 

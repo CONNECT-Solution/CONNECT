@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -54,15 +54,15 @@ public class ExecutorServiceHelper {
     private static final Logger LOG = LoggerFactory.getLogger(ExecutorServiceHelper.class);
 
     // default pool size is 100
-    private static int concurrentPoolSize;
+    private int concurrentPoolSize;
     // default large job pool size is 200
-    private static int largejobPoolSize;
+    private int largejobPoolSize;
     // default large job size percent is 75%
-    private static double largejobSizePercent;
+    private double largejobSizePercent;
 
     // timeoutValues no longer used (timeouts set in WebServiceProxyHelper)
     // timeoutValues Map contains web service client timeouts
-    private static Map timeoutValues = new HashMap();
+    private Map timeoutValues = new HashMap();
 
     // private constructor to ensure singleton
     private ExecutorServiceHelper() {
@@ -111,19 +111,19 @@ public class ExecutorServiceHelper {
         return SingletonHolder.INSTANCE;
     }
 
-    public static int getExecutorPoolSize() {
+    public int getExecutorPoolSize() {
         return concurrentPoolSize;
     }
 
-    public static int getLargeJobExecutorPoolSize() {
+    public int getLargeJobExecutorPoolSize() {
         return largejobPoolSize;
     }
 
-    public static double getLargeJobPercentage() {
+    public double getLargeJobPercentage() {
         return largejobSizePercent;
     }
 
-    public static Map getTimeoutValues() {
+    public Map getTimeoutValues() {
         return timeoutValues;
     }
 
@@ -134,7 +134,7 @@ public class ExecutorServiceHelper {
      * @param targetListCount is the fan-out count for the task
      * @return boolean true if task should be run using large job executor service
      */
-    public static boolean checkExecutorTaskIsLarge(int targetListCount) {
+    public boolean checkExecutorTaskIsLarge(int targetListCount) {
         boolean bigJob = false;
         Double maxSize = new Double(largejobSizePercent * concurrentPoolSize);
         if (targetListCount >= maxSize.intValue()) {
