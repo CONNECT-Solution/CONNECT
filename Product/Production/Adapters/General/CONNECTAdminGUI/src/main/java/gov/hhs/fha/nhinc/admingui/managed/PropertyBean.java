@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,6 +27,9 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.model.PropValue;
+import gov.hhs.fha.nhinc.admingui.services.PropertyService;
+import gov.hhs.fha.nhinc.admingui.services.impl.PropertyServiceImpl;
+import gov.hhs.fha.nhinc.common.propertyaccess.PropertyType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -59,8 +62,8 @@ public class PropertyBean {
     private String auditPropMsg = "auditPropMsg";
     private static final String PROP_UPDATE_MSG = "Property value changed for ";
     private static final String PROP_UPDATE_FAIL_MSG = "Unable to set property value: ";
-    private static final String PROP_EXCEPTION_MSG = "Unable to update property {}: {}";
     private static final Logger LOG = LoggerFactory.getLogger(PropertyBean.class);
+    private PropertyService propertyService = new PropertyServiceImpl();
 
     public PropertyBean() {
         setProperties();
@@ -100,14 +103,14 @@ public class PropertyBean {
         String oldValue = (String) event.getOldValue();
         String newValue = (String) event.getNewValue();
 
-        try {
-            PropertyAccessor.getInstance().setProperty(NhincConstants.GATEWAY_PROPERTY_FILE, selectedProp.getKey(),
-                newValue);
+        boolean status = propertyService.saveProperty(NhincConstants.GATEWAY_PROPERTY_FILE, selectedProp.getKey(),
+            newValue);
+
+        if (status) {
             FacesContext.getCurrentInstance().addMessage(gatewayPropMsg,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", getPropertiesUpdateMessage(PROP_UPDATE_MSG,
                     selectedProp.getKey(), oldValue, newValue)));
-        } catch (PropertyAccessException ex) {
-            LOG.warn(PROP_EXCEPTION_MSG, selectedProp.getKey(), ex.getLocalizedMessage(), ex);
+        } else {
             FacesContext.getCurrentInstance().addMessage(gatewayPropMsg,
                 new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", getPropertiesUpdateMessage(PROP_UPDATE_FAIL_MSG,
                     selectedProp.getKey(), oldValue, newValue)));
@@ -120,14 +123,14 @@ public class PropertyBean {
         String oldValue = (String) event.getOldValue();
         String newValue = (String) event.getNewValue();
 
-        try {
-            PropertyAccessor.getInstance().setProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, selectedProp.getKey(),
-                newValue);
+        boolean status = propertyService.saveProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME, selectedProp.getKey(),
+            newValue);
+
+        if (status) {
             FacesContext.getCurrentInstance().addMessage(adapterPropMsg,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", getPropertiesUpdateMessage(PROP_UPDATE_MSG,
                     selectedProp.getKey(), oldValue, newValue)));
-        } catch (PropertyAccessException ex) {
-            LOG.warn(PROP_EXCEPTION_MSG, selectedProp.getKey(), ex.getLocalizedMessage(), ex);
+        } else {
             FacesContext.getCurrentInstance().addMessage(adapterPropMsg,
                 new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", getPropertiesUpdateMessage(PROP_UPDATE_FAIL_MSG,
                     selectedProp.getKey(), oldValue, newValue)));
@@ -140,14 +143,14 @@ public class PropertyBean {
         String oldValue = (String) event.getOldValue();
         String newValue = (String) event.getNewValue();
 
-        try {
-            PropertyAccessor.getInstance().setProperty(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE, selectedProp.getKey(),
-                newValue);
+        boolean status = propertyService.saveProperty(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE, selectedProp.getKey(),
+            newValue);
+
+        if (status) {
             FacesContext.getCurrentInstance().addMessage(auditPropMsg,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", getPropertiesUpdateMessage(PROP_UPDATE_MSG,
                     selectedProp.getKey(), oldValue, newValue)));
-        } catch (PropertyAccessException ex) {
-            LOG.warn(PROP_EXCEPTION_MSG, selectedProp.getKey(), ex.getLocalizedMessage(), ex);
+        } else {
             FacesContext.getCurrentInstance().addMessage(auditPropMsg,
                 new FacesMessage(FacesMessage.SEVERITY_WARN, "WARN", getPropertiesUpdateMessage(PROP_UPDATE_FAIL_MSG,
                     selectedProp.getKey(), oldValue, newValue)));
@@ -155,34 +158,17 @@ public class PropertyBean {
     }
 
     private void setProperties() {
-        gatewayProperties = new ArrayList<>();
-        adapterProperties = new ArrayList<>();
-        auditProperties = new ArrayList<>();
-        try {
-            Properties gatewayProps = PropertyAccessor.getInstance()
-                .getProperties(NhincConstants.GATEWAY_PROPERTY_FILE);
-            addProperties(gatewayProps, gatewayProperties, NhincConstants.GATEWAY_PROPERTY_FILE);
-        } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to set {} properties file: {}", NhincConstants.GATEWAY_PROPERTY_FILE,
-                ex.getLocalizedMessage(), ex);
-        }
+        gatewayProperties = convertPropValue(propertyService.listProperties(NhincConstants.GATEWAY_PROPERTY_FILE));
+        adapterProperties = convertPropValue(propertyService.listProperties(NhincConstants.ADAPTER_PROPERTY_FILE_NAME));
+        auditProperties = convertPropValue(propertyService.listProperties(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE));
+    }
 
-        try {
-            Properties adapterProps = PropertyAccessor.getInstance()
-                .getProperties(NhincConstants.ADAPTER_PROPERTY_FILE_NAME);
-            addProperties(adapterProps, adapterProperties, NhincConstants.ADAPTER_PROPERTY_FILE_NAME);
-        } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to set {} properties file: {}", NhincConstants.ADAPTER_PROPERTY_FILE_NAME,
-                ex.getLocalizedMessage(), ex);
+    private List<PropValue> convertPropValue(List<PropertyType> ptList) {
+        List<PropValue> pvList = new ArrayList();
+        for (PropertyType pt : ptList) {
+            pvList.add(new PropValue(pt.getPropertyName(), pt.getPropertyValue(), pt.getPropertyText()));
         }
-        try {
-            Properties auditProps = PropertyAccessor.getInstance()
-                .getProperties(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE);
-            addProperties(auditProps, auditProperties, NhincConstants.AUDIT_LOGGING_PROPERTY_FILE);
-        } catch (PropertyAccessException ex) {
-            LOG.warn("Unable to set {} properties file: {}", NhincConstants.AUDIT_LOGGING_PROPERTY_FILE,
-                ex.getLocalizedMessage(), ex);
-        }
+        return pvList;
     }
 
     private void addProperties(Properties props, List<PropValue> viewProps, String propFileName)
