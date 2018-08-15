@@ -299,6 +299,11 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
+            <artifactId>ComponentWebservices</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
             <artifactId>ConfigAdminWebservices</artifactId>
         </dependency>
         <dependency>
