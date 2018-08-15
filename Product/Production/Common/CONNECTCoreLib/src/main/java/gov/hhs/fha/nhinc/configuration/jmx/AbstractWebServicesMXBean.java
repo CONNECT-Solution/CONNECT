@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.configuration.jmx;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
@@ -174,7 +173,7 @@ public abstract class AbstractWebServicesMXBean implements ApplicationContextAwa
 
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(ApplicationContext applicationContext) {
         context = applicationContext;
     }
 }

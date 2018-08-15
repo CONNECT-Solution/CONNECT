@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -29,38 +29,38 @@ package gov.hhs.fha.nhinc.configuration;
 import gov.hhs.fha.nhinc.configuration.jmx.Configuration;
 import gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import javax.servlet.ServletContext;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import org.springframework.stereotype.Component;
 
 /**
  * The Class InitServlet.
  *
  * @author msw
  */
+@Component
 public class InitServlet extends AbstractJMXEnabledServlet {
 
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = 7738036165392946446L;
-
-    /** The Constant MBEAN_NAME. */
-    private static final String MBEAN_NAME = NhincConstants.JMX_CONFIGURATION_BEAN_NAME;
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet#getMBeanName()
-     */
     @Override
-    public String getMBeanName() {
-        return MBEAN_NAME;
+    @PostConstruct
+    public void init() {
+        super.init();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet#getMBeanInstance(javax.servlet.ServletContext)
-     */
     @Override
-    public Object getMBeanInstance(ServletContext sc) {
+    @PreDestroy
+    public void destroy() {
+        super.destroy();
+    }
+
+    @Override
+    public String getMBeanName() {
+        return NhincConstants.JMX_CONFIGURATION_BEAN_NAME;
+    }
+
+
+    @Override
+    public Object getMBeanInstance() {
         return new Configuration();
     }
 }
