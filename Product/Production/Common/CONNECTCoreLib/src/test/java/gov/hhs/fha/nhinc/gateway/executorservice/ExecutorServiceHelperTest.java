@@ -59,7 +59,6 @@ public class ExecutorServiceHelperTest {
      */
     @Test
     public void testGetInstance() {
-        System.out.println("getInstance");
         ExecutorServiceHelper result = ExecutorServiceHelper.getInstance();
         assertNotNull(result);
     }
@@ -69,7 +68,6 @@ public class ExecutorServiceHelperTest {
      */
     @Test
     public void testGetExecutorPoolSize() {
-        System.out.println("getExecutorPoolSize");
         // default Pool Size
         int expResult = 100;
         int result = instance.getExecutorPoolSize();
@@ -81,7 +79,6 @@ public class ExecutorServiceHelperTest {
      */
     @Test
     public void testGetLargeJobExecutorPoolSize() {
-        System.out.println("getLargeJobExecutorPoolSize");
         // default value
         int expResult = 200;
         int result = instance.getLargeJobExecutorPoolSize();
@@ -93,7 +90,6 @@ public class ExecutorServiceHelperTest {
      */
     @Test
     public void testGetLargeJobPercentage() {
-        System.out.println("getLargeJobPercentage");
         double expResult = .75;
         double result = instance.getLargeJobPercentage();
         assertEquals(expResult, result, 0.0);
@@ -104,7 +100,6 @@ public class ExecutorServiceHelperTest {
      */
     @Test
     public void testGetTimeoutValues() {
-        System.out.println("getTimeoutValues");
         // set the default values
         Map expResult = new HashMap();
         Map result = instance.getTimeoutValues();
@@ -116,7 +111,6 @@ public class ExecutorServiceHelperTest {
      */
     @Test
     public void testCheckExecutorTaskIsLarge() {
-        System.out.println("checkExecutorTaskIsLarge");
         int targetListCount = 100;
         boolean expResult = true;
         boolean result = instance.checkExecutorTaskIsLarge(targetListCount);
@@ -132,7 +126,6 @@ public class ExecutorServiceHelperTest {
      */
     @Test
     public void testOutputCompleteException() {
-        System.out.println("outputCompleteException");
         Exception ex = new Exception("Test Error", new Throwable("Detailed Error Message"));
         ExecutorServiceHelper.outputCompleteException(ex);
     }
