@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.admindistribution._10.nhin.NhinAdministrativeDistributi
 import gov.hhs.fha.nhinc.admindistribution.inbound.InboundAdminDistribution;
 import gov.hhs.fha.nhinc.admindistribution.outbound.OutboundAdminDistribution;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
-import javax.servlet.ServletContext;
 
 /**
  * The Class AdminDistribution10WebServices.
@@ -51,15 +50,6 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
 
     private final serviceEnum serviceName = serviceEnum.AdminDistribution;
 
-    /**
-     * Instantiates a new admin distribution10 web services.
-     *
-     * @param sc the sc
-     */
-    public AdminDistribution10WebServices(ServletContext sc) {
-        super(sc);
-    }
-
     /*
      * (non-Javadoc)
      *
@@ -78,7 +68,7 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getNhinBeanName()
      */
     @Override
@@ -88,7 +78,7 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntityUnsecuredBeanName()
      */
     @Override
@@ -98,7 +88,7 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntitySecuredBeanName()
      */
     @Override

@@ -30,24 +30,29 @@ import gov.hhs.fha.nhinc.configuration.jmx.Configuration;
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import org.springframework.stereotype.Component;
 
 /**
  * @author paul.eftis
  */
+@Component
 public class InitServlet extends AbstractJMXEnabledServlet {
 
-    private static final long serialVersionUID = -8830568626032954198L;
+    @Override
+    @PostConstruct
+    public void init() {
+        EventLoggerFactory.getInstance().registerLoggers();
+        super.init();
+    }
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-
-        // register event loggers as observers...
-        EventLoggerFactory.getInstance().registerLoggers();
+    @PreDestroy
+    public void destroy() {
+        super.destroy();
     }
+
 
     @Override
     public String getMBeanName() {
@@ -55,7 +60,7 @@ public class InitServlet extends AbstractJMXEnabledServlet {
     }
 
     @Override
-    public Object getMBeanInstance(ServletContext sc) {
+    public Object getMBeanInstance() {
         return new Configuration();
     }
 

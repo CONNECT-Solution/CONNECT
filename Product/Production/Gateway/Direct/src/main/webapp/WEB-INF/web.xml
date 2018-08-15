@@ -36,12 +36,6 @@
     </context-param-->
 
     <servlet>
-        <servlet-name>init</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.direct.servlet.InitServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet>
         <servlet-name>WebServicePort</servlet-name>
         <!-- For Metro, use this servlet-class instead:
               com.sun.xml.ws.transport.http.servlet.WSServlet -->

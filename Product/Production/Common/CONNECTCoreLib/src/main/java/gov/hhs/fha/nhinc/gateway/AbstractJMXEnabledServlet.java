@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -35,10 +35,6 @@ import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,10 +43,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author msw
  */
-public abstract class AbstractJMXEnabledServlet extends HttpServlet {
-
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = 1339014755670360100L;
+public abstract class AbstractJMXEnabledServlet {
 
     /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractJMXEnabledServlet.class);
@@ -74,51 +67,31 @@ public abstract class AbstractJMXEnabledServlet extends HttpServlet {
      * @param sc the sc
      * @return the m bean instance
      */
-    public abstract Object getMBeanInstance(ServletContext sc);
+    public abstract Object getMBeanInstance();
 
     /**
-     * Initializes the JMX enabled servlet calling {@link javax.servlet.http.HttpServlet#init(ServletConfig)} and then
-     * loading the MBean described by {@link #getMBeanName()} and {@link #getMBeanInstance(ServletContext)}.
-     *
-     * @param config the config
-     * @throws ServletException the servlet exception
-     * @see javax.servlet.GenericServlet#init()
+     * Registers the MBean with the MBeanServer if JMX is enabled for CONNECT
      */
-    @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init() {
         String enableJMX = System.getProperty(NhincConstants.JMX_ENABLED_SYSTEM_PROPERTY);
         if ("true".equalsIgnoreCase(enableJMX)) {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
             ObjectName name;
             try {
                 name = new ObjectName(getMBeanName());
-                Object mbean = getMBeanInstance(config.getServletContext());
+                Object mbean = getMBeanInstance();
                 mbs.registerMBean(mbean, name);
-            } catch (MalformedObjectNameException e) {
+            } catch (InstanceAlreadyExistsException | MBeanRegistrationException | NotCompliantMBeanException
+                | MalformedObjectNameException e) {
                 LOG.error(getRegistrationErrorMessage(), e);
-                throw new ServletException(e);
-            } catch (InstanceAlreadyExistsException e) {
-                LOG.error(getRegistrationErrorMessage(), e);
-                throw new ServletException(e);
-            } catch (MBeanRegistrationException e) {
-                LOG.error(getRegistrationErrorMessage(), e);
-                throw new ServletException(e);
-            } catch (NotCompliantMBeanException e) {
-                LOG.error(getRegistrationErrorMessage(), e);
-                throw new ServletException(e);
             }
         }
 
-        super.init(config);
     }
 
     /**
-     * Destroys the JMXEnabled servlet buy unregistering previously registered MBeans, then calls the parent destroy
-     * method.
-     *
-     * @see javax.servlet.GenericServlet#destroy()
+     * Unregisters previously registered MBeans if JMX is enabled for CONNECT
      */
-    @Override
     public void destroy() {
         String enableJMX = System.getProperty(NhincConstants.JMX_ENABLED_SYSTEM_PROPERTY);
         if ("true".equalsIgnoreCase(enableJMX)) {
@@ -127,16 +100,11 @@ public abstract class AbstractJMXEnabledServlet extends HttpServlet {
             try {
                 name = new ObjectName(getMBeanName());
                 mbs.unregisterMBean(name);
-            } catch (InstanceNotFoundException e) {
-                LOG.error(getDestroyErrorMessage(), e);
-            } catch (MalformedObjectNameException e) {
-                LOG.error(getDestroyErrorMessage(), e);
-            } catch (MBeanRegistrationException e) {
+            } catch (InstanceNotFoundException | MalformedObjectNameException | MBeanRegistrationException e) {
                 LOG.error(getDestroyErrorMessage(), e);
             }
         }
 
-        super.destroy();
     }
 
     /**
