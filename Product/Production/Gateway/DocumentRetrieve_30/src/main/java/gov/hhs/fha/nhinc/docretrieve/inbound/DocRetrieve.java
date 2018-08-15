@@ -39,7 +39,6 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -47,7 +46,6 @@ import org.springframework.stereotype.Service;
  */
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 @Addressing(enabled = true)
-@Service
 public class DocRetrieve extends BaseService implements RespondingGatewayRetrievePortType {
 
     private WebServiceContext context;
