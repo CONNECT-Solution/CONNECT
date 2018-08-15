@@ -26,24 +26,24 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.servlet;
 
-import gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet;
 import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx.PatientDiscovery10WebServices;
 import gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx.PatientDiscoveryDeferredReq10WebServices;
 import gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx.PatientDiscoveryDeferredResp10WebServices;
+import gov.hhs.fha.nhinc.registrar.AbstractMXBeanRegistrar;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
- * Started on webapplication init, creates the main ExecutorService and CamelContext instances Note the following: 1.
+ * Started on spring init, creates the main ExecutorService and CamelContext instances Note the following: 1.
  * Main ExecutorService creates a new thread pool of size specified on construction, independent/in addition to
  * glassfish thread pool(s) set in domain.xml. 2. ExecutorService automatically handles any thread death condition and
  * creates a new thread in this case
@@ -55,44 +55,26 @@ import org.slf4j.LoggerFactory;
  *
  * @author paul.eftis, msw
  */
-public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
 
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = -4229185731377926278L;
+@Component
+public class InitServlet extends AbstractMXBeanRegistrar {
 
-    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
-
-    /** The executor. */
     private static ExecutorService executor = null;
-
-    /** The large job executor. */
     private static ExecutorService largeJobExecutor = null;
 
-    /**
-     * Initializes the servlet with parallel fanout executors as well as calling super.init().
-     *
-     * @param config the config
-     * @throws ServletException the servlet exception
-     * @see gov.fha.hhs.nhinc.gateway.AbstractJMXEnabledServlet#init(javax.servlet.ServletConfig)
-     */
+    @PostConstruct
     @Override
-    @SuppressWarnings("static-access")
-    public void init(ServletConfig config) throws ServletException {
-        LOG.debug("InitServlet start...");
+    public void init() {
+        LOG.info("PatientDiscovery InitServlet starting...");
         ExecutorService newExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
         setExecutorService(newExecutor);
-        ExecutorService newLargeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance()
-                .getLargeJobExecutorPoolSize());
+        ExecutorService newLargeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getLargeJobExecutorPoolSize());
         setLargeJobExecutorService(newLargeJobExecutor);
-        super.init(config);
+        super.init();
+
     }
 
-    /**
-     * Gets the executor service.
-     *
-     * @return the executor service
-     */
     public static ExecutorService getExecutorService() {
         return executor;
     }
@@ -101,11 +83,6 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
         executor = newExecutor;
     }
 
-    /**
-     * Gets the large job executor service.
-     *
-     * @return the large job executor service
-     */
     public static ExecutorService getLargeJobExecutorService() {
         return largeJobExecutor;
     }
@@ -113,15 +90,11 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
     public static void setLargeJobExecutorService(ExecutorService newLargeJobExecutor) {
         largeJobExecutor = newLargeJobExecutor;
     }
-    /**
-     * Destroys the servlet. Since we don't want to halt the servlet destroy process, we don't propagate any exceptions
-     * through this method.
-     *
-     * @see gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet#destroy()
-     */
+
     @Override
+    @PreDestroy
     public void destroy() {
-        LOG.debug("InitServlet shutdown stopping executor(s)....");
+        LOG.info("Shutting down executors...");
         if (executor != null) {
             try {
                 executor.shutdown();
@@ -137,19 +110,17 @@ public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
             }
         }
 
-        super.destroy();
+       super.destroy();
+
     }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet#getWebServiceMXBean(javax.servlet.ServletContext)
-     */
     @Override
-    public Set<WebServicesMXBean> getWebServiceMXBean(ServletContext sc) {
-        Set<WebServicesMXBean> beans = new HashSet<>();
-        beans.add(new PatientDiscovery10WebServices(sc));
-        beans.add(new PatientDiscoveryDeferredReq10WebServices(sc));
-        beans.add(new PatientDiscoveryDeferredResp10WebServices(sc));
-        return beans;
+    public Set<WebServicesMXBean> getWebServiceMXBean() {
+        Set<WebServicesMXBean> newBeans = new HashSet<>();
+        newBeans.add(new PatientDiscovery10WebServices());
+        newBeans.add(new PatientDiscoveryDeferredReq10WebServices());
+        newBeans.add(new PatientDiscoveryDeferredResp10WebServices());
+        return newBeans;
     }
 
 }

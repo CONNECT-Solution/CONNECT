@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,14 +26,16 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.gateway;
 
-import gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet;
 import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
 import gov.hhs.fha.nhinc.docsubmission.configuration.jmx.DocumentSubmission20WebServices;
 import gov.hhs.fha.nhinc.docsubmission.configuration.jmx.DocumentSubmissionDefRequest20WebServices;
 import gov.hhs.fha.nhinc.docsubmission.configuration.jmx.DocumentSubmissionDefResponse20WebServices;
+import gov.hhs.fha.nhinc.registrar.AbstractMXBeanRegistrar;
 import java.util.HashSet;
 import java.util.Set;
-import javax.servlet.ServletContext;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import org.springframework.stereotype.Component;
 
 /**
  * The Class InitServlet.
@@ -41,24 +43,27 @@ import javax.servlet.ServletContext;
  * @author msw
  *
  */
-public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
+@Component
+public class InitServlet  extends AbstractMXBeanRegistrar {
 
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = -331241203887741599L;
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet#getWebServiceMXBean(javax.servlet.
-     * ServletContext)
-     */
     @Override
-    public Set<WebServicesMXBean> getWebServiceMXBean(ServletContext sc) {
-        Set<WebServicesMXBean> beans = new HashSet<>();
-        beans.add(new DocumentSubmission20WebServices(sc));
-        beans.add(new DocumentSubmissionDefRequest20WebServices(sc));
-        beans.add(new DocumentSubmissionDefResponse20WebServices(sc));
-        return beans;
+    @PostConstruct
+    public void init() {
+        super.init();
+    }
+
+    @Override
+    @PreDestroy
+    public void destroy() {
+        super.destroy();
+    }
+
+    @Override
+    public Set<WebServicesMXBean> getWebServiceMXBean() {
+        Set<WebServicesMXBean> newBeans = new HashSet<>();
+        newBeans.add(new DocumentSubmission20WebServices());
+        newBeans.add(new DocumentSubmissionDefRequest20WebServices());
+        newBeans.add(new DocumentSubmissionDefResponse20WebServices());
+        return newBeans;
     }
 }

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.configuration.jmx;
 
-import javax.servlet.ServletContext;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 /**
  * The Class AbstractWebServicesMXBean. This abstract class provides some common methods for retrieving beans and
@@ -37,19 +36,9 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  *
  * @author msw
  */
-public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
+public abstract class AbstractWebServicesMXBean implements ApplicationContextAware, WebServicesMXBean {
 
-    /** The ServletContext. */
-    private ServletContext sc;
-
-    /**
-     * Instantiates a new abstract web services mx bean.
-     *
-     * @param sc the ServletContext
-     */
-    public AbstractWebServicesMXBean(ServletContext sc) {
-        this.sc = sc;
-    }
+    protected ApplicationContext context;
 
     /**
      * Gets the Nhin interface bean name.
@@ -110,9 +99,7 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
      * @return the t
      */
     protected <T> T retrieveBean(final Class<T> beanType, String beanName) {
-        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(sc);
-
-        return beanType.cast(webApplicationContext.getBean(beanName));
+        return beanType.cast(context.getBean(beanName));
     }
 
     /**
@@ -184,4 +171,9 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
         return matches;
     }
 
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        context = applicationContext;
+    }
 }
