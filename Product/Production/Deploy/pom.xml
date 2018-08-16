@@ -670,6 +670,18 @@
           <version>${project.parent.version}</version>
           <type>pom</type>
         </dependency>
+        <dependency>
+          <groupId>org.connectopensource</groupId>
+          <artifactId>CONNECTCommonWeb</artifactId>
+          <version>${project.parent.version}</version>
+          <type>war</type>
+        </dependency>
+        <dependency>
+          <groupId>org.connectopensource</groupId>
+          <artifactId>CONNECTCommonWeb</artifactId>
+          <version>${project.parent.version}</version>
+          <type>pom</type>
+        </dependency>
         <!-- Java EE APIs -->
         <dependency>
           <groupId>javax.xml.bind</groupId>
@@ -748,6 +760,12 @@
                   <groupId>org.connectopensource</groupId>
                   <artifactId>ExchangeManagement</artifactId>
                   <contextRoot>/CONNECTGateway/GUIExchangeService</contextRoot>
+                  <excluded>${adminws.excluded}</excluded>
+                </webModule>
+                <webModule>
+                  <groupId>org.connectopensource</groupId>
+                  <artifactId>CONNECTCommonWeb</artifactId>
+                  <contextRoot>/CONNECTGateway/GUIPropertyService</contextRoot>
                   <excluded>${adminws.excluded}</excluded>
                 </webModule>
                 </modules>
@@ -849,7 +867,7 @@
         </dependency>
         <dependency>
           <groupId>org.connectopensource</groupId>
-          <artifactId>ExchangeManagement</artifactId>
+          <artifactId>CONNECTCommonWeb</artifactId>
           <version>${project.parent.version}</version>
           <type>pom</type>
         </dependency>
@@ -872,6 +890,12 @@
                   <groupId>org.connectopensource</groupId>
                   <artifactId>ExchangeManagement</artifactId>
                   <contextRoot>/CONNECTGateway/GUIExchangeService</contextRoot>
+                  <excluded>${adminws.excluded}</excluded>
+                </webModule>
+                <webModule>
+                  <groupId>org.connectopensource</groupId>
+                  <artifactId>CONNECTCommonWeb</artifactId>
+                  <contextRoot>/CONNECTGateway/GUIPropertyService</contextRoot>
                   <excluded>${adminws.excluded}</excluded>
                 </webModule>
               </modules>
