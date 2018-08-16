@@ -629,7 +629,9 @@ public class NhincConstants {
     public static final String ADAPTER_PLQ_SECURED_SERVICE_NAME = "adapterpatientlocationqueryservicesecured";
 
     // Properties
-    public static final String PROPERTIES_SERVICE_NAME = "properties";
+    public static final String PROPERTIES_SERVICE_NAME = "adapterpropertyaccessor";
+    public static final String PROPERTIES_LIST_PROP = "listProperties";
+    public static final String PROPERTIES_SAVE_PROP = "saveProperties";
 
     private NhincConstants() {
     }
