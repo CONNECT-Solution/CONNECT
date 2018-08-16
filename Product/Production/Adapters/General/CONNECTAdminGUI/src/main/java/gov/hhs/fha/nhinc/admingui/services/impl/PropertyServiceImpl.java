@@ -30,6 +30,8 @@ import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_PROPERTY_FILE_NAME;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.AUDIT_LOGGING_PROPERTY_FILE;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.PROPERTIES_LIST_PROP;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.PROPERTIES_SAVE_PROP;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.PROPERTIES_SERVICE_NAME;
 
 import gov.hhs.fha.nhinc.admingui.services.PropertyService;
@@ -39,7 +41,6 @@ import gov.hhs.fha.nhinc.common.propertyaccess.PropertyType;
 import gov.hhs.fha.nhinc.common.propertyaccess.SavePropertyRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.SimplePropertyResponseType;
 import gov.hhs.fha.nhinc.configuration.NhincComponentPropAccessorPortDescriptor;
-import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -60,42 +61,43 @@ import org.springframework.stereotype.Service;
 @Service
 public class PropertyServiceImpl implements PropertyService {
     private static final Logger LOG = LoggerFactory.getLogger(PropertyServiceImpl.class);
-    private static final String DATE_FORMAT = "MM-dd-yy hh:mm:ss";
     private static final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
     private static CONNECTClient<NhincComponentPropAccessorPortType> client = null;
 
     @Override
     public boolean saveProperty(String file, String name, String value) {
-        SavePropertyRequestType request = new SavePropertyRequestType();
-        request.setConfigAssertion(buildConfigAssertion());
-        request.setFile(file);
-        request.setPropertyName(name);
-        request.setPropertyValue(value);
+        if (fileNameChk(file)) {
+            SavePropertyRequestType request = new SavePropertyRequestType();
 
-        try {
-            SimplePropertyResponseType response = (SimplePropertyResponseType) clientInvokePort(
-                PROPERTIES_SERVICE_NAME, request);
-            logDebug(PROPERTIES_SERVICE_NAME, response.isStatus(), response.getMessage());
-            return response.isStatus();
-        } catch (Exception e) {
-            LOG.error("error during save-exchange: {}", e.getLocalizedMessage(), e);
+            request.setConfigAssertion(buildConfigAssertion());
+            request.setFile(file);
+            request.setPropertyName(name);
+            request.setPropertyValue(value);
+
+            try {
+                SimplePropertyResponseType response = (SimplePropertyResponseType) clientInvokePort(
+                    PROPERTIES_SAVE_PROP, request);
+                logDebug(PROPERTIES_SAVE_PROP, response.isStatus(), response.getMessage());
+                return response.isStatus();
+            } catch (Exception e) {
+                LOG.error("error during save-exchange: {}", e.getLocalizedMessage(), e);
+            }
         }
         return false;
     }
 
     @Override
     public List<PropertyType> listProperties(String file) {
-        if (file.equalsIgnoreCase(GATEWAY_PROPERTY_FILE) || file.equalsIgnoreCase(ADAPTER_PROPERTY_FILE_NAME)
-            || file.equalsIgnoreCase(AUDIT_LOGGING_PROPERTY_FILE)) {
+        if (fileNameChk(file)) {
             ListPropertiesRequestType request = new ListPropertiesRequestType();
             request.setConfigAssertion(buildConfigAssertion());
             request.setFile(file);
 
             try {
                 SimplePropertyResponseType response = (SimplePropertyResponseType) clientInvokePort(
-                    PROPERTIES_SERVICE_NAME,
+                    PROPERTIES_LIST_PROP,
                     request);
-                logDebug(PROPERTIES_SERVICE_NAME, response.getPropertyList().size());
+                logDebug(PROPERTIES_LIST_PROP, response.getPropertyList().size());
                 return response.getPropertyList();
             } catch (Exception e) {
                 LOG.error("error during Propery List: {}", e.getLocalizedMessage(), e);
@@ -104,7 +106,16 @@ public class PropertyServiceImpl implements PropertyService {
         return new ArrayList<>();
     }
 
-    private static CONNECTClient<NhincComponentPropAccessorPortType> getClient() throws ExchangeManagerException {
+    private boolean fileNameChk(String file) {
+        boolean result = false;
+        if (file.equalsIgnoreCase(GATEWAY_PROPERTY_FILE) || file.equalsIgnoreCase(ADAPTER_PROPERTY_FILE_NAME)
+            || file.equalsIgnoreCase(AUDIT_LOGGING_PROPERTY_FILE)) {
+            result = true;
+        }
+        return result;
+    }
+
+    private static CONNECTClient<NhincComponentPropAccessorPortType> getClient() throws Exception {
         if (null == client) {
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(PROPERTIES_SERVICE_NAME);
             ServicePortDescriptor<NhincComponentPropAccessorPortType> portDescriptor = new NhincComponentPropAccessorPortDescriptor();
