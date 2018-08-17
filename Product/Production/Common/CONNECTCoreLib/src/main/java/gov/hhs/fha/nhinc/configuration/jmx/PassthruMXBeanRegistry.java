@@ -110,6 +110,7 @@ public class PassthruMXBeanRegistry {
      * @throws ClassNotFoundException the class not found exception
      */
     public void setStandardMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        LOG.debug("Configuring Bean Registry to Standard.");
         for (WebServicesMXBean b : registeredBeans) {
             try {
                 b.configureInboundStdImpl();
