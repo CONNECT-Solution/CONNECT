@@ -41,7 +41,7 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
  */
 public class PassthruMXBeanRegistry {
 
-    Logger LOG = LoggerFactory.getLogger(PassthruMXBeanRegistry.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PassthruMXBeanRegistry.class);
 
     /** The instance. */
     private static PassthruMXBeanRegistry instance;
