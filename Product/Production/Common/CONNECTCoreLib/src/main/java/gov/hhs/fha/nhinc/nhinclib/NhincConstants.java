@@ -631,7 +631,7 @@ public class NhincConstants {
     // Properties
     public static final String PROPERTIES_SERVICE_NAME = "adapterpropertyaccessor";
     public static final String PROPERTIES_LIST_PROP = "listProperties";
-    public static final String PROPERTIES_SAVE_PROP = "saveProperties";
+    public static final String PROPERTIES_SAVE_PROP = "saveProperty";
 
     private NhincConstants() {
     }
