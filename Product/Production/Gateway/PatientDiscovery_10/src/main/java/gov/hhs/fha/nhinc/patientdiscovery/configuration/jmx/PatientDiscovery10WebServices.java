@@ -31,12 +31,14 @@ import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryU
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.InboundPatientDiscovery;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.OutboundPatientDiscovery;
+import org.springframework.stereotype.Service;
 
 /**
  * The Class PatientDiscovery10WebServices.
  *
  * @author msw
  */
+@Service
 public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
 
     private final serviceEnum serviceName = serviceEnum.PatientDiscovery;

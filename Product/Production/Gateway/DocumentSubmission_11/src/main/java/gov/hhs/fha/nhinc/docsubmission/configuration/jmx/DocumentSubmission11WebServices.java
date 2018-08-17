@@ -32,12 +32,14 @@ import gov.hhs.fha.nhinc.docsubmission._11.entity.EntityDocSubmissionUnsecured;
 import gov.hhs.fha.nhinc.docsubmission._11.nhin.NhinXDR;
 import gov.hhs.fha.nhinc.docsubmission.inbound.InboundDocSubmission;
 import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
+import org.springframework.stereotype.Service;
 
 /**
  * The Class DocumentSubmission20WebServices.
  *
  * @author msw
  */
+@Service
 public class DocumentSubmission11WebServices extends AbstractDSWebServicesMXBean {
 
     /** The Constant NHIN_DS_BEAN_NAME. */
