@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -25,6 +25,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.admingui.managed;
+
+import static gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl.IGNORE_DEADHOST;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.formatDate;
 
 import gov.hhs.fha.nhinc.admingui.application.EndpointManagerCache;
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
@@ -46,7 +49,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.impl.cookie.DateUtils;
 
 /**
  *
@@ -62,9 +64,7 @@ public class ConnectionManagerBean {
     private final List<String> entityNames = new ArrayList<>();
 
     private OrganizationType selectedEntity;
-    private String selectedEntityName;
 
-    private List<ConnectionEndpoint> endpoints;
     private ConnectionEndpoint selectedEndpoint;
 
     private final PingService pingService = new PingServiceImpl();
@@ -91,8 +91,7 @@ public class ConnectionManagerBean {
 
     public void setSelectedEntityName(String selectedEntityName) {
         if (selectedEntityName != null) {
-            this.selectedEntityName = selectedEntityName;
-            selectedEntity = externalEntities.get(this.selectedEntityName);
+            selectedEntity = externalEntities.get(selectedEntityName);
         }
     }
 
@@ -133,14 +132,14 @@ public class ConnectionManagerBean {
 
     public void ping() {
         if (selectedEndpoint != null) {
-            boolean status = pingService.ping(selectedEndpoint.getServiceUrl());
+            selectedEndpoint.setResponseCode(pingService.ping(selectedEndpoint.getServiceUrl(), IGNORE_DEADHOST));
             EndpointManagerCache.getInstance().addOrUpdateEndpoint(selectedEndpoint.getServiceUrl(), new Date(),
-                status);
+                selectedEndpoint.isPingSuccessful(), selectedEndpoint.getResponseCode());
         }
     }
 
     public List<ConnectionEndpoint> getEndpoints() {
-        endpoints = new ArrayList<>();
+        List<ConnectionEndpoint> endpoints = new ArrayList<>();
         List<EndpointType> orgEndpoints = ExchangeManagerHelper.getEndpointTypeBy(selectedEntity);
         if (selectedEntity != null && CollectionUtils.isNotEmpty(orgEndpoints)) {
             for (EndpointType endpoint : orgEndpoints) {
@@ -149,18 +148,18 @@ public class ConnectionManagerBean {
                 for (EndpointConfigurationType epConf : epConfigurations) {
 
                     String timestamp = null;
-                    String status = "None";
+                    int code = 0;
                     String url = epConf.getUrl();
                     EndpointManagerCache.EndpointCacheInfo info = EndpointManagerCache.getInstance()
                         .getEndpointInfo(url);
 
                     if (info != null) {
-                        timestamp = DateUtils.formatDate(info.getTimestamp(), DATE_FORMAT);
-                        status = info.isSuccessfulPing() ? "Pass" : "Fail";
+                        timestamp = formatDate(DATE_FORMAT, info.getTimestamp());
+                        code = info.getHttpCode();
                     }
 
                     endpoints.add(
-                        new ConnectionEndpoint(endpoint.getName().get(0), url, epConf.getVersion(), status, timestamp));
+                        new ConnectionEndpoint(endpoint.getName().get(0), url, epConf.getVersion(), code, timestamp));
                 }
             }
         }
@@ -188,7 +187,7 @@ public class ConnectionManagerBean {
         this.selectedEndpoint = selectedEndpoint;
     }
 
-    private String getNameByDefault(ContactType contact, String defaultValue) {
+    private static String getNameByDefault(ContactType contact, String defaultValue) {
         String name = null;
         if (contact != null) {
             name = MessageFormat.format("{0} {1}", contact.getGivenName(), contact.getFamilyName());

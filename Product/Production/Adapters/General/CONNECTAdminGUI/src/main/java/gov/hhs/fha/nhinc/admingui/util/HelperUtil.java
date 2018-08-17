@@ -77,17 +77,15 @@ public class HelperUtil {
     public static Timestamp toTimestamp(Date date) {
         if (date != null) {
             return new Timestamp(date.getTime());
-        } else {
-            return null;
         }
+        return null;
     }
 
     public static Date toDate(Timestamp timestamp) {
         if (timestamp != null) {
             return new Date(timestamp.getTime());
-        } else {
-            return null;
         }
+        return null;
     }
 
     public static String toJsonString(Object object) {
@@ -304,6 +302,10 @@ public class HelperUtil {
             return new SimpleDateFormat(dateFormat).format(date);
         }
         return "";
+    }
+
+    public static String formatDate(String dateFormat, Date date) {
+        return getDate(dateFormat, date);
     }
 
     public static boolean execPFCommand(String cmdString) {

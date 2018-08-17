@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.model;
 
+import static java.net.HttpURLConnection.HTTP_OK;
+
 /**
  *
  * @author jassmit
@@ -35,15 +37,15 @@ public class ConnectionEndpoint {
     private String name;
     private String serviceSpec;
     private String serviceUrl;
-    private String pingStatus;
     private String pingTimestamp;
+    private int responseCode;
 
-    public ConnectionEndpoint(String name, String serviceUrl, String serviceSpec, String pingStatus,
-            String pingTimestamp) {
+    public ConnectionEndpoint(String name, String serviceUrl, String serviceSpec, int responseCode,
+        String pingTimestamp) {
         this.name = name;
         this.serviceSpec = serviceSpec;
         this.serviceUrl = serviceUrl;
-        this.pingStatus = pingStatus;
+        this.responseCode = responseCode;
         this.pingTimestamp = pingTimestamp;
     }
 
@@ -72,11 +74,16 @@ public class ConnectionEndpoint {
     }
 
     public String getPingStatus() {
-        return pingStatus;
+        switch (responseCode) {
+            case 0: return "None";
+            case HTTP_OK: return "Pass";
+            default:
+                return "Fail";
+        }
     }
 
-    public void setPing(String pingStatus) {
-        this.pingStatus = pingStatus;
+    public boolean isPingSuccessful() {
+        return responseCode == HTTP_OK;
     }
 
     public String getPingTimestamp() {
@@ -85,6 +92,14 @@ public class ConnectionEndpoint {
 
     public void setPingTimestamp(String pingTimestamp) {
         this.pingTimestamp = pingTimestamp;
+    }
+
+    public int getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
     }
 
 }

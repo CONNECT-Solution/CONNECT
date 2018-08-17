@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import static gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl.IGNORE_DEADHOST;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
 import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.getEndpointConfigurationTypeBy;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_DELETE;
@@ -66,8 +67,8 @@ import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchangemanagement.EntityExchangeManagementPortType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.ArrayList;
@@ -184,16 +185,16 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
             for (EndpointConfigurationType epConf : epConfigurations) {
 
                 String timestamp = null;
-                String status = "None";
+                int httpCode = 0;
                 String url = epConf.getUrl();
                 EndpointManagerCache.EndpointCacheInfo info = EndpointManagerCache.getInstance().getEndpointInfo(url);
 
                 if (info != null) {
                     timestamp = HelperUtil.getDate(DATE_FORMAT, info.getTimestamp());
-                    status = info.isSuccessfulPing() ? "Pass" : "Fail";
+                    httpCode = info.getHttpCode();
                 }
                 endpoints.add(
-                    new ConnectionEndpoint(endpoint.getName().get(0), url, epConf.getVersion(), status, timestamp));
+                    new ConnectionEndpoint(endpoint.getName().get(0), url, epConf.getVersion(), httpCode, timestamp));
             }
         }
         return endpoints;
@@ -255,22 +256,22 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
     }
 
     @Override
-    public boolean pingService(ConnectionEndpoint connEndpoint) {
+    public int pingService(ConnectionEndpoint connEndpoint) {
         if (null != connEndpoint) {
-            boolean status = pingService.ping(connEndpoint.getServiceUrl());
-            connEndpoint.setPing(status ? "Pass" : "Fail");
+            connEndpoint.setResponseCode(pingService.ping(connEndpoint.getServiceUrl(), IGNORE_DEADHOST));
             connEndpoint.setPingTimestamp(HelperUtil.getDateNow(DATE_FORMAT));
-            EndpointManagerCache.getInstance().addOrUpdateEndpoint(connEndpoint.getServiceUrl(), new Date(), status);
-            return true;
+            EndpointManagerCache.getInstance().addOrUpdateEndpoint(connEndpoint.getServiceUrl(), new Date(),
+                connEndpoint.isPingSuccessful(), connEndpoint.getResponseCode());
+            return connEndpoint.getResponseCode();
         }
-        return false;
+        return 0;
     }
 
     private static CONNECTClient<EntityExchangeManagementPortType> getClient() throws ExchangeManagerException {
         if (null == client) {
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(ENTITY_EXCHANGE_MANAGEMENT_SERVICE_NAME);
             ServicePortDescriptor<EntityExchangeManagementPortType> portDescriptor = new ExchangeManagementPortDescriptor();
-            client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
+            client = CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
                 new AssertionType());
         }
         return client;

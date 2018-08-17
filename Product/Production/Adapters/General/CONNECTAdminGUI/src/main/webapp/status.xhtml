@@ -35,9 +35,10 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <body>
+    <head>
         <title>Admin GUI Status</title>
-    </body>
+        <link rel="icon" type="image/ico" href="/images/favicon-admingui.ico" />
+    </head>
     <h:body>
         <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
             <ui:define name="metatag"></ui:define>
@@ -104,10 +105,10 @@
                                             <p:panel style="width: 500px; padding: 10px;">
                                                 <p>Green Available / Red Unavailable</p>
                                                 <div class="table-responsive table-orgs">
-                                                    <p:dataTable id="servicesTable" widgetVar="servicesTable" var="service" value="#{statusBean.services}" scrollable="TRUE" scrollHeight="500"  styleClass="table table-striped table-status">
+                                                    <p:dataTable id="servicesTable" widgetVar="servicesTable" var="service" value="#{statusBean.services}" scrollable="TRUE" scrollHeight="500"  styleClass="table table-striped table-status" lazy="true">
                                                         <p:column>
                                                             <h:outputText rendered="#{service.available}" value="#{service.serviceName}" style="color: green" />
-                                                            <h:outputText rendered="#{!service.available}" value="#{service.serviceName}" style="color: red" />
+                                                            <h:outputText rendered="#{!service.available}" value="#{service.serviceName} (#{service.responseCode})" style="color: red" />
                                                         </p:column>
                                                     </p:dataTable> 
                                                 </div>
