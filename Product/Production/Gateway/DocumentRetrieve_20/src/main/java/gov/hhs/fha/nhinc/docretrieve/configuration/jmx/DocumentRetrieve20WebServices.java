@@ -31,12 +31,14 @@ import gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve._20.inbound.DocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.inbound.InboundDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.outbound.OutboundDocRetrieve;
+import org.springframework.stereotype.Service;
 
 /**
  * The Class DocumentRetrieve30WebServices.
  *
  * @author msw
  */
+@Service
 public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
 
     public static final String DEFAULT_OUTBOUND_20_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docretrieve._20.outbound.PassthroughOutboundDocRetrieve";

@@ -32,11 +32,13 @@ import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryD
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryDeferredResponse;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response.InboundPatientDiscoveryDeferredResponse;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.OutboundPatientDiscoveryDeferredResponse;
+import org.springframework.stereotype.Service;
 
 /**
  * @author msw
  *
  */
+@Service
 public class PatientDiscoveryDeferredResp10WebServices extends AbstractPDDeferredResponseWebServicesMXBean {
 
     private final serviceEnum serviceName = serviceEnum.PatientDiscoveryDeferredResponse;

@@ -35,6 +35,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -45,6 +46,15 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class InitServlet  extends AbstractMXBeanRegistrar {
+
+    @Autowired
+    DocumentSubmission11WebServices docSubmission11;
+
+    @Autowired
+    DocumentSubmissionDefRequest11WebServices docSubmission11Request;
+
+    @Autowired
+    DocumentSubmissionDefResponse11WebServices docSubmission11Response;
 
     @Override
     @PostConstruct
@@ -61,9 +71,9 @@ public class InitServlet  extends AbstractMXBeanRegistrar {
     @Override
     public Set<WebServicesMXBean> getWebServiceMXBean() {
         Set<WebServicesMXBean> nbeans = new HashSet<>();
-        nbeans.add(new DocumentSubmission11WebServices());
-        nbeans.add(new DocumentSubmissionDefRequest11WebServices());
-        nbeans.add(new DocumentSubmissionDefResponse11WebServices());
+        nbeans.add(docSubmission11);
+        nbeans.add(docSubmission11Request);
+        nbeans.add(docSubmission11Response);
         return nbeans;
     }
 

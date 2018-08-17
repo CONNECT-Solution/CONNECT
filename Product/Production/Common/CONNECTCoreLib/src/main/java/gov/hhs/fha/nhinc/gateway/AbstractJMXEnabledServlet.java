@@ -81,9 +81,12 @@ public abstract class AbstractJMXEnabledServlet {
                 name = new ObjectName(getMBeanName());
                 Object mbean = getMBeanInstance();
                 mbs.registerMBean(mbean, name);
-            } catch (InstanceAlreadyExistsException | MBeanRegistrationException | NotCompliantMBeanException
+            } catch ( MBeanRegistrationException | NotCompliantMBeanException
                 | MalformedObjectNameException e) {
                 LOG.error(getRegistrationErrorMessage(), e);
+            }
+            catch (InstanceAlreadyExistsException e) {
+                LOG.warn("Tried to register an already existing MBean: {}", getMBeanName(), e);
             }
         }
 

@@ -31,12 +31,14 @@ import gov.hhs.fha.nhinc.admindistribution._10.nhin.NhinAdministrativeDistributi
 import gov.hhs.fha.nhinc.admindistribution.inbound.InboundAdminDistribution;
 import gov.hhs.fha.nhinc.admindistribution.outbound.OutboundAdminDistribution;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
+import org.springframework.stereotype.Service;
 
 /**
  * The Class AdminDistribution10WebServices.
  *
  * @author msw
  */
+@Service
 public class AdminDistribution10WebServices extends AbstractAdminDistributionWebServicesMXBean {
 
     /** The Constant NHIN_AD_BEAN_NAME. */

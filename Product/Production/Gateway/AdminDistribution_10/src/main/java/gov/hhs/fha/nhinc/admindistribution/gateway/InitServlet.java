@@ -33,6 +33,7 @@ import java.util.Collections;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -42,7 +43,11 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class InitServlet  extends AbstractMXBeanRegistrar {
+public class InitServlet extends AbstractMXBeanRegistrar {
+
+
+    @Autowired
+    AdminDistribution10WebServices adminService;
 
     @Override
     @PostConstruct
@@ -58,7 +63,7 @@ public class InitServlet  extends AbstractMXBeanRegistrar {
 
     @Override
     public Set<WebServicesMXBean> getWebServiceMXBean() {
-        WebServicesMXBean bean = new AdminDistribution10WebServices();
+        WebServicesMXBean bean = adminService;
         return Collections.singleton(bean);
     }
 }
