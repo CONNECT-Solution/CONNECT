@@ -116,12 +116,10 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     private static CONNECTClient<NhincComponentPropAccessorPortType> getClient() throws Exception {
-        if (null == client) {
-            String url = oProxyHelper.getAdapterEndPointFromConnectionManager(PROPERTIES_SERVICE_NAME);
-            ServicePortDescriptor<NhincComponentPropAccessorPortType> portDescriptor = new NhincComponentPropAccessorPortDescriptor();
-            client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
-                new AssertionType());
-        }
+        String url = oProxyHelper.getAdapterEndPointFromConnectionManager(PROPERTIES_SERVICE_NAME);
+        ServicePortDescriptor<NhincComponentPropAccessorPortType> portDescriptor = new NhincComponentPropAccessorPortDescriptor();
+        client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
+            new AssertionType());
         return client;
     }
 
