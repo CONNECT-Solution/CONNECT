@@ -112,13 +112,8 @@ public class Configuration implements ConfigurationMXBean {
      */
     @Override
     public void setPassthruMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        System.out.println("Configuring Beans to PASSTHROUGH mode.");
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
-        try {
         registry.setPassthruMode();
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        }
     }
 
     /*
