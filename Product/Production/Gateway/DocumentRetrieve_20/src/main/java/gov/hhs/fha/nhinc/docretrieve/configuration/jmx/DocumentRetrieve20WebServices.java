@@ -34,7 +34,7 @@ import gov.hhs.fha.nhinc.docretrieve.outbound.OutboundDocRetrieve;
 import org.springframework.stereotype.Service;
 
 /**
- * The Class DocumentRetrieve30WebServices.
+ * The Class DocumentRetrieve20WebServices.
  *
  * @author msw
  */
