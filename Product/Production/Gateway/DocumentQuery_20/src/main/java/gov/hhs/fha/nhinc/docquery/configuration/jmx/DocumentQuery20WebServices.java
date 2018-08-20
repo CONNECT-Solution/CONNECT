@@ -32,12 +32,14 @@ import gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured;
 import gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery;
 import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
 import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
+import org.springframework.stereotype.Service;
 
 /**
  * The Class DocumentQuery30WebServices.
  *
  * @author msw
  */
+@Service
 public class DocumentQuery20WebServices extends AbstractDQWebServicesMXBean {
 
 	private final serviceEnum serviceName = serviceEnum.QueryForDocuments;

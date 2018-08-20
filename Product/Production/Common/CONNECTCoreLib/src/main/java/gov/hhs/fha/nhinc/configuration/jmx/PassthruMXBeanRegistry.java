@@ -30,6 +30,9 @@ import gov.hhs.fha.nhinc.configuration.IConfiguration.directionEnum;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import java.util.HashSet;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 
 /**
  * The Singleton Class PassthruMXBeanRegistry.
@@ -37,6 +40,8 @@ import java.util.Set;
  * @author msw
  */
 public class PassthruMXBeanRegistry {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PassthruMXBeanRegistry.class);
 
     /** The instance. */
     private static PassthruMXBeanRegistry instance;
@@ -86,8 +91,14 @@ public class PassthruMXBeanRegistry {
      */
     public void setPassthruMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         for (WebServicesMXBean b : registeredBeans) {
-            b.configureInboundPtImpl();
-            b.configureOutboundPtImpl();
+            LOG.debug("Configuring Bean Registry to Passthrough.");
+            try {
+                b.configureInboundPtImpl();
+                b.configureOutboundPtImpl();
+            } catch (NoSuchBeanDefinitionException e) {
+                LOG.debug("Couldn't configure bean {}", b.getClass(), e);
+            }
+
         }
     }
 
@@ -99,9 +110,14 @@ public class PassthruMXBeanRegistry {
      * @throws ClassNotFoundException the class not found exception
      */
     public void setStandardMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        LOG.debug("Configuring Bean Registry to Standard.");
         for (WebServicesMXBean b : registeredBeans) {
-            b.configureInboundStdImpl();
-            b.configureOutboundStdImpl();
+            try {
+                b.configureInboundStdImpl();
+                b.configureOutboundStdImpl();
+            } catch (NoSuchBeanDefinitionException e) {
+                LOG.debug("Couldn't configure bean {}", b.getClass(), e);
+            }
         }
     }
 

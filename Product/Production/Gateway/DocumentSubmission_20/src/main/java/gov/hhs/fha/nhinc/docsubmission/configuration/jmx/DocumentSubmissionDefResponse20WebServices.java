@@ -32,12 +32,14 @@ import gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSub
 import gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20;
 import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.InboundDocSubmissionDeferredResponse;
 import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.OutboundDocSubmissionDeferredResponse;
+import org.springframework.stereotype.Service;
 
 /**
  * The Class DocumentSubmissionDefRequest20WebServices.
  *
  * @author msw
  */
+@Service
 public class DocumentSubmissionDefResponse20WebServices extends AbstractDSDeferredRespWebServicesMXBean {
 
     /** The Constant NHIN_DS_BEAN_NAME. */

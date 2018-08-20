@@ -40,6 +40,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -62,6 +63,15 @@ public class InitServlet extends AbstractMXBeanRegistrar {
     private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
     private static ExecutorService executor = null;
     private static ExecutorService largeJobExecutor = null;
+
+    @Autowired
+    PatientDiscovery10WebServices patientDiscovery10;
+
+    @Autowired
+    PatientDiscoveryDeferredReq10WebServices patientDiscovery10Request;
+
+    @Autowired
+    PatientDiscoveryDeferredResp10WebServices patientDiscovery10Response;
 
     @PostConstruct
     @Override
@@ -117,9 +127,9 @@ public class InitServlet extends AbstractMXBeanRegistrar {
     @Override
     public Set<WebServicesMXBean> getWebServiceMXBean() {
         Set<WebServicesMXBean> newBeans = new HashSet<>();
-        newBeans.add(new PatientDiscovery10WebServices());
-        newBeans.add(new PatientDiscoveryDeferredReq10WebServices());
-        newBeans.add(new PatientDiscoveryDeferredResp10WebServices());
+        newBeans.add(patientDiscovery10);
+        newBeans.add(patientDiscovery10Request);
+        newBeans.add(patientDiscovery10Response);
         return newBeans;
     }
 

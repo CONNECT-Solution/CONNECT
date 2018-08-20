@@ -48,7 +48,7 @@ public abstract class AbstractMXBeanRegistrar {
         LOG.info("Constuction of {} service beans has begun...", this.getClass());
         beans = getWebServiceMXBean();
         for(WebServicesMXBean bean : beans) {
-            LOG.info("Registering {} from {}", bean.getClass().getName(), Thread.currentThread().getStackTrace()[0].getClassName());
+            LOG.info("Registering {} from {}", bean.getClass().getName(), this.getClass().getName());
             PassthruMXBeanRegistry.getInstance().registerWebServiceMXBean(bean);
         }
 
@@ -63,9 +63,9 @@ public abstract class AbstractMXBeanRegistrar {
         LOG.info("Destruction of {} has begun...", this.getClass());
         for(WebServicesMXBean bean : beans) {
             if (PassthruMXBeanRegistry.getInstance().unregisterBean(bean)) {
-                LOG.info("Unregistering {} from destruction of {} bean", bean.getClass().getName(), Thread.currentThread().getStackTrace()[0].getClassName());
+                LOG.info("Unregistering {} from destruction of {} bean", bean.getClass().getName(), this.getClass().getName());
             } else {
-                LOG.error("Could not remove MX Bean {}! Was it not registered in the creation of {}?", bean.getClass().getName(), Thread.currentThread().getStackTrace()[0].getClassName() );
+                LOG.error("Could not remove MX Bean {}! Was it not registered in the creation of {}?" ,bean.getClass().getName(), this.getClass().getName());
             }
 
         }

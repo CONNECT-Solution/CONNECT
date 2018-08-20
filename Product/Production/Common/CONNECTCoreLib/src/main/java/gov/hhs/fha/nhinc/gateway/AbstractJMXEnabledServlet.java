@@ -76,14 +76,22 @@ public abstract class AbstractJMXEnabledServlet {
         String enableJMX = System.getProperty(NhincConstants.JMX_ENABLED_SYSTEM_PROPERTY);
         if ("true".equalsIgnoreCase(enableJMX)) {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+
             ObjectName name;
             try {
                 name = new ObjectName(getMBeanName());
-                Object mbean = getMBeanInstance();
-                mbs.registerMBean(mbean, name);
-            } catch (InstanceAlreadyExistsException | MBeanRegistrationException | NotCompliantMBeanException
+
+                if (!mbs.isRegistered(name)) {
+                    Object mbean = getMBeanInstance();
+                    mbs.registerMBean(mbean, name);
+                }
+            } catch ( MBeanRegistrationException | NotCompliantMBeanException
                 | MalformedObjectNameException e) {
                 LOG.error(getRegistrationErrorMessage(), e);
+            }
+            catch (InstanceAlreadyExistsException e) {
+                // This should never happen as we check if the bean is registered before we attempt to register it.
+                LOG.warn("Tried to register an already existing MBean: {}", getMBeanName(), e);
             }
         }
 
