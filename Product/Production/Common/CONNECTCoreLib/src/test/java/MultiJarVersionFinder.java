@@ -39,6 +39,7 @@ import java.util.regex.Pattern;
 /**
  * Generates a report on duplicate jar dependencies. Searches through the provided paths and identifies directories with
  * multiple versions of the same jar.
+ * Test comment
  */
 public class MultiJarVersionFinder {
 
