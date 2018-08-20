@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -24,49 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- //ndjfjdhfjh
-package gov.hhs.fha.nhinc.docrepository.adapter.service;
+package gov.hhs.fha.nhinc.configuration;
+//hello weblogic
+import gov.hhs.fha.nhinc.configuration.jmx.Configuration;
+import gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import org.springframework.stereotype.Component;
 
 /**
- * Exception class for DocumentService exceptions
+ * The Class InitServlet.
  *
- * @author Neil Webb
+ * @author msw
  */
-public class DocumentServiceException extends Exception {
-    private static final long serialVersionUID = -4876112548123135498L;
+@Component
+public class InitServlet extends AbstractJMXEnabledServlet {
 
-    /**
-     * Default constructor
-     */
-    public DocumentServiceException() {
-        super();
+    @Override
+    @PostConstruct
+    public void init() {
+        super.init();
     }
 
-    /**
-     * Create an exception with a message.
-     *
-     * @param message Exception message
-     */
-    public DocumentServiceException(String message) {
-        super(message);
+    @Override
+    @PreDestroy
+    public void destroy() {
+        super.destroy();
     }
 
-    /**
-     * Create an exception with a root cause.
-     *
-     * @param cause Root cause
-     */
-    public DocumentServiceException(Throwable cause) {
-        super(cause);
+    @Override
+    public String getMBeanName() {
+        return NhincConstants.JMX_CONFIGURATION_BEAN_NAME;
     }
 
-    /**
-     * Create an exception with a message and root cause.
-     *
-     * @param message Exception message
-     * @param cause Root cause
-     */
-    public DocumentServiceException(String message, Throwable cause) {
-        super(message, cause);
+
+    @Override
+    public Object getMBeanInstance() {
+        return new Configuration();
     }
 }
