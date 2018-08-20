@@ -41,6 +41,7 @@ import gov.hhs.fha.nhinc.common.propertyaccess.PropertyType;
 import gov.hhs.fha.nhinc.common.propertyaccess.SavePropertyRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.SimplePropertyResponseType;
 import gov.hhs.fha.nhinc.configuration.NhincComponentPropAccessorPortDescriptor;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -106,16 +107,12 @@ public class PropertyServiceImpl implements PropertyService {
         return new ArrayList<>();
     }
 
-    private boolean fileNameChk(String file) {
-        boolean result = false;
-        if (file.equalsIgnoreCase(GATEWAY_PROPERTY_FILE) || file.equalsIgnoreCase(ADAPTER_PROPERTY_FILE_NAME)
-            || file.equalsIgnoreCase(AUDIT_LOGGING_PROPERTY_FILE)) {
-            result = true;
-        }
-        return result;
+    private static boolean fileNameChk(String file) {
+        return file.equalsIgnoreCase(GATEWAY_PROPERTY_FILE) || file.equalsIgnoreCase(ADAPTER_PROPERTY_FILE_NAME)
+            || file.equalsIgnoreCase(AUDIT_LOGGING_PROPERTY_FILE);
     }
 
-    private static CONNECTClient<NhincComponentPropAccessorPortType> getClient() throws Exception {
+    private static CONNECTClient<NhincComponentPropAccessorPortType> getClient() throws ExchangeManagerException {
         String url = oProxyHelper.getAdapterEndPointFromConnectionManager(PROPERTIES_SERVICE_NAME);
         ServicePortDescriptor<NhincComponentPropAccessorPortType> portDescriptor = new NhincComponentPropAccessorPortDescriptor();
         client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,

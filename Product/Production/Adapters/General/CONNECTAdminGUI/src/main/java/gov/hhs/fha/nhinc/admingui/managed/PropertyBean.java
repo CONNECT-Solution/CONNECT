@@ -31,19 +31,14 @@ import gov.hhs.fha.nhinc.admingui.services.PropertyService;
 import gov.hhs.fha.nhinc.admingui.services.impl.PropertyServiceImpl;
 import gov.hhs.fha.nhinc.common.propertyaccess.PropertyType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.CellEditEvent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -62,7 +57,6 @@ public class PropertyBean {
     private String auditPropMsg = "auditPropMsg";
     private static final String PROP_UPDATE_MSG = "Property value changed for ";
     private static final String PROP_UPDATE_FAIL_MSG = "Unable to set property value: ";
-    private static final Logger LOG = LoggerFactory.getLogger(PropertyBean.class);
     private PropertyService propertyService = new PropertyServiceImpl();
 
     public PropertyBean() {
@@ -163,25 +157,12 @@ public class PropertyBean {
         auditProperties = convertPropValue(propertyService.listProperties(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE));
     }
 
-    private List<PropValue> convertPropValue(List<PropertyType> ptList) {
+    private static List<PropValue> convertPropValue(List<PropertyType> ptList) {
         List<PropValue> pvList = new ArrayList();
         for (PropertyType pt : ptList) {
             pvList.add(new PropValue(pt.getPropertyName(), pt.getPropertyValue(), pt.getPropertyText()));
         }
         return pvList;
-    }
-
-    private void addProperties(Properties props, List<PropValue> viewProps, String propFileName)
-        throws PropertyAccessException {
-
-        if (props != null) {
-            for (Object key : props.keySet()) {
-                String strKey = (String) key;
-                String value = props.getProperty(strKey);
-                String text = PropertyAccessor.getInstance().getPropertyComment(propFileName, strKey);
-                viewProps.add(new PropValue(strKey, value, text));
-            }
-        }
     }
 
     private static String getPropertiesUpdateMessage(String msg, String key, String oldValue, String newValue) {
