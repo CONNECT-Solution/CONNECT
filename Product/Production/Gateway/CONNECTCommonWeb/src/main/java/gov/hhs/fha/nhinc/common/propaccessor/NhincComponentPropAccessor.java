@@ -30,7 +30,6 @@ import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_PROPERTY_FILE_NA
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.AUDIT_LOGGING_PROPERTY_FILE;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
 
-//import gov.hhs.fha.nhinc.common.exchangemanagement.SimpleExchangeManagementResponseMessageType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogRequestType;
@@ -274,7 +273,7 @@ public class NhincComponentPropAccessor implements NhincComponentPropAccessorPor
         }
     }
 
-    private void addProperties(Properties props, List<PropertyType> viewProps, String propFileName)
+    private static void addProperties(Properties props, List<PropertyType> viewProps, String propFileName)
         throws PropertyAccessException {
 
         if (props != null) {
@@ -289,13 +288,9 @@ public class NhincComponentPropAccessor implements NhincComponentPropAccessorPor
         }
     }
 
-    private boolean fileNameChk(String file) {
-        boolean result = false;
-        if (file.equalsIgnoreCase(GATEWAY_PROPERTY_FILE) || file.equalsIgnoreCase(ADAPTER_PROPERTY_FILE_NAME)
-            || file.equalsIgnoreCase(AUDIT_LOGGING_PROPERTY_FILE)) {
-            result = true;
-        }
-        return result;
+    private static boolean fileNameChk(String file) {
+        return file.equalsIgnoreCase(GATEWAY_PROPERTY_FILE) || file.equalsIgnoreCase(ADAPTER_PROPERTY_FILE_NAME)
+            || file.equalsIgnoreCase(AUDIT_LOGGING_PROPERTY_FILE);
     }
 
     @Override
