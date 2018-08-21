@@ -26,6 +26,10 @@
  */
 package gov.hhs.fha.nhinc.common.propaccessor;
 
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_PROPERTY_FILE_NAME;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.AUDIT_LOGGING_PROPERTY_FILE;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
+
 import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogRequestType;
@@ -41,11 +45,16 @@ import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.ListPropertiesRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.PropertyType;
 import gov.hhs.fha.nhinc.common.propertyaccess.SavePropertyRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.SimplePropertyResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileResponseType;
 import gov.hhs.fha.nhinc.nhinccomponentpropaccessor.NhincComponentPropAccessorPortType;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.util.List;
+import java.util.Properties;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.SOAPBinding;
 import org.slf4j.Logger;
@@ -59,6 +68,8 @@ import org.slf4j.LoggerFactory;
 public class NhincComponentPropAccessor implements NhincComponentPropAccessorPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(NhincComponentPropAccessor.class);
+    private static final String ACT_SUCCESSFUL = "successful";
+    private static final String ACT_FAIL = "fail";
 
     /**
      * This method returns the value of the given property that is located within the given property file. If the
@@ -242,12 +253,68 @@ public class NhincComponentPropAccessor implements NhincComponentPropAccessorPor
 
     @Override
     public SimplePropertyResponseType listProperties(ListPropertiesRequestType listPropertiesRequest) {
-        return null;
+        String file = listPropertiesRequest.getFile();
+
+        if (!fileNameChk(file)) {
+            return buildSimpleResponse(false, "Incorrect file name: " + file);
+        }
+        SimplePropertyResponseType response = new SimplePropertyResponseType();
+
+        try {
+            Properties propList = PropertyAccessor.getInstance().getProperties(file);
+            addProperties(propList, response.getPropertyList(), file);
+            response.setStatus(true);
+            response.setMessage(ACT_SUCCESSFUL);
+            return response;
+
+        } catch (PropertyAccessException ex) {
+            LOG.warn("Unable to access {} properties file: {}", file, ex.getLocalizedMessage(), ex);
+            return buildSimpleResponse(false, ACT_FAIL);
+        }
+    }
+
+    private static void addProperties(Properties props, List<PropertyType> viewProps, String propFileName)
+        throws PropertyAccessException {
+
+        if (props != null) {
+            for (Object key : props.keySet()) {
+                PropertyType pt = new PropertyType();
+                pt.setPropertyName((String) key);
+                pt.setPropertyValue(props.getProperty(pt.getPropertyName()));
+                pt.setPropertyText(
+                    PropertyAccessor.getInstance().getPropertyComment(propFileName, pt.getPropertyName()));
+                viewProps.add(pt);
+            }
+        }
+    }
+
+    private static boolean fileNameChk(String file) {
+        return file.equalsIgnoreCase(GATEWAY_PROPERTY_FILE) || file.equalsIgnoreCase(ADAPTER_PROPERTY_FILE_NAME)
+            || file.equalsIgnoreCase(AUDIT_LOGGING_PROPERTY_FILE);
     }
 
     @Override
-    public SimplePropertyResponseType saveProperty(SavePropertyRequestType arg0) {
-        return null;
+    public SimplePropertyResponseType saveProperty(SavePropertyRequestType propValue) {
+        String file = propValue.getFile();
+        if (!fileNameChk(file)) {
+            return buildSimpleResponse(false, "Incorrect file name: " + file);
+        }
+        try {
+            PropertyAccessor.getInstance().setProperty(propValue.getFile(), propValue.getPropertyName(),
+                propValue.getPropertyValue());
+            return buildSimpleResponse(true, ACT_SUCCESSFUL);
+        } catch (PropertyAccessException ex) {
+            LOG.warn("Unable to update {}  in properties file: {}", propValue.getPropertyName(),
+                ex.getLocalizedMessage(), ex);
+            return buildSimpleResponse(false, ACT_FAIL);
+        }
+    }
+
+    private static SimplePropertyResponseType buildSimpleResponse(Boolean status, String message) {
+        SimplePropertyResponseType retMsg = new SimplePropertyResponseType();
+        retMsg.setStatus(status);
+        retMsg.setMessage(message);
+        return retMsg;
     }
 
 }
