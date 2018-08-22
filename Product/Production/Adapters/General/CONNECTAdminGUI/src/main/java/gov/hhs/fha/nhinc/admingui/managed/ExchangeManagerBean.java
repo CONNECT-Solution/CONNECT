@@ -30,6 +30,8 @@ import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.getHashCodeBy;
 
+import gov.hhs.fha.nhinc.admingui.comparators.ExchangesComparator;
+import gov.hhs.fha.nhinc.admingui.comparators.OrganizationsComparator;
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.ExchangeManagerServiceImpl;
@@ -43,6 +45,7 @@ import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -205,6 +208,7 @@ public class ExchangeManagerBean {
     public boolean refreshOrganizations() {
         if (StringUtils.isNotBlank(filterExchange)) {
             organizations = exchangeService.getAllOrganizations(filterExchange);
+            Collections.sort(organizations, new OrganizationsComparator());
             return true;
         }
         organizations = new ArrayList<>();
@@ -393,6 +397,7 @@ public class ExchangeManagerBean {
         }
 
         exchanges = exchangeService.getAllExchanges();
+        Collections.sort(exchanges, new ExchangesComparator());
         updatedExchangesCaches();
         return exchanges;
     }
