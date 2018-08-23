@@ -6,12 +6,6 @@
     version="2.5">
 
   <servlet>
-    <servlet-name>InitServlet</servlet-name>
-    <servlet-class>gov.hhs.fha.nhinc.gateway.servlet.InitServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet>
     <servlet-name>cxf</servlet-name>
     <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
