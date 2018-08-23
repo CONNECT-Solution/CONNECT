@@ -49,6 +49,10 @@
                 <module>PDSAMLIssuerWithX509SubjectNameTest</module>
                 <module>ValidateConnectionManagerForAllServices</module>
                 <module>KeepAliveHeader</module>
+                <module>TransactionIDTest</module>
+                <module>EntitySendingXDRAsyncReqTests</module>
+                <module>EntitySendingXDRAsyncResponseTests</module>
+                <module>Fanout-Test</module>
             </modules>
         </profile>
     </profiles>
