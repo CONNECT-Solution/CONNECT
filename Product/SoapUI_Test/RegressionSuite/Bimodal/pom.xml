@@ -37,6 +37,10 @@
                 <module>DocumentRetrieveXDSErrorValidation</module>
                 <module>ValidatePDCommunicationErrorHandlingTest</module>
                 <module>ExchangeManagerTests</module>
+                <module>ValidateSAMLResourceURIAttributeTest</module>
+                <module>ValidateQDMessageSpecVersionTest</module>
+                <module>ValidateAuditQueryLogService</module>
+                <module>ValidateRDMessageSpecVersionTest</module>
             </modules>
         </profile>
     </profiles>
