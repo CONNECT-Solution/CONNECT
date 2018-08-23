@@ -25,7 +25,7 @@
             </activation>
             <modules>
                 <module>Admin-Distribution-Passthrough</module>
-                <!--module>AuditLogging-Passthrough</module-->
+                <module>AuditLogging-Passthrough</module>
                 <module>NHINSAMLSubjectConfirmationTest</module>
                 <module>DocQueryAdditionalStoredQueries</module>
                 <module>DocQueryRetrieveSelfTest</module>
@@ -34,6 +34,9 @@
                 <module>X12ErrorHandlingTest</module>
                 <module>NHINSAMLAttributeTest</module>
                 <module>AdapterSpringInjectionTest</module>
+                <module>NHINCReceivingXDRAsyncRequestTests</module>
+                <module>NHINCReceivingXDRAsyncResponseTests</module>
+                <module>DocQueryErrorCodesPassthru</module>
             </modules>
         </profile>
     </profiles>
