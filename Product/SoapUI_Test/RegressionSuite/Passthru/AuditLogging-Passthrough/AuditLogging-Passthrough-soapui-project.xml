@@ -8053,8 +8053,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -17937,8 +17937,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -23377,7 +23377,7 @@ if (propertiesFile.exists()) {
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value></con:value>
+      <con:value/>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>
