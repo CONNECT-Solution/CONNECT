@@ -45,6 +45,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.httpclient.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -127,7 +128,11 @@ public class StatusServiceImpl implements StatusService {
                     AvailableService aService = new AvailableService();
                     aService.setServiceName(MessageFormat.format("{0} - {1}", serviceName, url.getVersion()));
                     aService.setResponseCode(PING_SERVICE.ping(url.getUrl(), !IGNORE_DEADHOST));
-
+                    if (!aService.isAvailable())
+                    {
+                    	HttpStatus status = new HttpStatus();
+                    	  aService.setServiceMessage(status.getStatusText(aService.getResponseCode()));
+                    }
                     services.add(aService);
                 }
             }
