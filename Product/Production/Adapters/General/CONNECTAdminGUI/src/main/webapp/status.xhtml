@@ -108,7 +108,7 @@
                                                     <p:dataTable id="servicesTable" widgetVar="servicesTable" var="service" value="#{statusBean.services}" scrollable="TRUE" scrollHeight="500"  styleClass="table table-striped table-status" lazy="true">
                                                         <p:column>
                                                             <h:outputText rendered="#{service.available}" value="#{service.serviceName}" style="color: green" />
-                                                            <h:outputText rendered="#{!service.available}" value="#{service.serviceName} (#{service.responseCode})" style="color: red" />
+                                                            <h:outputText rendered="#{!service.available}" value="#{service.serviceName} (#{service.serviceMessage})" style="color: red" />
                                                         </p:column>
                                                     </p:dataTable> 
                                                 </div>
