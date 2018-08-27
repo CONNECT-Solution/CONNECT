@@ -8053,8 +8053,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-context.setGatewayStandard(false);
-log.info ("Setting the gateway to Passthrough");
+//context.setGatewayStandard(false);
+//log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -11454,8 +11454,13 @@ if (propertiesFile.exists()) {
         <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value>
       </con:property>
     </con:properties>
-    <con:setupScript/>
-    <con:tearDownScript/>
+    <con:setupScript>//setup
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
+</con:setupScript>
+    <con:tearDownScript>//tear-down
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
     <con:reportParameters/>
   </con:testSuite>
   <con:testSuite name="g0" id="4e893316-566a-4ecf-8554-43ee3fdce482">
@@ -17937,8 +17942,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-context.setGatewayStandard(false);
-log.info ("Setting the gateway to Passthrough");
+//context.setGatewayStandard(false);
+//log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -23258,8 +23263,13 @@ if (propertiesFile.exists()) {
         <con:value>http://localhost:8080/Gateway/DocumentDataSubmission/1_1/EntityService/EntityDocDataSubmissionUnsecured</con:value>
       </con:property>
     </con:properties>
-    <con:setupScript/>
-    <con:tearDownScript/>
+    <con:setupScript>//setup
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
+</con:setupScript>
+    <con:tearDownScript>//tear-down
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
     <con:reportParameters/>
   </con:testSuite>
   <con:properties>
