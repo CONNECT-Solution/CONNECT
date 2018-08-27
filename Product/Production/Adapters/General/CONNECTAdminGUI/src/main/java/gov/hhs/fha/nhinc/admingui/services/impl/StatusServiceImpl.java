@@ -128,11 +128,7 @@ public class StatusServiceImpl implements StatusService {
                     AvailableService aService = new AvailableService();
                     aService.setServiceName(MessageFormat.format("{0} - {1}", serviceName, url.getVersion()));
                     aService.setResponseCode(PING_SERVICE.ping(url.getUrl(), !IGNORE_DEADHOST));
-                    if (!aService.isAvailable())
-                    {
-                    	HttpStatus status = new HttpStatus();
-                    	  aService.setServiceMessage(status.getStatusText(aService.getResponseCode()));
-                    }
+                    aService.setServiceMessage(!aService.isAvailable()?new HttpStatus().getStatusText(aService.getResponseCode()):"");
                     services.add(aService);
                 }
             }
