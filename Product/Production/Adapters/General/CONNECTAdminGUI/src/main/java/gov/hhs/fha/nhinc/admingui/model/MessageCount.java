@@ -24,20 +24,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.admingui.model;
 
-import gov.hhs.fha.nhinc.admingui.model.AvailableService;
-import java.util.List;
+public class MessageCount {
+    private Long inbound;
+    private Long outbound;
+    private String event;
 
-/**
- *
- * @author jassmit
- */
-public interface PingService {
+    public MessageCount(String event, long inbound, long outbound) {
+        this.event = event;
+        this.inbound = inbound;
+        this.outbound = outbound;
+    }
+    public Long getInbound() {
+        return inbound;
+    }
+    public void setInbound(long inbound) {
+        this.inbound = inbound;
+    }
+    public Long getOutbound() {
+        return outbound;
+    }
+    public void setOutbound(long outbound) {
+        this.outbound = outbound;
+    }
+    public String getEvent() {
+        return event;
+    }
+    public void setEvent(String event) {
+        this.event = event;
+    }
+    public Long getTotal() {
+        return inbound + outbound;
+    }
 
-    public int ping(String url, boolean ignoreDeadhostList);
-
-    public void resetDeadhostList();
-
-    public List<AvailableService> buildServices();
 }

@@ -1,3 +1,4 @@
+package gov.hhs.fha.nhinc.admingui.application;
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
@@ -24,20 +25,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
 
-import gov.hhs.fha.nhinc.admingui.model.AvailableService;
-import java.util.List;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 /**
  *
  * @author jassmit
  */
-public interface PingService {
+public class ApplicationListener implements ServletContextListener {
 
-    public int ping(String url, boolean ignoreDeadhostList);
+    @Override
+    public void contextInitialized(ServletContextEvent contextEvent) {
+        ApplicationInfo.getInstance().setServerInfo(contextEvent.getServletContext().getServerInfo());
+    }
 
-    public void resetDeadhostList();
+    @Override
+    public void contextDestroyed(ServletContextEvent contextEvent) {
+        // Do nothing.
+    }
 
-    public List<AvailableService> buildServices();
 }

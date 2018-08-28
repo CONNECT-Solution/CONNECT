@@ -13,10 +13,19 @@
                     <ns2:hcid>urn:oid:1.1</ns2:hcid>
                     <ns2:endpointList>
                         <ns2:endpoint>
+                            <ns2:name>admindashboard</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/CONNECTGateway/AdminGUIServices/Dashboard</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
                             <ns2:name>entityconfigadmin</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
-                                    <ns2:url>https://localhost:8181/CONNECTGateway/GUIService/ConfigAdmin</ns2:url>
+                                    <ns2:url>https://localhost:8181/CONNECTGateway/AdminGUIServices/ConfigAdmin</ns2:url>
                                     <ns2:version>LEVEL_a0</ns2:version>
                                 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
@@ -25,7 +34,7 @@
                             <ns2:name>entityexchangemanagement</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
-                                    <ns2:url>https://localhost:8181/CONNECTGateway/GUIExchangeService/ExchangeManagement</ns2:url>
+                                    <ns2:url>https://localhost:8181/CONNECTGateway/AdminGUIServices/ExchangeManagement</ns2:url>
                                     <ns2:version>LEVEL_a0</ns2:version>
                                 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
