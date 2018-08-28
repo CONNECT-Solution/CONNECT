@@ -26,9 +26,16 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.getEndpointConfigurationTypeBy;
 import static java.net.HttpURLConnection.HTTP_CLIENT_TIMEOUT;
 
+import gov.hhs.fha.nhinc.admingui.model.AvailableService;
 import gov.hhs.fha.nhinc.admingui.services.PingService;
+import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
+import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
+import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
+import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -38,7 +45,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -149,5 +158,47 @@ public class PingServiceImpl implements PingService {
         }
 
         return !deadhostList.contains(getStringHostPort(url.getHost(), url.getPort()));
+    }
+
+    @Override
+    public List<AvailableService> buildServices() {
+        List<AvailableService> services = new ArrayList<>();
+        resetDeadhostList();
+
+        ConnectionHelper cHelper = new ConnectionHelper();
+        OrganizationType localOrg = cHelper.getLocalOrganization();
+        List<EndpointType> endpoints = ExchangeManagerHelper.getEndpointTypeBy(localOrg);
+
+        if (localOrg != null && CollectionUtils.isNotEmpty(endpoints)) {
+            for (NhincConstants.NHIN_SERVICE_NAMES name : NhincConstants.NHIN_SERVICE_NAMES.values()) {
+                services.addAll(getAvailableServiceFrom(localOrg, name.getUDDIServiceName()));
+            }
+        }
+        return services;
+    }
+
+    private List<AvailableService> getAvailableServiceFrom(OrganizationType organization, String serviceName) {
+        EndpointType endpoint = ExchangeManagerHelper.findEndpointTypeBy(organization, serviceName);
+        if (null != endpoint) {
+            return getAvailableServiceBy(endpoint);
+        }
+        LOG.warn("Error cannot find the service '{}' in organization '{}'", serviceName, organization.getName());
+        return new ArrayList<>();
+    }
+
+    private List<AvailableService> getAvailableServiceBy(EndpointType endpoint) {
+        List<AvailableService> services = new ArrayList<>();
+        if (null != endpoint) {
+            for (String serviceName : endpoint.getName()) {
+                for (EndpointConfigurationType url : getEndpointConfigurationTypeBy(endpoint)) {
+                    AvailableService aService = new AvailableService();
+                    aService.setServiceName(MessageFormat.format("{0} - {1}", serviceName, url.getVersion()));
+                    aService.setResponseCode(ping(url.getUrl(), !IGNORE_DEADHOST));
+
+                    services.add(aService);
+                }
+            }
+        }
+        return services;
     }
 }

@@ -19,10 +19,6 @@
     <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
   </listener>
 
-  <listener>
-    <listener-class>gov.hhs.fha.nhinc.admingui.application.listener.ApplicationListener</listener-class>
-  </listener>
-
   <servlet>
     <servlet-name>init</servlet-name>
     <servlet-class>gov.hhs.fha.nhinc.admingui.servlet.InitServlet</servlet-class>

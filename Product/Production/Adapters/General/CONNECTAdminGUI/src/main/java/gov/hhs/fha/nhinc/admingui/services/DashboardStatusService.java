@@ -26,18 +26,29 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
-import gov.hhs.fha.nhinc.admingui.model.AvailableService;
-import java.util.List;
+import gov.hhs.fha.nhinc.adminguimanagement.AdminGUIManagementPortType;
+import gov.hhs.fha.nhinc.common.adminguimanagement.AdminGUIRequestMessageType;
+import gov.hhs.fha.nhinc.common.adminguimanagement.DashboardStatusMessageType;
+import gov.hhs.fha.nhinc.common.adminguimanagement.EventLogMessageType;
 
-/**
- *
- * @author jassmit
- */
-public interface PingService {
+public class DashboardStatusService implements AdminGUIManagementPortType {
 
-    public int ping(String url, boolean ignoreDeadhostList);
+    @Override
+    public DashboardStatusMessageType dashboardStatus(AdminGUIRequestMessageType req) {
 
-    public void resetDeadhostList();
+        DashboardStatusMessageType resp = new DashboardStatusMessageType();
+        resp.setMemory("100 GB");
+        resp.setOS("WINDURRS 10");
+        resp.setServer("Wildfly 8.2.1.Final");
+        resp.setVersion("Java 1.8");
 
-    public List<AvailableService> buildServices();
+        EventLogMessageType event = new EventLogMessageType();
+        event.setEvent("Patient Discovery");
+        event.setInbound(100);
+        event.setOutbound(120);
+
+        resp.getEvent().add(event);
+        return null;
+    }
+
 }

@@ -24,20 +24,55 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.admingui.services.impl;
 
-import gov.hhs.fha.nhinc.admingui.model.AvailableService;
-import java.util.List;
+import gov.hhs.fha.nhinc.admingui.application.ApplicationInfo;
+import gov.hhs.fha.nhinc.admingui.services.StatusService;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.text.MessageFormat;
 
 /**
  *
  * @author jassmit
  */
-public interface PingService {
+public class StatusServiceImpl implements StatusService {
 
-    public int ping(String url, boolean ignoreDeadhostList);
+    private static final String JAVA_VERSION_KEY = "java.version";
+    private static final String JAVA_VENDOR_KEY = "java.vm.vendor";
+    private static final String OS_KEY = "os.name";
+    private static final String OS_VERSION_KEY = "os.version";
+    private static final long MB_VALUE = 1048576;
 
-    public void resetDeadhostList();
+    @Override
+    public String getOperatingSystem() {
+        return MessageFormat.format("{0}, {1}", System.getProperty(OS_KEY), System.getProperty(OS_VERSION_KEY));
+    }
 
-    public List<AvailableService> buildServices();
+    @Override
+    public String getJavaVersion() {
+        return MessageFormat.format("{0}, {1}", System.getProperty(JAVA_VERSION_KEY),
+            System.getProperty(JAVA_VENDOR_KEY));
+    }
+
+    @Override
+    public String getMemory() {
+        MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
+        long heapMemUsed = memoryBean.getHeapMemoryUsage().getUsed();
+        long otherMemUsed = memoryBean.getNonHeapMemoryUsage().getUsed();
+        long totalMemoryUsed = (heapMemUsed + otherMemUsed) / MB_VALUE;
+
+        if (totalMemoryUsed > 0) {
+            return Long.toString(totalMemoryUsed) + " MB";
+        }
+        return null;
+    }
+
+    @Override
+    public String getApplicationServer() {
+        return ApplicationInfo.getInstance().getServerInfo();
+    }
+
+
+
 }
