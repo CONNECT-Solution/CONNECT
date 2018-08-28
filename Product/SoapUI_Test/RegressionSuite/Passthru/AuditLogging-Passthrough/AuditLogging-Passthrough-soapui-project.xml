@@ -1411,8 +1411,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -1427,8 +1427,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -2286,6 +2286,9 @@ testRunner.gotoStepByName( "Clear Audit Logs")</script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
+
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
 def propertiesFilename = projectPath + "/DocumentSubmissionDeferredResponseAuditLog.properties"
@@ -2299,8 +2302,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -3246,8 +3249,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -3262,8 +3265,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -4292,8 +4295,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -4308,8 +4311,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -5266,8 +5269,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -5282,8 +5285,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -6598,8 +6601,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -6614,8 +6617,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -8069,8 +8072,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -9162,6 +9165,9 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
+
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
 def propertiesFilename = projectPath + "/QueryDocumentAuditLog.properties"
@@ -9175,8 +9181,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -10113,8 +10119,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -10129,8 +10135,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -10867,12 +10873,12 @@ if (propertiesFile.exists()) {
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");</con:setupScript>
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -11402,6 +11408,9 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script></con:config>
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
+
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
 def propertiesFilename = projectPath + "/PatientLocationQueryAuditLog.properties"
@@ -11412,7 +11421,9 @@ if (propertiesFile.exists()) {
  props.each { key, value ->
      testCase.setPropertyValue(key, value)
  }
-}</con:setupScript><con:properties><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name><con:value>110153</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor.inbound</con:name><con:value>false</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>&lt;!--Destination--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID</con:name><con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientLocationQuery</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Patient Location Query</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name><con:value>false</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@code</con:name><con:value>ITI-56</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name><con:value>1010</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code</con:name><con:value>ITI-56</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.@ParticipantObjectID</con:name><con:value>PatientLocationQueryRequest</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name><con:value>Destination</con:value></con:property><con:property><con:name>&lt;!--Human</con:name><con:value>Requestor--></con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name><con:value>localhost</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Patient Number</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name><con:value>Source</con:value></con:property><con:property><con:name>ActiveParticipant.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name><con:value>192.168.1.2</con:value></con:property><con:property><con:name>&lt;!--ParticipantObjectIdentification</con:name><con:value>Query --></con:value></con:property><con:property><con:name>EventIdentification.@EventActionCode</con:name><con:value>E</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name><con:value>110152</con:value></con:property><con:property><con:name>EventIdentification.EventID.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name><con:value>DoD</con:value></con:property><con:property><con:name>EventIdentification.EventID.@displayName</con:name><con:value>Query</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name><con:value>SNOMED_CT</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@displayName</con:name><con:value>Patient Location Query</con:value></con:property><con:property><con:name>EventIdentification.EventID.@code</con:name><con:value>110112</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@code</con:name><con:value>307969004</con:value></con:property><con:property><con:name>EventIdentification.@EventDateTime</con:name><con:value>2015-04-02T13:47:30.199Z</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole</con:name><con:value>24</con:value></con:property><con:property><con:name>EventIdentification.@EventOutcomeIndicator</con:name><con:value>0</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>RFC-3881</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@displayName</con:name><con:value>Public Health</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserID</con:name><con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value></con:property><con:property><con:name>AuditMessage.xmlns</con:name><con:value>http://nhinc.services.com/schema/auditmessage</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name><con:value>2</con:value></con:property><con:property><con:name>&lt;!--Source--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name><con:value>1111^^^&amp;1.1&amp;ISO</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectName</con:name><con:value>1.1</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Responder.@ParticipantObjectID</con:name><con:value>D123401^^^&amp;1.1&amp;ISO</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.@UserID</con:name><con:value>kskagerb</con:value></con:property></con:properties></con:testCase><con:properties>
+}</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript><con:properties><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name><con:value>110153</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor.inbound</con:name><con:value>false</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>&lt;!--Destination--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID</con:name><con:value>https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientLocationQuery</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Patient Location Query</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name><con:value>false</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@code</con:name><con:value>ITI-56</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name><con:value>1010</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@code</con:name><con:value>ITI-56</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.@ParticipantObjectID</con:name><con:value>PatientLocationQueryRequest</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name><con:value>Destination</con:value></con:property><con:property><con:name>&lt;!--Human</con:name><con:value>Requestor--></con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name><con:value>localhost</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Patient Number</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name><con:value>Source</con:value></con:property><con:property><con:name>ActiveParticipant.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name><con:value>192.168.1.2</con:value></con:property><con:property><con:name>&lt;!--ParticipantObjectIdentification</con:name><con:value>Query --></con:value></con:property><con:property><con:name>EventIdentification.@EventActionCode</con:name><con:value>E</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name><con:value>110152</con:value></con:property><con:property><con:name>EventIdentification.EventID.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name><con:value>DoD</con:value></con:property><con:property><con:name>EventIdentification.EventID.@displayName</con:name><con:value>Query</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name><con:value>SNOMED_CT</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@displayName</con:name><con:value>Patient Location Query</con:value></con:property><con:property><con:name>EventIdentification.EventID.@code</con:name><con:value>110112</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@code</con:name><con:value>307969004</con:value></con:property><con:property><con:name>EventIdentification.@EventDateTime</con:name><con:value>2015-04-02T13:47:30.199Z</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.@ParticipantObjectTypeCodeRole</con:name><con:value>24</con:value></con:property><con:property><con:name>EventIdentification.@EventOutcomeIndicator</con:name><con:value>0</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>RFC-3881</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@displayName</con:name><con:value>Public Health</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserID</con:name><con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value></con:property><con:property><con:name>AuditMessage.xmlns</con:name><con:value>http://nhinc.services.com/schema/auditmessage</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name><con:value>2</con:value></con:property><con:property><con:name>&lt;!--Source--></con:name><con:value/></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name><con:value>1111^^^&amp;1.1&amp;ISO</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Query.ParticipantObjectName</con:name><con:value>1.1</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Responder.@ParticipantObjectID</con:name><con:value>D123401^^^&amp;1.1&amp;ISO</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.@UserID</con:name><con:value>kskagerb</con:value></con:property></con:properties></con:testCase><con:properties>
       <con:property>
         <con:name>Endpoint-DocRetrieve</con:name>
         <con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value>
@@ -12330,8 +12341,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -12346,8 +12357,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -13204,8 +13215,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")</script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -13220,8 +13231,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -14167,8 +14178,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -14183,8 +14194,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -15141,8 +15152,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -15157,8 +15168,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -16481,8 +16492,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -16497,8 +16508,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -17953,8 +17964,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -19034,8 +19045,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -19050,8 +19061,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -19994,8 +20005,8 @@ testRunner.gotoStepByName( "Clear Audit Logs")]]></script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
@@ -20010,8 +20021,8 @@ if (propertiesFile.exists()) {
 }</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -20727,12 +20738,12 @@ if (propertiesFile.exists()) {
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
-//context.setGatewayStandard(false);
-//log.info ("Setting the gateway to Passthrough");</con:setupScript>
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");</con:setupScript>
       <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
 
-//context.setGatewayStandard(true);
-//log.info ("Setting the gateway to Standard");</con:tearDownScript>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -21308,6 +21319,9 @@ testRunner.gotoStepByName( "Clear Audit Logs")</script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
+
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
 def propertiesFilename = projectPath + "/COREX12RealTimeTransaction.properties"
@@ -21319,7 +21333,10 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -22142,6 +22159,9 @@ testRunner.gotoStepByName( "Clear Audit Logs")</script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
+
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
 def propertiesFilename = projectPath + "/COREX12BatchSubmitRequest.properties"
@@ -22153,7 +22173,10 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
@@ -22961,6 +22984,9 @@ testRunner.gotoStepByName( "Clear Audit Logs")</script>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 
+context.setGatewayStandard(false);
+log.info ("Setting the gateway to Passthrough");
+
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def projectPath = groovyUtils.projectPath
 def propertiesFilename = projectPath + "/COREX12BatchSubmitResponse.properties"
@@ -22972,7 +22998,10 @@ if (propertiesFile.exists()) {
      testCase.setPropertyValue(key, value)
  }
 }</con:setupScript>
-      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>&lt;!--Destination--></con:name>
