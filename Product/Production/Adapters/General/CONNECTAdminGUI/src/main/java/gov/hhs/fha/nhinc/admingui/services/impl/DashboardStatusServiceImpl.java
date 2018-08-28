@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_GUI_MANAGEMENT_SERVICE_NAME;
 
-import gov.hhs.fha.nhinc.admingui.model.MessageCount;
 import gov.hhs.fha.nhinc.admingui.model.StatusSnapshot;
 import gov.hhs.fha.nhinc.adminguimanagement.AdminGUIManagementPortType;
 import gov.hhs.fha.nhinc.common.adminguimanagement.AdminGUIRequestMessageType;
@@ -37,6 +36,7 @@ import gov.hhs.fha.nhinc.common.adminguimanagement.DashboardStatusMessageType;
 import gov.hhs.fha.nhinc.common.adminguimanagement.EventLogMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.configuration.AdminGUIManagementPortDescriptor;
+import gov.hhs.fha.nhinc.event.model.EventCount;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -81,9 +81,9 @@ public class DashboardStatusServiceImpl {
 
     private static StatusSnapshot convertToSnapshot(DashboardStatusMessageType response) {
         StatusSnapshot snapshot = new StatusSnapshot();
-        HashMap<String, MessageCount> events = new HashMap<>();
+        HashMap<String, EventCount> events = new HashMap<>();
         for (EventLogMessageType event : response.getEvent()) {
-            events.put(event.getEvent(), new MessageCount(event.getEvent(), event.getInbound(), event.getOutbound()));
+            events.put(event.getEvent(), new EventCount(event.getEvent(), event.getInbound(), event.getOutbound()));
         }
         snapshot.setOs(response.getOS());
         snapshot.setMemory(response.getMemory());

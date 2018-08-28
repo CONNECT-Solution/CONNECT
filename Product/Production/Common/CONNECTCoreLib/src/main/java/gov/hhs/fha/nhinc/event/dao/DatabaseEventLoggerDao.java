@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -28,10 +28,10 @@ package gov.hhs.fha.nhinc.event.dao;
 
 import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.cxf.common.util.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -108,14 +108,13 @@ public class DatabaseEventLoggerDao {
     }
 
     /**
-     * Hibernate Query for event counts for a given Event type grouping by HCID
-     * and service type.
+     * Hibernate Query for event counts for a given Event type grouping the provided
+     * column names
      *
-     * @param eventType Location of event call in processing.
-     * @return List of Object[] with [0] the count, [1] the initiating hcid, and
-     * [2] the service type.
+     * @param eventType a list of event types to include, or null for all event types
+     * @return List of Object[] with [0] the count, [n] the provided grpProjections[n]
      */
-    public List getCounts(final String eventType, String... grpProjections) {
+    public List getCounts(final List<String> eventTypes, String... grpProjections) {
         final SessionFactory sessionFactory = getSessionFactory();
         List results = new ArrayList<>();
 
@@ -132,8 +131,8 @@ public class DatabaseEventLoggerDao {
                 }
 
                 Criteria criteria = session.createCriteria(DatabaseEvent.class);
-                if (NullChecker.isNotNullish(eventType)) {
-                    criteria.add(Restrictions.eq(EVENT_TYPE_NAME, eventType));
+                if (CollectionUtils.isEmpty(eventTypes)) {
+                    criteria.add(Restrictions.in(EVENT_TYPE_NAME, eventTypes));
                 }
 
                 results = criteria.setProjection(projList)

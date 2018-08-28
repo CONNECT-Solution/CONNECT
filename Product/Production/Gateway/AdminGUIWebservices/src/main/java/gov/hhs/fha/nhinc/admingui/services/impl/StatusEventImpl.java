@@ -28,11 +28,12 @@ package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import gov.hhs.fha.nhinc.admingui.services.StatusEvent;
 import gov.hhs.fha.nhinc.event.dao.DatabaseEventLoggerDao;
+import gov.hhs.fha.nhinc.event.model.EventCount;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.lang.ArrayUtils;
-import org.springframework.util.CollectionUtils;
+import java.util.Map.Entry;
 
 /**
  *
@@ -41,69 +42,70 @@ import org.springframework.util.CollectionUtils;
 public class StatusEventImpl implements StatusEvent {
 
     private static final String EVENT_SERVICETYPE_NAME = "serviceType";
-    private HashMap<String, Integer> inboundCounts = new HashMap<>();
-    private HashMap<String, Integer> outboundCounts = new HashMap<>();
+    private static final String EVENT_TYPE_NAME = "eventName";
+
+    private HashMap<String, EventCount> eventCounts = new HashMap<>();
     private DatabaseEventLoggerDao eventDao;
 
     private static final String PD_SERVICE_TYPE = "Patient Discovery";
     private static final String PD_DEF_REQ_SERVICE_TYPE = "Patient Discovery Deferred Request";
     private static final String PD_DEF_RESP_SERVICE_TYPE = "Patient Discovery Deferred Response";
-    private static final String PLQ_SERVICE_TYPE = "Patient Location Query";
-    private static final String DDS_SERVICE_TYPE = "Document Data Submission";
-    private static final String DQ_SERVICE_TYPE = "Document Query";
-    private static final String DR_SERVICE_TYPE = "Retrieve Document";
     private static final String DS_SERVICE_TYPE = "Document Submission";
     private static final String DS_DEF_REQ_SERVICE_TYPE = "Document Submission Deferred Request";
     private static final String DS_DEF_RESP_SERVICE_TYPE = "Document Submission Deferred Response";
+    private static final String PD_MPI_SERVICE_TYPE = "Patient Discovery MPI";
 
     public static final String INBOUND_EVENT_TYPE = "END_INBOUND_MESSAGE";
     public static final String OUTBOUND_EVENT_TYPE = "END_INVOCATION_TO_NWHIN";
 
+
     @Override
     public void setCounts() {
-        inboundCounts.clear();
-        outboundCounts.clear();
-        List inboundResults = getEventLoggerDao().getCounts(INBOUND_EVENT_TYPE, EVENT_SERVICETYPE_NAME);
-        List outboundResults = getEventLoggerDao().getCounts(OUTBOUND_EVENT_TYPE, EVENT_SERVICETYPE_NAME);
+        List results = getEventLoggerDao()
+            .getCounts(Arrays.asList(INBOUND_EVENT_TYPE, OUTBOUND_EVENT_TYPE), EVENT_SERVICETYPE_NAME, EVENT_TYPE_NAME);
 
-        inboundCounts = setEvents(inboundResults);
-        outboundCounts = setEvents(outboundResults);
+        eventCounts = setEvents(results);
     }
 
     @Override
     public long getTotalInboundRequests() {
         long count = 0;
-        List inboundList = getEventLoggerDao().getCounts(INBOUND_EVENT_TYPE, ArrayUtils.EMPTY_STRING_ARRAY);
-        if(!CollectionUtils.isEmpty(inboundList)) {
-            count = (long) inboundList.get(0);
+        for (EventCount counts : eventCounts.values()) {
+            count += counts.getInbound();
         }
         return count;
     }
 
     @Override
-    public long getTotatOutboundRequests() {
+    public long getTotalOutboundRequests() {
         long count = 0;
-        List outboundList = getEventLoggerDao().getCounts(OUTBOUND_EVENT_TYPE, ArrayUtils.EMPTY_STRING_ARRAY);
-        if(!CollectionUtils.isEmpty(outboundList)) {
-            count = (long) outboundList.get(0);
+        for (EventCount counts : eventCounts.values()) {
+            count += counts.getOutbound();
         }
         return count;
     }
 
     @Override
-    public Map<String, Integer> getServiceList() {
-        List serviceList = getEventLoggerDao().getCounts(null, EVENT_SERVICETYPE_NAME);
-        return setEvents(serviceList);
+    public Map<String, Long> getInboundEventCounts() {
+        Map<String, Long> counts = new HashMap<>();
+        for (Entry<String, EventCount> count : eventCounts.entrySet()) {
+            counts.put(count.getKey(), count.getValue().getInbound());
+        }
+        return counts;
     }
 
     @Override
-    public Map<String, Integer> getInboundEventCounts() {
-        return inboundCounts;
+    public Map<String, Long> getOutboundEventCounts() {
+        Map<String, Long> counts = new HashMap<>();
+        for (Entry<String, EventCount> count : eventCounts.entrySet()) {
+            counts.put(count.getKey(), count.getValue().getOutbound());
+        }
+        return counts;
     }
 
     @Override
-    public Map<String, Integer> getOutboundEventCounts() {
-        return outboundCounts;
+    public Map<String, EventCount> getEventCounts() {
+        return eventCounts;
     }
 
     protected DatabaseEventLoggerDao getEventLoggerDao() {
@@ -113,55 +115,74 @@ public class StatusEventImpl implements StatusEvent {
         return eventDao;
     }
 
-    private static HashMap<String, Integer> setEvents(List results) {
-        int patientDiscoveryCount = 0;
-        int patientLocationQueryCount = 0;
-        int docDataSubmissionCount = 0;
-        int docSubmissionCount = 0;
-        int docQueryCount = 0;
-        int docRetrieveCount = 0;
-
+    private HashMap<String, EventCount> setEvents(List results) {
 
         for (Object result : results) {
-            if (result instanceof Object[] && ((Object[]) result).length == 2) {
+            if (result instanceof Object[] && ((Object[]) result).length == 3) {
                 Object[] resultArray = (Object[]) result;
                 Long count = (Long) resultArray[0];
-                String serviceType = (String) resultArray[1];
+                String serviceType = convertServiceType((String) resultArray[1]);
 
-                if (isPDServiceType(serviceType)) {
-                    patientDiscoveryCount += count;
-                } else if (serviceType.equalsIgnoreCase(DQ_SERVICE_TYPE)) {
-                    docQueryCount += count;
-                } else if (serviceType.equalsIgnoreCase(DR_SERVICE_TYPE)) {
-                    docRetrieveCount += count;
-                } else if (isDSServiceType(serviceType)) {
-                    docSubmissionCount += count;
-                } else if (serviceType.equalsIgnoreCase(DDS_SERVICE_TYPE)) {
-                    docDataSubmissionCount += count;
-                } else if (serviceType.equalsIgnoreCase(PLQ_SERVICE_TYPE)) {
-                    patientLocationQueryCount += count;
+                // Skip processing if we are supposed to ignore it.
+                if (serviceType == null) {
+                    continue;
+                }
+
+                String messageType = (String) resultArray[2];
+
+
+                EventCount eventCount = eventCounts.get(serviceType);
+                if (eventCount == null) {
+                    eventCount = new EventCount(serviceType);
+                    eventCounts.put(serviceType, eventCount);
+                }
+
+                // Add the current row's count to the existing count.
+                // That way any conversions will add to the correct count and not overwrite it.
+                if (INBOUND_EVENT_TYPE.equals(messageType)) {
+                    eventCount.setInbound(eventCount.getInbound() + count);
+                } else if (OUTBOUND_EVENT_TYPE.equals(messageType)) {
+                    eventCount.setOutbound(eventCount.getOutbound() + count);
                 }
             }
         }
 
-        HashMap<String, Integer> events = new HashMap<>();
-        events.put(PD_SERVICE_TYPE, patientDiscoveryCount);
-        events.put(DQ_SERVICE_TYPE, docQueryCount);
-        events.put(DS_SERVICE_TYPE, docSubmissionCount);
-        events.put(DR_SERVICE_TYPE, docRetrieveCount);
-        events.put(DDS_SERVICE_TYPE, docDataSubmissionCount);
-        events.put(PLQ_SERVICE_TYPE, patientLocationQueryCount);
-        return events;
+        return eventCounts;
+    }
+
+    /**
+     * Performs any service type matching to another service type. Should be used to
+     * transform Deferred request and response types to their proper non-deferred service.
+     *
+     * This method will also be responsible for returning null if the service should be ignored
+     * If there is no conversion to be done, this method will return the original string.
+     *
+     * @param String to be converted
+     * @return converted String, or NULL if it is to be ignored.
+     */
+    private static String convertServiceType(String serviceType) {
+        if (isPDServiceType(serviceType)) {
+            return PD_SERVICE_TYPE;
+        } else if (isDSServiceType(serviceType)) {
+            return DS_SERVICE_TYPE;
+        } else if (isIgnored(serviceType)) {
+            return null;
+        }
+        return serviceType;
     }
 
     private static boolean isPDServiceType(String serviceType) {
-        return serviceType.equalsIgnoreCase(PD_SERVICE_TYPE) || serviceType.equalsIgnoreCase(PD_DEF_REQ_SERVICE_TYPE)
-            || serviceType.equalsIgnoreCase(PD_DEF_RESP_SERVICE_TYPE);
+        return PD_SERVICE_TYPE.equalsIgnoreCase(serviceType) || PD_DEF_REQ_SERVICE_TYPE.equalsIgnoreCase(serviceType)
+            || PD_DEF_RESP_SERVICE_TYPE.equalsIgnoreCase(serviceType);
     }
 
     private static boolean isDSServiceType(String serviceType) {
-        return serviceType.equalsIgnoreCase(DS_SERVICE_TYPE) || serviceType.equalsIgnoreCase(DS_DEF_REQ_SERVICE_TYPE)
-            || serviceType.equalsIgnoreCase(DS_DEF_RESP_SERVICE_TYPE);
+        return DS_SERVICE_TYPE.equalsIgnoreCase(serviceType) || DS_DEF_REQ_SERVICE_TYPE.equalsIgnoreCase(serviceType)
+            || DS_DEF_RESP_SERVICE_TYPE.equalsIgnoreCase(serviceType);
+    }
+
+    private static boolean isIgnored(String serviceType) {
+        return PD_MPI_SERVICE_TYPE.equalsIgnoreCase(serviceType);
     }
 
 }

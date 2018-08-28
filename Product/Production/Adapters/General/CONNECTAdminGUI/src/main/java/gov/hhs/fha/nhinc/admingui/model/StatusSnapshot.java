@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admingui.model;
 
+import gov.hhs.fha.nhinc.event.model.EventCount;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class StatusSnapshot {
     private String serverVersion;
     private String memory;
 
-    private Map<String, MessageCount> events;
+    private Map<String, EventCount> events;
 
     public String getOs() {
         return os;
@@ -70,7 +71,7 @@ public class StatusSnapshot {
         this.memory = memory;
     }
 
-    public Map<String, MessageCount> getEvents() {
+    public Map<String, EventCount> getEvents() {
         if (events == null) {
             events = new HashMap<>();
         }
@@ -78,7 +79,7 @@ public class StatusSnapshot {
         return events;
     }
 
-    public void setEvents(Map<String, MessageCount> events) {
+    public void setEvents(Map<String, EventCount> events) {
         this.events = events;
     }
 
