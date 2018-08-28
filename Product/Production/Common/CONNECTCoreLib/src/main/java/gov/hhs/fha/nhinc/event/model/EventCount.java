@@ -24,31 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.event.model;
 
-import gov.hhs.fha.nhinc.adminguimanagement.AdminGUIManagementPortType;
-import gov.hhs.fha.nhinc.common.adminguimanagement.AdminGUIRequestMessageType;
-import gov.hhs.fha.nhinc.common.adminguimanagement.DashboardStatusMessageType;
-import gov.hhs.fha.nhinc.common.adminguimanagement.EventLogMessageType;
+public class EventCount {
+    private long inbound;
+    private long outbound;
+    private String event;
 
-public class DashboardStatusService implements AdminGUIManagementPortType {
+    public EventCount(String event, long inbound, long outbound) {
+        this.event = event;
+        this.inbound = inbound;
+        this.outbound = outbound;
+    }
 
-    @Override
-    public DashboardStatusMessageType dashboardStatus(AdminGUIRequestMessageType req) {
+    public EventCount(String event) {
+       this.event = event;
+    }
 
-        DashboardStatusMessageType resp = new DashboardStatusMessageType();
-        resp.setMemory("100 GB");
-        resp.setOS("WINDURRS 10");
-        resp.setServer("Wildfly 8.2.1.Final");
-        resp.setVersion("Java 1.8");
-
-        EventLogMessageType event = new EventLogMessageType();
-        event.setEvent("Patient Discovery");
-        event.setInbound(100);
-        event.setOutbound(120);
-
-        resp.getEvent().add(event);
-        return null;
+    public long getInbound() {
+        return inbound;
+    }
+    public void setInbound(long inbound) {
+        this.inbound = inbound;
+    }
+    public long getOutbound() {
+        return outbound;
+    }
+    public void setOutbound(long outbound) {
+        this.outbound = outbound;
+    }
+    public String getEvent() {
+        return event;
+    }
+    public void setEvent(String event) {
+        this.event = event;
+    }
+    public Long getTotal() {
+        return inbound + outbound;
     }
 
 }

@@ -13,7 +13,6 @@
         <param-value>
             classpath:CONNECT-interceptor-beans.xml
             classpath:CONNECT-context.xml
-            classpath:eventlogging.xml
             classpath:/adminGUI/applicationContext.xml
             classpath:/adminGUI/webservices.xml
         </param-value>

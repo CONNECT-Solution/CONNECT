@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.adminguimanagement.AdminGUIManagementPortType;
 import gov.hhs.fha.nhinc.common.adminguimanagement.AdminGUIRequestMessageType;
 import gov.hhs.fha.nhinc.common.adminguimanagement.DashboardStatusMessageType;
 import gov.hhs.fha.nhinc.common.adminguimanagement.EventLogMessageType;
-import java.util.Map;
+import gov.hhs.fha.nhinc.event.model.EventCount;
 import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -57,15 +57,12 @@ public class DashboardStatusWebservice implements AdminGUIManagementPortType{
 
         eventService.setCounts();
 
-        Map<String, Integer> inboundRequests = eventService.getInboundEventCounts();
-        Map<String, Integer> outboundRequests = eventService.getOutboundEventCounts();
-
-        for (Entry<String, Integer> event : inboundRequests.entrySet())
+        for (Entry<String, EventCount> event : eventService.getEventCounts().entrySet())
         {
             EventLogMessageType eventType = new EventLogMessageType();
             eventType.setEvent(event.getKey());
-            eventType.setInbound(event.getValue());
-            eventType.setOutbound(outboundRequests.get(event.getKey()));
+            eventType.setInbound(event.getValue().getInbound());
+            eventType.setOutbound(event.getValue().getOutbound());
 
             resp.getEvent().add(eventType);
         }

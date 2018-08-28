@@ -38,6 +38,10 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
+	      <groupId>org.connectopensource</groupId>
+	      <artifactId>ConfigAdminWebservices</artifactId>
+	    </dependency>
+        <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>AdminGUIManagementWebservices</artifactId>
             <version>${project.parent.version}</version>

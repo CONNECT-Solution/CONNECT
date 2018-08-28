@@ -27,11 +27,11 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.model.AvailableService;
-import gov.hhs.fha.nhinc.admingui.model.MessageCount;
 import gov.hhs.fha.nhinc.admingui.model.StatusSnapshot;
 import gov.hhs.fha.nhinc.admingui.services.PingService;
 import gov.hhs.fha.nhinc.admingui.services.impl.DashboardStatusServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl;
+import gov.hhs.fha.nhinc.event.model.EventCount;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -94,7 +94,7 @@ public class StatusBean {
     private Map<String, Long> getInboundEventCounts() {
 
         HashMap<String, Long> map = new HashMap<>();
-        for (MessageCount event : snapshot.getEvents().values()) {
+        for (EventCount event : snapshot.getEvents().values()) {
             map.put(event.getEvent(), event.getInbound());
         }
         return map;
@@ -102,7 +102,7 @@ public class StatusBean {
 
     public long getTotalInboundRequests() {
         long total = 0;
-        for (MessageCount event : snapshot.getEvents().values()) {
+        for (EventCount event : snapshot.getEvents().values()) {
             total += event.getInbound();
         }
         return total;
@@ -111,7 +111,7 @@ public class StatusBean {
     private Map<String, Long> getOutboundEventCounts() {
 
         HashMap<String, Long> map = new HashMap<>();
-        for (MessageCount event : snapshot.getEvents().values()) {
+        for (EventCount event : snapshot.getEvents().values()) {
             map.put(event.getEvent(), event.getOutbound());
         }
         return map;
@@ -119,7 +119,7 @@ public class StatusBean {
 
     public long getTotalOutboundRequests() {
         long total = 0;
-        for (MessageCount event : snapshot.getEvents().values()) {
+        for (EventCount event : snapshot.getEvents().values()) {
             total += event.getOutbound();
         }
         return total;
@@ -142,12 +142,12 @@ public class StatusBean {
 
     private void refreshPieChart() {
 
-        for ( MessageCount event : snapshot.getEvents().values()) {
+        for ( EventCount event : snapshot.getEvents().values()) {
             eventPieChart.getData().put(event.getEvent(), event.getTotal());
         }
 
         eventPieChart.setFill(false);
-        eventPieChart.setSeriesColors("10253F, CC0000, 33D6FF, FFCC00, 98FB98, FFA500");
+        eventPieChart.setSeriesColors("10253F, CC0000, 33D6FF, FFCC00, 98FB98, FFA500, 00CCFF");
         eventPieChart.setShowDataLabels(true);
         eventPieChart.setSliceMargin(5);
         eventPieChart.setLegendPosition("se");
