@@ -34,8 +34,8 @@
                 <module>X12ErrorHandlingTest</module>
                 <module>NHINSAMLAttributeTest</module>
                 <module>AdapterSpringInjectionTest</module>
-                <module>NHINCReceivingXDRAsyncRequestTests</module>
-                <module>NHINCReceivingXDRAsyncResponseTests</module>
+                <!--Manual-test module>NHINCReceivingXDRAsyncRequestTests</module -->
+                <!--Manual-test module>NHINCReceivingXDRAsyncResponseTests</module -->
                 <module>DocQueryErrorCodesPassthru</module>
             </modules>
         </profile>
