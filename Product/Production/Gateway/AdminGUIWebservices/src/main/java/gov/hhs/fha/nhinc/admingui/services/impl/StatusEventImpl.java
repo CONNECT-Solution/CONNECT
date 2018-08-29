@@ -117,6 +117,8 @@ public class StatusEventImpl implements StatusEvent {
 
     private HashMap<String, EventCount> setEvents(List results) {
 
+        eventCounts = new HashMap<>();
+
         for (Object result : results) {
             if (result instanceof Object[] && ((Object[]) result).length == 3) {
                 Object[] resultArray = (Object[]) result;
