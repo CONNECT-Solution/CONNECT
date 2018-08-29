@@ -62,13 +62,9 @@
                                     <div class="form-block center-block" style="padding:0px;">
                                         <h:form id="gatewayPropForm" >
                                             <p:messages for="#{propertyBean.gatewayPropMsg}" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
-                                            <p:contextMenu for="gatewayProps" widgetVar="pMenu">
-                                                <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellProps').showCellEditor();return false;"/>
-                                                <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('pMenu').hide()"/>
-                                            </p:contextMenu>
 
                                             <div class="table-responsive table-props">
-                                                <p:dataTable id="gatewayProps" value="#{propertyBean.gatewayProperties}" editable="true" editMode="cell" resizableColumns="false" scrollable="true" scrollHeight="500" var="prop" widgetVar="cellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                                <p:dataTable id="gatewayProps" value="#{propertyBean.gatewayProperties}" editable="true" editMode="cell" scrollable="true" scrollHeight="500" sortMode="Single" resizableColumns="false" var="prop" widgetVar="cellProps" styleClass="table table-striped table-domains">
                                                     <p:ajax event="cellEdit" listener="#{propertyBean.onGatewayValueEdit}" update=":propsTabview:gatewayPropForm:gatewayProps" />
                                                     <p:column headerText="Key" sortBy="key">
                                                         <h:outputText value="#{prop.key}" />
@@ -83,6 +79,11 @@
                                                         </p:cellEditor>
                                                     </p:column>
                                                 </p:dataTable>
+                                                
+                                                 <p:contextMenu for="gatewayProps" widgetVar="pMenu">
+                                                        <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellProps').showCellEditor();return false;"/>
+                                                        <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('pMenu').hide()"/>
+                                            </p:contextMenu>
                                             </div>
                                         </h:form>
                                     </div>
@@ -101,13 +102,9 @@
                                     <div class="form-block center-block" style="padding:0px;">
                                         <h:form id="adapterPropForm" >
                                             <p:messages for="#{propertyBean.adapterPropMsg}" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
-                                            <p:contextMenu for="adapterProps" widgetVar="apMenu">
-                                                <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('aCellProps').showCellEditor();return false;"/>
-                                                <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('apMenu').hide()"/>
-                                            </p:contextMenu>
-
+                                           
                                             <div class="table-responsive table-props">
-                                                <p:dataTable id="adapterProps" value="#{propertyBean.adapterProperties}" editable="true" editMode="cell" resizableColumns="false" scrollable="true" scrollHeight="500" var="prop" widgetVar="aCellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                                <p:dataTable id="adapterProps" value="#{propertyBean.adapterProperties}" editable="true" scrollable="true" scrollHeight="500" sortMode="Single" editMode="cell" resizableColumns="false" var="prop" widgetVar="aCellProps" styleClass="table table-striped table-domains">
                                                     <p:ajax event="cellEdit" listener="#{propertyBean.onAdapterValueEdit}" update=":propsTabview:adapterPropForm:adapterProps" />
                                                     <p:column headerText="Key" sortBy="key">
                                                         <h:outputText value="#{prop.key}" />
@@ -122,6 +119,12 @@
                                                         </p:cellEditor>
                                                     </p:column>
                                                 </p:dataTable>
+                                                
+                                             <p:contextMenu for="adapterProps" widgetVar="apMenu">
+                                                <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('aCellProps').showCellEditor();return false;"/>
+                                                <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('apMenu').hide()"/>
+                                            </p:contextMenu>
+                                                
                                             </div>
                                         </h:form>
                                     </div>
@@ -141,13 +144,9 @@
                                     <div class="form-block center-block" style="padding:0px;">
                                         <h:form id="auditPropForm" >
                                             <p:messages for="#{propertyBean.auditPropMsg}" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
-                                            <p:contextMenu for="auditProps" widgetVar="auditMenu">
-                                                <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('auditCellProps').showCellEditor();return false;"/>
-                                                <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('auditMenu').hide()"/>
-                                            </p:contextMenu>
-
+                                        
                                             <div class="table-responsive table-props">
-                                                <p:dataTable id="auditProps" value="#{propertyBean.auditProperties}" editable="true" editMode="cell" resizableColumns="false" scrollable="true" scrollHeight="500" var="prop" widgetVar="auditCellProps" sortMode="Single" styleClass="table table-striped table-domains">
+                                                <p:dataTable id="auditProps" value="#{propertyBean.auditProperties}" editable="true" scrollable="true" scrollHeight="500" sortMode="Single" editMode="cell" resizableColumns="false" var="prop" widgetVar="auditCellProps" styleClass="table table-striped table-domains">
                                                     <p:ajax event="cellEdit" listener="#{propertyBean.onAuditValueEdit}" update=":propsTabview:auditPropForm:auditProps" />
                                                     <p:column headerText="Key" sortBy="key">
                                                         <h:outputText value="#{prop.key}" />
@@ -162,6 +161,11 @@
                                                         </p:cellEditor>
                                                     </p:column>
                                                 </p:dataTable>
+                                                
+                                              <p:contextMenu for="auditProps" widgetVar="auditMenu">
+                                                <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('auditCellProps').showCellEditor();return false;"/>
+                                                <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('auditMenu').hide()"/>
+                                            </p:contextMenu>
                                             </div>
                                         </h:form>
                                     </div>
