@@ -36,6 +36,7 @@
             <id>Direct</id>
             <modules>
                 <module>Direct</module>
+                <module>AdminGUIWebservices</module>
             </modules>
         </profile>
        <profile>
