@@ -24,20 +24,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
-
-import gov.hhs.fha.nhinc.admingui.model.AvailableService;
-import java.util.List;
+package gov.hhs.fha.nhinc.admingui.application;
 
 /**
  *
  * @author jassmit
  */
-public interface PingService {
+public class ApplicationInfo {
 
-    public int ping(String url, boolean ignoreDeadhostList);
+    private static ApplicationInfo INSTANCE;
 
-    public void resetDeadhostList();
+    private String serverInfo;
 
-    public List<AvailableService> buildServices();
+    private ApplicationInfo() {
+    }
+
+    public static ApplicationInfo getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new ApplicationInfo();
+        }
+        return INSTANCE;
+    }
+
+    public void setServerInfo(String serverInfo) {
+        this.serverInfo = serverInfo;
+    }
+
+    public String getServerInfo() {
+        return serverInfo;
+    }
 }

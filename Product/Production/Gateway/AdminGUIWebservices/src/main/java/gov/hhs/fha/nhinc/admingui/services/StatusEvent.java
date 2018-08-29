@@ -26,18 +26,24 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
-import gov.hhs.fha.nhinc.admingui.model.AvailableService;
-import java.util.List;
+import gov.hhs.fha.nhinc.event.model.EventCount;
+import java.util.Map;
 
 /**
  *
  * @author jassmit
  */
-public interface PingService {
+public interface StatusEvent {
 
-    public int ping(String url, boolean ignoreDeadhostList);
+    public void setCounts();
 
-    public void resetDeadhostList();
+    public Map<String, Long> getInboundEventCounts();
 
-    public List<AvailableService> buildServices();
+    public Map<String, Long> getOutboundEventCounts();
+
+    public long getTotalInboundRequests();
+
+    public long getTotalOutboundRequests();
+
+    public Map<String, EventCount> getEventCounts();
 }

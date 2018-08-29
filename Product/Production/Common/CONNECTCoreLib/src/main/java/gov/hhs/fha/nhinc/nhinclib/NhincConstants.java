@@ -633,6 +633,8 @@ public class NhincConstants {
     public static final String PROPERTIES_LIST_PROP = "listProperties";
     public static final String PROPERTIES_SAVE_PROP = "saveProperty";
 
+    public static final String ADMIN_GUI_MANAGEMENT_SERVICE_NAME = "admindashboard";
+
     private NhincConstants() {
     }
 }

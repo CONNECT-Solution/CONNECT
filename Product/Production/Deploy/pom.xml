@@ -648,25 +648,13 @@
         </dependency>
         <dependency>
           <groupId>org.connectopensource</groupId>
-          <artifactId>ConfigAdmin</artifactId>
+          <artifactId>AdminGUIWebservices</artifactId>
           <version>${project.parent.version}</version>
           <type>war</type>
         </dependency>
         <dependency>
           <groupId>org.connectopensource</groupId>
-          <artifactId>ConfigAdmin</artifactId>
-          <version>${project.parent.version}</version>
-          <type>pom</type>
-        </dependency>
-        <dependency>
-          <groupId>org.connectopensource</groupId>
-          <artifactId>ExchangeManagement</artifactId>
-          <version>${project.parent.version}</version>
-          <type>war</type>
-        </dependency>
-        <dependency>
-          <groupId>org.connectopensource</groupId>
-          <artifactId>ExchangeManagement</artifactId>
+          <artifactId>AdminGUIWebservices</artifactId>
           <version>${project.parent.version}</version>
           <type>pom</type>
         </dependency>
@@ -752,14 +740,8 @@
                 </webModule>
                 <webModule>
                   <groupId>org.connectopensource</groupId>
-                  <artifactId>ConfigAdmin</artifactId>
-                  <contextRoot>/CONNECTGateway/GUIService</contextRoot>
-                  <excluded>${adminws.excluded}</excluded>
-                </webModule>
-                <webModule>
-                  <groupId>org.connectopensource</groupId>
-                  <artifactId>ExchangeManagement</artifactId>
-                  <contextRoot>/CONNECTGateway/GUIExchangeService</contextRoot>
+                  <artifactId>AdminGUIWebservices</artifactId>
+                  <contextRoot>/CONNECTGateway/AdminGUIServices</contextRoot>
                   <excluded>${adminws.excluded}</excluded>
                 </webModule>
                 <webModule>
@@ -849,25 +831,13 @@
       <dependencies>
         <dependency>
           <groupId>org.connectopensource</groupId>
-          <artifactId>ConfigAdmin</artifactId>
+          <artifactId>AdminGUIWebservices</artifactId>
           <version>${project.parent.version}</version>
           <type>war</type>
         </dependency>
         <dependency>
           <groupId>org.connectopensource</groupId>
-          <artifactId>ConfigAdmin</artifactId>
-          <version>${project.parent.version}</version>
-          <type>pom</type>
-        </dependency>
-        <dependency>
-          <groupId>org.connectopensource</groupId>
-          <artifactId>ExchangeManagement</artifactId>
-          <version>${project.parent.version}</version>
-          <type>war</type>
-        </dependency>
-        <dependency>
-          <groupId>org.connectopensource</groupId>
-          <artifactId>ExchangeManagement</artifactId>
+          <artifactId>AdminGUIWebservices</artifactId>
           <version>${project.parent.version}</version>
           <type>pom</type>
         </dependency>
@@ -894,14 +864,8 @@
               <modules combine.children="append">
                 <webModule>
                   <groupId>org.connectopensource</groupId>
-                  <artifactId>ConfigAdmin</artifactId>
-                  <contextRoot>/CONNECTGateway/GUIService</contextRoot>
-                  <excluded>${adminws.excluded}</excluded>
-                </webModule>
-                <webModule>
-                  <groupId>org.connectopensource</groupId>
-                  <artifactId>ExchangeManagement</artifactId>
-                  <contextRoot>/CONNECTGateway/GUIExchangeService</contextRoot>
+                  <artifactId>AdminGUIWebservices</artifactId>
+                  <contextRoot>/CONNECTGateway/AdminGUIServices</contextRoot>
                   <excluded>${adminws.excluded}</excluded>
                 </webModule>
                 <webModule>

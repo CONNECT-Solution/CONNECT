@@ -24,20 +24,64 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.admingui.model;
 
-import gov.hhs.fha.nhinc.admingui.model.AvailableService;
-import java.util.List;
+import gov.hhs.fha.nhinc.event.model.EventCount;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- *
- * @author jassmit
- */
-public interface PingService {
+public class StatusSnapshot {
 
-    public int ping(String url, boolean ignoreDeadhostList);
+    private String os;
+    private String javaVersion;
+    private String serverVersion;
+    private String memory;
 
-    public void resetDeadhostList();
+    private Map<String, EventCount> events;
 
-    public List<AvailableService> buildServices();
+    public String getOs() {
+        return os;
+    }
+
+    public void setOs(String os) {
+        this.os = os;
+    }
+
+    public String getJavaVersion() {
+        return javaVersion;
+    }
+
+    public void setJavaVersion(String javaVersion) {
+        this.javaVersion = javaVersion;
+    }
+
+    public String getServerVersion() {
+        return serverVersion;
+    }
+
+    public void setServerVersion(String serverVersion) {
+        this.serverVersion = serverVersion;
+    }
+
+    public String getMemory() {
+        return memory;
+    }
+
+    public void setMemory(String memory) {
+        this.memory = memory;
+    }
+
+    public Map<String, EventCount> getEvents() {
+        if (events == null) {
+            events = new HashMap<>();
+        }
+
+        return events;
+    }
+
+    public void setEvents(Map<String, EventCount> events) {
+        this.events = events;
+    }
+
+
 }

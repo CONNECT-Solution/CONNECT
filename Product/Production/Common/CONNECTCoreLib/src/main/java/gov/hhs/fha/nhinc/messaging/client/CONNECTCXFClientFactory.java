@@ -68,6 +68,11 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
     @Override
     public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
         AssertionType assertion) {
+
+        if (StringUtils.isEmpty(url)) {
+            throw new WebServiceException("URL for a CONNECT Client must be provided. Got '" + url + "'");
+        }
+
         return new CONNECTCXFClientUnsecured<>(portDescriptor, url, assertion);
     }
 
