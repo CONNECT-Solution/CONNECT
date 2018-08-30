@@ -1150,7 +1150,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         return registryQueryId;
     }
 
-    private String generateId() {
+    private static String generateId() {
         return MessageFormat.format("{0}{1}", NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX, UUID.randomUUID());
     }
 
