@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -39,6 +39,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -95,9 +96,11 @@ public class AdapterComponentDocRegistryOrchImpl {
     private static final String NHINC_CUSTOM_DOCUMENT_ID = "$XDSDocumentEntryUniqueId";
 
     private static final String EBXML_RESPONSE_REPOSITORY_UNIQUE_ID_SLOTNAME = "repositoryUniqueId";
-    private static final String EBXML_RESPONSE_DOCID_IDENTIFICATION_SCHEME = "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab";
+    private static final String EBXML_RESPONSE_DOCID_IDENTIFICATION_SCHEME
+        = "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab";
     private static final String EBXML_RESPONSE_DOCID_NAME = "XDSDocumentEntry.uniqueId";
-    private static final String EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME = "urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427";
+    private static final String EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME
+        = "urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427";
     private static final String EBXML_RESPONSE_PATIENTID_NAME = "XDSDocumentEntry.patientId";
     private static final String EBXML_RESPONSE_AUTHOR_CLASS_SCHEME = "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d";
     private static final String EBXML_RESPONSE_AUTHOR_PERSON_SLOTNAME = "authorPerson";
@@ -105,16 +108,19 @@ public class AdapterComponentDocRegistryOrchImpl {
     private static final String EBXML_RESPONSE_AUTHOR_ROLE_SLOTNAME = "authorRole";
     private static final String EBXML_RESPONSE_AUTHOR_SPECIALTY_SLOTNAME = "authorSpecialty";
     private static final String EBXML_RESPONSE_CLASSCODE_CLASS_SCHEME = "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a";
-    private static final String EBXML_RESPONSE_CONFIDENTIALITYCODE_CLASS_SCHEME = "urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f";
+    private static final String EBXML_RESPONSE_CONFIDENTIALITYCODE_CLASS_SCHEME
+        = "urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f";
     private static final String EBXML_RESPONSE_EVENTCODE_CLASS_SCHEME = "urn:uuid:2c6b8cb7-8b2a-4051-b291-b1ae6a575ef4";
     private static final String EBXML_RESPONSE_FORMATCODE_CLASS_SCHEME = "urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d";
-    private static final String EBXML_RESPONSE_HEALTHCAREFACILITYTYPE_CLASS_SCHEME = "urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1";
-    private static final String EBXML_RESPONSE_PRACTICESETTING_CLASS_SCHEME = "urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead";
+    private static final String EBXML_RESPONSE_HEALTHCAREFACILITYTYPE_CLASS_SCHEME
+        = "urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1";
+    private static final String EBXML_RESPONSE_PRACTICESETTING_CLASS_SCHEME
+        = "urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead";
     private static final String EBXML_RESPONSE_TYPECODE_CLASS_SCHEME = "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
     private static final String EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME = "codingScheme";
     private static final String EBXML_RESPONSE_CREATIONTIME_SLOTNAME = "creationTime";
     private static final String EBXML_RESPONSE_HASH_SLOTNAME = "hash";
-    private static final String EBXML_RESPONSE_INTENDEDRECIPIENTS_SLOTNAME = "intendedRecipient";
+    private static final String EBXML_RESPONSE_INTENDEDRECIPIENTS_SLOTNAME = "urn:recipient:intendedRecipient";
     private static final String EBXML_RESPONSE_LANGUAGECODE_SLOTNAME = "languageCode";
     private static final String EBXML_RESPONSE_LEGALAUTHENTICATOR_SLOTNAME = "legalAuthenticator";
     private static final String EBXML_RESPONSE_SERVICESTARTTIME_SLOTNAME = "serviceStartTime";
@@ -125,11 +131,13 @@ public class AdapterComponentDocRegistryOrchImpl {
     private static final String EBXML_RESPONSE_URI_SLOTNAME = "URI";
     private static final int EBXML_RESPONSE_URI_LINE_LENGTH = 128;
 
-    private static final String XDS_QUERY_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
+    private static final String XDS_QUERY_RESPONSE_STATUS_SUCCESS
+        = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     private static final String EBXML_DOCENTRY_STABLE_DOCUMENTS_VALUE = "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
-    private static final String EBXML_DOCENTRY_ONDEMAND_DOCUMENTS_VALUE = "urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248";
+    private static final String EBXML_DOCENTRY_ONDEMAND_DOCUMENTS_VALUE
+        = "urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248";
 
-    private static final String REPOSITORY_UNIQUE_ID = "1";
+    private static final String REPOSITORY_UNIQUE_ID = "1.1";
 
     // Properties file keys
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
@@ -520,7 +528,8 @@ public class AdapterComponentDocRegistryOrchImpl {
             LOG.debug("loadResponseMessage - docs size: " + docs.size());
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
 
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
+            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory
+                = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
 
             // Collect the home community id
             String homeCommunityId = retrieveHomeCommunityId();
@@ -540,15 +549,14 @@ public class AdapterComponentDocRegistryOrchImpl {
                 boolean bHaveData = false;
 
                 oExtObj.setIsOpaque(Boolean.FALSE);
-                if(doc.isOnDemand()) {
+                if (doc.isOnDemand()) {
                     oExtObj.setObjectType(EBXML_DOCENTRY_ONDEMAND_DOCUMENTS_VALUE);
                 } else {
                     oExtObj.setObjectType(EBXML_DOCENTRY_STABLE_DOCUMENTS_VALUE);
                 }
 
                 // Generate a UUID for the document
-                UUID oDocumentUUID = UUID.randomUUID();
-                String sDocumentUUID = "urn:uuid:" + oDocumentUUID.toString();
+                String sDocumentUUID = generateId();
                 oExtObj.setId(sDocumentUUID);
 
                 // Document Unique ID
@@ -557,7 +565,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 if (NullChecker.isNotNullish(doc.getDocumentUniqueId())) {
                     sDocumentId = doc.getDocumentUniqueId();
                     ExternalIdentifierType oExtId = new ExternalIdentifierType();
-                    oExtId.setId("");
+                    oExtId.setId(generateId());
                     oExtObj.getExternalIdentifier().add(oExtId);
                     oExtId.setRegistryObject(sDocumentUUID);
                     oExtId.setValue(sDocumentId);
@@ -570,7 +578,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Author data
                 boolean bHasAuthorData = false;
                 ClassificationType oClassification = new ClassificationType();
-                oClassification.setId("");
+                oClassification.setId(generateId());
                 oClassification.setClassificationScheme(EBXML_RESPONSE_AUTHOR_CLASS_SCHEME);
                 oClassification.setClassifiedObject(sDocumentUUID);
                 oClassification.setNodeRepresentation("");
@@ -749,7 +757,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 if (NullChecker.isNotNullish(doc.getPatientId())) {
                     String formattedPatientId = doc.getPatientId();
                     ExternalIdentifierType oExtId = new ExternalIdentifierType();
-                    oExtId.setId("");
+                    oExtId.setId(generateId());
                     oExtId.setIdentificationScheme(EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME);
                     InternationalStringType oPatIdName = createSingleValueInternationalStringType(
                         EBXML_RESPONSE_PATIENTID_NAME);
@@ -898,7 +906,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                     // Repository Unique ID
                     // ---------------------
                     SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_REPOSITORY_UNIQUE_ID_SLOTNAME,
-                        REPOSITORY_UNIQUE_ID);
+                        getRepositoryUniqueId());
                     olSlot.add(oSlot);
 
                     olRegObjs.add(oJAXBExtObj);
@@ -933,7 +941,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         String sClassificationScheme, String sDocumentId) {
         LOG.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- Begin");
         ClassificationType oClassification = new ClassificationType();
-        oClassification.setId("");
+        oClassification.setId(generateId());
         boolean bHasCode = false;
         oClassification.setClassificationScheme(sClassificationScheme);
         oClassification.setClassifiedObject(sDocumentId);
@@ -1142,4 +1150,17 @@ public class AdapterComponentDocRegistryOrchImpl {
         return registryQueryId;
     }
 
+    private String generateId() {
+        return MessageFormat.format("{0}{1}", NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX, UUID.randomUUID());
+    }
+
+    /**
+     * Retrieve from adapter.properties. If it doesn't exist, return default value
+     *
+     * @return document repository ID from adapter properties
+     */
+    private static String getRepositoryUniqueId() {
+        return PropertyAccessor.getInstance().getProperty(NhincConstants.ADAPTER_PROPERTY_FILE_NAME,
+            NhincConstants.XDS_REPOSITORY_ID, REPOSITORY_UNIQUE_ID);
+    }
 }
