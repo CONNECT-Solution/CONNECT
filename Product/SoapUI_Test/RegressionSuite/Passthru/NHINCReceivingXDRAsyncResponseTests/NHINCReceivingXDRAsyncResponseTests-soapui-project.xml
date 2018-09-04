@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="NHINCReceivingXDRAsyncResponseTests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="167349a8-55c5-4835-957d-67bfb9b7a583" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="NHINCReceivingXDRAsyncResponseTests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.3.0" activeEnvironment="Default" id="167349a8-55c5-4835-957d-67bfb9b7a583" xmlns:con="http://eviware.com/soapui/config">
   <con:description>This suite tests the inbound DS deferred response service. This suite is standard mode only as there are tests for policy and auditing.
 
 Set the GatewayPropsDir property to the config/nhin of the gateway under test.</con:description>
@@ -240,6 +240,14 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigF
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
                   <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>307969004</urn1:code>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Public Health</urn1:displayName>
+                  <urn1:originalText>Public Health</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <urn1:samlAuthnStatement>
@@ -320,7 +328,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigF
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -2053,6 +2061,14 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigF
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
                   <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>307969004</urn1:code>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Public Health</urn1:displayName>
+                  <urn1:originalText>Public Health</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <urn1:samlAuthnStatement>
@@ -2133,7 +2149,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigF
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -4082,7 +4098,7 @@ context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserFri Oct 04 15:53:10 UTC 2013</con:value>
+          <con:value>XDR Request Inbound UserTue Sep 04 14:53:39 UTC 2018</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4366,7 +4382,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.checkGatewayM
   <con:wssContainer/>
   <con:databaseConnectionContainer/>
   <con:oAuth2ProfileContainer/>
-  <con:reporting>
+  <con:oAuth1ProfileContainer/><con:reporting>
     <con:reportTemplates/>
     <con:xmlTemplates/>
     <con:xmlTemplates/>

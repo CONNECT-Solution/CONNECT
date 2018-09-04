@@ -35,7 +35,7 @@
                 <module>NHINSAMLAttributeTest</module>
                 <module>AdapterSpringInjectionTest</module>
                 <module>NHINCReceivingXDRAsyncRequestTests</module>
-                <!--Failing <module>NHINCReceivingXDRAsyncResponseTests</module> -->
+                <module>NHINCReceivingXDRAsyncResponseTests</module>
                 <module>DocQueryErrorCodesPassthru</module>
             </modules>
         </profile>

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -32,11 +32,12 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponseAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate;
+import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
 public class PassthroughOutboundPatientDiscoveryDeferredResponse extends
-    AbstractOutboundPatientDiscoveryDeferredResponse {
+AbstractOutboundPatientDiscoveryDeferredResponse {
 
     private static final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
@@ -72,8 +73,11 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponse extends
      */
     @Override
     public MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetCommunitiesType target) {
+        GenericDBUtils.logInfoServiceProcess(this.getClass());
+
         NhinTargetSystemType targetSystem = msgUtils.convertFirstToNhinTargetSystemType(target);
         auditRequest(request, assertion, target);
+
         return sendToNhin(delegate, request, assertion, targetSystem);
     }
 

@@ -43,6 +43,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptio
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponseAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import java.util.List;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -94,8 +95,8 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
 
     @Override
     @OutboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder
-        = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version
-        = "1.0")
+    = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version
+    = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
         NhinTargetCommunitiesType target) {
 
@@ -113,6 +114,8 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
      */
     @Override
     public MCCIIN000002UV01 process(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetCommunitiesType targets) {
+        GenericDBUtils.logInfoServiceProcess(this.getClass());
+
         auditRequest(body, assertion, targets);
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 

@@ -58,6 +58,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
+import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import java.util.ArrayList;
@@ -116,9 +117,10 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
 
     @Override
     @OutboundProcessingEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class, afterReturningBuilder
-        = RespondingGatewayPRPAIN201306UV02Builder.class, serviceType = "Patient Discovery", version = "1.0")
+    = RespondingGatewayPRPAIN201306UV02Builder.class, serviceType = "Patient Discovery", version = "1.0")
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
         final RespondingGatewayPRPAIN201305UV02RequestType request, final AssertionType assertion) {
+        GenericDBUtils.logInfoServiceProcess(this.getClass());
 
         LOG.debug("Begin respondingGatewayPRPAIN201305UV02");
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
@@ -198,8 +200,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                     } else {
                         LOG.debug("Policy Check Failed for homeId=" + urlInfo.getHcid());
                         final CommunityPRPAIN201306UV02ResponseType communityResponse
-                            = createFailedPolicyCommunityResponseFromRequest(
-                                request.getPRPAIN201305UV02(), urlInfo.getHcid());
+                        = createFailedPolicyCommunityResponseFromRequest(
+                            request.getPRPAIN201305UV02(), urlInfo.getHcid());
 
                         policyErrList.add(communityResponse);
                     }
@@ -207,9 +209,9 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                 if (CollectionUtils.isNotEmpty(callableList)) {
                     LOG.debug("Executing tasks to concurrently retrieve responses");
                     final NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor
-                        = new NhinTaskExecutor<>(
-                            ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
-                            ? largejobExecutor : regularExecutor,
+                    = new NhinTaskExecutor<>(
+                        ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size())
+                        ? largejobExecutor : regularExecutor,
                             callableList, transactionId);
                     pdExecutor.executeTask();
                     LOG.debug("Aggregating all responses");
@@ -259,7 +261,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             && request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null) {
 
             request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
-                .setRoot(HomeCommunityMap.formatHomeCommunityId(hcid));
+            .setRoot(HomeCommunityMap.formatHomeCommunityId(hcid));
         }
     }
 
@@ -350,7 +352,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
         final RespondingGatewayPRPAIN201305UV02RequestType request, final AssertionType newAssertion,
         final UrlInfo urlInfo) {
         final RespondingGatewayPRPAIN201305UV02RequestType newRequest
-            = new RespondingGatewayPRPAIN201305UV02RequestType();
+        = new RespondingGatewayPRPAIN201305UV02RequestType();
 
         final PRPAIN201305UV02 new201305 = new PatientDiscovery201305Processor()
             .createNewRequest(cloneRequest(request.getPRPAIN201305UV02()), urlInfo.getHcid());
@@ -408,7 +410,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             sHomeCommunity = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (final PropertyAccessException ex) {
-            LOG.error("Error while retrieving the HomeCommunityId: " + ex);
+            LOG.error("Error while retrieving the HomeCommunityId: {}", ex.getMessage(), ex);
         }
         return sHomeCommunity;
     }
