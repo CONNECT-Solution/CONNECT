@@ -31,9 +31,11 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Component;
 
 @Component
+@ImportResource({ "classpath:/direct/_10/applicationContext.xml" })
 public class InitServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
