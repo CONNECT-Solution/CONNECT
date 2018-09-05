@@ -56,7 +56,6 @@ public class DocumentDao {
 
     private static final String DOCUMENT_UNIQUE_ID = "documentUniqueId";
     private static final Logger LOG = LoggerFactory.getLogger(DocumentDao.class);
-    private static final String LOG_DOCUMENT_QUERY = "Document query - {}: {}";
 
     public boolean save(DocumentMetadata document) {
         return GenericDBUtils.save(getSession(), document);
