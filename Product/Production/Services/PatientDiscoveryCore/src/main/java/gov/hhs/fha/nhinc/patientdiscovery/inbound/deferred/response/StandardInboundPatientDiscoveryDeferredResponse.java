@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
@@ -41,7 +43,6 @@ import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory.ResponseModeType;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseMode;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import java.util.Properties;
 import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.II;
@@ -116,7 +117,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
      */
     @Override
     public MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion) {
-        GenericDBUtils.logInfoServiceProcess(this.getClass());
+        logInfoServiceProcess(this.getClass());
         MCCIIN000002UV01 response;
         String ackMsg;
 

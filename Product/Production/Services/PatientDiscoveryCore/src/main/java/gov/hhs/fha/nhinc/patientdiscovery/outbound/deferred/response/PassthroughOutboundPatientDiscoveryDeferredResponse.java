@@ -26,13 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponseAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -73,7 +74,7 @@ AbstractOutboundPatientDiscoveryDeferredResponse {
      */
     @Override
     public MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion, NhinTargetCommunitiesType target) {
-        GenericDBUtils.logInfoServiceProcess(this.getClass());
+        logInfoServiceProcess(this.getClass());
 
         NhinTargetSystemType targetSystem = msgUtils.convertFirstToNhinTargetSystemType(target);
         auditRequest(request, assertion, target);

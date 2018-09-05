@@ -26,13 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionDeferredRequestAuditLogger;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import org.slf4j.Logger;
@@ -75,7 +76,7 @@ public class PassthroughInboundDocSubmissionDeferredRequest extends AbstractInbo
     @Override
     public XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion) {
-        GenericDBUtils.logInfoServiceProcess(this.getClass());
+        logInfoServiceProcess(this.getClass());
 
         XDRAcknowledgementType response;
 

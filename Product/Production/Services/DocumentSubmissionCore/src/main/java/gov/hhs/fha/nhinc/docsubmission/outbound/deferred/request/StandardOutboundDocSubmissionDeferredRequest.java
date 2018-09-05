@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -43,7 +45,6 @@ import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmis
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -66,7 +67,7 @@ public class StandardOutboundDocSubmissionDeferredRequest implements OutboundDoc
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
         ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
         NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        GenericDBUtils.logInfoServiceProcess(this.getClass());
+        logInfoServiceProcess(this.getClass());
 
         XDRAcknowledgementType response;
         assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);

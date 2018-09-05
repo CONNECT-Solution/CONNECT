@@ -1833,7 +1833,9 @@ def aliasName = 'adapterpolicyengineorchestratorsamljava';
 def replaceName = 'adapterpolicyengineorchestratornoop';
 nhinc.FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
-context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound");</con:setupScript>
+context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound");
+
+assert false == context.isStandard("DocumentSubmissionDeferredResponse", "Outbound");</con:setupScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -3662,7 +3664,9 @@ def aliasName = 'adapterpolicyengineorchestratorsamljava';
 def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 nhinc.FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
-context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound");</con:setupScript>
+context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound");
+
+assert false == context.isStandard("DocumentSubmissionDeferredResponse", "Outbound");</con:setupScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -4090,7 +4094,9 @@ assert (count > 0);</script>
       </con:testStep>
       <con:setupScript>context.setGatewayStandard(true);
 nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound");</con:setupScript>
+context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound");
+
+assert false == context.isStandard("DocumentSubmissionDeferredResponse", "Outbound");</con:setupScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -4114,7 +4120,7 @@ context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserTue Sep 04 14:53:39 UTC 2018</con:value>
+          <con:value>XDR Request Inbound UserWed Sep 05 18:16:27 UTC 2018</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>

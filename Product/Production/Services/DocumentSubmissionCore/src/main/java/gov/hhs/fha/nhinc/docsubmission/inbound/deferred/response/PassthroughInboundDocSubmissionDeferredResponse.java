@@ -26,10 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.audit.DSDeferredResponseAuditLogger;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -57,7 +58,7 @@ public class PassthroughInboundDocSubmissionDeferredResponse extends AbstractInb
 
     @Override
     public XDRAcknowledgementType processDocSubmissionResponse(RegistryResponseType body, AssertionType assertion) {
-        GenericDBUtils.logInfoServiceProcess(this.getClass());
+        logInfoServiceProcess(this.getClass());
         return sendToAdapter(body, assertion);
     }
 }

@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.outbound;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -37,7 +39,6 @@ import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundPassthroughDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -81,7 +82,7 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
         RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets,
         ADAPTER_API_LEVEL entityAPILevel) {
-        GenericDBUtils.logInfoServiceProcess(this.getClass());
+        logInfoServiceProcess(this.getClass());
 
         RetrieveDocumentSetResponseType response;
         assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);

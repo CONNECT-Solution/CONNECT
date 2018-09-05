@@ -206,8 +206,4 @@ public class GenericDBUtils {
     public static LogicalExpression getOrIsNullIsGe(String colName, Object colValue) {
         return Restrictions.or(Restrictions.isNull(colName), Restrictions.ge(colName, colValue));
     }
-
-    public static <T> void logInfoServiceProcess(Class<T> from) {
-        LOG.info("Flag service processing debug: {}", from);
-    }
 }

@@ -26,11 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docquery.inbound;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -63,7 +64,7 @@ public class PassthroughInboundDocQuery extends AbstractInboundDocQuery {
     @Override
     public AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String communityID,
         Properties webContextProperties) {
-        GenericDBUtils.logInfoServiceProcess(this.getClass());
+        logInfoServiceProcess(this.getClass());
         AdapterDocQueryProxy adapterProxy = adapterFactory.getAdapterDocQueryProxy();
 
         return adapterProxy.respondingGatewayCrossGatewayQuery(msg, assertion);

@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.outbound;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.admindistribution.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionDelegate;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionOrchestratable;
@@ -34,7 +36,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 
 public class PassthroughOutboundAdminDistribution implements OutboundAdminDistribution {
 
@@ -82,7 +83,7 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
     private void sendToNhin(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
         NhinTargetSystemType target) {
 
-        GenericDBUtils.logInfoServiceProcess(this.getClass());
+        logInfoServiceProcess(this.getClass());
         OutboundAdminDistributionOrchestratable orchestratable = new OutboundAdminDistributionOrchestratable(
             adDelegate);
         orchestratable.setRequest(request);

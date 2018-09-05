@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -47,7 +49,6 @@ import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatien
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestOrchestratable;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import java.util.List;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -122,7 +123,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
     serviceType = "Patient Discovery Deferred Request", version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
         NhinTargetCommunitiesType targets) {
-        GenericDBUtils.logInfoServiceProcess(this.getClass());
+        logInfoServiceProcess(this.getClass());
 
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 

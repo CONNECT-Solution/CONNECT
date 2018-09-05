@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.outbound;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -42,7 +44,6 @@ import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionOrchestratabl
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
@@ -63,7 +64,7 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
     version = "")
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        GenericDBUtils.logInfoServiceProcess(this.getClass());
+        logInfoServiceProcess(this.getClass());
 
         RegistryResponseType response;
         assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
@@ -87,17 +88,13 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
     protected boolean hasNhinTargetHomeCommunityId(
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
 
-        if (request != null
+        return request != null
             && request.getNhinTargetCommunities() != null
             && NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity())
             && request.getNhinTargetCommunities().getNhinTargetCommunity().get(0) != null
             && request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity() != null
             && NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity().get(0)
-                .getHomeCommunity().getHomeCommunityId())) {
-            return true;
-        }
-
-        return false;
+                .getHomeCommunity().getHomeCommunityId());
     }
 
     protected DocSubmissionAuditLogger getDocSubmissionAuditLogger() {
@@ -146,7 +143,7 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
         } else {
             LOG.warn("Check on policy requires a non null target home community ID specified in the request");
         }
-        LOG.debug("Check on policy returns: " + isValid);
+        LOG.debug("Check on policy returns: {}", isValid);
 
         return isValid;
     }
@@ -192,10 +189,8 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
 
         OutboundDocSubmissionDelegate dsDelegate = getOutboundDocSubmissionDelegate();
         OutboundDocSubmissionOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, request, assertion);
-        RegistryResponseType response = ((OutboundDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable)).
-            getResponse();
 
-        return response;
+        return ((OutboundDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
     }
 
     protected OutboundDocSubmissionOrchestratable createOrchestratable(

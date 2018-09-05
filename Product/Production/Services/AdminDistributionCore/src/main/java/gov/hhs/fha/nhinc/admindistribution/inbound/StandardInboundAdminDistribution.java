@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.inbound;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
@@ -34,7 +36,6 @@ import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescripti
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +65,7 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
 
     @Override
     public void processAdminDistribution(EDXLDistribution body, AssertionType assertion) {
-        GenericDBUtils.logInfoServiceProcess(this.getClass());
+        logInfoServiceProcess(this.getClass());
         if (isPolicyValid(body, assertion)) {
             auditRequestToAdapter(body, assertion);
             sendToAdapter(body, assertion, adminUtils, adapterFactory);

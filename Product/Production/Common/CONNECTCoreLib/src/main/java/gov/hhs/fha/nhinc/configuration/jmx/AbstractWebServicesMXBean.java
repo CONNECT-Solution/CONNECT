@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.configuration.jmx;
 
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.debugApplicationContext;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,63 +108,11 @@ public abstract class AbstractWebServicesMXBean implements ApplicationContextAwa
         try {
             return beanType.cast(context.getBean(beanName));
         } catch (BeansException ex) {
-            GenericDBUtils.debugApplicationContext(this.getClass(), context);
+            debugApplicationContext(this.getClass(), context);
             LOG.error("debug--retrieveBean: {}, {}", beanName, ex.getMessage(), ex);
         }
         return null;
     }
-
-    /**
-     * Configure inbound Standard implementation. This method is abstract because subclass implementations must use
-     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
-     *
-     * @param className the class name
-     * @throws InstantiationException the instantiation exception
-     * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
-     */
-    @Override
-    public abstract void configureInboundStdImpl()
-        throws InstantiationException, IllegalAccessException, ClassNotFoundException;
-
-    /**
-     * Configure inbound Passthrough implementation. This method is abstract because subclass implementations must use
-     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
-     *
-     * @param className the class name
-     * @throws InstantiationException the instantiation exception
-     * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
-     */
-    @Override
-    public abstract void configureInboundPtImpl()
-        throws InstantiationException, IllegalAccessException, ClassNotFoundException;
-
-    /**
-     * Configure outbound Standard implementation. This method is abstract because subclass implementations must use
-     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
-     *
-     * @param className the class name
-     * @throws InstantiationException the instantiation exception
-     * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
-     */
-    @Override
-    public abstract void configureOutboundStdImpl()
-        throws InstantiationException, IllegalAccessException, ClassNotFoundException;
-
-    /**
-     * Configure outbound Passthrough implementation. This method is abstract because subclass implementations must use
-     * actual types as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
-     *
-     * @param className the class name
-     * @throws InstantiationException the instantiation exception
-     * @throws IllegalAccessException the illegal access exception
-     * @throws ClassNotFoundException the class not found exception {@link #retrieveDependency(Class, String)}.
-     */
-    @Override
-    public abstract void configureOutboundPtImpl()
-        throws InstantiationException, IllegalAccessException, ClassNotFoundException;
 
     /**
      * Compares the class name of an object vs the class name passed in.

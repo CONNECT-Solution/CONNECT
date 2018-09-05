@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.audit.DocRetrieveAuditLogger;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate;
@@ -35,7 +37,6 @@ import gov.hhs.fha.nhinc.docretrieve.nhin.InboundPassthroughDocRetrieveOrchestra
 import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import java.util.Properties;
 
@@ -80,7 +81,7 @@ public class PassthroughInboundDocRetrieve extends BaseInboundDocRetrieve {
     @Override
     public InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties) {
-        GenericDBUtils.logInfoServiceProcess(this.getClass());
+        logInfoServiceProcess(this.getClass());
 
         InboundDocRetrieveOrchestratable inboundOrchestrable
         = new InboundPassthroughDocRetrieveOrchestratable(pt, ad);

@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
@@ -38,16 +40,12 @@ import gov.hhs.fha.nhinc.docretrieve.nhin.InboundStandardDocRetrieveOrchestratab
 import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.Properties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PassthroughInboundDocRetrieve.class);
     private final PolicyTransformer pt;
     private final InboundDelegate ad;
     private final CONNECTInboundOrchestrator orch;
@@ -110,7 +108,7 @@ public class StandardInboundDocRetrieve extends BaseInboundDocRetrieve {
     serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
         AssertionType assertion, Properties webContextProperties) {
-        GenericDBUtils.logInfoServiceProcess(this.getClass());
+        logInfoServiceProcess(this.getClass());
 
         InboundDocRetrieveOrchestratable inboundOrchestrable = createInboundOrchestrable(body, assertion,
             webContextProperties);
