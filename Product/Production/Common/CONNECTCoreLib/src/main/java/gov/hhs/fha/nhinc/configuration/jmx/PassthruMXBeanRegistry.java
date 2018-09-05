@@ -126,7 +126,8 @@ public class PassthruMXBeanRegistry {
      * @param direction
      */
     public void setPassthruMode(serviceEnum serviceName, directionEnum direction)
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        logInfoJmx("set-Passthru", serviceName.toString(), direction.toString());
         for (WebServicesMXBean b : registeredBeans) {
             if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)) {
                 b.configureInboundPtImpl();
@@ -145,8 +146,8 @@ public class PassthruMXBeanRegistry {
      * @throws InstantiationException
      */
     public void setStandardMode(serviceEnum serviceName, directionEnum direction)
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-
+        throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        logInfoJmx("set-Standard", serviceName.toString(), direction.toString());
         for (WebServicesMXBean b : registeredBeans) {
             if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)) {
                 b.configureInboundStdImpl();
@@ -165,11 +166,11 @@ public class PassthruMXBeanRegistry {
         boolean passthruMode = false;
         for (WebServicesMXBean b : registeredBeans) {
             if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)
-                    && b.isInboundPassthru()) {
+                && b.isInboundPassthru()) {
                 passthruMode = true;
             }
             if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)
-                    && b.isOutboundPassthru()) {
+                && b.isOutboundPassthru()) {
                 passthruMode = true;
             }
         }
@@ -180,15 +181,19 @@ public class PassthruMXBeanRegistry {
         boolean standardMode = false;
         for (WebServicesMXBean b : registeredBeans) {
             if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)
-                    && b.isOutboundStandard()) {
+                && b.isOutboundStandard()) {
                 standardMode = true;
             }
             if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)
-                    && b.isInboundStandard()) {
+                && b.isInboundStandard()) {
                 standardMode = true;
             }
         }
         return standardMode;
+    }
+
+    public static void logInfoJmx(String method, String service, String direction) {
+        LOG.info("Flag service jmx-debugging: {}, {}, {}", method, service, direction);
     }
 
 
