@@ -250,6 +250,14 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigF
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>TREATMENT</urn1:code>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy notes</urn1:originalText>
+               <!--Zero or more repetitions:-->
+               <urn1:translation/>
+            </urn1:purposeOfDisclosureCoded>
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
@@ -2071,6 +2079,14 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", destConfigF
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>TREATMENT</urn1:code>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy notes</urn1:originalText>
+               <!--Zero or more repetitions:-->
+               <urn1:translation/>
+            </urn1:purposeOfDisclosureCoded>
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
@@ -4053,7 +4069,7 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
