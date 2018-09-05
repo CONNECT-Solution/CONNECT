@@ -178,21 +178,20 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     protected Issuer createIssuer(final CallbackProperties properties, final X509Certificate certificate) {
         String format = properties.getAssertionIssuerFormat();
         String sIssuer = properties.getIssuer();
-        if (!(StringUtils.isNotBlank(format) && isValidNameidFormat(format))) {
+
+        if (StringUtils.isBlank(format) || !isValidNameidFormat(format)) {
             format = NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509;
         }
 
-        if (!(StringUtils.isNotBlank(sIssuer) && checkDistinguishedName(sIssuer))) {
-            if (certificate != null) {
-                sIssuer = certificate.getSubjectX500Principal().getName();
-            } else {
-                try {
-                    sIssuer = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME);
-                } catch (PropertyAccessException ex) {
-                    LOG.error("HOKSAMLAssertionBuilder can not access assertioninfo property file: {}",
-                        ex.getLocalizedMessage(), ex);
-                }
-            }
+        // If it is a X509 Subject, check if the DN is valid. If not, grab it from the local cert.
+        // If there is no local cert, grab it from the properties file.
+        // If there is no properties file, use the default issuer name
+        if (format == NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509
+            && (StringUtils.isBlank(sIssuer) || !checkDistinguishedName(sIssuer))) {
+
+            sIssuer = certificate != null ?
+                certificate.getIssuerX500Principal().getName() :
+                PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME, NhincConstants.SAML_DEFAULT_ISSUER_NAME);
         }
 
         if (StringUtils.isBlank(sIssuer)) {
@@ -213,8 +212,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         final PublicKey publicKey) throws SAMLComponentBuilderException {
         String x509Name = properties.getUsername();
         if ((NullChecker.isNullish(x509Name) || !checkDistinguishedName(x509Name)) && null != certificate
-            && null != certificate.getSubjectDN()) {
-            x509Name = certificate.getSubjectDN().getName();
+            && null != certificate.getSubjectX500Principal()) {
+            x509Name = certificate.getSubjectX500Principal().getName();
         }
         Subject subject = componentBuilder.createSubject(x509Name, publicKey);
         // Add additional subject confirmation if exist
@@ -232,8 +231,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     /**
-     * Checks Distinguished Name, method have to be static, since it's private
-     * and no Instance variables are used, as per Sonar.
+     * Checks Distinguished Name by checking if it conforms to RFC 2253
      *
      * @param userName
      * @return boolean
