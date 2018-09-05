@@ -86,13 +86,24 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <h:outputLabel for="inputOnDemand" class="col-sm-4 control-label"
+                                            id="labelOnDemand" value="On Demand status:" />
+                                        <div class="col-sm-8">
+                                            <p:selectBooleanCheckbox id="inputOnDemand"
+                                                value="#{loadTestDataDocumentBean.documentForm.onDemand}"
+                                                style="width:160px" tabindex="5">
+                                                <p:ajax event="change" update="inputCreationTime" />
+                                                </p:selectBooleanCheckbox>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <h:outputLabel for="inputCreationTime" class="col-sm-4 control-label"
-                                            id="labelCreationTime" value="* Creation Time:" />
+                                            id="labelCreationTime" value="Creation Time:" />
                                         <div class="col-sm-8">
                                             <p:calendar id="inputCreationTime"
                                                 value="#{loadTestDataDocumentBean.documentForm.creationTime}"
-                                                showOn="button" pattern="MM/dd/yyyy HH:mm:ss" required="true"
-                                                requiredMessage="Creation Time required." size="17" tabindex="5"
+                                                showOn="button" pattern="MM/dd/yyyy HH:mm:ss" required="#{!loadTestDataDocumentBean.documentForm.onDemand}"
+                                                requiredMessage="Creation Time required." size="17" tabindex="7"
                                                 maxdate="#{loadTestDataDocumentBean.dateNow}">
                                                 <f:validator validatorId="NoFutureDateValidator" />
                                                 <f:attribute name="errorMessage"
@@ -107,7 +118,7 @@
                                             <p:inputText styleClass="form-control" id="inputAuthorPerson"
                                                 value="#{loadTestDataDocumentBean.documentForm.authorPerson}"
                                                 maxlength="64" required="true" requiredMessage="Author Person required."
-                                                tabindex="7" />
+                                                tabindex="9" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -116,7 +127,7 @@
                                         <div class="col-sm-8">
                                             <p:selectOneMenu style="width:150px" id="inputStatus"
                                                 value="#{loadTestDataDocumentBean.documentForm.status}" required="true"
-                                                requiredMessage="Status required." tabindex="9">
+                                                requiredMessage="Status required." tabindex="11">
                                                 <f:selectItem itemLabel="---" itemValue="#{null}"
                                                     noSelectionOption="true" />
                                                 <f:selectItems value="#{loadTestDataDocumentBean.listStatusType}" />
@@ -298,15 +309,6 @@
                                             <p:calendar id="inputServiceStopTime"
                                                 value="#{loadTestDataDocumentBean.documentForm.serviceStopTime}"
                                                 showOn="button" pattern="MM/dd/yyyy HH:mm:ss" size="17" tabindex="2" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <h:outputLabel for="inputOnDemand" class="col-sm-4 control-label"
-                                            id="labelOnDemand" value="On Demand status:" />
-                                        <div class="col-sm-8">
-                                            <p:selectBooleanCheckbox id="inputOnDemand"
-                                                value="#{loadTestDataDocumentBean.documentForm.onDemand}"
-                                                style="width:160px" tabindex="4" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -499,7 +501,7 @@
                                     selection="#{loadTestDataDocumentBean.selectedEventCode}"
                                     rowKey="#{record.eventCodeId}" styleClass="table table-striped table-domains">
                                     <p:ajax event="rowSelectRadio" process="@this"
-                                        update=":documentAccordionPanel:deleteFormEventCode:editEventCode 
+                                        update=":documentAccordionPanel:deleteFormEventCode:editEventCode
                                            :documentAccordionPanel:deleteFormEventCode:deleteEventCode" />
                                     <p:column headerText="" selectionMode="single" />
                                     <p:column headerText="Code">

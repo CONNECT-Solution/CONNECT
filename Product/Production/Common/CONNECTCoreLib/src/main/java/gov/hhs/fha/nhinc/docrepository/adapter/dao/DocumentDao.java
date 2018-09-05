@@ -30,6 +30,8 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
 import gov.hhs.fha.nhinc.util.GenericDBUtils;
+import static gov.hhs.fha.nhinc.util.GenericDBUtils.getOrIsNullIsGe;
+import static gov.hhs.fha.nhinc.util.GenericDBUtils.getOrIsNullIsLe;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -142,7 +144,6 @@ public class DocumentDao {
         try {
             sess = getSession();
             if (sess != null) {
-
                 Criteria criteria = sess.createCriteria(DocumentMetadata.class);
 
                 String patientId = parameters.getPatientId();
@@ -178,7 +179,6 @@ public class DocumentDao {
             } else {
                 LOG.error("Failed to obtain a session from the sessionFactory");
             }
-
 
         } finally {
             GenericDBUtils.closeSession(sess);
@@ -216,7 +216,7 @@ public class DocumentDao {
                     logDateFormatter.format(serviceStartTimeFrom));
             }
 
-            criteria.add(Restrictions.ge("serviceStartTime", serviceStartTimeFrom));
+            criteria.add(getOrIsNullIsGe("serviceStartTime", serviceStartTimeFrom));
         }
 
         Date serviceStartTimeTo = params.getServiceStartTimeTo();
@@ -226,7 +226,7 @@ public class DocumentDao {
                     logDateFormatter.format(serviceStartTimeTo));
             }
 
-            criteria.add(Restrictions.le("serviceStartTime", serviceStartTimeTo));
+            criteria.add(getOrIsNullIsLe("serviceStartTime", serviceStartTimeTo));
         }
 
         Date serviceStopTimeFrom = params.getServiceStopTimeFrom();
@@ -236,7 +236,7 @@ public class DocumentDao {
                     logDateFormatter.format(serviceStopTimeFrom));
             }
 
-            criteria.add(Restrictions.ge("serviceStopTime", serviceStopTimeFrom));
+            criteria.add(getOrIsNullIsGe("serviceStopTime", serviceStopTimeFrom));
         }
 
         Date serviceStopTimeTo = params.getServiceStopTimeTo();
@@ -246,27 +246,29 @@ public class DocumentDao {
                     logDateFormatter.format(serviceStopTimeTo));
             }
 
-            criteria.add(Restrictions.le("serviceStopTime", serviceStopTimeTo));
+            criteria.add(getOrIsNullIsLe("serviceStopTime", serviceStopTimeTo));
         }
     }
 
-    /**************************************************************
+    /**
+     * ************************************************************
      * The class code and class code scheme combination can come in two different formats:
-     *
+     * <p>
      * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList> <ns7:Value>34133-9</ns7:Value> </ns7:ValueList>
      * </ns7:Slot> <ns7:Slot name="$XDSDocumentEntryClassCodeScheme"> <ns7:ValueList> <ns7:Value>2.16.840.1.113883.6
      * .1</ns7:Value> </ns7:ValueList> </ns7:Slot>
-     *
+     * <p>
      * or
-     *
+     * <p>
      * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList> <ns7:Value>(
      * '34133-9^^2.16.840.1.113883.6.1')</ns7:Value> </ns7:ValueList> </ns7:Slot>
-     *
+     * <p>
      * This method deals with both formats.
-     *
+     * <p>
      * Any critera generated with this method will be added to the Criteria parameter
-     *
-     *************************************************************/
+     * <p>
+     ************************************************************
+     */
     private static void populateClassCodeCritera(DocumentQueryParams params, Criteria criteria) {
         List<String> classCodes = params.getClassCodes();
         String classCodeScheme = params.getClassCodeScheme();
@@ -303,5 +305,4 @@ public class DocumentDao {
             criteria.add(criterion);
         }
     }
-
 }
