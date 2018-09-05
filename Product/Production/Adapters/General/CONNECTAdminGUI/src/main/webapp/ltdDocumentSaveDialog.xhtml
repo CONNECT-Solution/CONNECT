@@ -91,7 +91,7 @@
                                         <div class="col-sm-8">
                                             <p:selectBooleanCheckbox id="inputOnDemand"
                                                 value="#{loadTestDataDocumentBean.documentForm.onDemand}"
-                                                style="width:160px" tabindex="4">
+                                                style="width:160px" tabindex="5">
                                                 <p:ajax event="change" update="inputCreationTime" />
                                                 </p:selectBooleanCheckbox>
                                         </div>
@@ -103,7 +103,7 @@
                                             <p:calendar id="inputCreationTime"
                                                 value="#{loadTestDataDocumentBean.documentForm.creationTime}"
                                                 showOn="button" pattern="MM/dd/yyyy HH:mm:ss" required="#{!loadTestDataDocumentBean.documentForm.onDemand}"
-                                                requiredMessage="Creation Time required." size="17" tabindex="5"
+                                                requiredMessage="Creation Time required." size="17" tabindex="7"
                                                 maxdate="#{loadTestDataDocumentBean.dateNow}">
                                                 <f:validator validatorId="NoFutureDateValidator" />
                                                 <f:attribute name="errorMessage"
@@ -118,7 +118,7 @@
                                             <p:inputText styleClass="form-control" id="inputAuthorPerson"
                                                 value="#{loadTestDataDocumentBean.documentForm.authorPerson}"
                                                 maxlength="64" required="true" requiredMessage="Author Person required."
-                                                tabindex="7" />
+                                                tabindex="9" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -127,7 +127,7 @@
                                         <div class="col-sm-8">
                                             <p:selectOneMenu style="width:150px" id="inputStatus"
                                                 value="#{loadTestDataDocumentBean.documentForm.status}" required="true"
-                                                requiredMessage="Status required." tabindex="9">
+                                                requiredMessage="Status required." tabindex="11">
                                                 <f:selectItem itemLabel="---" itemValue="#{null}"
                                                     noSelectionOption="true" />
                                                 <f:selectItems value="#{loadTestDataDocumentBean.listStatusType}" />
