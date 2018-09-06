@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -62,11 +64,12 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
     @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType request,
         AssertionType assertion, NhinTargetCommunitiesType targets) {
+        logInfoServiceProcess(this.getClass());
 
         XDRAcknowledgementType response;
         assertion = MessageGeneratorUtils.getInstance().generateMessageId(assertion);
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType internalRequest
-            = createRequestForInternalProcessing(request, targets);
+        = createRequestForInternalProcessing(request, targets);
 
         auditRequest(internalRequest.getRegistryResponse(), assertion, internalRequest.getNhinTargetCommunities());
 
@@ -84,7 +87,7 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
     private RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType createRequestForInternalProcessing(
         RegistryResponseType msg, NhinTargetCommunitiesType targets) {
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request
-            = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
+        = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
         request.setNhinTargetCommunities(targets);
         request.setRegistryResponse(msg);
 
@@ -102,7 +105,7 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
         } else {
             LOG.warn("Check on policy requires a non null target home community ID specified in the request");
         }
-        LOG.debug("Check on policy returns: " + isValid);
+        LOG.debug("Check on policy returns: {}", isValid);
 
         return isValid;
     }
@@ -113,7 +116,7 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
             request.getNhinTargetCommunities());
 
         gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType nhinRequest
-            = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
+        = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
         nhinRequest.setRegistryResponse(request.getRegistryResponse());
         nhinRequest.setNhinTargetSystem(targetSystemType);
 
@@ -136,7 +139,7 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
         AssertionType assertion) {
 
         OutboundDocSubmissionDeferredResponseOrchestratable orchestratable
-            = new OutboundDocSubmissionDeferredResponseOrchestratable(delegate);
+        = new OutboundDocSubmissionDeferredResponseOrchestratable(delegate);
         orchestratable.setAssertion(assertion);
         orchestratable.setRequest(request.getRegistryResponse());
         orchestratable.setTarget(request.getNhinTargetSystem());
@@ -165,13 +168,13 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
     protected boolean hasNhinTargetHomeCommunityId(
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) {
 
-        return (request != null
+        return request != null
             && request.getNhinTargetCommunities() != null
             && NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity())
             && request.getNhinTargetCommunities().getNhinTargetCommunity().get(0) != null
             && request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity() != null
             && NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity().get(0)
-                .getHomeCommunity().getHomeCommunityId()));
+                .getHomeCommunity().getHomeCommunityId());
     }
 
     private HomeCommunityType getNhinTargetHomeCommunity(

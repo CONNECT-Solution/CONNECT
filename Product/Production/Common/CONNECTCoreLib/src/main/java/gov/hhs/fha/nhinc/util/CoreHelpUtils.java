@@ -24,37 +24,41 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admindistribution.inbound;
+package gov.hhs.fha.nhinc.util;
 
-import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
-
-import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
-import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
-import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyObjectFactory;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import java.util.Arrays;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 
 /**
- * @author akong
+ * @author ttang
  *
  */
-public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDistribution {
+public class CoreHelpUtils {
+    private static final Logger LOG = LoggerFactory.getLogger(CoreHelpUtils.class);
 
-    public PassthroughInboundAdminDistribution() {
-        super();
+    private CoreHelpUtils() {
     }
 
-    public PassthroughInboundAdminDistribution(AdminDistributionAuditLogger auditLogger,
-        AdminDistributionUtils adminUtils, AdapterAdminDistributionProxyObjectFactory adapterFactory) {
-        this.auditLogger = auditLogger;
-        this.adminUtils = adminUtils;
-        this.adapterFactory = adapterFactory;
+    public static <T> void debugApplicationContext(Class<T> from, ApplicationContext context) {
+        debugApplicationContext(from, context, false);
     }
 
-    @Override
-    public void processAdminDistribution(EDXLDistribution body, AssertionType assertion) {
-        logInfoServiceProcess(this.getClass());
-        sendToAdapter(body, assertion, adminUtils, adapterFactory);
+    public static <T> void debugApplicationContext(Class<T> from, ApplicationContext context, boolean logBean) {
+        if (null != context) {
+            LOG.debug("debug--applicationContext {}: name:{}, id:{}, hash:{}, size:{}, parent: {}", from,
+                context.getApplicationName(), context.getId(), context.hashCode(), context.getBeanDefinitionNames().length,
+                context.getParent() != null ? context.getParent().hashCode() : "no-parent");
+            if (logBean && LOG.isDebugEnabled()) {
+                LOG.debug("debug--Beans-name: {}", Arrays.toString(context.getBeanDefinitionNames()));
+            }
+        } else {
+            LOG.debug("debug--applicationContext is-null");
+        }
     }
 
+    public static <T> void logInfoServiceProcess(Class<T> from) {
+        LOG.info("Flag service processing debug: {}", from);
+    }
 }

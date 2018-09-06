@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -25,6 +25,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.admindistribution.outbound;
+
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
 
 import gov.hhs.fha.nhinc.admindistribution.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionDelegate;
@@ -56,9 +58,9 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
 
     @Override
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
-            NhinTargetCommunitiesType target) {
+        NhinTargetCommunitiesType target) {
         RespondingGatewaySendAlertMessageType request = msgUtils.convertToUnsecured(message,
-                MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
+            MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
 
         sendAlertMessage(request, assertion, target);
     }
@@ -72,17 +74,18 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
      */
     @Override
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
-            NhinTargetCommunitiesType targetCommunities) {
+        NhinTargetCommunitiesType targetCommunities) {
 
         NhinTargetSystemType target = msgUtils.convertFirstToNhinTargetSystemType(targetCommunities);
         sendToNhin(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
     }
 
     private void sendToNhin(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
-            NhinTargetSystemType target) {
+        NhinTargetSystemType target) {
 
+        logInfoServiceProcess(this.getClass());
         OutboundAdminDistributionOrchestratable orchestratable = new OutboundAdminDistributionOrchestratable(
-                adDelegate);
+            adDelegate);
         orchestratable.setRequest(request);
         orchestratable.setAssertion(assertion);
         orchestratable.setTarget(target);
