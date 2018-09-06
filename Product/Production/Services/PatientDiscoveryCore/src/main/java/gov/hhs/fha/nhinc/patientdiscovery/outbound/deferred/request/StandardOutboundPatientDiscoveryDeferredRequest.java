@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -117,10 +119,12 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
      */
     @Override
     @OutboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
-        afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
-        serviceType = "Patient Discovery Deferred Request", version = "1.0")
+    afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
+    serviceType = "Patient Discovery Deferred Request", version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
         NhinTargetCommunitiesType targets) {
+        logInfoServiceProcess(this.getClass());
+
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 
         List<UrlInfo> urlInfoList = getTargetEndpoints(targets);
@@ -229,7 +233,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
             .createNhinTargetSystemType(exchangeName, urlInfo.getUrl(), urlInfo.getHcid());
 
         OutboundPatientDiscoveryDeferredRequestOrchestratable orchestratable
-            = new OutboundPatientDiscoveryDeferredRequestOrchestratable(delegate);
+        = new OutboundPatientDiscoveryDeferredRequestOrchestratable(delegate);
         orchestratable.setAssertion(assertion);
         orchestratable.setRequest(request);
         orchestratable.setTarget(targetSystemType);

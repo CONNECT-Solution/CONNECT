@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.configuration.jmx;
 
+import static gov.hhs.fha.nhinc.configuration.IConfiguration.directionEnum.Inbound;
+import static gov.hhs.fha.nhinc.configuration.IConfiguration.directionEnum.Outbound;
+
 import gov.hhs.fha.nhinc.configuration.IConfiguration.directionEnum;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import java.util.HashSet;
@@ -42,6 +45,9 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 public class PassthruMXBeanRegistry {
 
     private static final Logger LOG = LoggerFactory.getLogger(PassthruMXBeanRegistry.class);
+    private static final String SET_PASSTHRU = "set-passthru";
+    private static final String SET_STANDARD = "set-standard";
+    private static final String BOTH_DIRECTION = "Inbound-and-Outbound";
 
     /** The instance. */
     private static PassthruMXBeanRegistry instance;
@@ -95,6 +101,7 @@ public class PassthruMXBeanRegistry {
             try {
                 b.configureInboundPtImpl();
                 b.configureOutboundPtImpl();
+                logInfoJmx(SET_PASSTHRU, b.getServiceName(), BOTH_DIRECTION);
             } catch (NoSuchBeanDefinitionException e) {
                 LOG.debug("Couldn't configure bean {}", b.getClass(), e);
             }
@@ -115,6 +122,7 @@ public class PassthruMXBeanRegistry {
             try {
                 b.configureInboundStdImpl();
                 b.configureOutboundStdImpl();
+                logInfoJmx(SET_STANDARD, b.getServiceName(), BOTH_DIRECTION);
             } catch (NoSuchBeanDefinitionException e) {
                 LOG.debug("Couldn't configure bean {}", b.getClass(), e);
             }
@@ -126,13 +134,15 @@ public class PassthruMXBeanRegistry {
      * @param direction
      */
     public void setPassthruMode(serviceEnum serviceName, directionEnum direction)
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         for (WebServicesMXBean b : registeredBeans) {
-            if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)) {
+            if (isInbound(direction) && b.getServiceName().equals(serviceName)) {
                 b.configureInboundPtImpl();
+                logInfoJmx(SET_PASSTHRU, serviceName, Inbound);
             }
-            if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)) {
+            if (isOutbound(direction) && b.getServiceName().equals(serviceName)) {
                 b.configureOutboundPtImpl();
+                logInfoJmx(SET_PASSTHRU, serviceName, Outbound);
             }
         }
     }
@@ -145,14 +155,15 @@ public class PassthruMXBeanRegistry {
      * @throws InstantiationException
      */
     public void setStandardMode(serviceEnum serviceName, directionEnum direction)
-            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-
+        throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         for (WebServicesMXBean b : registeredBeans) {
-            if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)) {
+            if (isInbound(direction) && b.getServiceName().equals(serviceName)) {
                 b.configureInboundStdImpl();
+                logInfoJmx(SET_STANDARD, serviceName, Inbound);
             }
-            if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)) {
+            if (isOutbound(direction) && b.getServiceName().equals(serviceName)) {
                 b.configureOutboundStdImpl();
+                logInfoJmx(SET_STANDARD, serviceName, Outbound);
             }
         }
     }
@@ -164,12 +175,10 @@ public class PassthruMXBeanRegistry {
     public boolean isPassthru(serviceEnum serviceName, directionEnum direction) {
         boolean passthruMode = false;
         for (WebServicesMXBean b : registeredBeans) {
-            if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)
-                    && b.isInboundPassthru()) {
+            if (isInbound(direction) && b.getServiceName().equals(serviceName) && b.isInboundPassthru()) {
                 passthruMode = true;
             }
-            if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)
-                    && b.isOutboundPassthru()) {
+            if (isOutbound(direction) && b.getServiceName().equals(serviceName) && b.isOutboundPassthru()) {
                 passthruMode = true;
             }
         }
@@ -179,16 +188,26 @@ public class PassthruMXBeanRegistry {
     public boolean isStandard(serviceEnum serviceName, directionEnum direction) {
         boolean standardMode = false;
         for (WebServicesMXBean b : registeredBeans) {
-            if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)
-                    && b.isOutboundStandard()) {
+            if (isOutbound(direction) && b.getServiceName().equals(serviceName) && b.isOutboundStandard()) {
                 standardMode = true;
             }
-            if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)
-                    && b.isInboundStandard()) {
+            if (isInbound(direction) && b.getServiceName().equals(serviceName) && b.isInboundStandard()) {
                 standardMode = true;
             }
         }
         return standardMode;
+    }
+
+    public static void logInfoJmx(String method, serviceEnum service, Object direction) {
+        LOG.info("Flag service jmx-debugging: {}, {}, {}", method, service, direction);
+    }
+
+    public static boolean isOutbound(directionEnum direction) {
+        return direction == Outbound;
+    }
+
+    public static boolean isInbound(directionEnum direction) {
+        return direction == Inbound;
     }
 
 
