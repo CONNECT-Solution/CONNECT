@@ -41,6 +41,7 @@ import javax.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Component;
 
 /**
@@ -58,6 +59,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
+@ImportResource({ "classpath:/patientdiscovery/_10/applicationContext.xml" })
 public class InitServlet extends AbstractMXBeanRegistrar {
 
     private static final Logger LOG = LoggerFactory.getLogger(InitServlet.class);
@@ -120,7 +122,7 @@ public class InitServlet extends AbstractMXBeanRegistrar {
             }
         }
 
-       super.destroy();
+        super.destroy();
 
     }
 

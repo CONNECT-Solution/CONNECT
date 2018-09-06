@@ -52,6 +52,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.security.auth.x500.X500Principal;
 import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -73,6 +74,8 @@ import org.opensaml.saml.saml2.core.Subject;
 import org.opensaml.saml.saml2.core.SubjectConfirmation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
 
@@ -100,6 +103,7 @@ public class HOKSAMLAssertionBuilderTest {
         CertificateManager certManager = mock(CertificateManager.class);
         X509Certificate cert = mock(X509Certificate.class);
 
+
         when(certManager.getDefaultPublicKey()).thenReturn(publicKey);
         when(certManager.getDefaultPrivateKey()).thenReturn(privateKey);
         when(certManager.getDefaultCertificate()).thenReturn(cert);
@@ -112,6 +116,9 @@ public class HOKSAMLAssertionBuilderTest {
         when(cert.getNonCriticalExtensionOIDs()).thenReturn(Collections.EMPTY_SET);
         when(cert.getCriticalExtensionOIDs()).thenReturn(Collections.EMPTY_SET);
         when(cert.getPublicKey()).thenReturn(publicKey);
+
+        when(cert.getSubjectX500Principal()).thenReturn(new X500Principal(NhincConstants.SAML_DEFAULT_ISSUER_NAME));
+        when(cert.getIssuerX500Principal()).thenReturn(new X500Principal(NhincConstants.SAML_DEFAULT_ISSUER_NAME));
         return certManager;
     }
 
@@ -702,6 +709,91 @@ public class HOKSAMLAssertionBuilderTest {
 
         List<SubjectConfirmation> subjectConfirmations = subject.getSubjectConfirmations();
         assertTrue(subjectConfirmations.size() == 3);
+    }
+
+    @Test
+    public void testBuildIssuer_DefaultNulled() throws CertificateManagerException {
+        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
+        HashMap<String, Object> props = getDefaultProperties();
+        props.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP, "");
+        props.put(SamlConstants.ASSERTION_ISSUER_PROP, "");
+
+        final CallbackProperties callbackProps = makeCallbackProperties(props);
+
+        Element element = builder.build(callbackProps);
+
+        Node issuer = getIssuerNode(element.getChildNodes());
+        String format = issuer.getAttributes().getNamedItem("Format").getNodeValue();
+        String issuerName = issuer.getFirstChild().getNodeValue();
+        assertEquals(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509, format);
+        assertEquals(NhincConstants.SAML_DEFAULT_ISSUER_NAME, issuerName);
+    }
+
+    @Test
+    public void testBuildIssuer_X509Cert() throws CertificateManagerException {
+        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
+
+        String issuer = "CN=SAMLTest User,OU=SU,O=SAML Test User,L=Los Angeles,ST=CA,C=US";
+
+        HashMap<String, Object> props = getDefaultProperties();
+        props.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP, NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        props.put(SamlConstants.ASSERTION_ISSUER_PROP, issuer);
+
+        final CallbackProperties callbackProps = makeCallbackProperties(props);
+
+        Element element = builder.build(callbackProps);
+
+        Node issuerNode = getIssuerNode(element.getChildNodes());
+        String format = issuerNode.getAttributes().getNamedItem("Format").getNodeValue();
+        String issuerName = issuerNode.getFirstChild().getNodeValue();
+        assertEquals(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509, format);
+        assertEquals(issuer, issuerName);
+    }
+
+    @Test
+    public void testBuildIssuer_DomainName() throws CertificateManagerException {
+        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
+        HashMap<String, Object> props = getDefaultProperties();
+        props.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP, NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME);
+        props.put(SamlConstants.ASSERTION_ISSUER_PROP, "CONNECT\\plobre");
+
+        final CallbackProperties callbackProps = makeCallbackProperties(props);
+
+        Element element = builder.build(callbackProps);
+
+        Node issuer = getIssuerNode(element.getChildNodes());
+        String format = issuer.getAttributes().getNamedItem("Format").getNodeValue();
+        String issuerName = issuer.getFirstChild().getNodeValue();
+        assertEquals(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME, format);
+        assertEquals("CONNECT\\plobre", issuerName);
+    }
+
+    @Test
+    public void testBuildIssuer_Email() throws CertificateManagerException {
+        final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
+        HashMap<String, Object> props = getDefaultProperties();
+        props.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP, NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
+        props.put(SamlConstants.ASSERTION_ISSUER_PROP, "connect@connect.net");
+
+        final CallbackProperties callbackProps = makeCallbackProperties(props);
+
+        Element element = builder.build(callbackProps);
+        Node issuer = getIssuerNode(element.getChildNodes());
+        String format = issuer.getAttributes().getNamedItem("Format").getNodeValue();
+        String issuerName = issuer.getFirstChild().getNodeValue();
+        assertEquals(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS, format);
+        assertEquals("connect@connect.net", issuerName);
+    }
+
+    private static Node getIssuerNode(NodeList list) {
+        for ( int i = 0; i < list.getLength(); i++) {
+            Node node = list.item(i);
+            if (node.getNodeName().equals("saml2:Issuer")) {
+                return node;
+            }
+        }
+        return null;
+
     }
 
     private static SAMLSubjectConfirmation createSubjectConfirmationBean(String method) {

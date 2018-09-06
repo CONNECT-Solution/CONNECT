@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -94,8 +96,8 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
 
     @Override
     @OutboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder
-        = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version
-        = "1.0")
+    = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version
+    = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
         NhinTargetCommunitiesType target) {
 
@@ -113,6 +115,8 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
      */
     @Override
     public MCCIIN000002UV01 process(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetCommunitiesType targets) {
+        logInfoServiceProcess(this.getClass());
+
         auditRequest(body, assertion, targets);
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
 

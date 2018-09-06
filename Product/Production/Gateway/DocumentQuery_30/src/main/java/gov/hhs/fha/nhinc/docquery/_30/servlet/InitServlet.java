@@ -34,12 +34,14 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Component;
 
 /**
  * @author paul.eftis, msw
  */
 @Component
+@ImportResource({ "classpath:/docquery/_30/applicationContext.xml" })
 public class InitServlet extends AbstractMXBeanRegistrar {
 
     @Autowired
