@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,48 +26,28 @@
  */
 package gov.hhs.fha.nhinc.callback.opensaml;
 
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.getCertKeyIdAuthority;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.getCertKeyIdSubject;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.getDaysOfExpiration;
+
 import java.math.BigInteger;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.text.DateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.StringUtils;
-import org.apache.wss4j.common.crypto.DERDecoder;
-import org.apache.wss4j.common.ext.WSSecurityException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Poornima Venkatakrishnan
  *
  */
 public class X509CertificateHelper {
-    // NOSONAR
-    private static final String AUTHORITY_KEY_ID = "2.5.29.35";
-    // NOSONAR
-    private static final String SUBJECT_KEY_ID = "2.5.29.14";
-    private static final int AUTHORITY_KEY_POSITION = 6;
     private static final String EMPTY_FIELD = "-";
     private X509Certificate x509Cert;
     private int keySize = -1;
-    private String serialNumber;
-    private String subjectKeyID;
-    private String issuerName;
-    private String authorityKeyID;
-    private String validStartDate;
-    private String validEndDate;
-    private String subjectName;
-    private String subjectPublicKeyAlgorithm;
-    private String subjectPublicKey;
-    private String issuerUniqueIdentifier;
-    private String certSignatureAlgorithm;
-    private String certSignature;
-    private long expiresInDays;
     private DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
-    private static final Logger LOG = LoggerFactory.getLogger(X509CertificateHelper.class);
 
     public CertificateDTO buildCertificate(X509Certificate x509Cert) {
         this.x509Cert = x509Cert;
@@ -76,10 +56,10 @@ public class X509CertificateHelper {
         obj.setSerialNumber(getCertSerialNumber());
         obj.setIssuerName(getIssuerName());
         obj.setVersion(x509Cert.getVersion());
-        obj.setSubjectKeyID(getSubjectKeyID());
+        obj.setSubjectKeyID(getCertKeyIdSubject(x509Cert));
         obj.setAlgorithm(x509Cert.getPublicKey().getAlgorithm());
         obj.setKeySize(getKeySize());
-        obj.setAuthorityKeyID(getAuthorityKeyID());
+        obj.setAuthorityKeyID(getCertKeyIdAuthority(x509Cert));
         obj.setValidStartDate(getValidStartDate());
         obj.setExpirationDate(getValidEndDate());
         obj.setSubjectName(getSubjectName());
@@ -88,15 +68,14 @@ public class X509CertificateHelper {
         obj.setIssuerUniqueIdentifier(getIssuerUniqueIdentifier());
         obj.setCertSignatureAlgorithm(getCertSignatureAlgorithm());
         obj.setCertSignature(getCertSignature());
-        obj.setExpiresInDays(getExpiresInDays());
+        obj.setExpiresInDays(getDaysOfExpiration(x509Cert.getNotAfter()));
         obj.setSignatureAlgorithm(x509Cert.getSigAlgName());
         obj.setX509Cert(x509Cert);
         return obj;
     }
 
     private String getCertSerialNumber() {
-        serialNumber = new String(Hex.encodeHex(x509Cert.getSerialNumber().toByteArray()));
-        return serialNumber;
+        return new String(Hex.encodeHex(x509Cert.getSerialNumber().toByteArray()));
     }
 
     private int getKeySize() {
@@ -108,94 +87,41 @@ public class X509CertificateHelper {
     }
 
     private String getIssuerName() {
-        issuerName = StringUtils.isEmpty(x509Cert.getIssuerDN().getName()) ? EMPTY_FIELD
+        return StringUtils.isEmpty(x509Cert.getIssuerDN().getName()) ? EMPTY_FIELD
             : x509Cert.getIssuerDN().getName();
-        return issuerName;
-    }
-
-    private String getSubjectKeyID() {
-        byte[] subjectKeyIdByte = x509Cert.getExtensionValue(SUBJECT_KEY_ID);
-
-        try {
-            if (subjectKeyIdByte != null) {
-                // this logic extracts from CryptoBase class inside wss4j
-                DERDecoder extVal = new DERDecoder(subjectKeyIdByte);
-                extVal.expect(DERDecoder.TYPE_OCTET_STRING); // ExtensionValue OCTET STRING
-                extVal.getLength(); // leave this method alone. getlength modify array position.
-                extVal.expect(DERDecoder.TYPE_OCTET_STRING); // KeyIdentifier OCTET STRING
-                int keyIDLen = extVal.getLength();
-                subjectKeyID = Hex.encodeHexString(extVal.getBytes(keyIDLen));
-            }
-        } catch (WSSecurityException e) {
-            LOG.error("Unable to convert SKI into human readable {}", e.getLocalizedMessage(), e);
-        }
-
-        return StringUtils.isEmpty(subjectKeyID) ? EMPTY_FIELD : subjectKeyID;
-    }
-
-    private String getAuthorityKeyID() {
-        byte[] authorityKey = x509Cert.getExtensionValue(AUTHORITY_KEY_ID);
-        try {
-            if (authorityKey != null) {
-                DERDecoder extValA = new DERDecoder(authorityKey);
-                extValA.skip(AUTHORITY_KEY_POSITION);
-                int length = authorityKey.length - AUTHORITY_KEY_POSITION;
-                authorityKeyID = Hex.encodeHexString(extValA.getBytes(length));
-            }
-        } catch (WSSecurityException e) {
-            LOG.error("Unable to convert AIK into human readable {} ", e.getLocalizedMessage(), e);
-        }
-        return StringUtils.isEmpty(authorityKeyID) ? EMPTY_FIELD : authorityKeyID;
     }
 
     private String getValidStartDate() {
-        validStartDate = formatter.format(x509Cert.getNotBefore());
-        return validStartDate;
+        return formatter.format(x509Cert.getNotBefore());
     }
 
     private String getValidEndDate() {
-        validEndDate = formatter.format(x509Cert.getNotAfter());
-        return validEndDate;
+        return formatter.format(x509Cert.getNotAfter());
     }
 
     private String getSubjectName() {
-        subjectName = StringUtils.isEmpty(x509Cert.getSubjectDN().getName()) ? EMPTY_FIELD
+        return StringUtils.isEmpty(x509Cert.getSubjectDN().getName()) ? EMPTY_FIELD
             : x509Cert.getSubjectDN().getName();
-        return subjectName;
     }
 
     private String getSubjectPublicKeyAlgorithm() {
-        subjectPublicKeyAlgorithm = x509Cert.getPublicKey().getAlgorithm();
-        return subjectPublicKeyAlgorithm;
+        return x509Cert.getPublicKey().getAlgorithm();
     }
 
     private String getSubjectPublicKey() {
-        subjectPublicKey = x509Cert.getPublicKey().toString();
-        return subjectPublicKey;
+        return x509Cert.getPublicKey().toString();
     }
 
     private String getIssuerUniqueIdentifier() {
-        issuerUniqueIdentifier = x509Cert.getIssuerUniqueID() != null ? Arrays.toString(x509Cert.getIssuerUniqueID())
+        return x509Cert.getIssuerUniqueID() != null ? Arrays.toString(x509Cert.getIssuerUniqueID())
             : EMPTY_FIELD;
-        return issuerUniqueIdentifier;
     }
 
     private String getCertSignatureAlgorithm() {
-        certSignatureAlgorithm = StringUtils.isEmpty(x509Cert.getSigAlgName()) ? EMPTY_FIELD
-            : x509Cert.getSigAlgName();
-        return certSignatureAlgorithm;
+        return StringUtils.isEmpty(x509Cert.getSigAlgName()) ? EMPTY_FIELD : x509Cert.getSigAlgName();
     }
 
     private String getCertSignature() {
-        certSignature = new BigInteger(x509Cert.getSignature()).toString(16);
-        return certSignature;
-    }
-
-    private long getExpiresInDays() {
-        Date certExpiryDate = x509Cert.getNotAfter();
-        Date today = new Date();
-        long dateDiff = certExpiryDate.getTime() - today.getTime();
-        expiresInDays = dateDiff / (24 * 60 * 60 * 1000);
-        return expiresInDays;
+        return new BigInteger(x509Cert.getSignature()).toString(16);
     }
 }

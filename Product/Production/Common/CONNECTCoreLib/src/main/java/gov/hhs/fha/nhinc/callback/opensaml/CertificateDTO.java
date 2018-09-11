@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.callback.opensaml;
 
 import java.security.cert.X509Certificate;
+import org.apache.commons.lang.StringUtils;
 import org.owasp.encoder.Encode;
 
 /**
@@ -35,6 +36,7 @@ import org.owasp.encoder.Encode;
  */
 public class CertificateDTO {
 
+    private static final String EMPTY_FIELD = "-";
     private long id;
     private String alias = "";
     private String algorithm;
@@ -122,7 +124,7 @@ public class CertificateDTO {
     }
 
     public String getSubjectKeyID() {
-        return subjectKeyID;
+        return StringUtils.isBlank(subjectKeyID) ? EMPTY_FIELD : subjectKeyID;
     }
 
     public void setSubjectKeyID(String subjectKeyID) {
@@ -130,7 +132,7 @@ public class CertificateDTO {
     }
 
     public String getAuthorityKeyID() {
-        return authorityKeyID;
+        return StringUtils.isBlank(authorityKeyID) ? EMPTY_FIELD : authorityKeyID;
     }
 
     public void setAuthorityKeyID(String authorityKeyID) {
