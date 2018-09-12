@@ -258,7 +258,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @throws CertificateManagerException
      */
     private void initKeyStore() throws CertificateManagerException {
-        LOG.debug("SamlCallbackHandler.initKeyStore() -- Begin");
+        LOG.debug("initKeyStore() -- Begin");
 
         final Map<String, String> keyStoreProperties = getKeyStoreSystemProperties();
         String storeType = keyStoreProperties.get(KEY_STORE_TYPE_KEY);
@@ -278,7 +278,7 @@ public class CertificateManagerImpl implements CertificateManager {
         } else {
             LOG.error("Please define {}", KEY_STORE_PASSWORD_KEY);
         }
-        LOG.debug("SamlCallbackHandler.initKeyStore() -- End");
+        LOG.debug("initKeyStore() -- End");
     }
 
 

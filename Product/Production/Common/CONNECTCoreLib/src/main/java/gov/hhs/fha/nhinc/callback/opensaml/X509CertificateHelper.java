@@ -26,10 +26,6 @@
  */
 package gov.hhs.fha.nhinc.callback.opensaml;
 
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.getCertKeyIdAuthority;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.getCertKeyIdSubject;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.getDaysOfExpiration;
-
 import java.math.BigInteger;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
@@ -56,10 +52,10 @@ public class X509CertificateHelper {
         obj.setSerialNumber(getCertSerialNumber());
         obj.setIssuerName(getIssuerName());
         obj.setVersion(x509Cert.getVersion());
-        obj.setSubjectKeyID(getCertKeyIdSubject(x509Cert));
+        obj.setSubjectKeyID(CertificateUtil.getCertKeyIdSubject(x509Cert));
         obj.setAlgorithm(x509Cert.getPublicKey().getAlgorithm());
         obj.setKeySize(getKeySize());
-        obj.setAuthorityKeyID(getCertKeyIdAuthority(x509Cert));
+        obj.setAuthorityKeyID(CertificateUtil.getCertKeyIdAuthority(x509Cert));
         obj.setValidStartDate(getValidStartDate());
         obj.setExpirationDate(getValidEndDate());
         obj.setSubjectName(getSubjectName());
@@ -68,7 +64,7 @@ public class X509CertificateHelper {
         obj.setIssuerUniqueIdentifier(getIssuerUniqueIdentifier());
         obj.setCertSignatureAlgorithm(getCertSignatureAlgorithm());
         obj.setCertSignature(getCertSignature());
-        obj.setExpiresInDays(getDaysOfExpiration(x509Cert.getNotAfter()));
+        obj.setExpiresInDays(CertificateUtil.getDaysOfExpiration(x509Cert.getNotAfter()));
         obj.setSignatureAlgorithm(x509Cert.getSigAlgName());
         obj.setX509Cert(x509Cert);
         return obj;

@@ -113,8 +113,6 @@ public class CertificateManagerImplTest {
     public void testCertificateChain() throws Exception {
         KeyStore keystore = CertificateUtil.loadKeyStore("JKS", "changeit", "src/test/resources/cacerts-chain.jks");
 
-        Certificate nullObj = null;
-        X509Certificate cert = (X509Certificate) nullObj;
         Certificate leaf = keystore.getCertificate("gateway");
         Certificate interm = keystore.getCertificate("gateway-intermediate");
         Certificate root = keystore.getCertificate("gateway-root");

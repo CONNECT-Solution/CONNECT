@@ -120,9 +120,9 @@ public class CertificateUtil {
 
     public static Map<String, Certificate> getKeystoreMap(final KeyStore keystore) throws KeyStoreException {
         Map<String, Certificate> retObj = new HashMap<>();
-        Enumeration<String> alaises = keystore.aliases();
-        while(alaises.hasMoreElements()){
-            String alias = alaises.nextElement();
+        Enumeration<String> aliases = keystore.aliases();
+        while (aliases.hasMoreElements()) {
+            String alias = aliases.nextElement();
             Certificate cert = keystore.getCertificate(alias);
             retObj.put(getCertKeyIdSubject(cert), cert);
         }
@@ -133,8 +133,7 @@ public class CertificateUtil {
         return getChain((X509Certificate) cert, getKeystoreMap(keystore));
     }
 
-    public static List<Certificate> getChain(X509Certificate cert, Map<String, Certificate> keyCache)
-        throws KeyStoreException {
+    public static List<Certificate> getChain(X509Certificate cert, Map<String, Certificate> keyCache) {
         List<Certificate> chain = new ArrayList<>();
         if (null != cert) {
             chain.add(cert);
@@ -199,17 +198,19 @@ public class CertificateUtil {
         return getCertSubjectCN((X509Certificate) cert);
     }
     public static String getCertSubjectCN(X509Certificate cert) {
-        if (null != cert) {
-            try {
-                LdapName ldapDN = new LdapName(cert.getSubjectX500Principal().getName());
-                for (Rdn rdn : ldapDN.getRdns()) {
-                    if (rdn.getType().equals(COMMON_NAME)) {
-                        return (String) rdn.getValue();
-                    }
+        if (null == cert) {
+            return null;
+        }
+
+        try {
+            LdapName ldapDN = new LdapName(cert.getSubjectX500Principal().getName());
+            for (Rdn rdn : ldapDN.getRdns()) {
+                if (rdn.getType().equals(COMMON_NAME)) {
+                    return (String) rdn.getValue();
                 }
-            } catch (InvalidNameException ex) {
-                LOG.error("{}", ex.getMessage(), ex);
             }
+        } catch (InvalidNameException ex) {
+            LOG.error("{}", ex.getMessage(), ex);
         }
         return null;
     }
