@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,11 +26,18 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import gov.hhs.fha.nhinc.event.AssertionExtractor;
+import gov.hhs.fha.nhinc.event.EventDirector;
+import gov.hhs.fha.nhinc.event.EventRecorder;
+import java.lang.reflect.Method;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -52,7 +59,9 @@ public class EventAspectAdvice {
 
     private EventAdviceDelegate nwhinInvocationAdviceDelegate;
 
-    private FailureAdviceDelegate failureAdviceDelegate;
+    private EventRecorder eventRecorder;
+
+
 
     @Before("@annotation(annotation)")
     public void beginInboundMessageEvent(JoinPoint joinPoint, InboundMessageEvent annotation) {
@@ -127,15 +136,58 @@ public class EventAspectAdvice {
                 annotation.afterReturningBuilder(), returnValue);
     }
 
-    @AfterThrowing(pointcut = "@annotation(gov.hhs.fha.nhinc.aspect.InboundMessageEvent) &&"
-            + "@annotation(gov.hhs.fha.nhinc.aspect.InboundProcessingEvent) &&"
-            + "@annotation(gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent) && "
-            + "@annotation(gov.hhs.fha.nhinc.aspect.OutboundMessageEvent) && "
-            + "@annotation(gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent) && "
-            + "@annotation(gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent)", throwing = "e")
+    /*
+     * Passthrough modes do not have any Event annotations on them. We want to support the ability to log exceptions
+     * for both Standard and Passthrough. If the method is annotated with both for some reason, we only process the
+     * LogFailures annotation to prevent recording duplicate entries for the failure.
+     */
+    @AfterThrowing(pointcut = "@annotation(gov.hhs.fha.nhinc.aspect.InboundMessageEvent) ||"
+        + "@annotation(gov.hhs.fha.nhinc.aspect.InboundProcessingEvent) ||"
+        + "@annotation(gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent) || "
+        + "@annotation(gov.hhs.fha.nhinc.aspect.OutboundMessageEvent) || "
+        + "@annotation(gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent) || "
+        + "@annotation(gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent)", throwing = "e")
     public void failEvent(JoinPoint joinPoint, Throwable e) {
-        failureAdviceDelegate.fail(joinPoint.getArgs(), e);
+        if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
+            MethodSignature sig = (MethodSignature) joinPoint.getSignature();
+            Method method = sig.getMethod();
+
+            // Check if the method is annotated with @LogFailures. We dont want to log the event twice.
+            if (method.getAnnotation(LogFailures.class) != null) {
+                Logger log = LoggerFactory.getLogger(sig.getDeclaringType());
+                log.warn("Method {} has multiple logging aspects. Will only process LogFailures annotation... ", method.getName());
+            } else {
+                logFailure(joinPoint, e);
+            }
+        }
     }
+
+    @AfterThrowing(pointcut = "@annotation(gov.hhs.fha.nhinc.aspect.LogFailures)", throwing = "e")
+    public void logFailure(JoinPoint joinPoint, Throwable e) {
+        if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
+            MethodSignature sig = (MethodSignature) joinPoint.getSignature();
+
+            Logger log = LoggerFactory.getLogger(sig.getDeclaringType());
+            log.info("{} threw an exception: {}", sig.getName(), e.getMessage());
+
+            ErrorEventBuilder builder = new ErrorEventBuilder();
+
+            builder.setAssertion(AssertionExtractor.getAssertion(joinPoint.getArgs()));
+            builder.setThrowable(e);
+            builder.setInvoker(sig.getDeclaringType().toString());
+            builder.setMethod(sig.getName());
+
+
+            EventDirector director = new EventDirector();
+            director.setEventBuilder(builder);
+            director.constructEvent();
+
+            eventRecorder.recordEvent(director.getEvent());
+
+        }
+
+    }
+
 
     @Autowired
     public void setInboundMessageAdviceDelegate(EventAdviceDelegate inboundMessageAdviceDelegate) {
@@ -167,8 +219,9 @@ public class EventAspectAdvice {
         this.nwhinInvocationAdviceDelegate = nwhinInvocationAdviceDelegate;
     }
 
-    public void setFailureAdviceDelegate(FailureAdviceDelegate failureAdviceDelegate) {
-        this.failureAdviceDelegate = failureAdviceDelegate;
+    @Autowired
+    public void setEventRecorder(EventRecorder eventRecorder) {
+        this.eventRecorder = eventRecorder;
     }
 
 }

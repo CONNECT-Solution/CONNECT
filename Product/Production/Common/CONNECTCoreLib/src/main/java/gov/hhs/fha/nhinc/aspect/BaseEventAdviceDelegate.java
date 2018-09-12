@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.AssertionExtractor;
 import gov.hhs.fha.nhinc.event.ContextEventBuilder;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.Event;
@@ -37,8 +37,6 @@ import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
 import gov.hhs.fha.nhinc.event.EventDirector;
 import gov.hhs.fha.nhinc.event.EventRecorder;
 import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,7 +141,7 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
     public void fail(Object[] arguments, Throwable throwable) {
         if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
             ErrorEventBuilder builder = new ErrorEventBuilder();
-            builder.setAssertion(getAssertion(arguments));
+            builder.setAssertion(AssertionExtractor.getAssertion(arguments));
             builder.setThrowable(throwable);
             createAndRecordEvent(builder);
         }
@@ -215,7 +213,7 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
             }
 
         };
-        builder.setAssertion(getAssertion(args));
+        builder.setAssertion(AssertionExtractor.getAssertion(args));
         builder.setEventDesciptionDirector(eventDescriptionDirector);
         return builder;
     }
@@ -230,44 +228,10 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
             }
 
         };
-        builder.setAssertion(getAssertion(args));
+        builder.setAssertion(AssertionExtractor.getAssertion(args));
         builder.setEventDesciptionDirector(eventDescriptionDirector);
         return builder;
     }
 
-    private AssertionType getAssertion(Object[] args) {
-        AssertionType assertion = null;
-        for (Object obj : args) {
-            assertion = getAssertion(obj);
-            if (null != assertion) {
-                break;
-            }
-        }
-        return assertion;
-    }
 
-    public AssertionType getAssertion(Object obj) {
-        try {
-            if (obj != null) {
-                if (obj instanceof AssertionType) {
-                    return (AssertionType) obj;
-                } else {
-                    return getAssertionType(obj.getClass().getDeclaredMethods(), obj);
-                }
-            }
-        } catch (IllegalAccessException | InvocationTargetException ex) {
-            LOG.error("Unable to extract AssertionType from Object: {}", ex.getLocalizedMessage(), ex);
-        }
-        return null;
-    }
-
-    private AssertionType getAssertionType(Method[] methods, Object obj) throws IllegalAccessException,
-        InvocationTargetException {
-        for (Method m : methods) {
-            if (("getAssertion").equals(m.getName())) {
-                return (AssertionType) m.invoke(obj);
-            }
-        }
-        return null;
-    }
 }
