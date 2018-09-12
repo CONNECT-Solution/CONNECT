@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -32,12 +32,13 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
-
+import java.security.KeyStore;
 import java.security.PrivateKey;
+import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -78,7 +79,7 @@ public class CertificateManagerImplTest {
         HashMap<String, String> mockKeyStoreMap = mock(HashMap.class);
         HashMap<String, String> mockTrustStoreMap = mock(HashMap.class);
         CertificateManagerImpl certManager = (CertificateManagerImpl) CertificateManagerImpl
-                .getInstance(mockKeyStoreMap, mockTrustStoreMap);
+            .getInstance(mockKeyStoreMap, mockTrustStoreMap);
         assertTrue(certManager instanceof CertificateManagerImpl);
         assertNull(certManager.getKeyStore());
         assertNull(certManager.getTrustStore());
@@ -106,5 +107,33 @@ public class CertificateManagerImplTest {
         assertNotNull(certificate);
         assertEquals(certificate.getSigAlgName(), "SHA256withRSA");
         assertEquals(certificate.getSigAlgOID(), "1.2.840.113549.1.1.11");
+    }
+
+    @Test
+    public void testCertificateChain() throws Exception {
+        KeyStore keystore = CertificateUtil.loadKeyStore("JKS", "changeit", "src/test/resources/cacerts-chain.jks");
+
+        Certificate leaf = keystore.getCertificate("gateway");
+        Certificate interm = keystore.getCertificate("gateway-intermediate");
+        Certificate root = keystore.getCertificate("gateway-root");
+
+        List<Certificate> chain = CertificateUtil.getChain(leaf, keystore);
+        assertEquals(chain.size(), 3);
+
+        assertTrue("gateway-root is in the chain", CertificateUtil.isInChain(root, chain));
+        assertTrue("gateway-intermediate is in the chain", CertificateUtil.isInChain(interm, chain));
+
+        assertEquals(CertificateUtil.getCertSubjectCN(leaf), "server");
+        assertEquals(CertificateUtil.getCertSubjectCN(interm), "ca");
+        assertEquals(CertificateUtil.getCertSubjectCN(root), "root");
+
+        chain = CertificateUtil.getChain(interm, keystore);
+        assertEquals(chain.size(), 2);
+
+        keystore = CertificateUtil.loadKeyStore("JKS", "changeit", TRUST_STORE_PATH);
+        leaf = keystore.getCertificate("host1");
+        chain = CertificateUtil.getChain(leaf, keystore);
+        assertEquals(chain.size(), 1);
+
     }
 }

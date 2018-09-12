@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,6 +26,10 @@
  */
 package gov.hhs.fha.nhinc.callback.opensaml;
 
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.PKCS11_TYPE;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.createCertificate;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.loadKeyStore;
+
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFSecuredServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFUnsecuredServicePortBuilder;
@@ -34,7 +38,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.KeyStore;
 import java.security.KeyStore.PrivateKeyEntry;
@@ -64,7 +67,6 @@ public class CertificateManagerImpl implements CertificateManager {
 
     private static final String STORE_TYPE_ERROR = "{} is not defined. Switch to use JKS by default";
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerImpl.class);
-    private final CertificateUtil certUtil = new CertificateUtil();
     private KeyStore keyStore = null;
     private KeyStore trustStore = null;
     public static final String TRUST_STORE_TYPE_KEY = "javax.net.ssl.trustStoreType";
@@ -74,8 +76,6 @@ public class CertificateManagerImpl implements CertificateManager {
     public static final String KEY_STORE_PASSWORD_KEY = "javax.net.ssl.keyStorePassword";
     public static final String KEY_STORE_KEY = "javax.net.ssl.keyStore";
     public static final String JKS_TYPE = "JKS";
-    public static final String PKCS11_TYPE = "PKCS11";
-    private static final String KEYSTORE_ERROR_MSG = "Error initializing KeyStore: {}";
 
     private CertificateManagerImpl() {
         try {
@@ -131,7 +131,7 @@ public class CertificateManagerImpl implements CertificateManager {
     @Override
     public void importCertificate(String alias, DataHandler data, boolean refreshCache)
         throws CertificateManagerException {
-        Certificate addCert = certUtil.createCertificate(data);
+        Certificate addCert = createCertificate(data);
         try {
             verifyCertInfo(alias, addCert);
             trustStore.setCertificateEntry(alias, addCert);
@@ -206,7 +206,7 @@ public class CertificateManagerImpl implements CertificateManager {
 
     private static FileOutputStream updateCertEntry(final String oldAlias, final String newAlias,
         Certificate certificate, final String storeLoc, final String passkey, KeyStore tstore)
-        throws CertificateManagerException, IOException {
+            throws CertificateManagerException, IOException {
         FileOutputStream os = null;
         try {
             tstore.deleteEntry(oldAlias);
@@ -228,7 +228,7 @@ public class CertificateManagerImpl implements CertificateManager {
 
     @Override
     public X509Certificate getCertificateFromByteCode(DataHandler data) throws CertificateManagerException {
-        return certUtil.createCertificate(data);
+        return createCertificate(data);
     }
 
     private void verifyCertInfo(String alias, Certificate cert) throws CertificateManagerException, KeyStoreException {
@@ -258,7 +258,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @throws CertificateManagerException
      */
     private void initKeyStore() throws CertificateManagerException {
-        LOG.debug("SamlCallbackHandler.initKeyStore() -- Begin");
+        LOG.debug("initKeyStore() -- Begin");
 
         final Map<String, String> keyStoreProperties = getKeyStoreSystemProperties();
         String storeType = keyStoreProperties.get(KEY_STORE_TYPE_KEY);
@@ -278,40 +278,10 @@ public class CertificateManagerImpl implements CertificateManager {
         } else {
             LOG.error("Please define {}", KEY_STORE_PASSWORD_KEY);
         }
-        LOG.debug("SamlCallbackHandler.initKeyStore() -- End");
+        LOG.debug("initKeyStore() -- End");
     }
 
-    /**
-     *
-     * @param storeType
-     * @param password
-     * @param storeLoc
-     * @throws CertificateManagerException
-     */
-    private static KeyStore loadKeyStore(final String storeType, final String password, final String storeLoc)
-        throws CertificateManagerException {
-        InputStream is = null;
-        KeyStore secretStore = null;
-        try {
-            secretStore = KeyStore.getInstance(storeType);
-            if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
-                is = new FileInputStream(storeLoc);
-            }
-            secretStore.load(is, password.toCharArray());
-        } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
-            LOG.error(KEYSTORE_ERROR_MSG, ex.getLocalizedMessage(), ex);
-            throw new CertificateManagerException(ex.getMessage(), ex);
-        } finally {
-            try {
-                if (is != null) {
-                    is.close();
-                }
-            } catch (final IOException ex) {
-                LOG.error("Unable to close keyStoreStream- KeyStoreCallbackHandler {}", ex.getLocalizedMessage(), ex);
-            }
-        }
-        return secretStore;
-    }
+
 
     /**
      * Initializes the truststore access using the system properties defined in the domain.xml javax.net.ssl.trustStore
