@@ -24,46 +24,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event;
+package gov.hhs.fha.nhinc.aspect;
 
-import gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * @author zmelnick
+ * Aspect which marks that this method should have its exceptions logged by the EventManager.
  *
+ * This should *not* be used in conjunction with @InboundMessageEvent, @InboundProcessingEvent,
+ * @AdapterDelegationEvent, @OutboundMessageEvent, @OutboundProcessingEvent, or @NwhinInvocationEvent
+ * as their aspect implementation is redundant to @LogFailures.
+ *
+ * @see EventAspectAdvice
  */
-public class Log4jEventLogger extends EventLogger {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Log4jEventLogger.class);
-
-    public Log4jEventLogger() {
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventLogger#update(gov.hhs.fha.nhinc.event.Event, java.lang.Object)
-     */
-    @Override
-    void recordEvent(EventManager manager, Event logEvent) {
-
-        String description = logEvent.getDescription();
-        //We want to strip the stack trace from being logged in the console if its a MessageProcessingFailedEvent
-        if (logEvent instanceof MessageProcessingFailedEvent) {
-            try {
-                JSONObject obj = new JSONObject(description);
-                obj.put("stackTrace", "[Stacktrace ommitted in server log]");
-                description = obj.toString();
-            } catch (JSONException e) {
-               LOG.error("Error attempting to strip stacktrace.",e);
-            }
-        }
-        LOG.info("{} has triggered. It has messageID {}, transactionID {}, and description {}",
-            logEvent.getEventName(),logEvent.getMessageID(), logEvent.getTransactionID(), description);
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+@Inherited
+public @interface LogFailures {
 
 }
