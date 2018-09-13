@@ -28,9 +28,15 @@ package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.model.AvailableService;
 import gov.hhs.fha.nhinc.admingui.model.StatusSnapshot;
+import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.PingService;
+import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.DashboardStatusServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl;
+import gov.hhs.fha.nhinc.admingui.util.GUIConstants.COLOR_CODING_CSS;
+import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.event.model.EventCount;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +49,8 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.HorizontalBarChartModel;
 import org.primefaces.model.chart.PieChartModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -52,132 +60,184 @@ import org.primefaces.model.chart.PieChartModel;
 @ViewScoped
 public class StatusBean {
 
-    private final DashboardStatusServiceImpl sService = new DashboardStatusServiceImpl();
-    private final PingService pingService = new PingServiceImpl();
-    private List<AvailableService> services = new ArrayList<>();
-    private HorizontalBarChartModel eventBarChart;
-    private PieChartModel eventPieChart;
-    private StatusSnapshot snapshot;
+	private final DashboardStatusServiceImpl sService = new DashboardStatusServiceImpl();
+	private final PingService pingService = new PingServiceImpl();
+	private List<AvailableService> services = new ArrayList<>();
+	private HorizontalBarChartModel eventBarChart;
+	private PieChartModel eventPieChart;
+	private StatusSnapshot snapshot;
+	private final CertificateManagerService certificateService;
 
-    @PostConstruct
-    public void initServices() {
-        snapshot = sService.getStatus();
-        services = pingService.buildServices();
-        initBarChart();
-        initPieChart();
-    }
+	private static final String KEY_STORE_MSG = "keyStoreMsg";
+	private static final Logger LOG = LoggerFactory.getLogger(StatusBean.class);
+	public List<CertificateDTO> certDTOs = new ArrayList<CertificateDTO>();
 
-    public void refresh(boolean refreshMessages) {
-        snapshot = sService.getStatus(refreshMessages);
-        if (refreshMessages) {
-            initPieChart();
-            initBarChart();
-        }
-    }
+	public StatusBean() {
+		certificateService = new CertificateManagerServiceImpl();
+		LOG.info("### getCertificateInfo() is going to be called");
+		getCertificateInfo();
+	}
 
-    public String getOs() {
-        return snapshot.getOs();
-    }
+	@PostConstruct
+	public void initServices() {
+		snapshot = sService.getStatus();
+		services = pingService.buildServices();
+		initBarChart();
+		initPieChart();
+	}
 
-    public String getJava() {
-        return snapshot.getJavaVersion();
-    }
+	/**
+	 * @return the certDTOs
+	 */
+	public List<CertificateDTO> getCertDTOs() {
+		return certDTOs;
+	}
 
-    public String getMemory() {
-        return snapshot.getMemory();
-    }
+	public void refresh(boolean refreshMessages) {
+		snapshot = sService.getStatus(refreshMessages);
+		if (refreshMessages) {
+			initPieChart();
+			initBarChart();
+		}
+	}
 
-    public String getAppServer() {
-        return snapshot.getServerVersion();
-    }
+	public String getOs() {
+		return snapshot.getOs();
+	}
 
-    private Map<String, Long> getInboundEventCounts() {
+	public String getJava() {
+		return snapshot.getJavaVersion();
+	}
 
-        HashMap<String, Long> map = new HashMap<>();
-        for (EventCount event : snapshot.getEvents().values()) {
-            map.put(event.getEvent(), event.getInbound());
-        }
-        return map;
-    }
+	public String getMemory() {
+		return snapshot.getMemory();
+	}
 
-    public long getTotalInboundRequests() {
-        long total = 0;
-        for (EventCount event : snapshot.getEvents().values()) {
-            total += event.getInbound();
-        }
-        return total;
-    }
+	public String getAppServer() {
+		return snapshot.getServerVersion();
+	}
 
-    private Map<String, Long> getOutboundEventCounts() {
+	private Map<String, Long> getInboundEventCounts() {
 
-        HashMap<String, Long> map = new HashMap<>();
-        for (EventCount event : snapshot.getEvents().values()) {
-            map.put(event.getEvent(), event.getOutbound());
-        }
-        return map;
-    }
+		HashMap<String, Long> map = new HashMap<>();
+		for (EventCount event : snapshot.getEvents().values()) {
+			map.put(event.getEvent(), event.getInbound());
+		}
+		return map;
+	}
 
-    public long getTotalOutboundRequests() {
-        long total = 0;
-        for (EventCount event : snapshot.getEvents().values()) {
-            total += event.getOutbound();
-        }
-        return total;
-    }
+	public long getTotalInboundRequests() {
+		long total = 0;
+		for (EventCount event : snapshot.getEvents().values()) {
+			total += event.getInbound();
+		}
+		return total;
+	}
 
-    public List<AvailableService> getServices() {
-        return services;
-    }
+	private Map<String, Long> getOutboundEventCounts() {
 
-    public HorizontalBarChartModel getEventBarChart() {
-        return eventBarChart;
-    }
+		HashMap<String, Long> map = new HashMap<>();
+		for (EventCount event : snapshot.getEvents().values()) {
+			map.put(event.getEvent(), event.getOutbound());
+		}
+		return map;
+	}
 
-    public PieChartModel getEventPieChart() {
-        if (eventPieChart != null) {
-            refreshPieChart();
-        }
-        return eventPieChart;
-    }
+	public long getTotalOutboundRequests() {
+		long total = 0;
+		for (EventCount event : snapshot.getEvents().values()) {
+			total += event.getOutbound();
+		}
+		return total;
+	}
 
-    private void refreshPieChart() {
+	public List<AvailableService> getServices() {
+		return services;
+	}
 
-        for ( EventCount event : snapshot.getEvents().values()) {
-            eventPieChart.getData().put(event.getEvent(), event.getTotal());
-        }
+	public HorizontalBarChartModel getEventBarChart() {
+		return eventBarChart;
+	}
 
-        eventPieChart.setFill(false);
-        eventPieChart.setSeriesColors("10253F, CC0000, 33D6FF, FFCC00, 98FB98, FFA500, 00CCFF");
-        eventPieChart.setShowDataLabels(true);
-        eventPieChart.setSliceMargin(5);
-        eventPieChart.setLegendPosition("se");
-    }
+	public PieChartModel getEventPieChart() {
+		if (eventPieChart != null) {
+			refreshPieChart();
+		}
+		return eventPieChart;
+	}
 
-    private void initBarChart() {
-        eventBarChart = new HorizontalBarChartModel();
+	private void refreshPieChart() {
 
-        ChartSeries inboundSeries = createChart("Inbound", getInboundEventCounts());
-        ChartSeries outboundSeries = createChart("Outbound", getOutboundEventCounts());
+		for (EventCount event : snapshot.getEvents().values()) {
+			eventPieChart.getData().put(event.getEvent(), event.getTotal());
+		}
 
-        eventBarChart.addSeries(inboundSeries);
-        eventBarChart.addSeries(outboundSeries);
-        eventBarChart.setSeriesColors("10253F, CC0000");
-        eventBarChart.setStacked(true);
-        eventBarChart.setLegendPosition("se");
-    }
+		eventPieChart.setFill(false);
+		eventPieChart.setSeriesColors("10253F, CC0000, 33D6FF, FFCC00, 98FB98, FFA500, 00CCFF");
+		eventPieChart.setShowDataLabels(true);
+		eventPieChart.setSliceMargin(5);
+		eventPieChart.setLegendPosition("se");
+	}
 
-    private static ChartSeries createChart(String label, Map<String, Long> eventCounts) {
-        ChartSeries series = new ChartSeries();
-        series.setLabel(label);
-        for (Entry<String, Long> serviceEntry : eventCounts.entrySet()) {
-            series.set(serviceEntry.getKey(), serviceEntry.getValue());
-        }
-        return series;
-    }
+	private void initBarChart() {
+		eventBarChart = new HorizontalBarChartModel();
 
-    private void initPieChart() {
-        eventPieChart = new PieChartModel();
-        refreshPieChart();
-    }
+		ChartSeries inboundSeries = createChart("Inbound", getInboundEventCounts());
+		ChartSeries outboundSeries = createChart("Outbound", getOutboundEventCounts());
+
+		eventBarChart.addSeries(inboundSeries);
+		eventBarChart.addSeries(outboundSeries);
+		eventBarChart.setSeriesColors("10253F, CC0000");
+		eventBarChart.setStacked(true);
+		eventBarChart.setLegendPosition("se");
+	}
+
+	private static ChartSeries createChart(String label, Map<String, Long> eventCounts) {
+		ChartSeries series = new ChartSeries();
+		series.setLabel(label);
+		for (Entry<String, Long> serviceEntry : eventCounts.entrySet()) {
+			series.set(serviceEntry.getKey(), serviceEntry.getValue());
+		}
+		return series;
+	}
+
+	private void initPieChart() {
+		eventPieChart = new PieChartModel();
+		refreshPieChart();
+	}
+
+
+	public List<CertificateDTO> getCertificateInfo() {
+		LOG.info("### entered into getCertificateInfo");
+		List<CertificateDTO> certs = new ArrayList<CertificateDTO>();
+		List<CertificateDTO> expiredCerts = new ArrayList<CertificateDTO>();
+		List<CertificateDTO> warnningCerts = new ArrayList<CertificateDTO>();
+
+		try {
+			certs.addAll(certificateService.fetchKeyStores());
+			certs.addAll(certificateService.fetchTrustStores());
+
+			LOG.info("### certs size = " + certs.size());
+			for (CertificateDTO dto : certs) {
+				LOG.info("### certs loop entered ");
+				if (dto.getExpiresInDays() <= 30) {
+					dto.setExpiryColorCoding(COLOR_CODING_CSS.RED.toString());
+					expiredCerts.add(dto);
+				} else if (dto.getExpiresInDays() > 30 && dto.getExpiresInDays() <= 90) {
+					dto.setExpiryColorCoding(COLOR_CODING_CSS.YELLOW.toString());
+					warnningCerts.add(dto);
+				}
+			}
+			certDTOs.addAll(expiredCerts);
+			certDTOs.addAll(warnningCerts);
+
+		} catch (CertificateManagerException e) {
+			LOG.error("Unable to get certificate details {}", e.getLocalizedMessage(), e);
+			HelperUtil.addMessageError(KEY_STORE_MSG, "Unable to fetch certificate details");
+		}
+
+
+		return certDTOs;
+	}
 
 }
