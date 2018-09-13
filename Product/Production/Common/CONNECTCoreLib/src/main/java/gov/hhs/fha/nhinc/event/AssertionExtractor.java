@@ -13,6 +13,8 @@ public class AssertionExtractor {
 
     private static final Logger LOG = LoggerFactory.getLogger(AssertionExtractor.class);
 
+    private AssertionExtractor() {}
+
     public static AssertionType getAssertion(Object[] args) {
         AssertionType assertion = null;
         for (Object obj : args) {
@@ -25,25 +27,26 @@ public class AssertionExtractor {
     }
 
     public static AssertionType getAssertion(Object obj) {
-        try {
-            if (obj != null) {
-                if (obj instanceof AssertionType) {
-                    return (AssertionType) obj;
-                } else {
-                    return getAssertionType(obj.getClass().getDeclaredMethods(), obj);
-                }
+
+        if (obj != null) {
+            if (obj instanceof AssertionType) {
+                return (AssertionType) obj;
+            } else {
+                return getAssertionType(obj.getClass().getDeclaredMethods(), obj);
             }
-        } catch (IllegalAccessException | InvocationTargetException ex) {
-            LOG.error("Unable to extract AssertionType from Object: {}", ex.getLocalizedMessage(), ex);
         }
+
         return null;
     }
 
-    public static AssertionType getAssertionType(Method[] methods, Object obj) throws IllegalAccessException,
-        InvocationTargetException {
+    public static AssertionType getAssertionType(Method[] methods, Object obj) {
         for (Method m : methods) {
             if ("getAssertion".equals(m.getName())) {
-                return (AssertionType) m.invoke(obj);
+                try {
+                    return (AssertionType) m.invoke(obj);
+                } catch (IllegalAccessException | InvocationTargetException ex) {
+                    LOG.error("Unable to extract AssertionType from Object: {}", ex.getLocalizedMessage(), ex);
+                }
             }
         }
         return null;

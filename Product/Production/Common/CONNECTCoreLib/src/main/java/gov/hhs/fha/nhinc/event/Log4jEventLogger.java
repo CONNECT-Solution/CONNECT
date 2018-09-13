@@ -59,7 +59,7 @@ public class Log4jEventLogger extends EventLogger {
                 obj.put("stackTrace", "[Stacktrace ommitted in server log]");
                 description = obj.toString();
             } catch (JSONException e) {
-               LOG.error("Error attempting to strip stacktrace.");
+               LOG.error("Error attempting to strip stacktrace.",e);
             }
         }
         LOG.info("{} has triggered. It has messageID {}, transactionID {}, and description {}",
