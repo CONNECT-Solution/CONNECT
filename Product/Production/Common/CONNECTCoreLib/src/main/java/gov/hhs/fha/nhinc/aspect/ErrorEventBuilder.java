@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.event.ContextEventHelper;
 import gov.hhs.fha.nhinc.event.Event;
 import gov.hhs.fha.nhinc.event.EventBuilder;
 import gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -45,6 +46,10 @@ public class ErrorEventBuilder implements EventBuilder {
     private Throwable throwable;
     private AssertionType assertion;
 
+    private String invoker;
+
+    private String method;
+
     @Override
     public void createNewEvent() {
         event = new MessageProcessingFailedEvent();
@@ -53,15 +58,28 @@ public class ErrorEventBuilder implements EventBuilder {
     @Override
     public void buildDescription() {
         JSONObject jsonObject = new JSONObject();
-        if (throwable != null) {
+
             try {
-                jsonObject.put("message", throwable.getMessage());
-                jsonObject.put("class", throwable.getClass());
+                if (throwable != null) {
+                    jsonObject.put("exceptionMessage", throwable.getMessage());
+                    jsonObject.put("exceptionClass", throwable.getClass());
+                    jsonObject.put("stackTrace", throwable.getStackTrace());
+                }
+
+                if (StringUtils.isNotBlank(invoker)) {
+                    jsonObject.put("failedClass", invoker);
+                }
+
+                if (StringUtils.isNotBlank(method)) {
+                    jsonObject.put("failedMethod", method);
+                }
+
+
             } catch (JSONException e) {
                 LOG.error("Could not build description: {}", e.getLocalizedMessage());
                 LOG.trace("Could not build description: {}", e.getLocalizedMessage(), e);
             }
-        }
+
         event.setDescription(jsonObject.toString());
     }
 
@@ -95,5 +113,13 @@ public class ErrorEventBuilder implements EventBuilder {
     @Override
     public void setAssertion(AssertionType assertion) {
         this.assertion = assertion;
+    }
+
+    public void setInvoker(String invoker) {
+       this.invoker = invoker;
+    }
+
+    public void setMethod(String method) {
+       this.method = method;
     }
 }

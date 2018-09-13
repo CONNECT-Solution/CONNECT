@@ -26,44 +26,52 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent;
-import org.json.JSONException;
-import org.json.JSONObject;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author zmelnick
- *
- */
-public class Log4jEventLogger extends EventLogger {
+public class AssertionExtractor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Log4jEventLogger.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AssertionExtractor.class);
 
-    public Log4jEventLogger() {
-    }
+    private AssertionExtractor() {}
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventLogger#update(gov.hhs.fha.nhinc.event.Event, java.lang.Object)
-     */
-    @Override
-    void recordEvent(EventManager manager, Event logEvent) {
-
-        String description = logEvent.getDescription();
-        //We want to strip the stack trace from being logged in the console if its a MessageProcessingFailedEvent
-        if (logEvent instanceof MessageProcessingFailedEvent) {
-            try {
-                JSONObject obj = new JSONObject(description);
-                obj.put("stackTrace", "[Stacktrace ommitted in server log]");
-                description = obj.toString();
-            } catch (JSONException e) {
-               LOG.error("Error attempting to strip stacktrace.",e);
+    public static AssertionType getAssertion(Object[] args) {
+        AssertionType assertion = null;
+        for (Object obj : args) {
+            assertion = getAssertion(obj);
+            if (null != assertion) {
+                break;
             }
         }
-        LOG.info("{} has triggered. It has messageID {}, transactionID {}, and description {}",
-            logEvent.getEventName(),logEvent.getMessageID(), logEvent.getTransactionID(), description);
+        return assertion;
     }
 
+    public static AssertionType getAssertion(Object obj) {
+
+        if (obj != null) {
+            if (obj instanceof AssertionType) {
+                return (AssertionType) obj;
+            } else {
+                return getAssertionType(obj.getClass().getDeclaredMethods(), obj);
+            }
+        }
+
+        return null;
+    }
+
+    public static AssertionType getAssertionType(Method[] methods, Object obj) {
+        for (Method m : methods) {
+            if ("getAssertion".equals(m.getName())) {
+                try {
+                    return (AssertionType) m.invoke(obj);
+                } catch (IllegalAccessException | InvocationTargetException ex) {
+                    LOG.error("Unable to extract AssertionType from Object: {}", ex.getLocalizedMessage(), ex);
+                }
+            }
+        }
+        return null;
+    }
 }
