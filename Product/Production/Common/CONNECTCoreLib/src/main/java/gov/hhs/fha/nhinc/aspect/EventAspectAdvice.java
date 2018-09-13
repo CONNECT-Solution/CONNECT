@@ -154,7 +154,7 @@ public class EventAspectAdvice {
 
             // Check if the method is annotated with @LogFailures. We dont want to log the event twice.
             if (method.getAnnotation(LogFailures.class) != null) {
-                Logger log = LoggerFactory.getLogger(sig.getDeclaringType());
+                Logger log = LoggerFactory.getLogger(sig.getDeclaringType()); //NOSONAR
                 log.warn("Method {} has multiple logging aspects. Will only process LogFailures annotation... ", method.getName());
             } else {
                 logFailure(joinPoint, e);
@@ -167,7 +167,7 @@ public class EventAspectAdvice {
         if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
             MethodSignature sig = (MethodSignature) joinPoint.getSignature();
 
-            Logger log = LoggerFactory.getLogger(sig.getDeclaringType());
+            Logger log = LoggerFactory.getLogger(sig.getDeclaringType()); //NOSONAR
             log.info("{} threw an exception: {}", sig.getName(), e.getMessage());
 
             ErrorEventBuilder builder = new ErrorEventBuilder();
