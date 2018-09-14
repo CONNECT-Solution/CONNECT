@@ -1,0 +1,53 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core">
+
+    <div>
+        <p:dialog id="dlgChainOfTrust" header="Dialog Chain-of-Trust" widgetVar="wgvDlgChainOfTrust" modal="true"
+            dynamic="true" draggable="false" closeOnEscape="true" resizable="false" width="1050" height="560">
+            <div class="content-block content ui-g">
+                <div class="ui-g-3">
+                    <h:form>
+                        <p:selectManyMenu id="chainOfTrustSelection" converter="certificateDTOConverter"
+                            value="#{certificateBean.selectedCertsChain}" var="rec" filter="true"
+                            filterMatchMode="contains" showCheckbox="true" styleClass="list-group" style="width: 100%;">
+                            <f:selectItems value="#{certificateBean.chainOfTrust}" var="rec2" itemValue="#{rec2}"
+                                itemLabel="#{rec2.alias}" />
+                            <p:ajax event="change" update=":datagridChain" />
+                            <p:column style="padding-left: 5px;">
+                                <h:outputText value="#{rec.alias}" />
+                            </p:column>
+                        </p:selectManyMenu>
+                    </h:form>
+                </div>
+                <div class="ui-g-9">
+                    <p:dataScroller id="datagridChain" var="cert" value="#{certificateBean.selectedCertsChain}">
+
+                        <h:panelGrid columns="2" cellpadding="5" styleClass="list-group-item">
+                            <h:outputText styleClass="data-header" value="Alias" />
+                            <h:outputText value="#{cert.alias}" />
+
+                            <h:outputText styleClass="data-header" value="Authority key identifier" />
+                            <h:outputText styleClass="tt-uc" value="#{cert.authorityKeyID}" />
+
+                            <h:outputText styleClass="data-header" value="Subject key identifier" />
+                            <h:outputText styleClass="tt-uc" value="#{cert.subjectKeyID}" />
+
+                            <h:outputText styleClass="data-header" value="Issuer" />
+                            <h:outputText value="#{cert.issuerName}" />
+
+                            <h:outputText styleClass="data-header" value="Subject" />
+                            <h:outputText value="#{cert.subjectName}" />
+
+                            <h:outputText styleClass="data-header" value="Serial number" />
+                            <h:outputText styleClass="tt-uc" value="#{cert.serialNumber}" />
+
+                            <h:outputText styleClass="data-header" value="Valid until" />
+                            <h:outputText value="#{cert.expirationDate}" />
+
+                        </h:panelGrid>
+                    </p:dataScroller>
+                </div>
+            </div>
+        </p:dialog>
+    </div>
+</ui:composition>
