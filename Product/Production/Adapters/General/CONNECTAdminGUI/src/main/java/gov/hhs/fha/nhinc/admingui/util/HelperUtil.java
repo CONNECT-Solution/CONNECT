@@ -47,6 +47,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
+import javax.el.ELContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
@@ -375,5 +376,13 @@ public class HelperUtil {
 
     public static int getHashCodeBy(Object... values) {
         return Arrays.hashCode(values);
+    }
+
+    public static <T> T getPFELExpression(String elExpression, Class<T> clazzOf) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ELContext elContext = context.getELContext();
+        return (T) context.getApplication().getExpressionFactory()
+            .createValueExpression(elContext, elExpression, clazzOf).getValue(elContext);
+
     }
 }

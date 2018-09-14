@@ -29,183 +29,93 @@
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-    <head>
-        <title>Admin GUI Certificate Management</title>
-        <link rel="icon" type="image/ico" href="/images/favicon-admingui.ico"/>
-    </head>
+<head>
+<title>Admin GUI Certificate Management</title>
+<link rel="icon" type="image/ico" href="/images/favicon-admingui.ico" />
+</head>
 
-    <h:body>
-        <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
+<h:body>
+    <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
 
-            <ui:define name="metatag"></ui:define>
-            <ui:define name="content">
-                <h1 class="section-header">Certificate Management</h1>
-                <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
-                <p:tabView id="certTabView" effect="fade" effectDuration="normal" dynamic="true" activeIndex="#{tabBean.certTabIndex}" styleClass="tabs-override tabs-ovr-yellow">
-                    <p:ajax event="tabChange" listener="#{tabBean.onCertTabChange}" />
-                    <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
-                    <div class="tab-content">
-                        <!-- BEGIN: TAB PANE - KEYSTORE -->
-                        <p:tab id="#{tabBean.KEYSTORETAB}" title="Manage KeyStore"  closable="false">
-                            <div class="tab-pane active" id="keystores">
-                                <div class="content-block">
-                                    <h2 class="subsection-header">KeyStore List</h2>
-                                    <div class="content">
-                                        <div class="form-block center-block" style="padding:0px;">
-                                            <h:form class="form-horizontal" id="keyStoreForm" >
-                                                <p:messages id="keyStoreMsg" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
-                                                <p:panel id="certPanel" widgetVar="orgPanel" style="width: 100%; margin:0;padding:0px;">
-                                                    <p:panelGrid styleClass="ui-panelgrid-domain" style="padding: 0px;margin: 0;border:0 none;">
-                                                        <p:row>
-                                                            <p:column>
-                                                                <h:outputLabel class="control-label" style="font-weight: bold;" value="KeyStore"/>
-                                                                <p:spacer width="10"/>
-                                                                <h:outputText value="#{certificateBean.keyStoreLocation}"/>
-                                                            </p:column>
-                                                        </p:row>
-                                                    </p:panelGrid>
-                                                </p:panel>
-                                                <div class="table-responsive table-props">
-                                                    <p:dataTable id="keystoreTable" value="#{certificateBean.keystores}"  resizableColumns="false" scrollable="true" scrollHeight="300" var="kscert" selection="#{certificateBean.selectedTSCertificate}" rowKey="#{kscert.alias}" widgetVar="cellPropsk" sortMode="Single" styleClass="table table-striped table-domains">
-                                                        <p:column selectionMode="single" />
+        <ui:define name="metatag"></ui:define>
+        <ui:define name="content">
+            <h1 class="section-header">Certificate Management</h1>
+            <!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
+            <p:tabView id="certTabView" effect="fade" effectDuration="normal" dynamic="true"
+                activeIndex="#{tabBean.certTabIndex}" styleClass="tabs-override tabs-ovr-yellow">
+                <p:ajax event="tabChange" listener="#{tabBean.onCertTabChange}" />
+                <!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+                <div class="tab-content">
+                    <!-- BEGIN: TAB PANE - KEYSTORE -->
+                    <p:tab id="#{tabBean.KEYSTORETAB}" title="Manage KeyStore" closable="false">
+                        <div class="tab-pane active" id="keystores">
+                            <div class="content-block">
+                                <h2 class="subsection-header">KeyStore List</h2>
+                                <div class="content">
+                                    <div class="form-block center-block" style="padding: 0px;">
+                                        <h:form class="form-horizontal" id="keyStoreForm">
+                                            <p:messages id="keyStoreMsg" autoUpdate="true" closable="true"
+                                                redisplay="false" showDetail="true" />
+                                            <p:panel id="certPanel" widgetVar="orgPanel"
+                                                style="width: 100%; margin:0;padding:0px;">
+                                                <p:panelGrid styleClass="ui-panelgrid-domain"
+                                                    style="padding: 0px;margin: 0;border:0 none;">
+                                                    <p:row>
                                                         <p:column>
-                                                            <f:facet name="header">Alias</f:facet>
+                                                            <h:outputLabel class="control-label"
+                                                                style="font-weight: bold;" value="KeyStore" />
+                                                            <p:spacer width="10" />
+                                                            <h:outputText value="#{certificateBean.keyStoreLocation}" />
+                                                        </p:column>
+                                                    </p:row>
+                                                </p:panelGrid>
+                                            </p:panel>
+                                            <div class="table-responsive table-props">
+                                                <p:dataTable id="keystoreTable" value="#{certificateBean.keystores}"
+                                                    resizableColumns="false" scrollable="true" scrollHeight="300"
+                                                    var="kscert" selection="#{certificateBean.selectedTSCertificate}"
+                                                    rowKey="#{kscert.alias}" widgetVar="cellPropsk" sortMode="Single"
+                                                    styleClass="table table-striped table-domains">
+                                                    <p:column selectionMode="single" />
+                                                    <p:column>
+                                                        <f:facet name="header">Alias</f:facet>
                                                                 #{kscert.alias}
                                                         </p:column>
-                                                        <p:column>
-                                                            <f:facet name="header">Algorithm</f:facet>
+                                                    <p:column>
+                                                        <f:facet name="header">Algorithm</f:facet>
                                                                 #{kscert.algorithm}
                                                         </p:column>
-                                                        <p:column>
-                                                            <f:facet name="header">Key Size</f:facet>
+                                                    <p:column>
+                                                        <f:facet name="header">Key Size</f:facet>
                                                                 #{kscert.keySize}
                                                         </p:column>
-                                                        <p:column>
-                                                            <f:facet name="header">Expiration Date</f:facet>
-                                                            <p:commandLink styleClass="glyphicon glyphicon-remove-circle highlightRED pull-left" rendered="#{kscert.expiryColorCoding eq 'RED'}"/>
-                                                            <p:commandLink styleClass="glyphicon glyphicon-warning-sign highlightYELLOW pull-left" rendered="#{kscert.expiryColorCoding eq 'YELLOW'}"/>
-                                                            <p:commandLink styleClass="glyphicon glyphicon-ok-circle highlightGREEN pull-left" rendered="#{kscert.expiryColorCoding eq 'GREEN'}"/>
-                                                            <h:outputText value="&#160;" />
-                                                            <h:outputText value="#{kscert.expirationDate}" />
-                                                        </p:column>
-                                                        <p:column>
-                                                            <f:facet name="header">Subject Key Identifier</f:facet>
+                                                    <p:column>
+                                                        <f:facet name="header">Expiration Date</f:facet>
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-remove-circle highlightRED pull-left"
+                                                            rendered="#{kscert.expiryColorCoding eq 'RED'}" />
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-warning-sign highlightYELLOW pull-left"
+                                                            rendered="#{kscert.expiryColorCoding eq 'YELLOW'}" />
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-ok-circle highlightGREEN pull-left"
+                                                            rendered="#{kscert.expiryColorCoding eq 'GREEN'}" />
+                                                        <h:outputText value="&#160;" />
+                                                        <h:outputText value="#{kscert.expirationDate}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">Subject Key Identifier</f:facet>
                                                                 #{kscert.subjectKeyID}
                                                         </p:column>
-                                                        <p:column>
-                                                            <f:facet name="header">Authority Key Identifier</f:facet>
+                                                    <p:column>
+                                                        <f:facet name="header">Authority Key Identifier</f:facet>
                                                                 #{kscert.authorityKeyID}
                                                         </p:column>
-                                                    </p:dataTable>
-
-                                                    <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
-                                                        <p:row>
-                                                            <p:column>
-                                                                <p:commandLink
-                                                                    styleClass="glyphicon glyphicon-ok-circle highlightGREEN">
-                                                                </p:commandLink>
-                                                                <h:outputText
-                                                                    value=" &nbsp;Certificate is valid (&gt; 90 days).&nbsp;" />
-                                                                <h:outputText value="&lt;br/&gt;" escape="false" />
-                                                            </p:column>
-                                                        </p:row>
-                                                        <p:row>
-                                                            <p:column>
-                                                                <p:commandLink
-                                                                    styleClass="glyphicon glyphicon-warning-sign highlightYELLOW"></p:commandLink>
-                                                                <h:outputText
-                                                                    value=" &nbsp;Certificate is expiring soon (&lt; 90 days).&nbsp;" />
-                                                                <h:outputText value="&lt;br/&gt;" escape="false" />
-                                                            </p:column>
-                                                            <p:column rowspan="3" styleClass="pull-right">
-                                                                <p:commandButton id="viewCertKeyStoreButton" value="View Certificate" action="#{certificateBean.viewCertificateKS}" update=":certTabView :viewCertDlgKS"  styleClass="add-button" />
-                                                            </p:column>
-                                                        </p:row>
-                                                        <p:row>
-                                                            <p:column>
-                                                                <p:commandLink
-                                                                    styleClass="glyphicon glyphicon-remove-circle highlightRED"></p:commandLink>
-                                                                <h:outputText
-                                                                    value=" &#160;Certificate expired or about to expire.&#160;" />
-                                                            </p:column>
-                                                        </p:row>
-                                                    </p:panelGrid>
-
-                                                </div>
-                                            </h:form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </p:tab>
-                        <!-- END: TAB PANE - KEYSTORE -->
-
-                        <!-- BEGIN: TAB PANE - TRUSTSTORE -->
-                        <p:tab id="#{tabBean.TRUSTSTORETAB}" title="Manage TrustStore" closable="false">
-                            <div class="tab-pane active" id="truststores">
-                                <div class="content-block">
-                                    <h2 class="subsection-header">TrustStore List</h2>
-                                    <div class="content">
-                                        <div class="form-block center-block" style="padding:0px;">
-
-                                            <h:form class="form-horizontal"  id="trustStoreForm" >
-                                                <p:messages id="trustStoreMsg" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
-                                                <p:panel id="certPanel" widgetVar="orgPanel" style="width: 100%; margin: 0 auto;">
-                                                    <p:panelGrid styleClass="ui-panelgrid-domain" style="padding: 0px;margin: 0;border:0 none;">
-                                                        <p:row>
-                                                            <p:column>
-                                                                <h:outputLabel class="control-label" style="font-weight: bold;" value="TrustStore"/>
-                                                                <p:spacer width="10"/>
-                                                                <h:outputText value="#{certificateBean.trustStoreLocation}"/>
-                                                            </p:column>
-                                                        </p:row>
-                                                    </p:panelGrid>
-                                                </p:panel>
-
-                                                <div class="table-responsive table-props">
-                                                    <p:dataTable id="trustStoreTable" value="#{certificateBean.truststores}"
-                                                                 resizableColumns="false" scrollable="true" scrollHeight="300"
-                                                                 var="tscert" selection="#{certificateBean.selectedTSCertificate}"
-                                                                 rowKey="#{tscert.id}" widgetVar="cellPropst" sortMode="Single"
-                                                                 styleClass="table table-striped table-domains">
-                                                        <p:column selectionMode="single" />
-                                                        <p:column>
-                                                            <f:facet name="header">Alias</f:facet>
-                                                            <h:outputText value="#{tscert.alias}" />
-                                                        </p:column>
-                                                        <p:column>
-                                                            <f:facet name="header">Algorithm</f:facet>
-                                                            <h:outputText value="#{tscert.algorithm}" />
-                                                        </p:column>
-                                                        <p:column>
-                                                            <f:facet name="header">Key Size</f:facet>
-                                                            <h:outputText value="#{tscert.keySize}" />
-                                                        </p:column>
-                                                        <p:column>
-                                                            <f:facet name="header">Expiration Date</f:facet>
-                                                            <p:commandLink styleClass="glyphicon glyphicon-remove-circle highlightRED pull-left" rendered="#{tscert.expiryColorCoding eq 'RED'}"/>
-                                                            <p:commandLink styleClass="glyphicon glyphicon-warning-sign highlightYELLOW pull-left" rendered="#{tscert.expiryColorCoding eq 'YELLOW'}"/>
-                                                            <p:commandLink styleClass="glyphicon glyphicon-ok-circle highlightGREEN pull-left" rendered="#{tscert.expiryColorCoding eq 'GREEN'}"/>
-                                                            <h:outputText value="&#160;" />
-                                                            <h:outputText value="#{tscert.expirationDate}" />
-                                                        </p:column>
-                                                        <p:column>
-                                                            <f:facet name="header">Subject Key Identifier</f:facet>
-                                                            <h:outputText value="#{tscert.subjectKeyID}" />
-                                                        </p:column>
-                                                        <p:column>
-                                                            <f:facet name="header">Authority Key Identifier</f:facet>
-                                                            <h:outputText value="#{tscert.authorityKeyID}" />
-                                                        </p:column>
-                                                    </p:dataTable>
-                                                </div>
+                                                </p:dataTable>
 
                                                 <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
                                                     <p:row>
@@ -227,51 +137,11 @@
                                                             <h:outputText value="&lt;br/&gt;" escape="false" />
                                                         </p:column>
                                                         <p:column rowspan="3" styleClass="pull-right">
-                                                            <p:commandButton id="deleteCert" value="Delete Certificate"
-                                                                             styleClass="delete-button" icon="ui-icon-closethick"
-                                                                             onclick="PF('certDeleteConfirm').show();">
-                                                            </p:commandButton>
-                                                            <h:outputText value=" &nbsp;&nbsp;"/>
-                                                            <p:confirmDialog header="Confirm Delete"
-                                                                             message="Are you sure you want to delete the selected certificate?"
-                                                                             showEffect="fade" hideEffect="fade"
-                                                                             widgetVar="certDeleteConfirm">
-                                                                <p:commandButton value="Yes"
-                                                                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
-                                                                                 action="#{certificateBean.openTrustStorePasskeyDlgForDelete}"
-                                                                                 update=":certTabView"
-                                                                                 oncomplete="PF('certDeleteConfirm').hide();" />
-                                                                <p:commandButton value="No" styleClass="ui-confirmdialog-no"
-                                                                                 icon="ui-icon-close"
-                                                                                 oncomplete="PF('certDeleteConfirm').hide();" />
-                                                            </p:confirmDialog>
-                                                            <p:commandButton value="Import Certificate"
-                                                                             styleClass="add-button" icon="ui-icon-circle-plus"
-                                                                             onclick="PF('importCertDlg').show();" />
-                                                            <h:outputText value=" &nbsp;&nbsp;"/>
-                                                            <p:commandButton id="viewCertTrustStoreButton"
-                                                                             value="View Certificate"
-                                                                             action="#{certificateBean.viewCertificate}"
-                                                                             update=":certTabView :viewCertDlg" styleClass="add-button" />
-                                                            <p:commandButton id="refreshCertificateCache"
-                                                                             value="Refresh Certificates"
-                                                                             styleClass="refresh-button" icon="ui-icon-refresh" style="margin-left: 5px;"
-                                                                             onclick="PF('certRefreshConfirm').show();" />
-                                                            <p:confirmDialog header="Confirm Refresh"
-                                                                             showEffect="fade" hideEffect="fade"
-                                                                             widgetVar="certRefreshConfirm">
-                                                                <f:facet name="message">
-                                                                    <b>Are you sure you want to refresh certificates?</b> <br/> Refresh will clear cached services and cause initial performance slowdown (similar to restarting the gateway)
-                                                                </f:facet>
-                                                                <p:commandButton value="Yes"
-                                                                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
-                                                                                 action="#{certificateBean.refreshCacheForTrustStore}"
-                                                                                 update=":certTabView"
-                                                                                 oncomplete="PF('certRefreshConfirm').hide();" />
-                                                                <p:commandButton value="No" styleClass="ui-confirmdialog-no"
-                                                                                 icon="ui-icon-close"
-                                                                                 oncomplete="PF('certRefreshConfirm').hide();" />
-                                                            </p:confirmDialog>
+                                                            <p:commandButton id="viewCertKeyStoreButton"
+                                                                value="View Certificate"
+                                                                action="#{certificateBean.viewCertificateKS}"
+                                                                update=":certTabView :viewCertDlgKS"
+                                                                styleClass="add-button" />
                                                         </p:column>
                                                     </p:row>
                                                     <p:row>
@@ -284,25 +154,187 @@
                                                     </p:row>
                                                 </p:panelGrid>
 
-                                            </h:form>
-                                        </div>
+                                            </div>
+                                        </h:form>
                                     </div>
                                 </div>
                             </div>
-                        </p:tab>
-                        <!-- END: TAB PANE - MANAGE TRUSTSTORE -->
-                    </div>
-                    <!-- END: MAIN CONTENT - TAB PANES - All the data/information -->
-                </p:tabView>
-                <!-- include link for import cert -->
-                <ui:include src="certManagementCreateDialog.xhtml" />
-                <ui:include src="viewCertDialog.xhtml" />
-                <ui:include src="viewCertDialogKS.xhtml" />
-                <ui:include src="importCertDialog.xhtml" />
-                <ui:include src="importPassKeyDialog.xhtml"/>
-                <ui:include src="deletePassKeyDialog.xhtml"/>
-                <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                        </div>
+                    </p:tab>
+                    <!-- END: TAB PANE - KEYSTORE -->
+
+                    <!-- BEGIN: TAB PANE - TRUSTSTORE -->
+                    <p:tab id="#{tabBean.TRUSTSTORETAB}" title="Manage TrustStore" closable="false">
+                        <div class="tab-pane active" id="truststores">
+                            <div class="content-block">
+                                <h2 class="subsection-header">TrustStore List</h2>
+                                <div class="content">
+                                    <div class="form-block center-block" style="padding: 0px;">
+
+                                        <h:form class="form-horizontal" id="trustStoreForm">
+                                            <p:messages id="trustStoreMsg" autoUpdate="true" closable="true"
+                                                redisplay="false" showDetail="true" />
+                                            <p:panel id="certPanel" widgetVar="orgPanel"
+                                                style="width: 100%; margin: 0 auto;">
+                                                <p:panelGrid styleClass="ui-panelgrid-domain"
+                                                    style="padding: 0px;margin: 0;border:0 none;">
+                                                    <p:row>
+                                                        <p:column>
+                                                            <h:outputLabel class="control-label"
+                                                                style="font-weight: bold;" value="TrustStore" />
+                                                            <p:spacer width="10" />
+                                                            <h:outputText value="#{certificateBean.trustStoreLocation}" />
+                                                        </p:column>
+                                                    </p:row>
+                                                </p:panelGrid>
+                                            </p:panel>
+
+                                            <div class="table-responsive table-props">
+                                                <p:dataTable id="trustStoreTable" value="#{certificateBean.truststores}"
+                                                    resizableColumns="false" scrollable="true" scrollHeight="300"
+                                                    var="tscert" selection="#{certificateBean.selectedTSCertificate}"
+                                                    rowKey="#{tscert.id}" widgetVar="cellPropst" sortMode="Single"
+                                                    styleClass="table table-striped table-domains">
+                                                    <p:column selectionMode="single" />
+                                                    <p:column>
+                                                        <f:facet name="header">Alias</f:facet>
+                                                        <h:outputText value="#{tscert.alias}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">Algorithm</f:facet>
+                                                        <h:outputText value="#{tscert.algorithm}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">Key Size</f:facet>
+                                                        <h:outputText value="#{tscert.keySize}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">Expiration Date</f:facet>
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-remove-circle highlightRED pull-left"
+                                                            rendered="#{tscert.expiryColorCoding eq 'RED'}" />
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-warning-sign highlightYELLOW pull-left"
+                                                            rendered="#{tscert.expiryColorCoding eq 'YELLOW'}" />
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-ok-circle highlightGREEN pull-left"
+                                                            rendered="#{tscert.expiryColorCoding eq 'GREEN'}" />
+                                                        <h:outputText value="&#160;" />
+                                                        <h:outputText value="#{tscert.expirationDate}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">Subject Key Identifier</f:facet>
+                                                        <h:outputText value="#{tscert.subjectKeyID}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">Authority Key Identifier</f:facet>
+                                                        <h:outputText value="#{tscert.authorityKeyID}" />
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </div>
+
+                                            <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
+                                                <p:row>
+                                                    <p:column>
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-ok-circle highlightGREEN">
+                                                        </p:commandLink>
+                                                        <h:outputText
+                                                            value=" &nbsp;Certificate is valid (&gt; 90 days).&nbsp;" />
+                                                        <h:outputText value="&lt;br/&gt;" escape="false" />
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column>
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-warning-sign highlightYELLOW"></p:commandLink>
+                                                        <h:outputText
+                                                            value=" &nbsp;Certificate is expiring soon (&lt; 90 days).&nbsp;" />
+                                                        <h:outputText value="&lt;br/&gt;" escape="false" />
+                                                    </p:column>
+                                                    <p:column rowspan="3" styleClass="pull-right">
+                                                        <p:commandButton id="deleteCert" value="Delete"
+                                                            styleClass="delete-button" icon="ui-icon-closethick"
+                                                            onclick="PF('certDeleteConfirm').show();">
+                                                        </p:commandButton>
+                                                        <h:outputText value=" &nbsp;&nbsp;" />
+                                                        <p:confirmDialog header="Confirm Delete"
+                                                            message="Are you sure you want to delete the selected certificate?"
+                                                            showEffect="fade" hideEffect="fade"
+                                                            widgetVar="certDeleteConfirm">
+                                                            <p:commandButton value="Yes"
+                                                                styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+                                                                action="#{certificateBean.openTrustStorePasskeyDlgForDelete}"
+                                                                update=":certTabView"
+                                                                oncomplete="PF('certDeleteConfirm').hide();" />
+                                                            <p:commandButton value="No" styleClass="ui-confirmdialog-no"
+                                                                icon="ui-icon-close"
+                                                                oncomplete="PF('certDeleteConfirm').hide();" />
+                                                        </p:confirmDialog>
+                                                        <p:commandButton value="Import" styleClass="add-button"
+                                                            icon="ui-icon-circle-plus"
+                                                            onclick="PF('importCertDlg').show();" />
+                                                        <h:outputText value=" &nbsp;&nbsp;" />
+                                                        <p:commandButton id="viewCertTrustStoreButton" value="View"
+                                                            action="#{certificateBean.viewCertificate}"
+                                                            update=":certTabView :viewCertDlg" styleClass="add-button" />
+                                                        <p:commandButton id="refreshCertificateCache" value="Refresh"
+                                                            styleClass="refresh-button" icon="ui-icon-refresh"
+                                                            style="margin-left: 5px;"
+                                                            onclick="PF('certRefreshConfirm').show();" />
+                                                        <p:confirmDialog header="Confirm Refresh" showEffect="fade"
+                                                            hideEffect="fade" widgetVar="certRefreshConfirm">
+                                                            <f:facet name="message">
+                                                                <b>Are you sure you want to refresh certificates?</b>
+                                                                <br /> Refresh will clear cached services and cause initial performance slowdown (similar to restarting the gateway)
+                                                                </f:facet>
+                                                            <p:commandButton value="Yes"
+                                                                styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+                                                                action="#{certificateBean.refreshCacheForTrustStore}"
+                                                                update=":certTabView"
+                                                                oncomplete="PF('certRefreshConfirm').hide();" />
+                                                            <p:commandButton value="No" styleClass="ui-confirmdialog-no"
+                                                                icon="ui-icon-close"
+                                                                oncomplete="PF('certRefreshConfirm').hide();" />
+                                                        </p:confirmDialog>
+                                                        <h:outputText value=" &nbsp;&nbsp;" />
+                                                        <p:commandButton id="btnViewChainOfTrust"
+                                                            value="View Chain of Trust"
+                                                            action="#{certificateBean.viewChainOfTrust}"
+                                                            update=":dlgChainOfTrust :certTabView"
+                                                            styleClass="add-button" />
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column>
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-remove-circle highlightRED"></p:commandLink>
+                                                        <h:outputText
+                                                            value=" &#160;Certificate expired or about to expire.&#160;" />
+                                                    </p:column>
+                                                </p:row>
+                                            </p:panelGrid>
+
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p:tab>
+                    <!-- END: TAB PANE - MANAGE TRUSTSTORE -->
+                </div>
+                <!-- END: MAIN CONTENT - TAB PANES - All the data/information -->
+            </p:tabView>
+            <!-- include link for import cert -->
+            <ui:include src="certManagementCreateDialog.xhtml" />
+            <ui:include src="viewCertDialog.xhtml" />
+            <ui:include src="viewCertDialogKS.xhtml" />
+            <ui:include src="importCertDialog.xhtml" />
+            <ui:include src="importPassKeyDialog.xhtml" />
+            <ui:include src="deletePassKeyDialog.xhtml" />
+            <ui:include src="dlgCertMgrChain.xhtml" />
+            <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+        </ui:define>
+    </ui:composition>
+</h:body>
 </html>

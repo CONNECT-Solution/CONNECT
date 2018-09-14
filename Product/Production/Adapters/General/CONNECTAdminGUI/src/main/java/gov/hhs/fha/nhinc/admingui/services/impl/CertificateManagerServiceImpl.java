@@ -46,6 +46,8 @@ import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestType;
 import gov.hhs.fha.nhinc.common.configadmin.ListCertificateType;
+import gov.hhs.fha.nhinc.common.configadmin.ListCertificatesResponseMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.ListChainOfTrustRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListKeyStoresRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListKeyStoresResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresRequestMessageType;
@@ -397,6 +399,22 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             throw new CertificateManagerException("Error while calculating user pass hash token.", e);
         }
         return hashToken;
+    }
+
+    @Override
+    public List<CertificateDTO> listChainOfTrust(String alias) throws CertificateManagerException {
+        ListChainOfTrustRequestMessageType message = new ListChainOfTrustRequestMessageType();
+        message.setConfigAssertion(buildConfigAssertion());
+        message.setAlias(alias);
+
+        ListCertificatesResponseMessageType response;
+        try {
+            response = (ListCertificatesResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
+                NhincConstants.ADMIN_CERT_LIST_CHAINOFTRUST, message);
+        } catch (Exception e) {
+            throw new CertificateManagerException("Error while fetching certificates-chain.", e);
+        }
+        return soapResponseToDTO(response.getCertList());
     }
 
 }

@@ -33,11 +33,14 @@ import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_S
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListCertificateType;
+import gov.hhs.fha.nhinc.common.configadmin.ListCertificatesResponseMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.ListChainOfTrustRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListKeyStoresRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListKeyStoresResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresRequestMessageType;
@@ -47,6 +50,7 @@ import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
 import gov.hhs.fha.nhinc.util.UtilException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,7 +89,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 response.setStatus(true);
                 LOG.info("Certificate imported with alias {} by user {}.", importCertificateRequest.
                     getImportCertRequest().getAlias(), importCertificateRequest.getConfigAssertion().getUserInfo().
-                        getUserName());
+                    getUserName());
             } catch (CertificateManagerException ex) {
                 LOG.error("Unable to import certificate due to: {}", ex.getLocalizedMessage(), ex);
                 formatResponse(response, false, ex.getLocalizedMessage());
@@ -272,5 +276,61 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             isUpdateSuccessful = false;
         }
         return isUpdateSuccessful;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#listChainOfTrust(gov.hhs.fha.nhinc.common.configadmin.
+     * ListChainOfTrustRequestMessageType)
+     */
+    @Override
+    public ListCertificatesResponseMessageType listChainOfTrust(ListChainOfTrustRequestMessageType request) {
+        LOG.debug("listChainOfTrust: begin");
+        String alias = request.getAlias();
+        if(StringUtils.isBlank(alias)){
+            return buildListCertificatesResponseMessageType(false, "Certificate Alias is required for chain of trust");
+        }
+
+        try {
+            ListCertificatesResponseMessageType response = new ListCertificatesResponseMessageType();
+            response.getCertList().addAll(buildChain(alias, getTrustStore()));
+            return response;
+        } catch (KeyStoreException | CertificateEncodingException ex) {
+            LOG.error("unable to build chain-of-trust: {}", ex.getMessage(), ex);
+            return buildListCertificatesResponseMessageType(false, "Unable to build the chain of trust.");
+        } finally {
+            LOG.debug("listChainOfTrust: end");
+        }
+    }
+
+    private static List<ListCertificateType> buildChain(String alias, KeyStore keyStore)
+        throws KeyStoreException, CertificateEncodingException {
+        List<Certificate> chain = CertificateUtil.getChain(keyStore.getCertificate(alias), keyStore);
+        List<ListCertificateType> certList = new ArrayList<>();
+        for (Certificate cert : chain) {
+            certList.add(buildListCertificateType(keyStore.getCertificateAlias(cert), cert));
+        }
+        return certList;
+    }
+
+    private static ListCertificateType buildListCertificateType(String alias, Certificate cert) throws CertificateEncodingException{
+        ListCertificateType retVal = new ListCertificateType();
+        retVal.setAlias(alias);
+        retVal.setCertData(CertificateUtil.getDataHandlerFrom(cert));
+        return retVal;
+    }
+
+    private static ListCertificatesResponseMessageType buildListCertificatesResponseMessageType(Boolean status,
+        String message) {
+        ListCertificatesResponseMessageType response = new ListCertificatesResponseMessageType();
+        response.setStatus(status);
+        response.setMessage(message);
+        return response;
+    }
+
+    private static KeyStore getTrustStore() {
+        return CertificateManagerImpl.getInstance().getTrustStore();
     }
 }
