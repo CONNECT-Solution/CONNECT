@@ -24,46 +24,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.admingui.converter;
 
+import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
-import java.util.List;
+import java.util.Map;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+import org.apache.commons.lang.StringUtils;
 
 /**
+ * @author ttang
  *
- * @author tjafri
  */
-public interface CertificateManagerService {
+@FacesConverter(value = "certificateDTOConverter")
+public class CertificateDTOConverter implements Converter {
 
-    public List<CertificateDTO> fetchKeyStores() throws CertificateManagerException;
+    @Override
+    public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
+        if (StringUtils.isNotBlank(value)) {
+            return HelperUtil.getPFELExpression("#{certificateBean.chainOfTrust}", Map.class).get(value);
+        }
+        return null;
+    }
 
-    public List<CertificateDTO> fetchTrustStores() throws CertificateManagerException;
-
-    public String getKeyStoreLocation();
-
-    public String getTrustStoreLocation();
-
-    public List<CertificateDTO> refreshKeyStores() throws CertificateManagerException;
-
-    public List<CertificateDTO> refreshTrustStores(boolean refreshCache) throws CertificateManagerException;
-
-    public CertificateDTO createCertificate(byte[] data);
-
-    public boolean isAliasInUse(String alias, List<CertificateDTO> certs);
-
-    public boolean isLeafOnlyCertificate(CertificateDTO cert);
-
-    public boolean importCertificate(CertificateDTO cert, boolean refresh, String hashToken) throws Exception;
-
-    public boolean deleteCertificateFromTrustStore(String alias, String hashToken)
-        throws CertificateManagerException;
-
-    public boolean updateCertificate(String oldAlias, CertificateDTO cert, String hashToken)
-        throws CertificateManagerException;
-
-    public String getHashToken(String trustStorePasskey) throws CertificateManagerException;
-
-    public List<CertificateDTO> listChainOfTrust(String alias) throws CertificateManagerException;
+    @Override
+    public String getAsString(FacesContext fc, UIComponent uic, Object object) {
+        if (object != null) {
+            return ((CertificateDTO) object).getAlias();
+        }
+        return null;
+    }
 
 }

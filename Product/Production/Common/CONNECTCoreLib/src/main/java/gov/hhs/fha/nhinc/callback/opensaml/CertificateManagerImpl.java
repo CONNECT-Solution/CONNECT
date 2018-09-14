@@ -52,7 +52,6 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
 import java.util.Map;
 import javax.activation.DataHandler;
-import javax.activation.DataSource;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.cryptacular.util.StreamUtil;
@@ -471,8 +470,7 @@ public class CertificateManagerImpl implements CertificateManager {
 
     @Override
     public DataHandler transformToHandler(byte[] encoded) {
-        DataSource data = new CertificateSource(encoded);
-        return new DataHandler(data);
+        return new DataHandler(new CertificateSource(encoded));
     }
 
     @Override

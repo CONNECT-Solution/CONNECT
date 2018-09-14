@@ -36,6 +36,7 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.Certificate;
+import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
@@ -230,6 +231,16 @@ public class CertificateUtil {
 
     public static long getDaysOfExpiration(Date dateExpire) {
         return (dateExpire.getTime() - new Date().getTime()) / (24 * 60 * 60 * 1000);
+    }
+
+    public static DataHandler getDataHandlerFrom(Certificate cert) throws CertificateEncodingException {
+        return new DataHandler(new CertificateSource(cert.getEncoded()));
+    }
+
+    public static byte[] getByteCodeFrom(DataHandler handler) throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        handler.writeTo(buffer);
+        return buffer.toByteArray();
     }
 
 }

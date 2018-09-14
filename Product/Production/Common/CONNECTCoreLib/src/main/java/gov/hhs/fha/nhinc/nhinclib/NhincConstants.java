@@ -597,6 +597,7 @@ public class NhincConstants {
     public static final String ADMIN_CERT_LIST_KEYSTORE = "listKeyStores";
     public static final String ADMIN_CERT_DELETE = "deleteCertificate";
     public static final String ADMIN_CERT_EDIT = "editCertificate";
+    public static final String ADMIN_CERT_LIST_CHAINOFTRUST = "listChainOfTrust";
 
     public static final String DISABLE_CN_CHECK = "disableCNCheck";
 

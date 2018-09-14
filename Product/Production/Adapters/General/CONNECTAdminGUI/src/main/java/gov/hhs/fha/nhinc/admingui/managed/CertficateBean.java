@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
+
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.GUIConstants.COLOR_CODING_CSS;
@@ -35,12 +38,13 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -59,8 +63,6 @@ public class CertficateBean {
     private List<CertificateDTO> truststores;
     private final CertificateManagerService service;
     private List<CertificateDTO> importCertificate;
-    private String keyStoreLocation;
-    private String trustStoreLocation;
     private static final String TRUST_STORE_MSG = "trustStoreMsg";
     private static final String KEY_STORE_MSG = "keyStoreMsg";
     private static final String IMPORT_CERT_EXPIRY_MSG_ID = "importCertInfoMsg";
@@ -82,6 +84,8 @@ public class CertficateBean {
     private boolean rememberMe;
     private String oldAlias;
     private boolean refreshCache;
+    private Map<String, CertificateDTO> chainOfTrust;
+    private List<CertificateDTO> selectedCertsChain = new ArrayList<>();
 
     public CertficateBean() {
         service = new CertificateManagerServiceImpl();
@@ -90,13 +94,11 @@ public class CertficateBean {
     }
 
     public String getKeyStoreLocation() {
-        keyStoreLocation = service.getKeyStoreLocation();
-        return keyStoreLocation;
+        return service.getKeyStoreLocation();
     }
 
     public String getTrustStoreLocation() {
-        trustStoreLocation = service.getTrustStoreLocation();
-        return trustStoreLocation;
+        return service.getTrustStoreLocation();
     }
 
     public List<CertificateDTO> getKeystores() {
@@ -164,6 +166,18 @@ public class CertficateBean {
         this.rememberMe = rememberMe;
     }
 
+    public Map<String, CertificateDTO> getChainOfTrust() {
+        return chainOfTrust;
+    }
+
+    public List<CertificateDTO> getSelectedCertsChain() {
+        return selectedCertsChain;
+    }
+
+    public void setSelectedCertsChain(List<CertificateDTO> selectedList) {
+        selectedCertsChain = selectedList;
+    }
+
     public void importFileUpload(FileUploadEvent event) {
         importCertFile = event.getFile();
         expiredCert = false;
@@ -207,7 +221,7 @@ public class CertficateBean {
         if (selectedTSCertificate == null) {
             HelperUtil.addMessageError(TRUST_STORE_MSG, "Select a certificate to delete");
         } else if (isHashTokenEmpty()) {
-            RequestContext.getCurrentInstance().execute("PF('deletePassKeyDlg').show();");
+            execPFShowDialog("deletePassKeyDlg");
         } else {
             validateAndDeleteCertificate();
         }
@@ -217,7 +231,7 @@ public class CertficateBean {
         if (selectedTSCertificate == null) {
             HelperUtil.addMessageError(TRUST_STORE_MSG, "Select a certificate to update");
         } else if (isHashTokenEmpty()) {
-            RequestContext.getCurrentInstance().execute("PF('editPassKeyDlg').show();");
+            execPFShowDialog("editPassKeyDlg");
         } else {
             validateAndUpdateCertificate();
         }
@@ -230,7 +244,7 @@ public class CertficateBean {
             getAlias())) {
             HelperUtil.addMessageError(IMPORT_PASS_ERR_MSG_ID, "Enter an alias for the certificate");
         } else if (isHashTokenEmpty()) {
-            RequestContext.getCurrentInstance().execute("PF('importPassKeyDlg').show();");
+            execPFShowDialog("importPassKeyDlg");
         } else {
             validateAndImportCertificate();
         }
@@ -241,7 +255,7 @@ public class CertficateBean {
             String hashToken = service.getHashToken(trustStorePasskey);
             if (deleteCertificate(hashToken)) {
                 saveHashToken(hashToken);
-                RequestContext.getCurrentInstance().execute("PF('deletePassKeyDlg').hide();");
+                execPFHideDialog("deletePassKeyDlg");
             } else {
                 HelperUtil.addMessageError(DELETE_PASS_ERR_MSG_ID, BAD_MISMATCH_TOKEN);
             }
@@ -254,7 +268,7 @@ public class CertficateBean {
     /**
      * @throws CertificateManagerException
      */
-    private void saveHashToken(String hashToken) throws CertificateManagerException {
+    private void saveHashToken(String hashToken) {
         if (isRememberMe()) {
             HelperUtil.getHttpSession(false).setAttribute(HASH_TOKEN, hashToken);
         }
@@ -265,7 +279,7 @@ public class CertficateBean {
             String hashToken = service.getHashToken(trustStorePasskey);
             if (importSelectedCertificate(hashToken)) {
                 saveHashToken(hashToken);
-                RequestContext.getCurrentInstance().execute("PF('importPassKeyDlg').hide();");
+                execPFHideDialog("importPassKeyDlg");
             } else {
                 HelperUtil.addMessageError(IMPORT_PASS_ERR_MSG_ID, BAD_MISMATCH_TOKEN);
             }
@@ -304,7 +318,7 @@ public class CertficateBean {
             importCertificate = null;
             selectedCertificate = null;
             refreshCache = false;
-            RequestContext.getCurrentInstance().execute("PF('importCertDlg').hide();");
+            execPFHideDialog("importCertDlg");
             LOG.info("importCertificate -- successful");
         } catch (Exception ex) {
             LOG.error("Unable to import certificate {}", ex.getLocalizedMessage(), ex);
@@ -318,7 +332,7 @@ public class CertficateBean {
             String hashToken = service.getHashToken(trustStorePasskey);
             if (updateSelectedCertificateTS(hashToken)) {
                 saveHashToken(hashToken);
-                RequestContext.getCurrentInstance().execute("PF('editPassKeyDlg').hide();");
+                execPFHideDialog("editPassKeyDlg");
             } else {
                 HelperUtil.addMessageError(EDIT_PASS_ERROR_MSG, BAD_MISMATCH_TOKEN);
             }
@@ -376,8 +390,7 @@ public class CertficateBean {
      * @throws CertificateManagerException
      */
     private List<CertificateDTO> refreshCerts() throws CertificateManagerException {
-        List<CertificateDTO> certs = new ArrayList<>();
-
+        List<CertificateDTO> certs;
         certs = service.refreshTrustStores(false);
         truststores = setColorCodingStyle(certs);
         return certs;
@@ -419,7 +432,7 @@ public class CertficateBean {
     }
 
     public CertificateDTO viewCertificateKS() {
-        return viewCert("viewCertDlgKS", "keyStoreMsg");
+        return viewCert("viewCertDlgKS", KEY_STORE_MSG);
     }
 
     private static List<CertificateDTO> setColorCodingStyle(List<CertificateDTO> certDTOs) {
@@ -440,12 +453,8 @@ public class CertficateBean {
      */
     private CertificateDTO viewCert(String dialogId, String uiElement) {
         if (selectedTSCertificate != null) {
-            StringBuilder pfAction = new StringBuilder();
-            pfAction.append("PF('");
-            pfAction.append(dialogId);
-            pfAction.append("').show();");
             oldAlias = selectedTSCertificate.getAlias();
-            RequestContext.getCurrentInstance().execute(pfAction.toString());
+            execPFShowDialog(dialogId);
         } else {
             HelperUtil.addMessageError(uiElement, "Please choose a certificate to view details");
         }
@@ -458,6 +467,31 @@ public class CertficateBean {
 
     public void setRefreshCache(boolean refreshCache) {
         this.refreshCache = refreshCache;
+    }
+
+    public void viewChainOfTrust() {
+        chainOfTrust = new HashMap<>();
+        selectedCertsChain = new ArrayList<>();
+
+        if (null == selectedTSCertificate) {
+            HelperUtil.addMessageError(TRUST_STORE_MSG, "Please choose a certificate to view chain.");
+            return;
+        }
+
+        try {
+            chainOfTrust = buildChainOfTrustMap(service.listChainOfTrust(selectedTSCertificate.getAlias()));
+        } catch (CertificateManagerException ex) {
+            LOG.error("Error while calling server to get certificate chain: {}", ex.getMessage(), ex);
+        }
+        HelperUtil.execPFShowDialog("wgvDlgChainOfTrust");
+    }
+
+    private static Map<String, CertificateDTO> buildChainOfTrustMap(List<CertificateDTO> list) {
+        Map<String, CertificateDTO> retVal = new HashMap<>();
+        for(CertificateDTO item: list){
+            retVal.put(item.getAlias(), item);
+        }
+        return retVal;
     }
 
 }
