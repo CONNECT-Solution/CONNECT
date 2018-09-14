@@ -287,10 +287,10 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
      */
     @Override
     public ListCertificatesResponseMessageType listChainOfTrust(ListChainOfTrustRequestMessageType request) {
-        LOG.debug("listChainOfTrust--begin");
+        LOG.debug("listChainOfTrust: begin");
         String alias = request.getAlias();
         if(StringUtils.isBlank(alias)){
-            return buildListCertificatesResponseMessageType(false, "Certificate Alias is required for chain-of-trust");
+            return buildListCertificatesResponseMessageType(false, "Certificate Alias is required for chain of trust");
         }
 
         try {
@@ -299,9 +299,9 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             return response;
         } catch (KeyStoreException | CertificateEncodingException ex) {
             LOG.error("unable to build chain-of-trust: {}", ex.getMessage(), ex);
-            return buildListCertificatesResponseMessageType(false, "ERROR: Unable to build the chain-of-trust.");
+            return buildListCertificatesResponseMessageType(false, "Unable to build the chain of trust.");
         } finally {
-            LOG.debug("listChainOfTrust--end");
+            LOG.debug("listChainOfTrust: end");
         }
     }
 

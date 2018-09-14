@@ -474,14 +474,14 @@ public class CertficateBean {
         selectedCertsChain = new ArrayList<>();
 
         if (null == selectedTSCertificate) {
-            HelperUtil.addMessageError(TRUST_STORE_MSG, "Please choose a certificate to view-chain.");
+            HelperUtil.addMessageError(TRUST_STORE_MSG, "Please choose a certificate to view chain.");
             return;
         }
 
         try {
             chainOfTrust = buildChainOfTrustMap(service.listChainOfTrust(selectedTSCertificate.getAlias()));
         } catch (CertificateManagerException ex) {
-            LOG.error("Error while calling server to get certificate-chain: {}", ex.getMessage(), ex);
+            LOG.error("Error while calling server to get certificate chain: {}", ex.getMessage(), ex);
         }
         HelperUtil.execPFShowDialog("wgvDlgChainOfTrust");
     }

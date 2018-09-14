@@ -298,9 +298,11 @@
                                                                 oncomplete="PF('certRefreshConfirm').hide();" />
                                                         </p:confirmDialog>
                                                         <h:outputText value=" &nbsp;&nbsp;" />
-                                                        <p:commandButton id="btnViewChainOfTrust" value="Chain"
+                                                        <p:commandButton id="btnViewChainOfTrust"
+                                                            value="View Chain of Trust"
                                                             action="#{certificateBean.viewChainOfTrust}"
-                                                            update=":dlgChainOfTrust :certTabView" styleClass="add-button" />
+                                                            update=":dlgChainOfTrust :certTabView"
+                                                            styleClass="add-button" />
                                                     </p:column>
                                                 </p:row>
                                                 <p:row>
