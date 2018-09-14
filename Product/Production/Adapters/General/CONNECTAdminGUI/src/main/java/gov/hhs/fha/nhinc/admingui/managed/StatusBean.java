@@ -70,11 +70,10 @@ public class StatusBean {
 
 	private static final String KEY_STORE_MSG = "keyStoreMsg";
 	private static final Logger LOG = LoggerFactory.getLogger(StatusBean.class);
-	public List<CertificateDTO> certDTOs = new ArrayList<CertificateDTO>();
+	public List<CertificateDTO> certDTOs = new ArrayList<>();
 
 	public StatusBean() {
 		certificateService = new CertificateManagerServiceImpl();
-		LOG.info("### getCertificateInfo() is going to be called");
 		getCertificateInfo();
 	}
 
@@ -208,7 +207,6 @@ public class StatusBean {
 
 
 	public List<CertificateDTO> getCertificateInfo() {
-		LOG.info("### entered into getCertificateInfo");
 		List<CertificateDTO> certs = new ArrayList<CertificateDTO>();
 		List<CertificateDTO> expiredCerts = new ArrayList<CertificateDTO>();
 		List<CertificateDTO> warnningCerts = new ArrayList<CertificateDTO>();
@@ -217,9 +215,7 @@ public class StatusBean {
 			certs.addAll(certificateService.fetchKeyStores());
 			certs.addAll(certificateService.fetchTrustStores());
 
-			LOG.info("### certs size = " + certs.size());
 			for (CertificateDTO dto : certs) {
-				LOG.info("### certs loop entered ");
 				if (dto.getExpiresInDays() <= 30) {
 					dto.setExpiryColorCoding(COLOR_CODING_CSS.RED.toString());
 					expiredCerts.add(dto);
