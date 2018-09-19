@@ -68,11 +68,11 @@ public class StatusBean {
     private HorizontalBarChartModel eventBarChart;
     private PieChartModel eventPieChart;
     private StatusSnapshot snapshot;
-    private final CertificateManagerService certificateService = new CertificateManagerServiceImpl();;
+    private final CertificateManagerService certificateService = new CertificateManagerServiceImpl();
 
     private static final String KEY_STORE_MSG = "keyStoreMsg";
     private static final Logger LOG = LoggerFactory.getLogger(StatusBean.class);
-    public List<CertificateDTO> certificateList = null;
+    private List<CertificateDTO> certificateList = null;
 
     @PostConstruct
     public void initServices() {
