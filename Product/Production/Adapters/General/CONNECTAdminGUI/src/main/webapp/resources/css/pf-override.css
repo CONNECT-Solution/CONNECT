@@ -2078,3 +2078,10 @@ form[id*='auditQueryTabView'] div[id*='auditBlobDlg'].ui-dialog .ui-dialog-conte
     border-style: none;
 }
 /* -- RESPONSIVE @MEDIA STYLES -- FROM DASHBOARD.CSS -----------------------------------------------*/
+
+
+.orange-warning{
+     color:orange;
+     font-weight: bold;
+     font-size: 17px; 
+}
