@@ -70,7 +70,7 @@ public class StatusBean {
     private StatusSnapshot snapshot;
     private final CertificateManagerService certificateService = new CertificateManagerServiceImpl();
 
-    private static final String KEY_STORE_MSG = "keyStoreMsg";
+    private static final String GET_CERT_STORE_MSG = "GetCertificateStore";
     private static final Logger LOG = LoggerFactory.getLogger(StatusBean.class);
     private List<CertificateDTO> certificateList = null;
 
@@ -212,15 +212,15 @@ public class StatusBean {
             Collections.sort(certificateList, new Comparator<CertificateDTO>() {
                 @Override
                 public int compare(CertificateDTO o1, CertificateDTO o2) {
-                    return o2.getExpiresInDays() > o1.getExpiresInDays() ? -1
-                            : o2.getExpiresInDays() == o1.getExpiresInDays() ? 0 : 1;
+                    return (int) o1.getExpiresInDays() - (int) o2.getExpiresInDays();
                 }
             });
+            return certificateList;
         } catch (CertificateManagerException e) {
             LOG.error("Unable to get certificate details {}", e.getLocalizedMessage(), e);
-            HelperUtil.addMessageError(KEY_STORE_MSG, "Unable to fetch certificate details");
+            HelperUtil.addMessageError(GET_CERT_STORE_MSG, "Unable to fetch certificate details");
         }
-        return certificateList;
+        return null;
     }
 
     public static void addCertificates(List<CertificateDTO> input, List<CertificateDTO> output) {
