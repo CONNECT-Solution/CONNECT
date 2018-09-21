@@ -220,7 +220,7 @@ public class StatusBean {
             LOG.error("Unable to get certificate details {}", e.getLocalizedMessage(), e);
             HelperUtil.addMessageError(GET_CERT_STORE_MSG, "Unable to fetch certificate details");
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public static void addCertificates(List<CertificateDTO> input, List<CertificateDTO> output) {
