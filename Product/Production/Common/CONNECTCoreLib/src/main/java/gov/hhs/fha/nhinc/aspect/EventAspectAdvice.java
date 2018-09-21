@@ -27,12 +27,16 @@
 package gov.hhs.fha.nhinc.aspect;
 
 import gov.hhs.fha.nhinc.event.AssertionExtractor;
+import gov.hhs.fha.nhinc.event.EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.EventDirector;
 import gov.hhs.fha.nhinc.event.EventRecorder;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import java.lang.reflect.Method;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -65,75 +69,75 @@ public class EventAspectAdvice {
 
     @Before("@annotation(annotation)")
     public void beginInboundMessageEvent(JoinPoint joinPoint, InboundMessageEvent annotation) {
-        inboundMessageAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.beforeBuilder());
+//        inboundMessageAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
+//                annotation.beforeBuilder());
     }
 
     @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
     public void endInboundMessageEvent(JoinPoint joinPoint, InboundMessageEvent annotation, Object returnValue) {
-        inboundMessageAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.afterReturningBuilder(), returnValue);
+//        inboundMessageAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
+//                annotation.afterReturningBuilder(), returnValue);
     }
 
     @Before("@annotation(annotation)")
     public void beginInboundProcessingEvent(JoinPoint joinPoint, InboundProcessingEvent annotation) {
-        inboundProcessingAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.beforeBuilder());
+//        inboundProcessingAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
+//                annotation.beforeBuilder());
     }
 
     @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
     public void endInboundProcessingEvent(JoinPoint joinPoint, InboundProcessingEvent annotation, Object returnValue) {
-        inboundProcessingAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.afterReturningBuilder(), returnValue);
+//        inboundProcessingAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
+//                annotation.afterReturningBuilder(), returnValue);
     }
 
     @Before("@annotation(annotation)")
     public void beginAdapterDelegationEvent(JoinPoint joinPoint, AdapterDelegationEvent annotation) {
-        adapterDelegationAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.beforeBuilder());
+//        adapterDelegationAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
+//                annotation.beforeBuilder());
     }
 
     @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
     public void endAdapterDelegationEvent(JoinPoint joinPoint, AdapterDelegationEvent annotation, Object returnValue) {
-        adapterDelegationAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.afterReturningBuilder(), returnValue);
+//        adapterDelegationAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
+//                annotation.afterReturningBuilder(), returnValue);
     }
 
     @Before("@annotation(annotation)")
     public void beginOutboundMessageEvent(JoinPoint joinPoint, OutboundMessageEvent annotation) {
-        outboundMessageAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.beforeBuilder());
+//        outboundMessageAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
+//                annotation.beforeBuilder());
     }
 
     @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
     public void endOutboundMessageEvent(JoinPoint joinPoint, OutboundMessageEvent annotation, Object returnValue) {
-        outboundMessageAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.afterReturningBuilder(), returnValue);
+//        outboundMessageAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
+//                annotation.afterReturningBuilder(), returnValue);
     }
 
     @Before("@annotation(annotation)")
     public void beginOutboundProcessingEvent(JoinPoint joinPoint, OutboundProcessingEvent annotation) {
-        outboundProcessingAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.beforeBuilder());
+//        outboundProcessingAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
+//                annotation.beforeBuilder());
     }
 
     @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
     public void endOutboundProcessingEvent(JoinPoint joinPoint, OutboundProcessingEvent annotation,
             Object returnValue) {
-        outboundProcessingAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.afterReturningBuilder(), returnValue);
+//        outboundProcessingAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
+//                annotation.afterReturningBuilder(), returnValue);
     }
 
     @Before("@annotation(annotation)")
     public void beginNwhinInvocationEvent(JoinPoint joinPoint, NwhinInvocationEvent annotation) {
-        nwhinInvocationAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.beforeBuilder());
+//        nwhinInvocationAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
+//                annotation.beforeBuilder());
     }
 
     @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
     public void endNwhinInvocationEvent(JoinPoint joinPoint, NwhinInvocationEvent annotation, Object returnValue) {
-        nwhinInvocationAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.afterReturningBuilder(), returnValue);
+//        nwhinInvocationAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
+//                annotation.afterReturningBuilder(), returnValue);
     }
 
     /*
@@ -141,12 +145,14 @@ public class EventAspectAdvice {
      * for both Standard and Passthrough. If the method is annotated with both for some reason, we only process the
      * LogFailures annotation to prevent recording duplicate entries for the failure.
      */
+    /*
     @AfterThrowing(pointcut = "@annotation(gov.hhs.fha.nhinc.aspect.InboundMessageEvent) ||"
         + "@annotation(gov.hhs.fha.nhinc.aspect.InboundProcessingEvent) ||"
         + "@annotation(gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent) || "
         + "@annotation(gov.hhs.fha.nhinc.aspect.OutboundMessageEvent) || "
         + "@annotation(gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent) || "
         + "@annotation(gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent)", throwing = "e")
+    */
     public void failEvent(JoinPoint joinPoint, Throwable e) {
         if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
             MethodSignature sig = (MethodSignature) joinPoint.getSignature();
@@ -161,6 +167,7 @@ public class EventAspectAdvice {
             }
         }
     }
+
 
     @AfterThrowing(pointcut = "@annotation(gov.hhs.fha.nhinc.aspect.LogFailures)", throwing = "e")
     public void logFailure(JoinPoint joinPoint, Throwable e) {
@@ -186,6 +193,67 @@ public class EventAspectAdvice {
 
         }
 
+    }
+
+    @Around("@annotation(anno)")
+    public Object logInboundMessageEvent(ProceedingJoinPoint joinPoint, InboundMessageEvent anno) throws Throwable {
+        return logEvents(joinPoint, inboundMessageAdviceDelegate, anno.beforeBuilder(),
+            anno.afterReturningBuilder(), anno.serviceType(), anno.version());
+    }
+
+    @Around("@annotation(anno)")
+    public Object logInboundProcessingEvent(ProceedingJoinPoint joinPoint, InboundProcessingEvent anno) throws Throwable {
+        return logEvents(joinPoint, inboundProcessingAdviceDelegate, anno.beforeBuilder(),
+            anno.afterReturningBuilder(), anno.serviceType(), anno.version());
+    }
+
+    @Around("@annotation(anno)")
+    public Object logAdapterDelegationEvent(ProceedingJoinPoint joinPoint, AdapterDelegationEvent anno) throws Throwable {
+        return logEvents(joinPoint, adapterDelegationAdviceDelegate, anno.beforeBuilder(),
+            anno.afterReturningBuilder(), anno.serviceType(), anno.version());
+    }
+
+    @Around("@annotation(anno)")
+    public Object logOutboundMessageEvent(ProceedingJoinPoint joinPoint, OutboundMessageEvent anno) throws Throwable {
+        return logEvents(joinPoint, outboundMessageAdviceDelegate, anno.beforeBuilder(),
+            anno.afterReturningBuilder(), anno.serviceType(), anno.version());
+    }
+
+    @Around("@annotation(anno)")
+    public Object logOutboundProcessingEvent(ProceedingJoinPoint joinPoint, OutboundProcessingEvent anno) throws Throwable {
+        return logEvents(joinPoint, outboundProcessingAdviceDelegate, anno.beforeBuilder(),
+            anno.afterReturningBuilder(), anno.serviceType(), anno.version());
+    }
+
+    @Around("@annotation(anno)")
+    public Object logNwhinInvocationEvent(ProceedingJoinPoint joinPoint, NwhinInvocationEvent anno) throws Throwable {
+        return logEvents(joinPoint, nwhinInvocationAdviceDelegate, anno.beforeBuilder(),
+            anno.afterReturningBuilder(), anno.serviceType(), anno.version());
+    }
+
+    public Object logEvents(ProceedingJoinPoint joinPoint, EventAdviceDelegate delegate, Class<? extends EventDescriptionBuilder> beforeBuilder,
+        Class<? extends EventDescriptionBuilder> afterBuilder, String serviceType, String version) throws Throwable {
+        delegate.begin(joinPoint.getArgs(), serviceType, version, beforeBuilder);
+
+        Object value = null;
+        boolean hasFailure = false;
+        try {
+            value = joinPoint.proceed();
+        } catch (ErrorEventException e) {
+            logFailure(joinPoint, e);
+            value =  e.getReturnOverride();
+            hasFailure = true;
+        } catch (Throwable e) {
+            // We don't want to swallow the exception if its not an ErrorEventException.
+            // We also don't want the delegate to log the END_* event.
+            logFailure(joinPoint, e);
+            throw e;
+        }
+        // Delegate should only log either an END_* if we did not log a MessageProcessingFailed event.
+        if (!hasFailure) {
+            delegate.end(joinPoint.getArgs(), serviceType, version, afterBuilder, value);
+        }
+        return value;
     }
 
 
