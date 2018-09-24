@@ -29,104 +29,143 @@
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
 
-    <head>
-        <title>Admin GUI Status</title>
-        <link rel="icon" type="image/ico" href="/images/favicon-admingui.ico" />
-    </head>
-    <h:body>
-        <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
-            <ui:define name="metatag"></ui:define>
-            <ui:define name="content">
-                <h1 class="section-header">Gateway Status</h1>
-                <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="0" styleClass="tabs-override tabs-ovr-dkblue" >
-                    <p:tab title="Dashboard" closable="false">
-                        <div class="content-block">
-                            <h2 class="subsection-header header-no-text"></h2>
+<head>
+<title>Admin GUI Status</title>
+<link rel="icon" type="image/ico" href="/images/favicon-admingui.ico" />
+</head>
+<h:body>
+    <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
+        <ui:define name="metatag"></ui:define>
+        <ui:define name="content">
+            <h1 class="section-header">Gateway Status</h1>
+            <p:tabView id="tabview" effect="fade" effectDuration="normal" dynamic="true" activeIndex="0"
+                styleClass="tabs-override tabs-ovr-dkblue">
+                <p:tab title="Dashboard" closable="false">
+                    <div class="content-block">
 
-                            <div class="content">
-                                <div class="form-block center-block" style="padding:0px;">
-                                    <h:form class="form-horizontal" role="form" id="statusForm">
-                                        <p:panel id="orgPanel" widgetVar="orgPanel" style="width: 100%; margin: 0 auto;">
-                                            <p:panelGrid id="statusGrid" styleClass="ui-panelgrid-domain">
-                                                <p:row>
-                                                    <p:column>
-                                                        <p:outputLabel for="osOutput" value="Operating System: " />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <h:outputText id="osOutput" value="${statusBean.os}"/>
-                                                    </p:column>
-                                                    <p:column>
-                                                        <p:outputLabel for="memoryOutput" value="Memory Used: " />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <h:outputText id="memoryOutput" value="${statusBean.memory}" />
-                                                    </p:column>
-                                                </p:row>
-                                                <p:row>
-                                                    <p:column>
-                                                        <p:outputLabel for="javaOutput" value="Java Version: " />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <h:outputText id="javaOutput" value=" ${statusBean.java}" />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <p:outputLabel for="totalOutbound" value="Total Outbound Messages: " />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <h:outputText id="totalOutbound" value="${statusBean.totalOutboundRequests}" />
-                                                    </p:column>
-                                                </p:row>
-                                                <p:row>
-                                                    <p:column>
-                                                        <p:outputLabel for="appOutput" value="Application Server: " />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <h:outputText id="appOutput" value="${statusBean.appServer}" />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <p:outputLabel for="totalInbound" value="Total Inbound Messages: " />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <h:outputText id="totalInbound" value="${statusBean.totalInboundRequests}" />
-                                                    </p:column>
-                                                </p:row>
-                                            </p:panelGrid>
-                                        </p:panel>
-
-
-                                        <h2 class="subsection-header">SERVICES</h2>
-                                        <h:panelGrid columns="2" styleClass="gridStatus" style="width: 1040px;">
-                                            <p:panel style="width: 500px; padding: 10px;">
-                                                <p>Green Available / Red Unavailable</p>
-                                                <div class="table-responsive table-orgs">
-                                                    <p:dataTable id="servicesTable" widgetVar="servicesTable" var="service" value="#{statusBean.services}" scrollable="TRUE" scrollHeight="500"  styleClass="table table-striped table-status" lazy="true">
-                                                        <p:column>
-                                                            <h:outputText rendered="#{service.available}" value="#{service.serviceName}" style="color: green" />
-                                                            <h:outputText rendered="#{!service.available}" value="#{service.serviceName} (#{service.serviceMessage})" style="color: red" />
-                                                        </p:column>
-                                                    </p:dataTable> 
-                                                </div>
-                                            </p:panel>
-                                            <p:panel style="width: 800px; padding: 10px;">
-                                                <p:chart type="bar" id="eventBarChart" model="#{statusBean.eventBarChart}" /> 
-                                                <p:chart type="pie" id="eventPieChart" model="#{statusBean.eventPieChart}" />
-                                            </p:panel>
-                                        </h:panelGrid>
-                                        <p:poll interval="5" update="statusGrid eventPieChart eventBarChart" />
-                                    </h:form>
+                        <p:panel rendered="#{not empty statusBean.certificateList}" id="alertsPanel"
+                            widgetVar="alertsPanel" style="width: 100%; margin: 0 auto;">
+                            <h2 class="subsection-header">System Alerts and Notifications</h2>
+                            <div class="table-responsive table-orgs">
+                                <p:dataTable id="certificateTable" rows="5" widgetVar="certificateTable" var="cert"
+                                    value="#{statusBean.certificateList}" scrollable="TRUE" scrollHeight="200"
+                                    styleClass="table table-striped table-status" lazy="true">
+                                    <p:column>
+                                        <h:outputText rendered="#{cert.expiryColorCoding eq 'RED'}"
+                                            value="Certificate with alias #{cert.alias} expired. Use Certificate Manager to Update. "
+                                            style="color: red" />
+                                        <h:outputText rendered="#{cert.expiryColorCoding eq 'YELLOW'}"
+                                            styleClass="glyphicon glyphicon-warning-sign highlightYELLOW pull-left" />
+                                        <h:outputText rendered="#{cert.expiryColorCoding eq 'YELLOW'}"
+                                            value="Certificate with alias #{cert.alias} is about to expire in #{cert.expiresInDays} days. Use Certificate Manager to update. "
+                                            styleClass="orange-warning" />
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                            <div class="content-block">
+                                <div class="content form-block ">
+                                    <p:commandButton id="viewAlerts" value="View All Alerts"
+                                        actionListener="#{statusBean.getCertificateInfo}" update=":viewAllAlertsDlg"
+                                        oncomplete="PF('viewAllAlertsDlg').show();" styleClass="edit-button pull-right">
+                                        <p:resetInput target=":tabview" />
+                                    </p:commandButton>
                                 </div>
                             </div>
+                        </p:panel>
+                        <h2 class="subsection-header header-no-text"></h2>
+
+                        <div class="content">
+
+                            <div class="form-block center-block" style="padding: 0px;">
+                                <h:form class="form-horizontal" role="form" id="statusForm">
+                                    <p:panel id="orgPanel" widgetVar="orgPanel" style="width: 100%; margin: 0 auto;">
+                                        <p:panelGrid id="statusGrid" styleClass="ui-panelgrid-domain">
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel for="osOutput" value="Operating System: " />
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText id="osOutput" value="${statusBean.os}" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel for="memoryOutput" value="Memory Used: " />
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText id="memoryOutput" value="${statusBean.memory}" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel for="javaOutput" value="Java Version: " />
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText id="javaOutput" value=" ${statusBean.java}" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel for="totalOutbound" value="Total Outbound Messages: " />
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText id="totalOutbound"
+                                                        value="${statusBean.totalOutboundRequests}" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel for="appOutput" value="Application Server: " />
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText id="appOutput" value="${statusBean.appServer}" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel for="totalInbound" value="Total Inbound Messages: " />
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText id="totalInbound"
+                                                        value="${statusBean.totalInboundRequests}" />
+                                                </p:column>
+                                            </p:row>
+                                        </p:panelGrid>
+                                    </p:panel>
+
+
+                                    <h2 class="subsection-header">SERVICES</h2>
+                                    <h:panelGrid columns="2" styleClass="gridStatus" style="width: 1040px;">
+                                        <p:panel style="width: 500px; padding: 10px;">
+                                            <p>Green Available / Red Unavailable</p>
+                                            <div class="table-responsive table-orgs">
+                                                <p:dataTable id="servicesTable" widgetVar="servicesTable" var="service"
+                                                    value="#{statusBean.services}" scrollable="TRUE" scrollHeight="500"
+                                                    styleClass="table table-striped table-status" lazy="true">
+                                                    <p:column>
+                                                        <h:outputText rendered="#{service.available}"
+                                                            value="#{service.serviceName}" style="color: green" />
+                                                        <h:outputText rendered="#{!service.available}"
+                                                            value="#{service.serviceName} (#{service.serviceMessage})"
+                                                            style="color: red" />
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </p:panel>
+                                        <p:panel style="width: 800px; padding: 10px;">
+                                            <p:chart type="bar" id="eventBarChart" model="#{statusBean.eventBarChart}" />
+                                            <p:chart type="pie" id="eventPieChart" model="#{statusBean.eventPieChart}" />
+                                        </p:panel>
+                                    </h:panelGrid>
+                                    <p:poll interval="5" update="statusGrid eventPieChart eventBarChart" />
+                                </h:form>
+                            </div>
                         </div>
-                        <!-- END: STATUS PANEL -->
-                    </p:tab>
-                </p:tabView>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                    </div>
+                    <!-- END: STATUS PANEL -->
+                </p:tab>
+            </p:tabView>
+            <!-- include any dialog -->
+            <ui:include src="ViewAllAlertsDialog.xhtml" />
+        </ui:define>
+    </ui:composition>
+</h:body>
 </html>

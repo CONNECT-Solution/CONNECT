@@ -28,11 +28,19 @@ package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.model.AvailableService;
 import gov.hhs.fha.nhinc.admingui.model.StatusSnapshot;
+import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.PingService;
+import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.DashboardStatusServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl;
+import gov.hhs.fha.nhinc.admingui.util.GUIConstants.COLOR_CODING_CSS;
+import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.event.model.EventCount;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +51,8 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.HorizontalBarChartModel;
 import org.primefaces.model.chart.PieChartModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -58,13 +68,26 @@ public class StatusBean {
     private HorizontalBarChartModel eventBarChart;
     private PieChartModel eventPieChart;
     private StatusSnapshot snapshot;
+    private final CertificateManagerService certificateService = new CertificateManagerServiceImpl();
+
+    private static final String GET_CERT_STORE_MSG = "GetCertificateStore";
+    private static final Logger LOG = LoggerFactory.getLogger(StatusBean.class);
+    private List<CertificateDTO> certificateList = null;
 
     @PostConstruct
     public void initServices() {
         snapshot = sService.getStatus();
         services = pingService.buildServices();
+        getCertificateInfo();
         initBarChart();
         initPieChart();
+    }
+
+    /**
+     * @return the certificateList
+     */
+    public List<CertificateDTO> getCertificateList() {
+        return certificateList;
     }
 
     public void refresh(boolean refreshMessages) {
@@ -142,7 +165,7 @@ public class StatusBean {
 
     private void refreshPieChart() {
 
-        for ( EventCount event : snapshot.getEvents().values()) {
+        for (EventCount event : snapshot.getEvents().values()) {
             eventPieChart.getData().put(event.getEvent(), event.getTotal());
         }
 
@@ -178,6 +201,39 @@ public class StatusBean {
     private void initPieChart() {
         eventPieChart = new PieChartModel();
         refreshPieChart();
+    }
+
+    public List<CertificateDTO> getCertificateInfo() {
+        try {
+            certificateList = new ArrayList<>();
+            addCertificates(certificateService.fetchKeyStores(), certificateList);
+            addCertificates(certificateService.fetchTrustStores(), certificateList);
+
+            Collections.sort(certificateList, new Comparator<CertificateDTO>() {
+                @Override
+                public int compare(CertificateDTO o1, CertificateDTO o2) {
+                    return (int) o1.getExpiresInDays() - (int) o2.getExpiresInDays();
+                }
+            });
+            return certificateList;
+        } catch (CertificateManagerException e) {
+            LOG.error("Unable to get certificate details {}", e.getLocalizedMessage(), e);
+            HelperUtil.addMessageError(GET_CERT_STORE_MSG, "Unable to fetch certificate details");
+        }
+        return new ArrayList<>();
+    }
+
+    public static void addCertificates(List<CertificateDTO> input, List<CertificateDTO> output) {
+        for (CertificateDTO dto : input) {
+            if (dto.getExpiresInDays() <= 30) {
+                dto.setExpiryColorCoding(COLOR_CODING_CSS.RED.toString());
+                output.add(dto);
+            } else if (dto.getExpiresInDays() > 30 && dto.getExpiresInDays() <= 90) {
+                dto.setExpiryColorCoding(COLOR_CODING_CSS.YELLOW.toString());
+                output.add(dto);
+            }
+
+        }
     }
 
 }
