@@ -13,16 +13,19 @@
                             <p:dataTable id="certificateTable" widgetVar="certificateTable" var="cert"
                                 value="#{statusBean.certificateList}" scrollable="TRUE" scrollHeight="350"
                                 styleClass="table table-striped table-status" lazy="true">
-                                <p:column>
-                                    <h:outputText rendered="#{cert.expiryColorCoding eq 'RED'}"
-                                        value="Certificate with alias #{cert.alias} expired. Use Certificate Manager to Update. "
+                                 <p:column>
+                                        <h:outputText rendered="#{cert.expiryColorCoding eq 'RED' and cert.expiresInDays le 0 }"
+                                            value="Certificate with alias #{cert.alias} expired. Use Certificate Manager to Update. "
+                                            style="color: red" />
+                                         <h:outputText rendered="#{cert.expiryColorCoding eq 'RED' and cert.expiresInDays ge 0 }"
+                                        value="Certificate with alias #{cert.alias} is about to expire in #{cert.expiresInDays} days. Use Certificate Manager to Update. "
                                         style="color: red" />
-                                    <h:outputText rendered="#{cert.expiryColorCoding eq 'YELLOW'}"
-                                        styleClass="glyphicon glyphicon-warning-sign highlightYELLOW pull-left" />
-                                    <h:outputText rendered="#{cert.expiryColorCoding eq 'YELLOW'}"
-                                        value="Certificate with alias #{cert.alias} is about to expire in #{cert.expiresInDays} days. Use Certificate Manager to update. "
-                                        styleClass="orange-warning" />
-                                </p:column>
+                                        <h:outputText rendered="#{cert.expiryColorCoding eq 'YELLOW'}"
+                                            styleClass="glyphicon glyphicon-warning-sign highlightYELLOW pull-left" />
+                                        <h:outputText  rendered="#{cert.expiryColorCoding eq 'YELLOW'}"
+                                            value=" Certificate with alias #{cert.alias} is about to expire in #{cert.expiresInDays} days. Use Certificate Manager to update. "
+                                            styleClass="orange-warning" style=" white-space: pre"/>
+                                    </p:column>
 
                             </p:dataTable>
 
