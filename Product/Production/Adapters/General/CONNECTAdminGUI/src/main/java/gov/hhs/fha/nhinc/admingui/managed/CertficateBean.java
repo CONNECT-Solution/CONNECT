@@ -86,6 +86,22 @@ public class CertficateBean {
     private boolean refreshCache;
     private Map<String, CertificateDTO> chainOfTrust;
     private List<CertificateDTO> selectedCertsChain = new ArrayList<>();
+    private List<String> keyStoreColorCodeList = new ArrayList<>();
+    private List<String> trustStoreColorCodeList = new ArrayList<>();
+
+    /**
+     * @return the keyStoreColorCodeList
+     */
+    public List<String> getKeyStoreColorCodeList() {
+        return keyStoreColorCodeList;
+    }
+
+    /**
+     * @return the trustStoreColorCodeList
+     */
+    public List<String> getTrustStoreColorCodeList() {
+        return trustStoreColorCodeList;
+    }
 
     public CertficateBean() {
         service = new CertificateManagerServiceImpl();
@@ -107,7 +123,7 @@ public class CertficateBean {
 
     public void refreshCacheForTrustStore() {
         try {
-            truststores = setColorCodingStyle(service.refreshTrustStores(true));
+            truststores = setColorCodingStyle(service.refreshTrustStores(true), keyStoreColorCodeList);
         } catch (CertificateManagerException ex) {
             LOG.error("Unable to refresh certificate cache {}", ex.getLocalizedMessage(), ex);
             HelperUtil.addMessageError(TRUST_STORE_MSG, ex.getLocalizedMessage());
@@ -241,7 +257,7 @@ public class CertficateBean {
         if (selectedCertificate == null) {
             HelperUtil.addMessageError(IMPORT_PASS_ERR_MSG_ID, "Select certificate for import");
         } else if (StringUtils.isBlank(selectedCertificate.getAlias()) || ALIAS_PLACEHOLDER.equals(selectedCertificate.
-            getAlias())) {
+                getAlias())) {
             HelperUtil.addMessageError(IMPORT_PASS_ERR_MSG_ID, "Enter an alias for the certificate");
         } else if (isHashTokenEmpty()) {
             execPFShowDialog("importPassKeyDlg");
@@ -375,7 +391,7 @@ public class CertficateBean {
      * @throws CertificateManagerException
      */
     private void postUpdateAction(boolean updateStatus, String uiElement, String aliasToRefresh)
-        throws CertificateManagerException {
+            throws CertificateManagerException {
         if (updateStatus) {
             refreshCerts();
             oldAlias = aliasToRefresh;
@@ -392,7 +408,7 @@ public class CertficateBean {
     private List<CertificateDTO> refreshCerts() throws CertificateManagerException {
         List<CertificateDTO> certs;
         certs = service.refreshTrustStores(false);
-        truststores = setColorCodingStyle(certs);
+        truststores = setColorCodingStyle(certs, trustStoreColorCodeList);
         return certs;
     }
 
@@ -411,7 +427,7 @@ public class CertficateBean {
 
     private void fetchKeyStore() {
         try {
-            keystores = setColorCodingStyle(service.fetchKeyStores());
+            keystores = setColorCodingStyle(service.fetchKeyStores(), keyStoreColorCodeList);
         } catch (CertificateManagerException e) {
             LOG.error("Unable to get certificate details {}", e.getLocalizedMessage(), e);
             HelperUtil.addMessageError(KEY_STORE_MSG, "Unable to fetch certificate details");
@@ -420,7 +436,7 @@ public class CertficateBean {
 
     private void fetchTrustStore() {
         try {
-            truststores = setColorCodingStyle(service.fetchTrustStores());
+            truststores = setColorCodingStyle(service.fetchTrustStores(), trustStoreColorCodeList);
         } catch (CertificateManagerException e) {
             LOG.error("Unable to get certificate details {}", e.getLocalizedMessage(), e);
             HelperUtil.addMessageError(TRUST_STORE_MSG, "Unable to fetch certificate details");
@@ -435,14 +451,23 @@ public class CertficateBean {
         return viewCert("viewCertDlgKS", KEY_STORE_MSG);
     }
 
-    private static List<CertificateDTO> setColorCodingStyle(List<CertificateDTO> certDTOs) {
+    private List<CertificateDTO> setColorCodingStyle(List<CertificateDTO> certDTOs, List<String> storeColorCodeList) {
         for (CertificateDTO dto : certDTOs) {
             if (dto.getExpiresInDays() <= 30) {
                 dto.setExpiryColorCoding(COLOR_CODING_CSS.RED.toString());
+                if (!storeColorCodeList.contains(COLOR_CODING_CSS.RED.toString())) {
+                    storeColorCodeList.add(COLOR_CODING_CSS.RED.toString());
+                }
             } else if (dto.getExpiresInDays() > 30 && dto.getExpiresInDays() <= 90) {
                 dto.setExpiryColorCoding(COLOR_CODING_CSS.YELLOW.toString());
+                if (!storeColorCodeList.contains(COLOR_CODING_CSS.YELLOW.toString())) {
+                    storeColorCodeList.add(COLOR_CODING_CSS.YELLOW.toString());
+                }
             } else {
                 dto.setExpiryColorCoding(COLOR_CODING_CSS.GREEN.toString());
+                if (!storeColorCodeList.contains(COLOR_CODING_CSS.GREEN.toString())) {
+                    storeColorCodeList.add(COLOR_CODING_CSS.GREEN.toString());
+                }
             }
         }
         return certDTOs;
