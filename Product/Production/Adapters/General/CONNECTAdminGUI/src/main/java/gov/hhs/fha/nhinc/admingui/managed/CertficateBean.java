@@ -89,6 +89,12 @@ public class CertficateBean {
     private List<String> keyStoreColorCodeList = new ArrayList<>();
     private List<String> trustStoreColorCodeList = new ArrayList<>();
 
+    public CertficateBean() {
+        service = new CertificateManagerServiceImpl();
+        fetchKeyStore();
+        fetchTrustStore();
+    }
+
     /**
      * @return the keyStoreColorCodeList
      */
@@ -101,12 +107,6 @@ public class CertficateBean {
      */
     public List<String> getTrustStoreColorCodeList() {
         return trustStoreColorCodeList;
-    }
-
-    public CertficateBean() {
-        service = new CertificateManagerServiceImpl();
-        fetchKeyStore();
-        fetchTrustStore();
     }
 
     public String getKeyStoreLocation() {
@@ -451,7 +451,8 @@ public class CertficateBean {
         return viewCert("viewCertDlgKS", KEY_STORE_MSG);
     }
 
-    private List<CertificateDTO> setColorCodingStyle(List<CertificateDTO> certDTOs, List<String> storeColorCodeList) {
+    private static List<CertificateDTO> setColorCodingStyle(List<CertificateDTO> certDTOs,
+            List<String> storeColorCodeList) {
         for (CertificateDTO dto : certDTOs) {
             if (dto.getExpiresInDays() <= 30) {
                 dto.setExpiryColorCoding(COLOR_CODING_CSS.RED.toString());
