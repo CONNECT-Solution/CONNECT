@@ -142,7 +142,9 @@ public class CertificateUtil {
             String aki = getCertKeyIdAuthority(cert); // if-root: expected-null
             while (null != aki) {
                 Certificate certLoop = keyCache.get(aki);
-                chain.add(certLoop);
+                if (null != certLoop) {
+                    chain.add(certLoop);
+                }
                 aki = getCertKeyIdAuthority(certLoop);
             }
         }
