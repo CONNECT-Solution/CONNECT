@@ -88,6 +88,7 @@ public class CertficateBean {
     private List<CertificateDTO> selectedCertsChain = new ArrayList<>();
     private List<String> keyStoreColorCodeList = new ArrayList<>();
     private List<String> trustStoreColorCodeList = new ArrayList<>();
+    private boolean isChainCompleted;
 
     public CertficateBean() {
         service = new CertificateManagerServiceImpl();
@@ -95,16 +96,10 @@ public class CertficateBean {
         fetchTrustStore();
     }
 
-    /**
-     * @return the keyStoreColorCodeList
-     */
     public List<String> getKeyStoreColorCodeList() {
         return keyStoreColorCodeList;
     }
 
-    /**
-     * @return the trustStoreColorCodeList
-     */
     public List<String> getTrustStoreColorCodeList() {
         return trustStoreColorCodeList;
     }
@@ -194,6 +189,10 @@ public class CertficateBean {
         selectedCertsChain = selectedList;
     }
 
+    public boolean getIsChainCompleted() {
+        return isChainCompleted;
+    }
+
     public void importFileUpload(FileUploadEvent event) {
         importCertFile = event.getFile();
         expiredCert = false;
@@ -211,9 +210,6 @@ public class CertficateBean {
         }
     }
 
-    /**
-     * @param cert
-     */
     private void checkCertValidity(CertificateDTO cert) {
         try {
             cert.getX509Cert().checkValidity();
@@ -257,7 +253,7 @@ public class CertficateBean {
         if (selectedCertificate == null) {
             HelperUtil.addMessageError(IMPORT_PASS_ERR_MSG_ID, "Select certificate for import");
         } else if (StringUtils.isBlank(selectedCertificate.getAlias()) || ALIAS_PLACEHOLDER.equals(selectedCertificate.
-                getAlias())) {
+            getAlias())) {
             HelperUtil.addMessageError(IMPORT_PASS_ERR_MSG_ID, "Enter an alias for the certificate");
         } else if (isHashTokenEmpty()) {
             execPFShowDialog("importPassKeyDlg");
@@ -281,9 +277,6 @@ public class CertficateBean {
         trustStorePasskey = null;
     }
 
-    /**
-     * @throws CertificateManagerException
-     */
     private void saveHashToken(String hashToken) {
         if (isRememberMe()) {
             HelperUtil.getHttpSession(false).setAttribute(HASH_TOKEN, hashToken);
@@ -386,12 +379,8 @@ public class CertficateBean {
         return updateStatus;
     }
 
-    /**
-     * @param updateStatus
-     * @throws CertificateManagerException
-     */
     private void postUpdateAction(boolean updateStatus, String uiElement, String aliasToRefresh)
-            throws CertificateManagerException {
+        throws CertificateManagerException {
         if (updateStatus) {
             refreshCerts();
             oldAlias = aliasToRefresh;
@@ -401,10 +390,6 @@ public class CertficateBean {
         }
     }
 
-    /**
-     * @param pageLocation
-     * @throws CertificateManagerException
-     */
     private List<CertificateDTO> refreshCerts() throws CertificateManagerException {
         List<CertificateDTO> certs;
         certs = service.refreshTrustStores(false);
@@ -452,7 +437,7 @@ public class CertficateBean {
     }
 
     private static List<CertificateDTO> setColorCodingStyle(List<CertificateDTO> certDTOs,
-            List<String> storeColorCodeList) {
+        List<String> storeColorCodeList) {
         for (CertificateDTO dto : certDTOs) {
             if (dto.getExpiresInDays() <= 30) {
                 dto.setExpiryColorCoding(COLOR_CODING_CSS.RED.toString());
@@ -474,9 +459,6 @@ public class CertficateBean {
         return certDTOs;
     }
 
-    /**
-     * @return
-     */
     private CertificateDTO viewCert(String dialogId, String uiElement) {
         if (selectedTSCertificate != null) {
             oldAlias = selectedTSCertificate.getAlias();
@@ -498,6 +480,7 @@ public class CertficateBean {
     public void viewChainOfTrust() {
         chainOfTrust = new HashMap<>();
         selectedCertsChain = new ArrayList<>();
+        isChainCompleted = false;
 
         if (null == selectedTSCertificate) {
             HelperUtil.addMessageError(TRUST_STORE_MSG, "Please choose a certificate to view chain.");
@@ -506,6 +489,7 @@ public class CertficateBean {
 
         try {
             chainOfTrust = buildChainOfTrustMap(service.listChainOfTrust(selectedTSCertificate.getAlias()));
+            isChainCompleted = checkCompletedChain(chainOfTrust);
         } catch (CertificateManagerException ex) {
             LOG.error("Error while calling server to get certificate chain: {}", ex.getMessage(), ex);
         }
@@ -514,10 +498,29 @@ public class CertficateBean {
 
     private static Map<String, CertificateDTO> buildChainOfTrustMap(List<CertificateDTO> list) {
         Map<String, CertificateDTO> retVal = new HashMap<>();
+
         for(CertificateDTO item: list){
             retVal.put(item.getAlias(), item);
         }
+
         return retVal;
     }
+
+    private static boolean checkCompletedChain(Map<String, CertificateDTO> chain){
+        List<String> certAKIDs = new ArrayList<>();
+
+        for(CertificateDTO item: chain.values()){
+            certAKIDs.add(item.getAuthorityKeyID());
+        }
+
+        for (CertificateDTO item : chain.values()) {
+            String issuerId = item.getIssuerUniqueIdentifier();
+            if (null != issuerId && !certAKIDs.contains(issuerId)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 }
