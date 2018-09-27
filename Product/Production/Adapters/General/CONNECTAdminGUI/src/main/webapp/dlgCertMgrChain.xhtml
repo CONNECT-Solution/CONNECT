@@ -4,6 +4,12 @@
     <div>
         <p:dialog id="dlgChainOfTrust" header="Chain of Trust view" widgetVar="wgvDlgChainOfTrust" modal="true"
             dynamic="true" draggable="false" closeOnEscape="true" resizable="false" width="1050" height="560">
+            <p:outputPanel rendered="#{!certificateBean.isChainCompleted}" deferred="true"
+                styleClass="alert alert-danger">
+                <span class="glyphicon glyphicon-remove-circle"></span>
+                <span><strong>ERROR:</strong> A parent certificate is missing. Import all certificates in the trust chain and restart the
+                    server</span>
+            </p:outputPanel>
             <div class="content-block content ui-g">
                 <div class="ui-g-3">
                     <h:form>
