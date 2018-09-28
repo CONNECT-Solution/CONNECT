@@ -30,10 +30,11 @@ public class ErrorEventException extends RuntimeException {
 
     private static final long serialVersionUID = 8192575383484851311L;
 
-    Object returnOverride;
+    private final transient Object returnOverride;
 
     public ErrorEventException(Throwable e, String customMessage) {
         super(customMessage, e);
+        returnOverride = null;
     }
 
     public ErrorEventException(Throwable e, Object returnOverride, String customMessage) {
