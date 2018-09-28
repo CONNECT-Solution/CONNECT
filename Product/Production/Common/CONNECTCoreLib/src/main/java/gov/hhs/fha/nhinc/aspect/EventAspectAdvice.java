@@ -28,21 +28,18 @@ package gov.hhs.fha.nhinc.aspect;
 
 import gov.hhs.fha.nhinc.event.AssertionExtractor;
 import gov.hhs.fha.nhinc.event.EventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.EventDirector;
 import gov.hhs.fha.nhinc.event.EventRecorder;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
-import java.lang.reflect.Method;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * @author zmelnick
@@ -51,148 +48,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Aspect
 public class EventAspectAdvice {
 
+    @Autowired
+    @Qualifier("inboundMessageAdviceDelegate")
     private EventAdviceDelegate inboundMessageAdviceDelegate;
-
+    @Autowired
+    @Qualifier("inboundProcessingAdviceDelegate")
     private EventAdviceDelegate inboundProcessingAdviceDelegate;
-
+    @Autowired
+    @Qualifier("adapterDelegationAdviceDelegate")
     private EventAdviceDelegate adapterDelegationAdviceDelegate;
-
+    @Autowired
+    @Qualifier("outboundMessageAdviceDelegate")
     private EventAdviceDelegate outboundMessageAdviceDelegate;
-
+    @Autowired
+    @Qualifier("outboundProcessingAdviceDelegate")
     private EventAdviceDelegate outboundProcessingAdviceDelegate;
-
+    @Autowired
+    @Qualifier("nwhinInvocationAdviceDelegate")
     private EventAdviceDelegate nwhinInvocationAdviceDelegate;
-
+    @Autowired
+    @Qualifier("eventmanager")
     private EventRecorder eventRecorder;
 
-
-
-    @Before("@annotation(annotation)")
-    public void beginInboundMessageEvent(JoinPoint joinPoint, InboundMessageEvent annotation) {
-//        inboundMessageAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-//                annotation.beforeBuilder());
-    }
-
-    @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
-    public void endInboundMessageEvent(JoinPoint joinPoint, InboundMessageEvent annotation, Object returnValue) {
-//        inboundMessageAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-//                annotation.afterReturningBuilder(), returnValue);
-    }
-
-    @Before("@annotation(annotation)")
-    public void beginInboundProcessingEvent(JoinPoint joinPoint, InboundProcessingEvent annotation) {
-//        inboundProcessingAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-//                annotation.beforeBuilder());
-    }
-
-    @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
-    public void endInboundProcessingEvent(JoinPoint joinPoint, InboundProcessingEvent annotation, Object returnValue) {
-//        inboundProcessingAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-//                annotation.afterReturningBuilder(), returnValue);
-    }
-
-    @Before("@annotation(annotation)")
-    public void beginAdapterDelegationEvent(JoinPoint joinPoint, AdapterDelegationEvent annotation) {
-//        adapterDelegationAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-//                annotation.beforeBuilder());
-    }
-
-    @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
-    public void endAdapterDelegationEvent(JoinPoint joinPoint, AdapterDelegationEvent annotation, Object returnValue) {
-//        adapterDelegationAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-//                annotation.afterReturningBuilder(), returnValue);
-    }
-
-    @Before("@annotation(annotation)")
-    public void beginOutboundMessageEvent(JoinPoint joinPoint, OutboundMessageEvent annotation) {
-//        outboundMessageAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-//                annotation.beforeBuilder());
-    }
-
-    @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
-    public void endOutboundMessageEvent(JoinPoint joinPoint, OutboundMessageEvent annotation, Object returnValue) {
-//        outboundMessageAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-//                annotation.afterReturningBuilder(), returnValue);
-    }
-
-    @Before("@annotation(annotation)")
-    public void beginOutboundProcessingEvent(JoinPoint joinPoint, OutboundProcessingEvent annotation) {
-//        outboundProcessingAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-//                annotation.beforeBuilder());
-    }
-
-    @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
-    public void endOutboundProcessingEvent(JoinPoint joinPoint, OutboundProcessingEvent annotation,
-            Object returnValue) {
-//        outboundProcessingAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-//                annotation.afterReturningBuilder(), returnValue);
-    }
-
-    @Before("@annotation(annotation)")
-    public void beginNwhinInvocationEvent(JoinPoint joinPoint, NwhinInvocationEvent annotation) {
-//        nwhinInvocationAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-//                annotation.beforeBuilder());
-    }
-
-    @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
-    public void endNwhinInvocationEvent(JoinPoint joinPoint, NwhinInvocationEvent annotation, Object returnValue) {
-//        nwhinInvocationAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-//                annotation.afterReturningBuilder(), returnValue);
-    }
-
-    /*
-     * Passthrough modes do not have any Event annotations on them. We want to support the ability to log exceptions
-     * for both Standard and Passthrough. If the method is annotated with both for some reason, we only process the
-     * LogFailures annotation to prevent recording duplicate entries for the failure.
-     */
-    /*
-    @AfterThrowing(pointcut = "@annotation(gov.hhs.fha.nhinc.aspect.InboundMessageEvent) ||"
-        + "@annotation(gov.hhs.fha.nhinc.aspect.InboundProcessingEvent) ||"
-        + "@annotation(gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent) || "
-        + "@annotation(gov.hhs.fha.nhinc.aspect.OutboundMessageEvent) || "
-        + "@annotation(gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent) || "
-        + "@annotation(gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent)", throwing = "e")
-    */
-    public void failEvent(JoinPoint joinPoint, Throwable e) {
-        if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
-            MethodSignature sig = (MethodSignature) joinPoint.getSignature();
-            Method method = sig.getMethod();
-
-            // Check if the method is annotated with @LogFailures. We dont want to log the event twice.
-            if (method.getAnnotation(LogFailures.class) != null) {
-                Logger log = LoggerFactory.getLogger(sig.getDeclaringType()); //NOSONAR
-                log.warn("Method {} has multiple logging aspects. Will only process LogFailures annotation... ", method.getName());
-            } else {
-                logFailure(joinPoint, e);
-            }
-        }
-    }
-
-
     @AfterThrowing(pointcut = "@annotation(gov.hhs.fha.nhinc.aspect.LogFailures)", throwing = "e")
-    public void logFailure(JoinPoint joinPoint, Throwable e) {
-        if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
-            MethodSignature sig = (MethodSignature) joinPoint.getSignature();
-
-            Logger log = LoggerFactory.getLogger(sig.getDeclaringType()); //NOSONAR
-            log.info("{} threw an exception: {}", sig.getName(), e.getMessage());
-
-            ErrorEventBuilder builder = new ErrorEventBuilder();
-
-            builder.setAssertion(AssertionExtractor.getAssertion(joinPoint.getArgs()));
-            builder.setThrowable(e);
-            builder.setInvoker(sig.getDeclaringType().toString());
-            builder.setMethod(sig.getName());
-
-
-            EventDirector director = new EventDirector();
-            director.setEventBuilder(builder);
-            director.constructEvent();
-
-            eventRecorder.recordEvent(director.getEvent());
-
-        }
-
+    public void logFailureAnnotation(JoinPoint joinPoint, Throwable e) {
+        logFailure(joinPoint, e, "Event Service", "0.0");
     }
 
     @Around("@annotation(anno)")
@@ -231,6 +111,34 @@ public class EventAspectAdvice {
             anno.afterReturningBuilder(), anno.serviceType(), anno.version());
     }
 
+    /**
+     * This method ensures that a supported event throws one BEGIN_* event and corresponding END_* or
+     * MESSAGE_PROCESSING_FAILED event.
+     *
+     * In the case where an invocation of a proxy layer throws an exception, it will be handled by the Aspect according
+     * to exception thrown. In both cases, there will be a MESSAGE_PROCESSING_FAILED event logged, and no corresponding
+     * END_* event.
+     *
+     * If the exception is an instance of ErrorEventException, then the event will be logged as a failure, but the
+     * exception will be suppressed. This will allow for services such as Document Query in which the response must
+     * contain a RegistryErrorList body element in the SOAP response and should not produce a SOAP fault. In such
+     * situations, the ErrorEventException should return an override object to be used as the result of the method
+     * invocation. This will allow the service to both log the exception raised, log the failed processing event, suppress
+     * logging the corresponding END_* event, and satisfy the requirements of the given service spec by returning a
+     * RegistryErrorList containing the errors that occurred.
+     *
+     * If the exception is any other type other than ErrorEventException, the event will be logged as a failure, with
+     * no corresponding END_* event and the exception will be re-thrown.
+     *
+     * @param joinPoint
+     * @param delegate
+     * @param beforeBuilder
+     * @param afterBuilder
+     * @param serviceType
+     * @param version
+     * @return
+     * @throws Throwable
+     */
     public Object logEvents(ProceedingJoinPoint joinPoint, EventAdviceDelegate delegate, Class<? extends EventDescriptionBuilder> beforeBuilder,
         Class<? extends EventDescriptionBuilder> afterBuilder, String serviceType, String version) throws Throwable {
         delegate.begin(joinPoint.getArgs(), serviceType, version, beforeBuilder);
@@ -240,13 +148,14 @@ public class EventAspectAdvice {
         try {
             value = joinPoint.proceed();
         } catch (ErrorEventException e) {
-            logFailure(joinPoint, e);
+            // Log the failure, and handle the exception. Service should still return a value in this case
+            logFailure(joinPoint, e, serviceType, version);
             value =  e.getReturnOverride();
             hasFailure = true;
         } catch (Throwable e) {
             // We don't want to swallow the exception if its not an ErrorEventException.
             // We also don't want the delegate to log the END_* event.
-            logFailure(joinPoint, e);
+            logFailure(joinPoint, e, serviceType, version);
             throw e;
         }
         // Delegate should only log either an END_* if we did not log a MessageProcessingFailed event.
@@ -256,40 +165,28 @@ public class EventAspectAdvice {
         return value;
     }
 
+    public void logFailure(JoinPoint joinPoint, Throwable e, String service, String version) {
+        if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
+            MethodSignature sig = (MethodSignature) joinPoint.getSignature();
 
-    @Autowired
-    public void setInboundMessageAdviceDelegate(EventAdviceDelegate inboundMessageAdviceDelegate) {
-        this.inboundMessageAdviceDelegate = inboundMessageAdviceDelegate;
-    }
+            Logger log = LoggerFactory.getLogger(sig.getDeclaringType()); //NOSONAR
+            log.info("{} threw an exception: {}", sig.getName(), e.getMessage());
 
-    @Autowired
-    public void setInboundProcessingAdviceDelegate(EventAdviceDelegate inboundProcessingAdviceDelegate) {
-        this.inboundProcessingAdviceDelegate = inboundProcessingAdviceDelegate;
-    }
+            ErrorEventBuilder builder = new ErrorEventBuilder();
 
-    @Autowired
-    public void setAdapterDelegationAdviceDelegate(EventAdviceDelegate adapterDelegationAdviceDelegate) {
-        this.adapterDelegationAdviceDelegate = adapterDelegationAdviceDelegate;
-    }
+            builder.setAssertion(AssertionExtractor.getAssertion(joinPoint.getArgs()));
+            builder.setThrowable(e);
+            builder.setInvoker(sig.getDeclaringType().toString());
+            builder.setMethod(sig.getName());
+            builder.setService(service);
+            builder.setVersion(version);
 
-    @Autowired
-    public void setOutboundMessageAdviceDelegate(EventAdviceDelegate outboundMessageAdviceDelegate) {
-        this.outboundMessageAdviceDelegate = outboundMessageAdviceDelegate;
-    }
+            builder.buildMessageID();
+            builder.buildTransactionID();
+            builder.buildDescription();
 
-    @Autowired
-    public void setOutboundProcessingAdviceDelegate(EventAdviceDelegate outboundProcessingAdviceDelegate) {
-        this.outboundProcessingAdviceDelegate = outboundProcessingAdviceDelegate;
-    }
-
-    @Autowired
-    public void setNwhinInvocationAdviceDelegate(EventAdviceDelegate nwhinInvocationAdviceDelegate) {
-        this.nwhinInvocationAdviceDelegate = nwhinInvocationAdviceDelegate;
-    }
-
-    @Autowired
-    public void setEventRecorder(EventRecorder eventRecorder) {
-        this.eventRecorder = eventRecorder;
+            eventRecorder.recordEvent(builder.getEvent());
+        }
     }
 
 }

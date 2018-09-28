@@ -45,10 +45,10 @@ public class ErrorEventBuilder implements EventBuilder {
     private ContextEventHelper helper = new ContextEventHelper();
     private Throwable throwable;
     private AssertionType assertion;
-
     private String invoker;
-
     private String method;
+    private String service;
+    private String version;
 
     @Override
     public void createNewEvent() {
@@ -65,15 +65,18 @@ public class ErrorEventBuilder implements EventBuilder {
                     jsonObject.put("exceptionClass", throwable.getClass());
                     jsonObject.put("stackTrace", throwable.getStackTrace());
                 }
-
                 if (StringUtils.isNotBlank(invoker)) {
                     jsonObject.put("failedClass", invoker);
                 }
-
                 if (StringUtils.isNotBlank(method)) {
                     jsonObject.put("failedMethod", method);
                 }
-
+                if (StringUtils.isNotBlank(service)) {
+                    jsonObject.put("service_type", service);
+                }
+                if (StringUtils.isNotBlank(version)) {
+                    jsonObject.put("action", version);
+                }
 
             } catch (JSONException e) {
                 LOG.error("Could not build description: {}", e.getLocalizedMessage());
@@ -121,5 +124,14 @@ public class ErrorEventBuilder implements EventBuilder {
 
     public void setMethod(String method) {
        this.method = method;
+    }
+
+    public void setService(String service) {
+        event.setServiceType(service);
+        this.service = service;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }
