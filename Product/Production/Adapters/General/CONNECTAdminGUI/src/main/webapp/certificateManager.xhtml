@@ -118,7 +118,7 @@
                                                 </p:dataTable>
 
                                                 <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
-                                                    <p:row>
+                                                    <p:row rendered="#{certificateBean.keyStoreColorCodeList.contains('GREEN')}">
                                                         <p:column>
                                                             <p:commandLink
                                                                 styleClass="glyphicon glyphicon-ok-circle highlightGREEN">
@@ -129,22 +129,15 @@
                                                         </p:column>
                                                     </p:row>
                                                     <p:row>
-                                                        <p:column>
-                                                            <p:commandLink
-                                                                styleClass="glyphicon glyphicon-warning-sign highlightYELLOW"></p:commandLink>
-                                                            <h:outputText
-                                                                value=" &nbsp;Certificate is expiring soon (&lt; 90 days).&nbsp;" />
-                                                            <h:outputText value="&lt;br/&gt;" escape="false" />
-                                                        </p:column>
-                                                        <p:column rowspan="3" styleClass="pull-right">
-                                                            <p:commandButton id="viewCertKeyStoreButton"
-                                                                value="View Certificate"
-                                                                action="#{certificateBean.viewCertificateKS}"
-                                                                update=":certTabView :viewCertDlgKS"
-                                                                styleClass="add-button" />
-                                                        </p:column>
+                                                    <p:column rendered="#{certificateBean.keyStoreColorCodeList.contains('YELLOW')}">
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-warning-sign highlightYELLOW"></p:commandLink>
+                                                        <h:outputText
+                                                            value=" &nbsp;Certificate is expiring soon (&lt; 90 days).&nbsp;" />
+                                                        <h:outputText value="&lt;br/&gt;" escape="false" />
+                                                    </p:column>
                                                     </p:row>
-                                                    <p:row>
+                                                     <p:row rendered="#{certificateBean.keyStoreColorCodeList.contains('RED')}">
                                                         <p:column>
                                                             <p:commandLink
                                                                 styleClass="glyphicon glyphicon-remove-circle highlightRED"></p:commandLink>
@@ -152,6 +145,16 @@
                                                                 value=" &#160;Certificate expired or about to expire.&#160;" />
                                                         </p:column>
                                                     </p:row>
+                                                  <p:row>
+                                                    <p:column rowspan="3" styleClass="pull-right">
+                                                        <p:commandButton id="viewCertKeyStoreButton"
+                                                            value="View Certificate"
+                                                            action="#{certificateBean.viewCertificateKS}"
+                                                            update=":certTabView :viewCertDlgKS"
+                                                            styleClass="add-button" />
+                                                    </p:column>
+                                                </p:row>
+                                                   
                                                 </p:panelGrid>
 
                                             </div>
@@ -234,7 +237,7 @@
                                             </div>
 
                                             <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
-                                                <p:row>
+                                                <p:row rendered="#{certificateBean.trustStoreColorCodeList.contains('GREEN')}">
                                                     <p:column>
                                                         <p:commandLink
                                                             styleClass="glyphicon glyphicon-ok-circle highlightGREEN">
@@ -245,13 +248,23 @@
                                                     </p:column>
                                                 </p:row>
                                                 <p:row>
-                                                    <p:column>
+                                                    <p:column  rendered="#{certificateBean.trustStoreColorCodeList.contains('YELLOW')}">
                                                         <p:commandLink
                                                             styleClass="glyphicon glyphicon-warning-sign highlightYELLOW"></p:commandLink>
                                                         <h:outputText
                                                             value=" &nbsp;Certificate is expiring soon (&lt; 90 days).&nbsp;" />
                                                         <h:outputText value="&lt;br/&gt;" escape="false" />
                                                     </p:column>
+                                                 </p:row>
+                                                  <p:row rendered="#{certificateBean.trustStoreColorCodeList.contains('RED')}">
+                                                    <p:column>
+                                                        <p:commandLink
+                                                            styleClass="glyphicon glyphicon-remove-circle highlightRED"></p:commandLink>
+                                                        <h:outputText
+                                                            value=" &#160;Certificate expired or about to expire.&#160;" />
+                                                    </p:column>
+                                                </p:row>
+                                                 <p:row>
                                                     <p:column rowspan="3" styleClass="pull-right">
                                                         <p:commandButton id="deleteCert" value="Delete"
                                                             styleClass="delete-button" icon="ui-icon-closethick"
@@ -305,14 +318,7 @@
                                                             styleClass="add-button" />
                                                     </p:column>
                                                 </p:row>
-                                                <p:row>
-                                                    <p:column>
-                                                        <p:commandLink
-                                                            styleClass="glyphicon glyphicon-remove-circle highlightRED"></p:commandLink>
-                                                        <h:outputText
-                                                            value=" &#160;Certificate expired or about to expire.&#160;" />
-                                                    </p:column>
-                                                </p:row>
+                                               
                                             </p:panelGrid>
 
                                         </h:form>

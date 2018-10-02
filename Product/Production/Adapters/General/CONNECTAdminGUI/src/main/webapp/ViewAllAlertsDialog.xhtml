@@ -1,0 +1,50 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core">
+
+    <div>
+        <p:dialog id="viewAllAlertsDlg" header="View All Alerts" widgetVar="viewAllAlertsDlg" modal="true"
+            draggable="false" resizable="false" width="1050" height="560">
+            <div class="content-block content">
+                <div class=" form-block center-block">
+                    <p:panel rendered="#{not empty statusBean.certificateList}" id="alertsPanel" widgetVar="alertsPanel"
+                        style="width: 100%; margin: 0 auto;">
+                        <h2 class="subsection-header">Alerts</h2>
+                        <div class="table-responsive table-orgs">
+                            <p:dataTable id="certificateTable" widgetVar="certificateTable" var="cert"
+                                value="#{statusBean.certificateList}" scrollable="TRUE" scrollHeight="350"
+                                styleClass="table table-striped table-status" lazy="true">
+                                 <p:column>
+                                        <h:outputText rendered="#{cert.expiryColorCoding eq 'RED' and cert.expiresInDays le 0 }"
+                                            value="Certificate with alias #{cert.alias} expired. Use Certificate Manager to Update. "
+                                            style="color: red" />
+                                         <h:outputText rendered="#{cert.expiryColorCoding eq 'RED' and cert.expiresInDays ge 0 }"
+                                        value="Certificate with alias #{cert.alias} is about to expire in #{cert.expiresInDays} days. Use Certificate Manager to Update. "
+                                        style="color: red" />
+                                        <h:outputText rendered="#{cert.expiryColorCoding eq 'YELLOW'}"
+                                            styleClass="glyphicon glyphicon-warning-sign highlightYELLOW pull-left" />
+                                        <h:outputText  rendered="#{cert.expiryColorCoding eq 'YELLOW'}"
+                                            value=" Certificate with alias #{cert.alias} is about to expire in #{cert.expiresInDays} days. Use Certificate Manager to update. "
+                                            styleClass="orange-warning" style=" white-space: pre"/>
+                                    </p:column>
+
+                            </p:dataTable>
+
+                        </div>
+                    </p:panel>
+
+
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-button-row">
+                                <p:commandButton id="closeAllAlertsDlg" value="Close"
+                                    oncomplete="PF('viewAllAlertsDlg').hide();" styleClass="btn btn-default"
+                                    icon="ui-icon-circle-close" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </p:dialog>
+    </div>
+</ui:composition>

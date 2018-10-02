@@ -33,6 +33,11 @@ import gov.hhs.fha.nhinc.adminguimanagement.AdminGUIManagementPortType;
 import gov.hhs.fha.nhinc.common.adminguimanagement.AdminGUIRequestMessageType;
 import gov.hhs.fha.nhinc.common.adminguimanagement.DashboardStatusMessageType;
 import gov.hhs.fha.nhinc.common.adminguimanagement.EventLogMessageType;
+import gov.hhs.fha.nhinc.common.adminguimanagement.GetSearchFilterRequestMessageType;
+import gov.hhs.fha.nhinc.common.adminguimanagement.ListErrorLogRequestMessageType;
+import gov.hhs.fha.nhinc.common.adminguimanagement.LogEventSimpleResponseMessageType;
+import gov.hhs.fha.nhinc.common.adminguimanagement.LogEventType;
+import gov.hhs.fha.nhinc.common.adminguimanagement.ViewErrorLogRequestMessageType;
 import gov.hhs.fha.nhinc.event.model.EventCount;
 import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +73,39 @@ public class DashboardStatusWebservice implements AdminGUIManagementPortType{
         }
 
         return resp;
+    }
+
+    @Override
+    public LogEventSimpleResponseMessageType getSearchFilter(GetSearchFilterRequestMessageType arg0) {
+        LogEventSimpleResponseMessageType response = new LogEventSimpleResponseMessageType();
+        response.getServiceList().add("service-type-1");
+        response.getServiceList().add("service-type-2");
+        response.getExceptionList().add("UserException");
+        response.getExceptionList().add("SystemException");
+        return response;
+    }
+
+    @Override
+    public LogEventSimpleResponseMessageType listErrorLog(ListErrorLogRequestMessageType arg0) {
+        LogEventSimpleResponseMessageType response = new LogEventSimpleResponseMessageType();
+        response.getEventLogList().add(buildLogEventType(1, null, "CustomException"));
+        response.getEventLogList().add(buildLogEventType(2, null, "MyCustomException"));
+        return response;
+    }
+
+    @Override
+    public LogEventSimpleResponseMessageType viewErrorLog(ViewErrorLogRequestMessageType arg0) {
+        LogEventSimpleResponseMessageType response = new LogEventSimpleResponseMessageType();
+        response.getEventLogList().add(buildLogEventType(4, "{'Json-detail':'full-view'}", "CustomException"));
+        return response;
+    }
+
+    private LogEventType buildLogEventType(long id, String detail, String classException) {
+        LogEventType retObj = new LogEventType();
+        retObj.setId(id);
+        retObj.setDescription(detail);
+        retObj.setExceptionType(classException);
+        return retObj;
     }
 
 }

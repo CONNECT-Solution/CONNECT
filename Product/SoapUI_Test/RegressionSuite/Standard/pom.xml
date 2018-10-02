@@ -53,6 +53,7 @@
                 <module>EntitySendingXDRAsyncReqTests</module>
                 <module>EntitySendingXDRAsyncResponseTests</module>
                 <module>Fanout-Test</module>
+                <module>ExchangeManager</module>
             </modules>
         </profile>
     </profiles>
