@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -54,8 +55,6 @@ import org.slf4j.LoggerFactory;
  */
 public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCorrelationProxy {
     private static final Logger LOG = LoggerFactory.getLogger(PatientCorrelationProxyWebServiceUnsecuredImpl.class);
-    private static final String NULL_ERROR = "msg was null";
-    private static final String NULL_ERR_ASSERTION = "assertion was null";
     private WebServiceProxyHelper oProxyHelper = null;
 
     /**
@@ -120,9 +119,9 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
             final String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SERVICE_NAME);
 
             if (msg == null) {
-                LOG.error(NULL_ERROR);
+                throw new IllegalArgumentException("Request Message must be provided");
             } else if (assertion == null) {
-                LOG.error(NULL_ERR_ASSERTION);
+                throw new IllegalArgumentException("Assertion must be provided");
             } else {
                 final RetrievePatientCorrelationsRequestType request = new RetrievePatientCorrelationsRequestType();
                 request.setPRPAIN201309UV02(msg);
@@ -139,6 +138,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
             }
         } catch (final Exception ex) {
             LOG.error("Error calling retrievePatientCorrelations: {}", ex.getMessage(), ex);
+            throw new ErrorEventException(ex,"Unable to call Patient Correlation Service");
         }
 
         LOG.debug("End retrievePatientCorrelations");
@@ -161,9 +161,9 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
         try {
             final String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SERVICE_NAME);
             if (msg == null) {
-                LOG.error(NULL_ERROR);
+                throw new IllegalArgumentException("Request Message must be provided");
             } else if (assertion == null) {
-                LOG.error(NULL_ERR_ASSERTION);
+                throw new IllegalArgumentException("Assertion must be provided");
             } else {
                 final AddPatientCorrelationRequestType request = new AddPatientCorrelationRequestType();
                 request.setPRPAIN201301UV02(msg);
@@ -180,6 +180,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
             }
         } catch (final Exception ex) {
             LOG.error("Error calling addPatientCorrelation: {}", ex.getMessage(), ex);
+            throw new ErrorEventException(ex,"Unable to call Patient Correlation Service");
         }
 
         LOG.debug("End addPatientCorrelation");
@@ -195,9 +196,9 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
         try {
             final String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SERVICE_NAME);
             if (plqRecords == null) {
-                LOG.error(NULL_ERROR);
+                throw new IllegalArgumentException("Request Message must be provided");
             } else if (assertion == null) {
-                LOG.error(NULL_ERR_ASSERTION);
+                throw new IllegalArgumentException("Assertion must be provided");
             } else {
 
                 final ServicePortDescriptor<PatientCorrelationPortType> portDescriptor = new PatientCorrelationAddPLQServicePortDescriptor();
@@ -209,6 +210,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
             }
         } catch (final Exception ex) {
             LOG.error("Error calling addPatientCorrelationPLQ: {}", ex.getMessage(), ex);
+            throw new ErrorEventException(ex,"Unable to call Patient Correlation Service");
         }
         LOG.debug("End addPatientCorrelationPLQ");
     }

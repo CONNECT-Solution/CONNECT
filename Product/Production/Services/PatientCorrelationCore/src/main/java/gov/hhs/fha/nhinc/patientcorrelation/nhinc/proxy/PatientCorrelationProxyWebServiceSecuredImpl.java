@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -56,7 +57,6 @@ import org.slf4j.LoggerFactory;
  */
 public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorrelationProxy {
     private static final Logger LOG = LoggerFactory.getLogger(PatientCorrelationProxyWebServiceSecuredImpl.class);
-    private static final String NULL_ERROR = "msg was null";
     private WebServiceProxyHelper oProxyHelper = null;
 
     /**
@@ -115,7 +115,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
                 .getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SECURED_SERVICE_NAME);
 
             if (msg == null) {
-                LOG.error(NULL_ERROR);
+                throw new IllegalArgumentException("Request Message must be provided");
             } else {
                 final RetrievePatientCorrelationsSecuredRequestType request = new RetrievePatientCorrelationsSecuredRequestType();
                 request.setPRPAIN201309UV02(msg);
@@ -134,6 +134,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
             }
         } catch (final Exception ex) {
             LOG.error("Error calling retrievePatientCorrelations: {}", ex.getMessage(), ex);
+            throw new ErrorEventException(ex,"Unable to call Patient Correlation Service");
         }
 
         LOG.debug("End retrievePatientCorrelations");
@@ -159,7 +160,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
                 .getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SECURED_SERVICE_NAME);
 
             if (msg == null) {
-                LOG.error(NULL_ERROR);
+                throw new IllegalArgumentException("Request Message must be provided");
             } else {
                 final AddPatientCorrelationSecuredRequestType request = new AddPatientCorrelationSecuredRequestType();
                 request.setPRPAIN201301UV02(msg);
@@ -179,6 +180,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
             }
         } catch (final Exception ex) {
             LOG.error("Error calling addPatientCorrelation: {}", ex.getMessage(), ex);
+            throw new ErrorEventException(ex,"Unable to call Patient Correlation Service");
         }
 
         LOG.debug("End addPatientCorrelation");
@@ -197,7 +199,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
                 .getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SECURED_SERVICE_NAME);
 
             if (plqRecords == null) {
-                LOG.error(NULL_ERROR);
+                throw new IllegalArgumentException("Request Message must be provided");
             } else {
 
                 final ServicePortDescriptor<PatientCorrelationSecuredPortType> portDescriptor = new PatientCorrelationSecuredAddPLQServicePortDescriptor();
@@ -210,6 +212,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
         }
         catch (final Exception ex) {
             LOG.error("Error calling addPatientCorrelationPLQ: {}", ex.getMessage(), ex);
+            throw new ErrorEventException(ex,"Unable to call Patient Correlation Service");
         }
 
         LOG.debug("End addPatientCorrelationPLQ");
