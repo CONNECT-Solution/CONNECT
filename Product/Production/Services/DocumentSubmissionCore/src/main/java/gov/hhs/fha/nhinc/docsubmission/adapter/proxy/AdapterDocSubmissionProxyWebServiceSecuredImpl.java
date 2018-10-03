@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.service.AdapterDocSubmissionSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -38,6 +39,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import javax.xml.ws.WebServiceException;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,11 +91,14 @@ public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDo
             } else {
                 LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_XDR_SECURED_SERVICE_NAME
                     + ").  The URL is null.");
+                throw new WebServiceException("Could not determine URL for Doc Submission Adapter Component endpoint");
             }
         } catch (Exception ex) {
             LOG.error("Error sending Adapter Doc Submission Secured message: " + ex.getMessage(), ex);
             response = new RegistryResponseType();
             response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            throw new ErrorEventException(ex, response, "Unable to call Doc Submission Adapter Component");
+
         }
         return response;
     }

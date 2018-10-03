@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.Properties;
@@ -85,6 +86,8 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
         } catch (LargePayloadException lpe) {
             LOG.error("Failed to retrieve payload document.", lpe);
             response = msgUtils.createRegistryErrorResponse();
+            throw new ErrorEventException(lpe, response, "Failed to save document");
+
         }
 
         return response;

@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -110,6 +111,7 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
             } catch (LargePayloadException lpe) {
                 LOG.error("Failed to retrieve payload document.", lpe);
                 response = MessageGeneratorUtils.getInstance().createRegistryErrorResponse();
+                throw new ErrorEventException(lpe, response, "Failed to save document");
             }
         } else {
             LOG.error("Failed policy check.  Sending error response.");
