@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.event.DefaultTargetEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -86,7 +87,7 @@ public class NhinPatientLocationQueryProxyWebServiceSecuredImpl implements NhinP
 
         } catch (Exception ex) {
             LOG.error("Error calling processPatientLocationQuery: {}", ex.getMessage(), ex);
-            throw new IllegalStateException("Error calling NHIN processPatientLocationQuery", ex);
+            throw new ErrorEventException(ex,"Error calling NHIN processPatientLocationQuery");
         }
 
         LOG.debug("End processPatientLocationQuery");

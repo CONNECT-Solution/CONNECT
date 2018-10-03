@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRe
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySecuredResponseType;
 import gov.hhs.fha.nhinc.event.DefaultDelegatingEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.DefaultTargetedArgTransfomer;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -81,7 +82,7 @@ public class AdapterPatientLocationQueryProxyWebServiceUnsecuredImpl implements 
             }
         } catch (Exception ex) {
             LOG.error("Error sending Adapter Patient Location Query Unsecured Adapter message: " + ex.getMessage(), ex);
-            throw new IllegalStateException("Error sending Adapter Patient Location Query Unsecured Adapter message", ex);
+            throw new ErrorEventException(ex, "Error sending Adapter Patient Location Query Unsecured Adapter message");
         }
 
         LOG.debug("End Adapter Patient Location Query Unsecured");

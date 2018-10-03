@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySe
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySecuredResponseType;
 import gov.hhs.fha.nhinc.event.DefaultDelegatingEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.DefaultTargetedArgTransfomer;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -82,7 +83,7 @@ public class AdapterPatientLocationQueryProxyWebServiceSecuredImpl implements Ad
             }
         } catch (Exception ex) {
             LOG.error("Error sending Patient Location Query Secured Adapter message: " + ex.getMessage(), ex);
-            throw new IllegalStateException("Error sending Patient Location Query Secured Adapter message", ex);
+            throw new ErrorEventException(ex, "Error sending Patient Location Query Secured Adapter message");
         }
 
         return response;

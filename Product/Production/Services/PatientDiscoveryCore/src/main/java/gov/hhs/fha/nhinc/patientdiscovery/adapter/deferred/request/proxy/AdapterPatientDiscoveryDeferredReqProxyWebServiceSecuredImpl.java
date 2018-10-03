@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy;
 import gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreq.AdapterPatientDiscoverySecuredAsyncReqPortType;
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -39,6 +40,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptio
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import javax.xml.ws.WebServiceException;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
@@ -77,7 +79,7 @@ public class AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implem
             if (NullChecker.isNotNullish(url)) {
 
                 if (request == null) {
-                    LOG.error("Request was null");
+                    throw new IllegalArgumentException("Request Message must be provided");
                 } else {
                     ServicePortDescriptor<AdapterPatientDiscoverySecuredAsyncReqPortType> portDescriptor =
                             new AdapterPatientDiscoveryDeferredReqSecuredServicePortDescriptor();
@@ -95,11 +97,13 @@ public class AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implem
                 LOG.error("Failed to call the web service ("
                         + NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_SERVICE_NAME
                         + ").  The URL is null.");
+                throw new WebServiceException("Could not determine URL for Patient Discovery Deferred Request endpoint");
             }
         } catch (Exception ex) {
             LOG.error("Error calling processPatientDiscoveryAsyncReq: " + ex.getMessage(), ex);
             ack = HL7AckTransforms.createAckFrom201305(request,
                     NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
+            throw new ErrorEventException(ex, ack, "Unable to call Patient Discovery Deferred Request");
         }
 
         LOG.debug("End processPatientDiscoveryAsyncReqError");

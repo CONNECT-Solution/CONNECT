@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayPatientLocationQueryResponseType;
 import gov.hhs.fha.nhinc.entitypatientlocationquery.EntityPatientLocationQueryPortType;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -71,7 +72,7 @@ public class EntityPatientLocationQueryProxyWebServiceUnsecuredImpl implements E
 
         } catch (Exception e) {
             LOG.error("Error calling respondingGatewayPatientLocationQuery: {}", e.getMessage(), e);
-            throw new IllegalStateException("Error calling respondingGatewayPatientLocationQuery", e);
+            throw new ErrorEventException(e, "Error calling respondingGatewayPatientLocationQuery");
         }
 
         LOG.debug("End EntityPatientLocationQueryProxyWebServiceUnsecuredImpl.processPatientLocationQuery");

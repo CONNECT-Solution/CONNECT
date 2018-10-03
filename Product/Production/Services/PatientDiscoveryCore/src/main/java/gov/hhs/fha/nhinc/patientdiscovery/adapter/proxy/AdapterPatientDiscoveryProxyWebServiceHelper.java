@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -59,7 +60,7 @@ public class AdapterPatientDiscoveryProxyWebServiceHelper {
     }
 
     public PRPAIN201306UV02 sendToPRPAIN201306UV02Adapter(PRPAIN201305UV02 body, AssertionType assertion,
-        String sServiceName) throws PatientDiscoveryException {
+        String sServiceName) {
         String url;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         try {
@@ -87,7 +88,7 @@ public class AdapterPatientDiscoveryProxyWebServiceHelper {
             }
         } catch (Exception e) {
             LOG.error("Failed to call the web service : {}. An unexpected exception occurred. Exception: {} " , sServiceName, e.getMessage(), e);
-            throw new PatientDiscoveryException(e.fillInStackTrace());
+            throw new ErrorEventException(e, "Unable to call Patient Discovery Adapter");
         }
         return response;
     }
