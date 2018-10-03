@@ -28,12 +28,16 @@ package gov.hhs.fha.nhinc.admingui.hibernate.dao;
 
 import gov.hhs.fha.nhinc.admingui.hibernate.util.HibernateUtil;
 import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,101 +50,113 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventLoggingErrorFailureDAOImpl implements EventLoggingErrorFailureDAO {
 
-	@Autowired
-	HibernateUtil hibernateUtil;
-	private static final Logger LOG = LoggerFactory.getLogger(EventLoggingErrorFailureDAOImpl.class);
+    @Autowired
+    HibernateUtil hibernateUtil;
+    private static final Logger LOG = LoggerFactory.getLogger(EventLoggingErrorFailureDAOImpl.class);
 
-	private static final String EVENT_TIME = "eventTime";
-	private static final String SERVICE_NAME = "ServiceName";
+    private static final String EVENT_TIME = "eventTime";
+    private static final String EVENT_NAME = "eventName";
+    private static final String SERVICE_TYPE = "serviceType";
+    private List<String> exceptions = null;
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.hhs.fha.nhinc.admingui.hibernate.dao.EventLoggingErrorFailureDAO#
+     * getFailureMessageById(java.lang.Long)
+     */
+    @Override
+    public DatabaseEvent getFailureMessageById(Long id) {
+        Session session = null;
+        DatabaseEvent event = null;
+        try {
+            session = getSession();
+            event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
+                    .add(Restrictions.eq("MessageId", id)).uniqueResult();
+        } finally {
+            closeSession(session, false);
+        }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * gov.hhs.fha.nhinc.admingui.hibernate.dao.EventLoggingErrorFailureDAO#
-	 * getFailureMessageById(java.lang.Long)
-	 */
-	@Override
-	public DatabaseEvent getFailureMessageById(Long id) {
-		Session session = null;
-		DatabaseEvent event = null;
-		try {
-			session = getSession();
-			event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
-					.add(Restrictions.eq("MessageId", id)).uniqueResult();
-		} finally {
-			closeSession(session, false);
-		}
+        return event;
+    }
 
-		return event;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.hhs.fha.nhinc.admingui.hibernate.dao.EventLoggingErrorFailureDAO#
+     * getExceptions()
+     */
+    @Override
+    public List<String> getExceptions() {
+        exceptions = new ArrayList<>();
+        List<DatabaseEvent> events = getAllFailureMessages("", null, null);
+        for (DatabaseEvent event : events) {
+            try {
+                JSONObject jObject = new JSONObject(event);
+                exceptions.add(jObject.getString("exceptionClass").replaceAll("class", ""));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return exceptions;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * gov.hhs.fha.nhinc.admingui.hibernate.dao.EventLoggingErrorFailureDAO#
-	 * getExceptions()
-	 */
-	@Override
-	public List<String> getExceptions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private static void closeSession(Session session, boolean flush) {
+        if (session != null) {
+            if (flush) {
+                session.flush();
+            }
+            session.close();
+        }
+    }
 
-	private static void closeSession(Session session, boolean flush) {
-		if (session != null) {
-			if (flush) {
-				session.flush();
-			}
-			session.close();
-		}
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.hhs.fha.nhinc.admingui.hibernate.dao.EventLoggingErrorFailureDAO#
+     * getAllFailureMessages(java.lang.String, java.util.Date, java.util.Date)
+     */
+    @Override
+    public List<DatabaseEvent> getAllFailureMessages(String serviceType, Date startDate, Date endDate) {
+        Session session = null;
+        List<DatabaseEvent> events = null;
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * gov.hhs.fha.nhinc.admingui.hibernate.dao.EventLoggingErrorFailureDAO#
-	 * getAllFailureMessages(java.lang.String, java.util.Date, java.util.Date)
-	 */
-	@Override
-	public List<DatabaseEvent> getAllFailureMessages(String serviceName, Date startDate, Date endDate) {
-		Session session = null;
-		List<DatabaseEvent> events = null;
+        try {
+            session = getSession();
+            Criteria criteria = session.createCriteria(DatabaseEvent.class);
 
-		try {
-			session = getSession();
-			Criteria criteria = session.createCriteria(DatabaseEvent.class);
+            criteria.add(Restrictions.eq(EVENT_NAME, "MESSAGE_PROCESSING_FAILED"));
 
-			if (startDate != null) {
-				criteria.add(Restrictions.ge(EVENT_TIME, startDate));
-			}
+            if (startDate != null) {
+                criteria.add(Restrictions.ge(EVENT_TIME, startDate));
+            }
 
-			if (endDate != null) {
-				criteria.add(Restrictions.le(EVENT_TIME, endDate));
-			}
+            if (endDate != null) {
+                criteria.add(Restrictions.le(EVENT_TIME, endDate));
+            }
 
-			if (serviceName != null) {
-				criteria.add(Restrictions.eq(SERVICE_NAME, serviceName));
-			}
+            if (StringUtils.isNotBlank(serviceType)) {
+                criteria.add(Restrictions.eq(SERVICE_TYPE, serviceType));
+            }
 
 
-		} catch (HibernateException e) {
-			LOG.error("Could not retrieve users: {}", e.getLocalizedMessage(), e);
-		} finally {
-			closeSession(session, false);
-		}
+        } catch (HibernateException e) {
+            LOG.error("Could not retrieve users: {}", e.getLocalizedMessage(), e);
+        } finally {
+            closeSession(session, false);
+        }
 
-		return events;
-	}
+        return events;
+    }
 
-	/**
-	 * Returns a new session from AsyncMessages HibernateUtil
-	 *
-	 * @return
-	 */
-	protected Session getSession() {
-		return hibernateUtil.getSessionFactory().openSession();
-	}
+    /**
+     * Returns a new session from AsyncMessages HibernateUtil
+     *
+     * @return
+     */
+    protected Session getSession() {
+        return hibernateUtil.getSessionFactory().openSession();
+    }
 }

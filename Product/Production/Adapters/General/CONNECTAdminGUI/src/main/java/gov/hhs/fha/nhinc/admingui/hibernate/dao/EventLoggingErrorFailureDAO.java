@@ -36,22 +36,22 @@ import java.util.List;
  */
 public interface EventLoggingErrorFailureDAO {
 
-	/**
-	 * @param id
-	 * @return
-	 */
-	public DatabaseEvent getFailureMessageById(Long id);
+    /**
+     * @param id
+     * @return
+     */
+    public DatabaseEvent getFailureMessageById(Long id);
 
-	/**
-	 *
-	 * @return
-	 */
-	public List<DatabaseEvent> getAllFailureMessages(String serviceName, Date startDate, Date endDate);
+    /**
+     *
+     * @return
+     */
+    public List<DatabaseEvent> getAllFailureMessages(String serviceName, Date startDate, Date endDate);
 
-	/**
-	 * @return
-	 */
-	public List<String> getExceptions();
+    /**
+     * @return
+     */
+    public List<String> getExceptions();
 
 
 }
