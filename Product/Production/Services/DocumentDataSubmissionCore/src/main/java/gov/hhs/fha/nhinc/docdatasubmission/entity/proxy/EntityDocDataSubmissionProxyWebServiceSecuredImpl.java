@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docdatasubmission.entity.proxy.description.EntityDocDataSubmissionSecuredAdapterServicePortDescriptor;
 import gov.hhs.fha.nhinc.entityxdssecured.EntityXDSSecuredPortType;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -82,6 +83,7 @@ public class EntityDocDataSubmissionProxyWebServiceSecuredImpl implements Entity
 
         } catch (Exception e) {
             LOG.error("Error calling RegisterDocumentSetB: {}", e.getMessage(), e);
+            throw new ErrorEventException(e, "Unable to call Entity Doc Data Submission");
         }
 
         LOG.debug("End EntityDocDataSubmissionProxyWebServiceSecuredImpl.RegisterDocumentSetB");

@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.service.NhinDocDataSubmissionServicePortDescriptor;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -90,6 +91,7 @@ public class NhinDocDataSubmissionProxyWebServiceSecuredImpl implements NhinDocD
         } catch (Exception ex) {
             LOG.error("Error calling registerDocumentSetB: {}", ex.getMessage(), ex);
             response = getMessageGeneratorUtils().createRegistryErrorResponseWithAckFailure(ex.getMessage());
+            throw new ErrorEventException(ex, response, "Unable to call Nhin Doc Data Submission");
         }
 
         LOG.debug("End registerDocumentSetb");
