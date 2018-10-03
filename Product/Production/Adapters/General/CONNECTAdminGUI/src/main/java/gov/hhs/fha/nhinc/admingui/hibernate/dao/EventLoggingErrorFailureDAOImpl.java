@@ -44,7 +44,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author msw
+ * @author vimehta
  *
  */
 @Service
@@ -143,7 +143,7 @@ public class EventLoggingErrorFailureDAOImpl implements EventLoggingErrorFailure
 
 
         } catch (HibernateException e) {
-            LOG.error("Could not retrieve users: {}", e.getLocalizedMessage(), e);
+            LOG.error("Exception getting failure messages caused by :{}", e.getLocalizedMessage(), e);
         } finally {
             closeSession(session, false);
         }
