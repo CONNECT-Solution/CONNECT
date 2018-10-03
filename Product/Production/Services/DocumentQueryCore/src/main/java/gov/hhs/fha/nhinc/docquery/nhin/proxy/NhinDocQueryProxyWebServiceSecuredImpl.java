@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.description.NhinDocQueryServicePortDescriptor;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -104,12 +105,12 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(final AdhocQueryRequest request,
         final AssertionType assertion, final NhinTargetSystemType target) throws Exception {
-        AdhocQueryResponse response;
+        AdhocQueryResponse response = null;
         try {
             String url = target.getUrl();
             if (NullChecker.isNullish(url)) {
                 if (StringUtils.isBlank(target.getUseSpecVersion())) {
-                    throw new Exception("Required specification version guidance was null.");
+                    throw new IllegalArgumentException("Required specification version guidance was null.");
                 }
                 final UDDI_SPEC_VERSION version = UDDI_SPEC_VERSION.fromString(target.getUseSpecVersion());
                 url = getCMInstance().getEndpointURL(
@@ -139,6 +140,8 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             response.setStatus(registryError.getStatus());
             response.setRegistryErrorList(registryError.getRegistryErrorList());
 
+            throw new ErrorEventException(e, response, "Unable to call Nhin Service");
+
         } catch (final WebServiceException wse) {
             LOG.error("Error calling respondingGatewayCrossGatewayQuery", wse);
             final XDCommonResponseHelper helper = new XDCommonResponseHelper();
@@ -151,9 +154,11 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             response.setStatus(registryError.getStatus());
             response.setRegistryErrorList(registryError.getRegistryErrorList());
 
+            throw new ErrorEventException(wse, response, "Unable to call Nhin Service");
+
         } catch (final Exception ex) {
             LOG.error("Error calling respondingGatewayCrossGatewayQuery", ex);
-            throw ex;
+            throw new ErrorEventException(ex, "Unable to call Nhin Service");
         }
         return response;
     }

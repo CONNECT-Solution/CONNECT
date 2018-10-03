@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.docquery.entity.proxy.description.EntityDocQuerySecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.entitydocquery.EntityDocQuerySecuredPortType;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -90,9 +91,9 @@ public class EntityDocQueryProxyWebServiceSecuredImpl implements EntityDocQueryP
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_DOC_QUERY_SECURED_SERVICE_NAME);
 
             if (body == null) {
-                LOG.error("Message was null");
+                throw new IllegalArgumentException("Request Message must be provided");
             } else if (target == null) {
-                LOG.error("target was null");
+                throw new IllegalArgumentException("Target Communities must be provided");
             } else {
                 ServicePortDescriptor<EntityDocQuerySecuredPortType> portDescriptor = getServicePortDescriptor(
                         NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
@@ -110,6 +111,7 @@ public class EntityDocQueryProxyWebServiceSecuredImpl implements EntityDocQueryP
             }
         } catch (Exception ex) {
             LOG.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
+            throw new ErrorEventException(ex, "Unable to call Entity Doc Query");
         }
 
         LOG.debug("End respondingGatewayCrossGatewayQuery");

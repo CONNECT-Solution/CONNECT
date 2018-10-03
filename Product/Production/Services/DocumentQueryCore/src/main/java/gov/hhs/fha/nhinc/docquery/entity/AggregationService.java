@@ -35,6 +35,8 @@ import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelat
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQueryHelper;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.logging.transaction.TransactionLogger;
@@ -51,6 +53,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -97,11 +100,11 @@ public class AggregationService {
      */
     public AggregationService() {
 
-        this.exchangeManager = ExchangeManager.getInstance();
-        this.patientCorrelationProxyFactory = new PatientCorrelationProxyObjectFactory();
-        this.pixRetrieveBuilder = new PixRetrieveBuilder();
-        this.standardOutboundDocQueryHelper = new StandardOutboundDocQueryHelper();
-        this.transactionLogger = new TransactionLogger();
+        exchangeManager = ExchangeManager.getInstance();
+        patientCorrelationProxyFactory = new PatientCorrelationProxyObjectFactory();
+        pixRetrieveBuilder = new PixRetrieveBuilder();
+        standardOutboundDocQueryHelper = new StandardOutboundDocQueryHelper();
+        transactionLogger = new TransactionLogger();
     }
 
     public List<OutboundOrchestratable> createChildRequests(AdhocQueryRequest adhocQueryRequest,
@@ -160,6 +163,10 @@ public class AggregationService {
             }
         } catch (ExchangeManagerException e) {
             LOG.error("Unable to create child requests: {}", e.getLocalizedMessage(), e);
+            AdhocQueryResponse response = MessageGeneratorUtils.getInstance()
+                .createAdhocQueryErrorResponse("XDSRegistryError", "Unable to create fanout requests for query",
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+            throw new ErrorEventException(e, response,"Unable to create fanout requests for query");
         }
 
         return list;
@@ -223,7 +230,7 @@ public class AggregationService {
      */
     protected AdhocQueryRequest setTargetHomeCommunityId(AdhocQueryRequest request, String sTargetHomeCommunityId) {
         if (NullChecker.isNotNullish(sTargetHomeCommunityId)) {
-            if (!(sTargetHomeCommunityId.startsWith(NhincConstants.HCID_PREFIX))) {
+            if (!sTargetHomeCommunityId.startsWith(NhincConstants.HCID_PREFIX)) {
                 sTargetHomeCommunityId = NhincConstants.HCID_PREFIX + sTargetHomeCommunityId;
             }
             request.getAdhocQuery().setHome(sTargetHomeCommunityId);
