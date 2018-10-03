@@ -96,7 +96,7 @@ public class EventLoggingErrorFailureDAOImpl implements EventLoggingErrorFailure
                 JSONObject jObject = new JSONObject(event);
                 exceptions.add(jObject.getString("exceptionClass").replaceAll("class", ""));
             } catch (JSONException e) {
-                e.printStackTrace();
+                LOG.error("Exception getting failure messages caused by :{}", e.getLocalizedMessage(), e);
             }
         }
         return exceptions;
