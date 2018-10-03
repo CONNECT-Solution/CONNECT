@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,18 +26,21 @@
  */
 package gov.hhs.fha.nhinc.docquery.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import org.junit.Test;
 
 public class AdapterDocQueryProxyWebServiceImplsTest {
 
@@ -48,8 +51,7 @@ public class AdapterDocQueryProxyWebServiceImplsTest {
 
     @Test
     public void hasDefaultAdapterHelper() {
-        for (int i = 0; i < proxies.length; ++i) {
-            BaseAdapterDocQueryProxy impl = proxies[i];
+        for (BaseAdapterDocQueryProxy impl : proxies) {
             assertNotNull(impl.getAdapterHelper());
         }
     }
@@ -57,16 +59,22 @@ public class AdapterDocQueryProxyWebServiceImplsTest {
     @SuppressWarnings("unchecked")
     @Test
     public void adapterHelperCreatesErrorResponse() throws Exception {
-        for (int i = 0; i < proxies.length; ++i) {
-            BaseAdapterDocQueryProxy impl = proxies[i];
+        for (BaseAdapterDocQueryProxy impl : proxies) {
             WebServiceProxyHelper proxyMock = mock(WebServiceProxyHelper.class);
             when(proxyMock.getAdapterEndPointFromConnectionManager(anyString())).thenThrow(RuntimeException.class);
             when(proxyMock.getEndPointFromConnectionManagerByAdapterAPILevel(anyString(), any(NhincConstants.ADAPTER_API_LEVEL.class))).thenThrow(RuntimeException.class);
             impl.setWebServiceProxyHelper(proxyMock);
             AdapterHelper helper = mock(AdapterHelper.class);
             impl.setAdapterHelper(helper);
-            AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null);
-            assertEquals(response, helper.createErrorResponse());
+            try {
+                impl.respondingGatewayCrossGatewayQuery(null, null);
+                fail("We didnt throw an exception with invalid parameters!");
+            } catch (Exception e) {
+                assertTrue(e instanceof ErrorEventException);
+                ErrorEventException error = (ErrorEventException) e;
+                assertEquals(error.getReturnOverride(), helper.createErrorResponse());
+            }
+
         }
     }
 
