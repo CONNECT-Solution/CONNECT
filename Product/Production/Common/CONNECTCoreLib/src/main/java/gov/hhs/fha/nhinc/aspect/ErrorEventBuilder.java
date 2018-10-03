@@ -62,7 +62,7 @@ public class ErrorEventBuilder implements EventBuilder {
             try {
                 if (throwable != null) {
                     jsonObject.put("exceptionMessage", throwable.getMessage());
-                    jsonObject.put("exceptionClass", throwable.getClass());
+                    jsonObject.put("exceptionClass", throwable.getClass().getName());
                     jsonObject.put("stackTrace", throwable.getStackTrace());
                 }
                 if (StringUtils.isNotBlank(invoker)) {

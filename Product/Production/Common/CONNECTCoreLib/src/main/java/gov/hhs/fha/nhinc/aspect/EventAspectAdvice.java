@@ -176,7 +176,7 @@ public class EventAspectAdvice {
 
             builder.setAssertion(AssertionExtractor.getAssertion(joinPoint.getArgs()));
             builder.setThrowable(e);
-            builder.setInvoker(sig.getDeclaringType().toString());
+            builder.setInvoker(sig.getDeclaringType().getName());
             builder.setMethod(sig.getName());
             builder.setService(service);
             builder.setVersion(version);

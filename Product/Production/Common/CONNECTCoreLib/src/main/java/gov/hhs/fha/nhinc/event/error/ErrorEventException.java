@@ -34,7 +34,12 @@ public class ErrorEventException extends RuntimeException {
 
     public ErrorEventException(Throwable e, String customMessage) {
         super(customMessage, e);
-        returnOverride = null;
+        if (e instanceof ErrorEventException) {
+            returnOverride = ((ErrorEventException) e).getReturnOverride();
+        } else {
+            returnOverride = null;
+        }
+
     }
 
     public ErrorEventException(Throwable e, Object returnOverride, String customMessage) {
