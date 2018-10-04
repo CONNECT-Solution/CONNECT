@@ -50,11 +50,6 @@ public class AdapterDocQueryOrchImpl {
     private static final String ERROR_CODE_CONTEXT = AdapterDocQueryOrchImpl.class.getName();
     private static final String ERROR_VALUE = "Input has null value";
 
-    /**
-     * constructor.
-     */
-    public AdapterDocQueryOrchImpl() {
-    }
 
     /**
      *

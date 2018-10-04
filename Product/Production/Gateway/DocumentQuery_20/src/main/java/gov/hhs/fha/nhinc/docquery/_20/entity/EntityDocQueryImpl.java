@@ -37,12 +37,9 @@ import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class EntityDocQueryImpl extends BaseService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDocQueryImpl.class);
     private OutboundDocQuery outboundDocQuery;
 
     /**
@@ -89,7 +86,6 @@ public class EntityDocQueryImpl extends BaseService {
     private AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
 
-        AdhocQueryResponse response = null;
 
         if (targets == null) {
             targets = new ObjectFactory().createNhinTargetCommunitiesType();
@@ -98,8 +94,7 @@ public class EntityDocQueryImpl extends BaseService {
         if (StringUtils.isBlank(targets.getUseSpecVersion())) {
             targets.setUseSpecVersion("2.0");
         }
-        response = outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets);
+        return outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets);
 
-        return response;
     }
 }
