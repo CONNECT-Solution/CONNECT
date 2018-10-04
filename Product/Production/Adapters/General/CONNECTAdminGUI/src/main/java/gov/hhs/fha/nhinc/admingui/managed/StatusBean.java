@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.event.model.EventCount;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -53,6 +54,7 @@ import org.primefaces.model.chart.HorizontalBarChartModel;
 import org.primefaces.model.chart.PieChartModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 
 /**
  *
@@ -73,6 +75,7 @@ public class StatusBean {
     private static final String GET_CERT_STORE_MSG = "GetCertificateStore";
     private static final Logger LOG = LoggerFactory.getLogger(StatusBean.class);
     private List<CertificateDTO> certificateList = null;
+    private static final String NO_DATA_FOUND = "No data found";
 
     @PostConstruct
     public void initServices() {
@@ -164,36 +167,54 @@ public class StatusBean {
     }
 
     private void refreshPieChart() {
-
-        for (EventCount event : snapshot.getEvents().values()) {
-            eventPieChart.getData().put(event.getEvent(), event.getTotal());
+        if (snapshot.getEvents().isEmpty()) {
+            List<String> serviceNames = NhincConstants.EVENT_LOGGING_SERVICE_NAME.getEventLoggingServiceForDisplay();
+            for (String serviceName : serviceNames) {
+                eventPieChart.getData().put(serviceName, 0);
+            }
+            eventPieChart.setTitle(NO_DATA_FOUND);
+        } else {
+            for (EventCount event : snapshot.getEvents().values()) {
+                eventPieChart.getData().put(event.getEvent(), event.getTotal());
+            }
         }
-
         eventPieChart.setFill(false);
         eventPieChart.setSeriesColors("10253F, CC0000, 33D6FF, FFCC00, 98FB98, FFA500, 00CCFF");
         eventPieChart.setShowDataLabels(true);
         eventPieChart.setSliceMargin(5);
         eventPieChart.setLegendPosition("se");
+
     }
 
     private void initBarChart() {
         eventBarChart = new HorizontalBarChartModel();
-
-        ChartSeries inboundSeries = createChart("Inbound", getInboundEventCounts());
-        ChartSeries outboundSeries = createChart("Outbound", getOutboundEventCounts());
+        Map<String, Long> inboundEventCounts = getInboundEventCounts();
+        Map<String, Long> outboundEventCounts = getOutboundEventCounts();
+        ChartSeries inboundSeries = createChart("Inbound", inboundEventCounts);
+        ChartSeries outboundSeries = createChart("Outbound", outboundEventCounts);
 
         eventBarChart.addSeries(inboundSeries);
         eventBarChart.addSeries(outboundSeries);
         eventBarChart.setSeriesColors("10253F, CC0000");
         eventBarChart.setStacked(true);
         eventBarChart.setLegendPosition("se");
+        if (inboundEventCounts.isEmpty() && outboundEventCounts.isEmpty()) {
+            eventBarChart.setTitle(NO_DATA_FOUND);
+        }
     }
 
     private static ChartSeries createChart(String label, Map<String, Long> eventCounts) {
         ChartSeries series = new ChartSeries();
         series.setLabel(label);
-        for (Entry<String, Long> serviceEntry : eventCounts.entrySet()) {
-            series.set(serviceEntry.getKey(), serviceEntry.getValue());
+        if (CollectionUtils.isEmpty(eventCounts)) {
+            List<String> serviceNames = NhincConstants.EVENT_LOGGING_SERVICE_NAME.getEventLoggingServiceForDisplay();
+            for (String serviceName : serviceNames) {
+                series.set(serviceName, 0);
+            }
+        } else {
+            for (Entry<String, Long> serviceEntry : eventCounts.entrySet()) {
+                series.set(serviceEntry.getKey(), serviceEntry.getValue());
+            }
         }
         return series;
     }

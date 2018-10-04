@@ -26,13 +26,12 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
-import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
-
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.GUIConstants.COLOR_CODING_CSS;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import java.security.cert.CertificateExpiredException;
@@ -71,7 +70,7 @@ public class CertficateBean {
     private static final String IMPORT_PASS_ERR_MSG_ID = "importPassKeyErrorMsg";
     private static final String DELETE_PASS_ERR_MSG_ID = "deletePassKeyErrorMsg";
     private static final String EDIT_PASS_ERROR_MSG = "editPassKeyErrorMsg";
-    private static final String ALIAS_PLACEHOLDER = "<Enter Alias>";
+    private static final String ALIAS_PLACEHOLDER = "Enter Alias";
     private static final String BAD_MISMATCH_TOKEN = "Bad token or Mismatch token";
     private UploadedFile importCertFile;
     private CertificateDTO selectedCertificate;
@@ -480,6 +479,7 @@ public class CertficateBean {
     public void viewChainOfTrust() {
         chainOfTrust = new HashMap<>();
         selectedCertsChain = new ArrayList<>();
+        selectedCertsChain.add(selectedTSCertificate);
         isChainCompleted = false;
 
         if (null == selectedTSCertificate) {
@@ -489,6 +489,9 @@ public class CertficateBean {
 
         try {
             chainOfTrust = buildChainOfTrustMap(service.listChainOfTrust(selectedTSCertificate.getAlias()));
+            // Below line overrides the user selected certificate in chainOfTrust map.
+            // This is done in order to highlight the alias on View Chain Of Trust when the page first loads.
+            chainOfTrust.put(selectedTSCertificate.getAlias(), selectedTSCertificate);
             isChainCompleted = checkCompletedChain(chainOfTrust);
         } catch (CertificateManagerException ex) {
             LOG.error("Error while calling server to get certificate chain: {}", ex.getMessage(), ex);
@@ -499,17 +502,17 @@ public class CertficateBean {
     private static Map<String, CertificateDTO> buildChainOfTrustMap(List<CertificateDTO> list) {
         Map<String, CertificateDTO> retVal = new HashMap<>();
 
-        for(CertificateDTO item: list){
+        for (CertificateDTO item : list) {
             retVal.put(item.getAlias(), item);
         }
 
         return retVal;
     }
 
-    private static boolean checkCompletedChain(Map<String, CertificateDTO> chain){
+    private static boolean checkCompletedChain(Map<String, CertificateDTO> chain) {
         List<String> certAKIDs = new ArrayList<>();
 
-        for(CertificateDTO item: chain.values()){
+        for (CertificateDTO item : chain.values()) {
             certAKIDs.add(item.getAuthorityKeyID());
         }
 
@@ -521,6 +524,5 @@ public class CertficateBean {
         }
         return true;
     }
-
 
 }
