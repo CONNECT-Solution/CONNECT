@@ -189,7 +189,7 @@ public class DatabaseEventLoggerDao {
                         .uniqueResult();
             }
         } catch (HibernateException e) {
-            LOG.error("Exception getting failure messages by Id caused by :{}", e.getLocalizedMessage(), e);
+            LOG.error("Exception getting database event by Id caused by :{}", e.getLocalizedMessage(), e);
         } finally {
             GenericDBUtils.closeSession(session);
         }
