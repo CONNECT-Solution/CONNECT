@@ -64,38 +64,71 @@
                                         <div class="form-block center-block">
                                             <h:form class="form-horizontal" role="form" id="createUserForm">
                                                 <p:messages id="userAddMessages" autoUpdate="true" closable="true" severity="error" redisplay="false" />
-                                                <div class="form-group">
-                                                    <h:outputLabel for="username" class="col-sm-3 control-label" id="usernameLbl" value="New Username:" />
-                                                    <div class="col-sm-9">
-                                                        <p:inputText styleClass="form-control" id="username" maxlength="20" required="true" value="#{manageUserBean.userName}" requiredMessage="User name required." />
+                                                
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="username" class="col-sm-3 control-label" id="usernameLbl" value="New Username:" />
+                                                        <div class="col-sm-9">
+                                                            <p:inputText styleClass="form-control" id="username" maxlength="20" required="true" value="#{manageUserBean.userName}" requiredMessage="User name required." />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <h:outputLabel class="col-sm-3 control-label" for="password" id="userpasswordLbl" value="Password:" />
+                                                        <div class="col-sm-9">
+                                                            <p:password id="password" value="#{manageUserBean.password}"
+                                                                        feedback="true" weakLabel="Weak Password" goodLabel="Good Password" strongLabel="Strong Password"
+                                                                        match="confirmPassword" required="true" maxlength="10" requiredMessage="Password required."
+                                                                        validatorMessage="Passwords must match." styleClass="form-control" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <h:outputLabel class="col-sm-3 control-label" for="confirmPassword" id="confirmUserpasswordLbl" value="Confirm Password:" />
+                                                        <div class="col-sm-9">
+                                                            <p:password id="confirmPassword" value="#{manageUserBean.password}" maxlength="10" styleClass="form-control" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="select-role" class="col-sm-3 control-label" id="roleLbl" value="Access Role:" />
+                                                        <div class="col-sm-9">
+                                                            <h:selectOneMenu class="form-control" id="select-role" value="#{manageUserBean.role}">
+                                                                <f:selectItem itemLabel="Administrator" itemValue="1"/>
+                                                                <f:selectItem itemLabel="Super User" itemValue="2"/>
+                                                                <f:selectItem itemLabel="User" itemValue="3"/>
+                                                            </h:selectOneMenu>
+                                                        </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="form-group">
-                                                    <h:outputLabel class="col-sm-3 control-label" for="password" id="userpasswordLbl" value="Password:" />
-                                                    <div class="col-sm-9">
-                                                        <p:password id="password" value="#{manageUserBean.password}"
-                                                                    feedback="true" weakLabel="Weak Password" goodLabel="Good Password" strongLabel="Strong Password"
-                                                                    match="confirmPassword" required="true" maxlength="10" requiredMessage="Password required."
-                                                                    validatorMessage="Passwords must match." styleClass="form-control" />
+                                                
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="firstname" class="col-sm-3 control-label" id="firstnameLbl" value="First Name:" />
+                                                        <div class="col-sm-9">
+                                                            <p:inputText styleClass="form-control" id="firstname" maxlength="50" value="#{manageUserBean.firstName}" />
+                                                        </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <h:outputLabel class="col-sm-3 control-label" for="confirmPassword" id="confirmUserpasswordLbl" value="Confirm Password:" />
-                                                    <div class="col-sm-9">
-                                                        <p:password id="confirmPassword" value="#{manageUserBean.password}" maxlength="10" styleClass="form-control" />
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="middlename" class="col-sm-3 control-label" id="middlenameLbl" value="Middle Name (or Initial):" />
+                                                        <div class="col-sm-9">
+                                                            <p:inputText styleClass="form-control" id="middlename" maxlength="50" value="#{manageUserBean.middleName}" />
+                                                        </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <h:outputLabel for="select-role" class="col-sm-3 control-label" id="roleLbl" value="Role:" />
-                                                    <div class="col-sm-9">
-                                                        <h:selectOneMenu class="form-control" id="select-role" value="#{manageUserBean.role}">
-                                                            <f:selectItem itemLabel="Administrator" itemValue="1"/>
-                                                            <f:selectItem itemLabel="Super User" itemValue="2"/>
-                                                            <f:selectItem itemLabel="User" itemValue="3"/>
-                                                        </h:selectOneMenu>
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="lastname" class="col-sm-3 control-label" id="lastnameLbl" value="Last Name:" />
+                                                        <div class="col-sm-9">
+                                                            <p:inputText styleClass="form-control" id="lastname" maxlength="50" value="#{manageUserBean.lastName}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h:outputLabel for="transactionRole" class="col-sm-3 control-label" id="labelTransactionRole" value="Transaction Role:" />      
+                                                        <div class="col-sm-9">
+                                                            <p:selectOneMenu effect="fade" id="transactionRole" value="#{manageUserBean.transactionRoleDesc}" filter="true" filterMatchMode="startsWith">
+                                                                <f:selectItem itemLabel="Select Role" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{manageUserBean.userRoleList}" />
+                                                            </p:selectOneMenu>
+                                                        </div>
                                                     </div>
                                                 </div>
 

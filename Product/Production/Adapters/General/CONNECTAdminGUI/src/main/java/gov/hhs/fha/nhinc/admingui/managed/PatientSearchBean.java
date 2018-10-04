@@ -27,12 +27,15 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
+import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Document;
 import gov.hhs.fha.nhinc.admingui.model.Patient;
 import gov.hhs.fha.nhinc.admingui.services.GatewayService;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.ByteArrayInputStream;
@@ -44,9 +47,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
@@ -98,6 +106,11 @@ public class PatientSearchBean {
     // TODO: Temporary should be removed, should use the patient object
     // documentList
     private List<Document> documentList;
+    private static final String PURPOSEOF_PROPERTIES_FILENAME = "PurposeOfUseOptions";
+    private Properties purposeOfProps;
+    private String selectedPurposeOf;
+    
+    private UserLogin user;
 
     /**
      * Instantiate all the variables and load the lookup Data
@@ -115,6 +128,16 @@ public class PatientSearchBean {
         // populate document types
         documentTypeList = populateDocumentTypes();
     }
+    
+    @PostConstruct
+    public void buildUserRoleList() {
+        try {
+            getPropAccessor().setPropertyFile(PURPOSEOF_PROPERTIES_FILENAME);    
+            purposeOfProps = getPropAccessor().getProperties(PURPOSEOF_PROPERTIES_FILENAME);           
+        } catch (PropertyAccessException ex) {
+            LOG.warn("Unable to access properties for purposeOfUse list.", ex.getLocalizedMessage(), ex);
+        }
+    }
 
     /**
      * Action method called when user clicks the Patient Search
@@ -123,10 +146,16 @@ public class PatientSearchBean {
     public void searchPatient() {
         // start with a clean slate
         clearDocumentQueryTab();
-        // Call the NwHIN PD to get the documents
-        patientFound = GatewayService.getInstance().discoverPatient(this);
-        // set the UI display message
-        patientMessage = patientFound ? PATIENT_FOUND : PATIENT_NOT_FOUND;
+        user = getCurrentUser();
+        
+        if (validateUser(user)) {
+            // Call the NwHIN PD to get the documents
+            patientFound = GatewayService.getInstance().discoverPatient(this);
+            // set the UI display message
+            patientMessage = patientFound ? PATIENT_FOUND : PATIENT_NOT_FOUND;
+        } else {
+            createErrorMessage(user);
+        }
     }
 
     /**
@@ -209,6 +238,10 @@ public class PatientSearchBean {
         getSelectedCurrentPatient().getDocumentList().clear();
         setSelectedDocument(0);
         return NavigationConstant.PATIENT_SEARCH_PAGE;
+    }
+    
+    public List<String> getPurposeOfList() {
+        return new ArrayList(purposeOfProps.keySet());
     }
 
     /**
@@ -435,6 +468,18 @@ public class PatientSearchBean {
         this.selectedDocument = selectedDocument;
     }
 
+    public String getSelectedPurposeOf() {
+        return selectedPurposeOf;
+    }
+
+    public void setSelectedPurposeOf(String selectedPurposeOf) {
+        this.selectedPurposeOf = selectedPurposeOf;
+    }
+    
+    public String getPurposeOfDescription() {
+        return purposeOfProps.getProperty(selectedPurposeOf);
+    }
+
     /**
      * Populate the Organization lookup data list from the UDDI. This logic needs to be moved to a Utility or to the
      * application bean.
@@ -495,6 +540,10 @@ public class PatientSearchBean {
      */
     public void setSelectedPatient(int selectedPatient) {
         this.selectedPatient = selectedPatient;
+    }
+    
+    public UserLogin getUser() {
+        return user;
     }
 
     /**
@@ -637,5 +686,38 @@ public class PatientSearchBean {
      */
     public String getDocumentInfoModalWindowHeader() {
         return getDocumentTypeName() + " for " + getSelectedCurrentPatient().getName();
+    }
+
+    private static UserLogin getCurrentUser() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        HttpSession session = (HttpSession) externalContext.getSession(true);
+        return (UserLogin) session.getAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE);
+    }
+
+    private static boolean validateUser(UserLogin user) {
+        return user != null && validateUserNames(user.getFirstName(), user.getMiddleName(), user.getLastName())
+                && validateUserRole(user.getTransactionRole(), user.getTransactionRoleDesc());
+    }
+    
+    private static boolean validateUserNames(String first, String middle, String last) {
+        return NullChecker.isNotNullish(first) && NullChecker.isNotNullish(middle) && NullChecker.isNotNullish(last);
+    }
+    
+    private static boolean validateUserRole(String role, String description) {
+        return NullChecker.isNotNullish(role) && NullChecker.isNotNullish(description);
+    }
+
+    private static void createErrorMessage(UserLogin user) {
+        String userName = "";
+        if(user != null) {
+            userName = user.getUserName() + " ";
+        }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                "Error:  " + userName + "does not have valid assertion data.", "Login as a valid user."));
+    }
+
+    protected PropertyAccessor getPropAccessor() {
+        return PropertyAccessor.getInstance();
     }
 }

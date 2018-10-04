@@ -83,6 +83,22 @@ public class UserLogin implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userRole")
     private UserRole userRole;
+    
+    @Column(name = "FIRSTNAME")
+    private String firstName;
+    
+    @Column(name = "MIDDLENAME")
+    private String middleName;
+    
+    @Column(name = "LASTNAME")
+    private String lastName;
+    
+    @Column(name = "TRANSACTIONUSERROLE")
+    private String transactionRole;
+    
+    @Column(name = "TRANSACTIONUSERROLEDESC")
+    private String transactionRoleDesc;
+          
 
     /**
      * Instantiates a new user login.
@@ -177,6 +193,46 @@ public class UserLogin implements Serializable {
      */
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getTransactionRole() {
+        return transactionRole;
+    }
+
+    public void setTransactionRole(String transactionRole) {
+        this.transactionRole = transactionRole;
+    }
+
+    public String getTransactionRoleDesc() {
+        return transactionRoleDesc;
+    }
+
+    public void setTransactionRoleDesc(String transactionRoleDesc) {
+        this.transactionRoleDesc = transactionRoleDesc;
     }
 
 }
