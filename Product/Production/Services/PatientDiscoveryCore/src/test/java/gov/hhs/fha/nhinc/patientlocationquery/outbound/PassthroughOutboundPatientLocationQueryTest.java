@@ -51,6 +51,7 @@ public class PassthroughOutboundPatientLocationQueryTest {
     public void setup() {
 
         plqOutbound = Mockito.spy(new PassthroughOutboundPatientLocationQuery());
+        Mockito.doNothing().when(plqOutbound).processPatientLocationQueryPLQ(Mockito.any(RespondingGatewayPatientLocationQueryResponseType.class), Mockito.any(AssertionType.class));
         Mockito.doReturn(new RespondingGatewayPatientLocationQueryResponseType())
             .when(plqOutbound)
             .sendToNhinProxy(Mockito.any(PatientLocationQueryRequestType.class),
@@ -69,7 +70,6 @@ public class PassthroughOutboundPatientLocationQueryTest {
         RespondingGatewayPatientLocationQueryResponseType result = plqOutbound.processPatientLocationQuery(request, assertion, target);
         Mockito.verify(plqOutbound).sendToNhinProxy(request, assertion, target);
         assertNotNull(result);
-
     }
 
     @Test

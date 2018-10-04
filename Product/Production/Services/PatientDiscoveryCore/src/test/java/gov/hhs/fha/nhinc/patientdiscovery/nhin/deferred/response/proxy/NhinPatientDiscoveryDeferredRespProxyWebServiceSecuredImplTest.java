@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,22 +26,29 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xcpd._2009.RespondingGatewayDeferredResponsePortType;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import org.hl7.v3.PRPAIN201306UV02;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
+import org.mockito.Mockito;
+import org.springframework.util.ReflectionUtils;
 
 /**
  * @author achidamb
@@ -51,13 +58,19 @@ public class NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImplTest {
 
     @SuppressWarnings("unchecked")
     private final CONNECTClient<RespondingGatewayDeferredResponsePortType> client = mock(CONNECTClient.class);
-    private NhinTargetSystemType target;
-    private AssertionType assertion;
-    private PRPAIN201306UV02 request;
+    private NhinTargetSystemType target = mock(NhinTargetSystemType.class);
+    private AssertionType assertion = mock(AssertionType.class);
+    private PRPAIN201306UV02 request = mock(PRPAIN201306UV02.class);
 
     @Test
     public void testNoMtom() throws Exception {
         NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl impl = getImpl();
+
+        Field helper = ReflectionUtils.findField(NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl.class, "oProxyHelper");
+        ReflectionUtils.makeAccessible(helper);
+        WebServiceProxyHelper helperMock = mock(WebServiceProxyHelper.class);
+        Mockito.when(helperMock.getUrlFromTargetSystemByGatewayAPILevel(target,NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0)).thenReturn("Localhost");
+        ReflectionUtils.setField(helper, impl, helperMock);
         impl.respondingGatewayPRPAIN201306UV02(request, assertion, target);
         verify(client, never()).enableMtom();
     }

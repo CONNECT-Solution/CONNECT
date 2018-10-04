@@ -89,10 +89,17 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
     version = "")
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
         ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, Properties webContextProperties) {
-
-        RegistryResponseType response = processDocSubmission(body, assertion, webContextProperties);
-
-        auditResponse(body, response, assertion, webContextProperties);
+        RegistryResponseType response = null;
+        try {
+             response = processDocSubmission(body, assertion, webContextProperties);
+        }
+        catch (ErrorEventException e) {
+            // only doing this for audit response.
+            response = (RegistryResponseType) e.getReturnOverride();
+            throw e;
+        } finally {
+            auditResponse(body, response, assertion, webContextProperties);
+        }
 
         return response;
     }
