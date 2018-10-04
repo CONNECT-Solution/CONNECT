@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
+import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
+
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.GUIConstants.COLOR_CODING_CSS;
@@ -232,6 +234,8 @@ public class CertficateBean {
         if (selectedTSCertificate == null) {
             HelperUtil.addMessageError(TRUST_STORE_MSG, "Select a certificate to delete");
         } else if (isHashTokenEmpty()) {
+            // clear previous user enter
+            trustStorePasskey = null;
             execPFShowDialog("deletePassKeyDlg");
         } else {
             validateAndDeleteCertificate();
@@ -267,8 +271,6 @@ public class CertficateBean {
             if (deleteCertificate(hashToken)) {
                 saveHashToken(hashToken);
                 execPFHideDialog("deletePassKeyDlg");
-            } else {
-                HelperUtil.addMessageError(DELETE_PASS_ERR_MSG_ID, BAD_MISMATCH_TOKEN);
             }
         } else {
             deleteCertificate(getHashTokenFromSession());
@@ -399,12 +401,18 @@ public class CertficateBean {
     private boolean deleteCertificate(String hashToken) {
         boolean deleteStatus = false;
         try {
-            deleteStatus = service.deleteCertificateFromTrustStore(selectedTSCertificate.getAlias(), hashToken);
-            refreshCerts();
-            selectedTSCertificate = null;
+            SimpleCertificateResponseMessageType response = service.deleteCertificateFromTrustStore(
+                selectedTSCertificate.getAlias(), hashToken);
+            deleteStatus = response.isStatus();
+            if (deleteStatus) {
+                refreshCerts();
+                selectedTSCertificate = null;
+            } else {
+                HelperUtil.addMessageError(DELETE_PASS_ERR_MSG_ID, response.getMessage());
+            }
         } catch (CertificateManagerException ex) {
             LOG.error("Unable to delete certificate {}", ex.getLocalizedMessage(), ex);
-            HelperUtil.addMessageError(TRUST_STORE_MSG, "Unable to delete certificate");
+            HelperUtil.addMessageError(DELETE_PASS_ERR_MSG_ID, ex.getLocalizedMessage());
         }
         return deleteStatus;
     }
