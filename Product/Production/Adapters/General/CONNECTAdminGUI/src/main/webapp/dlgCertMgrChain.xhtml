@@ -16,8 +16,8 @@
                         <p:selectManyMenu id="chainOfTrustSelection" converter="certificateDTOConverter"
                             value="#{certificateBean.selectedCertsChain}" var="rec" filter="true"
                             filterMatchMode="contains" showCheckbox="true" styleClass="list-group" style="width: 100%;">
-                            <f:selectItems value="#{certificateBean.chainOfTrust}" var="rec2" itemValue="#{rec2}"
-                                itemLabel="#{rec2.alias}" />
+                            <f:selectItems value="#{certificateBean.chainOfTrust.entrySet()}" var="entry" itemValue="#{entry.value}"
+                                           itemLabel="#{entry.key}"  />
                             <p:ajax event="change" update=":datagridChain" />
                             <p:column style="padding-left: 5px;">
                                 <h:outputText value="#{rec.alias}" />

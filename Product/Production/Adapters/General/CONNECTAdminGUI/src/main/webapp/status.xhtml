@@ -51,8 +51,8 @@
                             widgetVar="alertsPanel" style="width: 100%; margin: 0 auto;">
                             <h2 class="subsection-header">System Alerts and Notifications</h2>
                             <div class="table-responsive table-orgs">
-                                <p:dataTable id="certificateTable" rows="5" widgetVar="certificateTable" var="cert"
-                                    value="#{statusBean.certificateList}" scrollable="TRUE" scrollHeight="200"
+                                <p:dataTable id="certificateTable" rows="3" widgetVar="certificateTable" var="cert"
+                                    value="#{statusBean.certificateList}" scrollable="TRUE" scrollHeight="100"
                                     styleClass="table table-striped table-status" lazy="true">
                                     <p:column>
                                         <h:outputText rendered="#{cert.expiryColorCoding eq 'RED' and cert.expiresInDays le 0 }"
