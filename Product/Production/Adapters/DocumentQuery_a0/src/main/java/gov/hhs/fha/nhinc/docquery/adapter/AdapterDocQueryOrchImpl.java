@@ -51,12 +51,6 @@ public class AdapterDocQueryOrchImpl {
     private static final String ERROR_VALUE = "Input has null value";
 
     /**
-     * constructor.
-     */
-    public AdapterDocQueryOrchImpl() {
-    }
-
-    /**
      *
      * @param request The AdhocQUeryRequest message.
      * @param assertion Assertion received.
@@ -81,22 +75,23 @@ public class AdapterDocQueryOrchImpl {
                 adhocQueryRequest.setStartIndex(request.getStartIndex());
                 response = registryProxy.registryStoredQuery(request, assertion);
             } else {
-                RegistryErrorList errorList = new RegistryErrorList();
-                response = new AdhocQueryResponse();
-                response.setRegistryObjectList(new RegistryObjectListType());
-                response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
-
-                RegistryError e = new RegistryError();
-                errorList.getRegistryError().add(e);
-                response.setRegistryErrorList(errorList);
-                e.setValue(ERROR_VALUE);
-                e.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-                e.setCodeContext(ERROR_CODE_CONTEXT);
-                e.setErrorCode(DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR);
+                throw new IllegalArgumentException("Request must be provided.");
             }
         } catch (Exception e) {
             LOG.error(e.getLocalizedMessage(), e);
-            throw new ErrorEventException(e, "Unable to query document registry.");
+            RegistryErrorList errorList = new RegistryErrorList();
+            response = new AdhocQueryResponse();
+            response.setRegistryObjectList(new RegistryObjectListType());
+            response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+
+            RegistryError err = new RegistryError();
+            errorList.getRegistryError().add(err);
+            response.setRegistryErrorList(errorList);
+            err.setValue(ERROR_VALUE);
+            err.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+            err.setCodeContext(ERROR_CODE_CONTEXT);
+            err.setErrorCode(DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR);
+            throw new ErrorEventException(e, response, "Unable to query document registry.");
         }
         LOG.debug("End AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
         return response;

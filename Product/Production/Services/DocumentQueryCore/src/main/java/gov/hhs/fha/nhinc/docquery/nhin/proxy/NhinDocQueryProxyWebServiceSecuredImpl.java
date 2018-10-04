@@ -61,6 +61,10 @@ import org.slf4j.LoggerFactory;
  */
 public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy {
 
+    /**
+     * 
+     */
+    private static final String UNABLE_TO_CALL = "Unable to call Nhin Service";
     private static final Logger LOG = LoggerFactory.getLogger(NhinDocQueryProxyWebServiceSecuredImpl.class);
 
     /**
@@ -140,7 +144,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             response.setStatus(registryError.getStatus());
             response.setRegistryErrorList(registryError.getRegistryErrorList());
 
-            throw new ErrorEventException(e, response, "Unable to call Nhin Service");
+            throw new ErrorEventException(e, response, UNABLE_TO_CALL);
 
         } catch (final WebServiceException wse) {
             LOG.error("Error calling respondingGatewayCrossGatewayQuery", wse);
@@ -154,11 +158,11 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             response.setStatus(registryError.getStatus());
             response.setRegistryErrorList(registryError.getRegistryErrorList());
 
-            throw new ErrorEventException(wse, response, "Unable to call Nhin Service");
+            throw new ErrorEventException(wse, response, UNABLE_TO_CALL);
 
         } catch (final Exception ex) {
             LOG.error("Error calling respondingGatewayCrossGatewayQuery", ex);
-            throw new ErrorEventException(ex, "Unable to call Nhin Service");
+            throw new ErrorEventException(ex, UNABLE_TO_CALL);
         }
         return response;
     }
