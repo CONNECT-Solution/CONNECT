@@ -29,8 +29,11 @@ package gov.hhs.fha.nhinc.event.dao;
 import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.util.GenericDBUtils;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.common.util.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -41,6 +44,8 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,6 +58,8 @@ public class DatabaseEventLoggerDao {
 
     private static final String EVENT_TYPE_NAME = "eventName";
     private static final String DATE_NAME = "eventTime";
+    private static final String SERVICE_TYPE = "serviceType";
+
 
     private static class SingletonHolder {
 
@@ -136,7 +143,7 @@ public class DatabaseEventLoggerDao {
                 }
 
                 results = criteria.setProjection(projList)
-                    .list();
+                        .list();
             } finally {
                 closeSession(session);
             }
@@ -154,14 +161,105 @@ public class DatabaseEventLoggerDao {
             try {
                 session = sessionFactory.openSession();
                 event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
-                    .add(Restrictions.eq(EVENT_TYPE_NAME, eventType)).addOrder(Order.desc(DATE_NAME)).setMaxResults(1)
-                    .uniqueResult();
+                        .add(Restrictions.eq(EVENT_TYPE_NAME, eventType)).addOrder(Order.desc(DATE_NAME)).setMaxResults(1)
+                        .uniqueResult();
             } finally {
                 closeSession(session);
             }
         }
 
         return event;
+    }
+
+    /**
+     * Get Failure messages based on event id
+     * 
+     * @param id
+     * @return
+     */
+    public DatabaseEvent getFailureMessageById(Long id) {
+        DatabaseEvent event = null;
+        Session session = null;
+        try {
+            final SessionFactory sessionFactory = getSessionFactory();
+            if (sessionFactory != null) {
+                session = sessionFactory.openSession();
+                event = (DatabaseEvent) session.createCriteria(DatabaseEvent.class)
+                        .add(Restrictions.eq("messageId", id))
+                        .uniqueResult();
+            }
+        } catch (HibernateException e) {
+            LOG.error("Exception getting failure messages by Id caused by :{}", e.getLocalizedMessage(), e);
+        } finally {
+            GenericDBUtils.closeSession(session);
+        }
+
+        return event;
+    }
+
+    /**
+     * Get exception class for messages processing failures events
+     *
+     * @return
+     */
+    public List<String> getExceptions() {
+        List<String> exceptions = new ArrayList<>();
+        List<DatabaseEvent> events = getAllFailureMessages("", null, null);
+
+        try {
+            for (DatabaseEvent event : events) {
+                JSONObject jObject = new JSONObject(event);
+                String exceptionClass = jObject.getString("exceptionClass");
+                if (StringUtils.isNotBlank(exceptionClass)) {
+                    exceptions.add(exceptionClass.replaceAll("class", ""));
+                }
+            }
+        } catch (JSONException e) {
+            LOG.error("Exception getting Exceptions messages caused by :{}", e.getLocalizedMessage(), e);
+        }
+        return exceptions;
+    }
+
+    /**
+     * Get all failure events for certain criteria
+     *
+     * @param serviceType
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public List<DatabaseEvent> getAllFailureMessages(String serviceType, Date startDate, Date endDate) {
+        Session session = null;
+        List<DatabaseEvent> events = null;
+
+        try {
+            final SessionFactory sessionFactory = getSessionFactory();
+            if (sessionFactory != null) {
+                session = sessionFactory.openSession();
+                Criteria criteria = session.createCriteria(DatabaseEvent.class);
+
+                criteria.add(Restrictions.eq(EVENT_TYPE_NAME, "MESSAGE_PROCESSING_FAILED"));
+
+                if (startDate != null) {
+                    criteria.add(Restrictions.ge(DATE_NAME, startDate));
+                }
+
+                if (endDate != null) {
+                    criteria.add(Restrictions.le(DATE_NAME, endDate));
+                }
+
+                if (StringUtils.isNotBlank(serviceType)) {
+                    criteria.add(Restrictions.eq(SERVICE_TYPE, serviceType));
+                }
+
+            }
+        } catch (HibernateException e) {
+            LOG.error("Exception getting failure messages caused by :{}", e.getLocalizedMessage(), e);
+        } finally {
+            GenericDBUtils.closeSession(session);
+        }
+
+        return events;
     }
 
     private void closeSession(final Session session) {
@@ -184,5 +282,7 @@ public class DatabaseEventLoggerDao {
         }
         return fact;
     }
+
+
 
 }
