@@ -173,11 +173,11 @@ public class DatabaseEventLoggerDao {
 
     /**
      * Get Failure messages based on event id
-     * 
+     *
      * @param id
      * @return
      */
-    public DatabaseEvent getFailureMessageById(Long id) {
+    public DatabaseEvent getDatabaseEventById(Long id) {
         DatabaseEvent event = null;
         Session session = null;
         try {
@@ -251,7 +251,7 @@ public class DatabaseEventLoggerDao {
                 if (StringUtils.isNotBlank(serviceType)) {
                     criteria.add(Restrictions.eq(SERVICE_TYPE, serviceType));
                 }
-
+                events = criteria.list();
             }
         } catch (HibernateException e) {
             LOG.error("Exception getting failure messages caused by :{}", e.getLocalizedMessage(), e);
