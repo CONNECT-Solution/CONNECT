@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,9 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docquery.adapter;
 
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -36,13 +39,18 @@ import org.junit.Test;
  * @author Neil Webb
  */
 public class AdapterDocQueryOrchImplTest {
-    
+
     @Test
-    public void errorResponseHasRegistryObjectList() {
+    public void errorResponseHasRegistryObjectList() throws Exception {
         AdapterDocQueryOrchImpl impl = new AdapterDocQueryOrchImpl();
-        AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null);
-        assertNotNull(response.getRegistryObjectList());
-        assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
+        try {
+            impl.respondingGatewayCrossGatewayQuery(null, null);
+            Assert.fail();
+        } catch (ErrorEventException e) {
+            AdhocQueryResponse response = (AdhocQueryResponse) e.getReturnOverride();
+            assertNotNull(response.getRegistryObjectList());
+            assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
+        }
     }
 
 }
