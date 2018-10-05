@@ -87,7 +87,6 @@ public class AdapterPatientDiscoveryProxyWebServiceHelper {
                     "Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
             }
         } catch (Exception e) {
-            LOG.error("Failed to call the web service : {}. An unexpected exception occurred. Exception: {} " , sServiceName, e.getMessage(), e);
             throw new ErrorEventException(e, "Unable to call Patient Discovery Adapter");
         }
         return response;

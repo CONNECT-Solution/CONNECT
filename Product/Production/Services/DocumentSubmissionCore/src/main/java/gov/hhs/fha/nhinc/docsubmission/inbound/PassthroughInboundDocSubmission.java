@@ -84,7 +84,6 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
             dsUtils.convertDataToFileLocationIfEnabled(body);
             response = sendToAdapter(body, assertion);
         } catch (LargePayloadException lpe) {
-            LOG.error("Failed to retrieve payload document.", lpe);
             response = msgUtils.createRegistryErrorResponse();
             throw new ErrorEventException(lpe, response, "Failed to save document");
 

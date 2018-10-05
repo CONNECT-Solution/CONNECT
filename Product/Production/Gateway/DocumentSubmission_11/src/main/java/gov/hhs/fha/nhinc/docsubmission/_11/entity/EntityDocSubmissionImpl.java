@@ -62,7 +62,6 @@ class EntityDocSubmissionImpl extends BaseService {
                     request.getNhinTargetCommunities(), request.getUrl());
 
         } catch (Exception e) {
-            LOG.error("Failed to send request to Nwhin.", e);
             throw new ErrorEventException(e, response, "Unable to call Nhin Doc Submission");
         }
 

@@ -162,7 +162,6 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
                 String hcid = getNhinTargetHomeCommunityId(request);
                 nhinResponse = MessageGeneratorUtils.getInstance().createRegistryBusyErrorResponse("Failed to send "
                     + "request to community " + hcid);
-                LOG.error("Fault encountered while trying to send message to the nhin " + hcid, e);
                 throw new ErrorEventException(e, nhinResponse, "Unable to call Nhin Doc Submission");
             }
         } else {

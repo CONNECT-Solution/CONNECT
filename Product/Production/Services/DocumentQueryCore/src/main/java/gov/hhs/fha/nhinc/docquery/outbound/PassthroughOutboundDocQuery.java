@@ -103,7 +103,6 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
         } catch (Exception ex) {
             String errorMsg = "Error from target homeId = " + targetCommunityID + ". " + ex.getMessage();
-            LOG.error(errorMsg, ex);
             throw new ErrorEventException(ex, MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(errorMsg),
                 "Unable to call Nhin Doc Query");
         }

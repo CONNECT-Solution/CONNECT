@@ -138,7 +138,6 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                 response = getResponseFromCommunities(request, assertion);
             }
         } catch (final IllegalArgumentException e) {
-            LOG.error("Exception occurred while getting responses", e);
             addErrorMessageToResponse(request, response, e);
             throw new ErrorEventException(e, response, "Unable to obtain response from communities");
         }
@@ -221,8 +220,6 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                 addPolicyErrorsToResponse(response, policyErrList);
             }
         } catch (final Exception e) {
-            LOG.error("Exception occurred while getting responses from communities", e);
-
             addErrorMessageToResponse(request, response, e);
             throw new ErrorEventException(e, response, "Exception while getting responses from communities");
         }

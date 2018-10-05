@@ -91,7 +91,6 @@ public class EntityDocSubmissionDeferredRequestImpl_g1 extends BaseService {
             response = outboundDocSubmissionRequest.provideAndRegisterDocumentSetBAsyncRequest(request, assertion,
                     targets, urlInfo);
         } catch (Exception e) {
-            LOG.error("Failed to send request to Nwhin.", e);
             throw new ErrorEventException(e,"Unable to call Nhin Doc Submission");
         }
         return response;

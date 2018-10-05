@@ -157,7 +157,6 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
                     "addPatientCorrelation", request);
             }
         } catch (final Exception ex) {
-            LOG.error("Error calling addPatientCorrelation: {}", ex.getMessage(), ex);
             throw new ErrorEventException(ex,UNABLE_TO_CALL);
         }
 
@@ -187,7 +186,6 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
                 client.invokePort(PatientCorrelationPortType.class,"addPatientCorrelationPLQ", request);
             }
         } catch (final Exception ex) {
-            LOG.error("Error calling addPatientCorrelationPLQ: {}", ex.getMessage(), ex);
             throw new ErrorEventException(ex,UNABLE_TO_CALL);
         }
         LOG.debug("End addPatientCorrelationPLQ");

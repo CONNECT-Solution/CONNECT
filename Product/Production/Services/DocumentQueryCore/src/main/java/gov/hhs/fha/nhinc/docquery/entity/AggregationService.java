@@ -161,7 +161,6 @@ public class AggregationService {
                 list.add(orchestratable);
             }
         } catch (Exception e) {
-            LOG.error("Unable to create child requests: {}", e.getLocalizedMessage(), e);
             AdhocQueryResponse response = MessageGeneratorUtils.getInstance()
                 .createAdhocQueryErrorResponse("XDSRegistryError", "Unable to create fanout requests for query",
                 DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);

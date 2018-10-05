@@ -116,7 +116,6 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
                 getDocSubmissionUtils().convertDataToFileLocationIfEnabled(body);
                 response = sendToAdapter(body, assertion);
             } catch (LargePayloadException lpe) {
-                LOG.error("Failed to retrieve payload document.", lpe);
                 response = MessageGeneratorUtils.getInstance().createRegistryErrorResponse();
                 throw new ErrorEventException(lpe, response, "Failed to save document");
             }

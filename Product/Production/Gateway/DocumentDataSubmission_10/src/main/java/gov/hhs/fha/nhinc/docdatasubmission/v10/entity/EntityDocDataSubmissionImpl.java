@@ -60,7 +60,6 @@ class EntityDocDataSubmissionImpl extends BaseService {
                 request.getAssertion(), request.getNhinTargetCommunities(), request.getUrl());
 
         } catch (Exception e) {
-            LOG.error("Failed to send request to Nwhin: {}", e);
             throw new ErrorEventException(e, "Unable to call Nhin Doc Data Submission");
         }
 
@@ -79,7 +78,7 @@ class EntityDocDataSubmissionImpl extends BaseService {
                 assertion, request.getNhinTargetCommunities(), request.getUrl());
 
         } catch (Exception e) {
-            LOG.error("Failed to send request to Nwhin: {}", e);
+            throw new ErrorEventException(e, "Unable to call Nhin Doc Data Submission");
         }
 
         return response;
