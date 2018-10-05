@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.admingui.services.ErrorLogService;
 import gov.hhs.fha.nhinc.admingui.services.impl.ErrorLogServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.common.adminguimanagement.LogEventType;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -139,10 +138,7 @@ public class ErrorLogBean {
     }
 
     public void viewEvent() {
-        LOG.debug("view-event: begin");
         if (null == selectedEvent) {
-            LOG.info("no event selected for view.");
-            HelperUtil.addMessageError(null, "You need to selected an event.");
             return;
         }
         selectedEvent = service.getLogEvent(selectedEvent.getId());
@@ -165,14 +161,8 @@ public class ErrorLogBean {
         return (JSONArray) getJsonProperty("stackTrace");
     }
 
-    public String getStringStackTrace() {
-        return StringUtils.join(convertList(getJsonStackTrace()), "<br/>");
-    }
-
-
-    public String getCodeStackTrace() {
-        return MessageFormat.format("<div class='code'><div>{0}</div></div>",
-            StringUtils.join(convertList(getJsonStackTrace()), "</div><div>"));
+    public List<String> getListStackTrace() {
+        return convertList(getJsonStackTrace());
     }
 
     public String getJsonFailedMethod() {
@@ -209,5 +199,9 @@ public class ErrorLogBean {
         fromDate = null;
         toDate = null;
         return NavigationConstant.LOGGING_PAGE;
+    }
+
+    public boolean getDisabledViewBtn() {
+        return null == selectedEvent;
     }
 }

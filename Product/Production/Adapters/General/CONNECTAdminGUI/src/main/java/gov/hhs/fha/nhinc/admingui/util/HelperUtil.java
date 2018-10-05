@@ -392,10 +392,12 @@ public class HelperUtil {
             .createValueExpression(elContext, elExpression, clazzOf).getValue(elContext);
     }
 
-    public static List<Object> convertList(JSONArray jsonArray) {
-        List<Object> retList = new ArrayList<>();
-        for (Object item : jsonArray) {
-            retList.add(item);
+    public static <T> List<T> convertList(JSONArray jsonArray) {
+        List<T> retList = new ArrayList<>();
+        if (null != jsonArray) {
+            for (Object item : jsonArray) {
+                retList.add((T) item);
+            }
         }
         return retList;
     }

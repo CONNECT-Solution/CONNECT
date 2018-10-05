@@ -20,7 +20,13 @@
                     <h:outputText styleClass="fw-bold" value="Exception" />
                     <h:outputText value="#{errorLogBean.jsonExceptionClass}" />
                     <h:outputText styleClass="fw-bold" value="Stacktrace" />
-                    <h:outputText value="#{errorLogBean.codeStackTrace}" escape="false" />
+                    <p:outputPanel styleClass="code">
+                        <p:repeat value="#{errorLogBean.listStackTrace}" var="stackLine">
+                            <p:outputPanel styleClass="line">
+                                <h:outputText value="#{stackLine}" />
+                            </p:outputPanel>
+                        </p:repeat>
+                    </p:outputPanel>
 
                 </h:panelGrid>
             </div>

@@ -2458,14 +2458,20 @@ form[id*='auditQueryTabView'] div[id*='auditBlobDlg'].ui-dialog .ui-dialog-conte
     font-weight: bold;
 }
 
-div.code {
+.code {
     background-color: #eee;
     font-family: monospace;
     font-size: .9em;
     color: #c7254e;
+    border-left: 8px solid #ccc;
 }
 
-div.code div:nth-child(even) {
+.code div.line {
+    font-family: monospace !important;
+    font-size: .8em !important;
+}
+
+.code div.line:nth-child(even) {
     background-color: #ddd;
 }
 
