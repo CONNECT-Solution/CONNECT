@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -46,6 +46,8 @@ public class TabBean {
     private int propIndex = 0;
     private int certTabIndex = 0;
     private int loadTestDataTabIndex = 0;
+    private int loggingTabIndex = 0;
+
 
     private static final String GATEWAYPROPTAB = "gatewayTab";
     private static final String ADAPTERPROPTAB = "adapterTab";
@@ -60,88 +62,47 @@ public class TabBean {
     private static final String TRUSTSTORETAB = "trustStoreTab";
     private static final String LTDPATIENTTAB = "ltdPatientTab";
     private static final String LTDDOCUMENTTAB = "ltdDocumentTab";
+    private static final String AUDITLOGTAB = "auditLogTab";
+    private static final String ERRORLOGTAB = "errorLogTab";
 
-    /**
-     *
-     * @return
-     */
     public int getDirectTabIndex() {
         return directTabIndex;
     }
 
-    /**
-     *
-     * @param directTabIndex
-     */
     public void setDirectTabIndex(int directTabIndex) {
         this.directTabIndex = directTabIndex;
     }
 
-    /**
-     *
-     * @return
-     */
     public int getLogsTabIndex() {
         return logsTabIndex;
     }
 
-    /**
-     *
-     * @param logsTabIndex
-     */
     public void setLogsTabIndex(int logsTabIndex) {
         this.logsTabIndex = logsTabIndex;
     }
 
-    /**
-     *
-     * @return
-     */
     public int getAdminTabIndex() {
         return adminTabIndex;
     }
 
-    /**
-     *
-     * @param adminTabIndex
-     */
     public void setAdminTabIndex(int adminTabIndex) {
         this.adminTabIndex = adminTabIndex;
     }
 
-    /**
-     *
-     * @return
-     */
     public String navigateToStatusDashBoard() {
         return NavigationConstant.STATUS_PAGE;
     }
 
-    /**
-     *
-     * @param logsTabIndex
-     * @return
-     */
     public String setLogsTabIndexNavigate(int logsTabIndex) {
         this.logsTabIndex = logsTabIndex;
         return "logs";
     }
 
-    /**
-     *
-     * @param adminTabIndex
-     * @return
-     */
     public String setAdminTabIndexNavigate(int adminTabIndex) {
         this.adminTabIndex = adminTabIndex;
         return NavigationConstant.ACCT_MGMT_PAGE;
     }
 
-    /**
-     *
-     * @param directTabIndex
-     * @return
-     */
     public String setDirectTabIndexNavigate(int directTabIndex) {
         this.directTabIndex = directTabIndex;
         return NavigationConstant.DIRECT_PAGE;
@@ -188,50 +149,26 @@ public class TabBean {
 
     // All "navigateTo" functions below were added as a workaround to an Expression Language bug found in WAS 8.5.0.1
     // For more information, see http://www-01.ibm.com/support/docview.wss?uid=swg1PM72533 (PM72533)
-    /**
-     *
-     * @return
-     */
     public String navigateToDirectDomainTab() {
         return setDirectTabIndexNavigate(NavigationConstant.DIRECT_DOMAIN_TAB);
     }
 
-    /**
-     *
-     * @return
-     */
     public String navigateToDirectSettingTab() {
         return setDirectTabIndexNavigate(NavigationConstant.DIRECT_SETTING_TAB);
     }
 
-    /**
-     *
-     * @return
-     */
     public String navigateToDirectCertificateTab() {
         return setDirectTabIndexNavigate(NavigationConstant.DIRECT_CERTIFICATE_TAB);
     }
 
-    /**
-     *
-     * @return
-     */
     public String navigateToDirectTrustbundleTab() {
         return setDirectTabIndexNavigate(NavigationConstant.DIRECT_TRUSTBUNDLE_TAB);
     }
 
-    /**
-     *
-     * @return
-     */
     public String navigateToAccountMgmtUserAccountTab() {
         return setAdminTabIndexNavigate(NavigationConstant.ACCOUNT_MGMT_USERACC_TAB);
     }
 
-    /**
-     *
-     * @return
-     */
     public String navigateToAccountMgmtManageRoleTab() {
         return setAdminTabIndexNavigate(NavigationConstant.ACCOUNT_MGMT_MANAGEROLE_TAB);
     }
@@ -256,16 +193,8 @@ public class TabBean {
         return NavigationConstant.CM_PAGE;
     }
 
-    /**
-     *
-     * @return
-     */
     public String navigateToPatientDiscoveryTab() {
         return setPatientSearchTabAndNavigate(0);
-    }
-
-    public String navigateToAuditSearchTab() {
-        return setAuditSearchTabAndNavigate(0);
     }
 
     public String setGatewayPropertyTabAndNavigate(int i) {
@@ -412,4 +341,44 @@ public class TabBean {
         return NavigationConstant.EM_PAGE;
     }
 
+    // logging
+    public int getLoggingTabIndex() {
+        return loggingTabIndex;
+    }
+
+    public void setLoggingTabIndex(int loggingTabIndex) {
+        this.loggingTabIndex = loggingTabIndex;
+    }
+
+    public String setLoggingTabIndexNavigate(int loggingTabIndex) {
+        this.loggingTabIndex = loggingTabIndex;
+        return NavigationConstant.LOGGING_PAGE;
+    }
+
+    public String navigateToAuditLogTab() {
+        return setLoggingTabIndexNavigate(NavigationConstant.AUDIT_LOG_TAB);
+    }
+
+    public String navigateToErrorLogTab() {
+        return setLoggingTabIndexNavigate(NavigationConstant.ERROR_LOG_TAB);
+    }
+
+    public void onLoggingTabChange(TabChangeEvent tEvent) {
+        Tab selectedTab = tEvent.getTab();
+        if (AUDITLOGTAB.equalsIgnoreCase(selectedTab.getId())) {
+            loggingTabIndex = 0;
+        } else {
+            loggingTabIndex = 1;
+        }
+    }
+
+    public String getAUDITLOGTAB() {
+        return AUDITLOGTAB;
+    }
+
+    public String getERRORLOGTAB() {
+        return ERRORLOGTAB;
+    }
+
+    // to setup new tab you will need tab-index, tab-nagivation, tab-change-event
 }
