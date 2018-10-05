@@ -49,12 +49,10 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +69,7 @@ public class ErrorLogServiceImpl implements ErrorLogService {
     private static CONNECTClient<AdminGUIManagementPortType> client = null;
 
     @Override
-    public List<LogEventType> search(String service, String exception, Date fromDate, Date toDate) {
+    public List<LogEventType> search(String service, String exception, Date fromDate, Date toDate) throws Exception {
         ListErrorLogRequestMessageType request = new ListErrorLogRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         request.setService(service);
@@ -79,52 +77,38 @@ public class ErrorLogServiceImpl implements ErrorLogService {
         request.setFromDate(getXMLGregorianCalendarFrom(fromDate));
         request.setToDate(getXMLGregorianCalendarFrom(toDate));
 
-        try {
-            LogEventSimpleResponseMessageType response = (LogEventSimpleResponseMessageType) invokeClientPort(
-                ADMIN_DASHBOARD_ERRORLOG_LIST, request);
-            logDebug(ADMIN_DASHBOARD_ERRORLOG_LIST, response.getEventLogList().size());
-            return response.getEventLogList();
-        } catch (Exception e) {
-            LOG.error("error during search: {}", e.getLocalizedMessage(), e);
-        }
-        return new ArrayList<>();
+        LogEventSimpleResponseMessageType response = (LogEventSimpleResponseMessageType) invokeClientPort(
+            ADMIN_DASHBOARD_ERRORLOG_LIST, request);
+        logDebug(ADMIN_DASHBOARD_ERRORLOG_LIST, response.getEventLogList().size());
+        return response.getEventLogList();
+
     }
 
     @Override
-    public Map<String, List<String>> getDropdowns() {
+    public Map<String, List<String>> getDropdowns() throws Exception {
         GetSearchFilterRequestMessageType request = new GetSearchFilterRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         Map<String, List<String>> retObj = new HashMap<>();
 
-        try {
-            LogEventSimpleResponseMessageType response = (LogEventSimpleResponseMessageType) invokeClientPort(
-                ADMIN_DASHBOARD_ERRORLOG_GETFILTERS, request);
-            logDebug(ADMIN_DASHBOARD_ERRORLOG_GETFILTERS, response.getExceptionList().size(),
-                response.getServiceList().size());
-            retObj.put(KEY_EXCEPTIONS, response.getExceptionList());
-            retObj.put(KEY_SERVICES, response.getServiceList());
-        } catch (Exception e) {
-            LOG.error("error during get-dropdowns: {}", e.getLocalizedMessage(), e);
-        }
+        LogEventSimpleResponseMessageType response = (LogEventSimpleResponseMessageType) invokeClientPort(
+            ADMIN_DASHBOARD_ERRORLOG_GETFILTERS, request);
+        logDebug(ADMIN_DASHBOARD_ERRORLOG_GETFILTERS, response.getExceptionList().size(),
+            response.getServiceList().size());
+        retObj.put(KEY_EXCEPTIONS, response.getExceptionList());
+        retObj.put(KEY_SERVICES, response.getServiceList());
         return retObj;
     }
 
     @Override
-    public LogEventType getLogEvent(Long id) {
+    public LogEventType getLogEvent(Long id) throws Exception {
         ViewErrorLogRequestMessageType request = new ViewErrorLogRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         request.setId(id);
-        try {
-            LogEventSimpleResponseMessageType response = (LogEventSimpleResponseMessageType) invokeClientPort(
-                ADMIN_DASHBOARD_ERRORLOG_VIEW, request);
-            logDebug(ADMIN_DASHBOARD_ERRORLOG_VIEW, response.getEventLogList().size());
-            if (CollectionUtils.isNotEmpty(response.getEventLogList())) {
-                return response.getEventLogList().get(0);
-            }
-        } catch (Exception e) {
-            LOG.error("error during view-log-event: {}", e.getLocalizedMessage(), e);
-        }
-        return null;
+
+        LogEventSimpleResponseMessageType response = (LogEventSimpleResponseMessageType) invokeClientPort(
+            ADMIN_DASHBOARD_ERRORLOG_VIEW, request);
+        logDebug(ADMIN_DASHBOARD_ERRORLOG_VIEW, response.getEventLogList().size());
+        return response.getEventLogList().get(0);
     }
 
     private static CONNECTClient<AdminGUIManagementPortType> getClient() throws ExchangeManagerException {

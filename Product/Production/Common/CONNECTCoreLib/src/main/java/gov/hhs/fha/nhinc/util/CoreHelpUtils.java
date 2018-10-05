@@ -73,7 +73,7 @@ public class CoreHelpUtils {
             gregorianCalendar.setTime(date);
             try {
                 XMLGregorianCalendar cal = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
-                LOG.info("{}-{}-{} {}:{}:{} {}", cal.getMonth(), cal.getDay(), cal.getYear(), cal.getHour(),
+                LOG.trace("{}-{}-{} {}:{}:{} {}", cal.getMonth(), cal.getDay(), cal.getYear(), cal.getHour(),
                     cal.getMinute(), cal.getSecond(), cal.getTimezone());
                 return cal;
             } catch (DatatypeConfigurationException ex) {
