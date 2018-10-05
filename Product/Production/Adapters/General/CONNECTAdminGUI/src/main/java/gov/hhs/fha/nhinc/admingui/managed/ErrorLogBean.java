@@ -43,8 +43,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author ttang
@@ -55,7 +53,6 @@ import org.slf4j.LoggerFactory;
 @SessionScoped
 public class ErrorLogBean {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ErrorLogBean.class);
     public static final String KEY_SERVICES = "key:services";
     public static final String KEY_EXCEPTIONS = "key:exceptions";
 
