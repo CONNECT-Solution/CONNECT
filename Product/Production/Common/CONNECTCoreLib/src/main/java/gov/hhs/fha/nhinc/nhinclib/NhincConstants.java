@@ -680,6 +680,9 @@ public class NhincConstants {
     public static final String PROPERTIES_SAVE_PROP = "saveProperty";
 
     public static final String ADMIN_GUI_MANAGEMENT_SERVICE_NAME = "admindashboard";
+    public static final String ADMIN_DASHBOARD_ERRORLOG_LIST = "listErrorLog";
+    public static final String ADMIN_DASHBOARD_ERRORLOG_GETFILTERS = "getSearchFilter";
+    public static final String ADMIN_DASHBOARD_ERRORLOG_VIEW = "viewErrorLog";
 
     private NhincConstants() {
     }

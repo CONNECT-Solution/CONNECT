@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -25,6 +25,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
+
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getXMLGregorianCalendarFrom;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ObjectFactory;
@@ -40,25 +42,20 @@ import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResults;
 import gov.hhs.fha.nhinc.common.auditquerylog.RemoteHcidList;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,8 +94,8 @@ public class AuditServiceImpl implements AuditService {
         auditRequest.setEventTypeList(createEventTypeList(eventTypeList));
         auditRequest.setUserId(userId);
         auditRequest.setRemoteHcidList(createRemoteHcidList(remoteHcidList));
-        auditRequest.setEventBeginDate(convertDateToXMLGregorianCalendar(startDate));
-        auditRequest.setEventEndDate(convertDateToXMLGregorianCalendar(endDate));
+        auditRequest.setEventBeginDate(getXMLGregorianCalendarFrom(startDate));
+        auditRequest.setEventEndDate(getXMLGregorianCalendarFrom(endDate));
         return createAuditObjects(auditRetrieve.retrieveAudits(auditRequest), remoteHcidOrgNameMap);
     }
 
@@ -144,22 +141,6 @@ public class AuditServiceImpl implements AuditService {
             RemoteHcidList schemaHcid = new RemoteHcidList();
             schemaHcid.getRemoteHcid().addAll(remoteHcidList);
             return schemaHcid;
-        }
-        return null;
-    }
-
-    private XMLGregorianCalendar convertDateToXMLGregorianCalendar(Date date) {
-        if (date != null) {
-            GregorianCalendar gregorianCalendar = new GregorianCalendar();
-            gregorianCalendar.setTime(date);
-            try {
-                XMLGregorianCalendar cal = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
-                LOG.info("{}-{}-{} {}:{}:{} {}", cal.getMonth(), cal.getDay(), cal.getYear(), cal.getHour(),
-                    cal.getMinute(), cal.getSecond(), cal.getTimezone());
-                return cal;
-            } catch (DatatypeConfigurationException ex) {
-                LOG.error("Unable to convert date {} ", ex.getLocalizedMessage(), ex);
-            }
         }
         return null;
     }
