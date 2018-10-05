@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="PatientDiscoveryInternalErrorMessagIdTest" resourceRoot="${projectDir}" soapui-version="5.1.2" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" id="73fc55a4-2e43-4035-a12a-2bb5eb14b1d4" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="PatientDiscoveryInternalErrorMessagIdTest" resourceRoot="${projectDir}" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" id="73fc55a4-2e43-4035-a12a-2bb5eb14b1d4" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityPatientDiscovery.wsdl" id="521041da-0670-42f6-9087-7ed790c34df9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -349,17 +349,11 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedI
               </con:configuration>
             </con:assertion>
             <con:assertion type="XPath Match" name="Check for Correct Error" id="888be6e1-56e1-46de-923e-317937a2a898">
-              <con:configuration>
-                <path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedIssueEvent/ns3:mitigatedBy/ns3:detectedIssueManagement/ns3:text</path>
-                <content>AnswerNotAvailable</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-                <ignoreComments>false</ignoreComments>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedIssueEvent/ns3:mitigatedBy/ns3:detectedIssueManagement/ns3:text</path><content>Exception aggregating response from target homeId=urn:oid:2.2.  Exception message=EntityPatientDiscoveryProcessor::aggregateResponse received a null PRPAIN201306UV02 response.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -1363,5 +1357,5 @@ sql.close()
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:oAuth2ProfileContainer/>
-  <con:sensitiveInformation/>
+  <con:oAuth1ProfileContainer/><con:sensitiveInformation/>
 </con:soapui-project>

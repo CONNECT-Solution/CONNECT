@@ -39,6 +39,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.service.RespondingGatewayServicePortDescriptor;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import ihe.iti.xcpd._2009.RespondingGatewayPortType;
 import javax.xml.ws.WebServiceException;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -102,7 +103,11 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
         } catch (Exception e) {
             LOG.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
                 + ").  An unexpected exception occurred.  " + "Exception: " + e.getMessage(), e);
-            throw new ErrorEventException(e,"Unable to call Nhin Patient Discovery");
+
+            PRPAIN201306UV02 errorResponse = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request,
+                NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE, e.getMessage());
+
+            throw new ErrorEventException(e,errorResponse, "Unable to call Nhin Patient Discovery");
         }
 
         return response;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="DocQueryErrorCodesStandards" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" id="ccedc04e-75db-494c-8db6-d90dbd4fc00a" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project activeEnvironment="Default" name="DocQueryErrorCodesStandards" resourceRoot="${projectDir}" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" id="ccedc04e-75db-494c-8db6-d90dbd4fc00a" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="21c6ad92-7af8-43e3-859e-23c274cdc9f8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -16,7 +16,7 @@
 Test artifacts wiki: https://cgiinterop.atlassian.net/wiki/x/B4AZAg</con:description>
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSUnknownPatientId" searchProperties="true" id="b653f7c0-e092-4fb0-8529-85756d005423">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSRegistryError" searchProperties="true" id="b653f7c0-e092-4fb0-8529-85756d005423">
       <con:description>When the patient ID in the $XDSDocumentEntryPatientId slot is unknown (meaning no correlations are present for the patient), the error "XDSUnknownPatientId" should be returned
 *****MUST BE RUN IN STANDARD MODE********</con:description>
       <con:settings/>
@@ -321,31 +321,19 @@ Test artifacts wiki: https://cgiinterop.atlassian.net/wiki/x/B4AZAg</con:descrip
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion" id="4010fa9f-b955-436a-a612-1964ab7490ad"/>
             <con:assertion name="errorCode" type="XPath Match" id="2000d2ef-74d1-47cd-bef2-f0bdd6a923fa">
-              <con:configuration>
-                <path>declare namespace S='http://www.w3.org/2003/05/soap-envelope';
+              <con:configuration><path>declare namespace S='http://www.w3.org/2003/05/soap-envelope';
 declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 
-/S:Envelope/S:Body/ns12:AdhocQueryResponse/ns11:RegistryErrorList/ns11:RegistryError/@errorCode</path>
-                <content>XDSUnknownPatientId</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-                <ignoreComments>false</ignoreComments>
-              </con:configuration>
+/S:Envelope/S:Body/ns12:AdhocQueryResponse/ns11:RegistryErrorList/ns11:RegistryError/@errorCode</path><content>Unable to create fanout requests for query</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:assertion type="XPath Match" name="codeContext" id="dfa2ad0d-b58e-4b81-9ddb-13b65a16ea78">
-              <con:configuration>
-                <path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+              <con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 
-//ns2:RegistryErrorList/ns2:RegistryError/@codeContext</path>
-                <content>No patient correlations found.</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-                <ignoreComments>false</ignoreComments>
-              </con:configuration>
+//ns2:RegistryErrorList/ns2:RegistryError/@codeContext</path><content>XDSRegistryError</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -651,5 +639,5 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:oAuth2ProfileContainer/>
-  <con:sensitiveInformation/>
+  <con:oAuth1ProfileContainer/><con:sensitiveInformation/>
 </con:soapui-project>

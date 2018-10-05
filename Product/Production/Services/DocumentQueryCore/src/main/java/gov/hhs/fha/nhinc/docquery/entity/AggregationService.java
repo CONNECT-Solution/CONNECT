@@ -38,7 +38,6 @@ import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQueryHelper;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
-import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.logging.transaction.TransactionLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -161,7 +160,7 @@ public class AggregationService {
 
                 list.add(orchestratable);
             }
-        } catch (ExchangeManagerException e) {
+        } catch (Exception e) {
             LOG.error("Unable to create child requests: {}", e.getLocalizedMessage(), e);
             AdhocQueryResponse response = MessageGeneratorUtils.getInstance()
                 .createAdhocQueryErrorResponse("XDSRegistryError", "Unable to create fanout requests for query",
