@@ -330,6 +330,8 @@
                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                 rowsPerPageTemplate="20,30,50"
                                                 styleClass="table table-striped table-domains">
+                                                <p:ajax event="rowSelectRadio" process="@this"
+                                                    update="@form:btnViewEvent" />
                                                 <p:column headerText="" selectionMode="single" />
                                                 <p:column headerText="Date">#{rec.eventTime}</p:column>
                                                 <p:column headerText="Service">#{rec.serviceType}</p:column>
@@ -342,7 +344,7 @@
                                                     <div class="form-button-row">
                                                         <p:commandButton id="btnViewEvent" styleClass="btn btn-default"
                                                             icon="ui-icon-search" action="#{errorLogBean.viewEvent()}"
-                                                            value="View"
+                                                            value="View" disabled="#{errorLogBean.disabledViewBtn}"
                                                             update=":auditQueryTabView :dlgViewEventErrorlog">
                                                         </p:commandButton>
                                                     </div>
