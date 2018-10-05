@@ -256,15 +256,14 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     @Override
-    public boolean deleteCertificateFromTrustStore(String alias, String hashToken) throws CertificateManagerException {
+    public SimpleCertificateResponseMessageType deleteCertificateFromTrustStore(String alias, String hashToken) throws CertificateManagerException {
         DeleteCertificateRequestMessageType request = new DeleteCertificateRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         request.setHashToken(hashToken);
         request.setAlias(alias);
         try {
-            SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
+            return (SimpleCertificateResponseMessageType) getClient()
                 .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_DELETE, request);
-            return response.isStatus();
         } catch (Exception e) {
             throw new CertificateManagerException("Error deleting the selected certificate.", e);
         }

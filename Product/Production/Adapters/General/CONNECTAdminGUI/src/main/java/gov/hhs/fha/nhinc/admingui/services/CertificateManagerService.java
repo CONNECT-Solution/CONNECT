@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
+import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
+
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import java.util.List;
@@ -56,7 +58,7 @@ public interface CertificateManagerService {
 
     public boolean importCertificate(CertificateDTO cert, boolean refresh, String hashToken) throws Exception;
 
-    public boolean deleteCertificateFromTrustStore(String alias, String hashToken)
+    public SimpleCertificateResponseMessageType deleteCertificateFromTrustStore(String alias, String hashToken)
         throws CertificateManagerException;
 
     public boolean updateCertificate(String oldAlias, CertificateDTO cert, String hashToken)
