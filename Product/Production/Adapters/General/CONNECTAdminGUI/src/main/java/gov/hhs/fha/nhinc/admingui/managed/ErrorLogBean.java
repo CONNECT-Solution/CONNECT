@@ -208,6 +208,6 @@ public class ErrorLogBean {
         selectedException = null;
         fromDate = null;
         toDate = null;
-        return NavigationConstant.AUDIT_SEARCH_PAGE;
+        return NavigationConstant.LOGGING_PAGE;
     }
 }

@@ -43,7 +43,6 @@ public class NavigationConstant {
     public static final String CM_PAGE = "connectionManager";
     public static final String PROPERTIES_PAGE = "properties";
     public static final String PATIENT_SEARCH_PAGE = "patientDiscovery";
-    public static final String AUDIT_SEARCH_PAGE = "auditLog";
     public static final String CUSTOM_ERROR_PAGE = "customerror";
     public static final String CUSTOM_ERROR_XHTML = "/customerror.xhtml";
     public static final String CERTIFICATE_MGMT_PAGE = "certificateManager";

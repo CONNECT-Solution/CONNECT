@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -98,66 +98,66 @@ public class AuditSearchBean {
      * eventEndDate
      */
     public void searchAudit() {
-        if (NullChecker.isNullish(this.messageId) && NullChecker.isNullish(this.relatesTo)) {
-            this.auditRecordList = service.searchAuditRecord(
-                this.selectedEventTypeList, NullChecker.isNotNullishIgnoreSpace(userId) ? userId.trim() : null,
-                getRemoteHCIDFromSelectedOrgs(), eventStartDate, eventEndDate, getRemoteHcidOrgNameMap());
+        if (NullChecker.isNullish(messageId) && NullChecker.isNullish(relatesTo)) {
+            auditRecordList = service.searchAuditRecord(
+                selectedEventTypeList, NullChecker.isNotNullishIgnoreSpace(userId) ? userId.trim() : null,
+                    getRemoteHCIDFromSelectedOrgs(), eventStartDate, eventEndDate, getRemoteHcidOrgNameMap());
         } else {
-            this.auditRecordList = service.searchAuditRecordBasedOnMsgIdAndRelatesTo(
+            auditRecordList = service.searchAuditRecordBasedOnMsgIdAndRelatesTo(
                 NullChecker.isNotNullishIgnoreSpace(messageId) ? messageId.trim() : null,
-                NullChecker.isNotNullishIgnoreSpace(relatesTo) ? relatesTo.trim() : null, getRemoteHcidOrgNameMap());
+                    NullChecker.isNotNullishIgnoreSpace(relatesTo) ? relatesTo.trim() : null, getRemoteHcidOrgNameMap());
         }
-        if (NullChecker.isNullish(this.auditRecordList)) {
-            this.auditMessage = AUDIT_RECORDS_NOT_FOUND;
+        if (NullChecker.isNullish(auditRecordList)) {
+            auditMessage = AUDIT_RECORDS_NOT_FOUND;
             auditFound = false;
         } else {
-            this.auditMessage = AUDIT_RECORDS_FOUND;
+            auditMessage = AUDIT_RECORDS_FOUND;
             auditFound = true;
         }
     }
 
     public String clearAuditTab() {
-        this.eventEndDate = null;
-        this.eventStartDate = null;
-        if (this.selectedEventTypeList != null) {
-            this.selectedEventTypeList.clear();
+        eventEndDate = null;
+        eventStartDate = null;
+        if (selectedEventTypeList != null) {
+            selectedEventTypeList.clear();
         }
-        if (this.selectedRemoteHcidList != null) {
-            this.selectedRemoteHcidList.clear();
+        if (selectedRemoteHcidList != null) {
+            selectedRemoteHcidList.clear();
         }
 
-        this.userId = null;
+        userId = null;
         if (auditRecordList != null) {
-            this.auditRecordList.clear();
+            auditRecordList.clear();
         }
-        this.auditMessage = "";
-        this.auditFound = false;
-        this.auditBlobMsg = "";
-        return NavigationConstant.AUDIT_SEARCH_PAGE;
+        auditMessage = "";
+        auditFound = false;
+        auditBlobMsg = "";
+        return NavigationConstant.LOGGING_PAGE;
     }
 
     public String clearAuditTabMessageId() {
-        this.relatesTo = null;
-        this.messageId = null;
+        relatesTo = null;
+        messageId = null;
         if (auditRecordList != null) {
-            this.auditRecordList.clear();
+            auditRecordList.clear();
         }
-        this.auditMessage = "";
-        this.auditFound = false;
-        return NavigationConstant.AUDIT_SEARCH_PAGE;
+        auditMessage = "";
+        auditFound = false;
+        return NavigationConstant.LOGGING_PAGE;
     }
 
     public void fetchAuditBlob() {
-        this.blobContent = "";
-        this.auditBlobMsg = service.fetchAuditBlob(this.auditId);
-        this.blobContent = new String(getAuditHtml());
+        blobContent = "";
+        auditBlobMsg = service.fetchAuditBlob(auditId);
+        blobContent = new String(getAuditHtml());
     }
 
     private byte[] getAuditHtml() {
         byte[] convertXmlToHtml = null;
         InputStream xsl = FacesContext.getCurrentInstance().getExternalContext().
             getResourceAsStream(DEFAULT_AUDIT_XSL_FILE);
-        InputStream xml = new ByteArrayInputStream(this.auditBlobMsg.getBytes());
+        InputStream xml = new ByteArrayInputStream(auditBlobMsg.getBytes());
         if (xsl != null) {
             convertXmlToHtml = transformHelper.convertXMLToHTML(xml, xsl);
             closeStream(xsl);
@@ -208,7 +208,7 @@ public class AuditSearchBean {
     }
 
     public List<Audit> getAuditRecordList() {
-        return this.auditRecordList;
+        return auditRecordList;
     }
 
     public void getAuditRecordList(List<Audit> auditRecordList) {
@@ -216,7 +216,7 @@ public class AuditSearchBean {
     }
 
     public List<String> getSelectedEventTypeList() {
-        return this.selectedEventTypeList;
+        return selectedEventTypeList;
     }
 
     public void setSelectedEventTypeList(List<String> selectedEventTypeList) {
@@ -224,11 +224,11 @@ public class AuditSearchBean {
     }
 
     public List<String> getSelectedRemoteHcidList() {
-        return this.selectedRemoteHcidList;
+        return selectedRemoteHcidList;
     }
 
     public void setSelectedRemoteHcidList(List<String> remoteHcid) {
-        this.selectedRemoteHcidList = remoteHcid;
+        selectedRemoteHcidList = remoteHcid;
     }
 
     public int getActiveIndex() {
@@ -240,7 +240,7 @@ public class AuditSearchBean {
     }
 
     public Map<String, String> getRemoteHcidMap() {
-        return this.remoteHcidMap;
+        return remoteHcidMap;
     }
 
     private void setRemoteHcidMap(Map<String, String> remoteHcidMap) {
@@ -264,7 +264,7 @@ public class AuditSearchBean {
     }
 
     public String getUserId() {
-        return this.userId;
+        return userId;
     }
 
     public void setUserId(String userId) {
@@ -272,7 +272,7 @@ public class AuditSearchBean {
     }
 
     public List<String> getEventTypeList() {
-        return this.eventTypeList;
+        return eventTypeList;
     }
 
     private void setEventTypeList(List<String> eventTypeList) {

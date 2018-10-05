@@ -209,7 +209,7 @@ public class TabBean {
 
     public String setAuditSearchTabAndNavigate(int i) {
         propIndex = i;
-        return NavigationConstant.AUDIT_SEARCH_PAGE;
+        return NavigationConstant.LOGGING_PAGE;
     }
 
     public int getPropIndex() {
