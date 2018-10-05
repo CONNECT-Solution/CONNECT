@@ -78,7 +78,6 @@ public class AdapterDocQueryOrchImpl {
                 throw new IllegalArgumentException("Request must be provided.");
             }
         } catch (Exception e) {
-            LOG.error(e.getLocalizedMessage(), e);
             RegistryErrorList errorList = new RegistryErrorList();
             response = new AdhocQueryResponse();
             response.setRegistryObjectList(new RegistryObjectListType());

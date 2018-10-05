@@ -37,12 +37,8 @@ import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 class EntityDocDataSubmissionImpl extends BaseService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDocDataSubmissionImpl.class);
 
     private OutboundDocDataSubmission outboundDocDataSubmission;
 

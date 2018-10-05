@@ -41,7 +41,7 @@ import org.junit.Test;
 public class AdapterDocQueryOrchImplTest {
 
     @Test
-    public void errorResponseHasRegistryObjectList() throws Exception {
+    public void errorResponseHasRegistryObjectList() {
         AdapterDocQueryOrchImpl impl = new AdapterDocQueryOrchImpl();
         try {
             impl.respondingGatewayCrossGatewayQuery(null, null);

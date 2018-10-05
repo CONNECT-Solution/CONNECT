@@ -41,8 +41,6 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceException;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -51,7 +49,6 @@ import org.slf4j.LoggerFactory;
  */
 public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDocSubmissionProxy {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocSubmissionProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterDocSubmissionProxyWebServiceSecuredImpl() {

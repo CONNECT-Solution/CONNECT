@@ -61,9 +61,6 @@ import org.slf4j.LoggerFactory;
  */
 public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy {
 
-    /**
-     *
-     */
     private static final String UNABLE_TO_CALL = "Unable to call Nhin Service";
     private static final Logger LOG = LoggerFactory.getLogger(NhinDocQueryProxyWebServiceSecuredImpl.class);
 

@@ -37,14 +37,11 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public class EntityDocSubmissionDeferredResponseImpl_g1 extends BaseService {
 
     private OutboundDocSubmissionDeferredResponse outboundDocSubmissionResponse;
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDocSubmissionDeferredResponseImpl_g1.class);
     EntityDocSubmissionDeferredResponseImpl_g1(OutboundDocSubmissionDeferredResponse outboundDocSubmissionResponse) {
         this.outboundDocSubmissionResponse = outboundDocSubmissionResponse;
     }

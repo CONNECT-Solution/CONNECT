@@ -43,13 +43,9 @@ import gov.hhs.fha.nhinc.patientlocationquery.adapter.descriptor.AdapterPatientL
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AdapterPatientLocationQueryProxyWebServiceSecuredImpl implements AdapterPatientLocationQueryProxy {
 
-    private static final Logger LOG = LoggerFactory
-        .getLogger(AdapterPatientLocationQueryProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     @AdapterDelegationEvent(beforeBuilder = DefaultTargetedArgTransfomer.class,

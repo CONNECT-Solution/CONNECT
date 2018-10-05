@@ -44,8 +44,6 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.ws.WebServiceException;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Proxy to call the secured AdapterMPI interface.
@@ -53,7 +51,6 @@ import org.slf4j.LoggerFactory;
  */
 public class AdapterMpiProxyWebServiceSecuredImpl implements AdapterMpiProxy {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AdapterMpiProxyWebServiceSecuredImpl.class);
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     /**
