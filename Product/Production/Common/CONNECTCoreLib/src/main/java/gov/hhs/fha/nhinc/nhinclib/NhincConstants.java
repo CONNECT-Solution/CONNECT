@@ -230,6 +230,7 @@ public class NhincConstants {
     public static final String MESSAGEMONITORING_DELAYINMINUTES = "MessageMonitoringDelayTime";
     public static final String UDDI_CONNECTION_INFO = "";
     public static final String ADAPTER_PROPERTY_FILE_NAME = "adapter";
+    public static final String INTERNAL_EXCHANGE_INFO_FILE = "internalExchangeInfo.xml";
     public static final String XDS_HOME_COMMUNITY_ID_PROPERTY = "XDSbHomeCommunityId";
     public static final String XDS_REPOSITORY_ID = "XDSRepositoryId";
     public static final String MAX_UDDI_RESULTS_PROPERTY = "UDDIMaxResults";
@@ -488,6 +489,7 @@ public class NhincConstants {
     // Config Admin
     public static final String ENTITY_CONFIG_ADMIN_SERVICE_NAME = "entityconfigadmin";
     public static final String ENTITY_EXCHANGE_MANAGEMENT_SERVICE_NAME = "entityexchangemanagement";
+    public static final String ENTITY_INTERNAL_EXCHANGE_MANAGEMENT_SERVICE_NAME = "entityinternalexchangemanagement";
 
     // CORE X12 Document Submission RealTime Constants
     public static final String CORE_X12DS_REALTIME_SERVICE_NAME = "CORE_X12DSRealTime";
@@ -665,6 +667,9 @@ public class NhincConstants {
     public static final String ADMIN_EXCHANGE_LIST_ORGANIZATIONS = "listOrganizations";
     public static final String ADMIN_EXCHANGE_SAVE_CONFIG = "saveExchangeConfig";
 
+    // internal-exchange-management
+    public static final String ADMIN_INTERNAL_EXCHANGE_LIST_ENDPOINTS = "listEndpoints";
+    public static final String ADMIN_INTERNAL_EXCHANGE_UPDATE_ENDPOINT = "updateEnpoint";
     // Patient Location Query
     public static final String PLQ_NHIN_SERVICE_NAME = "PatientLocationQuery";
     public static final String PLQ_ENTITY_SERVICE_NAME = "patientlocationqueryservice";
