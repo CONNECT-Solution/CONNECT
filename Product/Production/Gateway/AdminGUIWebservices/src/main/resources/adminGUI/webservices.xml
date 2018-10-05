@@ -27,6 +27,12 @@
                     endpointName="tns:EntityExchangeManagementPort" implementor="gov.hhs.fha.nhinc.exchangemanagement.ExchangeManagement"
                     wsdlLocation="classpath:wsdl/EntityExchangeManagement.wsdl">
     </jaxws:endpoint>
+    <!--  Internal Exchange Management Services -->
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:internalexchangemanagement" id="EntityInternalExchangeManagement"
+                    address="/InternalExchangeManagement" serviceName="tns:EntityInternalExchangeManagement"
+                    endpointName="tns:EntityInternalExchangeManagementPort" implementor="gov.hhs.fha.nhinc.internalexchangemanagement.InternalExchangeManagement"
+                    wsdlLocation="classpath:wsdl/EntityInternalExchangeManagement.wsdl">
+    </jaxws:endpoint>
     
     <!-- Config Admin Services -->
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:configadmin" id="EntityConfigAdmin"

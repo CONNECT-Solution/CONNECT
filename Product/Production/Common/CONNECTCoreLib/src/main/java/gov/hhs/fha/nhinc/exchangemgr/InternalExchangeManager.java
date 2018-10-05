@@ -149,13 +149,13 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
     }
 
     public String getEndpointURL(String sServiceName, NhincConstants.UDDI_SPEC_VERSION version) throws
-        ExchangeManagerException {
+    ExchangeManagerException {
         return getEndpointURL(ExchangeManagerHelper.getHomeCommunityFromPropFile(), sServiceName, version.toString(),
             null);
     }
 
     private String getEndpointURL(String hcid, String sServiceName, String specVersion, String exchangeName) throws
-        ExchangeManagerException {
+    ExchangeManagerException {
         String endpointUrl = "";
         OrganizationType org = getOrganization(exchangeName, hcid);
         EndpointType epType = ExchangeManagerHelper.getServiceEndpointType(org, sServiceName);
@@ -185,6 +185,10 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
     }
 
     public boolean updateServiceUrl(String serviceName, String url) throws ExchangeManagerException {
+        return updateServiceUrl(serviceName, url, NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0.name());
+    }
+
+    public boolean updateServiceUrl(String serviceName, String url, String version) throws ExchangeManagerException {
         if (null == exInfo) {
             loadExchangeInfo();
         }
@@ -195,8 +199,7 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
         }
 
         EndpointConfigurationType endpointUrl = ExchangeManagerHelper.getEndPointConfigBasedOnSpecVersion(
-            ExchangeManagerHelper.getServiceEndpointType(updateOrganization, serviceName),
-            NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0.name());
+            ExchangeManagerHelper.getServiceEndpointType(updateOrganization, serviceName), version);
         endpointUrl.setUrl(url);
         getExchangeInfoDAO().saveExchangeInfo(exInfo);
 

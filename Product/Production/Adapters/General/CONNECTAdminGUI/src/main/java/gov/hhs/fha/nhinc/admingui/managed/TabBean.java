@@ -64,6 +64,7 @@ public class TabBean {
     private static final String LTDDOCUMENTTAB = "ltdDocumentTab";
     private static final String AUDITLOGTAB = "auditLogTab";
     private static final String ERRORLOGTAB = "errorLogTab";
+    private static final String INTERNALENDPOINTSPROPTAB = "internalEndpointsTab";
 
     public int getDirectTabIndex() {
         return directTabIndex;
@@ -133,8 +134,10 @@ public class TabBean {
             propIndex = 0;
         } else if (ADAPTERPROPTAB.equalsIgnoreCase(selectedTab.getId())) {
             propIndex = 1;
-        } else {
+        } else if (AUDITPROPTAB.equalsIgnoreCase(selectedTab.getId())) {
             propIndex = 2;
+        } else {
+            propIndex = 3;
         }
     }
 
@@ -185,6 +188,10 @@ public class TabBean {
         return setGatewayPropertyTabAndNavigate(2);
     }
 
+    public String navigateToInternalEndpointsPropTab() {
+        return setGatewayPropertyTabAndNavigate(3);
+    }
+
     public String navigateToFhir() {
         return NavigationConstant.FHIR_PAGE;
     }
@@ -232,6 +239,9 @@ public class TabBean {
         return AUDITPROPTAB;
     }
 
+    public String getINTERNALENDPOINTSPROPTAB() {
+        return INTERNALENDPOINTSPROPTAB;
+    }
     public String getDIRECTDOMAINTAB() {
         return DIRECTDOMAINTAB;
     }

@@ -174,6 +174,47 @@
                         </div>
                     </p:tab>
                     <!-- END: TAB PANE - AUDIT PROPERTIES -->
+                    <p:tab id="#{tabBean.INTERNALENDPOINTSPROPTAB}" title="Internal Endpoints Properties" closable="false">
+                        <div class="tab-pane active" id="external">
+                            <div class="content-block">
+                                <h2 class="subsection-header header-no-text"/>
+
+                                <div class="content">
+                                    <p>Click on each value in the Values column to edit it. Right-click on the value for other options.</p>
+                                    <hr style="height:2px;border-width:0;color:gray;background-color:gray" class="hr-divider" />
+                                    <div class="form-block center-block" style="padding:0px;">
+                                        <h:form id="internalEndpointsPropForm" >
+                                            <p:messages for="#{propertyBean.internalEndpointsPropMsg}" autoUpdate="true" closable="true" redisplay="false" showDetail="true" />
+                                        
+                                            <div class="table-responsive table-props">
+                                                <p:dataTable id="internalEndpointsProps" value="#{propertyBean.internalEndpointsProperties}" editable="true" scrollable="true" scrollHeight="500" sortMode="Single" editMode="cell" resizableColumns="false" var="prop" widgetVar="internalEndpointsCellProps" styleClass="table table-striped table-domains">
+                                                    <p:ajax event="cellEdit" listener="#{propertyBean.onInternalEndpointsValueEdit}" update=":propsTabview:internalEndpointsPropForm:internalEndpointsProps" />
+                                                    <p:column headerText="Name" sortBy="name">
+                                                        <h:outputText value="#{prop.name}" />
+                                                    </p:column>
+                                                    <p:column headerText="Version">
+                                                        <h:outputText value="#{prop.version}" />
+                                                    </p:column>
+                                                    <p:column headerText="URL">
+                                                        <p:cellEditor>
+                                                            <f:facet name="output"><h:outputText value="#{prop.url}" /></f:facet>
+                                                            <f:facet name="input"><p:inputText id="propURLInput" value="#{prop.url}" style="width:100%"/></f:facet>
+                                                        </p:cellEditor>
+                                                    </p:column>
+                                                </p:dataTable>
+                                                
+                                              <p:contextMenu for="internalEndpointsProps" widgetVar="internalEndpointsMenu">
+                                                <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('internalEndpointsCellProps').showCellEditor();return false;"/>
+                                                <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('auditMenu').hide()"/>
+                                            </p:contextMenu>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p:tab>
+                    <!-- END: TAB PANE - INTERNALENDPOINTS PROPERTIES -->
                 </p:tabView>
                 <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
             </ui:define>

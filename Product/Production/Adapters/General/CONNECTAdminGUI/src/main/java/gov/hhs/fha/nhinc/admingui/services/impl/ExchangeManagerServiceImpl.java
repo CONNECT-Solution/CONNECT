@@ -98,7 +98,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         request.setExchange(exchange);
 
         try {
-            SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
+            SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) invokeClientPort(
                 ADMIN_EXCHANGE_SAVE_EXCHANGE, request);
             logDebug(ADMIN_EXCHANGE_SAVE_EXCHANGE, response.isStatus(), response.getMessage());
             return response.isStatus();
@@ -115,7 +115,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         request.setExchangeName(exchangeName);
 
         try {
-            SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
+            SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) invokeClientPort(
                 ADMIN_EXCHANGE_DELETE, request);
             logDebug(ADMIN_EXCHANGE_DELETE, response.isStatus(), response.getMessage());
             return response.isStatus();
@@ -131,7 +131,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         request.setConfigAssertion(buildConfigAssertion());
 
         try {
-            ListExchangesResponseMessageType response = (ListExchangesResponseMessageType) clientInvokePort(
+            ListExchangesResponseMessageType response = (ListExchangesResponseMessageType) invokeClientPort(
                 ADMIN_EXCHANGE_LIST_EXCHANGES, request);
             logDebug(ADMIN_EXCHANGE_LIST_EXCHANGES, response.getExchangesList().size());
             return response.getExchangesList();
@@ -149,7 +149,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         request.setExchangeName(exchangeName);
 
         try {
-            SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
+            SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) invokeClientPort(
                 ADMIN_EXCHANGE_LIST_ORGANIZATIONS, request);
 
             logDebug(ADMIN_EXCHANGE_LIST_ORGANIZATIONS, getOrganizationListFrom(response).size());
@@ -170,7 +170,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         request.setExchangeName(exchangeName);
 
         try {
-            ListEndpointsResponseMessageType response = (ListEndpointsResponseMessageType) clientInvokePort(
+            ListEndpointsResponseMessageType response = (ListEndpointsResponseMessageType) invokeClientPort(
                 ADMIN_EXCHANGE_LIST_ENDPOINTS, request);
             logDebug(ADMIN_EXCHANGE_LIST_ENDPOINTS, response.getEndpointsList());
             orgEndpoints = response.getEndpointsList();
@@ -207,7 +207,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         request.setConfigAssertion(buildConfigAssertion());
 
         try {
-            GetExchangeInfoViewResponseMessageType response = (GetExchangeInfoViewResponseMessageType) clientInvokePort(
+            GetExchangeInfoViewResponseMessageType response = (GetExchangeInfoViewResponseMessageType) invokeClientPort(
                 ADMIN_EXCHANGE_INFOVIEW, request);
             logDebug(ADMIN_EXCHANGE_INFOVIEW, response.getExchangeInfo().getRefreshInterval(),
                 response.getExchangeInfo().getMaxNumberOfBackups(), response.getExchangeInfo().getDefaultExchange());
@@ -228,7 +228,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         request.setRefreshInterval(exchangeInfo.getRefreshInterval());
 
         try {
-            SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) clientInvokePort(
+            SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) invokeClientPort(
                 ADMIN_EXCHANGE_SAVE_CONFIG, request);
             logDebug(ADMIN_EXCHANGE_SAVE_CONFIG, response.isStatus());
             return response.isStatus();
@@ -245,7 +245,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         request.setConfigAssertion(buildConfigAssertion());
 
         try {
-            RefreshExchangeManagerResponseMessageType response = (RefreshExchangeManagerResponseMessageType) clientInvokePort(
+            RefreshExchangeManagerResponseMessageType response = (RefreshExchangeManagerResponseMessageType) invokeClientPort(
                 ADMIN_EXCHANGE_REFRESH, request);
             logDebug(ADMIN_EXCHANGE_REFRESH, response.getExchangeDownloadStatusList().size());
             return response.getExchangeDownloadStatusList();
@@ -277,7 +277,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         return client;
     }
 
-    private static <T> Object clientInvokePort(String serviceName, T request) throws Exception {
+    private static <T> Object invokeClientPort(String serviceName, T request) throws Exception {
         return getClient().invokePort(EntityExchangeManagementPortType.class, serviceName, request);
     }
 
