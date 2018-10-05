@@ -66,7 +66,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
         return AdminDistributionUtils.getInstance();
     }
 
-    private AdminDistributionHelper getHelper() {
+    protected AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
     }
 
