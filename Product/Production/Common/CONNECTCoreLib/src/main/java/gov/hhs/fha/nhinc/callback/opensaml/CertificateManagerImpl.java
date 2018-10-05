@@ -160,6 +160,12 @@ public class CertificateManagerImpl implements CertificateManager {
                 is = new FileInputStream(storeLoc);
             }
             tstore.load(is, passkey.toCharArray());
+            // restrict deleting from its own public cert
+            X509Certificate publicCert = getDefaultCertificate();
+            String publicAlias = tstore.getCertificateAlias(publicCert);
+            if (StringUtils.equalsIgnoreCase(alias, publicAlias)) {
+                throw new CertificateManagerException("System cannot remove its own public cert");
+            }
             if (tstore.containsAlias(alias)) {
                 tstore.deleteEntry(alias);
                 os = new FileOutputStream(storeLoc);
