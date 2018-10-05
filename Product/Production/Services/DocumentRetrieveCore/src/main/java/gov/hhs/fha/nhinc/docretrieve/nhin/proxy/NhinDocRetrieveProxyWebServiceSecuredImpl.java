@@ -107,7 +107,6 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                 throw new IllegalArgumentException("Request Message must be provided");
             }
         } catch (final ExchangeManagerException e) {
-            LOG.error("Exchange manager exception: {}", e.getLocalizedMessage(), e);
             final XDCommonResponseHelper helper = new XDCommonResponseHelper();
             final RegistryResponseType error = helper.createError(e.getLocalizedMessage(),
                 ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
@@ -116,9 +115,6 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
             response.setRegistryResponse(error);
             throw new ErrorEventException(e, response, "Unable to call Nhin Doc Retrieve");
         } catch (final Exception e) {
-            LOG.error("Failed to call the web service ({}).  An unexpected exception occurred: {}", sServiceName,
-                e.getLocalizedMessage(), e);
-
             response = MessageGenerator.getInstance()
                 .createRegistryResponseError("Nhin Document Retrieve Processing");
             throw new ErrorEventException(e, response, "Unable to call Nhin Doc Retrieve");

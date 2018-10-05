@@ -74,7 +74,7 @@ public class EntityPatientDiscoveryDeferredResponseProxyWebServiceSecuredImpl im
             LOG.debug("Before target system URL look up.");
             String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
             if (LOG.isDebugEnabled()) {
-                LOG.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+                LOG.debug("After target system URL look up. URL for service: {} is: {}",serviceName, url);
             }
 
             if (NullChecker.isNotNullish(url)) {
@@ -89,7 +89,6 @@ public class EntityPatientDiscoveryDeferredResponseProxyWebServiceSecuredImpl im
                 response = (MCCIIN000002UV01) client.invokePort(EntityPatientDiscoverySecuredAsyncRespPortType.class,
                         "processPatientDiscoveryAsyncResp", securedRequest);
             } else {
-                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
                 throw new WebServiceException("Could not determine URL for Patient Discovery Deferred Response endpoint");
             }
         } catch (Exception ex) {

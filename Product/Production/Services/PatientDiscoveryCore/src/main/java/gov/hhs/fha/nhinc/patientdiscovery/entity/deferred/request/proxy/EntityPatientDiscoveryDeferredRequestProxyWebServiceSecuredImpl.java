@@ -78,7 +78,6 @@ public class EntityPatientDiscoveryDeferredRequestProxyWebServiceSecuredImpl imp
             response = (MCCIIN000002UV01) client.invokePort(EntityPatientDiscoverySecuredAsyncReqPortType.class,
                 "processPatientDiscoveryAsyncReq", securedRequest);
         } catch (Exception ex) {
-            LOG.error("Error calling processPatientDiscoveryAsyncReq: " + ex.getLocalizedMessage(), ex);
             throw new ErrorEventException(ex, "Error calling Patient Discovery Service");
         }
 

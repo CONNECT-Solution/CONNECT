@@ -82,7 +82,6 @@ public class EntityDocDataSubmissionProxyWebServiceSecuredImpl implements Entity
                 securedRequest);
 
         } catch (Exception e) {
-            LOG.error("Error calling RegisterDocumentSetB: {}", e.getMessage(), e);
             throw new ErrorEventException(e, "Unable to call Entity Doc Data Submission");
         }
 

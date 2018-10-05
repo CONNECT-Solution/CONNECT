@@ -75,9 +75,9 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImpl extends BaseAdapterDoc
             }
 
             LOG.debug("Before target system URL look up.");
-
             url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME);
-            LOG.debug("After target system URL look up. URL for service: " + NhincConstants.ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME + " is: " + url);
+            LOG.debug("After target system URL look up. URL for service: {} is: {}",NhincConstants.ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME, url);
+
 
             if (NullChecker.isNotNullish(url)) {
                 ServicePortDescriptor<AdapterDocRetrieveSecuredPortType> portDescriptor =
@@ -92,8 +92,6 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImpl extends BaseAdapterDoc
             }
 
         } catch (Exception e) {
-            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME + ").  An unexpected exception occurred.  "
-                + "Exception: " + e.getMessage(), e);
             throw new ErrorEventException(e, "Unable to call Doc Retrieve Adapter");
         }
 

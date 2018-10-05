@@ -110,7 +110,6 @@ public class EntityDocQueryProxyWebServiceSecuredImpl implements EntityDocQueryP
                         "respondingGatewayCrossGatewayQuery", request);
             }
         } catch (Exception ex) {
-            LOG.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
             throw new ErrorEventException(ex, "Unable to call Entity Doc Query");
         }
 

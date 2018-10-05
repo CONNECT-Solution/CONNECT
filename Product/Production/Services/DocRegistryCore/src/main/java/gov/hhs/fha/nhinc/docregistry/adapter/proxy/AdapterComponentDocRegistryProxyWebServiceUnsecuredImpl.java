@@ -96,12 +96,9 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
                             "documentRegistryRegistryStoredQuery", msg);
                 }
             } else {
-                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_REGISTRY_SERVICE_NAME
-                        + ").  The URL is null.");
                 throw new WebServiceException("Could not determine URL for Doc Registry Adapter endpoint");
             }
         } catch (final Exception ex) {
-            LOG.error("Error sending Adapter Component Doc Registry Unsecured message: " + ex.getMessage(), ex);
             response = new AdhocQueryResponse();
             response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
             response.setRegistryObjectList(new RegistryObjectListType());

@@ -166,12 +166,11 @@ public class EventAspectAdvice {
     }
 
     public void logFailure(JoinPoint joinPoint, Throwable e, String service, String version) {
+        MethodSignature sig = (MethodSignature) joinPoint.getSignature();
+        Logger log = LoggerFactory.getLogger(sig.getDeclaringType()); //NOSONAR
+        log.info("{} threw an exception: {}", sig.getName(), e.getMessage());
+
         if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
-            MethodSignature sig = (MethodSignature) joinPoint.getSignature();
-
-            Logger log = LoggerFactory.getLogger(sig.getDeclaringType()); //NOSONAR
-            log.info("{} threw an exception: {}", sig.getName(), e.getMessage());
-
             ErrorEventBuilder builder = new ErrorEventBuilder();
 
             builder.setAssertion(AssertionExtractor.getAssertion(joinPoint.getArgs()));

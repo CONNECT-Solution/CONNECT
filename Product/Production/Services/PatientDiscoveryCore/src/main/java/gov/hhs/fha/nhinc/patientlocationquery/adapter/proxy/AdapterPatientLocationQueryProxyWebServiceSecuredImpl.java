@@ -77,12 +77,9 @@ public class AdapterPatientLocationQueryProxyWebServiceSecuredImpl implements Ad
                     AdapterPatientLocationQuerySecuredPortType.class, "adapterPatientLocationQuerySecured", adapterRequest);
                 response = adapterResponse.getPatientLocationQueryResponse();
             } else {
-                LOG.error("Failed to call the web service ({}).  The URL is null.",
-                    NhincConstants.ADAPTER_PLQ_SECURED_SERVICE_NAME);
                 throw new IllegalArgumentException("Failed to call the webservice. The service URL was null.");
             }
         } catch (Exception ex) {
-            LOG.error("Error sending Patient Location Query Secured Adapter message: " + ex.getMessage(), ex);
             throw new ErrorEventException(ex, "Error sending Patient Location Query Secured Adapter message");
         }
 

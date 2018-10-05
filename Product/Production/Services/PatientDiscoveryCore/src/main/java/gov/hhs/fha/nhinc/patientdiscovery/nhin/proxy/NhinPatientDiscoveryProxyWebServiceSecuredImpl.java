@@ -77,8 +77,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                     url = ExchangeManager.getInstance().getDefaultEndpointURL(
                         target.getHomeCommunity().getHomeCommunityId(),
                         NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target.getExchangeName());
-                    LOG.debug("After target system URL look up. URL for service: "
-                        + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
+                    LOG.debug("After target system URL look up. URL for service: {} is: {}" ,NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, url);
                 }
 
                 if (NullChecker.isNotNullish(url)) {
@@ -91,19 +90,12 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                     response = (PRPAIN201306UV02) client.invokePort(RespondingGatewayPortType.class,
                         "respondingGatewayPRPAIN201305UV02", request);
                 } else {
-                    LOG.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
-                        + ").  The URL is null.");
                     throw new WebServiceException("Could not determine URL for Patient Discovery Deferred Response endpoint");
                 }
             } else {
-                LOG.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
-                    + ").  The input parameters are null.");
                 throw new IllegalArgumentException("Request Message must be provided");
             }
         } catch (Exception e) {
-            LOG.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
-                + ").  An unexpected exception occurred.  " + "Exception: " + e.getMessage(), e);
-
             PRPAIN201306UV02 errorResponse = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request,
                 NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE, e.getMessage());
 

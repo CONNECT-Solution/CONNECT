@@ -86,7 +86,6 @@ public class EntityDocSubmissionDeferredResponseProxyWebServiceSecuredImpl imple
                         "provideAndRegisterDocumentSetBAsyncResponse", msg);
             }
         } catch (Exception ex) {
-            LOG.error("Error calling provideAndRegisterDocumentSetBAsyncResponse: " + ex.getMessage(), ex);
             response = new XDRAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();
             regResp.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);

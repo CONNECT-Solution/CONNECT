@@ -83,7 +83,6 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDo
                     "provideAndRegisterDocumentSetB", request);
 
         } catch (Exception ex) {
-            LOG.error("Error calling provideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
             throw new ErrorEventException(ex, response, "Unable to call Doc Submission Entity");
         }
 

@@ -107,13 +107,11 @@ public class AdapterMpiProxyWebServiceSecuredImpl implements AdapterMpiProxy {
     }
 
     private PRPAIN201306UV02 findCandidatesMpiSecured(PRPAIN201305UV02 request, AssertionType assertion) {
-        String url;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
-        String sServiceName = NhincConstants.ADAPTER_MPI_SECURED_SERVICE_NAME;
 
         try {
             if (request != null) {
-                url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
+                String url = oProxyHelper.getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_MPI_SECURED_SERVICE_NAME);
 
                 if (NullChecker.isNotNullish(url)) {
                     ServicePortDescriptor<AdapterMpiSecuredPortType> portDescriptor = new AdapterMpiSecuredServicePortDescriptor();
@@ -124,16 +122,12 @@ public class AdapterMpiProxyWebServiceSecuredImpl implements AdapterMpiProxy {
                     response = (PRPAIN201306UV02) client.invokePort(AdapterMpiSecuredPortType.class, "findCandidates",
                         request);
                 } else {
-                    LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                     throw new WebServiceException("Could not determine URL for MPI Adapter endpoint");
                 }
             } else {
-                LOG.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
                 throw new IllegalArgumentException("Request Message must be provided");
             }
         } catch (Exception e) {
-            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
-                + "Exception: " + e.getMessage(), e);
             throw new ErrorEventException(e,"Unable to call MPI Adapter");
         }
         return response;

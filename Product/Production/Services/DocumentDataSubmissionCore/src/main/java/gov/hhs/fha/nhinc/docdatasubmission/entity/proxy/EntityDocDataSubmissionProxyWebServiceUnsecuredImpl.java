@@ -82,7 +82,6 @@ public class EntityDocDataSubmissionProxyWebServiceUnsecuredImpl implements Enti
                 request);
 
         } catch (Exception ex) {
-            LOG.error("Error calling RegisterDocumentSetB: {}", ex.getMessage(), ex);
             throw new ErrorEventException(ex, "Unable to call Entity Doc Data Submission");
         }
 

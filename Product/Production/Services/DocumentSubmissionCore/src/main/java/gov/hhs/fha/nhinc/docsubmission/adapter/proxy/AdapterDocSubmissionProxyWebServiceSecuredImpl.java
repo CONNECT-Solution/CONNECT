@@ -89,12 +89,9 @@ public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDo
                 response = (RegistryResponseType) client.invokePort(AdapterXDRSecuredPortType.class,
                     "provideAndRegisterDocumentSetb", msg);
             } else {
-                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_XDR_SECURED_SERVICE_NAME
-                    + ").  The URL is null.");
                 throw new WebServiceException("Could not determine URL for Doc Submission Adapter Component endpoint");
             }
         } catch (Exception ex) {
-            LOG.error("Error sending Adapter Doc Submission Secured message: " + ex.getMessage(), ex);
             response = new RegistryResponseType();
             response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
             throw new ErrorEventException(ex, response, "Unable to call Doc Submission Adapter Component");

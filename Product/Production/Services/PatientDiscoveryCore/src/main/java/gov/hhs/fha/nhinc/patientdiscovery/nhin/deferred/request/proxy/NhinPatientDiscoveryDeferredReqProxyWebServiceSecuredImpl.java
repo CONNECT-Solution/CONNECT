@@ -77,8 +77,8 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
                 LOG.debug("Before target system URL look up.");
                 url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
                         NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
-                LOG.debug("After target system URL look up. URL for service: "
-                        + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME + " is: " + url);
+                LOG.debug("After target system URL look up. URL for service: {} is: {}",
+                    NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME, url);
 
                 if (NullChecker.isNotNullish(url)) {
                     ServicePortDescriptor<RespondingGatewayDeferredRequestPortType> portDescriptor = new RespondingGatewayDeferredRequestServicePortDescriptor();
@@ -98,7 +98,6 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
                     + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME
                     + ").  An unexpected exception occurred.";
             response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
-            LOG.error(ackMessage + "  Exception: " + e.getMessage(), e);
             throw new ErrorEventException(e, response, "Unable to call Nhin Patient Discovery Deferred Request");
         }
 

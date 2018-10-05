@@ -136,7 +136,6 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
                 }
             }
         } catch (final Exception ex) {
-            LOG.error("Error calling retrievePatientCorrelations: {}", ex.getMessage(), ex);
             throw new ErrorEventException(ex,UNABLE_TO_CALL);
         }
 

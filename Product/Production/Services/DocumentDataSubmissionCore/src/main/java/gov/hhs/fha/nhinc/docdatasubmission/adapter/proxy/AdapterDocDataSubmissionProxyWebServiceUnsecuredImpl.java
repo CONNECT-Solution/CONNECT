@@ -77,12 +77,9 @@ public class AdapterDocDataSubmissionProxyWebServiceUnsecuredImpl implements Ada
                     request);
 
             } else {
-                LOG.error("Failed to call the web service ({}). The URL is null.",
-                    NhincConstants.ADAPTER_XDS_SERVICE_NAME);
                 throw new WebServiceException("Could not determine URL for Doc Data Submission Adapter endpoint");
             }
         } catch (Exception ex) {
-            LOG.error("Error sending Adapter Doc Data Submission Unsecured message: " + ex.getMessage(), ex);
             response = MessageGeneratorUtilsDocData.getInstance().createRegistryErrorResponse();
             throw new ErrorEventException(ex, response, "Unable to call Doc Data Submission Adapter");
         }

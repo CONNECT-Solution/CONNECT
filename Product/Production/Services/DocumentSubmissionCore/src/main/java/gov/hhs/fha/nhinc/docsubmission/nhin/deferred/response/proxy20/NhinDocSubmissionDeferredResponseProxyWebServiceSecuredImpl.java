@@ -109,11 +109,9 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
                 response = respHolder.value;
             }
         } catch (Exception ex) {
-            LOG.error("Error calling provideAndRegisterDocumentSetBDeferredResponse: " + ex.getMessage(), ex);
-
             response = getMessageGeneratorUtils().createRegistryErrorResponse(ex.getMessage(), "XDSRegistryError",
                 NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
-            throw new ErrorEventException(ex, response, "Unable to call Nhin Doc Query Deferred Request");
+            throw new ErrorEventException(ex, response, "Unable to call Nhin Doc Submission Deferred Response");
         }
 
         LOG.debug("End provideAndRegisterDocumentSetBDeferredResponse");

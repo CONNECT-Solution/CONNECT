@@ -77,7 +77,7 @@ public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl extends BaseAdapterD
 
             LOG.debug("Before target system URL look up.");
             url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME);
-            LOG.debug("After target system URL look up. URL for service: " + NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME + " is: " + url);
+            LOG.debug("After target system URL look up. URL for service: {} is: {}",NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME, url);
 
             if (NullChecker.isNotNullish(url)) {
                 RespondingGatewayCrossGatewayRetrieveRequestType oUnsecuredRequest = new RespondingGatewayCrossGatewayRetrieveRequestType();
@@ -100,8 +100,6 @@ public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl extends BaseAdapterD
                 throw new WebServiceException("Could not determine URL for Doc Retrieve Adapter endpoint");
             }
         } catch (Exception e) {
-            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME + ").  An unexpected exception occurred.  "
-                + "Exception: " + e.getMessage(), e);
             throw new ErrorEventException(e, "Unable to call Doc Retrieve Adapter");
         }
 

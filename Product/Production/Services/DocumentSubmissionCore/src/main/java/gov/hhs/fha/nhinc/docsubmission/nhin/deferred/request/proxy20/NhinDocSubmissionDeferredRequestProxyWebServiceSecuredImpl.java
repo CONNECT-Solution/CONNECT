@@ -106,11 +106,9 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
                     "provideAndRegisterDocumentSetBDeferredRequest", request);
             }
         } catch (LargePayloadException lpe) {
-            LOG.error("Failed to send message.", lpe);
             response = getMessageGeneratorUtils().createMissingDocumentRegistryResponse();
             throw new ErrorEventException(lpe, response, "Unable to call Nhin Doc Query Deferred Request");
         } catch (Exception ex) {
-            LOG.error("Error calling provideAndRegisterDocumentSetBDeferredRequest: " + ex.getMessage(), ex);
             response = getMessageGeneratorUtils().createRegistryErrorResponseWithAckFailure(ex.getMessage());
             throw new ErrorEventException(ex, response, "Unable to call Nhin Doc Query Deferred Request");
         } finally {

@@ -97,12 +97,9 @@ public class AdapterPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl imp
                             "processPatientDiscoveryAsyncResp", msg);
                 }
             } else {
-                LOG.error("Failed to call the web service ("
-                        + NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_RESP_SERVICE_NAME + ").  The URL is null.");
                 throw new WebServiceException("Could not determine URL for Patient Discovery Deferred Response endpoint");
             }
         } catch (Exception ex) {
-            LOG.error("Error calling processPatientDiscoveryAsyncResp: " + ex.getMessage(), ex);
             ack = HL7AckTransforms.createAckFrom201306(request,
                     NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
             throw new ErrorEventException(ex, ack, "Unable to call Patient Discovery Deferred Response");

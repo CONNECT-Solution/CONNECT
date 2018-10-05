@@ -62,7 +62,7 @@ import org.slf4j.LoggerFactory;
 public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy {
 
     /**
-     * 
+     *
      */
     private static final String UNABLE_TO_CALL = "Unable to call Nhin Service";
     private static final Logger LOG = LoggerFactory.getLogger(NhinDocQueryProxyWebServiceSecuredImpl.class);
@@ -120,8 +120,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
                 url = getCMInstance().getEndpointURL(
                     target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME, version,
                     target.getExchangeName());
-                LOG.debug("After target system URL look up. URL for service: " + NhincConstants.DOC_QUERY_SERVICE_NAME
-                    + " is: " + url);
+                LOG.debug("After target system URL look up. URL for service: {} is: {}" ,NhincConstants.DOC_QUERY_SERVICE_NAME, url);
             }
 
             final ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor = getServicePortDescriptor(
@@ -134,7 +133,6 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
                 "respondingGatewayCrossGatewayQuery", request);
 
         } catch (final ExchangeManagerException e) {
-            LOG.error("Error calling respondingGatewayCrossGatewayQuery", e);
             final XDCommonResponseHelper helper = new XDCommonResponseHelper();
             final RegistryResponseType registryError = helper.createError(e.getLocalizedMessage(),
                 ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
@@ -147,7 +145,6 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             throw new ErrorEventException(e, response, UNABLE_TO_CALL);
 
         } catch (final WebServiceException wse) {
-            LOG.error("Error calling respondingGatewayCrossGatewayQuery", wse);
             final XDCommonResponseHelper helper = new XDCommonResponseHelper();
             final String endpointAvailableError = NhincConstants.INIT_MULTISPEC_ERROR_NO_ENDPOINT_AVAILABLE
                 + target.getHomeCommunity().getHomeCommunityId() + ".";
@@ -161,7 +158,6 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             throw new ErrorEventException(wse, response, UNABLE_TO_CALL);
 
         } catch (final Exception ex) {
-            LOG.error("Error calling respondingGatewayCrossGatewayQuery", ex);
             throw new ErrorEventException(ex, UNABLE_TO_CALL);
         }
         return response;

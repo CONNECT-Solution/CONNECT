@@ -90,12 +90,9 @@ public class AdapterComponentDocSubmissionProxyWebServiceSecuredImpl implements 
                         "provideAndRegisterDocumentSetb", msg);
                 }
             } else {
-                LOG.error("Failed to call the web service ("
-                    + NhincConstants.ADAPTER_COMPONENT_XDR_SECURED_SERVICE_NAME + ").  The URL is null.");
                 throw new WebServiceException("Could not determine URL for Doc Submission Adapter endpoint");
             }
         } catch (Exception ex) {
-            LOG.error("Error sending Adapter Component Doc Submission Secured message: " + ex.getMessage(), ex);
             response = new RegistryResponseType();
             response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
             throw new ErrorEventException(ex, response, "Unable to call Doc Submission Adapter Component");

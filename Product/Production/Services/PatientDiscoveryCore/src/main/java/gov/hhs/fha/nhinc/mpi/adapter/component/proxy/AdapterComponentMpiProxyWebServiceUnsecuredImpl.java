@@ -82,7 +82,7 @@ public class AdapterComponentMpiProxyWebServiceUnsecuredImpl implements AdapterC
             if (request != null) {
                 LOG.debug("Before target system URL look up.");
                 url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
-                LOG.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
+                LOG.debug("After target system URL look up. URL for service: {} is: {}",sServiceName, url);
 
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayPRPAIN201305UV02RequestType wsRequest =
@@ -100,16 +100,12 @@ public class AdapterComponentMpiProxyWebServiceUnsecuredImpl implements AdapterC
                             (PRPAIN201306UV02) client.invokePort(AdapterComponentMpiPortType.class, "findCandidates",
                                     wsRequest);
                 } else {
-                    LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                     throw new WebServiceException("Could not determine URL for MPI Adapter endpoint");
                 }
             } else {
-                LOG.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
                 throw new IllegalArgumentException("Request Message must be provided");
             }
         } catch (Exception e) {
-            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
-                    + "Exception: " + e.getMessage(), e);
             throw new ErrorEventException(e,"Unable to call MPI Adapter");
         }
 

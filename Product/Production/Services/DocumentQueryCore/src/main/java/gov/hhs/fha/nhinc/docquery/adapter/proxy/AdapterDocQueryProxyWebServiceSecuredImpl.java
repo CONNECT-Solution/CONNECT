@@ -41,8 +41,6 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import javax.xml.ws.WebServiceException;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -50,8 +48,6 @@ import org.slf4j.LoggerFactory;
  * @author Neil Webb
  */
 public class AdapterDocQueryProxyWebServiceSecuredImpl extends BaseAdapterDocQueryProxy {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocQueryProxyJavaImpl.class);
 
     /**
      * @param apiLevel Adapter ApiLevel Param.
@@ -95,12 +91,9 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl extends BaseAdapterDocQue
                             "respondingGatewayCrossGatewayQuery", msg);
                 }
             } else {
-                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME
-                        + ").  The URL is null.");
                 throw new WebServiceException("Could not determine URL for Doc Query Adapter endpoint");
             }
         } catch (final Exception ex) {
-            LOG.error("Error sending Adapter Doc Query Secured message: " + ex.getMessage(), ex);
             throw new ErrorEventException(ex, getAdapterHelper().createErrorResponse(), "Unable to call Doc Query Adapter");
         }
 

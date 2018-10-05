@@ -76,12 +76,9 @@ public class AdapterPatientLocationQueryProxyWebServiceUnsecuredImpl implements 
                     .invokePort(AdapterPatientLocationQueryPortType.class, "adapterPatientLocationQuery", request);
                 response = adapterResponse.getPatientLocationQueryResponse();
             } else {
-                LOG.error("Failed to call the web service ({}). The URL is null.",
-                    NhincConstants.ADAPTER_PLQ_SERVICE_NAME);
                 throw new IllegalArgumentException("Failed to call the webservice. The service URL was null.");
             }
         } catch (Exception ex) {
-            LOG.error("Error sending Adapter Patient Location Query Unsecured Adapter message: " + ex.getMessage(), ex);
             throw new ErrorEventException(ex, "Error sending Adapter Patient Location Query Unsecured Adapter message");
         }
 

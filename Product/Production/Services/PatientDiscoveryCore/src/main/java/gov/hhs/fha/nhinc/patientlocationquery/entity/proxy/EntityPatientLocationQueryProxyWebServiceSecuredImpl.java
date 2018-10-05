@@ -72,7 +72,6 @@ public class EntityPatientLocationQueryProxyWebServiceSecuredImpl implements Ent
                 .invokePort(EntityPatientLocationQuerySecuredPortType.class, "respondingGatewayPatientLocationQuery", securedRequest);
 
         } catch (Exception e) {
-            LOG.error("Error calling respondingGatewayPatientLocationQuery: {}", e.getMessage(), e);
             throw new ErrorEventException(e,"Error calling respondingGatewayPatientLocationQuery");
         }
 

@@ -82,7 +82,7 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
             url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME);
             //Call the service
             if (NullChecker.isNotNullish(url)) {
-                LOG.debug("getEndPointFromConnectionManagerByAdapterAPILevel:" + url);
+                LOG.debug("getEndPointFromConnectionManagerByAdapterAPILevel: {}", url);
                 if (msg == null) {
                     throw new IllegalArgumentException("Request Message must be provided");
                 } else if (assertion == null) {
@@ -100,12 +100,9 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
                         "respondingGatewayCrossGatewayQuery", request);
                 }
             } else {
-                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME
-                    + ").  The URL is null.");
                 throw new WebServiceException("Could not determine URL for Doc Query Adapter endpoint");
             }
         } catch (Exception ex) {
-            LOG.error("Error sending Adapter Doc Query Unsecured message: " + ex.getMessage(), ex);
             throw new ErrorEventException(ex, getAdapterHelper().createErrorResponse(), "Unable to call Doc Query Adapter");
         }
 

@@ -91,7 +91,6 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
                     "documentRepositoryRetrieveDocumentSet", msg);
             }
         } catch (Exception ex) {
-            LOG.error("Error sending Adapter Component Doc Repository Unsecured message: " + ex.getMessage(), ex);
             response = new RetrieveDocumentSetResponseType();
             RegistryResponseType regResp = new RegistryResponseType();
 
@@ -133,7 +132,6 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
                     "documentRepositoryProvideAndRegisterDocumentSetB", msg);
             }
         } catch (Exception ex) {
-            LOG.error("Error sending message to the adapter document repository: " + ex.getMessage(), ex);
             throw new ErrorEventException(ex,response, "Unable to call Document Repository Adapter");
         }
         return response;

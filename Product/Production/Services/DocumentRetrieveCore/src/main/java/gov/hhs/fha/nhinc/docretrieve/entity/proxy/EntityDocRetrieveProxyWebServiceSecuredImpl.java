@@ -80,8 +80,6 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
                 throw new IllegalArgumentException("Could not determine URL for Entity Doc Query endpoint");
             }
         } catch (Exception ex) {
-            LOG.error("Failed to call the web service (" + serviceName + ").  An unexpected exception occurred.  "
-                + "Exception: " + ex.getMessage(), ex);
             throw new ErrorEventException(ex, "Unable to call Entity Doc Retrieve");
         }
         return response;

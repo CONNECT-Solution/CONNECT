@@ -91,7 +91,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl imple
         try {
             LOG.debug("Before target system destination URL look up.");
             String destURL = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
-            LOG.debug("After target system URL look up. URL for service: " + serviceName + " is: " + destURL);
+            LOG.debug("After target system URL look up. URL for service: {} is: {}",serviceName, destURL);
 
             if (NullChecker.isNotNullish(destURL)) {
                 AdapterProvideAndRegisterDocumentSetSecuredRequestType wsRequest = new AdapterProvideAndRegisterDocumentSetSecuredRequestType();
@@ -105,11 +105,9 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl imple
                 response = (XDRAcknowledgementType) client.invokePort(AdapterXDRRequestSecuredPortType.class,
                     "provideAndRegisterDocumentSetBRequest", wsRequest);
             } else {
-                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
                 throw new WebServiceException("Could not determine URL for Doc Submission Deferred Request Adapter endpoint");
             }
         } catch (Exception ex) {
-            LOG.error("Error: Failed to retrieve url for service: " + serviceName + " for local home community");
             throw new ErrorEventException(ex, "Unable to call Doc Submission Deferred Request Adapter");
         }
 

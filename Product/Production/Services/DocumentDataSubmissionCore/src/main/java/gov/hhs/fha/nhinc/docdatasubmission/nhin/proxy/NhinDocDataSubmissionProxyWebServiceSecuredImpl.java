@@ -89,7 +89,6 @@ public class NhinDocDataSubmissionProxyWebServiceSecuredImpl implements NhinDocD
                 "documentRegistryXDSRegisterDocumentSetB", request);
 
         } catch (Exception ex) {
-            LOG.error("Error calling registerDocumentSetB: {}", ex.getMessage(), ex);
             response = getMessageGeneratorUtils().createRegistryErrorResponseWithAckFailure(ex.getMessage());
             throw new ErrorEventException(ex, response, "Unable to call Nhin Doc Data Submission");
         }

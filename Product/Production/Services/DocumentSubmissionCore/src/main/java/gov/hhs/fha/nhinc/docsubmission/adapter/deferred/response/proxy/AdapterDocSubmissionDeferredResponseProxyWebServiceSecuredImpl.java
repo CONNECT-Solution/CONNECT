@@ -91,11 +91,9 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impl
                 response = (XDRAcknowledgementType) client.invokePort(AdapterXDRResponseSecuredPortType.class,
                         "provideAndRegisterDocumentSetBResponse", regResponse);
             } else {
-                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
                 throw new WebServiceException("Could not determine URL for Doc Submission Deferred Response Adapter endpoint");
             }
         } catch (Exception ex) {
-            LOG.error("Error: Failed to retrieve url for service: " + serviceName + " for local home community");
             throw new ErrorEventException(ex, "Unable to call Doc Submission Deferred Response Adapter");
         }
 
