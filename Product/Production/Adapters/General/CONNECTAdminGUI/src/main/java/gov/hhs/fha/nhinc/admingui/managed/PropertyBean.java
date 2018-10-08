@@ -165,25 +165,23 @@ public class PropertyBean {
         }
     }
 
-    public void onInternalEndpointsEdit(CellEditEvent event) {
+    public void onInternalEndpointsValueEdit(CellEditEvent event) {
         DataTable dataTable = (DataTable) event.getSource();
         EndpointPropertyType selectedProp = (EndpointPropertyType) dataTable.getRowData();
         String name = selectedProp.getName();
         String version = selectedProp.getVersion();
-        //String rowversion =
         String oldValue = (String) event.getOldValue();
         String newValue = (String) event.getNewValue();
-        //String nameevent.getRowIndex(0);
 
         boolean status = internalExchangeManagerService.updateEndpoint(name, newValue, version);
 
         if (status) {
             FacesContext.getCurrentInstance().addMessage(internalEndpointsPropMsg, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "INFO", getPropertiesUpdateMessage(PROP_UPDATE_MSG, selectedProp.getName(), oldValue, newValue)));
+                "INFO", getPropertiesUpdateMessage(PROP_UPDATE_MSG, selectedProp.getName(), oldValue, newValue)));
         } else {
             FacesContext.getCurrentInstance().addMessage(internalEndpointsPropMsg, new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "WARN",
-                    getPropertiesUpdateMessage(PROP_UPDATE_FAIL_MSG, selectedProp.getName(), oldValue, newValue)));
+                "WARN",
+                getPropertiesUpdateMessage(PROP_UPDATE_FAIL_MSG, selectedProp.getName(), oldValue, newValue)));
         }
     }
 

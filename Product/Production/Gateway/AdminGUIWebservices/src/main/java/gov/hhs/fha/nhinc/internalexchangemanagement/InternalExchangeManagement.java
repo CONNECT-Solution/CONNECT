@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.exchangemanagement;
+package gov.hhs.fha.nhinc.internalexchangemanagement;
 
 import gov.hhs.fha.nhinc.common.internalexchangemanagement.EndpointPropertyType;
 import gov.hhs.fha.nhinc.common.internalexchangemanagement.ListEndpointsRequestMessageType;
@@ -33,9 +33,9 @@ import gov.hhs.fha.nhinc.common.internalexchangemanagement.UpdateEndpointRequest
 import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchangemanagement.ExchangeManagement;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
-import gov.hhs.fha.nhinc.internalexchangemanagement.EntityInternalExchangeManagementPortType;
 import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,22 +119,4 @@ public class InternalExchangeManagement implements EntityInternalExchangeManagem
     private static InternalExchangeManager getInternalExchangeManager() {
         return InternalExchangeManager.getInstance();
     }
-
-    /*
-     * private static UrlInfoType convertUrlInfoType(UrlInfo urlInfo) { if (null == urlInfo) { return null; }
-     * UrlInfoType urlInfoType = new UrlInfoType(); urlInfoType.setId(urlInfo.getHcid());
-     * urlInfoType.setUrl(urlInfo.getUrl()); return urlInfoType; }
-     *
-     * private static List<UrlInfoType> convertUrlInfoTypeList(List<UrlInfo> fromList) { List<UrlInfoType> retList = new
-     * ArrayList<>(); for (UrlInfo urlInfo : fromList) { retList.add(convertUrlInfoType(urlInfo)); } return retList; }
-     *
-     * private static OrganizationListType buildOrganizationListType(Collection<OrganizationType> orgs) {
-     * OrganizationListType orgListType = null; if (CollectionUtils.isNotEmpty(orgs)) { orgListType = new
-     * OrganizationListType(); orgListType.getOrganization().addAll(orgs); } return orgListType; }
-     *
-     * private static OrganizationListType buildOrganizationListType(OrganizationType org) { OrganizationListType
-     * orgListType = null; if (null != org) { orgListType = new OrganizationListType();
-     * orgListType.getOrganization().add(org); } return orgListType; }
-     *
-     */
 }
