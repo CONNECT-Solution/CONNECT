@@ -32,15 +32,12 @@ import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_INTERNAL_EXCHANGE_
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ENTITY_INTERNAL_EXCHANGE_MANAGEMENT_SERVICE_NAME;
 
 import gov.hhs.fha.nhinc.admingui.services.InternalExchangeManagerService;
-//import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
-import gov.hhs.fha.nhinc.admingui.services.PingService;
 import gov.hhs.fha.nhinc.common.internalexchangemanagement.EndpointPropertyType;
 import gov.hhs.fha.nhinc.common.internalexchangemanagement.ListEndpointsRequestMessageType;
 import gov.hhs.fha.nhinc.common.internalexchangemanagement.SimpleInternalExchangeManagementResponseMessageType;
 import gov.hhs.fha.nhinc.common.internalexchangemanagement.UpdateEndpointRequestMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.configuration.InternalExchangeManagementPortDescriptor;
-//import gov.hhs.fha.nhinc.exchangemanagement.EntityExchangeManagementPortType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.internalexchangemanagement.EntityInternalExchangeManagementPortType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -61,8 +58,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class InternalExchangeManagerServiceImpl implements InternalExchangeManagerService {
     private static final Logger LOG = LoggerFactory.getLogger(InternalExchangeManagerServiceImpl.class);
-    private final PingService pingService = new PingServiceImpl();
-    private static final String DATE_FORMAT = "MM-dd-yy hh:mm:ss";
     private static final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
     private static CONNECTClient<EntityInternalExchangeManagementPortType> client = null;
 
