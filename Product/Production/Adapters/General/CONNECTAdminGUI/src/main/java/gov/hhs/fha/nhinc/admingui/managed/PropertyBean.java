@@ -168,12 +168,10 @@ public class PropertyBean {
     public void onInternalEndpointsValueEdit(CellEditEvent event) {
         DataTable dataTable = (DataTable) event.getSource();
         EndpointPropertyType selectedProp = (EndpointPropertyType) dataTable.getRowData();
-        String name = selectedProp.getName();
-        String version = selectedProp.getVersion();
         String oldValue = (String) event.getOldValue();
         String newValue = (String) event.getNewValue();
 
-        boolean status = internalExchangeManagerService.updateEndpoint(name, newValue, version);
+        boolean status = internalExchangeManagerService.updateEndpoint(selectedProp);
 
         if (status) {
             FacesContext.getCurrentInstance().addMessage(internalEndpointsPropMsg, new FacesMessage(FacesMessage.SEVERITY_INFO,
