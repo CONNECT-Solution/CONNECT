@@ -43,8 +43,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author ttang
@@ -55,10 +53,8 @@ import org.slf4j.LoggerFactory;
 @SessionScoped
 public class ErrorLogBean {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ErrorLogBean.class);
     public static final String KEY_SERVICES = "key:services";
     public static final String KEY_EXCEPTIONS = "key:exceptions";
-    private static final String SERVICE_ERROR = "There an error while calling webservice.";
 
     private LogEventType selectedEvent;
     private JSONObject selectedEventJson;
@@ -73,12 +69,7 @@ public class ErrorLogBean {
     private List<LogEventType> eventsList;
 
     public ErrorLogBean() {
-        try {
-            dropdowns = service.getDropdowns();
-        } catch (Exception ex) {
-            LOG.error("Error calling service.dropdowns: {}", ex.getMessage(), ex);
-            HelperUtil.addMessageError(null, SERVICE_ERROR);
-        }
+        dropdowns = service.getDropdowns();
     }
 
     public List<String> getServices() {
@@ -129,13 +120,7 @@ public class ErrorLogBean {
     }
 
     public void search() {
-        eventsList = null;
-        try {
-            eventsList = service.search(selectedService, selectedException, fromDate, toDate);
-        } catch (Exception ex) {
-            LOG.error("Error calling service.search: {}", ex.getMessage(), ex);
-            HelperUtil.addMessageError(null, SERVICE_ERROR);
-        }
+        eventsList = service.search(selectedService, selectedException, fromDate, toDate);
     }
 
     public List<LogEventType> getEvents() {
@@ -154,16 +139,11 @@ public class ErrorLogBean {
             return;
         }
 
-        try {
-            selectedEvent = service.getLogEvent(selectedEvent.getId());
-            if (StringUtils.isNotBlank(selectedEvent.getDescription())) {
-                selectedEventJson = new JSONObject(selectedEvent.getDescription());
-            }
-            HelperUtil.execPFShowDialog("wgvDlgViewEventErrorlog");
-        } catch (Exception ex) {
-            LOG.error("Error calling service.getLogEvent: {}", ex.getMessage(), ex);
-            HelperUtil.addMessageError(null, SERVICE_ERROR);
+        selectedEvent = service.getLogEvent(selectedEvent.getId());
+        if (StringUtils.isNotBlank(selectedEvent.getDescription())) {
+            selectedEventJson = new JSONObject(selectedEvent.getDescription());
         }
+        HelperUtil.execPFShowDialog("wgvDlgViewEventErrorlog");
     }
 
     private Object getJsonProperty(String key) {

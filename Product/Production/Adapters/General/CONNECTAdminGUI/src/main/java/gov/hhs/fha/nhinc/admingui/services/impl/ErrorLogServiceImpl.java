@@ -36,6 +36,7 @@ import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_GUI_MANAGEMENT_SER
 import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getXMLGregorianCalendarFrom;
 
 import gov.hhs.fha.nhinc.admingui.services.ErrorLogService;
+import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.adminguimanagement.AdminGUIManagementPortType;
 import gov.hhs.fha.nhinc.common.adminguimanagement.GetSearchFilterRequestMessageType;
 import gov.hhs.fha.nhinc.common.adminguimanagement.ListErrorLogRequestMessageType;
@@ -49,6 +50,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -66,10 +68,11 @@ public class ErrorLogServiceImpl implements ErrorLogService {
 
     private static final Logger LOG = LoggerFactory.getLogger(CertificateManagerServiceImpl.class);
     private static final WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
+    private static final String SERVICE_ERROR = "There an error while calling webservice.";
     private static CONNECTClient<AdminGUIManagementPortType> client = null;
 
     @Override
-    public List<LogEventType> search(String service, String exception, Date fromDate, Date toDate) throws Exception {
+    public List<LogEventType> search(String service, String exception, Date fromDate, Date toDate) {
         ListErrorLogRequestMessageType request = new ListErrorLogRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         request.setService(service);
@@ -77,38 +80,54 @@ public class ErrorLogServiceImpl implements ErrorLogService {
         request.setFromDate(getXMLGregorianCalendarFrom(fromDate));
         request.setToDate(getXMLGregorianCalendarFrom(toDate));
 
-        LogEventSimpleResponseMessageType response = (LogEventSimpleResponseMessageType) invokeClientPort(
-            ADMIN_DASHBOARD_ERRORLOG_LIST, request);
-        logDebug(ADMIN_DASHBOARD_ERRORLOG_LIST, response.getEventLogList().size());
-        return response.getEventLogList();
-
+        try {
+            LogEventSimpleResponseMessageType response = (LogEventSimpleResponseMessageType) invokeClientPort(
+                ADMIN_DASHBOARD_ERRORLOG_LIST, request);
+            logDebug(ADMIN_DASHBOARD_ERRORLOG_LIST, response.getEventLogList().size());
+            return response.getEventLogList();
+        } catch (Exception ex) {
+            LOG.error("Error calling service-search: {}", ex.getMessage(), ex);
+            HelperUtil.addMessageError(null, SERVICE_ERROR);
+        }
+        return new ArrayList<>();
     }
 
     @Override
-    public Map<String, List<String>> getDropdowns() throws Exception {
+    public Map<String, List<String>> getDropdowns() {
         GetSearchFilterRequestMessageType request = new GetSearchFilterRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         Map<String, List<String>> retObj = new HashMap<>();
 
-        LogEventSimpleResponseMessageType response = (LogEventSimpleResponseMessageType) invokeClientPort(
-            ADMIN_DASHBOARD_ERRORLOG_GETFILTERS, request);
-        logDebug(ADMIN_DASHBOARD_ERRORLOG_GETFILTERS, response.getExceptionList().size(),
-            response.getServiceList().size());
-        retObj.put(KEY_EXCEPTIONS, response.getExceptionList());
-        retObj.put(KEY_SERVICES, response.getServiceList());
+        try {
+            LogEventSimpleResponseMessageType response = (LogEventSimpleResponseMessageType) invokeClientPort(
+                ADMIN_DASHBOARD_ERRORLOG_GETFILTERS, request);
+            logDebug(ADMIN_DASHBOARD_ERRORLOG_GETFILTERS, response.getExceptionList().size(),
+                response.getServiceList().size());
+            retObj.put(KEY_EXCEPTIONS, response.getExceptionList());
+            retObj.put(KEY_SERVICES, response.getServiceList());
+        } catch (Exception ex) {
+            LOG.error("Error while getting service-filters: {}", ex.getMessage(), ex);
+            HelperUtil.addMessageError(null, SERVICE_ERROR);
+        }
         return retObj;
     }
 
     @Override
-    public LogEventType getLogEvent(Long id) throws Exception {
+    public LogEventType getLogEvent(Long id) {
         ViewErrorLogRequestMessageType request = new ViewErrorLogRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         request.setId(id);
 
-        LogEventSimpleResponseMessageType response = (LogEventSimpleResponseMessageType) invokeClientPort(
-            ADMIN_DASHBOARD_ERRORLOG_VIEW, request);
-        logDebug(ADMIN_DASHBOARD_ERRORLOG_VIEW, response.getEventLogList().size());
-        return response.getEventLogList().get(0);
+        try {
+            LogEventSimpleResponseMessageType response = (LogEventSimpleResponseMessageType) invokeClientPort(
+                ADMIN_DASHBOARD_ERRORLOG_VIEW, request);
+            logDebug(ADMIN_DASHBOARD_ERRORLOG_VIEW, response.getEventLogList().size());
+            return response.getEventLogList().get(0);
+        } catch (Exception ex) {
+            LOG.error("Error while calling service view-errorlog: {}", ex.getMessage(), ex);
+            HelperUtil.addMessageError(null, SERVICE_ERROR);
+        }
+        return null;
     }
 
     private static CONNECTClient<AdminGUIManagementPortType> getClient() throws ExchangeManagerException {
