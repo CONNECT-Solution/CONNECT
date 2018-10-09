@@ -58,16 +58,16 @@ public class InternalExchangeManagement implements EntityInternalExchangeManagem
     public SimpleInternalExchangeManagementResponseMessageType updateEndpoint(
         UpdateEndpointRequestMessageType request) {
         LOG.trace("Update Endpoint--call");
-
-        if (StringUtils.isBlank(request.getName()) || StringUtils.isBlank(request.getUrl())
-            || StringUtils.isBlank(request.getVersion())) {
+        if (null != request.getEndpoint() && (StringUtils.isBlank(request.getEndpoint().getName())
+            || StringUtils.isBlank(request.getEndpoint().getUrl())
+            || StringUtils.isBlank(request.getEndpoint().getVersion()))) {
             return buildSimpleResponse(Boolean.FALSE, "Name, Url and Version are required");
         }
 
         try {
             return buildSimpleResponse(
-                getInternalExchangeManager().updateServiceUrl(request.getName(), request.getUrl(),
-                    request.getVersion()),
+                getInternalExchangeManager().updateServiceUrl(request.getEndpoint().getName(),
+                    request.getEndpoint().getUrl(), request.getEndpoint().getVersion()),
                 ACT_SUCCESSFUL);
         } catch (ExchangeManagerException e) {
             LOG.error("error during update endpoint: {}", e.getLocalizedMessage(), e);

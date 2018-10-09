@@ -62,13 +62,10 @@ public class InternalExchangeManagerServiceImpl implements InternalExchangeManag
     private static CONNECTClient<EntityInternalExchangeManagementPortType> client = null;
 
     @Override
-    public boolean updateEndpoint(String name, String url, String version) {
+    public boolean updateEndpoint(EndpointPropertyType endpointProp) {
         UpdateEndpointRequestMessageType request = new UpdateEndpointRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
-        request.setName(name);
-        request.setUrl(url);
-        request.setVersion(version);
-
+        request.setEndpoint(endpointProp);
         try {
             SimpleInternalExchangeManagementResponseMessageType response = (SimpleInternalExchangeManagementResponseMessageType) invokeClientPort(
                 ADMIN_INTERNAL_EXCHANGE_UPDATE_ENDPOINT, request);

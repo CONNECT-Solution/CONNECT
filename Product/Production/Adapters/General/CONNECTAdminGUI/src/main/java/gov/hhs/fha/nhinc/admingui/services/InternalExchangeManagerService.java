@@ -35,8 +35,8 @@ import java.util.List;
  */
 public interface InternalExchangeManagerService {
 
-    public boolean updateEndpoint(String name, String url, String version);
-
     public List<EndpointPropertyType> getAllEndpoints();
+
+    boolean updateEndpoint(EndpointPropertyType endpoint);
 
 }
