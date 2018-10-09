@@ -38,8 +38,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -48,7 +46,6 @@ import org.slf4j.LoggerFactory;
 public class EntityDocSubmissionDeferredRequestImpl_g1 extends BaseService {
 
     private OutboundDocSubmissionDeferredRequest outboundDocSubmissionRequest;
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDocSubmissionDeferredRequestImpl_g1.class);
     EntityDocSubmissionDeferredRequestImpl_g1(OutboundDocSubmissionDeferredRequest outboundDocSubmissionRequest) {
         this.outboundDocSubmissionRequest = outboundDocSubmissionRequest;
     }

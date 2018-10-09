@@ -350,7 +350,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedI
             </con:assertion>
             <con:assertion type="XPath Match" name="Check for Correct Error" id="888be6e1-56e1-46de-923e-317937a2a898">
               <con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedIssueEvent/ns3:mitigatedBy/ns3:detectedIssueManagement/ns3:text</path><content>Exception aggregating response from target homeId=urn:oid:2.2.  Exception message=EntityPatientDiscoveryProcessor::aggregateResponse received a null PRPAIN201306UV02 response.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
+//ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedIssueEvent/ns3:mitigatedBy/ns3:detectedIssueManagement/ns3:text</path><content>AnswerNotAvailable</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:credentials>
               <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
