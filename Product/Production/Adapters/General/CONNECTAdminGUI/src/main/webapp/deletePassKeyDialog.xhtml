@@ -22,8 +22,8 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">
-                                    <p:commandButton  id="savePasskey" styleClass="btn btn-primary" value="OK" ajax="true" update=":certTabView:trustStoreForm" actionListener="#{certificateBean.validateAndDeleteCertificate}" />
-                                    <p:commandButton id="closePassKey" styleClass="btn btn-primary" value="Cancel" onclick="PF('deletePassKeyDlg').hide()"/>
+                                    <p:commandButton  id="savePasskey" styleClass="btn btn-primary" value="OK" ajax="true" update=":certTabView:trustStoreForm :deletePassKeyDlgForm" actionListener="#{certificateBean.validateAndDeleteCertificate}" />
+                                    <p:commandButton id="closePassKey" styleClass="btn btn-primary" value="Cancel" onclick="$('#deletePassKeyDlgForm\\:deletePasskey').val('');PF('deletePassKeyDlg').hide()"/>
                                 </div>
                             </div>
                         </div>
