@@ -67,11 +67,10 @@ import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.util.ExchangeManagerUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
+import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -236,7 +235,7 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
         ListOrganizationsByHCIDServiceNameRequestMessageType request) {
         LOG.trace("listOrganizationsByHCIDServiceName--call");
         SimpleExchangeManagementResponseMessageType response;
-        List<String> hcidList = getUniqueList(request.getHcidList());
+        List<String> hcidList = CoreHelpUtils.getUniqueList(request.getHcidList());
         String serviceName = request.getServiceName();
         String exchangeName = StringUtils.isBlank(request.getExchangeName()) ? null : request.getExchangeName().trim();
         if (CollectionUtils.isEmpty(hcidList) || StringUtils.isBlank(serviceName)) {
@@ -419,7 +418,8 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
             return buildSimpleResponse(Boolean.FALSE, "HomeCommunityId is required");
         }
         response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
-        response.getAaidList().addAll(getUniqueList(mappingDao.getAssigningAuthoritiesByHomeCommunity(hcid)));
+        response.getAaidList()
+            .addAll(CoreHelpUtils.getUniqueList(mappingDao.getAssigningAuthoritiesByHomeCommunity(hcid)));
         return response;
     }
 
@@ -474,14 +474,6 @@ public class ExchangeManagement implements EntityExchangeManagementPortType {
         retMsg.setStatus(status);
         retMsg.setMessage(message);
         return retMsg;
-    }
-
-    private static <T> List<T> getUniqueList(List<T> fromList) {
-        Set<T> uniqueList = new HashSet<>();
-        uniqueList.addAll(fromList);
-        List<T> retList = new ArrayList<>();
-        retList.addAll(uniqueList);
-        return retList;
     }
 
     private static InternalExchangeManager getInternalExchangeManager() {

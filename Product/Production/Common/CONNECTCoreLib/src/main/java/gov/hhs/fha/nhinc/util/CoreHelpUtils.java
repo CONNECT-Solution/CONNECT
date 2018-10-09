@@ -26,9 +26,13 @@
  */
 package gov.hhs.fha.nhinc.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -82,4 +86,12 @@ public class CoreHelpUtils {
         }
         return null;
     }
+    public static <T> List<T> getUniqueList(List<T> fromList) {
+        Set<T> uniqueList = new HashSet<>();
+        uniqueList.addAll(fromList);
+        List<T> retList = new ArrayList<>();
+        retList.addAll(uniqueList);
+        return retList;
+    }
+
 }

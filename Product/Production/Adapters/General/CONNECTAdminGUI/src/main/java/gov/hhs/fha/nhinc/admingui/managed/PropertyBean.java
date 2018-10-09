@@ -27,8 +27,11 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.model.PropValue;
+import gov.hhs.fha.nhinc.admingui.services.InternalExchangeManagerService;
 import gov.hhs.fha.nhinc.admingui.services.PropertyService;
+import gov.hhs.fha.nhinc.admingui.services.impl.InternalExchangeManagerServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.PropertyServiceImpl;
+import gov.hhs.fha.nhinc.common.internalexchangemanagement.EndpointPropertyType;
 import gov.hhs.fha.nhinc.common.propertyaccess.PropertyType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.ArrayList;
@@ -51,13 +54,16 @@ public class PropertyBean {
     private List<PropValue> gatewayProperties;
     private List<PropValue> adapterProperties;
     private List<PropValue> auditProperties;
+    private List<EndpointPropertyType> internalEndpointsProperties;
 
     private String gatewayPropMsg = "gatwayPropMsg";
     private String adapterPropMsg = "adapterPropMsg";
     private String auditPropMsg = "auditPropMsg";
+    private String internalEndpointsPropMsg = "internalEndpointsPropMsg";
     private static final String PROP_UPDATE_MSG = "Property value changed for ";
     private static final String PROP_UPDATE_FAIL_MSG = "Unable to set property value: ";
     private PropertyService propertyService = new PropertyServiceImpl();
+    private InternalExchangeManagerService internalExchangeManagerService = new InternalExchangeManagerServiceImpl();
 
     public PropertyBean() {
         setProperties();
@@ -85,6 +91,14 @@ public class PropertyBean {
 
     public String getAuditPropMsg() {
         return auditPropMsg;
+    }
+
+    public List<EndpointPropertyType> getInternalEndpointsProperties() {
+        return internalEndpointsProperties;
+    }
+
+    public String getInternalEndpointsPropMsg() {
+        return internalEndpointsPropMsg;
     }
 
     public void refresh() {
@@ -151,10 +165,29 @@ public class PropertyBean {
         }
     }
 
+    public void onInternalEndpointsValueEdit(CellEditEvent event) {
+        DataTable dataTable = (DataTable) event.getSource();
+        EndpointPropertyType selectedProp = (EndpointPropertyType) dataTable.getRowData();
+        String oldValue = (String) event.getOldValue();
+        String newValue = (String) event.getNewValue();
+
+        boolean status = internalExchangeManagerService.updateEndpoint(selectedProp);
+
+        if (status) {
+            FacesContext.getCurrentInstance().addMessage(internalEndpointsPropMsg, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "INFO", getPropertiesUpdateMessage(PROP_UPDATE_MSG, selectedProp.getName(), oldValue, newValue)));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(internalEndpointsPropMsg, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                "WARN",
+                getPropertiesUpdateMessage(PROP_UPDATE_FAIL_MSG, selectedProp.getName(), oldValue, newValue)));
+        }
+    }
+
     private void setProperties() {
         gatewayProperties = convertPropValue(propertyService.listProperties(NhincConstants.GATEWAY_PROPERTY_FILE));
         adapterProperties = convertPropValue(propertyService.listProperties(NhincConstants.ADAPTER_PROPERTY_FILE_NAME));
         auditProperties = convertPropValue(propertyService.listProperties(NhincConstants.AUDIT_LOGGING_PROPERTY_FILE));
+        internalEndpointsProperties = internalExchangeManagerService.getAllEndpoints();
     }
 
     private static List<PropValue> convertPropValue(List<PropertyType> ptList) {
