@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.dashboard;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getXMLGregorianCalendarFrom;
+
 import gov.hhs.fha.nhinc.admingui.services.StatusEvent;
 import gov.hhs.fha.nhinc.admingui.services.StatusService;
 import gov.hhs.fha.nhinc.admingui.services.impl.StatusEventImpl;
@@ -39,6 +41,7 @@ import gov.hhs.fha.nhinc.common.adminguimanagement.LogEventSimpleResponseMessage
 import gov.hhs.fha.nhinc.common.adminguimanagement.LogEventType;
 import gov.hhs.fha.nhinc.common.adminguimanagement.ViewErrorLogRequestMessageType;
 import gov.hhs.fha.nhinc.event.model.EventCount;
+import java.util.Date;
 import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -96,13 +99,19 @@ public class DashboardStatusWebservice implements AdminGUIManagementPortType{
     @Override
     public LogEventSimpleResponseMessageType viewErrorLog(ViewErrorLogRequestMessageType arg0) {
         LogEventSimpleResponseMessageType response = new LogEventSimpleResponseMessageType();
-        response.getEventLogList().add(buildLogEventType(4, "{'Json-detail':'full-view'}", "CustomException"));
+        response.getEventLogList()
+        .add(buildLogEventType(4,
+                "{\"failedMethod\": \"respondingGatewayCrossGatewayQuery\", \"service_type\": \"Document Query\", \"exceptionClass\": \"class gov.hhs.fha.nhinc.event.error.ErrorEventException\", \"stackTrace\": [\"gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyWebServiceSecuredImpl.respondingGatewayCrossGatewayQuery(AdapterDocQueryProxyWebServiceSecuredImpl.java:104)\",\"gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyWebServiceSecuredImpl.respondingGatewayCrossGatewayQuery(AdapterDocQueryProxyWebServiceSecuredImpl.java:104)\"], \"failedClass\": \"class gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyWebServiceSecuredImpl\", \"exceptionMessage\": \"Unable to call Doc Query Adapter\"}",
+            "CustomException"));
         return response;
     }
 
     private LogEventType buildLogEventType(long id, String detail, String classException) {
         LogEventType retObj = new LogEventType();
         retObj.setId(id);
+        retObj.setEventTime(getXMLGregorianCalendarFrom(new Date()));
+        retObj.setServiceType("Service-Type");
+        retObj.setVersion("1.1");
         retObj.setDescription(detail);
         retObj.setExceptionType(classException);
         return retObj;

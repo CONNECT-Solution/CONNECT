@@ -1,0 +1,36 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core">
+
+    <p:dialog id="dlgViewEventErrorlog" header="View Detail: Error Event" widgetVar="wgvDlgViewEventErrorlog"
+        modal="true" dynamic="true" draggable="false" closeOnEscape="true" resizable="false" width="1050" height="560">
+        <div class="content-block content ui-g">
+            <div class="ui-g-12">
+
+                <h:panelGrid columns="1" cellpadding="5" styleClass="list-group-item" style="overflow: auto;">
+                    <h:outputText styleClass="fw-bold" value="Event Time" />
+                    <h:outputText value="#{errorLogBean.selectedEvent.eventTime}" />
+                    <h:outputText styleClass="fw-bold" value="Message" />
+                    <h:outputText value="#{errorLogBean.jsonExceptionMessage}" />
+
+                    <h:outputText styleClass="fw-bold" value="Fail Class" />
+                    <h:outputText value="#{errorLogBean.jsonFailedClass}" />
+                    <h:outputText styleClass="fw-bold" value="Method" />
+                    <h:outputText value="#{errorLogBean.jsonFailedMethod}" />
+
+                    <h:outputText styleClass="fw-bold" value="Exception" />
+                    <h:outputText value="#{errorLogBean.jsonExceptionClass}" />
+                    <h:outputText styleClass="fw-bold" value="Stacktrace" />
+                    <p:outputPanel styleClass="code">
+                        <p:repeat value="#{errorLogBean.listStackTrace}" var="stackLine">
+                            <p:outputPanel styleClass="line">
+                                <h:outputText value="#{stackLine}" />
+                            </p:outputPanel>
+                        </p:repeat>
+                    </p:outputPanel>
+
+                </h:panelGrid>
+            </div>
+        </div>
+    </p:dialog>
+
+</ui:composition>

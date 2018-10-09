@@ -27,6 +27,11 @@
 package gov.hhs.fha.nhinc.util;
 
 import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -60,5 +65,21 @@ public class CoreHelpUtils {
 
     public static <T> void logInfoServiceProcess(Class<T> from) {
         LOG.info("Flag service processing debug: {}", from);
+    }
+
+    public static XMLGregorianCalendar getXMLGregorianCalendarFrom(Date date) {
+        if (date != null) {
+            GregorianCalendar gregorianCalendar = new GregorianCalendar();
+            gregorianCalendar.setTime(date);
+            try {
+                XMLGregorianCalendar cal = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
+                LOG.trace("{}-{}-{} {}:{}:{} {}", cal.getMonth(), cal.getDay(), cal.getYear(), cal.getHour(),
+                    cal.getMinute(), cal.getSecond(), cal.getTimezone());
+                return cal;
+            } catch (DatatypeConfigurationException ex) {
+                LOG.error("Unable to convert date {} ", ex.getLocalizedMessage(), ex);
+            }
+        }
+        return null;
     }
 }

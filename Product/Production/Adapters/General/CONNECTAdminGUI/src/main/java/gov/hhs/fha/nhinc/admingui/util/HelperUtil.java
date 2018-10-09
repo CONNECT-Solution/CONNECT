@@ -40,6 +40,7 @@ import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -56,6 +57,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.primefaces.context.RequestContext;
+import org.primefaces.json.JSONArray;
 
 /**
  * @author Tran Tang
@@ -172,15 +174,20 @@ public class HelperUtil {
         return new FacesMessage(FacesMessage.SEVERITY_WARN, msgText, "");
     }
 
-    public static void addMessageError(String messageId, String theMessage) {
-        FacesContext.getCurrentInstance().addMessage(messageId,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", theMessage));
+    /*
+     * @clientId - The client identifier with which this message is associated (if any)
+     */
+    public static void addMessageError(String clientId, String theMessage) {
+        FacesContext.getCurrentInstance().addMessage(clientId, getMsgError(theMessage));
     }
 
-    public static void addMessageInfo(String messageId, String theMessage) {
-        FacesContext.getCurrentInstance().addMessage(messageId,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", theMessage));
+    /*
+     * @clientId - The client identifier with which this message is associated (if any)
+     */
+    public static void addMessageInfo(String clientId, String theMessage) {
+        FacesContext.getCurrentInstance().addMessage(clientId, getMsgInfo(theMessage));
     }
+
 
     // populateList
     public static Map<String, String> populateListPatientId(List<Patient> listPatient) {
@@ -383,6 +390,17 @@ public class HelperUtil {
         ELContext elContext = context.getELContext();
         return (T) context.getApplication().getExpressionFactory()
             .createValueExpression(elContext, elExpression, clazzOf).getValue(elContext);
-
     }
+
+    public static <T> List<T> convertList(JSONArray jsonArray) {
+        List<T> retList = new ArrayList<>();
+        if (null != jsonArray) {
+            for (Object item : jsonArray) {
+                retList.add((T) item);
+            }
+        }
+        return retList;
+    }
+
+
 }

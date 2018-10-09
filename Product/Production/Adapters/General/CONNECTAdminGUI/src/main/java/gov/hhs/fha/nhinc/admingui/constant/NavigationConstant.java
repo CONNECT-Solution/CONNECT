@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -43,13 +43,14 @@ public class NavigationConstant {
     public static final String CM_PAGE = "connectionManager";
     public static final String PROPERTIES_PAGE = "properties";
     public static final String PATIENT_SEARCH_PAGE = "patientDiscovery";
-    public static final String AUDIT_SEARCH_PAGE = "auditLog";
     public static final String CUSTOM_ERROR_PAGE = "customerror";
     public static final String CUSTOM_ERROR_XHTML = "/customerror.xhtml";
     public static final String CERTIFICATE_MGMT_PAGE = "certificateManager";
     public static final String CERTIFICATE_MGMT_XHTML = "/certificateManager.xhtml";
     public static final String LOAD_TEST_DATA_PAGE = "loadTestData";
     public static final String LOAD_TEST_DATA_XHTML = "/loadTestData.xhtml";
+    public static final String LOGGING_PAGE = "auditLog";
+    public static final String LOGGING_XHTML = "/auditLog.xhtml";
     public static final String EM_PAGE = "exchangeManager";
 
 
@@ -66,6 +67,9 @@ public class NavigationConstant {
 
     public static final int LOAD_TEST_DATA_PATIENT_TAB = 0;
     public static final int LOAD_TEST_DATA_DOCUMENT_TAB = 1;
+
+    public static final int AUDIT_LOG_TAB = 0;
+    public static final int ERROR_LOG_TAB = 1;
 
     /**
      * Use this class to hold constant variables
