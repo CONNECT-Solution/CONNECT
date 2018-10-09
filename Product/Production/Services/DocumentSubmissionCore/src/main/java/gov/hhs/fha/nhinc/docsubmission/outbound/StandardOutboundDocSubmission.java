@@ -41,6 +41,7 @@ import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionB
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionOrchestratable;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
@@ -161,7 +162,7 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
                 String hcid = getNhinTargetHomeCommunityId(request);
                 nhinResponse = MessageGeneratorUtils.getInstance().createRegistryBusyErrorResponse("Failed to send "
                     + "request to community " + hcid);
-                LOG.error("Fault encountered while trying to send message to the nhin " + hcid, e);
+                throw new ErrorEventException(e, nhinResponse, "Unable to call Nhin Doc Submission");
             }
         } else {
             LOG.warn("The request to the Nhin did not contain a target home community id.");

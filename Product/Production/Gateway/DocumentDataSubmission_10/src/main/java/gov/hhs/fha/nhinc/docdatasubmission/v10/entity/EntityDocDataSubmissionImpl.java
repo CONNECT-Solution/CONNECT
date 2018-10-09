@@ -33,15 +33,12 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docdatasubmission.outbound.OutboundDocDataSubmission;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 class EntityDocDataSubmissionImpl extends BaseService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDocDataSubmissionImpl.class);
 
     private OutboundDocDataSubmission outboundDocDataSubmission;
 
@@ -59,7 +56,7 @@ class EntityDocDataSubmissionImpl extends BaseService {
                 request.getAssertion(), request.getNhinTargetCommunities(), request.getUrl());
 
         } catch (Exception e) {
-            LOG.error("Failed to send request to Nwhin: {}", e);
+            throw new ErrorEventException(e, "Unable to call Nhin Doc Data Submission");
         }
 
         return response;
@@ -77,7 +74,7 @@ class EntityDocDataSubmissionImpl extends BaseService {
                 assertion, request.getNhinTargetCommunities(), request.getUrl());
 
         } catch (Exception e) {
-            LOG.error("Failed to send request to Nwhin: {}", e);
+            throw new ErrorEventException(e, "Unable to call Nhin Doc Data Submission");
         }
 
         return response;

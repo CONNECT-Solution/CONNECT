@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docregistry.adapter.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.description.AdapterComponentDocRegistryServicePortDescriptor;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -36,6 +37,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.DocumentRegistryPortType;
+import javax.xml.ws.WebServiceException;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
@@ -82,7 +84,7 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
             if (NullChecker.isNotNullish(url)) {
 
                 if (msg == null) {
-                    LOG.error("Message was null");
+                    throw new IllegalArgumentException("Request Message must be provided");
                 } else {
                     final ServicePortDescriptor<DocumentRegistryPortType> portDescriptor = getServicePortDescriptor(
                             NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
@@ -94,11 +96,9 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
                             "documentRegistryRegistryStoredQuery", msg);
                 }
             } else {
-                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_REGISTRY_SERVICE_NAME
-                        + ").  The URL is null.");
+                throw new WebServiceException("Could not determine URL for Doc Registry Adapter endpoint");
             }
         } catch (final Exception ex) {
-            LOG.error("Error sending Adapter Component Doc Registry Unsecured message: " + ex.getMessage(), ex);
             response = new AdhocQueryResponse();
             response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
             response.setRegistryObjectList(new RegistryObjectListType());
@@ -109,6 +109,8 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
             registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             response.setRegistryErrorList(new RegistryErrorList());
             response.getRegistryErrorList().getRegistryError().add(registryError);
+
+            throw new ErrorEventException(ex, response, "Unable to call Doc Query Adapter");
         }
 
         LOG.debug("End registryStoredQuery");

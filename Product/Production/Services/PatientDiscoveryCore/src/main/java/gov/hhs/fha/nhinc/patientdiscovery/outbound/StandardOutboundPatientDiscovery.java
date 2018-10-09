@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
@@ -128,19 +129,17 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
 
         try {
             if (request == null) {
-                throw new Exception("PatientDiscovery RespondingGatewayPRPAIN201305UV02RequestType request was null.");
+                throw new IllegalArgumentException("PatientDiscovery RespondingGatewayPRPAIN201305UV02RequestType request was null.");
             } else if (assertion == null) {
-                throw new Exception("Assertion was null.");
+                throw new IllegalArgumentException("Assertion was null.");
             } else if (request.getPRPAIN201305UV02() == null) {
-                throw new Exception("PatientDiscovery PRPAIN201305UV02 request was null.");
+                throw new IllegalArgumentException("PatientDiscovery PRPAIN201305UV02 request was null.");
             } else {
                 response = getResponseFromCommunities(request, assertion);
             }
-        } catch (final Exception e) {
-            LOG.error("Exception occurred while getting responses", e);
-
-            // generate error message and add to response
+        } catch (final IllegalArgumentException e) {
             addErrorMessageToResponse(request, response, e);
+            throw new ErrorEventException(e, response, "Unable to obtain response from communities");
         }
         LOG.debug("End respondingGatewayPRPAIN201305UV02");
         return response;
@@ -159,7 +158,6 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
         response.getCommunityResponse().add(communityResponse);
     }
 
-    @SuppressWarnings("static-access")
     protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(
         final RespondingGatewayPRPAIN201305UV02RequestType request, final AssertionType assertion) {
         LOG.debug("Begin getResponseFromCommunities");
@@ -222,9 +220,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                 addPolicyErrorsToResponse(response, policyErrList);
             }
         } catch (final Exception e) {
-            LOG.error("Exception occurred while getting responses from communities", e);
-
             addErrorMessageToResponse(request, response, e);
+            throw new ErrorEventException(e, response, "Exception while getting responses from communities");
         }
 
         LOG.debug("Exiting getResponseFromCommunities");

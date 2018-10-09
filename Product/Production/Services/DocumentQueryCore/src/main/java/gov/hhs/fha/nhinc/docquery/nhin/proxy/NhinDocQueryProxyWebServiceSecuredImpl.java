@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.description.NhinDocQueryServicePortDescriptor;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -60,6 +61,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy {
 
+    private static final String UNABLE_TO_CALL = "Unable to call Nhin Service";
     private static final Logger LOG = LoggerFactory.getLogger(NhinDocQueryProxyWebServiceSecuredImpl.class);
 
     /**
@@ -104,19 +106,18 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(final AdhocQueryRequest request,
         final AssertionType assertion, final NhinTargetSystemType target) throws Exception {
-        AdhocQueryResponse response;
+        AdhocQueryResponse response = null;
         try {
             String url = target.getUrl();
             if (NullChecker.isNullish(url)) {
                 if (StringUtils.isBlank(target.getUseSpecVersion())) {
-                    throw new Exception("Required specification version guidance was null.");
+                    throw new IllegalArgumentException("Required specification version guidance was null.");
                 }
                 final UDDI_SPEC_VERSION version = UDDI_SPEC_VERSION.fromString(target.getUseSpecVersion());
                 url = getCMInstance().getEndpointURL(
                     target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME, version,
                     target.getExchangeName());
-                LOG.debug("After target system URL look up. URL for service: " + NhincConstants.DOC_QUERY_SERVICE_NAME
-                    + " is: " + url);
+                LOG.debug("After target system URL look up. URL for service: {} is: {}" ,NhincConstants.DOC_QUERY_SERVICE_NAME, url);
             }
 
             final ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor = getServicePortDescriptor(
@@ -129,7 +130,6 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
                 "respondingGatewayCrossGatewayQuery", request);
 
         } catch (final ExchangeManagerException e) {
-            LOG.error("Error calling respondingGatewayCrossGatewayQuery", e);
             final XDCommonResponseHelper helper = new XDCommonResponseHelper();
             final RegistryResponseType registryError = helper.createError(e.getLocalizedMessage(),
                 ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
@@ -139,8 +139,9 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             response.setStatus(registryError.getStatus());
             response.setRegistryErrorList(registryError.getRegistryErrorList());
 
+            throw new ErrorEventException(e, response, UNABLE_TO_CALL);
+
         } catch (final WebServiceException wse) {
-            LOG.error("Error calling respondingGatewayCrossGatewayQuery", wse);
             final XDCommonResponseHelper helper = new XDCommonResponseHelper();
             final String endpointAvailableError = NhincConstants.INIT_MULTISPEC_ERROR_NO_ENDPOINT_AVAILABLE
                 + target.getHomeCommunity().getHomeCommunityId() + ".";
@@ -151,9 +152,10 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             response.setStatus(registryError.getStatus());
             response.setRegistryErrorList(registryError.getRegistryErrorList());
 
+            throw new ErrorEventException(wse, response, UNABLE_TO_CALL);
+
         } catch (final Exception ex) {
-            LOG.error("Error calling respondingGatewayCrossGatewayQuery", ex);
-            throw ex;
+            throw new ErrorEventException(ex, UNABLE_TO_CALL);
         }
         return response;
     }

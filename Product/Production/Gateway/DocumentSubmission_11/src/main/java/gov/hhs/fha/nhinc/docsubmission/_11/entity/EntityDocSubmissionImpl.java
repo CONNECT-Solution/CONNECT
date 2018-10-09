@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,19 +31,13 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndReg
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
-
 import javax.xml.ws.WebServiceContext;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 class EntityDocSubmissionImpl extends BaseService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDocSubmissionImpl.class);
 
     private OutboundDocSubmission outboundDocSubmission;
 
@@ -64,7 +58,7 @@ class EntityDocSubmissionImpl extends BaseService {
                     request.getNhinTargetCommunities(), request.getUrl());
 
         } catch (Exception e) {
-            LOG.error("Failed to send request to Nwhin.", e);
+            throw new ErrorEventException(e, response, "Unable to call Nhin Doc Submission");
         }
 
         return response;
@@ -84,7 +78,7 @@ class EntityDocSubmissionImpl extends BaseService {
                     request.getUrl());
 
         } catch (Exception e) {
-            LOG.error("Failed to send request to Nwhin.", e);
+            throw new ErrorEventException(e, response, "Unable to call Nhin Doc Submission");
         }
 
         return response;

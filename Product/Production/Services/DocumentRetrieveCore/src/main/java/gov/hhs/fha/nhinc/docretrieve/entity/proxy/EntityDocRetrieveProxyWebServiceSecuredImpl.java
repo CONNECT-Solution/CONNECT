@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayR
 import gov.hhs.fha.nhinc.docretrieve.entity.proxy.service.EntityDocRetrieveSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveSecured;
 import gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveSecuredPortType;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -63,24 +64,24 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
         String url = getUrl(serviceName);
 
         RetrieveDocumentSetResponseType response = null;
+        try {
+            if (NullChecker.isNotNullish(url)) {
+                RespondingGatewayCrossGatewayRetrieveSecuredRequestType message = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
+                message.setNhinTargetCommunities(targets);
+                message.setRetrieveDocumentSetRequest(body);
 
-        if (NullChecker.isNotNullish(url)) {
-            RespondingGatewayCrossGatewayRetrieveSecuredRequestType message = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
-            message.setNhinTargetCommunities(targets);
-            message.setRetrieveDocumentSetRequest(body);
+                ServicePortDescriptor<EntityDocRetrieveSecuredPortType> portDescriptor = new EntityDocRetrieveSecuredServicePortDescriptor();
+                CONNECTClient<EntityDocRetrieveSecuredPortType> client = getCONNECTClientSecured(portDescriptor, url, assertion);
 
-            ServicePortDescriptor<EntityDocRetrieveSecuredPortType> portDescriptor = new EntityDocRetrieveSecuredServicePortDescriptor();
-            CONNECTClient<EntityDocRetrieveSecuredPortType> client = getCONNECTClientSecured(portDescriptor, url, assertion);
-
-            try {
                 LOG.debug("invoke port");
                 response = (RetrieveDocumentSetResponseType) client.invokePort(EntityDocRetrieveSecuredPortType.class, "respondingGatewayCrossGatewayRetrieve", message.getRetrieveDocumentSetRequest());
-            } catch (Exception ex) {
-                LOG.error("Failed to call the web service (" + serviceName + ").  An unexpected exception occurred.  "
-                    + "Exception: " + ex.getMessage(), ex);
-            }
-        }
 
+            } else {
+                throw new IllegalArgumentException("Could not determine URL for Entity Doc Query endpoint");
+            }
+        } catch (Exception ex) {
+            throw new ErrorEventException(ex, "Unable to call Entity Doc Retrieve");
+        }
         return response;
     }
 

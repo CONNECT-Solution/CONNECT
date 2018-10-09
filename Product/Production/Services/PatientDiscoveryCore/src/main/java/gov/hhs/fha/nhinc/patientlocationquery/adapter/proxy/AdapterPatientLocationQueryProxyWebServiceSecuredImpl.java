@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySe
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySecuredResponseType;
 import gov.hhs.fha.nhinc.event.DefaultDelegatingEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.DefaultTargetedArgTransfomer;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -42,13 +43,9 @@ import gov.hhs.fha.nhinc.patientlocationquery.adapter.descriptor.AdapterPatientL
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AdapterPatientLocationQueryProxyWebServiceSecuredImpl implements AdapterPatientLocationQueryProxy {
 
-    private static final Logger LOG = LoggerFactory
-        .getLogger(AdapterPatientLocationQueryProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     @AdapterDelegationEvent(beforeBuilder = DefaultTargetedArgTransfomer.class,
@@ -76,13 +73,10 @@ public class AdapterPatientLocationQueryProxyWebServiceSecuredImpl implements Ad
                     AdapterPatientLocationQuerySecuredPortType.class, "adapterPatientLocationQuerySecured", adapterRequest);
                 response = adapterResponse.getPatientLocationQueryResponse();
             } else {
-                LOG.error("Failed to call the web service ({}).  The URL is null.",
-                    NhincConstants.ADAPTER_PLQ_SECURED_SERVICE_NAME);
                 throw new IllegalArgumentException("Failed to call the webservice. The service URL was null.");
             }
         } catch (Exception ex) {
-            LOG.error("Error sending Patient Location Query Secured Adapter message: " + ex.getMessage(), ex);
-            throw new IllegalStateException("Error sending Patient Location Query Secured Adapter message", ex);
+            throw new ErrorEventException(ex, "Error sending Patient Location Query Secured Adapter message");
         }
 
         return response;

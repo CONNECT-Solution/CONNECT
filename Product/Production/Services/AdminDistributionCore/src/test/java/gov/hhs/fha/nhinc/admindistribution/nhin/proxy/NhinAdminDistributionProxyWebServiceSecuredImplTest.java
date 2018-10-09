@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -30,14 +30,18 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * @author msw
@@ -51,6 +55,11 @@ public class NhinAdminDistributionProxyWebServiceSecuredImplTest {
     private final AssertionType assertion = mock(AssertionType.class);
     private final NhinTargetSystemType target = mock(NhinTargetSystemType.class);
 
+    @Before
+    public void before() {
+        Mockito.when(target.getHomeCommunity()).thenReturn(new HomeCommunityType());
+    }
+
     @Test
     public void testNoMtom() {
         NhinAdminDistributionProxyWebServiceSecuredImpl impl = getImpl();
@@ -60,6 +69,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImplTest {
         verify(client, never()).enableMtom();
     }
 
+    @Test
     public void testMtom() {
         NhinAdminDistributionProxyWebServiceSecuredImpl impl = getImpl();
 
@@ -70,13 +80,18 @@ public class NhinAdminDistributionProxyWebServiceSecuredImplTest {
 
     private NhinAdminDistributionProxyWebServiceSecuredImpl getImpl() {
         return new NhinAdminDistributionProxyWebServiceSecuredImpl() {
-            /*
-             * (non-Javadoc)
-             *
-             * @see gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyWebServiceSecuredImpl#
-             * getCONNECTClientSecured(gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor, java.lang.String,
-             * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String, java.lang.String)
+
+
+            /* (non-Javadoc)
+             * @see gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyWebServiceSecuredImpl#getHelper()
              */
+            @Override
+            protected AdminDistributionHelper getHelper() {
+               AdminDistributionHelper helperMock = Mockito.mock(AdminDistributionHelper.class);
+               Mockito.when(helperMock.getUrl(Mockito.any(NhinTargetSystemType.class), Mockito.anyString(), Mockito.any(GATEWAY_API_LEVEL.class))).thenReturn("URL");
+               return helperMock;
+            }
+
             @Override
             protected CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> getCONNECTClientSecured(
                     ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor,

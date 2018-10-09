@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.adaptercomponentxdrresponse.AdapterComponentXDRResponse
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.service.AdapterComponentDocSubmissionResponseServicePortDescriptor;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -37,6 +38,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import javax.xml.ws.WebServiceException;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +78,7 @@ public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl i
             if (body != null) {
                 LOG.debug("Before target system URL look up.");
                 endpointUrl = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
-                LOG.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + endpointUrl);
+                LOG.debug("After target system URL look up. URL for service: {} is: {}",sServiceName, endpointUrl);
 
                 if (NullChecker.isNotNullish(endpointUrl)) {
                     AdapterRegistryResponseType adaptResponse = new AdapterRegistryResponseType();
@@ -92,14 +94,13 @@ public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl i
                     response = (XDRAcknowledgementType) client.invokePort(AdapterComponentXDRResponsePortType.class,
                         "provideAndRegisterDocumentSetBResponse", adaptResponse);
                 } else {
-                    LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
+                    throw new WebServiceException("Could not determine URL for Doc Submission Deferred Response Adapter Component endpoint");
                 }
             } else {
-                LOG.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
+                throw new IllegalArgumentException("Request Message must be provided");
             }
         } catch (Exception e) {
-            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
-                + "Exception: " + e.getMessage(), e);
+            throw new ErrorEventException(e, "Unable to call Doc Submission Deferred Response Adapter Component");
         }
         return response;
     }

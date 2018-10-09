@@ -33,12 +33,11 @@ import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
@@ -46,7 +45,6 @@ import org.slf4j.LoggerFactory;
  */
 public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmission {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PassthroughInboundDocSubmission.class);
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
     private DocSubmissionUtils dsUtils;
 
@@ -83,8 +81,9 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
             dsUtils.convertDataToFileLocationIfEnabled(body);
             response = sendToAdapter(body, assertion);
         } catch (LargePayloadException lpe) {
-            LOG.error("Failed to retrieve payload document.", lpe);
             response = msgUtils.createRegistryErrorResponse();
+            throw new ErrorEventException(lpe, response, "Failed to save document");
+
         }
 
         return response;
