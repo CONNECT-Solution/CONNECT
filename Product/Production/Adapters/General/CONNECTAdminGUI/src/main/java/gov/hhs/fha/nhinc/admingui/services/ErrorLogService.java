@@ -37,9 +37,9 @@ import java.util.Map;
  */
 public interface ErrorLogService {
 
-    public Map<String, List<String>> getDropdowns() throws Exception;
+    public Map<String, List<String>> getDropdowns();
 
-    public List<LogEventType> search(String service, String exception, Date fromDate, Date toDate) throws Exception;
+    public List<LogEventType> search(String service, String exception, Date fromDate, Date toDate);
 
-    public LogEventType getLogEvent(Long id) throws Exception;
+    public LogEventType getLogEvent(Long id);
 }
