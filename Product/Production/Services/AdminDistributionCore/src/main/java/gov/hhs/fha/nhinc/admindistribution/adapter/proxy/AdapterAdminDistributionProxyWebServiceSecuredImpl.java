@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -33,14 +33,16 @@ import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescripti
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageSecuredType;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import javax.xml.ws.WebServiceException;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -99,8 +101,10 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
         LOG.debug("Begin sendAlertMessage");
         String url = getUrl();
 
-        if (NullChecker.isNotNullish(url)) {
-            try {
+        try {
+            if (StringUtils.isBlank(url)) {
+                throw new WebServiceException("Could not determine URL for Admin Distribution Adapter endpoint");
+            } else {
                 RespondingGatewaySendAlertMessageSecuredType message = new RespondingGatewaySendAlertMessageSecuredType();
                 message.setEDXLDistribution(body);
 
@@ -111,12 +115,9 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
                 client.enableMtom();
 
                 client.invokePort(AdapterAdministrativeDistributionSecuredPortType.class, "sendAlertMessage", message);
-            } catch (Exception ex) {
-                LOG.error("Unable to send message: " + ex.getMessage(), ex);
             }
-        } else {
-            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME
-                + ").  The URL is null.");
+        } catch (Exception ex) {
+            throw new ErrorEventException(ex, "Unable to call Admin Distribution Adapter");
         }
     }
 

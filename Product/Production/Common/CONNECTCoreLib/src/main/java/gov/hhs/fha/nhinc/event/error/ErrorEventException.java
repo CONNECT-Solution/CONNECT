@@ -24,33 +24,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.adapter;
+package gov.hhs.fha.nhinc.event.error;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+public class ErrorEventException extends RuntimeException {
 
-import gov.hhs.fha.nhinc.event.error.ErrorEventException;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.junit.Assert;
-import org.junit.Test;
+    private static final long serialVersionUID = 8192575383484851311L;
 
-/**
- *
- * @author Neil Webb
- */
-public class AdapterDocQueryOrchImplTest {
+    private final transient Object returnOverride;
 
-    @Test
-    public void errorResponseHasRegistryObjectList() {
-        AdapterDocQueryOrchImpl impl = new AdapterDocQueryOrchImpl();
-        try {
-            impl.respondingGatewayCrossGatewayQuery(null, null);
-            Assert.fail();
-        } catch (ErrorEventException e) {
-            AdhocQueryResponse response = (AdhocQueryResponse) e.getReturnOverride();
-            assertNotNull(response.getRegistryObjectList());
-            assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
+    public ErrorEventException(Throwable e, String customMessage) {
+        super(customMessage, e);
+        if (e instanceof ErrorEventException) {
+            returnOverride = ((ErrorEventException) e).getReturnOverride();
+        } else {
+            returnOverride = null;
         }
+
+    }
+
+    public ErrorEventException(Throwable e, Object returnOverride, String customMessage) {
+        super(customMessage, e);
+        this.returnOverride = returnOverride;
+    }
+
+    public Object getReturnOverride() {
+        return returnOverride;
     }
 
 }

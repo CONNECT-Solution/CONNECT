@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditLogger;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -88,10 +89,17 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
     version = "")
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
         ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, Properties webContextProperties) {
-
-        RegistryResponseType response = processDocSubmission(body, assertion, webContextProperties);
-
-        auditResponse(body, response, assertion, webContextProperties);
+        RegistryResponseType response = null;
+        try {
+             response = processDocSubmission(body, assertion, webContextProperties);
+        }
+        catch (ErrorEventException e) {
+            // only doing this for audit response.
+            response = (RegistryResponseType) e.getReturnOverride();
+            throw e;
+        } finally {
+            auditResponse(body, response, assertion, webContextProperties);
+        }
 
         return response;
     }
@@ -108,8 +116,8 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
                 getDocSubmissionUtils().convertDataToFileLocationIfEnabled(body);
                 response = sendToAdapter(body, assertion);
             } catch (LargePayloadException lpe) {
-                LOG.error("Failed to retrieve payload document.", lpe);
                 response = MessageGeneratorUtils.getInstance().createRegistryErrorResponse();
+                throw new ErrorEventException(lpe, response, "Failed to save document");
             }
         } else {
             LOG.error("Failed policy check.  Sending error response.");

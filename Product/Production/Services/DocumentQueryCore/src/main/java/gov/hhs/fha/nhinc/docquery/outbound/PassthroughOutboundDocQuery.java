@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Iterator;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -102,8 +103,8 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
         } catch (Exception ex) {
             String errorMsg = "Error from target homeId = " + targetCommunityID + ". " + ex.getMessage();
-            response = MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(errorMsg);
-            LOG.error(errorMsg, ex);
+            throw new ErrorEventException(ex, MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(errorMsg),
+                "Unable to call Nhin Doc Query");
         }
 
         return response;

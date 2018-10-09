@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQueryRe
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterPatientLocationQuerySecuredResponseType;
 import gov.hhs.fha.nhinc.event.DefaultDelegatingEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.DefaultTargetedArgTransfomer;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -75,13 +76,10 @@ public class AdapterPatientLocationQueryProxyWebServiceUnsecuredImpl implements 
                     .invokePort(AdapterPatientLocationQueryPortType.class, "adapterPatientLocationQuery", request);
                 response = adapterResponse.getPatientLocationQueryResponse();
             } else {
-                LOG.error("Failed to call the web service ({}). The URL is null.",
-                    NhincConstants.ADAPTER_PLQ_SERVICE_NAME);
                 throw new IllegalArgumentException("Failed to call the webservice. The service URL was null.");
             }
         } catch (Exception ex) {
-            LOG.error("Error sending Adapter Patient Location Query Unsecured Adapter message: " + ex.getMessage(), ex);
-            throw new IllegalStateException("Error sending Adapter Patient Location Query Unsecured Adapter message", ex);
+            throw new ErrorEventException(ex, "Error sending Adapter Patient Location Query Unsecured Adapter message");
         }
 
         LOG.debug("End Adapter Patient Location Query Unsecured");

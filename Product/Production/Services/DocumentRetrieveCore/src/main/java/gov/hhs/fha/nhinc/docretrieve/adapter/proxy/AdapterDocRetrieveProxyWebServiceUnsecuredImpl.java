@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGateway
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.service.AdapterDocRetrieveUnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -40,6 +41,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import javax.xml.ws.WebServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,37 +71,36 @@ public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl extends BaseAdapterD
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
 
         try {
-            if (request != null) {
-                LOG.debug("Before target system URL look up.");
-                url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME);
-                LOG.debug("After target system URL look up. URL for service: " + NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME + " is: " + url);
+            if (request == null) {
+                throw new IllegalArgumentException("Request Message must be provided");
+            }
 
-                if (NullChecker.isNotNullish(url)) {
-                    RespondingGatewayCrossGatewayRetrieveRequestType oUnsecuredRequest = new RespondingGatewayCrossGatewayRetrieveRequestType();
+            LOG.debug("Before target system URL look up.");
+            url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME);
+            LOG.debug("After target system URL look up. URL for service: {} is: {}",NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME, url);
 
-                    // Note that the adapter has a combined set of data. We need to combine them before sending to the
-                    // adapter.
-                    // -----------------------------------------------------------------------------------------------------------
-                    oUnsecuredRequest.setRetrieveDocumentSetRequest(request);
-                    oUnsecuredRequest.setAssertion(assertion);
+            if (NullChecker.isNotNullish(url)) {
+                RespondingGatewayCrossGatewayRetrieveRequestType oUnsecuredRequest = new RespondingGatewayCrossGatewayRetrieveRequestType();
 
-                    ServicePortDescriptor<AdapterDocRetrievePortType> portDescriptor = new AdapterDocRetrieveUnsecuredServicePortDescriptor();
+                // Note that the adapter has a combined set of data. We need to combine them before sending to the
+                // adapter.
+                // -----------------------------------------------------------------------------------------------------------
+                oUnsecuredRequest.setRetrieveDocumentSetRequest(request);
+                oUnsecuredRequest.setAssertion(assertion);
 
-                    CONNECTClient<AdapterDocRetrievePortType> client = getCONNECTClientUnsecured(portDescriptor, url,
-                        assertion);
-                    client.enableMtom();
-                    response = (RetrieveDocumentSetResponseType) client.invokePort(AdapterDocRetrievePortType.class,
-                        "respondingGatewayCrossGatewayRetrieve", oUnsecuredRequest);
+                ServicePortDescriptor<AdapterDocRetrievePortType> portDescriptor = new AdapterDocRetrieveUnsecuredServicePortDescriptor();
 
-                } else {
-                    LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME + ").  The URL is null.");
-                }
+                CONNECTClient<AdapterDocRetrievePortType> client = getCONNECTClientUnsecured(portDescriptor, url,
+                    assertion);
+                client.enableMtom();
+                response = (RetrieveDocumentSetResponseType) client.invokePort(AdapterDocRetrievePortType.class,
+                    "respondingGatewayCrossGatewayRetrieve", oUnsecuredRequest);
+
             } else {
-                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME + ").  The input parameter is null.");
+                throw new WebServiceException("Could not determine URL for Doc Retrieve Adapter endpoint");
             }
         } catch (Exception e) {
-            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME + ").  An unexpected exception occurred.  "
-                + "Exception: " + e.getMessage(), e);
+            throw new ErrorEventException(e, "Unable to call Doc Retrieve Adapter");
         }
 
         return response;

@@ -60,11 +60,7 @@ public class ErrorEventBuilderTest {
         when(helper.getMessageId(assertion)).thenReturn("messageId");
         when(helper.getTransactionId()).thenReturn("transactionId");
 
-
-        EventDirector director = new EventDirector();
-        director.setEventBuilder(builder);
-        director.constructEvent();
-        Event event = director.getEvent();
+        Event event =  EventDirector.constructEvent(builder);
 
         assertNotNull(event);
         JSONAssert.assertEquals("{}", event.getDescription(), true);
@@ -105,7 +101,7 @@ public class ErrorEventBuilderTest {
         Event event = builder.getEvent();
         assertNotNull(event.getDescription());
         assertEquals(MessageProcessingFailedEvent.EVENT_NAME, event.getEventName());
-        JSONAssert.assertEquals("{\"exceptionMessage\":\"message\", \"exceptionClass\": \"" + t.getClass() + "\", \"stackTrace\":[]}", event.getDescription(), true);
+        JSONAssert.assertEquals("{\"exceptionMessage\":\"message\", \"exceptionClass\": \"" + t.getClass().getName() + "\", \"stackTrace\":[]}", event.getDescription(), true);
     }
 
     @Test
@@ -132,6 +128,6 @@ public class ErrorEventBuilderTest {
         Event event = builder.getEvent();
         assertNotNull(event.getDescription());
         assertEquals(MessageProcessingFailedEvent.EVENT_NAME, event.getEventName());
-        JSONAssert.assertEquals("{\"exceptionClass\": \"" + t.getClass() + "\", \"stackTrace\":[]}", event.getDescription(), true);
+        JSONAssert.assertEquals("{\"exceptionClass\": \"" + t.getClass().getName() + "\", \"stackTrace\":[]}", event.getDescription(), true);
     }
 }

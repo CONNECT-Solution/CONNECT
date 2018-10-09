@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.adapter.descriptor.AdapterDocDataSubmissionSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -39,13 +40,11 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
+import javax.xml.ws.WebServiceException;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AdapterDocDataSubmissionProxyWebServiceSecuredImpl implements AdapterDocDataSubmissionProxy {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocDataSubmissionProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     @AdapterDelegationEvent(serviceType = "Document Data Submission", version = "",
@@ -68,13 +67,11 @@ public class AdapterDocDataSubmissionProxyWebServiceSecuredImpl implements Adapt
                 response = (RegistryResponseType) client.invokePort(AdapterXDSSecuredPortType.class,
                     "registerDocumentSetb", msg);
             } else {
-                LOG.error("Failed to call the web service ({}).  The URL is null.",
-                    NhincConstants.ADAPTER_XDS_SECURED_SERVICE_NAME);
-                throw new IllegalArgumentException("Failed to call the webservice. The service URL was null.");
+                throw new WebServiceException("Could not determine URL for Doc Data Submission Adapter endpoint");
             }
         } catch (Exception ex) {
-            LOG.error("Error sending Adapter Doc Data Submission Secured message: " + ex.getMessage(), ex);
             response = MessageGeneratorUtilsDocData.getInstance().createRegistryErrorResponse();
+            throw new ErrorEventException(ex, response, "Unable to call Doc Data Submission Adapter");
         }
         return response;
     }

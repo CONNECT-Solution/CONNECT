@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -44,6 +45,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import javax.xml.ws.WebServiceException;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +66,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
         return AdminDistributionUtils.getInstance();
     }
 
-    private AdminDistributionHelper getHelper() {
+    protected AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
     }
 
@@ -119,22 +121,21 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
      * @param apiLevel gateway apiLevel (g0/g1).
      */
     @Override
-    @NwhinInvocationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
+    @NwhinInvocationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder =
+    EDXLDistributionEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
 
         LOG.debug("begin sendAlertMessage");
-        AdminDistributionHelper helper = getHelper();
-        String url = helper.getUrl(target, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME, apiLevel);
+        auditMessage(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, target);
 
-        if (NullChecker.isNotNullish(url)) {
-            auditMessage(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, target);
-
-            try {
+        String url = getHelper().getUrl(target, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME, apiLevel);
+        try {
+            if (NullChecker.isNotNullish(url)) {
                 getAdminDistributionUtils().convertFileLocationToDataIfEnabled(body);
 
-                ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor = getServicePortDescriptor(
-                        apiLevel);
+                ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor =
+                    getServicePortDescriptor(apiLevel);
 
                 CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> client = getCONNECTClientSecured(
                         portDescriptor, url, assertion, target.getHomeCommunity().getHomeCommunityId(),
@@ -145,15 +146,11 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
                 }
 
                 client.invokePort(RespondingGatewayAdministrativeDistributionPortType.class, "sendAlertMessage", body);
-            } catch (Exception ex) {
-                LOG.error(
-                        "Failed to call the web service (" + NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME
-                                + ").  An unexpected exception occurred.  " + "Exception: " + ex.getLocalizedMessage(),
-                        ex);
+            } else {
+                throw new WebServiceException("Could not determine URL for Nhin Admin Distribution endpoint");
             }
-        } else {
-            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
-                    + ").  The URL is null.");
+        } catch (Exception ex) {
+            throw new ErrorEventException(ex, "Unable to call Nhin Admin Distribution");
         }
     }
 

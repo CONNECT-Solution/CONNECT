@@ -111,10 +111,7 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      * @param eventBuilder
      */
     private void createAndRecordEvent(EventBuilder eventBuilder) {
-        EventDirector director = new EventDirector();
-        director.setEventBuilder(eventBuilder);
-        director.constructEvent();
-        eventRecorder.recordEvent(director.getEvent());
+        eventRecorder.recordEvent(EventDirector.constructEvent(eventBuilder));
     }
 
     /*

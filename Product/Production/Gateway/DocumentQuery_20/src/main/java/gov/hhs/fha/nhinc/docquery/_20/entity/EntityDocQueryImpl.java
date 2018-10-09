@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -37,12 +37,9 @@ import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class EntityDocQueryImpl extends BaseService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDocQueryImpl.class);
     private OutboundDocQuery outboundDocQuery;
 
     /**
@@ -89,21 +86,15 @@ public class EntityDocQueryImpl extends BaseService {
     private AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
 
-        AdhocQueryResponse response = null;
 
-        try {
-            if (targets == null) {
-                targets = new ObjectFactory().createNhinTargetCommunitiesType();
-            }
-
-            if (StringUtils.isBlank(targets.getUseSpecVersion())) {
-                targets.setUseSpecVersion("2.0");
-            }
-            response = outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets);
-        } catch (Exception e) {
-            LOG.error("Failed to send request to Nwhin.", e);
+        if (targets == null) {
+            targets = new ObjectFactory().createNhinTargetCommunitiesType();
         }
 
-        return response;
+        if (StringUtils.isBlank(targets.getUseSpecVersion())) {
+            targets.setUseSpecVersion("2.0");
+        }
+        return outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets);
+
     }
 }

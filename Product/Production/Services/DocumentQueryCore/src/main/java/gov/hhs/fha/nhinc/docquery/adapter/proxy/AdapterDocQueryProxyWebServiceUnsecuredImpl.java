@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -33,11 +33,13 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGateway
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.description.AdapterDocQueryServicePortDescriptor;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import javax.xml.ws.WebServiceException;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.slf4j.Logger;
@@ -80,11 +82,11 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
             url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME);
             //Call the service
             if (NullChecker.isNotNullish(url)) {
-                LOG.debug("getEndPointFromConnectionManagerByAdapterAPILevel:" + url);
+                LOG.debug("getEndPointFromConnectionManagerByAdapterAPILevel: {}", url);
                 if (msg == null) {
-                    LOG.error("Message was null");
+                    throw new IllegalArgumentException("Request Message must be provided");
                 } else if (assertion == null) {
-                    LOG.error("assertion was null");
+                    throw new IllegalArgumentException("Assertion must be provided");
                 } else {
                     RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
                     request.setAdhocQueryRequest(msg);
@@ -98,12 +100,10 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
                         "respondingGatewayCrossGatewayQuery", request);
                 }
             } else {
-                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME
-                    + ").  The URL is null.");
+                throw new WebServiceException("Could not determine URL for Doc Query Adapter endpoint");
             }
         } catch (Exception ex) {
-            LOG.error("Error sending Adapter Doc Query Unsecured message: " + ex.getMessage(), ex);
-            return getAdapterHelper().createErrorResponse();
+            throw new ErrorEventException(ex, getAdapterHelper().createErrorResponse(), "Unable to call Doc Query Adapter");
         }
 
         LOG.debug("End respondingGatewayCrossGatewayQuery");

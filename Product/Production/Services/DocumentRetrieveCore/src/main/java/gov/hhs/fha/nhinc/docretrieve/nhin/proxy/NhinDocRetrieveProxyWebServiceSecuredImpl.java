@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.description.NhinDocRetrieveServicePortDescriptor;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -47,6 +48,7 @@ import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper.ErrorCodes;
 import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import javax.xml.ws.WebServiceException;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -99,25 +101,23 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                     response = (RetrieveDocumentSetResponseType) client.invokePort(
                         RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
                 } else {
-                    LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
+                    throw new WebServiceException("Could not determine URL for Nhin Doc Retrieve endpoint");
                 }
             } else {
-                LOG.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
+                throw new IllegalArgumentException("Request Message must be provided");
             }
         } catch (final ExchangeManagerException e) {
-            LOG.error("Exchange manager exception: {}", e.getLocalizedMessage(), e);
             final XDCommonResponseHelper helper = new XDCommonResponseHelper();
             final RegistryResponseType error = helper.createError(e.getLocalizedMessage(),
                 ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
 
             response = new RetrieveDocumentSetResponseType();
             response.setRegistryResponse(error);
+            throw new ErrorEventException(e, response, "Unable to call Nhin Doc Retrieve");
         } catch (final Exception e) {
-            LOG.error("Failed to call the web service ({}).  An unexpected exception occurred: {}", sServiceName,
-                e.getLocalizedMessage(), e);
-
             response = MessageGenerator.getInstance()
-                .createRegistryResponseError("Adapter Document Retrieve Processing");
+                .createRegistryResponseError("Nhin Document Retrieve Processing");
+            throw new ErrorEventException(e, response, "Unable to call Nhin Doc Retrieve");
         }
 
         return response;

@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.adaptercomponentxdr.AdapterComponentXDRPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.service.AdapterComponentDocSubmissionServicePortDescriptor;
+import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -37,6 +38,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import javax.xml.ws.WebServiceException;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,9 +70,9 @@ public class AdapterComponentDocSubmissionProxyWebServiceUnsecuredImpl implement
             if (NullChecker.isNotNullish(url)) {
 
                 if (msg == null) {
-                    LOG.error("Message was null");
+                    throw new IllegalArgumentException("Request Message must be provided");
                 } else if (assertion == null) {
-                    LOG.error("assertion was null");
+                    throw new IllegalArgumentException("Assertion must be provided");
                 } else {
                     AdapterProvideAndRegisterDocumentSetRequestType request = new AdapterProvideAndRegisterDocumentSetRequestType();
                     request.setProvideAndRegisterDocumentSetRequest(msg);
@@ -85,13 +87,13 @@ public class AdapterComponentDocSubmissionProxyWebServiceUnsecuredImpl implement
                         "provideAndRegisterDocumentSetb", request);
                 }
             } else {
-                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_COMPONENT_XDR_SERVICE_NAME
-                    + ").  The URL is null.");
+
+                throw new WebServiceException("Could not determine URL for Doc Submission Adapter Component endpoint");
             }
         } catch (Exception ex) {
-            LOG.error("Error sending Adapter Component Doc Submission Unsecured message: " + ex.getMessage(), ex);
             response = new RegistryResponseType();
             response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            throw new ErrorEventException(ex, response, "Unable to call Doc Submission Adapter Component");
         }
         LOG.debug("End provideAndRegisterDocumentSetB");
         return response;

@@ -26,6 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin.proxy;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -40,14 +48,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import java.lang.reflect.Method;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * @author achidamb
@@ -98,7 +99,10 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
     public void testGuidanceg0() throws Exception {
         NhinDocRetrieveProxyWebServiceSecuredImpl impl = getImpl();
         NhinTargetSystemType target = getTarget("1.1", "3.0");
+        when(cache.getEndpointURL(anyString(), anyString(), any(UDDI_SPEC_VERSION.class), anyString()))
+        .thenReturn("endpoint");
         impl.respondingGatewayCrossGatewayRetrieve(request, assertion, target, GATEWAY_API_LEVEL.LEVEL_g0);
+
         verify(cache).getEndpointURL(anyString(), anyString(), any(UDDI_SPEC_VERSION.class), anyString());
     }
 
@@ -106,6 +110,8 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
     public void testGuidanceg1() throws Exception {
         NhinDocRetrieveProxyWebServiceSecuredImpl impl = getImpl();
         NhinTargetSystemType target = getTarget("1.1", "3.0");
+        when(cache.getEndpointURL(anyString(), anyString(), any(UDDI_SPEC_VERSION.class), anyString()))
+        .thenReturn("endpoint");
         impl.respondingGatewayCrossGatewayRetrieve(request, assertion, target, GATEWAY_API_LEVEL.LEVEL_g1);
         verify(cache).getEndpointURL(anyString(), anyString(), any(UDDI_SPEC_VERSION.class), anyString());
     }

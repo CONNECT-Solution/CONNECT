@@ -37,12 +37,17 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class CONNECTCXFClientFactory extends CONNECTClientFactory {
 
+    private static final String ERROR = "Could not resolve URL for CONNECT Webservice Client";
     /**
      * Returns a CONNECTClient configured for secured invocation.
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
         AssertionType assertion) {
+
+        if (StringUtils.isEmpty(url)) {
+            throw new WebServiceException(ERROR);
+        }
 
         return new CONNECTCXFClientSecured<>(portDescriptor, url, assertion);
     }
@@ -56,7 +61,7 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
         AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
 
         if (StringUtils.isEmpty(url)) {
-            throw new WebServiceException("URL for a CONNECT Client must be provided. Got '" + url + "'");
+            throw new WebServiceException(ERROR);
         }
 
         return new CONNECTCXFClientSecured<>(portDescriptor, assertion, url, targetHomeCommunityId, serviceName);
@@ -70,7 +75,7 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
         AssertionType assertion) {
 
         if (StringUtils.isEmpty(url)) {
-            throw new WebServiceException("URL for a CONNECT Client must be provided. Got '" + url + "'");
+            throw new WebServiceException(ERROR);
         }
 
         return new CONNECTCXFClientUnsecured<>(portDescriptor, url, assertion);
