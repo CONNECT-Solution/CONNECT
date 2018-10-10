@@ -28,7 +28,9 @@ package gov.hhs.fha.nhinc.nhinclib;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -196,6 +198,14 @@ public class NhincConstants {
                 }
             }
             return enumServiceNames;
+        }
+
+        public static Map<String, String> getDropdownEventLoggingService() {
+            Map<String, String> map = new HashMap<>();
+            for (EVENT_LOGGING_SERVICE_NAME m : values()) {
+                map.put(m.toString(), m.getAbbServiceName());
+            }
+            return map;
         }
     }
 

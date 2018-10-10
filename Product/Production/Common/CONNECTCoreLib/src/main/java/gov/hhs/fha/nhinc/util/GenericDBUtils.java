@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.util;
 
+import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
+import gov.hhs.fha.nhinc.event.model.EventDTO;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
@@ -36,6 +38,8 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Restrictions;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -205,5 +209,35 @@ public class GenericDBUtils {
 
     public static LogicalExpression getOrIsNullIsGe(String colName, Object colValue) {
         return Restrictions.or(Restrictions.isNull(colName), Restrictions.ge(colName, colValue));
+    }
+
+    public static EventDTO getEventDTO(DatabaseEvent event) {
+        return getEventDTO(event, false);
+    }
+
+    public static EventDTO getEventDTO(DatabaseEvent event, boolean omitDescription) {
+        EventDTO dto = new EventDTO();
+        if (null != event) {
+            dto.setId(event.getId());
+            if (!omitDescription) {
+                dto.setDescription(event.getDescription());
+            }
+            dto.setMessageID(event.getMessageID());
+            dto.setTransactionID(event.getTransactionID());
+            dto.setServiceType(event.getServiceType());
+            dto.setInitiatorHcid(event.getInitiatorHcid());
+            dto.setRespondingHcid(event.getRespondingHcid());
+            dto.setEventName(event.getEventName());
+            dto.setEventTime(event.getEventTime());
+
+            try {
+                JSONObject json = new JSONObject(event.getDescription());
+                dto.setExceptionType(json.getString("exceptionClass"));
+                dto.setVersion(json.getString("action"));
+            } catch (JSONException ex) {
+                LOG.error("error converting json-object: {}", ex.getMessage(), ex);
+            }
+        }
+        return dto;
     }
 }
