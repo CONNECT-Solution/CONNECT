@@ -100,11 +100,7 @@ public class CoreHelpUtils {
         return null != xmlDate ? xmlDate.toGregorianCalendar().getTime() : null;
     }
 
-    public static boolean isId(Long id) {
-        return null != id && id.longValue() > 0;
-    }
-
-    public static List<String> sort(List<String> list) {
+    public static List<String> returnSort(List<String> list) {
         Collections.sort(list);
         return list;
     }
