@@ -66,7 +66,7 @@
                                             <div class="table-responsive table-props">
                                                 <p:dataTable id="gatewayProps" value="#{propertyBean.gatewayProperties}" editable="true" editMode="cell" scrollable="true" scrollHeight="500" sortMode="Single" resizableColumns="false" var="prop" widgetVar="cellProps" styleClass="table table-striped table-domains">
                                                     <p:ajax event="cellEdit" listener="#{propertyBean.onGatewayValueEdit}" update=":propsTabview:gatewayPropForm:gatewayProps" />
-                                                    <p:column headerText="Key" sortBy="key">
+                                                    <p:column headerText="Key" sortBy="#{prop.key}">
                                                         <h:outputText value="#{prop.key}" />
                                                     </p:column>
                                                     <p:column headerText="Description">
@@ -106,7 +106,7 @@
                                             <div class="table-responsive table-props">
                                                 <p:dataTable id="adapterProps" value="#{propertyBean.adapterProperties}" editable="true" scrollable="true" scrollHeight="500" sortMode="Single" editMode="cell" resizableColumns="false" var="prop" widgetVar="aCellProps" styleClass="table table-striped table-domains">
                                                     <p:ajax event="cellEdit" listener="#{propertyBean.onAdapterValueEdit}" update=":propsTabview:adapterPropForm:adapterProps" />
-                                                    <p:column headerText="Key" sortBy="key">
+                                                    <p:column headerText="Key" sortBy="#{prop.key}">
                                                         <h:outputText value="#{prop.key}" />
                                                     </p:column>
                                                     <p:column headerText="Description">
@@ -148,7 +148,7 @@
                                             <div class="table-responsive table-props">
                                                 <p:dataTable id="auditProps" value="#{propertyBean.auditProperties}" editable="true" scrollable="true" scrollHeight="500" sortMode="Single" editMode="cell" resizableColumns="false" var="prop" widgetVar="auditCellProps" styleClass="table table-striped table-domains">
                                                     <p:ajax event="cellEdit" listener="#{propertyBean.onAuditValueEdit}" update=":propsTabview:auditPropForm:auditProps" />
-                                                    <p:column headerText="Key" sortBy="key">
+                                                    <p:column headerText="Key" sortBy="#{prop.key}">
                                                         <h:outputText value="#{prop.key}" />
                                                     </p:column>
                                                     <p:column headerText="Description">
@@ -189,7 +189,7 @@
                                             <div class="table-responsive table-props">
                                                 <p:dataTable id="internalEndpointsProps" value="#{propertyBean.internalEndpointsProperties}" editable="true" scrollable="true" scrollHeight="500" sortMode="Single" editMode="cell" resizableColumns="false" var="prop" widgetVar="internalEndpointsCellProps" styleClass="table table-striped table-domains">
                                                     <p:ajax event="cellEdit" listener="#{propertyBean.onInternalEndpointsValueEdit}" update=":propsTabview:internalEndpointsPropForm:internalEndpointsProps" />
-                                                    <p:column headerText="Name" sortBy="name">
+                                                    <p:column headerText="Name" sortBy="#{prop.name}">
                                                         <h:outputText value="#{prop.name}" />
                                                     </p:column>
                                                     <p:column headerText="Version">
