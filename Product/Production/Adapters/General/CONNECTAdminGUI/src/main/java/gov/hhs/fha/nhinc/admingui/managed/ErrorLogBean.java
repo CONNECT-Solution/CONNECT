@@ -62,6 +62,7 @@ public class ErrorLogBean {
     private String selectedException;
     private Date fromDate;
     private Date toDate;
+    private String msgEventResult;
 
     private ErrorLogService service = new ErrorLogServiceImpl();
 
@@ -121,6 +122,7 @@ public class ErrorLogBean {
 
     public void search() {
         eventsList = service.search(selectedService, selectedException, fromDate, toDate);
+        msgEventResult = CollectionUtils.isNotEmpty(eventsList) ? "Event record(s) found." : "No event record found.";
     }
 
     public List<LogEventType> getEvents() {
@@ -194,11 +196,16 @@ public class ErrorLogBean {
         selectedException = null;
         fromDate = null;
         toDate = null;
+        msgEventResult = null;
         return NavigationConstant.LOGGING_PAGE;
     }
 
     public boolean getDisabledViewBtn() {
         return null == selectedEvent;
+    }
+
+    public String getMsgEventResult() {
+        return msgEventResult;
     }
 
 }
