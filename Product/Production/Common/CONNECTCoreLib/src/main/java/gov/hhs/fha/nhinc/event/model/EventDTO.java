@@ -26,18 +26,21 @@
  */
 package gov.hhs.fha.nhinc.event.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author ttang
  *
  */
 public class EventDTO extends DatabaseEvent {
+    private static final Logger LOG = LoggerFactory.getLogger(EventDTO.class);
+    public static final boolean OMIT_DESCRIPTION = true;
 
     private String exceptionType;
     private String version;
-
-
-    public EventDTO() {
-    }
 
     public String getExceptionType() {
         return exceptionType;
@@ -55,4 +58,33 @@ public class EventDTO extends DatabaseEvent {
         this.version = version;
     }
 
+    public static EventDTO convertFrom(DatabaseEvent event) {
+        return convertFrom(event, !OMIT_DESCRIPTION);
+    }
+
+    public static EventDTO convertFrom(DatabaseEvent event, boolean omitDescription) {
+        EventDTO dto = new EventDTO();
+        if (null != event) {
+            dto.setId(event.getId());
+            if (!omitDescription) {
+                dto.setDescription(event.getDescription());
+            }
+            dto.setMessageID(event.getMessageID());
+            dto.setTransactionID(event.getTransactionID());
+            dto.setServiceType(event.getServiceType());
+            dto.setInitiatorHcid(event.getInitiatorHcid());
+            dto.setRespondingHcid(event.getRespondingHcid());
+            dto.setEventName(event.getEventName());
+            dto.setEventTime(event.getEventTime());
+
+            try {
+                JSONObject json = new JSONObject(event.getDescription());
+                dto.setExceptionType(json.getString("exceptionClass"));
+                dto.setVersion(json.getString("action"));
+            } catch (JSONException ex) {
+                LOG.error("error converting json-object: {}", ex.getMessage(), ex);
+            }
+        }
+        return dto;
+    }
 }

@@ -26,9 +26,9 @@
  */
 package gov.hhs.fha.nhinc.event.dao;
 
+import static gov.hhs.fha.nhinc.event.model.EventDTO.OMIT_DESCRIPTION;
 import static gov.hhs.fha.nhinc.util.GenericDBUtils.closeSession;
 import static gov.hhs.fha.nhinc.util.GenericDBUtils.findAllBy;
-import static gov.hhs.fha.nhinc.util.GenericDBUtils.getEventDTO;
 import static gov.hhs.fha.nhinc.util.GenericDBUtils.readBy;
 import static gov.hhs.fha.nhinc.util.GenericDBUtils.save;
 
@@ -129,7 +129,7 @@ public class DatabaseEventLoggerDao {
     }
 
     public EventDTO getEventById(Long id) {
-        return getEventDTO(readBy(getSession(), DatabaseEvent.class, id));
+        return EventDTO.convertFrom(readBy(getSession(), DatabaseEvent.class, id));
     }
 
 
@@ -166,7 +166,7 @@ public class DatabaseEventLoggerDao {
         LinkedList<EventDTO> list = new LinkedList<>();
 
         for (DatabaseEvent event : events) {
-            EventDTO dto = getEventDTO(event, true);
+            EventDTO dto = EventDTO.convertFrom(event, OMIT_DESCRIPTION);
             if (StringUtils.isNotBlank(exceptionType)) {
                 if (exceptionType.equals(dto.getExceptionType())) {
                     list.add(dto); // filter-list
