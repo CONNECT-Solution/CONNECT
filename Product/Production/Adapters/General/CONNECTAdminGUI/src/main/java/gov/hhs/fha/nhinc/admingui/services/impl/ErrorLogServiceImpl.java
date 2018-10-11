@@ -34,6 +34,7 @@ import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_DASHBOARD_ERRORLOG
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_DASHBOARD_ERRORLOG_VIEW;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_GUI_MANAGEMENT_SERVICE_NAME;
 import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getXMLGregorianCalendarFrom;
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.returnSort;
 
 import gov.hhs.fha.nhinc.admingui.services.ErrorLogService;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
@@ -55,6 +56,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,8 +105,8 @@ public class ErrorLogServiceImpl implements ErrorLogService {
                 ADMIN_DASHBOARD_ERRORLOG_GETFILTERS, request);
             logDebug(ADMIN_DASHBOARD_ERRORLOG_GETFILTERS, response.getExceptionList().size(),
                 response.getServiceList().size());
-            retObj.put(KEY_EXCEPTIONS, response.getExceptionList());
-            retObj.put(KEY_SERVICES, response.getServiceList());
+            retObj.put(KEY_EXCEPTIONS, returnSort(response.getExceptionList()));
+            retObj.put(KEY_SERVICES, returnSort(response.getServiceList()));
         } catch (Exception ex) {
             LOG.error("Error while getting service-filters: {}", ex.getMessage(), ex);
             HelperUtil.addMessageError(null, SERVICE_ERROR);
@@ -122,6 +124,7 @@ public class ErrorLogServiceImpl implements ErrorLogService {
             LogEventSimpleResponseMessageType response = (LogEventSimpleResponseMessageType) invokeClientPort(
                 ADMIN_DASHBOARD_ERRORLOG_VIEW, request);
             logDebug(ADMIN_DASHBOARD_ERRORLOG_VIEW, response.getEventLogList().size());
+            addErrorMsgFrom(response);
             return response.getEventLogList().get(0);
         } catch (Exception ex) {
             LOG.error("Error while calling service view-errorlog: {}", ex.getMessage(), ex);
@@ -150,4 +153,9 @@ public class ErrorLogServiceImpl implements ErrorLogService {
         }
     }
 
+    private static void addErrorMsgFrom(LogEventSimpleResponseMessageType response) {
+        if (BooleanUtils.isFalse(response.isStatus()) && StringUtils.isNotBlank(response.getMessage())) {
+            HelperUtil.addMessageError(null, response.getMessage());
+        }
+    }
 }

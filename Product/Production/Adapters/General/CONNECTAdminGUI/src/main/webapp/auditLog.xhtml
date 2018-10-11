@@ -322,6 +322,8 @@
 
                                     <!-- BEGIN: SEARCH RESULTS -->
                                     <br />
+                                    <p:outputLabel value="#{errorLogBean.msgEventResult}"
+                                        styleClass="uc-search-result-title" style="margin-top:20px;margin-bottom:10px;" />
                                     <p:outputPanel rendered="#{errorLogBean.eventsNotEmpty}">
                                         <h:form class="form-inline" role="form" id="formViewError">
                                             <p:dataTable id="errorResult" var="rec" value="#{errorLogBean.events}"
@@ -336,7 +338,7 @@
                                                 <p:column headerText="Date">#{rec.eventTime}</p:column>
                                                 <p:column headerText="Service">#{rec.serviceType}</p:column>
                                                 <p:column headerText="Version">#{rec.version}</p:column>
-                                                <p:column headertext="Exception">#{rec.exceptionType}</p:column>
+                                                <p:column headerText="Exception">#{rec.exceptionType}</p:column>
                                             </p:dataTable>
 
                                             <div class="row">

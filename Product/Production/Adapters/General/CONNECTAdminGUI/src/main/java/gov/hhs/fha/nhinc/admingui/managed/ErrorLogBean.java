@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.admingui.services.ErrorLogService;
 import gov.hhs.fha.nhinc.admingui.services.impl.ErrorLogServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.common.adminguimanagement.LogEventType;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -62,6 +63,7 @@ public class ErrorLogBean {
     private String selectedException;
     private Date fromDate;
     private Date toDate;
+    private String msgEventResult;
 
     private ErrorLogService service = new ErrorLogServiceImpl();
 
@@ -120,7 +122,9 @@ public class ErrorLogBean {
     }
 
     public void search() {
+        selectedEvent = null;
         eventsList = service.search(selectedService, selectedException, fromDate, toDate);
+        msgEventResult = MessageFormat.format("{0} event record found.", getEvents().size());
     }
 
     public List<LogEventType> getEvents() {
@@ -194,11 +198,16 @@ public class ErrorLogBean {
         selectedException = null;
         fromDate = null;
         toDate = null;
+        msgEventResult = null;
         return NavigationConstant.LOGGING_PAGE;
     }
 
     public boolean getDisabledViewBtn() {
         return null == selectedEvent;
+    }
+
+    public String getMsgEventResult() {
+        return msgEventResult;
     }
 
 }
