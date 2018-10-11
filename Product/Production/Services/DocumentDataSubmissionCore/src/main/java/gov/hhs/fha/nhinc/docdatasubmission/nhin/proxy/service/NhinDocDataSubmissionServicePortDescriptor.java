@@ -30,7 +30,7 @@ public class NhinDocDataSubmissionServicePortDescriptor extends AbstractServiceP
 
     @Override
     public String getWSAddressingAction() {
-        return "urn:ihe:iti:xds:2007:RegisterDocumentSet-b";
+        return "urn:ihe:iti:2007:RegisterDocumentSet-b";
     }
 
 }

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -37,9 +37,9 @@ public class DocRepoConstants {
     public static final String XDS_STATUS_OFFLINE = "Offline";
     public static final String XDS_NAME = "Name";
     public static final String XDS_CLASSIFIED_OBJECT = "classifiedObject"; // this is the reference to the
-                                                                           // extrinsicObject/document element
+    // extrinsicObject/document element
     public static final String XDS_NODE_REPRESENTATION = "nodeRepresentation"; // this the actual code in a
-                                                                               // classification element
+    // classification element
     public static final String XDS_CLASSIFICATION_ID = "id"; // this is the id of the classification element
     public static final String XDS_DOCUMENT_UNIQUE_ID = "XDSDocumentEntry.uniqueId";
     public static final String XDS_PATIENT_ID = "XDSDocumentEntry.patientId";
@@ -72,7 +72,7 @@ public class DocRepoConstants {
     public static final String XDS_CODE_LIST_CLASSIFICATION = "urn:uuid:1ba97051-7806-41a8-a48b-8fce7af683c5";
     public static final String XDS_TYPE_CODE_CLASSIFICATION = "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
     public static final String XDS_ERROR_CODE_MISSING_REQUEST_MESSAGE_DATA = "MISSING_DATA";
-    public static final String XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA = "MISSING_METADATA";
+    public static final String XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA = "XDSRegistryMetadataError";
     public static final String XDS_ERROR_CODE_REPOSITORY_ERROR = "REPOSITORY_ERROR";
     public static final String XDS_MISSING_REQUEST_MESSAGE_DATA = "The ProvideAndRegisterDocumentSetRequest message did not contain any data to operate on. No documents will be stored.";
     public static final String XDS_MISSING_DOCUMENT_METADATA = "A document exists in the submission with no corresponding document metadata. Document will not be stored.";
