@@ -109,7 +109,7 @@ public class PatientSearchBean {
     private static final String PURPOSEOF_PROPERTIES_FILENAME = "PurposeOfUseOptions";
     private Properties purposeOfProps;
     private String selectedPurposeOf;
-    
+
     private UserLogin user;
 
     /**
@@ -128,12 +128,12 @@ public class PatientSearchBean {
         // populate document types
         documentTypeList = populateDocumentTypes();
     }
-    
+
     @PostConstruct
     public void buildUserRoleList() {
         try {
-            getPropAccessor().setPropertyFile(PURPOSEOF_PROPERTIES_FILENAME);    
-            purposeOfProps = getPropAccessor().getProperties(PURPOSEOF_PROPERTIES_FILENAME);           
+            getPropAccessor().setPropertyFile(PURPOSEOF_PROPERTIES_FILENAME);
+            purposeOfProps = getPropAccessor().getProperties(PURPOSEOF_PROPERTIES_FILENAME);
         } catch (PropertyAccessException ex) {
             LOG.warn("Unable to access properties for purposeOfUse list.", ex.getLocalizedMessage(), ex);
         }
@@ -141,13 +141,13 @@ public class PatientSearchBean {
 
     /**
      * Action method called when user clicks the Patient Search
-     *
+     * <p>
      */
     public void searchPatient() {
         // start with a clean slate
         clearDocumentQueryTab();
         user = getCurrentUser();
-        
+
         if (validateUser(user)) {
             // Call the NwHIN PD to get the documents
             patientFound = GatewayService.getInstance().discoverPatient(this);
@@ -160,7 +160,7 @@ public class PatientSearchBean {
 
     /**
      * Action method called when user clicks the Document Query Search
-     *
+     * <p>
      */
     public void searchPatientDocument() {
         // Call the NwHIN QD to get the documents
@@ -171,7 +171,7 @@ public class PatientSearchBean {
 
     /**
      * Action method called when user clicks the Document View.
-     *
+     * <p>
      */
     public void retrieveDocument() {
         // check to make sure if the Document Retrieve is already done
@@ -239,7 +239,7 @@ public class PatientSearchBean {
         setSelectedDocument(0);
         return NavigationConstant.PATIENT_SEARCH_PAGE;
     }
-    
+
     public List<String> getPurposeOfList() {
         return new ArrayList(purposeOfProps.keySet());
     }
@@ -475,7 +475,7 @@ public class PatientSearchBean {
     public void setSelectedPurposeOf(String selectedPurposeOf) {
         this.selectedPurposeOf = selectedPurposeOf;
     }
-    
+
     public String getPurposeOfDescription() {
         return purposeOfProps.getProperty(selectedPurposeOf);
     }
@@ -483,7 +483,7 @@ public class PatientSearchBean {
     /**
      * Populate the Organization lookup data list from the UDDI. This logic needs to be moved to a Utility or to the
      * application bean.
-     *
+     * <p>
      */
     private Map<String, String> populateOrganizationFromConnectManagerCache() {
         return new ConnectionHelper().getOrgNameAndRemoteHcidMap();
@@ -492,7 +492,7 @@ public class PatientSearchBean {
     /**
      * Populate the Document Types List from the property file documentType.properties file. This logic needs to be
      * moved to a Utility or to the application bean.
-     *
+     * <p>
      */
     private List<SelectItem> populateDocumentTypes() {
         List<SelectItem> localDocumentTypeList = new ArrayList<>();
@@ -541,7 +541,7 @@ public class PatientSearchBean {
     public void setSelectedPatient(int selectedPatient) {
         this.selectedPatient = selectedPatient;
     }
-    
+
     public UserLogin getUser() {
         return user;
     }
@@ -608,9 +608,9 @@ public class PatientSearchBean {
     public boolean isRenderDocumentText() {
         return getSelectedCurrentDocument().getContentType() != null
             && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
-                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
-                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
-                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
+            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
     }
 
     /**
@@ -697,24 +697,24 @@ public class PatientSearchBean {
 
     private static boolean validateUser(UserLogin user) {
         return user != null && validateUserNames(user.getFirstName(), user.getMiddleName(), user.getLastName())
-                && validateUserRole(user.getTransactionRole(), user.getTransactionRoleDesc());
+            && validateUserRole(user.getTransactionRole(), user.getTransactionRoleDesc());
     }
-    
+
     private static boolean validateUserNames(String first, String middle, String last) {
         return NullChecker.isNotNullish(first) && NullChecker.isNotNullish(middle) && NullChecker.isNotNullish(last);
     }
-    
+
     private static boolean validateUserRole(String role, String description) {
         return NullChecker.isNotNullish(role) && NullChecker.isNotNullish(description);
     }
 
     private static void createErrorMessage(UserLogin user) {
         String userName = "";
-        if(user != null) {
+        if (user != null) {
             userName = user.getUserName() + " ";
         }
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-                "Error:  " + userName + "does not have valid assertion data.", "Login as a valid user."));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+            "Error:  " + userName + " does not have valid assertion data.", "Login as a valid user."));
     }
 
     protected PropertyAccessor getPropAccessor() {
