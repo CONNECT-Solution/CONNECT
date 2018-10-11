@@ -38,7 +38,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import ihe.iti.xds._2007.DocumentRegistryXDSPortType;
+import ihe.iti._2007.DocumentRegistryXDSPortType;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;

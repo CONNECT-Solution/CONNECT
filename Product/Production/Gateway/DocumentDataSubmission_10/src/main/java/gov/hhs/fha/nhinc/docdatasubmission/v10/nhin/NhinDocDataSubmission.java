@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docdatasubmission.v10.nhin;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docdatasubmission.inbound.InboundDocDataSubmission;
-import ihe.iti.xds._2007.DocumentRegistryXDSPortType;
+import ihe.iti._2007.DocumentRegistryXDSPortType;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
