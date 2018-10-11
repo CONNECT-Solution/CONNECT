@@ -56,6 +56,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -153,14 +154,8 @@ public class ErrorLogServiceImpl implements ErrorLogService {
     }
 
     private static void addErrorMsgFrom(LogEventSimpleResponseMessageType response) {
-        if (hasError(response)) {
+        if (BooleanUtils.isFalse(response.isStatus()) && StringUtils.isNotBlank(response.getMessage())) {
             HelperUtil.addMessageError(null, response.getMessage());
         }
     }
-
-    private static boolean hasError(LogEventSimpleResponseMessageType response) {
-        return null != response && null != response.isStatus() && !response.isStatus()
-            && StringUtils.isNotBlank(response.getMessage());
-    }
-
 }

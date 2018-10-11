@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.admingui.services.ErrorLogService;
 import gov.hhs.fha.nhinc.admingui.services.impl.ErrorLogServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.common.adminguimanagement.LogEventType;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -121,8 +122,9 @@ public class ErrorLogBean {
     }
 
     public void search() {
+        selectedEvent = null;
         eventsList = service.search(selectedService, selectedException, fromDate, toDate);
-        msgEventResult = CollectionUtils.isNotEmpty(eventsList) ? "Event record(s) found." : "No event record found.";
+        msgEventResult = MessageFormat.format("{0} event record found.", getEvents().size());
     }
 
     public List<LogEventType> getEvents() {
