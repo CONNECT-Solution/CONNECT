@@ -53,6 +53,9 @@ public class AdapterComponentDocRepositoryHelper {
     RegistryError setRegistryError(String codeContext, String location, String errorCode, String value) {
         RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
         error.setCodeContext("Message handler did not " + codeContext);
+        if (StringUtils.isNotBlank(location)) {
+            error.setLocation(location);
+        }
         error.setErrorCode(errorCode);
         error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         error.setValue(value);
@@ -240,7 +243,7 @@ public class AdapterComponentDocRepositoryHelper {
 
         for (SlotType1 slot : documentSlots) {
             if (slot != null && slot.getName().equals(DocRepoConstants.XDS_SOURCE_PATIENT_INFO_SLOT)
-                && slot.getValueList().getValue() != null) {
+                && slot.getValueList() != null && slot.getValueList().getValue() != null) {
 
                 Iterator<String> iter = slot.getValueList().getValue().iterator();
                 while (iter.hasNext()) {
