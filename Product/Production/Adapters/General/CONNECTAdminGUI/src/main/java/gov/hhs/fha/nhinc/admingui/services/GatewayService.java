@@ -102,7 +102,7 @@ public class GatewayService {
         patientService = new PatientServiceImpl();
         correlationService = new PatientCorrelationServiceImpl();
         documentQueryService = new DocumentQueryServiceImpl(new FindDocumentsAdhocQueryRequestBuilder(),
-                new DocumentMetadataResultsModelBuilderImpl());
+            new DocumentMetadataResultsModelBuilderImpl());
         documentRetrieveService = new DocumentRetrieveServiceImpl();
         assertionBuilder = new AssertionBuilderImpl();
         assertionBuilder.build();
@@ -127,9 +127,10 @@ public class GatewayService {
      */
     public boolean discoverPatient(final PatientSearchBean patientQuerySearch) {
 
-        assertion = addUserInfoAndPurposeOf(assertion, patientQuerySearch.getUser(), patientQuerySearch.getSelectedPurposeOf(),
-                patientQuerySearch.getPurposeOfDescription());
-        
+        assertion = addUserInfoAndPurposeOf(assertion, patientQuerySearch.getUser(), patientQuerySearch.
+            getSelectedPurposeOf(),
+            patientQuerySearch.getPurposeOfDescription());
+
         // Create the patient bean that needs to be passed to the service layer
         final gov.hhs.fha.nhinc.patientdiscovery.model.Patient patientBean
             = new gov.hhs.fha.nhinc.patientdiscovery.model.Patient();
@@ -155,7 +156,7 @@ public class GatewayService {
             if (patientDiscoveryResults.getPatientList().isEmpty()) {
                 return false;
             }
-            
+
             localCorrelation = correlationService.retrieveOrGenerateCorrelation(patientDiscoveryResults, assertion);
             // populate the UI patient object with the results data
             populatePatientBean(patientDiscoveryResults, patientQuerySearch);
@@ -192,7 +193,8 @@ public class GatewayService {
         document.setPatientIdRoot(patientQuerySearch.getSelectedCurrentPatient().getAssigningAuthorityId());
 
         try {
-            final DocumentMetadataResults documentQueryResults = documentQueryService.queryForDocuments(document, localCorrelation, assertion);
+            final DocumentMetadataResults documentQueryResults = documentQueryService.queryForDocuments(document,
+                localCorrelation, assertion);
 
             // Check the number of documents
             if (documentQueryResults.getResults().isEmpty()) {
@@ -248,7 +250,7 @@ public class GatewayService {
         }
         return false;
     }
-    
+
     public void clearLocalCorrelation() {
         localCorrelation = null;
     }
@@ -292,8 +294,8 @@ public class GatewayService {
             // multiple patients received from the PD service in the future
             break;
         }
-        
-        if(NullChecker.isNotNullish(patientQuerySearch.getPatientList())) {
+
+        if (NullChecker.isNotNullish(patientQuerySearch.getPatientList())) {
             patientQuerySearch.getPatientList().get(0).setCorrelation(localCorrelation.getExtension());
         }
     }
@@ -359,23 +361,24 @@ public class GatewayService {
         }
         return null;
     }
-    
+
     private static AssertionType addUserInfoAndPurposeOf(AssertionType assertion, UserLogin user, String purposeOfRole,
-            String purposeOfDesc) {
+        String purposeOfDesc) {
         PersonNameType personName = new PersonNameType();
         personName.setGivenName(user.getFirstName());
         personName.setFamilyName(user.getLastName());
         personName.setSecondNameOrInitials(user.getMiddleName());
-        assertion.getUserInfo().setPersonName(personName); 
-        
+        assertion.getUserInfo().setUserName(user.getUserName());
+        assertion.getUserInfo().setPersonName(personName);
+
         CeType userRole = assertion.getUserInfo().getRoleCoded();
         userRole.setCode(user.getTransactionRole());
         userRole.setDisplayName(user.getTransactionRoleDesc());
-        
+
         CeType purposeOfType = assertion.getPurposeOfDisclosureCoded();
         purposeOfType.setCode(purposeOfRole);
         purposeOfType.setDisplayName(purposeOfDesc);
-        
+
         return assertion;
     }
 }
