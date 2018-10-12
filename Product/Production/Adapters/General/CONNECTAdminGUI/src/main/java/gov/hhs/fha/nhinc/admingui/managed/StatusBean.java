@@ -45,7 +45,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -54,7 +53,6 @@ import org.primefaces.model.chart.HorizontalBarChartModel;
 import org.primefaces.model.chart.PieChartModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
 
 /**
  *
@@ -168,16 +166,16 @@ public class StatusBean {
 
     private void refreshPieChart() {
         if (snapshot.getEvents().isEmpty()) {
-            List<String> serviceNames = NhincConstants.EVENT_LOGGING_SERVICE_NAME.getEventLoggingServiceForDisplay();
-            for (String serviceName : serviceNames) {
-                eventPieChart.getData().put(serviceName, 0);
-            }
             eventPieChart.setTitle(NO_DATA_FOUND);
-        } else {
-            for (EventCount event : snapshot.getEvents().values()) {
-                eventPieChart.getData().put(event.getEvent(), event.getTotal());
-            }
         }
+        List<String> serviceNames = NhincConstants.EVENT_LOGGING_SERVICE_NAME.getEventLoggingServiceForDisplay();
+        int count;
+        for (String serviceName : serviceNames) {
+            count = (snapshot.getEvents().get(serviceName) == null || snapshot.getEvents().get(serviceName).getTotal()
+                == null) ? 0 : snapshot.getEvents().get(serviceName).getTotal().intValue();
+            eventPieChart.getData().put(serviceName, count);
+        }
+
         eventPieChart.setFill(false);
         eventPieChart.setSeriesColors("10253F, CC0000, 33D6FF, FFCC00, 98FB98, FFA500, 00CCFF");
         eventPieChart.setShowDataLabels(true);
@@ -198,6 +196,7 @@ public class StatusBean {
         eventBarChart.setSeriesColors("10253F, CC0000");
         eventBarChart.setStacked(true);
         eventBarChart.setLegendPosition("se");
+        eventBarChart.setBarWidth(30);
         if (inboundEventCounts.isEmpty() && outboundEventCounts.isEmpty()) {
             eventBarChart.setTitle(NO_DATA_FOUND);
         }
@@ -206,15 +205,12 @@ public class StatusBean {
     private static ChartSeries createChart(String label, Map<String, Long> eventCounts) {
         ChartSeries series = new ChartSeries();
         series.setLabel(label);
-        if (CollectionUtils.isEmpty(eventCounts)) {
-            List<String> serviceNames = NhincConstants.EVENT_LOGGING_SERVICE_NAME.getEventLoggingServiceForDisplay();
-            for (String serviceName : serviceNames) {
-                series.set(serviceName, 0);
-            }
-        } else {
-            for (Entry<String, Long> serviceEntry : eventCounts.entrySet()) {
-                series.set(serviceEntry.getKey(), serviceEntry.getValue());
-            }
+
+        List<String> serviceNames = NhincConstants.EVENT_LOGGING_SERVICE_NAME.getEventLoggingServiceForDisplay();
+        int count = 0;
+        for (String serviceName : serviceNames) {
+            count = eventCounts.get(serviceName) == null ? 0 : eventCounts.get(serviceName).intValue();
+            series.set(serviceName, count);
         }
         return series;
     }
