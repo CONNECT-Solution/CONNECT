@@ -85,8 +85,6 @@ public class AdapterComponentDocRepositoryOrchImpl {
     private static final String DEFAULT_REPOSITORY_UNIQUE_ID = "2.2";
     private static final String XDS_DOCUMENT_UNIQUE_ID_ERROR = "XDSDocumentUniqueIdError";
     private static final String FIND_A_REQUIRED_ELEMENT = "find a required element";
-    private static final String REGISTRY_LOCATION_ERROR = "DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> \"\r\n"
-        + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet";
     private UTCDateUtil utcDateUtil = new UTCDateUtil();
     private AdapterComponentDocRepositoryHelper docRepoHelper = null;
     private DocumentService docDAO = null;
@@ -661,7 +659,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         docService.saveDocument(doc);
         LOG.debug("doc.documentId: {}", doc.getDocumentid());
         if (doc.getDocumentid() == null || doc.getDocumentid() < 1) {
-            RegistryError error = docRepoHelper.setRegistryError("store a document.",REGISTRY_LOCATION_ERROR + " storeDocument",
+            RegistryError error = docRepoHelper.setRegistryError("store a document.", " storeDocument",
                 DocRepoConstants.XDS_ERROR_CODE_REPOSITORY_ERROR,
                 DocRepoConstants.XDS_REPOSITORY_ERROR + " DocumentUniqueId: " + documentUniqueId);
             errorList.getRegistryError().add(error);
