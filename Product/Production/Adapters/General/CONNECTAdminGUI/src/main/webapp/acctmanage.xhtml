@@ -38,7 +38,7 @@
     <head>
         <title>Admin GUI Account Management</title>
     </head>
-    
+
     <h:body>
         <ui:composition template="/resources/Templates/BaseTemplate.xhtml">
             <f:metadata>
@@ -64,7 +64,7 @@
                                         <div class="form-block center-block">
                                             <h:form class="form-horizontal" role="form" id="createUserForm">
                                                 <p:messages id="userAddMessages" autoUpdate="true" closable="true" severity="error" redisplay="false" />
-                                                
+
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <h:outputLabel for="username" class="col-sm-3 control-label" id="usernameLbl" value="New Username:" />
@@ -101,30 +101,30 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <h:outputLabel for="firstname" class="col-sm-3 control-label" id="firstnameLbl" value="First Name:" />
                                                         <div class="col-sm-9">
-                                                            <p:inputText styleClass="form-control" id="firstname" maxlength="50" value="#{manageUserBean.firstName}" />
+                                                            <p:inputText styleClass="form-control" id="firstname" maxlength="50" value="#{manageUserBean.firstName}" required="true" requiredMessage="First Name required" />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <h:outputLabel for="middlename" class="col-sm-3 control-label" id="middlenameLbl" value="Middle Name (or Initial):" />
                                                         <div class="col-sm-9">
-                                                            <p:inputText styleClass="form-control" id="middlename" maxlength="50" value="#{manageUserBean.middleName}" />
+                                                            <p:inputText styleClass="form-control" id="middlename" maxlength="50" value="#{manageUserBean.middleName}" required="true" requiredMessage="Middle Name/Initial required"/>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <h:outputLabel for="lastname" class="col-sm-3 control-label" id="lastnameLbl" value="Last Name:" />
                                                         <div class="col-sm-9">
-                                                            <p:inputText styleClass="form-control" id="lastname" maxlength="50" value="#{manageUserBean.lastName}" />
+                                                            <p:inputText styleClass="form-control" id="lastname" maxlength="50" value="#{manageUserBean.lastName}" required="true" requiredMessage="Last Name required" />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <h:outputLabel for="transactionRole" class="col-sm-3 control-label" id="labelTransactionRole" value="Transaction Role:" />      
+                                                        <h:outputLabel for="transactionRole" class="col-sm-3 control-label" id="labelTransactionRole" value="Transaction Role:" />
                                                         <div class="col-sm-9">
-                                                            <p:selectOneMenu effect="fade" id="transactionRole" value="#{manageUserBean.transactionRoleDesc}" filter="true" filterMatchMode="startsWith">
+                                                            <p:selectOneMenu effect="fade" id="transactionRole" value="#{manageUserBean.transactionRoleDesc}" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="Transaction Role required">
                                                                 <f:selectItem itemLabel="Select Role" itemValue="" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{manageUserBean.userRoleList}" />
                                                             </p:selectOneMenu>
