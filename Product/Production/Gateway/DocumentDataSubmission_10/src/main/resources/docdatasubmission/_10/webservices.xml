@@ -29,7 +29,7 @@
 
     <!-- Nhin Services -->
 
-    <jaxws:endpoint xmlns:nds="urn:ihe:iti:xds:2007" id="NhinDocDataSubmission" address="/DocumentRegistryXDS_Service"
+    <jaxws:endpoint xmlns:nds="urn:ihe:iti:2007" id="NhinDocDataSubmission" address="/DocumentRegistryXDS_Service"
         serviceName="nds:DocumentRegistryXDS_Service" endpointName="nds:DocumentRegistryXDS_Port_Soap" implementor="#nhinDDS"
         wsdlLocation="classpath:wsdl/NhinDDS.wsdl">
         <jaxws:properties>
