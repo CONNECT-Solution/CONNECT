@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
-import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Document;
 import gov.hhs.fha.nhinc.admingui.model.Patient;
 import gov.hhs.fha.nhinc.admingui.services.GatewayService;
@@ -51,10 +50,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpSession;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
@@ -146,7 +143,7 @@ public class PatientSearchBean {
     public void searchPatient() {
         // start with a clean slate
         clearDocumentQueryTab();
-        user = getCurrentUser();
+        user = HelperUtil.getUser();
 
         if (validateUser(user)) {
             // Call the NwHIN PD to get the documents
@@ -686,13 +683,6 @@ public class PatientSearchBean {
      */
     public String getDocumentInfoModalWindowHeader() {
         return getDocumentTypeName() + " for " + getSelectedCurrentPatient().getName();
-    }
-
-    private static UserLogin getCurrentUser() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = facesContext.getExternalContext();
-        HttpSession session = (HttpSession) externalContext.getSession(true);
-        return (UserLogin) session.getAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE);
     }
 
     private static boolean validateUser(UserLogin user) {
