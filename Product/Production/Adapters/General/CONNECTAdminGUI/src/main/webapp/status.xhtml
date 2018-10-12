@@ -136,8 +136,8 @@
 
 
                                     <h2 class="subsection-header">SERVICES</h2>
-                                    <h:panelGrid columns="2" styleClass="gridStatus" style="width: 1040px;">
-                                        <p:panel style="width: 500px; padding: 10px;">
+                                    <p:panelGrid columns="2" styleClass="gridStatus" layout="grid">
+                                        <p:panel style="padding: 10px;">
                                             <p>Green Available / Red Unavailable</p>
                                             <div class="table-responsive table-orgs">
                                                 <p:dataTable id="servicesTable" widgetVar="servicesTable" var="service"
@@ -153,11 +153,11 @@
                                                 </p:dataTable>
                                             </div>
                                         </p:panel>
-                                        <p:panel style="width: 800px; padding: 10px;">
+                                        <p:panel style="padding: 10px;">
                                             <p:chart type="bar" id="eventBarChart" model="#{statusBean.eventBarChart}" />
                                             <p:chart type="pie" id="eventPieChart" model="#{statusBean.eventPieChart}" />
                                         </p:panel>
-                                    </h:panelGrid>
+                                    </p:panelGrid>
                                     <p:poll interval="5" update="statusGrid eventPieChart eventBarChart" />
                                 </h:form>
                             </div>
