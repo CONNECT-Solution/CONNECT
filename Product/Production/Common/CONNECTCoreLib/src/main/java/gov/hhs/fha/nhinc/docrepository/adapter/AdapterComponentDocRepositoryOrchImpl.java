@@ -659,7 +659,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         docService.saveDocument(doc);
         LOG.debug("doc.documentId: {}", doc.getDocumentid());
         if (doc.getDocumentid() == null || doc.getDocumentid() < 1) {
-            RegistryError error = docRepoHelper.setRegistryError("store a document.", " storeDocument",
+            RegistryError error = docRepoHelper.setRegistryError("store a document.", "storeDocument",
                 DocRepoConstants.XDS_ERROR_CODE_REPOSITORY_ERROR,
                 DocRepoConstants.XDS_REPOSITORY_ERROR + " DocumentUniqueId: " + documentUniqueId);
             errorList.getRegistryError().add(error);
