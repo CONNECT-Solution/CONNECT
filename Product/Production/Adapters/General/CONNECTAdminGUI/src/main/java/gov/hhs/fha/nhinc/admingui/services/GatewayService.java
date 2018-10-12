@@ -35,8 +35,11 @@ import gov.hhs.fha.nhinc.admingui.services.impl.DocumentQueryServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.DocumentRetrieveServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.PatientCorrelationServiceImpl;
 import gov.hhs.fha.nhinc.admingui.services.impl.PatientServiceImpl;
+import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.util.XSLTransformHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.docquery.builder.impl.FindDocumentsAdhocQueryRequestBuilder;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docquery.model.DocumentMetadataResult;
@@ -76,7 +79,7 @@ public class GatewayService {
     private final DocumentQueryService documentQueryService;
     private final DocumentRetrieveService documentRetrieveService;
     private final AssertionBuilder assertionBuilder;
-    private final AssertionType assertion;
+    private AssertionType assertion;
 
     // Should be moved to a constant file later
     public static final String CONTENT_TYPE_IMAGE_PNG = org.springframework.http.MediaType.IMAGE_PNG.toString();
@@ -124,6 +127,8 @@ public class GatewayService {
      */
     public boolean discoverPatient(final PatientSearchBean patientQuerySearch) {
 
+        assertion = addUserInfoAndPurposeOf(assertion, patientQuerySearch.getUser(), patientQuerySearch.getSelectedPurposeOf(),
+                patientQuerySearch.getPurposeOfDescription());
         
         // Create the patient bean that needs to be passed to the service layer
         final gov.hhs.fha.nhinc.patientdiscovery.model.Patient patientBean
@@ -353,5 +358,24 @@ public class GatewayService {
             }
         }
         return null;
+    }
+    
+    private static AssertionType addUserInfoAndPurposeOf(AssertionType assertion, UserLogin user, String purposeOfRole,
+            String purposeOfDesc) {
+        PersonNameType personName = new PersonNameType();
+        personName.setGivenName(user.getFirstName());
+        personName.setFamilyName(user.getLastName());
+        personName.setSecondNameOrInitials(user.getMiddleName());
+        assertion.getUserInfo().setPersonName(personName); 
+        
+        CeType userRole = assertion.getUserInfo().getRoleCoded();
+        userRole.setCode(user.getTransactionRole());
+        userRole.setDisplayName(user.getTransactionRoleDesc());
+        
+        CeType purposeOfType = assertion.getPurposeOfDisclosureCoded();
+        purposeOfType.setCode(purposeOfRole);
+        purposeOfType.setDisplayName(purposeOfDesc);
+        
+        return assertion;
     }
 }
