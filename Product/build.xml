@@ -64,7 +64,6 @@
 
         <zip zipfile="${dist.artifact.dir}/${dist.zip.filename}">
             <zipfileset dir="${maven_root}/" includes="CONNECT*/${maven_version}/CONNECT*${maven_version}.ear" />
-            <zipfileset dir="${maven_root}/" includes="CONNECTAdminGUI/${maven_version}/CONNECTAdminGUI*${maven_version}.war" />
             <zipfileset file="${user.home}/.m2/repository/mysql/mysql-connector-java/5.1.10/mysql-connector-java-5.1.10.jar" />
             <zipfileset prefix="Properties" src="${maven_root}/Properties/${maven_version}/Properties-${maven_version}.jar" excludes="**/META-INF/**/*" />
             <zipfileset prefix="DBScripts" src="${maven_root}/DBScripts/${maven_version}/DBScripts-${maven_version}.jar" excludes="**/META-INF/**/*" />
@@ -77,7 +76,26 @@
             </zipfileset>
             <zipfileset prefix="target/wsdl" dir="SoapUI_Test/target/wsdl/"/>
             <zipfileset prefix="target/schemas" dir="SoapUI_Test/target/schemas/"/>
-            <zipfileset prefix="glassfish_templates" dir="./Install/GlassFish/templates" />
+            <zipfileset file="${dist.artifact.dir}/version.txt"/>
+        </zip>
+    </target>
+    <target name="distAdmin" description="Create the AdminGUI binary distribution" depends="-maven.version, -git.revision">
+        <echo message="Building AdminGUI binary distribution for maven version=${maven_version}, git version=${repository.version}."/>
+        <property name="dist.artifact.dir" value="./target" />
+        <property name="maven_root" value="${user.home}/.m2/repository/org/connectopensource" />
+        <property name="admingui.zip.filename" value="CONNECTAdminGUI-${maven_version}.zip" />
+
+        <delete file="${dist.artifact.dir}/${admingui.zip.filename}" failonerror="false" />
+        <mkdir dir="${dist.artifact.dir}" />
+
+        <manifest file="${dist.artifact.dir}/version.txt">
+            <attribute name="Maven-Release-Version" value="${maven_version}"/>
+            <attribute name="Git-Repository-Version" value="${repository.version}"/>
+        </manifest>
+
+        <zip zipfile="${dist.artifact.dir}/${admingui.zip.filename}">
+            <zipfileset dir="${maven_root}/" includes="CONNECTAdminGUI/${maven_version}/CONNECTAdminGUI*${maven_version}.war" />
+            <zipfileset prefix="DBScripts" src="${maven_root}/DBScripts/${maven_version}/DBScripts-${maven_version}.jar" excludes="**/META-INF/**/*" includes="**/adminguidb/adminguidb.sql"/>
             <zipfileset file="${dist.artifact.dir}/version.txt"/>
         </zip>
     </target>

@@ -35,12 +35,10 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>ExchangeManagementWebservices</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>InternalExchangeManagementWebservices</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
 	      <groupId>org.connectopensource</groupId>
@@ -49,7 +47,6 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>AdminGUIManagementWebservices</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <!-- Logging -->
         <dependency>
