@@ -539,7 +539,11 @@ public class MessageMonitoringAPI {
             proxy.provideAndRegisterDocumentSetB(message);
             // Log the failed QOS event
             getDirectEventLogger().log(DirectEventType.DIRECT_EDGE_NOTIFICATION_SUCCESSFUL, message);
+<<<<<<< HEAD
         } catch (final MessagingException ex) {
+=======
+        } catch (MessagingException ex) {
+>>>>>>> 3018470ef5... CONN_2297: PR Feedback
             errorMsg = ex.getLocalizedMessage();
             LOG.error(errorMsg,ex);
         }
@@ -628,7 +632,6 @@ public class MessageMonitoringAPI {
             MessageMonitoringDAOImpl.getInstance().deleteCompletedMessages(trackMessage);
         } catch (final MessageMonitoringDAOException ex) {
             LOG.debug("Error While deleting Message from MessageMonitoring Table: {}", ex);
-            return;
         }
         LOG.debug("Completed message deleted.");
     }
