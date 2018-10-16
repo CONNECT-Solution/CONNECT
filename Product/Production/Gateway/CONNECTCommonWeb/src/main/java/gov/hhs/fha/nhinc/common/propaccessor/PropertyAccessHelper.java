@@ -61,6 +61,9 @@ import org.apache.commons.lang.StringUtils;
  */
 public class PropertyAccessHelper {
 
+    private PropertyAccessHelper() {
+    }
+
     /**
      * This method returns the value of the given property that is located within the given property file. If the
      * properties have been cached and the cache is still fresh, then it will return the value from the cache. If the
@@ -301,8 +304,5 @@ public class PropertyAccessHelper {
 
         oOutput.setSuccess(true); // If we got here we were successful
         return oOutput;
-    }
-
-    private PropertyAccessHelper() {
     }
 }
