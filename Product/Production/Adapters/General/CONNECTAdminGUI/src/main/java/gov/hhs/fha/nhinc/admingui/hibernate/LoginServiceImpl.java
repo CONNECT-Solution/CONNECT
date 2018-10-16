@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -67,7 +67,6 @@ public class LoginServiceImpl implements LoginService {
      */
     private final PasswordService credentialService = new SHA2PasswordService();
 
-    private final SHA2PasswordUtil sha2PasswordUtil = SHA2PasswordUtil.getInstance();
     /**
      *
      * @param userLoginDao
@@ -94,7 +93,7 @@ public class LoginServiceImpl implements LoginService {
         if (user != null && user.getSha2() != null && user.getSalt() != null && login.getPassword() != null) {
             try {
                 LOG.info("Prepare to check user credential");
-                boolean loggedIn = sha2PasswordUtil.checkPassword(user.getSha2().getBytes(),
+                boolean loggedIn = SHA2PasswordUtil.checkPassword(user.getSha2().getBytes(),
                     login.getPassword().getBytes(), user.getSalt().getBytes());
                 if (!loggedIn) {
                     user = null;
@@ -119,7 +118,7 @@ public class LoginServiceImpl implements LoginService {
         byte[] saltValue;
         try {
             saltValue = credentialService.generateRandomSalt();
-            passwordHash = new String(sha2PasswordUtil.calculateHash(saltValue, user.getPassword().getBytes()));
+            passwordHash = new String(SHA2PasswordUtil.calculateHash(saltValue, user.getPassword().getBytes()));
 
         } catch (UtilException e) {
             throw new UserLoginException("Error while calculating hash.", e);
@@ -172,12 +171,12 @@ public class LoginServiceImpl implements LoginService {
         return userLoginDAO.getRole(role);
     }
 
-    private UserLogin getCurrentUser() {
+    private static UserLogin getCurrentUser() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         return (UserLogin) session.getAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE);
     }
-    
+
     private String getUserRoleCode(String roleDesc) {
         String roleDescNoSpaces = roleDesc.replaceAll(" ", "_");
         return getPropAccessor().getProperty(ROLE_PROPERTIES_FILENAME, roleDescNoSpaces, null);
@@ -188,7 +187,7 @@ public class LoginServiceImpl implements LoginService {
         getPropAccessor().setPropertyFile(ROLE_PROPERTIES_FILENAME);
         return getPropAccessor().getProperties(ROLE_PROPERTIES_FILENAME);
     }
-    
+
     protected PropertyAccessor getPropAccessor() {
         return PropertyAccessor.getInstance();
     }

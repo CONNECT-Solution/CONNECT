@@ -46,7 +46,7 @@ class EntityDocSubmissionImpl extends BaseService {
     }
 
     RegistryResponseType provideAndRegisterDocumentSetBUnsecured(
-            RespondingGatewayProvideAndRegisterDocumentSetRequestType request, WebServiceContext context) {
+            RespondingGatewayProvideAndRegisterDocumentSetRequestType request) {
 
         RegistryResponseType response = null;
 
