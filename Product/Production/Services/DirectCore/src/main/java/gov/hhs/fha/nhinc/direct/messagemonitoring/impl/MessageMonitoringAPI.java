@@ -543,10 +543,7 @@ public class MessageMonitoringAPI {
             proxy.provideAndRegisterDocumentSetB(message);
             // Log the failed QOS event
             getDirectEventLogger().log(DirectEventType.DIRECT_EDGE_NOTIFICATION_SUCCESSFUL, message);
-        } catch (final AddressException ex) {
-            errorMsg = ex.getLocalizedMessage();
-            LOG.error("Unknown email address {}",errorMsg,ex);
-        } catch (final MessagingException ex) {
+        } catch (MessagingException ex) {
             errorMsg = ex.getLocalizedMessage();
             LOG.error(errorMsg,ex);
         }
@@ -635,7 +632,6 @@ public class MessageMonitoringAPI {
             MessageMonitoringDAOImpl.getInstance().deleteCompletedMessages(trackMessage);
         } catch (final MessageMonitoringDAOException ex) {
             LOG.debug("Error While deleting Message from MessageMonitoring Table: {}", ex);
-            return;
         }
         LOG.debug("Completed message deleted.");
     }
