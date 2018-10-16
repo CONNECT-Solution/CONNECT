@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyFactory;
@@ -118,15 +117,14 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
      *
      * @param message DocQueryOrchestartable message from Adapter level a0 passed.
      * @throws Exception
-     * @throws ConnectionManagerException
      * @throws IllegalArgumentException
      */
     public void executeStrategy(OutboundDocQueryOrchestratable message) throws IllegalArgumentException,
-            ConnectionManagerException, Exception {
+        Exception {
 
         AdhocQueryResponse response;
         response = proxyFactory.getNhinDocQueryProxy().respondingGatewayCrossGatewayQuery(message.getRequest(),
-                message.getAssertion(), message.getTarget());
+            message.getAssertion(), message.getTarget());
 
         message.setResponse(response);
 
@@ -135,14 +133,11 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
     }
 
     /**
-     * @param message
-     * @return
-     * @throws IllegalArgumentException
-     * @throws ConnectionManagerException
+     * @param target
+     * @return @throws IllegalArgumentException
      * @throws Exception
      */
-    public String getUrl(NhinTargetSystemType target) throws IllegalArgumentException, ConnectionManagerException,
-            Exception {
+    public String getUrl(NhinTargetSystemType target) throws IllegalArgumentException, Exception {
 
         return webServiceProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, getServiceName(), getAPILevel());
     }

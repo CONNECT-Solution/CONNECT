@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -60,6 +60,10 @@ import org.apache.commons.lang.StringUtils;
  * @author Les Westberg
  */
 public class PropertyAccessHelper {
+
+    private PropertyAccessHelper() {
+    }
+
     /**
      * This method returns the value of the given property that is located within the given property file. If the
      * properties have been cached and the cache is still fresh, then it will return the value from the cache. If the
@@ -69,6 +73,7 @@ public class PropertyAccessHelper {
      *
      * @param input The input parameters - Property File and Property Name.
      * @return The value for the property.
+     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     public static GetPropertyResponseType getProperty(GetPropertyRequestType input) throws PropertyAccessException {
         GetPropertyResponseType oOutput = new GetPropertyResponseType();
@@ -93,6 +98,7 @@ public class PropertyAccessHelper {
      *
      * @param input The property file and property name.
      * @return TRUE if the property is true and false if it is not.
+     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     public static GetPropertyBooleanResponseType getPropertyBoolean(GetPropertyBooleanRequestType input)
         throws PropertyAccessException {
@@ -115,6 +121,7 @@ public class PropertyAccessHelper {
      *
      * @param input The name of the property file.
      * @return The list of property names in the property file.
+     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     public static GetPropertyNamesResponseType getPropertyNames(GetPropertyNamesRequestType input)
         throws PropertyAccessException {
@@ -142,13 +149,14 @@ public class PropertyAccessHelper {
      * but the cache is not fresh, then the cache will be updated with the current values in the properties file and
      * then the property values will be returned. If the properties for that file are not cached at all, the property
      * will be retrieved from the properties file and returned.
-     *
+     * <p>
      * NOTE: THIS IS AN EXPENSIVE OPERATION. IT WILL CREATE A DEEP COPY OF THE PROPERTIES AND RETURN IT. THAT MEANS IT
      * WILL CREATE AN EXACT REPLICA WITH ALL DATA. THIS IS A PROTECTION TO MAKE SURE THAT A PROPERTY IS NOT
      * INADVERTANTLY CHANGED OUTSIDE OF THIS CLASS.
      *
      * @param input Name of the property file.
      * @return Returns all of the properties and values in the property file.
+     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
      */
     public static GetPropertiesResponseType getProperties(GetPropertiesRequestType input)
         throws PropertyAccessException {
@@ -192,8 +200,7 @@ public class PropertyAccessHelper {
      * @param input Nothing important - just need this unique for document literal binding.
      * @return The path and location of the property files.
      */
-    public static GetPropertyFileLocationResponseType getPropertyFileLocation(GetPropertyFileLocationRequestType input)
-        throws PropertyAccessException {
+    public static GetPropertyFileLocationResponseType getPropertyFileLocation(GetPropertyFileLocationRequestType input) {
         GetPropertyFileLocationResponseType oOutput = new GetPropertyFileLocationResponseType();
 
         String sLocation = PropertyAccessor.getInstance().getPropertyFileLocation();
@@ -230,7 +237,7 @@ public class PropertyAccessHelper {
      * This method writes out the given properties as the specified properties file. Note: It does not merge
      * information. It will completely overwrite the current file with the new properties information. If the file does
      * not exist, it will create it. This writes the property file to the NHINC properties directory.
-     *
+     * <p>
      * NOTE THAT THERE MUST BE AT LEAST ONE PROPERTY TO WRITE.
      *
      * @param part1 The name of the property file and the properties to write.
