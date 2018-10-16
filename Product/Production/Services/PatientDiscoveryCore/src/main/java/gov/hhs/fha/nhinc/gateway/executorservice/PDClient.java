@@ -144,12 +144,11 @@ implements WebServiceClient<Target, Request, Response> {
                     && newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null
                     && newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null) {
 
-                    newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0).setRoot(
-                        HomeCommunityMap.formatHomeCommunityId(target.getHcid()));
-                    if (LOG.isDebugEnabled()) {
-                        LOG.debug("{} set Receiver.Device.Id.Root of PRPAIN201305UV02 request to hcid={}"
-                            ,Thread.currentThread().getName(), HomeCommunityMap.formatHomeCommunityId(target.getHcid()));
-                    }
+                    String hcid = HomeCommunityMap.formatHomeCommunityId(target.getHcid());
+                    newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0).setRoot(hcid);
+                    LOG.debug("{} set Receiver.Device.Id.Root of PRPAIN201305UV02 request to hcid={}"
+                        ,Thread.currentThread().getName(), hcid);
+
                 }
 
                 LOG.debug("{} calling serviceAddress={} for target hcid={}"
