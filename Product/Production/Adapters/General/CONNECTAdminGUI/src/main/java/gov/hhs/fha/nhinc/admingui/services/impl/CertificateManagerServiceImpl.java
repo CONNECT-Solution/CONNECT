@@ -94,7 +94,6 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     private final X509CertificateHelper x509CertificateHelper = new X509CertificateHelper();
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
     private static final String UNABLE_TO_GET_CERTIFICATE = "Unable to get certificate details";
-    private final SHA2PasswordUtil sha2PasswordUtil = SHA2PasswordUtil.getInstance();
 
     @Override
     public List<CertificateDTO> fetchKeyStores() throws CertificateManagerException {
@@ -392,7 +391,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         try {
             if (user != null) {
                 hashToken = new String(
-                    sha2PasswordUtil.calculateHash(user.getUserName().getBytes(), trustStorePasskey.getBytes()), UTF_8);
+                    SHA2PasswordUtil.calculateHash(user.getUserName().getBytes(), trustStorePasskey.getBytes()), UTF_8);
             }
         } catch (UtilException | UnsupportedEncodingException e) {
             throw new CertificateManagerException("Error while calculating user pass hash token.", e);
