@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.service.NhinDocSubmissionDeferredResponseServicePortDescriptor;
@@ -122,12 +121,9 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
      * @param target
      * @return
      * @throws IllegalArgumentException
-     * @throws ConnectionManagerException
      * @throws Exception
      */
-    protected String getUrl(NhinTargetSystemType target) throws IllegalArgumentException, ConnectionManagerException,
-        Exception {
-
+    protected String getUrl(NhinTargetSystemType target) throws IllegalArgumentException, Exception {
         return oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
             NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g1);
     }

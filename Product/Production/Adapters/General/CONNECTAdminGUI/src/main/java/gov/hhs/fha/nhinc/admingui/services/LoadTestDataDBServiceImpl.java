@@ -108,7 +108,7 @@ public class LoadTestDataDBServiceImpl implements LoadTestDataService {
         return actionResult;
     }
 
-    private void updateDocumentWith(long patientid) throws LoadTestDataException {
+    private void updateDocumentWith(long patientid) {
         List<DocumentMetadata> updateDocument = documentDAO.findAllByPatientId(patientid);
         if (CollectionUtils.isNotEmpty(updateDocument)) {
             Patient patient = patientDAO.readTransaction(patientid, true);
