@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.direct.messagemonitoring.util;
 
 import static gov.hhs.fha.nhinc.direct.DirectReceiverImpl.X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE;
-
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
@@ -81,7 +80,8 @@ public class MessageMonitoringUtil {
 
     public static final String DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME = "Disposition-Notification-Options";
     public static final String DISPOSITION_NOTIFICATION_PROCESSED = "automatic-action/mdn-sent-automatically;processed";
-    public static final String DISPOSITION_NOTIFICATION_DISPATCHED = "automatic-action/MDN-sent-automatically;dispatched";
+    public static final String DISPOSITION_NOTIFICATION_DISPATCHED
+        = "automatic-action/MDN-sent-automatically;dispatched";
     public static final int DEFAULT_OUTBOUND_FAILED_MESSAGE_RETRY_COUNT = 1;
     public static final int DEFAULT_INBOUND_FAILED_MESSAGE_RETRY_COUNT = 1;
     public static final boolean DEFAULT_NOTIFIY_OUTBOUND_SECURITY_FAILURE_IMMEDIATE = true;
@@ -425,7 +425,7 @@ public class MessageMonitoringUtil {
      * @throws MessagingException
      */
     public static MimeMessage createMimeMessage(String postMasterEmailId, String subject, String recipient, String text,
-        String messageId) throws AddressException, MessagingException {
+        String messageId) throws MessagingException {
         MimeMessage message = new MimeMessage((Session) null);
         message.setSender(new InternetAddress(postMasterEmailId));
         message.setSubject(subject);
@@ -599,7 +599,6 @@ public class MessageMonitoringUtil {
 
     /**
      * Update the Agent Settings Cache
-     *
      */
     public static void updateAgentSettingsCacheTimeoutValue() {
         GatewayState gatewayState = GatewayState.getInstance();

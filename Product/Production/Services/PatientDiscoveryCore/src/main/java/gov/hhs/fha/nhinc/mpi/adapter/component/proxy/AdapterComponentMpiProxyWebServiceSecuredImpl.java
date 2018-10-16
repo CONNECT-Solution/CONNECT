@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.service.AdapterComponentMpiSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import javax.xml.ws.WebServiceException;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -45,7 +44,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Proxy to call the secured AdapterComponentMPI interface.
- *
+ * <p>
  */
 public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterComponentMpiProxy {
 
@@ -58,11 +57,10 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
      * @param url the intended url
      * @param assertion the message assertion
      * @return a CONNECTClient object for AdapterComponentMpiSecuredPortType
-     * @throws PropertyAccessException
      */
     protected CONNECTClient<AdapterComponentMpiSecuredPortType> getCONNECTClientSecured(
-            ServicePortDescriptor<AdapterComponentMpiSecuredPortType> portDescriptor, String url,
-            AssertionType assertion) throws PropertyAccessException {
+        ServicePortDescriptor<AdapterComponentMpiSecuredPortType> portDescriptor, String url,
+        AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
@@ -84,18 +82,17 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
             if (request != null) {
                 LOG.debug("Before target system URL look up.");
                 url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
-                LOG.debug("After target system URL look up. URL for service: {} is: {}",sServiceName, url);
+                LOG.debug("After target system URL look up. URL for service: {} is: {}", sServiceName, url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    ServicePortDescriptor<AdapterComponentMpiSecuredPortType> portDescriptor =
-                            new AdapterComponentMpiSecuredServicePortDescriptor();
+                    ServicePortDescriptor<AdapterComponentMpiSecuredPortType> portDescriptor
+                        = new AdapterComponentMpiSecuredServicePortDescriptor();
 
-                    CONNECTClient<AdapterComponentMpiSecuredPortType> client =
-                            getCONNECTClientSecured(portDescriptor, url, assertion);
+                    CONNECTClient<AdapterComponentMpiSecuredPortType> client = getCONNECTClientSecured(portDescriptor,
+                        url, assertion);
 
-                    response =
-                            (PRPAIN201306UV02) client.invokePort(AdapterComponentMpiSecuredPortType.class,
-                                    "findCandidates", request);
+                    response = (PRPAIN201306UV02) client.invokePort(AdapterComponentMpiSecuredPortType.class,
+                        "findCandidates", request);
                 } else {
                     throw new WebServiceException("Could not determine URL for MPI Adapter endpoint");
                 }
@@ -103,7 +100,7 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
                 throw new IllegalArgumentException("Request Message must be provided");
             }
         } catch (Exception e) {
-            throw new ErrorEventException(e,"Unable to call MPI Adapter");
+            throw new ErrorEventException(e, "Unable to call MPI Adapter");
         }
 
         return response;
