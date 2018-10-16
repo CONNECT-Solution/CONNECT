@@ -185,15 +185,13 @@ public class CertificateManagerImpl implements CertificateManager {
         final String passkey, KeyStore storeCert) throws CertificateManagerException {
         boolean isUpdateSuccessful = false;
         FileInputStream is = null;
-        FileOutputStream os = null;
         try {
             if (!PKCS11_TYPE.equalsIgnoreCase(storeType)) {
                 is = new FileInputStream(storeLoc);
             }
             storeCert.load(is, passkey.toCharArray());
             if (storeCert.containsAlias(oldAlias)) {
-                os = updateCertEntry(oldAlias, newAlias, storeCert.getCertificate(oldAlias), storeLoc, passkey,
-                    storeCert);
+                updateCertEntry(oldAlias, newAlias, storeCert.getCertificate(oldAlias), storeLoc, passkey, storeCert);
                 isUpdateSuccessful = true;
             }
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
@@ -201,28 +199,22 @@ public class CertificateManagerImpl implements CertificateManager {
             LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(ex.getMessage(), ex);
         } finally {
-            closeStream(is, os);
+            IOUtils.closeQuietly(is);
         }
         return isUpdateSuccessful;
 
     }
 
-    private static FileOutputStream updateCertEntry(final String oldAlias, final String newAlias,
-        Certificate certificate, final String storeLoc, final String passkey, KeyStore tstore)
-            throws CertificateManagerException, IOException {
-        FileOutputStream os = null;
-        try {
+    private static void updateCertEntry(final String oldAlias, final String newAlias, Certificate certificate,
+        final String storeLoc, final String passkey, KeyStore tstore) throws CertificateManagerException {
+        try (FileOutputStream os = new FileOutputStream(storeLoc)) {
             tstore.deleteEntry(oldAlias);
-            os = new FileOutputStream(storeLoc);
             tstore.setCertificateEntry(newAlias, certificate);
             tstore.store(os, passkey.toCharArray());
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
             LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(ex.getMessage(), ex);
-        } finally {
-            IOUtils.closeQuietly(os);
         }
-        return os;
     }
 
     private static void closeStream(FileInputStream is, FileOutputStream os) {
@@ -451,14 +443,9 @@ public class CertificateManagerImpl implements CertificateManager {
             storeType = JKS_TYPE;
         }
         if (password != null && !PKCS11_TYPE.equalsIgnoreCase(storeType)) {
-            FileOutputStream os = null;
-            try {
-                os = new FileOutputStream(storeLoc);
+            try (FileOutputStream os = new FileOutputStream(storeLoc)) {
                 trustStore.store(os, password.toCharArray());
-            } finally {
-                IOUtils.closeQuietly(os);
             }
-
         }
     }
 
