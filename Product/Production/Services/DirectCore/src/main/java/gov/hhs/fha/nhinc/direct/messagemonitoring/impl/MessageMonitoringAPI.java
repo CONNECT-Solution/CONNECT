@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -162,7 +162,7 @@ public class MessageMonitoringAPI {
         }
     }
 
-    public void addOutgoingMessage(final MimeMessage message, final boolean failed, final String errorMessage) {
+    public void addOutgoingMessage(final MimeMessage message, final boolean failed) {
         // Always check if message monitoring enabled
         if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
             LOG.debug("Message Monitoring is not enabled.");
@@ -230,7 +230,7 @@ public class MessageMonitoringAPI {
         LOG.debug("Message Monitoring is enabled.");
         // get all the Pending rows and add it to the cache
         final List<MonitoredMessage> pendingMessages = getAllPendingMessagesFromDatabase();
-        LOG.debug("Total cache rows from database:" + pendingMessages.size());
+        LOG.debug("Total cache rows from database: {}", pendingMessages.size());
         // clear the cache before loading the data from database
         clearCache();
         // load the pending outgoing messages to the cache
@@ -238,7 +238,7 @@ public class MessageMonitoringAPI {
             if (!trackMessage.getStatus().equals(STATUS_ARCHIVED)) {
                 messageMonitoringCache.put(trackMessage.getMessageid(), trackMessage);
                 LOG.debug(
-                        "Total child rows for the messageId:" + trackMessage.getMonitoredmessagenotifications().size());
+                        "Total child rows for the messageId: {}", trackMessage.getMonitoredmessagenotifications().size());
             } else {
                 deleteElapsedArchivedMessage(trackMessage);
             }
@@ -374,7 +374,7 @@ public class MessageMonitoringAPI {
         return null;
     }
 
-    private String getIncomingMessagesReceivedStatus(final MonitoredMessage trackMessage) {
+    private static String getIncomingMessagesReceivedStatus(final MonitoredMessage trackMessage) {
         boolean failed = false;
         boolean processed = false;
 
@@ -415,8 +415,7 @@ public class MessageMonitoringAPI {
         if (tm != null) {
             return tm.getStatus().equalsIgnoreCase(STATUS_COMPLETED) || tm.getStatus().equalsIgnoreCase(STATUS_ERROR);
         }
-        // if not able to find then return ture
-        // TODO: revist this
+        // if not able to find then return true
         return true;
     }
 
@@ -547,13 +546,9 @@ public class MessageMonitoringAPI {
         } catch (final AddressException ex) {
             errorMsg = ex.getLocalizedMessage();
             LOG.error("Unknown email address {}",errorMsg,ex);
-            // if error then log a error event
-            logErrorEvent(message, errorMsg);
         } catch (final MessagingException ex) {
             errorMsg = ex.getLocalizedMessage();
             LOG.error(errorMsg,ex);
-            // if error then log a error event
-            logErrorEvent(message, errorMsg);
         }
         LOG.debug("Exiting Message Monitoring API sendSuccessEdgeNotification() method.");
     }
@@ -582,13 +577,9 @@ public class MessageMonitoringAPI {
         } catch (final AddressException ex) {
             errorMsg = ex.getLocalizedMessage();
             LOG.error("Unable to send FailEdgeNotification {}", errorMsg, ex);
-            // Log the error
-            logErrorEvent(message, errorMsg);
         } catch (final MessagingException ex) {
             errorMsg = ex.getLocalizedMessage();
             LOG.error(errorMsg, ex);
-            // Log the error
-            logErrorEvent(message, errorMsg);
         }
         LOG.debug("Exiting Message Monitoring API sendFailedEdgeNotification() method.");
     }
@@ -600,16 +591,6 @@ public class MessageMonitoringAPI {
      */
     private DirectEventLogger getDirectEventLogger() {
         return DirectEventLogger.getInstance();
-    }
-
-    /*
-     * TODO: The MimeMessage is always null when an exception is thrown and logErrorEvent() is called. Can this method
-     * be removed?
-     */
-    public void logErrorEvent(final MimeMessage message, final String errorMessage) {
-        if (message != null) {
-            getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message, errorMessage);
-        }
     }
 
     private boolean getDirectTestFlag(final String fileName, final String property) {
@@ -653,7 +634,7 @@ public class MessageMonitoringAPI {
         try {
             MessageMonitoringDAOImpl.getInstance().deleteCompletedMessages(trackMessage);
         } catch (final MessageMonitoringDAOException ex) {
-            LOG.debug("Error While deleting Message from MessageMonitoring Table: " + ex);
+            LOG.debug("Error While deleting Message from MessageMonitoring Table: {}", ex);
             return;
         }
         LOG.debug("Completed message deleted.");

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -46,10 +46,6 @@ public class SHA2PasswordUtil {
     private SHA2PasswordUtil() {
     }
 
-    public static SHA2PasswordUtil getInstance() {
-        return new SHA2PasswordUtil();
-    }
-
     public static boolean checkPassword(byte[] passwordHash, byte[] candidatePassword, byte[] salt)
         throws UtilException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -66,7 +62,7 @@ public class SHA2PasswordUtil {
         return Arrays.equals(passwordHash, candidateHash);
     }
 
-    public byte[] calculateHash(byte[] salt, byte[] password) throws UtilException {
+    public static byte[] calculateHash(byte[] salt, byte[] password) throws UtilException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         byte[] hash = null;
 

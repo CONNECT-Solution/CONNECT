@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -42,61 +42,55 @@ import org.nhindirect.common.audit.DefaultAuditContext;
  */
 public class DirectRIAuditor implements SoapEdgeAuditor {
 
-	private Auditor auditor = null;
+    private Auditor auditor = null;
 
-	/**
-	 * Audits an event to the Direct RI audit logger. If a set of properties are
-	 * provided, they will be audited as additional contexts, otherwise only the
-	 * principal, category, and message will be audited.
-	 *
-	 * (non-Javadoc)
-	 *
-	 * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeAuditor#audit(java.lang.String,
-	 *      java.lang.String, java.lang.String,
-	 *      gov.hhs.fha.nhinc.direct.xdr.audit.Auditable)
-	 */
-	@Override
-	public void audit(String principal, String category, String message,
-	        SoapEdgeContext properties) {
+    /**
+     * Audits an event to the Direct RI audit logger. If a set of properties are provided, they will be audited as
+     * additional contexts, otherwise only the principal, category, and message will be audited.
+     *
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeAuditor#audit(java.lang.String, java.lang.String,
+     *      java.lang.String, gov.hhs.fha.nhinc.direct.xdr.audit.Auditable)
+     */
+    @Override
+    public void audit(String principal, String category, String message, SoapEdgeContext properties) {
 
-		AuditEvent event = new AuditEvent(category, message);
+        AuditEvent event = new AuditEvent(category, message);
 
-		if (properties == null) {
-			getAuditor().audit(principal, event);
-		} else {
-			getAuditor().audit(principal, event, getContexts(properties));
-		}
-	}
+        if (properties == null) {
+            getAuditor().audit(principal, event);
+        } else {
+            getAuditor().audit(principal, event, getContexts(properties));
+        }
+    }
 
-	/**
-	 * Creates a set of AuditContext objects from and Auditable object.
-	 *
-	 * @param auditable
-	 *            A {@link Auditable} object, must not be null.
-	 * @return A Collection of @{link AuditContext} objects.
-	 */
+    /**
+     * Creates a set of AuditContext objects from and Auditable object.
+     *
+     * @param auditable A {@link Auditable} object, must not be null.
+     * @return A Collection of @{link AuditContext} objects.
+     */
     private Collection<? extends AuditContext> getContexts(SoapEdgeContext auditable) {
-		Collection<AuditContext> contexts = new LinkedList<>();
+        Collection<AuditContext> contexts = new LinkedList<>();
 
-		if (auditable.getAuditableValues() != null) {
-			for (Map.Entry<String, String> entry : auditable
-					.getAuditableValues().entrySet()) {
-				AuditContext context = new DefaultAuditContext(entry.getKey(),
-						entry.getValue());
-				contexts.add(context);
-			}
-		}
-		return contexts;
-	}
+        if (auditable.getAuditableValues() != null) {
+            for (Map.Entry<String, String> entry : auditable.getAuditableValues().entrySet()) {
+                AuditContext context = new DefaultAuditContext(entry.getKey(), entry.getValue());
+                contexts.add(context);
+            }
+        }
+        return contexts;
+    }
 
-	/**
-	 * @return A Direct RI Auditor from the Direct RI AuditorFactory.
-	 */
-	protected Auditor getAuditor() {
-		if (auditor == null) {
-			auditor = AuditorFactory.createAuditor();
-		}
-		return auditor;
-	}
+    /**
+     * @return A Direct RI Auditor from the Direct RI AuditorFactory.
+     */
+    protected Auditor getAuditor() {
+        if (auditor == null) {
+            auditor = AuditorFactory.createAuditor();
+        }
+        return auditor;
+    }
 
 }
