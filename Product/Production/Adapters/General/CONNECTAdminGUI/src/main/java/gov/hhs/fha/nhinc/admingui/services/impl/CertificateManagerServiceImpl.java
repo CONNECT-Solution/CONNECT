@@ -27,11 +27,6 @@
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.JKS_TYPE;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
-
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
@@ -39,6 +34,10 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.JKS_TYPE;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
 import gov.hhs.fha.nhinc.callback.opensaml.X509CertificateHelper;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
@@ -256,7 +255,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     @Override
-    public SimpleCertificateResponseMessageType deleteCertificateFromTrustStore(String alias, String hashToken) throws CertificateManagerException {
+    public SimpleCertificateResponseMessageType deleteCertificateFromTrustStore(String alias, String hashToken) throws
+        CertificateManagerException {
         DeleteCertificateRequestMessageType request = new DeleteCertificateRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         request.setHashToken(hashToken);
@@ -331,7 +331,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         return certs;
     }
 
-    private static ConfigAssertionType buildConfigAssertion() throws CertificateManagerException {
+    private static ConfigAssertionType buildConfigAssertion() {
         ConfigAssertionType assertion = new ConfigAssertionType();
         UserLogin user = getUser();
         if (user != null) {

@@ -133,7 +133,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
      * @throws IllegalArgumentException
      */
     protected String getUrl(final NhinTargetSystemType targetSystem, final String sServiceName,
-        final GATEWAY_API_LEVEL level) throws IllegalArgumentException, ExchangeManagerException, Exception {
+        final GATEWAY_API_LEVEL level) throws IllegalArgumentException, Exception {
         if (StringUtils.isBlank(targetSystem.getUseSpecVersion())) {
             throw new IllegalArgumentException("Required specification version guidance was null.");
         }

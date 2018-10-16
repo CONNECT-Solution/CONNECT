@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -176,7 +176,9 @@ public class ManageQueue extends AbstractPageBean {
         this.status = status;
     }
 
-    /** Creates a new instance of ManageQueue */
+    /**
+     * Creates a new instance of ManageQueue
+     */
     public ManageQueue() {
     }
 
@@ -186,7 +188,7 @@ public class ManageQueue extends AbstractPageBean {
      * navigation. Customize this method to acquire resources that will be needed for event handlers and lifecycle
      * methods, whether or not this page is performing post back processing.
      * </p>
-     *
+     * <p>
      * <p>
      * Note that, if the current request is a postback, the property values of the components do <strong>not</strong>
      * represent any values submitted with this request. Instead, they represent the property values that were saved for
@@ -271,7 +273,7 @@ public class ManageQueue extends AbstractPageBean {
         return null;
     }
 
-    public String retrieveProcessButton_action() throws Exception {
+    public String retrieveProcessButton_action() {
         // Process the action. Return value is a navigation
         // case name where null will return to the same page.
         errorMessages.setText("");
@@ -290,7 +292,7 @@ public class ManageQueue extends AbstractPageBean {
         return null;
     }
 
-    public String retrieveUnProcessButton_action() throws Exception {
+    public String retrieveUnProcessButton_action() {
         // Process the action. Return value is a navigation
         // case name where null will return to the same page.
 
@@ -327,7 +329,7 @@ public class ManageQueue extends AbstractPageBean {
 
             if (cal1 == null || cal2 == null) {
                 errorMessages.setText(
-                        "Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
+                    "Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
                 return null;
             }
 
@@ -337,7 +339,7 @@ public class ManageQueue extends AbstractPageBean {
         } catch (Exception ex) {
             LOG.error("Error Message: " + ex);
             errorMessages.setText(
-                    "Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
+                "Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
             return null;
         }
         DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
@@ -374,7 +376,7 @@ public class ManageQueue extends AbstractPageBean {
         return isValid;
     }
 
-    public String process_action(javax.faces.event.ActionEvent event) throws Exception {
+    public String process_action(javax.faces.event.ActionEvent event) {
         String asyncMsgId = (String) messageId.getText();
         String serviceName = (String) this.serviceName.getText();
         PatientDiscoveryDeferredReqQueueProcessResponseType pdResponse;
@@ -383,12 +385,12 @@ public class ManageQueue extends AbstractPageBean {
             PatientDiscoveryDeferredReqQueueClient pdClient = new PatientDiscoveryDeferredReqQueueClient();
             pdResponse = pdClient.processPatientDiscoveryDeferredReqQueue(asyncMsgId);
             gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.SuccessOrFailType sfpd = pdResponse
-                    .getSuccessOrFail();
+                .getSuccessOrFail();
             if (sfpd.isSuccess()) {
                 userInfo.setText("Succesfully Patient Discovery Deferred Response Msg got Processed.");
             } else {
                 errorMessages.setText(
-                        "Unable to process the Patient Discovery Deferred Response, Please contact system administrator for further details.");
+                    "Unable to process the Patient Discovery Deferred Response, Please contact system administrator for further details.");
             }
         }
 
