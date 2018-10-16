@@ -84,7 +84,7 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
         return response;
     }
 
-    private RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType createRequestForInternalProcessing(
+    private static RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType createRequestForInternalProcessing(
         RegistryResponseType msg, NhinTargetCommunitiesType targets) {
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request
         = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
@@ -133,7 +133,7 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
         return ((OutboundDocSubmissionDeferredResponseOrchestratable) delegate.process(orchestratable)).getResponse();
     }
 
-    private OutboundDocSubmissionDeferredResponseOrchestratable createOrchestratable(
+    private static OutboundDocSubmissionDeferredResponseOrchestratable createOrchestratable(
         OutboundDocSubmissionDeferredResponseDelegate delegate,
         gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request,
         AssertionType assertion) {
@@ -147,7 +147,7 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
         return orchestratable;
     }
 
-    private XDRAcknowledgementType createFailedPolicyCheckResponse() {
+    private static XDRAcknowledgementType createFailedPolicyCheckResponse() {
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
 
@@ -165,7 +165,7 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
             NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
     }
 
-    protected boolean hasNhinTargetHomeCommunityId(
+    protected static boolean hasNhinTargetHomeCommunityId(
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) {
 
         return request != null
@@ -177,12 +177,12 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
                 .getHomeCommunity().getHomeCommunityId());
     }
 
-    private HomeCommunityType getNhinTargetHomeCommunity(
+    private static HomeCommunityType getNhinTargetHomeCommunity(
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) {
         return request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity();
     }
 
-    private String getNhinTargetHomeCommunityId(
+    private static String getNhinTargetHomeCommunityId(
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) {
         return getNhinTargetHomeCommunity(request).getHomeCommunityId();
     }

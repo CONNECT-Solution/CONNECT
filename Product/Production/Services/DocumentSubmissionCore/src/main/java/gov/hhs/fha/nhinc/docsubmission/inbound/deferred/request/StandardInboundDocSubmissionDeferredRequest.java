@@ -141,7 +141,7 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
         return localHCID;
     }
 
-    private boolean hasHomeCommunityId(AssertionType assertion) {
+    private static boolean hasHomeCommunityId(AssertionType assertion) {
         return assertion != null && assertion.getHomeCommunity() != null
             && NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId());
     }

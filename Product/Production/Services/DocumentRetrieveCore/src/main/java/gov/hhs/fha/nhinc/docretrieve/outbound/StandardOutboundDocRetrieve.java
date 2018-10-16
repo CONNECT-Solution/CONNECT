@@ -55,20 +55,11 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
     private final CONNECTOutboundOrchestrator orchestrator;
     private final DocRetrieveAuditLogger auditLogger;
 
-    /**
-     * Constructor.
-     */
     public StandardOutboundDocRetrieve() {
         orchestrator = new OutboundStandardDocRetrieveOrchestrator();
         auditLogger = new DocRetrieveAuditLogger();
     }
 
-    /**
-     * Constructor with dependency injection parameters.
-     *
-     * @param orchestrator
-     * @param auditLogger
-     */
     public StandardOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator, DocRetrieveAuditLogger auditLogger) {
         this.orchestrator = orchestrator;
         this.auditLogger = auditLogger;
@@ -109,7 +100,7 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
         return response;
     }
 
-    private NhinTargetSystemType getTarget(NhinTargetCommunitiesType targets) {
+    private static NhinTargetSystemType getTarget(NhinTargetCommunitiesType targets) {
         return MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
     }
 

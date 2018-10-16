@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.util;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -37,6 +40,7 @@ import java.util.Set;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -103,5 +107,16 @@ public class CoreHelpUtils {
     public static List<String> returnSort(List<String> list) {
         Collections.sort(list);
         return list;
+    }
+
+    public static Date getDate(String dateString) {
+        if (StringUtils.isNotBlank(dateString)) {
+            try {
+                return new SimpleDateFormat(NhincConstants.DATE_PARSE_FORMAT).parse(dateString);
+            } catch (ParseException ex) {
+                LOG.error("Error while parsing date.");
+            }
+        }
+        return null;
     }
 }

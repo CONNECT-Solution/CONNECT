@@ -65,7 +65,7 @@ public class XDRHelper {
     public static final String XDS_SOURCE_PATIENT_ID_SLOT = "sourcePatientId";
     public static final String XDS_INTENDED_RECIPIENT_SLOT = "intendedRecipient";
 
-    public RegistryResponseType createErrorResponse(RegistryErrorList errorList) {
+    public static RegistryResponseType createErrorResponse(RegistryErrorList errorList) {
         RegistryResponseType result = new RegistryResponseType();
         LOG.debug("begin createErrorResponse()");
         result.setStatus(XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
@@ -74,7 +74,7 @@ public class XDRHelper {
         return result;
     }
 
-    public RegistryResponseType createPositiveAck() {
+    public static RegistryResponseType createPositiveAck() {
         RegistryResponseType result = new RegistryResponseType();
 
         result.setStatus(XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
@@ -181,7 +181,8 @@ public class XDRHelper {
      * @param body
      * @param errorList
      */
-    private boolean validateDocumentData(ProvideAndRegisterDocumentSetRequestType body, RegistryErrorList errorList) {
+    private static boolean validateDocumentData(ProvideAndRegisterDocumentSetRequestType body,
+        RegistryErrorList errorList) {
         boolean result = false;
         if (body.getDocument() == null) {
             RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument,
@@ -199,7 +200,7 @@ public class XDRHelper {
         return result;
     }
 
-    public List<String> getIntendedRecepients(ProvideAndRegisterDocumentSetRequestType body) {
+    public static List<String> getIntendedRecepients(ProvideAndRegisterDocumentSetRequestType body) {
 
         List<String> result = new ArrayList<>();
 
@@ -235,7 +236,7 @@ public class XDRHelper {
      * @param List of recipients. Possible values defined in XDRConfiguration.xml
      * @return List of corresponding bean names for the given recipient list
      */
-    public List<String> getRoutingBeans(List<String> intendedRecipients) {
+    public static List<String> getRoutingBeans(List<String> intendedRecipients) {
         ArrayList<String> result = new ArrayList<>();
 
         ConfigurationManager configMgr = new ConfigurationManager();
@@ -288,7 +289,7 @@ public class XDRHelper {
         return result;
     }
 
-    protected String[] getSupportedMimeTypes() {
+    protected static String[] getSupportedMimeTypes() {
         String[] mimeArray = new String[0];
 
         try {
@@ -302,7 +303,7 @@ public class XDRHelper {
         return mimeArray;
     }
 
-    private boolean isDocIdPresent(List<Document> documents, String docId) {
+    private static boolean isDocIdPresent(List<Document> documents, String docId) {
         boolean result = false;
 
         if (CollectionUtils.isEmpty(documents)) {
@@ -317,7 +318,7 @@ public class XDRHelper {
         }
     }
 
-    private RegistryError createRegistryError(String errorCode, String severity, String codeContext) {
+    private static RegistryError createRegistryError(String errorCode, String severity, String codeContext) {
         RegistryError result = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
 
         result.setSeverity(severity);
@@ -327,7 +328,7 @@ public class XDRHelper {
         return result;
     }
 
-    public String getSubmissionSetPatientId(ProvideAndRegisterDocumentSetRequestType body) {
+    public static String getSubmissionSetPatientId(ProvideAndRegisterDocumentSetRequestType body) {
         String result = "";
 
         RegistryObjectListType object = body.getSubmitObjectsRequest().getRegistryObjectList();
@@ -356,7 +357,7 @@ public class XDRHelper {
         return result;
     }
 
-    public String getSourcePatientId(ProvideAndRegisterDocumentSetRequestType body) {
+    public static String getSourcePatientId(ProvideAndRegisterDocumentSetRequestType body) {
         String result = "";
 
         RegistryObjectListType object = body.getSubmitObjectsRequest().getRegistryObjectList();
@@ -386,7 +387,7 @@ public class XDRHelper {
         return result;
     }
 
-    private String getPatientId(List<SlotType1> slots) {
+    private static String getPatientId(List<SlotType1> slots) {
         String result = "";
         SlotType1 patientIdSlot;
 
@@ -402,7 +403,7 @@ public class XDRHelper {
 
     }
 
-    private SlotType1 getNamedSlotItem(List<SlotType1> slots, String name) {
+    private static SlotType1 getNamedSlotItem(List<SlotType1> slots, String name) {
         SlotType1 result = null;
 
         LOG.debug("begin getNamedSlotItem()");
@@ -437,7 +438,7 @@ public class XDRHelper {
         return result;
     }
 
-    private RegistryErrorList processErrorList(RegistryErrorList list) {
+    private static RegistryErrorList processErrorList(RegistryErrorList list) {
         int highestError = 0;
 
         if (list == null) {
@@ -457,7 +458,7 @@ public class XDRHelper {
         return list;
     }
 
-    private String getErrorDescription(int rank) {
+    private static String getErrorDescription(int rank) {
         String result;
 
         switch (rank) {
@@ -483,7 +484,7 @@ public class XDRHelper {
         return result;
     }
 
-    private int getErrorRanking(String severity) {
+    private static int getErrorRanking(String severity) {
         int result;
 
         if (severity.isEmpty()) {

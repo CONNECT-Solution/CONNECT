@@ -158,7 +158,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
      * @param codeContext The codecontext defines the reason of failure of AdhocQueryRequest.
      * @return AdhocQueryResponse.
      */
-    private AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {
+    private static AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {
         return MessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse(codeContext, errorCode,
             DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
     }

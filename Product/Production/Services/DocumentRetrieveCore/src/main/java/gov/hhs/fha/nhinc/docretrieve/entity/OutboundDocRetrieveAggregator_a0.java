@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -71,7 +71,7 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
                     LOG.error("Failed to save document to file system for aggregation.", ioe);
 
                     fromResponse.getResponse().getRegistryResponse()
-                            .setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
+                    .setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
 
                     addRegistryError(aggregatedResponse.getResponse());
                 }
@@ -89,7 +89,7 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
         }
     }
 
-    private void initializeResponse(OutboundDocRetrieveOrchestratable aggregatedResponse) {
+    private static void initializeResponse(OutboundDocRetrieveOrchestratable aggregatedResponse) {
         if (aggregatedResponse.getResponse() == null) {
             aggregatedResponse.setResponse(new RetrieveDocumentSetResponseType());
         }
@@ -99,19 +99,20 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
         }
     }
 
-    private void streamDocumentsToFileSystemIfEnabled(OutboundDocRetrieveOrchestratable orchestratable) throws IOException {
+    private static void streamDocumentsToFileSystemIfEnabled(OutboundDocRetrieveOrchestratable orchestratable)
+        throws IOException {
         DocRetrieveFileUtils fileUtils = DocRetrieveFileUtils.getInstance();
         fileUtils.streamDocumentsToFileSystemIfEnabled(orchestratable.getResponse());
     }
 
-    private void addAllDocuments(OutboundDocRetrieveOrchestratable toResponse,
-            OutboundDocRetrieveOrchestratable fromResponse) {
+    private static void addAllDocuments(OutboundDocRetrieveOrchestratable toResponse,
+        OutboundDocRetrieveOrchestratable fromResponse) {
         if (fromResponse.getResponse() != null) {
             toResponse.getResponse().getDocumentResponse().addAll(fromResponse.getResponse().getDocumentResponse());
         }
     }
 
-    private void addRegistryError(RetrieveDocumentSetResponseType response) {
+    private static void addRegistryError(RetrieveDocumentSetResponseType response) {
         RegistryError registryError = new RegistryError();
         registryError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
         registryError.setCodeContext("Failed to save document for aggregation.");
@@ -120,10 +121,10 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
         response.getRegistryResponse().getRegistryErrorList().getRegistryError().add(registryError);
     }
 
-    private void setAggregatedStatus(OutboundDocRetrieveOrchestratable aggregatedResponse,
-            OutboundDocRetrieveOrchestratable fromResponse) {
+    private static void setAggregatedStatus(OutboundDocRetrieveOrchestratable aggregatedResponse,
+        OutboundDocRetrieveOrchestratable fromResponse) {
         String status = DocRetrieveStatusUtil.setResponseStatus(fromResponse.getResponse(),
-                aggregatedResponse.getResponse());
+            aggregatedResponse.getResponse());
         aggregatedResponse.getResponse().getRegistryResponse().setStatus(status);
     }
 
@@ -133,14 +134,15 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
      * @param to the Orchestratrable whose response is to be modified
      * @param from the Orchestratrable whose response's registry error is to used
      */
-    private void addRegistryErrors(OutboundDocRetrieveOrchestratable to, OutboundDocRetrieveOrchestratable from) {
+    private static void addRegistryErrors(OutboundDocRetrieveOrchestratable to,
+        OutboundDocRetrieveOrchestratable from) {
         if (to.getResponse().getRegistryResponse().getRegistryErrorList() == null) {
             to.getResponse().getRegistryResponse().setRegistryErrorList(new RegistryErrorList());
         }
 
         if (containsRegistryErrors(from.getResponse())) {
             to.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError()
-                    .addAll(from.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError());
+            .addAll(from.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError());
         } else {
             RegistryError registryError = new RegistryError();
             registryError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
@@ -151,10 +153,10 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
         }
     }
 
-    private boolean containsRegistryErrors(RetrieveDocumentSetResponseType response) {
+    private static boolean containsRegistryErrors(RetrieveDocumentSetResponseType response) {
         if (response != null && response.getRegistryResponse() != null
-                && response.getRegistryResponse().getRegistryErrorList() != null
-                && NullChecker.isNotNullish(response.getRegistryResponse().getRegistryErrorList().getRegistryError())) {
+            && response.getRegistryResponse().getRegistryErrorList() != null
+            && NullChecker.isNotNullish(response.getRegistryResponse().getRegistryErrorList().getRegistryError())) {
             return true;
         }
 
