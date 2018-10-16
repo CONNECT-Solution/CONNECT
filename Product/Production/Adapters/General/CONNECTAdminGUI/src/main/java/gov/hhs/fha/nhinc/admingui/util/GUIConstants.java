@@ -36,15 +36,15 @@ public class GUIConstants {
 
     }
 
-    public static enum EVENT_NAMES {
+    public enum EVENT_NAMES {
 
-        PatientDiscovery("PD"), PatientDiscoveryDeferredReq("PDDefReq"), PatientDiscoveryDeferredResp("PDDefResp"),
-        QueryForDocuments("QD"), RetrieveDocuments("RD"), DocSubmission("DS"), DocSubmissionDeferredReq("DSDefReq"),
-        DocSubmissionDeferredResp("DSDefResp"), AdminDistribution("AD"), CORE_X12DSRealTime("X12RealTime"),
-        CORE_X12DSGenericBatchRequest("X12BatchReq"), CORE_X12DSGenericBatchResponse("X12BatchResp"),
-        DocDataSubmission("DDS"), PatientLocationQuery("PLQ");
+        PATIENT_DISCOVERY("PD"), PATIENT_DISCOVERY_DEF_REQ("PDDefReq"), PATIENT_DISCOVERY_DEF_RESP("PDDefResp"),
+        QUERY_FOR_DOCUMENTS("QD"), RETRIEVE_DOCUMENTS("RD"), DOCUMENT_SUBMISSION("DS"), DOCUMENT_SUBMISISON_DEF_REQ("DSDefReq"),
+        DOCUMENT_SUBMISSION_DEF_RESP("DSDefResp"), ADMIN_DIST("AD"), CORE_X12DS_REALTIME("X12RealTime"),
+        CORE_X12DS_BATCH_REQ("X12BatchReq"), CORE_X12DS_BATCH_RESP("X12BatchResp"),
+        DOCUMENT_DATA_SUBMISSION("DDS"), PATIENT_LOCATION_QUERY("PLQ");
 
-        public String abbServiceName = null;
+        private String abbServiceName = null;
 
         EVENT_NAMES(String value) {
             abbServiceName = value;
