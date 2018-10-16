@@ -63,8 +63,7 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
         return new WebServiceProxyHelper();
     }
 
-    public ServicePortDescriptor<DocumentRegistryPortType> getServicePortDescriptor(
-            final NhincConstants.ADAPTER_API_LEVEL apiLevel) {
+    public static ServicePortDescriptor<DocumentRegistryPortType> getServicePortDescriptor() {
         return new AdapterComponentDocRegistryServicePortDescriptor();
     }
 
@@ -86,8 +85,7 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
                 if (msg == null) {
                     throw new IllegalArgumentException("Request Message must be provided");
                 } else {
-                    final ServicePortDescriptor<DocumentRegistryPortType> portDescriptor = getServicePortDescriptor(
-                            NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+                    final ServicePortDescriptor<DocumentRegistryPortType> portDescriptor = getServicePortDescriptor();
 
                     final CONNECTClient<DocumentRegistryPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientUnsecured(portDescriptor, url, assertion);

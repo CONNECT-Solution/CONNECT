@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,9 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndReg
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
-import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 import javax.xml.ws.soap.SOAPBinding;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -42,7 +40,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 @Addressing(enabled = true)
 public class EntityDocSubmissionUnsecured implements gov.hhs.fha.nhinc.nhincentityxdr.EntityXDRPortType {
 
-    private WebServiceContext context;
 
     private OutboundDocSubmission outboundDocSubmission;
 
@@ -53,12 +50,7 @@ public class EntityDocSubmissionUnsecured implements gov.hhs.fha.nhinc.nhincenti
     public RegistryResponseType provideAndRegisterDocumentSetB(
         RespondingGatewayProvideAndRegisterDocumentSetRequestType body) {
         return new EntityDocSubmissionImpl(outboundDocSubmission)
-            .provideAndRegisterDocumentSetBUnsecured(body, context);
-    }
-
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
+            .provideAndRegisterDocumentSetBUnsecured(body);
     }
 
     public void setOutboundDocSubmission(OutboundDocSubmission outboundDocSubmission) {
@@ -71,6 +63,6 @@ public class EntityDocSubmissionUnsecured implements gov.hhs.fha.nhinc.nhincenti
      * @return the outbound doc submission
      */
     public OutboundDocSubmission getOutboundDocSubmission() {
-        return this.outboundDocSubmission;
+        return outboundDocSubmission;
     }
 }

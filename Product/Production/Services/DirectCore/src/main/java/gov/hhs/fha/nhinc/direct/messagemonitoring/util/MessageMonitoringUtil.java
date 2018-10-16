@@ -270,7 +270,7 @@ public class MessageMonitoringUtil {
      * @return
      */
     public static boolean checkHeaderForDispatchedRequest(String header) {
-        // TODO: need a beeter approcah to verify the value
+        // Need a better approach to verify the value
         return StringUtils.contains(header, X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE)
             && StringUtils.contains(header, "true");
     }
@@ -283,7 +283,7 @@ public class MessageMonitoringUtil {
      */
     public static int getOutboundFailedMessageRetryCount() {
         int messageRetryCount = getPropertyIntegerValue("OutboundFailedMessageRetryCount");
-        LOG.info("Outbound Failed Message Retry Count " + messageRetryCount);
+        LOG.info("Outbound Failed Message Retry Count {}", messageRetryCount);
         if (messageRetryCount >= 0) {
             return messageRetryCount;
         }
@@ -344,7 +344,7 @@ public class MessageMonitoringUtil {
      */
     public static String getDomainPostmasterEmailId() {
         String postmasterEmailPrefix = getPropertyStringValue("PostmasterEmailIdPrefix");
-        LOG.info("postmasterEmailPrefix " + postmasterEmailPrefix);
+        LOG.info("postmasterEmailPrefix {}", postmasterEmailPrefix);
         if (postmasterEmailPrefix != null) {
             return postmasterEmailPrefix;
         }
@@ -360,7 +360,7 @@ public class MessageMonitoringUtil {
      */
     public static int getDispatchedMessageReceiveTimeLimit() {
         int dispatchedReceiveTimeLimit = getPropertyIntegerValue("DispatchedMessageReceiveTimeLimit");
-        LOG.info("dispatchedReceiveTimeLimit " + dispatchedReceiveTimeLimit);
+        LOG.info("dispatchedReceiveTimeLimit {}", dispatchedReceiveTimeLimit);
         // If not found, then use the default value
         return dispatchedReceiveTimeLimit >= 0 ? dispatchedReceiveTimeLimit
             : DEFAULT_DISPATCHED_MESSAGE_RECEIVE_TIME_LIMIT;
@@ -395,8 +395,8 @@ public class MessageMonitoringUtil {
     public static boolean isProcessedMDNReceiveTimeLapsed(Date createTime) {
         // check if the currenttime - createTime > the time limit
         long diff = new Date().getTime() - createTime.getTime();
-        LOG.info("Processed MDN time difference:" + diff);
-        LOG.info("getProcessedMessageReceiveTimeLimit -->" + getProcessedMessageReceiveTimeLimit());
+        LOG.info("Processed MDN time difference:{}", diff);
+        LOG.info("getProcessedMessageReceiveTimeLimit -->{}", getProcessedMessageReceiveTimeLimit());
         return diff >= getProcessedMessageReceiveTimeLimit();
     }
 
@@ -444,7 +444,7 @@ public class MessageMonitoringUtil {
      */
     public static String getFailedMessageSubjectPrefix() {
         String failedMessageSubjectPrefix = getPropertyStringValue("FailedMessageSubjectPrefix");
-        LOG.info("failedMessageSubjectPrefix " + failedMessageSubjectPrefix);
+        LOG.info("failedMessageSubjectPrefix {}", failedMessageSubjectPrefix);
         if (failedMessageSubjectPrefix != null) {
             return failedMessageSubjectPrefix;
         }
@@ -458,7 +458,7 @@ public class MessageMonitoringUtil {
      */
     public static String getFailedMessageEmailText() {
         String failedMessageEmailText = getPropertyStringValue("FailedMessageEmailText");
-        LOG.info("failedMessageEmailText " + failedMessageEmailText);
+        LOG.info("failedMessageEmailText {}", failedMessageEmailText);
         if (failedMessageEmailText != null) {
             return failedMessageEmailText;
         }
@@ -472,7 +472,7 @@ public class MessageMonitoringUtil {
      */
     public static String getSuccessfulMessageSubjectPrefix() {
         String successfulMessageSubjectPrefix = getPropertyStringValue("SuccessfulMessageSubjectPrefix");
-        LOG.info("successfulMessageSubjectPrefix " + successfulMessageSubjectPrefix);
+        LOG.info("successfulMessageSubjectPrefix {}", successfulMessageSubjectPrefix);
         if (successfulMessageSubjectPrefix != null) {
             return successfulMessageSubjectPrefix;
         }
@@ -486,7 +486,7 @@ public class MessageMonitoringUtil {
      */
     public static String getSuccessfulMessageEmailText() {
         String successfulMessageEmailText = getPropertyStringValue("SuccessfulMessageEmailText");
-        LOG.info("successfulMessageEmailText " + successfulMessageEmailText);
+        LOG.info("successfulMessageEmailText {}", successfulMessageEmailText);
         if (successfulMessageEmailText != null) {
             return successfulMessageEmailText;
         }
@@ -570,9 +570,7 @@ public class MessageMonitoringUtil {
         LOG.debug("Direct config URL: {}", url);
         ServicePortDescriptor<ConfigurationService> portDescriptor = new DirectConfigUnsecuredServicePortDescriptor();
 
-        CONNECTClient<ConfigurationService> client = CONNECTCXFClientFactory.getInstance()
-            .getCONNECTClientUnsecured(portDescriptor, url, null);
-        return client;
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, null);
     }
 
     private static String getPropertyStringValue(String propertyName) {
@@ -604,7 +602,7 @@ public class MessageMonitoringUtil {
         GatewayState gatewayState = GatewayState.getInstance();
         // Read the agentSettingsCacheRefreshTime property from gateway.properties
         int agentSettingsCacheRefreshTime = getAgentSettingsCacheRefreshTime();
-        LOG.trace("AgentSettingsCacheRefreshTime agentSettingsCacheRefreshTime value:" + agentSettingsCacheRefreshTime);
+        LOG.trace("AgentSettingsCacheRefreshTime agentSettingsCacheRefreshTime value:{}", agentSettingsCacheRefreshTime);
         boolean refreshRequired = gatewayState.getSettingsUpdateInterval() != agentSettingsCacheRefreshTime / 1000;
 
         // set the Settings Update Interval value only if the proeprty value retrieved is greater than zero

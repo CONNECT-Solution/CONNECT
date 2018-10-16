@@ -35,7 +35,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 public class AvailableService {
 
     private String serviceName;
-	private String serviceMessage;
+    private String serviceMessage;
     private int responseCode;
 
     public String getServiceName() {
@@ -57,14 +57,13 @@ public class AvailableService {
     public void setResponseCode(int responseCode) {
         this.responseCode = responseCode;
     }
-    
+
     public String getServiceMessage() {
- 		return serviceMessage;
- 	}
+        return serviceMessage;
+    }
 
- 	public void setServiceMessage(String serviceMessage) {
- 		this.serviceMessage = serviceMessage;
- 	}
-
+    public void setServiceMessage(String serviceMessage) {
+        this.serviceMessage = serviceMessage;
+    }
 
 }

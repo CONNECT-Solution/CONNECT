@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -81,7 +81,6 @@ implements WebServiceClient<Target, Request, Response> {
     }
 
     // implement singleton pattern using double null check pattern
-    @SuppressWarnings("static-access")
     private static RespondingGatewayService getWebServiceInstance() throws Exception {
         if (serviceInstance != null) {
             return serviceInstance;
@@ -92,7 +91,7 @@ implements WebServiceClient<Target, Request, Response> {
                     try {
                         serviceInstance = new RespondingGatewayService();
                     } catch (Exception e) {
-                        ExecutorServiceHelper.getInstance().outputCompleteException(e);
+                        ExecutorServiceHelper.outputCompleteException(e);
                         throw e;
                     }
                 }
@@ -115,7 +114,6 @@ implements WebServiceClient<Target, Request, Response> {
      * @return Response is PRPAIN201306UV02 returned
      * @throws Exception
      */
-    @SuppressWarnings("static-access")
     @Override
     public Response callWebService(Target target, Request request) throws Exception {
         ResponseWrapper resp;
@@ -148,21 +146,23 @@ implements WebServiceClient<Target, Request, Response> {
 
                     newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0).setRoot(
                         HomeCommunityMap.formatHomeCommunityId(target.getHcid()));
-                    LOG.debug(Thread.currentThread().getName() + " set Receiver.Device.Id.Root of "
-                        + "PRPAIN201305UV02 request to hcid=" + HomeCommunityMap.formatHomeCommunityId(target.getHcid()));
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("{} set Receiver.Device.Id.Root of PRPAIN201305UV02 request to hcid={}"
+                            ,Thread.currentThread().getName(), HomeCommunityMap.formatHomeCommunityId(target.getHcid()));
+                    }
                 }
 
-                LOG.debug(Thread.currentThread().getName() + " calling serviceAddress=" + serviceAddress
-                    + " for target hcid=" + target.getHcid());
+                LOG.debug("{} calling serviceAddress={} for target hcid={}"
+                    ,Thread.currentThread().getName(),serviceAddress, target.getHcid());
                 discoveryResponse = servicePort.respondingGatewayPRPAIN201305UV02(newRequest.getPRPAIN201305UV02());
             } else {
-                LOG.debug(Thread.currentThread().getName() + " has validPolicy=false");
+                LOG.debug("{} has validPolicy=false", Thread.currentThread().getName());
                 discoveryResponse
                 = new HL7PRPA201306Transforms().createPRPA201306ForErrors(newRequest.getPRPAIN201305UV02(),
                     NhincConstants.PATIENT_DISCOVERY_POLICY_FAILED_ACK_MSG);
             }
         } catch (Exception e) {
-            ExecutorServiceHelper.getInstance().outputCompleteException(e);
+            ExecutorServiceHelper.outputCompleteException(e);
             throw e;
         } finally {
             resp = new ResponseWrapper(target, newRequest, discoveryResponse);
