@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -60,8 +60,8 @@ public class DocumentRetrieveServiceImpl implements DocumentRetrieveService {
         EntityDocRetrieveProxyWebServiceUnsecuredImpl retrieveResults = new EntityDocRetrieveProxyWebServiceUnsecuredImpl();
         messageDirector = setMessageDirector(documentModel, assertion);
         response = retrieveResults.respondingGatewayCrossGatewayRetrieve(
-                messageDirector.getMessage().getRetrieveDocumentSetRequest(),
-                messageDirector.getMessage().getAssertion(), messageDirector.getMessage().getNhinTargetCommunities());
+            messageDirector.getMessage().getRetrieveDocumentSetRequest(),
+            messageDirector.getMessage().getAssertion(), messageDirector.getMessage().getNhinTargetCommunities());
         docRetrieveResults = getResultsFromResponse(response);
         return docRetrieveResults.getDocumentRetrieveResultsModel();
     }
@@ -75,7 +75,7 @@ public class DocumentRetrieveServiceImpl implements DocumentRetrieveService {
         return messageDirector;
     }
 
-    private DocumentRetrieveRequestBuilder createRetrieveDocumentSetRequest(DocumentRetrieve documentModel) {
+    private static DocumentRetrieveRequestBuilder createRetrieveDocumentSetRequest(DocumentRetrieve documentModel) {
         DocumentRetrieveRequestBuilder request = new DocumentRetrieveRequestBuilderImpl();
         request.setDocumentId(documentModel.getDocumentId());
         request.setHCID(documentModel.getHCID());
@@ -84,13 +84,14 @@ public class DocumentRetrieveServiceImpl implements DocumentRetrieveService {
         return request;
     }
 
-    private NhinTargetCommunitiesBuilder setNhinTarget(DocumentRetrieve documentModel) {
+    private static NhinTargetCommunitiesBuilder setNhinTarget(DocumentRetrieve documentModel) {
         NhinTargetCommunitiesBuilder targetCommunitiesBuilder = new NhinTargetCommunitiesBuilderImpl();
         targetCommunitiesBuilder.setTarget(documentModel.getHCID());
         return targetCommunitiesBuilder;
     }
 
-    private DocumentRetrieveResultsModelBuilder getResultsFromResponse(RetrieveDocumentSetResponseType response) {
+    private static DocumentRetrieveResultsModelBuilder getResultsFromResponse(
+        RetrieveDocumentSetResponseType response) {
         DocumentRetrieveResultsModelBuilder responseResults = new DocumentRetrieveResultsModelBuilderImpl();
         responseResults.setRetrieveDocumentSetResponseType(response);
         responseResults.build();

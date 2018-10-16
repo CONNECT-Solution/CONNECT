@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,7 +26,9 @@
  */
 package gov.hhs.fha.nhinc.auditquerylog;
 
-import gov.hhs.fha.nhinc.audit.retrieve.AuditRetrieveEventsUtil;
+import static gov.hhs.fha.nhinc.audit.retrieve.AuditRetrieveEventsUtil.getQueryAuditEventBlobResponse;
+import static gov.hhs.fha.nhinc.audit.retrieve.AuditRetrieveEventsUtil.getQueryAuditEventResponse;
+
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryDAO;
 import gov.hhs.fha.nhinc.common.auditquerylog.EventTypeList;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsBlobRequest;
@@ -49,14 +51,12 @@ import org.slf4j.LoggerFactory;
 public class AuditQueryLogImpl {
 
     private AuditRepositoryDAO dao;
-    private AuditRetrieveEventsUtil resultUtil;
     private static final Logger LOG = LoggerFactory.getLogger(AuditQueryLogImpl.class);
 
     /**
      * constructor. initialize AuditRetrieveEventsUtil to build AuditQueryResponse
      */
     public AuditQueryLogImpl() {
-        resultUtil = new AuditRetrieveEventsUtil();
     }
 
     /**
@@ -71,10 +71,10 @@ public class AuditQueryLogImpl {
      *
      */
     public QueryAuditEventsResponseType queryAuditEvents(QueryAuditEventsRequestType request) {
-        return resultUtil.getQueryAuditEventResponse(
-                getAuditRepositoryDao().queryByAuditOptions(getEventTypes(request.getEventTypeList()),
-                        request.getUserId(), getRemoteHcids(request.getRemoteHcidList()),
-                        getRequestDate(request.getEventBeginDate()), getRequestDate(request.getEventEndDate())));
+        return getQueryAuditEventResponse(
+            getAuditRepositoryDao().queryByAuditOptions(getEventTypes(request.getEventTypeList()),
+                request.getUserId(), getRemoteHcids(request.getRemoteHcidList()),
+                getRequestDate(request.getEventBeginDate()), getRequestDate(request.getEventEndDate())));
 
     }
 
@@ -89,9 +89,9 @@ public class AuditQueryLogImpl {
      *
      */
     public QueryAuditEventsResponseType queryAuditEventsByMessageIdAndRelatesTo(
-            QueryAuditEventsRequestByRequestMessageId request) {
-        return resultUtil.getQueryAuditEventResponse(
-                getAuditRepositoryDao().queryAuditRecords(request.getRequestMessageId(), request.getRelatesTo()));
+        QueryAuditEventsRequestByRequestMessageId request) {
+        return getQueryAuditEventResponse(
+            getAuditRepositoryDao().queryAuditRecords(request.getRequestMessageId(), request.getRelatesTo()));
     }
 
     /**
@@ -101,7 +101,7 @@ public class AuditQueryLogImpl {
      *
      */
     public QueryAuditEventsBlobResponse queryAuditEventsById(QueryAuditEventsBlobRequest request) {
-        return resultUtil.getQueryAuditEventBlobResponse(getAuditRepositoryDao().queryByAuditId(request.getId()));
+        return getQueryAuditEventBlobResponse(getAuditRepositoryDao().queryByAuditId(request.getId()));
     }
 
     /**
@@ -119,7 +119,7 @@ public class AuditQueryLogImpl {
         if (dateObj != null) {
             LOG.info("Converting XMLGregorianCalendar to a date object");
             LOG.info("{}-{}-{} {}:{}:{} {}", dateObj.getMonth(), dateObj.getDay(), dateObj.getYear(), dateObj.getHour(),
-                    dateObj.getMinute(), dateObj.getSecond(), dateObj.getTimezone());
+                dateObj.getMinute(), dateObj.getSecond(), dateObj.getTimezone());
             return new Date(dateObj.toGregorianCalendar().getTimeInMillis());
         }
         return null;
