@@ -38,7 +38,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.security.KeyStore;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStoreException;
@@ -54,7 +53,6 @@ import java.util.Map;
 import javax.activation.DataHandler;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.cryptacular.util.StreamUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,7 +79,7 @@ public class CertificateManagerImpl implements CertificateManager {
             initKeyStore();
             initTrustStore();
         } catch (final Exception e) {
-            LOG.error("Unable to initialize keystores: " + e.getLocalizedMessage(), e);
+            LOG.error("Unable to initialize keystores {} ", e.getLocalizedMessage(), e);
         }
     }
 
@@ -219,9 +217,10 @@ public class CertificateManagerImpl implements CertificateManager {
             tstore.setCertificateEntry(newAlias, certificate);
             tstore.store(os, passkey.toCharArray());
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
-            IOUtils.closeQuietly(os);
             LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(ex.getMessage(), ex);
+        } finally {
+            IOUtils.closeQuietly(os);
         }
         return os;
     }
@@ -452,9 +451,14 @@ public class CertificateManagerImpl implements CertificateManager {
             storeType = JKS_TYPE;
         }
         if (password != null && !PKCS11_TYPE.equalsIgnoreCase(storeType)) {
-            OutputStream os = new FileOutputStream(storeLoc);
-            trustStore.store(os, password.toCharArray());
-            StreamUtil.closeStream(os);
+            FileOutputStream os = null;
+            try {
+                os = new FileOutputStream(storeLoc);
+                trustStore.store(os, password.toCharArray());
+            } finally {
+                IOUtils.closeQuietly(os);
+            }
+
         }
     }
 
