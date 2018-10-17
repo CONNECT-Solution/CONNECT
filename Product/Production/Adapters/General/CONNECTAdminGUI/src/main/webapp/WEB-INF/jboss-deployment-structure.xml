@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-deployment-structure>
-  <deployment>
-    <exclusions>
-      <!-- Exclude the Hibernate and persistence modules to get passed deployment error. -->
-      <module name="org.hibernate" />
-      <module name="javaee.api"/>
-      <module name="javax.persistence.api"/>
-      <module name="org.jboss.logging"/>
-    </exclusions>
-    <dependencies>
-      <!-- The javaee.api module needs to be added back, but should exclude the javax.persistance path. -->
-      <module name="javaee.api">
-        <imports>
-          <exclude path="javax/persistence" />
-        </imports>
-      </module>	
-    </dependencies>	
-  </deployment>
+    <deployment>
+        <exclusions>
+            <!-- Exclude the Hibernate and persistence modules to get passed deployment error. -->
+            <module name="org.hibernate" />
+            <module name="javaee.api" />
+            <module name="javax.persistence.api" />
+            <module name="org.jboss.logging" />
+        </exclusions>
+        <dependencies>
+            <!-- The javaee.api module needs to be added back, but should exclude the javax.persistance path. -->
+            <module name="javaee.api">
+                <imports>
+                    <exclude path="javax/persistence" />
+                </imports>
+            </module>
+        </dependencies>
+    </deployment>
 </jboss-deployment-structure>

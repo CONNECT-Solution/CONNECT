@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
         <groupId>org.connectopensource</groupId>
@@ -19,8 +20,8 @@
     <dependencies>
         <!-- Java EE APIs -->
         <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>javax.servlet-api</artifactId>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
         </dependency>
 
         <!-- CONNECT Modules / Web Services -->
@@ -250,8 +251,8 @@
             <artifactId>joda-time</artifactId>
         </dependency>
         <dependency>
-             <groupId>ca.uhn.hapi.fhir</groupId>
-             <artifactId>hapi-fhir-structures-dstu3</artifactId>
+            <groupId>ca.uhn.hapi.fhir</groupId>
+            <artifactId>hapi-fhir-structures-dstu3</artifactId>
         </dependency>
         <!-- Testing -->
         <dependency>
@@ -305,15 +306,15 @@
             <groupId>org.owasp.encoder</groupId>
             <artifactId>encoder</artifactId>
             <version>1.2.1</version>
-    </dependency>
-    <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>5.1.10</version>
-        <scope>test</scope>
-    </dependency>
-    
-        
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.10</version>
+            <scope>test</scope>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -331,10 +332,10 @@
             </plugin>
         </plugins>
     </build>
-  <repositories>
-    <repository>
-      <id>shibbole</id>
-      <url>https://build.shibboleth.net/nexus/content/repositories/releases/</url>
-    </repository>
-  </repositories>
+    <repositories>
+        <repository>
+            <id>shibbole</id>
+            <url>https://build.shibboleth.net/nexus/content/repositories/releases/</url>
+        </repository>
+    </repositories>
 </project>

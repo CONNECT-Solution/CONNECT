@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:n1="http://nhinc.services.com/schema/auditmessage">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:n1="http://nhinc.services.com/schema/auditmessage">
     <xsl:template match="n1:AuditMessage">
         <html>
             <body>
-                <xsl:call-template name="EventIdentification"/>
-                <xsl:call-template name="ActiveParticipant"/>
-                <xsl:call-template name="AuditSourceIdentification"/>
-                <xsl:call-template name="ParticipantObjectIdentification"/>
+                <xsl:call-template name="EventIdentification" />
+                <xsl:call-template name="ActiveParticipant" />
+                <xsl:call-template name="AuditSourceIdentification" />
+                <xsl:call-template name="ParticipantObjectIdentification" />
             </body>
         </html>
     </xsl:template>
@@ -126,8 +125,8 @@
     <xsl:template name="ActiveParticipant">
         <h4>Active Participant:</h4>
         <table>
-	    <xsl:attribute name="class">table table-bordered table-condensed</xsl:attribute>
-	    <tr>
+            <xsl:attribute name="class">table table-bordered table-condensed</xsl:attribute>
+            <tr>
                 <xsl:attribute name="bgcolor">#e3ebf5</xsl:attribute>
                 <th>UserID</th>
                 <th>AlternativeUserID</th>
@@ -231,8 +230,8 @@
     <xsl:template name="AuditSourceIdentification">
         <h4>Audit Source Identification:</h4>
         <table>
-	    <xsl:attribute name="class">table table-bordered table-condensed</xsl:attribute>
-	    <tr>
+            <xsl:attribute name="class">table table-bordered table-condensed</xsl:attribute>
+            <tr>
                 <xsl:attribute name="bgcolor">#e3ebf5</xsl:attribute>
                 <th>AuditEnterpriseSiteID</th>
                 <th>AuditSourceID</th>
@@ -266,8 +265,8 @@
     <xsl:template name="ParticipantObjectIdentification">
         <h4>Participant Object Identification:</h4>
         <table>
-	    <xsl:attribute name="class">table table-bordered table-condensed</xsl:attribute>
-	    <tr>
+            <xsl:attribute name="class">table table-bordered table-condensed</xsl:attribute>
+            <tr>
                 <xsl:attribute name="bgcolor">#e3ebf5</xsl:attribute>
                 <th>ParticipantObjectID</th>
                 <th>ParticipantObjectTypeCode</th>
@@ -346,7 +345,7 @@
                     <td>
                         <xsl:choose>
                             <xsl:when test="n1:ParticipantObjectQuery">
-                                <xsl:value-of select="n1:ParticipantObjectQuery"/>
+                                <xsl:value-of select="n1:ParticipantObjectQuery" />
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:text>Information not available</xsl:text>
