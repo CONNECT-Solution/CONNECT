@@ -24,27 +24,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 
-import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
-import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+package gov.hhs.fha.nhinc.docretrieve.entity.proxy;
+
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AdapterDocDataSubmissionProxyNoOpImpl implements AdapterDocDataSubmissionProxy {
+/**
+ * @author ptambellini
+ *
+ */
 
-    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocDataSubmissionProxyNoOpImpl.class);
+public abstract class AbstractEntityDocRetrieveProxy implements EntityDocRetrieveProxy {
 
-    @AdapterDelegationEvent(serviceType = "Document Data Submission", version = "",
-        beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
-        afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class)
-    @Override
-    public RegistryResponseType registerDocumentSetB(RegisterDocumentSetRequestType msg, AssertionType assertion) {
-        LOG.trace("Using NoOp Implementation for Adapter Doc Submission Service");
-        return MessageGeneratorUtils.getInstance().createRegistryResponseSuccess();
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractEntityDocRetrieveProxy.class);
+
+    protected String getUrl(String serviceName) {
+        String result = "";
+        try {
+            result = getWebServiceProxyHelper().getUrlLocalHomeCommunity(serviceName);
+        } catch (Exception ex) {
+            LOG.warn("Unable to retreive url for service: {} Error: {} ", serviceName, ex.getMessage(), ex);
+        }
+
+        return result;
+    }
+
+    protected WebServiceProxyHelper getWebServiceProxyHelper() {
+        return new WebServiceProxyHelper();
     }
 }

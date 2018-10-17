@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docdatasubmission.adapter.proxy;
 import gov.hhs.fha.nhinc.adapterxdssecured.AdapterXDSSecuredPortType;
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.adapter.descriptor.AdapterDocDataSubmissionSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
@@ -38,6 +37,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceException;
@@ -60,7 +60,7 @@ public class AdapterDocDataSubmissionProxyWebServiceSecuredImpl implements Adapt
             if (NullChecker.isNotNullish(url)) {
 
                 ServicePortDescriptor<AdapterXDSSecuredPortType> portDescriptor
-                    = new AdapterDocDataSubmissionSecuredServicePortDescriptor();
+                = new AdapterDocDataSubmissionSecuredServicePortDescriptor();
 
                 CONNECTClient<AdapterXDSSecuredPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientSecured(portDescriptor, url, assertion);
@@ -70,7 +70,7 @@ public class AdapterDocDataSubmissionProxyWebServiceSecuredImpl implements Adapt
                 throw new WebServiceException("Could not determine URL for Doc Data Submission Adapter endpoint");
             }
         } catch (Exception ex) {
-            response = MessageGeneratorUtilsDocData.getInstance().createRegistryErrorResponse();
+            response = MessageGeneratorUtils.getInstance().createRegistryErrorResponse();
             throw new ErrorEventException(ex, response, "Unable to call Doc Data Submission Adapter");
         }
         return response;

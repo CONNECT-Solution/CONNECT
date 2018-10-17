@@ -31,16 +31,12 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.docsubmission.audit.DocSubmissionAuditTransformsConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.ServiceUtils;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.List;
-import javax.xml.bind.JAXBElement;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -49,8 +45,6 @@ import org.slf4j.LoggerFactory;
  * @param <K>
  */
 public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTransforms<T, K> {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractDocSubmissionAuditTransforms.class);
 
     // PatientParticipantObjectIdentification is same for both Request and Response in case of DS
     protected AuditMessageType getPatientParticipantObjectIdentification(
@@ -132,19 +126,7 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
     }
 
     private static RegistryObjectType extractRegistryObject(RegistryObjectListType registryList) {
-        RegistryObjectType registryObj = null;
-        if (registryList != null && registryList.getIdentifiable() != null) {
-            for (JAXBElement<? extends IdentifiableType> object : registryList.getIdentifiable()) {
-                if (object.getDeclaredType() != null && object.getDeclaredType().equals(RegistryPackageType.class)) {
-                    registryObj = (RegistryObjectType) object.getValue();
-                    break;
-                }
-            }
-        }
-        if (registryObj == null) {
-            LOG.error("RegistryPackage is null.");
-        }
-        return registryObj;
+        return ServiceUtils.extractRegistryObject(registryList);
     }
 
     @Override

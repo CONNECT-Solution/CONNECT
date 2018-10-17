@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.service.NhinDocSubmissionDeferredResponseServicePortDescriptor;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
@@ -38,6 +37,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xdr._2007.XDRDeferredResponse20PortType;
 import javax.xml.ws.Holder;
@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
  * @author JHOPPESC
  */
 public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl implements
-    NhinDocSubmissionDeferredResponseProxy {
+NhinDocSubmissionDeferredResponseProxy {
 
     private static final Logger LOG = LoggerFactory
         .getLogger(NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl.class);
@@ -78,8 +78,8 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
 
     @Override
     @NwhinInvocationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
-        afterReturningBuilder = DeferredResponseDescriptionBuilder.class,
-        serviceType = "Document Submission Deferred Response", version = "")
+    afterReturningBuilder = DeferredResponseDescriptionBuilder.class,
+    serviceType = "Document Submission Deferred Response", version = "")
     public RegistryResponseType provideAndRegisterDocumentSetBDeferredResponse20(RegistryResponseType request,
         AssertionType assertion, NhinTargetSystemType target) {
 
@@ -96,7 +96,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
                 respHolder.value = request;
 
                 ServicePortDescriptor<XDRDeferredResponse20PortType> portDescriptor
-                    = new NhinDocSubmissionDeferredResponseServicePortDescriptor();
+                = new NhinDocSubmissionDeferredResponseServicePortDescriptor();
 
                 CONNECTClient<XDRDeferredResponse20PortType> client = getCONNECTClientSecured(portDescriptor, url,
                     assertion, target.getHomeCommunity().getHomeCommunityId(),

@@ -26,13 +26,13 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.entity;
 
-import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,7 +81,7 @@ public class OutboundDocDataSubmissionDelegate implements OutboundDelegate {
             return;
         }
 
-        RegistryResponseType response = MessageGeneratorUtilsDocData.getInstance()
+        RegistryResponseType response = MessageGeneratorUtils.getInstance()
             .createRegistryErrorResponseWithAckFailure(error);
 
         ((OutboundDocDataSubmissionOrchestratable) message).setResponse(response);
