@@ -37,12 +37,8 @@ import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public abstract class AbstractDocDataSubmissionAuditTransforms<T, K> extends AuditTransforms<T, K> {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractDocDataSubmissionAuditTransforms.class);
 
     // PatientParticipantObjectIdentification is same for both Request and Response in case of DDS
     protected AuditMessageType getPatientParticipantObjectIdentification(RegisterDocumentSetRequestType request,
