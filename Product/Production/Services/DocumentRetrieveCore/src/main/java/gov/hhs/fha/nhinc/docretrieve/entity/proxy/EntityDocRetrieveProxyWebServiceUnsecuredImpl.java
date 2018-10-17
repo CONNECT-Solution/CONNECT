@@ -38,7 +38,6 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import org.slf4j.Logger;
@@ -50,7 +49,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author dunnek
  */
-public class EntityDocRetrieveProxyWebServiceUnsecuredImpl implements EntityDocRetrieveProxy {
+public class EntityDocRetrieveProxyWebServiceUnsecuredImpl extends AbstractEntityDocRetrieveProxy {
 
     private static final Logger LOG = LoggerFactory.getLogger(EntityDocRetrieveProxyWebServiceUnsecuredImpl.class);
 
@@ -101,32 +100,6 @@ public class EntityDocRetrieveProxyWebServiceUnsecuredImpl implements EntityDocR
         }
         return response;
 
-    }
-
-    /**
-     * This method returns the url of the provided service.
-     *
-     * @param serviceName to make a look up on ConnectionInfo files.
-     * @return String url from the ConnectionInfo files.
-     */
-    protected String getUrl(String serviceName) {
-        String result = "";
-        try {
-            result = getWebServiceProxyHelper().getUrlLocalHomeCommunity(serviceName);
-        } catch (Exception ex) {
-            LOG.warn("Unable to retreive url for service: " + serviceName);
-            LOG.warn("Error: " + ex.getMessage(), ex);
-        }
-
-        return result;
-    }
-
-    /**
-     *
-     * @return WebServiceProxyHelper
-     */
-    protected WebServiceProxyHelper getWebServiceProxyHelper() {
-        return new WebServiceProxyHelper();
     }
 
     /**

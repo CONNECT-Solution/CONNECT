@@ -38,7 +38,6 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import org.slf4j.Logger;
@@ -48,7 +47,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author dunnek
  */
-public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRetrieveProxy {
+public class EntityDocRetrieveProxyWebServiceSecuredImpl extends AbstractEntityDocRetrieveProxy {
 
     private static final Logger LOG = LoggerFactory.getLogger(EntityDocRetrieveProxyWebServiceSecuredImpl.class);
 
@@ -77,28 +76,12 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
                 response = (RetrieveDocumentSetResponseType) client.invokePort(EntityDocRetrieveSecuredPortType.class, "respondingGatewayCrossGatewayRetrieve", message.getRetrieveDocumentSetRequest());
 
             } else {
-                throw new IllegalArgumentException("Could not determine URL for Entity Doc Query endpoint");
+                throw new IllegalArgumentException("Could not determine URL for Entity Doc Query endpoint Secured");
             }
         } catch (Exception ex) {
-            throw new ErrorEventException(ex, "Unable to call Entity Doc Retrieve");
+            throw new ErrorEventException(ex, "Unable to call Entity Doc Retrieve Secured");
         }
         return response;
-    }
-
-    protected String getUrl(String serviceName) {
-        String result = "";
-        try {
-            result = getWebServiceProxyHelper().getUrlLocalHomeCommunity(serviceName);
-        } catch (Exception ex) {
-            LOG.warn("Unable to retreive url for service: " + serviceName);
-            LOG.warn("Error: " + ex.getMessage(), ex);
-        }
-
-        return result;
-    }
-
-    protected WebServiceProxyHelper getWebServiceProxyHelper() {
-        return new WebServiceProxyHelper();
     }
 
     protected CONNECTClient<EntityDocRetrieveSecuredPortType> getCONNECTClientSecured(

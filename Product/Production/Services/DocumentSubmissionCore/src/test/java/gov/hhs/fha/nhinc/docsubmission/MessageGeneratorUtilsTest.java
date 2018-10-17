@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,12 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docsubmission;
 
+import static org.junit.Assert.assertEquals;
+
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -54,7 +56,7 @@ public class MessageGeneratorUtilsTest {
 
         assertEquals(response.getStatus(), status);
         assertEquals(response.getRegistryErrorList().getHighestSeverity(),
-                NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+            NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         assertEquals(regError.getErrorCode(), errorCode);
         assertEquals(regError.getCodeContext(), errorMsg);
         assertEquals(regError.getSeverity(), NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
@@ -69,7 +71,7 @@ public class MessageGeneratorUtilsTest {
 
         assertEquals(response.getStatus(), DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
         assertEquals(response.getRegistryErrorList().getHighestSeverity(),
-                NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+            NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         assertEquals(regError.getErrorCode(), DocumentConstants.XDS_REGISTRY_ERROR);
         assertEquals(regError.getSeverity(), NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
     }
@@ -107,7 +109,7 @@ public class MessageGeneratorUtilsTest {
 
         assertEquals(response.getStatus(), DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
         assertEquals(response.getRegistryErrorList().getHighestSeverity(),
-                NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+            NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         assertEquals(regError.getErrorCode(), DocumentConstants.XDS_MISSING_DOCUMENT);
         assertEquals(regError.getSeverity(), NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
     }
@@ -118,7 +120,7 @@ public class MessageGeneratorUtilsTest {
 
         assertEquals(response.getStatus(), NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
         assertEquals(response.getRegistryErrorList().getHighestSeverity(),
-                NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+            NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         assertEquals(regError.getErrorCode(), DocumentConstants.XDS_REGISTRY_ERROR);
         assertEquals(regError.getSeverity(), NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
 

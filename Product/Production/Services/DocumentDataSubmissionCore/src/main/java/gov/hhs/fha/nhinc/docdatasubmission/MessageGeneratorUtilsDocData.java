@@ -26,13 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission;
 
-import gov.hhs.fha.nhinc.docrepository.adapter.DocRepoConstants;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class MessageGeneratorUtilsDocData {
@@ -61,20 +58,18 @@ public class MessageGeneratorUtilsDocData {
      * @return the generated RegistryErrorResponse message
      */
     public RegistryResponseType createRegistryErrorResponse(String errorMsg, String errorCode, String status) {
-        RegistryErrorList regErrList = new RegistryErrorList();
-        regErrList.setHighestSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-
-        RegistryError regErr = new RegistryError();
-        regErrList.getRegistryError().add(regErr);
-        regErr.setCodeContext(errorMsg);
-        regErr.setErrorCode(errorCode);
-        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-
-        RegistryResponseType response = new RegistryResponseType();
-        response.setRegistryErrorList(regErrList);
-        response.setStatus(status);
-
-        return response;
+        /*
+         * RegistryErrorList regErrList = new RegistryErrorList();
+         * regErrList.setHighestSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+         *
+         * RegistryError regErr = new RegistryError(); regErrList.getRegistryError().add(regErr);
+         * regErr.setCodeContext(errorMsg); regErr.setErrorCode(errorCode);
+         * regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+         *
+         * RegistryResponseType response = new RegistryResponseType(); response.setRegistryErrorList(regErrList);
+         * response.setStatus(status); ; return response;
+         */
+        return MessageGeneratorUtils.getInstance().createRegistryErrorResponse(errorMsg, errorCode, status);
     }
 
     /**
@@ -83,7 +78,8 @@ public class MessageGeneratorUtilsDocData {
      * @return the generated RegistryErrorResponse message
      */
     public RegistryResponseType createFailedPolicyCheckResponse() {
-        return createRegistryErrorResponse(DocumentConstants.XDR_POLICY_ERROR_CONTEXT,
+        return MessageGeneratorUtils.getInstance().createRegistryErrorResponse(
+            DocumentConstants.XDR_POLICY_ERROR_CONTEXT,
             DocumentConstants.XDR_POLICY_ERROR, DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
     }
 
@@ -94,14 +90,17 @@ public class MessageGeneratorUtilsDocData {
      * @return the generated RegistryErrorResponse message
      */
     public RegistryResponseType createRegistryErrorResponse() {
-        return createRegistryErrorResponse("Failed to submit document data submission",
+        return MessageGeneratorUtils.getInstance().createRegistryErrorResponse(
+            "Failed to submit document data submission",
             DocumentConstants.XDS_REGISTRY_ERROR, DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
     }
 
-    public RegistryResponseType createRegistryResponseSuccess() {
-        RegistryResponseType registryResponse = new ObjectFactory().createRegistryResponseType();
-        registryResponse.setStatus(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
-        return registryResponse;
+    public static RegistryResponseType createRegistryResponseSuccess() {
+        /*
+         * RegistryResponseType registryResponse = new ObjectFactory().createRegistryResponseType();
+         * registryResponse.setStatus(DocRepoConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
+         */
+        return MessageGeneratorUtils.getInstance().createRegistryResponseSuccess();
     }
 
     /**

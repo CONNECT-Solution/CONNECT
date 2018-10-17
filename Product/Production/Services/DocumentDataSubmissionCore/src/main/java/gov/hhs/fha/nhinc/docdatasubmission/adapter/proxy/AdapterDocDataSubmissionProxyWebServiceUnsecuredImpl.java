@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.adapterxds.AdapterXDSPortType;
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.adapter.descriptor.AdapterDocDataSubmissionServicePortDescriptor;
 import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
@@ -39,6 +38,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceException;
@@ -69,7 +69,7 @@ public class AdapterDocDataSubmissionProxyWebServiceUnsecuredImpl implements Ada
                 request.setAssertion(assertion);
 
                 ServicePortDescriptor<AdapterXDSPortType> portDescriptor
-                    = new AdapterDocDataSubmissionServicePortDescriptor();
+                = new AdapterDocDataSubmissionServicePortDescriptor();
 
                 CONNECTClient<AdapterXDSPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientUnsecured(portDescriptor, url, assertion);
@@ -80,7 +80,7 @@ public class AdapterDocDataSubmissionProxyWebServiceUnsecuredImpl implements Ada
                 throw new WebServiceException("Could not determine URL for Doc Data Submission Adapter endpoint");
             }
         } catch (Exception ex) {
-            response = MessageGeneratorUtilsDocData.getInstance().createRegistryErrorResponse();
+            response = MessageGeneratorUtils.getInstance().createRegistryErrorResponse();
             throw new ErrorEventException(ex, response, "Unable to call Doc Data Submission Adapter");
         }
 
