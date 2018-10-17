@@ -41,9 +41,9 @@
             <artifactId>InternalExchangeManagementWebservices</artifactId>
         </dependency>
         <dependency>
-	      <groupId>org.connectopensource</groupId>
-	      <artifactId>ConfigAdminWebservices</artifactId>
-	    </dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>ConfigAdminWebservices</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>AdminGUIManagementWebservices</artifactId>

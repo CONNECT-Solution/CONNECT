@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
         <groupId>org.connectopensource</groupId>
@@ -24,12 +25,12 @@
                 </property>
             </activation>
             <modules>
-                <!--module>startEmbedded</module-->
+                <!--module>startEmbedded</module -->
                 <module>Standard</module>
                 <module>Passthru</module>
                 <module>Bimodal</module>
                 <!-- <module>NewFeature</module> -->
-                <!--module>stopEmbedded</module-->
+                <!--module>stopEmbedded</module -->
             </modules>
         </profile>
 
@@ -46,29 +47,29 @@
             </modules>
         </profile>
 
-		<profile>
+        <profile>
             <id>manual-testing</id>
-           	<modules>
-			     <module>Manual</module>
-		         <module>Bimodal/ValidateRDMessageSpecVersionTest</module>
-				 <module>Bimodal/ValidateSAMLResourceURIAttributeTest</module>
-				 <module>Bimodal/ValidateAuditQueryLogService</module>
-				 <module>Bimodal/ValidateQDMessageSpecVersionTest</module>
-				 <module>Passthru/AuditLogging-Passthrough</module>
-				 <module>Passthru/DocQueryErrorCodesPassthru</module>
-				 <module>Passthru/NHINCReceivingXDRAsyncRequestTests</module>
-				 <module>Passthru/NHINCReceivingXDRAsyncResponseTests</module>
-				 <module>Standard/EntitySendingXDRAsyncReqTests</module>
-				 <module>Standard/EntitySendingXDRAsyncResponseTests</module>
-				 <module>Standard/Fanout-Test</module>
-				 <module>Standard/TransactionIDTest</module>
-				 <module>startEmbedded</module>
-				 <module>stopEmbedded</module>
-				 <module>Graveyard/LargePayloadTest</module> 
-				 <module>Utility/JMXConfigTest</module> 
-			 </modules>
-	   </profile>
-	   
+            <modules>
+                <module>Manual</module>
+                <module>Bimodal/ValidateRDMessageSpecVersionTest</module>
+                <module>Bimodal/ValidateSAMLResourceURIAttributeTest</module>
+                <module>Bimodal/ValidateAuditQueryLogService</module>
+                <module>Bimodal/ValidateQDMessageSpecVersionTest</module>
+                <module>Passthru/AuditLogging-Passthrough</module>
+                <module>Passthru/DocQueryErrorCodesPassthru</module>
+                <module>Passthru/NHINCReceivingXDRAsyncRequestTests</module>
+                <module>Passthru/NHINCReceivingXDRAsyncResponseTests</module>
+                <module>Standard/EntitySendingXDRAsyncReqTests</module>
+                <module>Standard/EntitySendingXDRAsyncResponseTests</module>
+                <module>Standard/Fanout-Test</module>
+                <module>Standard/TransactionIDTest</module>
+                <module>startEmbedded</module>
+                <module>stopEmbedded</module>
+                <module>Graveyard/LargePayloadTest</module>
+                <module>Utility/JMXConfigTest</module>
+            </modules>
+        </profile>
+
     </profiles>
 
     <build>

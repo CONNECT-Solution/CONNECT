@@ -7,118 +7,116 @@
     version="2.5">
 
   <!-- Add Support for Spring -->
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
-  <listener>
-    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-  </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
 
-  <listener>
-    <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
-  </listener>
+    <listener>
+        <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+    </listener>
 
-  <servlet>
-    <servlet-name>init</servlet-name>
-    <servlet-class>gov.hhs.fha.nhinc.admingui.servlet.InitServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
+    <servlet>
+        <servlet-name>init</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.admingui.servlet.InitServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-  <context-param>
-    <param-name>org.apache.myfaces.SUPPORT_JSP_AND_FACES_EL</param-name>
-    <param-value>false</param-value>
-  </context-param>
+    <context-param>
+        <param-name>org.apache.myfaces.SUPPORT_JSP_AND_FACES_EL</param-name>
+        <param-value>false</param-value>
+    </context-param>
 
-  <context-param>
-    <param-name>org.apache.myfaces.SERIALIZE_STATE_IN_SESSION</param-name>
-    <param-value>false</param-value>
-  </context-param>
+    <context-param>
+        <param-name>org.apache.myfaces.SERIALIZE_STATE_IN_SESSION</param-name>
+        <param-value>false</param-value>
+    </context-param>
 
-  <context-param>
-    <param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>
-    <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
-  </context-param>
+    <context-param>
+        <param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>
+        <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
+    </context-param>
 
-  <!-- Welcome page -->
-  <welcome-file-list>
-    <welcome-file>login.xhtml</welcome-file>
-  </welcome-file-list>
+    <!-- Welcome page -->
+    <welcome-file-list>
+        <welcome-file>login.xhtml</welcome-file>
+    </welcome-file-list>
 
-  <!-- Error page -->
-  <!--All errrors including ViewExpiredExceptiosn are handled by exception-handler-factory in faces-config.xml -->
-  <context-param>
-    <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
-    <param-value>true</param-value>
-  </context-param>
+    <!-- Error page -->
+    <!--All errrors including ViewExpiredExceptiosn are handled by exception-handler-factory in faces-config.xml -->
+    <context-param>
+        <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+        <param-value>true</param-value>
+    </context-param>
 
-  <!-- Session Config -->
-  <session-config>
-    <session-timeout>10</session-timeout>
-  </session-config>
+    <!-- Session Config -->
+    <session-config>
+        <session-timeout>10</session-timeout>
+    </session-config>
 
-  <!-- Change to "Development" when modifying / debugging -->
-  <context-param>
-    <param-name>javax.faces.PROJECT_STAGE</param-name>
-    <param-value>Production</param-value>
-  </context-param>
+    <!-- Change to "Development" when modifying / debugging -->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Production</param-value>
+    </context-param>
 
-  <!-- Change to "false" when modifying / debugging -->
-  <context-param>
-    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
-    <param-value>true</param-value>
-  </context-param>
+    <!-- Change to "false" when modifying / debugging -->
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
 
-  <context-param>
-    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-    <param-value>server</param-value>
-  </context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
 
-  <!-- JSF Mapping -->
-  <servlet>
-    <servlet-name>facesServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.webapp.MyFacesServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>facesServlet</servlet-name>
-    <url-pattern>*.jsf</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>facesServlet</servlet-name>
-    <url-pattern>*.xhtml</url-pattern>
-  </servlet-mapping>
+    <!-- JSF Mapping -->
+    <servlet>
+        <servlet-name>facesServlet</servlet-name>
+        <servlet-class>org.apache.myfaces.webapp.MyFacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>facesServlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>facesServlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
 
-  <resource-ref>
-    <res-ref-name>jdbc/eventdb_datasource</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-    <res-auth>Container</res-auth>
-    <res-sharing-scope>Shareable</res-sharing-scope>
-  </resource-ref>
-  <resource-ref>
-    <res-ref-name>jdbc/adminguidb_datasource</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-    <res-auth>Container</res-auth>
-    <res-sharing-scope>Shareable</res-sharing-scope>
-  </resource-ref>
+    <resource-ref>
+        <res-ref-name>jdbc/eventdb_datasource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>jdbc/adminguidb_datasource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
 
-  <filter>
-    <filter-name>PrimeFaces FileUpload Filter</filter-name>
-    <filter-class>
-            org.primefaces.webapp.filter.FileUploadFilter
-    </filter-class>
-  </filter>
+    <filter>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+    </filter>
   <filter-mapping>
     <filter-name>PrimeFaces FileUpload Filter</filter-name>
     <servlet-name>facesServlet</servlet-name>
   </filter-mapping>
 
-  <filter>
-    <filter-name>sanitizationFilter</filter-name>
-    <filter-class>gov.hhs.fha.nhinc.admingui.servlet.SanitizationFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>sanitizationFilter</filter-name>
-    <servlet-name>facesServlet</servlet-name>
-  </filter-mapping>
+    <filter>
+        <filter-name>sanitizationFilter</filter-name>
+        <filter-class>gov.hhs.fha.nhinc.admingui.servlet.SanitizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sanitizationFilter</filter-name>
+        <servlet-name>facesServlet</servlet-name>
+    </filter-mapping>
 </web-app>
