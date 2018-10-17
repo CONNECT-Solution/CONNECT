@@ -90,18 +90,14 @@ public class PassthroughOutboundDocDataSubmission implements OutboundDocDataSubm
         return new SubjectHelper();
     }
 
-    protected MessageGeneratorUtils getMessageGeneratorUtils() {
-        return MessageGeneratorUtils.getInstance();
-    }
-
     protected OutboundDocDataSubmissionDelegate getOutboundDocDataSubmissionDelegate() {
         return new OutboundDocDataSubmissionDelegate();
     }
 
     private static RespondingGatewayRegisterDocumentSetSecuredRequestType createRequestForInternalProcessing(
         RegisterDocumentSetRequestType msg, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        RespondingGatewayRegisterDocumentSetSecuredRequestType request
-        = new RespondingGatewayRegisterDocumentSetSecuredRequestType();
+        RespondingGatewayRegisterDocumentSetSecuredRequestType request =
+            new RespondingGatewayRegisterDocumentSetSecuredRequestType();
         request.setRegisterDocumentSetRequest(msg);
         request.setNhinTargetCommunities(targets);
         request.setUrl(urlInfo);
