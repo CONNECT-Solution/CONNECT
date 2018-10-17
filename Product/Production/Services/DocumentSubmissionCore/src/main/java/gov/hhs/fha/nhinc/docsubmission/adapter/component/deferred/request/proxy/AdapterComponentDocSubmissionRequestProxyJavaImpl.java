@@ -30,8 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.AdapterComponentDocSubmissionRequestOrchImpl;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This class is the java implementation of the AdapterPatientDiscovery component proxy.
@@ -39,8 +37,6 @@ import org.slf4j.LoggerFactory;
  * @author Les westberg
  */
 public class AdapterComponentDocSubmissionRequestProxyJavaImpl implements AdapterComponentDocSubmissionRequestProxy {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocSubmissionRequestProxyJavaImpl.class);
 
     /**
      * Receive document deferred document submission request.
@@ -53,7 +49,7 @@ public class AdapterComponentDocSubmissionRequestProxyJavaImpl implements Adapte
     @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion) {
-        return AdapterComponentDocSubmissionRequestOrchImpl.provideAndRegisterDocumentSetBRequest(body, assertion);
+        return AdapterComponentDocSubmissionRequestOrchImpl.provideAndRegisterDocumentSetBRequest(body);
 
     }
 }

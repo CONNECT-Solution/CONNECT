@@ -46,8 +46,7 @@ public class AdapterDocRetrieveImpl {
     }
 
     public static RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieveUnsecured(
-        RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest,
-        WebServiceContext context) {
+        RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest) {
         LOG.debug("Entering AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
         AssertionType assertion = null;

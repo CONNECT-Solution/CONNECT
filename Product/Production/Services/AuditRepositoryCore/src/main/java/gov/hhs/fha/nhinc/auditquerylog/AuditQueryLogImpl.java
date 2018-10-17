@@ -54,12 +54,6 @@ public class AuditQueryLogImpl {
     private static final Logger LOG = LoggerFactory.getLogger(AuditQueryLogImpl.class);
 
     /**
-     * constructor. initialize AuditRetrieveEventsUtil to build AuditQueryResponse
-     */
-    public AuditQueryLogImpl() {
-    }
-
-    /**
      *
      * @param request - Audit Search params will be provided by this requestAuditEvents. The Request may have Event
      *            startDate, Event EndDate, UserId, Remote Org Id and ServiceName/EventType.These are optional
