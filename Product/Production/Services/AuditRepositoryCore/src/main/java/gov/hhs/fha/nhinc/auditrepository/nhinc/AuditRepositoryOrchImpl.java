@@ -106,11 +106,9 @@ public class AuditRepositoryOrchImpl {
      * This is the actual implementation for AuditLogMgr Service for AuditQuery returns the AuditEventsReponse.
      *
      * @param query the query
-     * @param assertion the assertion
      * @return the found FindAuditEventsResponseType
      */
-    public static FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query,
-        AssertionType assertion) {
+    public static FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query) {
 
         FindCommunitiesAndAuditEventsResponseType auditEvents;
         String patientId = query.getPatientId();
@@ -169,7 +167,7 @@ public class AuditRepositoryOrchImpl {
                             if (!auditResType.getCommunities().contains(tempCommunity)) {
 
                                 auditResType.getCommunities().add(tempCommunity);
-                                LOG.debug("Adding community " + tempCommunity);
+                                LOG.debug("Adding community: {}", tempCommunity);
                             }
                         }
                     }

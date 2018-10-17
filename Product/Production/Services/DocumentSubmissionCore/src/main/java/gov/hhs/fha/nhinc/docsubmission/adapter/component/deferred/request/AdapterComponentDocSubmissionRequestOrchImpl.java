@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -56,13 +55,11 @@ public class AdapterComponentDocSubmissionRequestOrchImpl {
      * This method receives the document information
      *
      * @param body The XDR request message
-     * @param assertion The assertion information.
      * @return The ACK
      */
     // This is a dummy adapter - ignoring the URL parameter in interest of not updating the interface
     public static XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
-        ProvideAndRegisterDocumentSetRequestType body,
-        AssertionType assertion) {
+        ProvideAndRegisterDocumentSetRequestType body) {
         LOG.debug("Entering AdapterComponentXDRRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
 
         processRequest(body);

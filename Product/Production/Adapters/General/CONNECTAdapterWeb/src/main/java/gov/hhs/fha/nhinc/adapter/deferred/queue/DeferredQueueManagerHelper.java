@@ -93,12 +93,10 @@ public class DeferredQueueManagerHelper {
      * Called via web service interface
      *
      * @param deferredQueueManagerForceProcessRequest
-     * @param context
      * @return deferredQueueManagerForceProcessResponse
      */
     public static DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredRequest(
-        DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest,
-        WebServiceContext context) {
+        DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest) {
         DeferredQueueManagerForceProcessResponseType oResponse = new DeferredQueueManagerForceProcessResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);
@@ -119,18 +117,16 @@ public class DeferredQueueManagerHelper {
      * Called via web service interface
      *
      * @param queryDeferredQueueRequest
-     * @param context
      * @return queryDeferredQueueResponse
      */
     public static QueryDeferredQueueResponseType queryDeferredQueue(
-        QueryDeferredQueueRequestType queryDeferredQueueRequest,
-        WebServiceContext context) {
+        QueryDeferredQueueRequestType queryDeferredQueueRequest) {
         QueryDeferredQueueResponseType oResponse = new QueryDeferredQueueResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);
 
         try {
-            oResponse.getDeferredQueueRecord().addAll(queryDeferredQueue(queryDeferredQueueRequest));
+            oResponse.getDeferredQueueRecord().addAll(queryDeferredQueueFrom(queryDeferredQueueRequest));
             oResponse.getSuccessOrFail().setSuccess(true);
         } catch (DeferredQueueException e) {
             String sErrorMessage = "Failed to query the Deferred Queue.  Error: " + e.getMessage();
@@ -144,17 +140,16 @@ public class DeferredQueueManagerHelper {
      * Called via web service interface
      *
      * @param retrieveDeferredQueueRequest
-     * @param context
      * @return retrieveDeferredQueueResponse
      */
     public static RetrieveDeferredQueueResponseType retrieveDeferredQueue(
-        RetrieveDeferredQueueRequestType retrieveDeferredQueueRequest, WebServiceContext context) {
+        RetrieveDeferredQueueRequestType retrieveDeferredQueueRequest) {
         RetrieveDeferredQueueResponseType oResponse = new RetrieveDeferredQueueResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);
 
         try {
-            oResponse.setDeferredQueueRecord(retrieveDeferredQueue(retrieveDeferredQueueRequest));
+            oResponse.setDeferredQueueRecord(retrieveDeferredQueueFrom(retrieveDeferredQueueRequest));
             oResponse.getSuccessOrFail().setSuccess(true);
         } catch (DeferredQueueException e) {
             String sErrorMessage = "Failed to retrieve the Deferred Queue.  Error: " + e.getMessage();
@@ -168,11 +163,10 @@ public class DeferredQueueManagerHelper {
      * Called via web service interface
      *
      * @param deferredQueueStatisticsRequest
-     * @param context
      * @return deferredQueueStatisticsResponse
      */
     public static DeferredQueueStatisticsResponseType deferredQueueStatistics(
-        DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest, WebServiceContext context) {
+        DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest) {
         DeferredQueueStatisticsResponseType oResponse = new DeferredQueueStatisticsResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);
@@ -364,7 +358,7 @@ public class DeferredQueueManagerHelper {
      * @return found list of queue records
      * @throws DeferredQueueException
      */
-    private static List<DeferredQueueRecordType> queryDeferredQueue(
+    private static List<DeferredQueueRecordType> queryDeferredQueueFrom(
         QueryDeferredQueueRequestType queryDeferredQueueRequest)
             throws DeferredQueueException {
         LOG.debug("Start: DeferredQueueManagerHelper.queryDeferredQueue method - query deferred messages.");
@@ -409,7 +403,7 @@ public class DeferredQueueManagerHelper {
      * @return found list of queue records with message content populated
      * @throws DeferredQueueException
      */
-    private static DeferredQueueRecordType retrieveDeferredQueue(
+    private static DeferredQueueRecordType retrieveDeferredQueueFrom(
         RetrieveDeferredQueueRequestType retrieveDeferredQueueRequest)
             throws DeferredQueueException {
         LOG.debug("Start: DeferredQueueManagerHelper.retrieveDeferredQueue method - retrieve deferred message.");

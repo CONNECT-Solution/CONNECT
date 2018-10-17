@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeRe
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterCOREEnvelopeRealTimeSecuredRequestType;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import javax.xml.ws.WebServiceContext;
 
 /**
  *
@@ -45,12 +44,11 @@ public class AdapterX12RealTimeImpl extends BaseService {
      * @return
      */
     public AdapterCOREEnvelopeRealTimeResponseType realTimeTransaction(
-        AdapterCOREEnvelopeRealTimeRequestType request, WebServiceContext context) {
+        AdapterCOREEnvelopeRealTimeRequestType request) {
 
         AdapterCOREEnvelopeRealTimeResponseType response = new AdapterCOREEnvelopeRealTimeResponseType();
         response.setCOREEnvelopeRealTimeResponse(AdapterX12RealTimeOrchImpl.realTimeTransaction(
-            request.getCOREEnvelopeRealTimeRequest(),
-            getAssertion(context, request.getAssertion())));
+            request.getCOREEnvelopeRealTimeRequest()));
 
         return response;
     }
@@ -62,11 +60,11 @@ public class AdapterX12RealTimeImpl extends BaseService {
      * @return
      */
     public AdapterCOREEnvelopeRealTimeResponseType realTimeTransactionSecured(
-        AdapterCOREEnvelopeRealTimeSecuredRequestType request, WebServiceContext context) {
+        AdapterCOREEnvelopeRealTimeSecuredRequestType request) {
 
         AdapterCOREEnvelopeRealTimeResponseType response = new AdapterCOREEnvelopeRealTimeResponseType();
         response.setCOREEnvelopeRealTimeResponse(AdapterX12RealTimeOrchImpl
-            .realTimeTransaction(request.getCOREEnvelopeRealTimeRequest(), getAssertion(context)));
+            .realTimeTransaction(request.getCOREEnvelopeRealTimeRequest()));
 
         return response;
     }

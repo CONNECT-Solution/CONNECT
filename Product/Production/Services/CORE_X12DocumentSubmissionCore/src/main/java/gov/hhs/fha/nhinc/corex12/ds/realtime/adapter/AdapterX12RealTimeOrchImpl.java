@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.corex12.ds.realtime.adapter;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.util.Base64Coder;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
@@ -46,8 +45,7 @@ public class AdapterX12RealTimeOrchImpl {
     }
 
     public static COREEnvelopeRealTimeResponse realTimeTransaction(
-        COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest,
-        AssertionType assertion) {
+        COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest) {
 
         COREEnvelopeRealTimeResponse response;
         if (coreEnvelopeRealTimeRequest != null) {
