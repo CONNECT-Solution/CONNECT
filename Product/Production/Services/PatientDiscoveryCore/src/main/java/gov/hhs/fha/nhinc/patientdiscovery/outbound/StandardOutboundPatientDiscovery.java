@@ -375,7 +375,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
         return newRequest;
     }
 
-    private PRPAIN201305UV02 cloneRequest(final PRPAIN201305UV02 request) {
+    private static PRPAIN201305UV02 cloneRequest(final PRPAIN201305UV02 request) {
         return MessageGeneratorUtils.getInstance().clone(request);
     }
 

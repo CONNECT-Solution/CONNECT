@@ -95,7 +95,7 @@ public class DeferredQueueManagerHelper {
      * @param deferredQueueManagerForceProcessRequest
      * @return deferredQueueManagerForceProcessResponse
      */
-    public static DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredRequest(
+    public DeferredQueueManagerForceProcessResponseType forceProcessOnDeferredRequest(
         DeferredQueueManagerForceProcessRequestType deferredQueueManagerForceProcessRequest) {
         DeferredQueueManagerForceProcessResponseType oResponse = new DeferredQueueManagerForceProcessResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
@@ -119,7 +119,7 @@ public class DeferredQueueManagerHelper {
      * @param queryDeferredQueueRequest
      * @return queryDeferredQueueResponse
      */
-    public static QueryDeferredQueueResponseType queryDeferredQueue(
+    public QueryDeferredQueueResponseType queryDeferredQueue(
         QueryDeferredQueueRequestType queryDeferredQueueRequest) {
         QueryDeferredQueueResponseType oResponse = new QueryDeferredQueueResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
@@ -142,7 +142,7 @@ public class DeferredQueueManagerHelper {
      * @param retrieveDeferredQueueRequest
      * @return retrieveDeferredQueueResponse
      */
-    public static RetrieveDeferredQueueResponseType retrieveDeferredQueue(
+    public RetrieveDeferredQueueResponseType retrieveDeferredQueue(
         RetrieveDeferredQueueRequestType retrieveDeferredQueueRequest) {
         RetrieveDeferredQueueResponseType oResponse = new RetrieveDeferredQueueResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
@@ -165,7 +165,7 @@ public class DeferredQueueManagerHelper {
      * @param deferredQueueStatisticsRequest
      * @return deferredQueueStatisticsResponse
      */
-    public static DeferredQueueStatisticsResponseType deferredQueueStatistics(
+    public DeferredQueueStatisticsResponseType deferredQueueStatistics(
         DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest) {
         DeferredQueueStatisticsResponseType oResponse = new DeferredQueueStatisticsResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
@@ -248,7 +248,7 @@ public class DeferredQueueManagerHelper {
      * @return true - success; false - failure
      * @throws DeferredQueueException
      */
-    public static boolean forceProcessOnRequest(String messageId) throws DeferredQueueException {
+    public boolean forceProcessOnRequest(String messageId) throws DeferredQueueException {
         LOG.debug(
             "Start: DeferredQueueManagerHelper.forceProcessOnRequest method - processing deferred request by messageId.");
         boolean result = false;
@@ -285,7 +285,7 @@ public class DeferredQueueManagerHelper {
      * @return true - success; false - failure
      * @throws DeferredQueueException
      */
-    public static boolean forceProcessOnRequest(AsyncMsgRecord queueRecord) throws DeferredQueueException {
+    public boolean forceProcessOnRequest(AsyncMsgRecord queueRecord) throws DeferredQueueException {
         LOG.debug(
             "Start: DeferredQueueManagerHelper.forceProcessOnRequest method - processing deferred request by record.");
         boolean result = false;

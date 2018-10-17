@@ -92,7 +92,7 @@ public class AuditRepositoryUnsecuredImpl {
                 AssertionType assertion = queryAuditEventsRequest.getAssertion();
                 loadAssertion(assertion, context);
 
-                response = AuditRepositoryOrchImpl.findAudit(queryAuditEventsRequest.getFindAuditEvents());
+                response = new AuditRepositoryOrchImpl().findAudit(queryAuditEventsRequest.getFindAuditEvents());
             } catch (Exception ex) {
                 String message = "Error occurred calling AuditRepositoryUnsecuredImpl.queryAuditEvents. Error: "
                     + ex.getMessage();

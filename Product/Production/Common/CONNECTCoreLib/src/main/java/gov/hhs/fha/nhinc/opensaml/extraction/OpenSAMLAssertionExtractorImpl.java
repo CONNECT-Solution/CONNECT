@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -255,14 +255,14 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         } else if (attribute.getName().equals(SamlConstants.ACCESS_CONSENT_ATTR)) {
             List<String> accessConsentId = transformXMLtoString(attribute.getAttributeValues());
             target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
-                .addAll(accessConsentId);
+            .addAll(accessConsentId);
             LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = {}",
                 accessConsentId);
 
         } else if (attribute.getName().equals(SamlConstants.INST_ACCESS_CONSENT_ATTR)) {
             List<String> instAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
             target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy()
-                .addAll(instAccessConsentId);
+            .addAll(instAccessConsentId);
             LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = {}",
                 instAccessConsentId);
         } else if (attribute.getName().equals(SamlConstants.ATTRIBUTE_NAME_XUA_ACP)) {
@@ -309,7 +309,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @param attributeValues
      * @return The same list, with XMLObjects converted to a String representation
      */
-    private List<String> transformXMLtoString(List<XMLObject> attributeValues) {
+    private static List<String> transformXMLtoString(List<XMLObject> attributeValues) {
         List<String> stringList = new ArrayList<>();
         for (XMLObject item : attributeValues) {
             stringList.add(item.toString());
@@ -344,7 +344,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         samlAuthnStatement.setAuthInstant(source.getAuthnInstant().toString());
         samlAuthnStatement.setSessionIndex(source.getSessionIndex());
         samlAuthnStatement
-            .setAuthContextClassRef(source.getAuthnContext().getAuthnContextClassRef().getAuthnContextClassRef());
+        .setAuthContextClassRef(source.getAuthnContext().getAuthnContextClassRef().getAuthnContextClassRef());
 
         if (source.getSubjectLocality() != null) {
             samlAuthnStatement.setSubjectLocalityDNSName(source.getSubjectLocality().getDNSName());
@@ -443,7 +443,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         // Only create the Conditions if NotBefore and/or NotOnOrAfter is present
         if (saml2EvidenceAssertion.getConditions() != null
             && (saml2EvidenceAssertion.getConditions().getNotBefore() != null
-                || saml2EvidenceAssertion.getConditions().getNotOnOrAfter() != null)) {
+            || saml2EvidenceAssertion.getConditions().getNotOnOrAfter() != null)) {
             // Translate Evidence Conditions
             Conditions saml2EvidenceCondition = saml2EvidenceAssertion.getConditions();
             SamlAuthzDecisionStatementEvidenceConditionsType targetConditions = new SamlAuthzDecisionStatementEvidenceConditionsType();

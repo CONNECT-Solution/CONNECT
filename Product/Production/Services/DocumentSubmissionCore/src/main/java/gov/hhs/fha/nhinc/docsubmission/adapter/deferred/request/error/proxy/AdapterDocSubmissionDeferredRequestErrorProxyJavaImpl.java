@@ -52,7 +52,7 @@ AdapterDocSubmissionDeferredRequestErrorProxy {
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
         ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
         LOG.trace("Begin AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl.provideAndRegisterDocumentSetBRequestError");
-        XDRAcknowledgementType ack = AdapterDocSubmissionDeferredRequestErrorOrchImpl
+        XDRAcknowledgementType ack = new AdapterDocSubmissionDeferredRequestErrorOrchImpl()
             .provideAndRegisterDocumentSetBRequestError(request, errorMessage, assertion);
         LOG.trace("End AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl.provideAndRegisterDocumentSetBRequestError");
         return ack;

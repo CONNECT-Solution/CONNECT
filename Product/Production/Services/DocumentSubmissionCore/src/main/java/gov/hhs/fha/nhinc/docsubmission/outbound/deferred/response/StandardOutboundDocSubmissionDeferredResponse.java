@@ -165,7 +165,7 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
             NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
     }
 
-    protected static boolean hasNhinTargetHomeCommunityId(
+    protected boolean hasNhinTargetHomeCommunityId(
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) {
 
         return request != null

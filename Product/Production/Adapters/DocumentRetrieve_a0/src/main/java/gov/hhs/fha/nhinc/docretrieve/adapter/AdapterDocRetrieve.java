@@ -39,7 +39,7 @@ public class AdapterDocRetrieve implements gov.hhs.fha.nhinc.adapterdocretrieve.
     @Override
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
         gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest) {
-        return AdapterDocRetrieveImpl
+        return new AdapterDocRetrieveImpl()
             .respondingGatewayCrossGatewayRetrieveUnsecured(respondingGatewayCrossGatewayRetrieveRequest);
     }
 }

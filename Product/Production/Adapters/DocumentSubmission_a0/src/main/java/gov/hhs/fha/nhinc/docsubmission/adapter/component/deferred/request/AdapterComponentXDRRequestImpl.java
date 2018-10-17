@@ -74,7 +74,7 @@ public class AdapterComponentXDRRequestImpl {
         // ----------------------------------------------------------------------
         loadAssertion(context, assertion);
 
-        XDRAcknowledgementType response = AdapterComponentDocSubmissionRequestOrchImpl
+        XDRAcknowledgementType response = new AdapterComponentDocSubmissionRequestOrchImpl()
             .provideAndRegisterDocumentSetBRequest(request);
 
         // Send response back to the initiating Gateway

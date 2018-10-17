@@ -91,7 +91,8 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
         // Do nothing. Passthrough does not do fan out.
     }
 
-    private RespondingGatewayPRPAIN201306UV02ResponseType sendToNhin(PRPAIN201305UV02 request, AssertionType assertion,
+    private RespondingGatewayPRPAIN201306UV02ResponseType sendToNhin(PRPAIN201305UV02 request,
+        AssertionType assertion,
         NhinTargetSystemType target) {
         PRPAIN201306UV02 response;
 
@@ -110,7 +111,8 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
         return convert(response, target);
     }
 
-    private RespondingGatewayPRPAIN201306UV02ResponseType convert(PRPAIN201306UV02 response, NhinTargetSystemType target) {
+    private static RespondingGatewayPRPAIN201306UV02ResponseType convert(PRPAIN201306UV02 response,
+        NhinTargetSystemType target) {
         String hcid = getHCID(target);
         CommunityPRPAIN201306UV02ResponseType communityResponse = msgUtils
             .createCommunityPRPAIN201306UV02ResponseType(hcid);
@@ -122,7 +124,7 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
         return gatewayResponse;
     }
 
-    private String getHCID(NhinTargetSystemType target) {
+    private static String getHCID(NhinTargetSystemType target) {
         String hcid = null;
         if (target != null && target.getHomeCommunity() != null) {
             hcid = target.getHomeCommunity().getHomeCommunityId();
@@ -132,7 +134,8 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
 
     }
 
-    private PRPAIN201306UV02 generateErrorResponse(NhinTargetSystemType target, PRPAIN201305UV02 request, String error) {
+    private static PRPAIN201306UV02 generateErrorResponse(NhinTargetSystemType target, PRPAIN201305UV02 request,
+        String error) {
         String errStr = "Error from target homeId=" + target.getHomeCommunity().getHomeCommunityId();
         errStr += "  The error received was " + error;
         return new HL7PRPA201306Transforms().createPRPA201306ForErrors(request, errStr);

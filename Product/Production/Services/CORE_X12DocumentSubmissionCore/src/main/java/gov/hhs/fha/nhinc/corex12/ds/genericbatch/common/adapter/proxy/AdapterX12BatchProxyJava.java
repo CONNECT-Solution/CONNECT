@@ -46,6 +46,6 @@ public abstract class AdapterX12BatchProxyJava extends AbstractAdapterX12BatchPr
         AssertionType assertion) {
 
         LOG.trace("Using {} Implementation for Adapter CORE X12 Doc Submission Service", getServiceName());
-        return AdapterX12BatchOrchImpl.batchSubmitTransaction(msg, assertion);
+        return new AdapterX12BatchOrchImpl().batchSubmitTransaction(msg, assertion);
     }
 }

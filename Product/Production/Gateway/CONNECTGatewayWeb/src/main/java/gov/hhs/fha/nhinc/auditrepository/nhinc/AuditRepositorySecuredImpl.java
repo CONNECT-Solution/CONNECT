@@ -91,7 +91,7 @@ public class AuditRepositorySecuredImpl {
                 AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
                 loadAssertion(assertion, context);
 
-                response = AuditRepositoryOrchImpl.findAudit(query);
+                response = new AuditRepositoryOrchImpl().findAudit(query);
             } catch (Exception ex) {
                 String message = "Error occurred calling AuditRepositoryImpl.findAudit. Error: " + ex.getMessage();
                 LOG.error(message, ex);

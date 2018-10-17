@@ -582,11 +582,11 @@ public class MessageMonitoringAPI {
      *
      * @return the directEventLogger
      */
-    private DirectEventLogger getDirectEventLogger() {
+    private static DirectEventLogger getDirectEventLogger() {
         return DirectEventLogger.getInstance();
     }
 
-    private boolean getDirectTestFlag(final String fileName, final String property) {
+    private static boolean getDirectTestFlag(final String fileName, final String property) {
         boolean directTestFlag = false;
         final String directTestingFlag = getDirectTestingParam(fileName, property);
         if (directTestingFlag != null && !directTestingFlag.isEmpty() && directTestingFlag.equals("true")) {
@@ -595,7 +595,7 @@ public class MessageMonitoringAPI {
         return directTestFlag;
     }
 
-    private String getDirectTestingParam(final String fileName, final String property) {
+    private static String getDirectTestingParam(final String fileName, final String property) {
         String directTestingParam = null;
         try {
             directTestingParam = PropertyAccessor.getInstance().getProperty(fileName, property);
@@ -605,7 +605,7 @@ public class MessageMonitoringAPI {
         return directTestingParam;
     }
 
-    private boolean getDirectTestingDelay(final String fileName, final String property, final Date updateDate) {
+    private static boolean getDirectTestingDelay(final String fileName, final String property, final Date updateDate) {
         final String delayTime = getDirectTestingParam(fileName, property);
         final Date currentDateTime = new Date();
         final int delayInMinutes = Integer.parseInt(delayTime);
@@ -616,14 +616,14 @@ public class MessageMonitoringAPI {
         return false;
     }
 
-    private Date getupdateDate(final Date updateDate, final int delayUpdateTime) {
+    private static Date getupdateDate(final Date updateDate, final int delayUpdateTime) {
         final Calendar cal = Calendar.getInstance();
         cal.setTime(updateDate);
         cal.add(Calendar.MINUTE, delayUpdateTime);
         return cal.getTime();
     }
 
-    private void deleteFromMessageMonitoringDB(final MonitoredMessage trackMessage) {
+    private static void deleteFromMessageMonitoringDB(final MonitoredMessage trackMessage) {
         try {
             MessageMonitoringDAOImpl.getInstance().deleteCompletedMessages(trackMessage);
         } catch (final MessageMonitoringDAOException ex) {
@@ -641,14 +641,14 @@ public class MessageMonitoringAPI {
         }
     }
 
-    private void deleteElapsedArchivedMessage(final MonitoredMessage trackMessage) {
+    private static void deleteElapsedArchivedMessage(final MonitoredMessage trackMessage) {
         if (getDirectTestingDelay(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.MESSAGEMONITORING_DELAYINMINUTES,
             trackMessage.getUpdatetime())) {
             deleteFromMessageMonitoringDB(trackMessage);
         }
     }
 
-    private String getSenderEmailId(final MimeMessage message) throws MessagingException {
+    private static String getSenderEmailId(final MimeMessage message) throws MessagingException {
         InternetAddress sender;
         sender = (InternetAddress) message.getSender();
         if (sender == null) {

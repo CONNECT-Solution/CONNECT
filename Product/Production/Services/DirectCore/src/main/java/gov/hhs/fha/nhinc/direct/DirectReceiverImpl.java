@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -168,7 +168,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         //Only send the message to edge client
         //1. if its a not a mdn (or)
         //2. if its a mdn and SuppressMDNEdgeNotification flag is false
-        if ((isEdgeMDNNotificationEnabled() && isMdn) || (!isMdn)) {
+        if (isEdgeMDNNotificationEnabled() && isMdn || !isMdn) {
             DirectEdgeProxy proxy = getDirectEdgeProxy();
             try {
                 proxy.provideAndRegisterDocumentSetB(processedMessage);
@@ -195,13 +195,13 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
             }
         } else {
             try {
-                if ((MessageMonitoringUtil.isNotificationRequestedByEdge(processedMessage)) && notificationToEdgeFailed) {
+                if (MessageMonitoringUtil.isNotificationRequestedByEdge(processedMessage) && notificationToEdgeFailed) {
                     getDirectEventLogger().log(DirectEventType.BEGIN_OUTBOUND_MDN_FAILED, processedMessage);
                     sendMdnFailed(processedMessage, notificationFailureMessage);
                     //log the MDN Failed notification sent event
                     getDirectEventLogger().log(DirectEventType.END_OUTBOUND_MDN_FAILED, processedMessage);
                 } else if (!MessageMonitoringUtil.isNotificationRequestedByEdge(processedMessage)) {
-                    LOG.debug(("No need to dispatch MDN's since not requested by sender"));
+                    LOG.debug("No need to dispatch MDN's since not requested by sender");
                 } else {
                     sendMdnDispatched(result);
                 }
@@ -260,14 +260,14 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
     private void sendMdns(Collection<NotificationMessage> mdnMessages, boolean processed) {
         if (mdnMessages != null) {
             for (NotificationMessage mdnMessage : mdnMessages) {
-                getDirectEventLogger().log((processed ? DirectEventType.BEGIN_OUTBOUND_MDN_PROCESSED : DirectEventType.BEGIN_OUTBOUND_MDN_DISPATCHED), mdnMessage);
+                getDirectEventLogger().log(processed ? DirectEventType.BEGIN_OUTBOUND_MDN_PROCESSED : DirectEventType.BEGIN_OUTBOUND_MDN_DISPATCHED, mdnMessage);
                 try {
                     MimeMessage message = process(mdnMessage).getProcessedMessage().getMessage();
                     getExternalMailSender().send(mdnMessage.getAllRecipients(), message);
                 } catch (Exception e) {
                     throw new DirectException("Exception sending outbound direct mdn.", e, mdnMessage);
                 }
-                getDirectEventLogger().log((processed ? DirectEventType.END_OUTBOUND_MDN_PROCESSED : DirectEventType.END_OUTBOUND_MDN_DISPATCHED), mdnMessage);
+                getDirectEventLogger().log(processed ? DirectEventType.END_OUTBOUND_MDN_PROCESSED : DirectEventType.END_OUTBOUND_MDN_DISPATCHED, mdnMessage);
                 LOG.info("MDN notification sent.");
             }
         }
@@ -385,9 +385,9 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      *
      * @return returns the from email address
      */
-    private String getFromAddress(MimeMessage message) throws MessagingException {
+    private static String getFromAddress(MimeMessage message) throws MessagingException {
         Address[] fromAddress = message.getFrom();
-        if ((fromAddress != null) && (fromAddress.length > 0)) {
+        if (fromAddress != null && fromAddress.length > 0) {
             LOG.info("Message fromAddress found.");
             return ((InternetAddress) fromAddress[0]).getAddress();
         }

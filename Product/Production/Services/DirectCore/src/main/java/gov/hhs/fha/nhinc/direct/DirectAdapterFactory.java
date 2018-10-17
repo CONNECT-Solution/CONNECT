@@ -61,11 +61,11 @@ public class DirectAdapterFactory extends DirectAdapterEntity {
     /**
      * Stops the default Spring Direct TaskScheduler
      */
-    private void stopTaskScheduler() {
+    private static void stopTaskScheduler() {
         LOG.trace("stop the Spring Task Scheduler...");
         // get the manage bean scheduler
         ManageTaskScheduler manageTaskScheduler = new ComponentProxyFactory(CONFIG_FILE_NAME)
-                .getInstance(BEAN_NAME_MANAGE_TASK_SCHEDULER, ManageTaskScheduler.class);
+            .getInstance(BEAN_NAME_MANAGE_TASK_SCHEDULER, ManageTaskScheduler.class);
         // call the bean clean to shutdown the spring default task scheduler
         if (manageTaskScheduler != null) {
             manageTaskScheduler.clean();
@@ -75,7 +75,7 @@ public class DirectAdapterFactory extends DirectAdapterEntity {
     /**
      * Stops the Direct Agent Settings Manager (
      */
-    private void stopAgentSettingsManager() {
+    private static void stopAgentSettingsManager() {
         LOG.trace("stop the Direct Agent Settings Manager...");
         // stop the agent settings if its running
         if (GatewayState.getInstance().isAgentSettingManagerRunning()) {

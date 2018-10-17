@@ -42,10 +42,7 @@ import org.slf4j.LoggerFactory;
 public class AdapterDocRetrieveImpl {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocRetrieveImpl.class);
 
-    private AdapterDocRetrieveImpl() {
-    }
-
-    public static RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieveUnsecured(
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieveUnsecured(
         RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest) {
         LOG.debug("Entering AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
@@ -64,7 +61,7 @@ public class AdapterDocRetrieveImpl {
 
     }
 
-    public static RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieveSecured(
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieveSecured(
         RetrieveDocumentSetRequestType body, WebServiceContext context) {
         LOG.debug("Entering AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 

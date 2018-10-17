@@ -46,10 +46,7 @@ public final class AdapterX12BatchOrchImpl {
     = "<xop:Include href=\"cid:1.urn:uuid:5117AAE1116EA8B87A1200060184692@apache.org\"\n"
         + "xmlns:xop=\"http://www.w3.org/2004/08/xop/include\"/>";
 
-    private AdapterX12BatchOrchImpl() {
-    }
-
-    public static COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission message,
+    public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission message,
         AssertionType assertion) {
 
         COREEnvelopeBatchSubmissionResponse response;

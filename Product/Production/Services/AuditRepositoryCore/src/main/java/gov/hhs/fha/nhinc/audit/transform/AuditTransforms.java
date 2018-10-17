@@ -224,7 +224,7 @@ public abstract class AuditTransforms<T, K> {
      * @param userInfo
      * @return
      */
-    private static ActiveParticipant createActiveParticipantFromUser(UserType userInfo) {
+    private ActiveParticipant createActiveParticipantFromUser(UserType userInfo) {
         ActiveParticipant participant = new ActiveParticipant();
 
         // Set the User Id
@@ -385,7 +385,7 @@ public abstract class AuditTransforms<T, K> {
         return AuditTransformsConstants.ACTIVE_PARTICIPANT_UNKNOWN_IP_ADDRESS;
     }
 
-    protected static String getWebServiceRequestUrl(Properties webContextProperties) {
+    protected String getWebServiceRequestUrl(Properties webContextProperties) {
         if (webContextProperties != null && !webContextProperties.isEmpty()
             && webContextProperties.getProperty(NhincConstants.WEB_SERVICE_REQUEST_URL) != null) {
 
@@ -433,7 +433,7 @@ public abstract class AuditTransforms<T, K> {
      * @param participantObjectIdDisplayName
      * @return
      */
-    protected static ParticipantObjectIdentificationType createParticipantObjectIdentification(
+    protected ParticipantObjectIdentificationType createParticipantObjectIdentification(
         short participantObjectCode,
         short participantObjectCodeRole, String participantObjectIdCode, String particpantObjectIdCodeSystem,
         String participantObjectIdDisplayName) {
@@ -464,7 +464,7 @@ public abstract class AuditTransforms<T, K> {
      * @param dispName the display name of the code
      * @return <code>CodedValueType</code>
      */
-    protected static CodedValueType createCodeValueType(String code, String codeSys, String codeSysName,
+    protected CodedValueType createCodeValueType(String code, String codeSys, String codeSysName,
         String dispName) {
 
         CodedValueType codeValueType = new CodedValueType();
@@ -538,7 +538,7 @@ public abstract class AuditTransforms<T, K> {
         return auditMsg;
     }
 
-    protected static String getUserName(UserType userInfo) {
+    protected String getUserName(UserType userInfo) {
         String userName = null;
         if (userInfo != null && userInfo.getPersonName() != null) {
             if (StringUtils.isNotEmpty(userInfo.getPersonName().getGivenName())) {
@@ -577,11 +577,11 @@ public abstract class AuditTransforms<T, K> {
         return result;
     }
 
-    protected static ExchangeManager getExchangeManager() {
+    protected ExchangeManager getExchangeManager() {
         return ExchangeManager.getInstance();
     }
 
-    protected static String createUUID() {
+    protected String createUUID() {
         return UUID.randomUUID().toString();
     }
 

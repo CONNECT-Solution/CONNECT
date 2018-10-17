@@ -190,7 +190,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
         return null;
     }
 
-    private static AuditMessageType createPatientParticipantObjectIdentification(AuditMessageType auditMsg,
+    private AuditMessageType createPatientParticipantObjectIdentification(AuditMessageType auditMsg,
         String uniquePatientId) {
 
         ParticipantObjectIdentificationType participantObject = createParticipantObjectIdentification(
@@ -206,7 +206,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
         return auditMsg;
     }
 
-    private static AuditMessageType getDocumentParticipantObjectIdentificationForRequest(
+    private AuditMessageType getDocumentParticipantObjectIdentificationForRequest(
         RetrieveDocumentSetRequestType request, AuditMessageType auditMsg) throws JAXBException {
 
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType();
@@ -221,7 +221,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
         return auditMsg;
     }
 
-    private static AuditMessageType getDocumentParticipantObjectIdentificationForResponse(
+    private AuditMessageType getDocumentParticipantObjectIdentificationForResponse(
         RetrieveDocumentSetResponseType response, AuditMessageType auditMsg) throws JAXBException {
 
         ParticipantObjectIdentificationType participantObject = buildBaseParticipantObjectIdentificationType();
@@ -244,7 +244,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
             DocRetrieveAuditTransformsConstants.PARTICIPANT_OBJECT_DETAIL_HOME_COMMUNITY_ID_TYPE, homeCommunityId));
     }
 
-    private static ParticipantObjectIdentificationType buildBaseParticipantObjectIdentificationType() {
+    private ParticipantObjectIdentificationType buildBaseParticipantObjectIdentificationType() {
         ParticipantObjectIdentificationType participantObject = createParticipantObjectIdentification(
             DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_TYPE_CODE,
             DocRetrieveAuditTransformsConstants.PARTICIPANT_DOCUMENT_OBJ_TYPE_CODE_ROLE,
