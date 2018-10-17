@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -66,7 +66,7 @@ public class AdapterX12RealTimeProxyJavaPayloadImpl implements AdapterX12RealTim
         return response;
     }
 
-    private COREEnvelopeRealTimeResponse buildAdapterCORE_X12DSRealTimeResponseMetadata() {
+    private static COREEnvelopeRealTimeResponse buildAdapterCORE_X12DSRealTimeResponseMetadata() {
         COREEnvelopeRealTimeResponse response = new COREEnvelopeRealTimeResponse();
         response.setPayloadType("X12_278_Response_005010X279A1");
         response.setProcessingMode("RealTime");
@@ -82,7 +82,7 @@ public class AdapterX12RealTimeProxyJavaPayloadImpl implements AdapterX12RealTim
         return response;
     }
 
-    private String buildPayload() {
+    private static String buildPayload() {
         String payload = null;
         FileInputStream fStream = null;
 
@@ -104,7 +104,7 @@ public class AdapterX12RealTimeProxyJavaPayloadImpl implements AdapterX12RealTim
         return payload;
     }
 
-    private void logAdapterCORE_X12DSRealTimeRequest(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest) {
+    private static void logAdapterCORE_X12DSRealTimeRequest(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest) {
         LOG.info("CORE Payload Type    = {}", coreEnvelopeRealTimeRequest.getPayloadType());
         LOG.info("CORE Processing Mode = {}", coreEnvelopeRealTimeRequest.getProcessingMode());
         LOG.info("CORE Payload Id      = {}", coreEnvelopeRealTimeRequest.getPayloadID());
@@ -115,7 +115,7 @@ public class AdapterX12RealTimeProxyJavaPayloadImpl implements AdapterX12RealTim
         LOG.debug("CORE Payload         = {}", Base64Coder.decodeString(coreEnvelopeRealTimeRequest.getPayload()));
     }
 
-    protected PropertyAccessor getPropertyAccessor() {
+    protected static PropertyAccessor getPropertyAccessor() {
         return PropertyAccessor.getInstance();
     }
 }

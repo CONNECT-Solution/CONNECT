@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -25,6 +25,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc;
+
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getDate;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
@@ -44,10 +46,8 @@ import gov.hhs.fha.nhinc.util.StreamUtils;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -106,10 +106,9 @@ public class AuditRepositoryOrchImpl {
      * This is the actual implementation for AuditLogMgr Service for AuditQuery returns the AuditEventsReponse.
      *
      * @param query the query
-     * @param assertion the assertion
      * @return the found FindAuditEventsResponseType
      */
-    public FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query, AssertionType assertion) {
+    public FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query) {
 
         FindCommunitiesAndAuditEventsResponseType auditEvents;
         String patientId = query.getPatientId();
@@ -120,10 +119,10 @@ public class AuditRepositoryOrchImpl {
         XMLGregorianCalendar xmlEndDate = query.getEndDateTime();
 
         if (xmlBeginDate != null) {
-            beginDate = convertXMLGregorianCalendarToDate(xmlBeginDate);
+            beginDate = getDate(xmlBeginDate);
         }
         if (xmlEndDate != null) {
-            endDate = convertXMLGregorianCalendarToDate(xmlEndDate);
+            endDate = getDate(xmlEndDate);
         }
 
         List<AuditRepositoryRecord> responseList = auditLogDao.queryAuditRepositoryOnCriteria(userId, patientId,
@@ -141,7 +140,8 @@ public class AuditRepositoryOrchImpl {
      * @param eventsList
      * @return CommunitiesAndFindAdutiEventResponse
      */
-    private FindCommunitiesAndAuditEventsResponseType buildAuditReponseType(List<AuditRepositoryRecord> auditRecList) {
+    private static FindCommunitiesAndAuditEventsResponseType buildAuditReponseType(
+        List<AuditRepositoryRecord> auditRecList) {
 
         FindCommunitiesAndAuditEventsResponseType auditResType = new FindCommunitiesAndAuditEventsResponseType();
         FindAuditEventsResponseType response = new FindAuditEventsResponseType();
@@ -167,7 +167,7 @@ public class AuditRepositoryOrchImpl {
                             if (!auditResType.getCommunities().contains(tempCommunity)) {
 
                                 auditResType.getCommunities().add(tempCommunity);
-                                LOG.debug("Adding community " + tempCommunity);
+                                LOG.debug("Adding community: {}", tempCommunity);
                             }
                         }
                     }
@@ -191,7 +191,7 @@ public class AuditRepositoryOrchImpl {
      * @param auditBlob
      * @return AuditMessageType
      */
-    private AuditMessageType unMarshallBlobToAuditMess(Blob auditBlob) {
+    private static AuditMessageType unMarshallBlobToAuditMess(Blob auditBlob) {
 
         AuditMessageType auditMessageType = null;
         InputStream in = null;
@@ -214,21 +214,6 @@ public class AuditRepositoryOrchImpl {
         }
 
         return auditMessageType;
-    }
-
-    /**
-     * This method converts an XMLGregorianCalendar date to java.util.Date
-     *
-     * @param xmlCalDate
-     * @return java.util.Date
-     */
-    private Date convertXMLGregorianCalendarToDate(XMLGregorianCalendar xmlCalDate) {
-        Calendar cal = Calendar.getInstance(Locale.getDefault());
-        LOG.info("cal.getTime() -> " + cal.getTime());
-        cal.setTime(xmlCalDate.toGregorianCalendar().getTime());
-        Date eventDate = cal.getTime();
-        LOG.info("eventDate -> " + eventDate);
-        return eventDate;
     }
 
     private String logToDatabase(LogEventSecureRequestType request, AssertionType assertion) {

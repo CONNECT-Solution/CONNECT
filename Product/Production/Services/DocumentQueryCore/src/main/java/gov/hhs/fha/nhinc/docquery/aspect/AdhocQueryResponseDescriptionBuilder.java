@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -96,7 +96,7 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
     public void buildPayloadTypes() {
         if (hasObjectList()) {
             List<Optional<String>> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
-                    PAYLOAD_TYPE_EXTRACTOR);
+                PAYLOAD_TYPE_EXTRACTOR);
 
             setPayLoadTypes(NhincCollections.fillAbsents(listWithDups, ""));
         }
@@ -106,7 +106,7 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
     public void buildPayloadSizes() {
         if (hasObjectList()) {
             List<Optional<String>> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
-                    PAYLOAD_SIZE_EXTRACTOR);
+                PAYLOAD_SIZE_EXTRACTOR);
 
             setPayloadSizes(NhincCollections.fillAbsents(listWithDups, ""));
         }
@@ -116,7 +116,7 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
     public void buildErrorCodes() {
         if (hasErrorList()) {
             List<String> listWithDups = Lists.transform(response.getRegistryErrorList().getRegistryError(),
-                    ERROR_EXTRACTOR);
+                ERROR_EXTRACTOR);
             setErrorCodes(listWithDups);
         }
     }
@@ -147,12 +147,12 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
         return response != null && response.getRegistryErrorList() != null;
     }
 
-    private Set<String> extractHcids(RegistryObjectListType registryObjectList) {
+    private static Set<String> extractHcids(RegistryObjectListType registryObjectList) {
         Set<String> hcids = new HashSet<>();
         if(registryObjectList.getIdentifiable() != null){
             for(JAXBElement<? extends IdentifiableType> identifiable : registryObjectList.getIdentifiable()){
                 if(identifiable.getValue() != null
-                        && identifiable.getValue() instanceof ExtrinsicObjectType){
+                    && identifiable.getValue() instanceof ExtrinsicObjectType){
                     hcids.add(identifiable.getValue().getHome());
                 }
             }
@@ -177,7 +177,7 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
      * </Pre>
      */
     private static class PayloadTypeExtractor implements
-            Function<JAXBElement<? extends IdentifiableType>, Optional<String>> {
+    Function<JAXBElement<? extends IdentifiableType>, Optional<String>> {
 
         @Override
         public Optional<String> apply(JAXBElement<? extends IdentifiableType> jaxbElement) {
@@ -185,17 +185,17 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
             ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
 
             Optional<ClassificationType> classificationType = findClassificationType(extrinsicObjectType,
-                    DocumentConstants.EBXML_RESPONSE_NODE_REPRESENTATION_FORMAT_CODE);
+                DocumentConstants.EBXML_RESPONSE_NODE_REPRESENTATION_FORMAT_CODE);
             if (!classificationType.isPresent()) {
                 return Optional.absent();
             }
 
             return JaxbDocumentUtils.findSlotType(classificationType.get().getSlot(),
-                    DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME);
+                DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME);
         }
 
         private static Optional<ClassificationType> findClassificationType(ExtrinsicObjectType extrinsicObjectType,
-                final String expectedType) {
+            final String expectedType) {
             Predicate<ClassificationType> typePredicate = new Predicate<ClassificationType>() {
                 @Override
                 public boolean apply(ClassificationType type) {
@@ -214,7 +214,7 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
      * </pre>
      */
     private static class PayloadSizeExtractor implements
-            Function<JAXBElement<? extends IdentifiableType>, Optional<String>> {
+    Function<JAXBElement<? extends IdentifiableType>, Optional<String>> {
 
         @Override
         public Optional<String> apply(JAXBElement<? extends IdentifiableType> jaxbElement) {
@@ -222,7 +222,7 @@ public class AdhocQueryResponseDescriptionBuilder extends AssertionEventDescript
             ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
 
             return JaxbDocumentUtils.findSlotType(extrinsicObjectType.getSlot(),
-                    DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
+                DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
         }
     }
 }

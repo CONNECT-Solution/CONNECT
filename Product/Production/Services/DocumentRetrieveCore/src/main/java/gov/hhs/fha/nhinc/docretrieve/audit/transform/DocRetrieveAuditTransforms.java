@@ -103,7 +103,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
      * @param request
      * @return
      */
-    private String getDocumentUniqueIdFromRequest(RetrieveDocumentSetRequestType request) {
+    private static String getDocumentUniqueIdFromRequest(RetrieveDocumentSetRequestType request) {
         String documentUniqueId = null;
 
         if (request != null && request.getDocumentRequest() != null && request.getDocumentRequest().get(0) != null
@@ -115,7 +115,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
         return documentUniqueId;
     }
 
-    private String getRepositoryUniqueIdFromRequest(RetrieveDocumentSetRequestType request) {
+    private static String getRepositoryUniqueIdFromRequest(RetrieveDocumentSetRequestType request) {
         String repositoryUniqueId = null;
 
         if (request != null && request.getDocumentRequest() != null && request.getDocumentRequest().get(0) != null
@@ -127,7 +127,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
         return repositoryUniqueId;
     }
 
-    private String getHomeCommunityIdFromRequest(RetrieveDocumentSetRequestType request) {
+    private static String getHomeCommunityIdFromRequest(RetrieveDocumentSetRequestType request) {
         String homeCommunityId = null;
 
         if (request != null && request.getDocumentRequest() != null && request.getDocumentRequest().get(0) != null
@@ -148,7 +148,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
      * @param response
      * @return
      */
-    private String getRepositoryUniqueIdFromResponse(RetrieveDocumentSetResponseType response) {
+    private static String getRepositoryUniqueIdFromResponse(RetrieveDocumentSetResponseType response) {
         String repositoryUniqueId = null;
 
         if (response != null && CollectionUtils.isNotEmpty(response.getDocumentResponse())
@@ -167,7 +167,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
      * @param response
      * @return
      */
-    private String getHomeCommunityIdFromResponse(RetrieveDocumentSetResponseType response) {
+    private static String getHomeCommunityIdFromResponse(RetrieveDocumentSetResponseType response) {
         String homeCommunityId = null;
 
         if (response != null && CollectionUtils.isNotEmpty(response.getDocumentResponse())
@@ -181,7 +181,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
         return homeCommunityId;
     }
 
-    private String getDocumentUniqueIdFromResponse(RetrieveDocumentSetResponseType response) {
+    private static String getDocumentUniqueIdFromResponse(RetrieveDocumentSetResponseType response) {
         if (response != null && CollectionUtils.isNotEmpty(response.getDocumentResponse())
             && response.getDocumentResponse().get(0) != null
             && response.getDocumentResponse().get(0).getDocumentUniqueId() != null) {
@@ -235,7 +235,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
         return auditMsg;
     }
 
-    private void getParticipantObjectDetail(byte[] repositoryUniqueId, byte[] homeCommunityId,
+    private static void getParticipantObjectDetail(byte[] repositoryUniqueId, byte[] homeCommunityId,
         ParticipantObjectIdentificationType participantObject) {
 
         participantObject.getParticipantObjectDetail().add(getTypeValuePair(
@@ -418,7 +418,7 @@ extends AuditTransforms<RetrieveDocumentSetRequestType, RetrieveDocumentSetRespo
         return participant;
     }
 
-    private TypeValuePairType getTypeValuePair(String key, byte[] value) {
+    private static TypeValuePairType getTypeValuePair(String key, byte[] value) {
         TypeValuePairType type = new TypeValuePairType();
         type.setType(key);
         type.setValue(value);

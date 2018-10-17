@@ -71,7 +71,7 @@ public class DirectRIAuditor implements SoapEdgeAuditor {
      * @param auditable A {@link Auditable} object, must not be null.
      * @return A Collection of @{link AuditContext} objects.
      */
-    private Collection<? extends AuditContext> getContexts(SoapEdgeContext auditable) {
+    private static Collection<? extends AuditContext> getContexts(SoapEdgeContext auditable) {
         Collection<AuditContext> contexts = new LinkedList<>();
 
         if (auditable.getAuditableValues() != null) {

@@ -70,7 +70,8 @@ public class OutboundStandardDocRetrieveOrchestrator extends CONNECTOutboundOrch
         return message;
     }
 
-    private NhinTargetSystemType buildHomeCommunity(String homeCommunityId, String guidance, String exchangeName) {
+    private static NhinTargetSystemType buildHomeCommunity(String homeCommunityId, String guidance,
+        String exchangeName) {
         NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
         //set the prefix for the homecommunity ID if its not present

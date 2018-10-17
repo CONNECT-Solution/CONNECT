@@ -185,7 +185,7 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
         return eventDescriptionBuilder;
     }
 
-    private EventContextAccessor createEventContextAccessor(final String serviceType, final String version) {
+    private static EventContextAccessor createEventContextAccessor(final String serviceType, final String version) {
         return new EventContextAccessor() {
 
             @Override

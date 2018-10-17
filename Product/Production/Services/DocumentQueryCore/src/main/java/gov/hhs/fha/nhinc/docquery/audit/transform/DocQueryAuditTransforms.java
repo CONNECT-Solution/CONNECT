@@ -215,14 +215,15 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
         return participantObject;
     }
 
-    private ParticipantObjectIdentificationType createParticipantObject(short objTypeCodeSys, short objTypeCodeRole,
+    private ParticipantObjectIdentificationType createParticipantObject(short objTypeCodeSys,
+        short objTypeCodeRole,
         String objIdTypeCode, String objIdTypeCodeSys, String objIdTypeDisplayName) {
 
         return createParticipantObjectIdentification(objTypeCodeSys, objTypeCodeRole,
             objIdTypeCode, objIdTypeCodeSys, objIdTypeDisplayName);
     }
 
-    private byte[] getParticipantObjectQueryForRequest(AdhocQueryRequest request) throws JAXBException {
+    private static byte[] getParticipantObjectQueryForRequest(AdhocQueryRequest request) throws JAXBException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         if (request != null) {
             getMarshaller().marshal(request, baos);
@@ -231,11 +232,11 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
         return null;
     }
 
-    private Marshaller getMarshaller() throws JAXBException {
+    private static Marshaller getMarshaller() throws JAXBException {
         return new JAXBContextHandler().getJAXBContext(NhincConstants.JAXB_HL7_CONTEXT_NAME_XSD_QUERY).createMarshaller();
     }
 
-    private String getQueryIdFromRequest(AdhocQueryRequest request) {
+    private static String getQueryIdFromRequest(AdhocQueryRequest request) {
         if (request != null
             && request.getAdhocQuery() != null
             && request.getAdhocQuery().getId() != null) {
@@ -244,7 +245,7 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
         return null;
     }
 
-    private String getPatientIdFromRequest(AdhocQueryRequest request) {
+    private static String getPatientIdFromRequest(AdhocQueryRequest request) {
         if (request != null
             && request.getAdhocQuery() != null
             && request.getAdhocQuery().getSlot() != null
@@ -262,7 +263,7 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
         return null;
     }
 
-    private TypeValuePairType getTypeValuePair(String key, byte[] value) {
+    private static TypeValuePairType getTypeValuePair(String key, byte[] value) {
         TypeValuePairType type = new TypeValuePairType();
         type.setType(key);
         type.setValue(value);

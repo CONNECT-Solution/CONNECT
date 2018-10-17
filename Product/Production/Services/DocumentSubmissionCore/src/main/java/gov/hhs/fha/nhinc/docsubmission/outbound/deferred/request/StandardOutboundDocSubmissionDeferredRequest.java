@@ -86,7 +86,7 @@ public class StandardOutboundDocSubmissionDeferredRequest implements OutboundDoc
         return response;
     }
 
-    private RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType createRequestForInternalProcessing(
+    private static RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType createRequestForInternalProcessing(
         ProvideAndRegisterDocumentSetRequestType msg, AssertionType assertion, NhinTargetCommunitiesType targets,
         UrlInfoType urlInfo) {
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request
@@ -151,7 +151,7 @@ public class StandardOutboundDocSubmissionDeferredRequest implements OutboundDoc
         return ((OutboundDocSubmissionDeferredRequestOrchestratable) delegate.process(orchestratable)).getResponse();
     }
 
-    protected OutboundDocSubmissionDeferredRequestOrchestratable createOrchestratable(
+    protected static OutboundDocSubmissionDeferredRequestOrchestratable createOrchestratable(
         OutboundDocSubmissionDeferredRequestDelegate delegate,
         gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
         AssertionType assertion) {
@@ -165,7 +165,7 @@ public class StandardOutboundDocSubmissionDeferredRequest implements OutboundDoc
         return orchestratable;
     }
 
-    private XDRAcknowledgementType createFailedPolicyCheckResponse() {
+    private static XDRAcknowledgementType createFailedPolicyCheckResponse() {
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
 
@@ -181,16 +181,17 @@ public class StandardOutboundDocSubmissionDeferredRequest implements OutboundDoc
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE, null, NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
     }
 
-    private HomeCommunityType getNhinTargetHomeCommunity(
+    private static HomeCommunityType getNhinTargetHomeCommunity(
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
         return request.getNhinTargetCommunities().getNhinTargetCommunity().get(0).getHomeCommunity();
     }
 
-    private String getNhinTargetHomeCommunityId(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
+    private static String getNhinTargetHomeCommunityId(
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
         return getNhinTargetHomeCommunity(request).getHomeCommunityId();
     }
 
-    protected boolean hasNhinTargetHomeCommunityId(
+    protected static boolean hasNhinTargetHomeCommunityId(
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
 
         return request != null

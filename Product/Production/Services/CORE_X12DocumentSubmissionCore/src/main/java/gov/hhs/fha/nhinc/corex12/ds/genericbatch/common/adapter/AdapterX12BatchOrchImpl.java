@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -43,15 +43,9 @@ public final class AdapterX12BatchOrchImpl {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterX12BatchOrchImpl.class);
     private static final String X12_BATCH_PAYLOAD
-        = "<xop:Include href=\"cid:1.urn:uuid:5117AAE1116EA8B87A1200060184692@apache.org\"\n"
+    = "<xop:Include href=\"cid:1.urn:uuid:5117AAE1116EA8B87A1200060184692@apache.org\"\n"
         + "xmlns:xop=\"http://www.w3.org/2004/08/xop/include\"/>";
 
-    /**
-     *
-     * @param message
-     * @param assertion
-     * @return COREEnvelopeBatchSubmissionResponse
-     */
     public COREEnvelopeBatchSubmissionResponse batchSubmitTransaction(COREEnvelopeBatchSubmission message,
         AssertionType assertion) {
 
@@ -68,11 +62,7 @@ public final class AdapterX12BatchOrchImpl {
         return response;
     }
 
-    /**
-     *
-     * @return COREEnvelopeBatchSubmissionResponse metadata
-     */
-    private COREEnvelopeBatchSubmissionResponse buildAdapterCORE_X12DSGenericBatchResponseMetadata() {
+    private static COREEnvelopeBatchSubmissionResponse buildAdapterCORE_X12DSGenericBatchResponseMetadata() {
         COREEnvelopeBatchSubmissionResponse response = new COREEnvelopeBatchSubmissionResponse();
         response.setPayloadType("X12_BatchReceiptConfirmation");
         response.setProcessingMode("Batch");
@@ -88,11 +78,7 @@ public final class AdapterX12BatchOrchImpl {
         return response;
     }
 
-    /**
-     *
-     * @param request
-     */
-    private void logAdapterCORE_X12DSGenericBatchRequest(COREEnvelopeBatchSubmission request) {
+    private static void logAdapterCORE_X12DSGenericBatchRequest(COREEnvelopeBatchSubmission request) {
         LOG.info("Generich Batch Payload Type    = {}", request.getPayloadType());
         LOG.info("Generich Batch Processing Mode = {}", request.getProcessingMode());
         LOG.info("Generich Batch Payload Id      = {}", request.getPayloadID());

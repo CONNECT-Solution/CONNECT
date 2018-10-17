@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.services;
 
+import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
+
 import gov.hhs.fha.nhinc.admingui.managed.PatientSearchBean;
 import gov.hhs.fha.nhinc.admingui.model.Document;
 import gov.hhs.fha.nhinc.admingui.model.Patient;
@@ -51,7 +53,6 @@ import gov.hhs.fha.nhinc.messaging.builder.AssertionBuilder;
 import gov.hhs.fha.nhinc.messaging.builder.impl.AssertionBuilderImpl;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.model.PatientSearchResults;
-import static gov.hhs.fha.nhinc.util.StreamUtils.closeStreamSilently;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -133,7 +134,7 @@ public class GatewayService {
 
         // Create the patient bean that needs to be passed to the service layer
         final gov.hhs.fha.nhinc.patientdiscovery.model.Patient patientBean
-            = new gov.hhs.fha.nhinc.patientdiscovery.model.Patient();
+        = new gov.hhs.fha.nhinc.patientdiscovery.model.Patient();
         // set the orgainization
         patientBean.setOrganization(patientQuerySearch.getOrganization());
         // set birth date in YYYYMMDD
@@ -304,7 +305,7 @@ public class GatewayService {
      * Internal method to populate the patient data to the Patient bean used in the UI.
      * <p>
      */
-    private void populatePatientBeanWithDQResults(final DocumentMetadataResults DocumentQueryResults,
+    private static void populatePatientBeanWithDQResults(final DocumentMetadataResults DocumentQueryResults,
         final PatientSearchBean patientQuerySearch) {
         int documentIndex = 0;
         // start with a clean slate
@@ -351,7 +352,7 @@ public class GatewayService {
         }
     }
 
-    private String getCommunityName(final PatientSearchBean searchBean, final String hcid) {
+    private static String getCommunityName(final PatientSearchBean searchBean, final String hcid) {
         for (final String name : searchBean.getOrganizationList().keySet()) {
             // Find the Home community ID of the BusinessEntity to compare with hcid.
             final String busEntityHcid = searchBean.getOrganizationList().get(name);

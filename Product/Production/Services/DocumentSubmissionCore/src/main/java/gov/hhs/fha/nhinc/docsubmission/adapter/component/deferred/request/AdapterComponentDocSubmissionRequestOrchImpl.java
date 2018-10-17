@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -53,12 +52,11 @@ public class AdapterComponentDocSubmissionRequestOrchImpl {
      * This method receives the document information
      *
      * @param body The XDR request message
-     * @param assertion The assertion information.
      * @return The ACK
      */
     // This is a dummy adapter - ignoring the URL parameter in interest of not updating the interface
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-        AssertionType assertion) {
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+        ProvideAndRegisterDocumentSetRequestType body) {
         LOG.debug("Entering AdapterComponentXDRRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
 
         processRequest(body);
@@ -71,7 +69,7 @@ public class AdapterComponentDocSubmissionRequestOrchImpl {
         return response;
     }
 
-    private void processRequest(ProvideAndRegisterDocumentSetRequestType body) {
+    private static void processRequest(ProvideAndRegisterDocumentSetRequestType body) {
         LargeFileUtils fileUtils = LargeFileUtils.getInstance();
         List<Document> docList = body.getDocument();
         for (Document doc : docList) {

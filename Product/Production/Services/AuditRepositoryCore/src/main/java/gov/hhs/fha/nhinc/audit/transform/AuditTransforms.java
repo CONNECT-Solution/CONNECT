@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -188,7 +188,7 @@ public abstract class AuditTransforms<T, K> {
     protected abstract AuditMessageType getParticipantObjectIdentificationForResponse(T request, K response,
         AssertionType assertion, AuditMessageType auditMsg);
 
-    private AuditSourceIdentificationType getAuditSourceIdentificationType() {
+    private static AuditSourceIdentificationType getAuditSourceIdentificationType() {
         String hcid = HomeCommunityMap.getLocalHomeCommunityId();
         return createAuditSourceIdentification(hcid, HomeCommunityMap.getHomeCommunityName(hcid));
     }
@@ -199,8 +199,8 @@ public abstract class AuditTransforms<T, K> {
         ActiveParticipant participant = createActiveParticipantFromUser(oUserInfo);
         if (oUserInfo != null && oUserInfo.getRoleCoded() != null) {
             participant.getRoleIDCode()
-                .add(AuditDataTransformHelper.createCodeValueType(oUserInfo.getRoleCoded().getCode(), "",
-                    oUserInfo.getRoleCoded().getCodeSystemName(), oUserInfo.getRoleCoded().getDisplayName()));
+            .add(AuditDataTransformHelper.createCodeValueType(oUserInfo.getRoleCoded().getCode(), "",
+                oUserInfo.getRoleCoded().getCodeSystemName(), oUserInfo.getRoleCoded().getDisplayName()));
         }
         return participant;
     }
@@ -208,8 +208,8 @@ public abstract class AuditTransforms<T, K> {
     protected EventIdentificationType createEventIdentification(boolean isRequesting) {
         CodedValueType eventId = createCodeValueType(
             isRequesting ? getServiceEventIdCodeRequestor() : getServiceEventIdCodeResponder(), null,
-            getServiceEventCodeSystem(),
-            isRequesting ? getServiceEventDisplayRequestor() : getServiceEventDisplayResponder());
+                getServiceEventCodeSystem(),
+                isRequesting ? getServiceEventDisplayRequestor() : getServiceEventDisplayResponder());
 
         EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventId, isRequesting);
         oEventIdentificationType.getEventTypeCode().add(AuditDataTransformHelper.createCodeValueType(
@@ -291,14 +291,14 @@ public abstract class AuditTransforms<T, K> {
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
         participant
-            .setUserID(isRequesting ? NhincConstants.WSA_REPLY_TO : getInboundReplyToFromHeader(webContextProperties));
+        .setUserID(isRequesting ? NhincConstants.WSA_REPLY_TO : getInboundReplyToFromHeader(webContextProperties));
         participant.setNetworkAccessPointID(ipOrHost);
         participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(ipOrHost));
         participant.getRoleIDCode()
-            .add(AuditDataTransformHelper.createCodeValueType(
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+        .add(AuditDataTransformHelper.createCodeValueType(
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
         participant.setUserIsRequestor(Boolean.TRUE);
 
         if (isRequesting) {
@@ -433,7 +433,8 @@ public abstract class AuditTransforms<T, K> {
      * @param participantObjectIdDisplayName
      * @return
      */
-    protected ParticipantObjectIdentificationType createParticipantObjectIdentification(short participantObjectCode,
+    protected ParticipantObjectIdentificationType createParticipantObjectIdentification(
+        short participantObjectCode,
         short participantObjectCodeRole, String participantObjectIdCode, String particpantObjectIdCodeSystem,
         String participantObjectIdDisplayName) {
 
@@ -463,7 +464,7 @@ public abstract class AuditTransforms<T, K> {
      * @param dispName the display name of the code
      * @return <code>CodedValueType</code>
      */
-    protected static CodedValueType createCodeValueType(String code, String codeSys, String codeSysName,
+    protected CodedValueType createCodeValueType(String code, String codeSys, String codeSysName,
         String dispName) {
 
         CodedValueType codeValueType = new CodedValueType();
@@ -556,7 +557,7 @@ public abstract class AuditTransforms<T, K> {
         return userName;
     }
 
-    private LogEventRequestType buildLogEventRequestType(AuditMessageType auditMsg, String direction,
+    private static LogEventRequestType buildLogEventRequestType(AuditMessageType auditMsg, String direction,
         String communityId, String serviceName, AssertionType assertion, String eventId, BigInteger outcome,
         XMLGregorianCalendar eventDate, String userId) {
 
@@ -631,13 +632,13 @@ public abstract class AuditTransforms<T, K> {
         this.assertion = assertion;
     }
 
-    private String getUserId(List<ActiveParticipant> participants) {
+    private static String getUserId(List<ActiveParticipant> participants) {
         for (ActiveParticipant obj : participants) {
             if (NullChecker.isNotNullish(obj.getRoleIDCode())
                 && !obj.getRoleIDCode().get(0).getDisplayName()
-                    .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)
+                .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)
                 && !obj.getRoleIDCode().get(0).getDisplayName()
-                    .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
+                .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
 
                 return obj.getUserID();
             }
@@ -645,12 +646,12 @@ public abstract class AuditTransforms<T, K> {
         return null;
     }
 
-    private String getRelatesTo(AssertionType assertion) {
+    private static String getRelatesTo(AssertionType assertion) {
         return NullChecker.isNotNullish(assertion.getRelatesToList()) ? getRelatesToValue(assertion.getRelatesToList())
             : null;
     }
 
-    private String getRelatesToValue(List<String> relatesTo) {
+    private static String getRelatesToValue(List<String> relatesTo) {
         return StringUtils.isNotEmpty(relatesTo.get(0)) ? relatesTo.get(0) : null;
     }
 }

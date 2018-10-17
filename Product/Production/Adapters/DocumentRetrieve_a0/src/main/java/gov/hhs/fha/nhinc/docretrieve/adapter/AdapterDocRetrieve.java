@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,9 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.adapter;
 
-import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.SOAPBinding;
 
 /**
@@ -38,13 +36,10 @@ import javax.xml.ws.soap.SOAPBinding;
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterDocRetrieve implements gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrievePortType {
 
-    @Resource
-    private WebServiceContext context;
-
     @Override
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
         gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest) {
-        return new AdapterDocRetrieveImpl().respondingGatewayCrossGatewayRetrieveUnsecured(
-            respondingGatewayCrossGatewayRetrieveRequest, context);
+        return new AdapterDocRetrieveImpl()
+            .respondingGatewayCrossGatewayRetrieveUnsecured(respondingGatewayCrossGatewayRetrieveRequest);
     }
 }

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.corex12.ds.realtime.adapter;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.util.Base64Coder;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
@@ -42,14 +41,8 @@ public class AdapterX12RealTimeOrchImpl {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterX12RealTimeOrchImpl.class);
     private static final String X12_REALTIME_PAYLOAD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><ClinicalDocument />";
 
-    /**
-     *
-     * @param coreEnvelopeRealTimeRequest
-     * @param assertion
-     * @return
-     */
-    public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest,
-        AssertionType assertion) {
+    public COREEnvelopeRealTimeResponse realTimeTransaction(
+        COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest) {
 
         COREEnvelopeRealTimeResponse response;
         if (coreEnvelopeRealTimeRequest != null) {
@@ -64,7 +57,7 @@ public class AdapterX12RealTimeOrchImpl {
         return response;
     }
 
-    private COREEnvelopeRealTimeResponse buildAdapterCORE_X12DSRealTimeResponseMetadata() {
+    private static COREEnvelopeRealTimeResponse buildAdapterCORE_X12DSRealTimeResponseMetadata() {
         COREEnvelopeRealTimeResponse response = new COREEnvelopeRealTimeResponse();
         response.setPayloadType("X12_278_Response_005010X279A1");
         response.setProcessingMode("RealTime");
@@ -79,7 +72,7 @@ public class AdapterX12RealTimeOrchImpl {
         return response;
     }
 
-    private void logAdapterCORE_X12DSRealTimeRequest(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest) {
+    private static void logAdapterCORE_X12DSRealTimeRequest(COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest) {
         LOG.info("CORE Paylod Type = {}", coreEnvelopeRealTimeRequest.getPayloadType());
         LOG.info("CORE Processing Mode = {}", coreEnvelopeRealTimeRequest.getProcessingMode());
         LOG.info("CORE Payload Id = {}", coreEnvelopeRealTimeRequest.getPayloadID());

@@ -91,7 +91,7 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
         ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, Properties webContextProperties) {
         RegistryResponseType response = null;
         try {
-             response = processDocSubmission(body, assertion, webContextProperties);
+            response = processDocSubmission(body, assertion, webContextProperties);
         }
         catch (ErrorEventException e) {
             // only doing this for audit response.
@@ -141,7 +141,7 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
             NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
     }
 
-    private boolean hasHomeCommunityId(AssertionType assertion) {
+    private static boolean hasHomeCommunityId(AssertionType assertion) {
         if (assertion != null && assertion.getHomeCommunity() != null
             && NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
             return true;

@@ -109,9 +109,6 @@ public class PatientSearchBean {
 
     private UserLogin user;
 
-    /**
-     * Instantiate all the variables and load the lookup Data
-     */
     public PatientSearchBean() {
         documentList = new ArrayList<>();
         querySelectedDocuments = new ArrayList<>();
@@ -136,10 +133,6 @@ public class PatientSearchBean {
         }
     }
 
-    /**
-     * Action method called when user clicks the Patient Search
-     * <p>
-     */
     public void searchPatient() {
         // start with a clean slate
         clearDocumentQueryTab();
@@ -155,10 +148,6 @@ public class PatientSearchBean {
         }
     }
 
-    /**
-     * Action method called when user clicks the Document Query Search
-     * <p>
-     */
     public void searchPatientDocument() {
         // Call the NwHIN QD to get the documents
         documentFound = GatewayService.getInstance().queryDocument(this);
@@ -166,10 +155,6 @@ public class PatientSearchBean {
         documentMessage = documentFound ? DOCUMENT_FOUND : DOCUMENT_NOT_FOUND;
     }
 
-    /**
-     * Action method called when user clicks the Document View.
-     * <p>
-     */
     public void retrieveDocument() {
         // check to make sure if the Document Retrieve is already done
         if (getDocumentList().get(getSelectedDocument()).isDocumentRetrieved()) {
@@ -201,11 +186,6 @@ public class PatientSearchBean {
         return clearPatientTab();
     }
 
-    /**
-     * Remove all the patient information from the Session
-     *
-     * @return
-     */
     public String clearPatientTab() {
         dateOfBirth = null;
         firstName = null;
@@ -219,11 +199,6 @@ public class PatientSearchBean {
         return clearDocumentQueryTab();
     }
 
-    /**
-     * Remove all the Document Query information
-     *
-     * @return
-     */
     public String clearDocumentQueryTab() {
         documentFound = false;
         documentRangeFrom = null;
@@ -241,72 +216,42 @@ public class PatientSearchBean {
         return new ArrayList(purposeOfProps.keySet());
     }
 
-    /**
-     * @return the firstName
-     */
     public String getFirstName() {
         return firstName;
     }
 
-    /**
-     * @param firstName the firstName to set
-     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    /**
-     * @return the lastName
-     */
     public String getLastName() {
         return lastName;
     }
 
-    /**
-     * @param lastName the lastName to set
-     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    /**
-     * @return the dateOfBirth
-     */
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    /**
-     * @param dateOfBirth the dateOfBirth to set
-     */
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    /**
-     * @return the gender
-     */
     public String getGender() {
         return gender;
     }
 
-    /**
-     * @param gender the gender to set
-     */
     public void setGender(String gender) {
         this.gender = gender;
     }
 
-    /**
-     * @return the organization
-     */
     public String getOrganization() {
         return organization;
     }
 
-    /**
-     * @param organization the organization to set
-     */
     public void setOrganization(String organization) {
         this.organization = organization;
     }
@@ -318,58 +263,34 @@ public class PatientSearchBean {
         return true;
     }
 
-    /**
-     * @return the activeIndex
-     */
     public int getActiveIndex() {
         return activeIndex;
     }
 
-    /**
-     * @param activeIndex the activeIndex to set
-     */
     public void setActiveIndex(int activeIndex) {
         this.activeIndex = activeIndex;
     }
 
-    /**
-     * @return the queryDocuments
-     */
     public List<String> getQueryDocuments() {
         return querySelectedDocuments;
     }
 
-    /**
-     * @param queryDocuments the queryDocuments to set
-     */
     public void setQueryDocuments(List<String> queryDocuments) {
         querySelectedDocuments = queryDocuments;
     }
 
-    /**
-     * @return the documentTypeList
-     */
     public List<SelectItem> getDocumentTypeList() {
         return documentTypeList;
     }
 
-    /**
-     * @param documentTypeList the documentTypeList to set
-     */
     public void setDocumentTypeList(List<SelectItem> documentTypeList) {
         this.documentTypeList = documentTypeList;
     }
 
-    /**
-     * @return the patientList
-     */
     public List<Patient> getPatientList() {
         return patientList;
     }
 
-    /**
-     * @return the patientMessage
-     */
     public String getPatientMessage() {
         return patientMessage;
     }
@@ -383,16 +304,10 @@ public class PatientSearchBean {
         return NavigationConstant.PATIENT_SEARCH_PAGE;
     }
 
-    /**
-     * @return the documentFound
-     */
     public boolean isDocumentFound() {
         return documentFound;
     }
 
-    /**
-     * @return the documentList
-     */
     public List<Document> getDocumentList() {
         // always return the list from the patient object
         if (getSelectedCurrentPatient() != null) {
@@ -402,65 +317,38 @@ public class PatientSearchBean {
         return documentList;
     }
 
-    /**
-     * @return the documentMessage
-     */
     public String getDocumentMessage() {
         return documentMessage;
     }
 
-    /**
-     * @return the documentRangeFrom
-     */
     public Date getDocumentRangeFrom() {
         return documentRangeFrom;
     }
 
-    /**
-     * @param documentRangeFrom the documentRangeFrom to set
-     */
     public void setDocumentRangeFrom(Date documentRangeFrom) {
         this.documentRangeFrom = documentRangeFrom;
     }
 
-    /**
-     * @return the documentRangeTo
-     */
     public Date getDocumentRangeTo() {
         return documentRangeTo;
     }
 
-    /**
-     * @param documentRangeTo the documentRangeTo to set
-     */
     public void setDocumentRangeTo(Date documentRangeTo) {
         this.documentRangeTo = documentRangeTo;
     }
 
-    /**
-     * @return the organizationList
-     */
     public Map<String, String> getOrganizationList() {
         return organizationList;
     }
 
-    /**
-     * @return the genderList
-     */
     public Map<String, String> getGenderList() {
         return genderList;
     }
 
-    /**
-     * @return the selectedDocument
-     */
     public int getSelectedDocument() {
         return selectedDocument;
     }
 
-    /**
-     * @param selectedDocument the selectedDocument to set
-     */
     public void setSelectedDocument(int selectedDocument) {
         this.selectedDocument = selectedDocument;
     }
@@ -482,16 +370,11 @@ public class PatientSearchBean {
      * application bean.
      * <p>
      */
-    private Map<String, String> populateOrganizationFromConnectManagerCache() {
+    private static Map<String, String> populateOrganizationFromConnectManagerCache() {
         return new ConnectionHelper().getOrgNameAndRemoteHcidMap();
     }
 
-    /**
-     * Populate the Document Types List from the property file documentType.properties file. This logic needs to be
-     * moved to a Utility or to the application bean.
-     * <p>
-     */
-    private List<SelectItem> populateDocumentTypes() {
+    private static List<SelectItem> populateDocumentTypes() {
         List<SelectItem> localDocumentTypeList = new ArrayList<>();
 
         try {
@@ -509,10 +392,6 @@ public class PatientSearchBean {
         return localDocumentTypeList;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getCreationTimeUiDisplay() {
         String formattedDate = null;
         if (!getDocumentList().isEmpty()) {
@@ -525,16 +404,10 @@ public class PatientSearchBean {
         return formattedDate;
     }
 
-    /**
-     * @return the selectedPatient
-     */
     public int getSelectedPatient() {
         return selectedPatient;
     }
 
-    /**
-     * @param selectedPatient the selectedPatient to set
-     */
     public void setSelectedPatient(int selectedPatient) {
         this.selectedPatient = selectedPatient;
     }
@@ -543,11 +416,6 @@ public class PatientSearchBean {
         return user;
     }
 
-    /**
-     * Returns the currently selected patient
-     *
-     * @return Patient
-     */
     public Patient getSelectedCurrentPatient() {
         if (getPatientList().isEmpty()) {
             return new Patient();
@@ -555,11 +423,6 @@ public class PatientSearchBean {
         return getPatientList().get(selectedPatient);
     }
 
-    /**
-     * Returns the currently selected document
-     *
-     * @return Document
-     */
     public Document getSelectedCurrentDocument() {
         if (getDocumentList().isEmpty()) {
             // required for rendering the page for the first time
@@ -581,9 +444,6 @@ public class PatientSearchBean {
         return null;
     }
 
-    /**
-     * @return the renderDocumentimage
-     */
     public boolean isRenderDocumentimage() {
         return getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
             .equals(GatewayService.CONTENT_TYPE_IMAGE_PNG)
@@ -591,28 +451,19 @@ public class PatientSearchBean {
             || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_IMAGE_JPEG));
     }
 
-    /**
-     * @return the renderDocumentPdf
-     */
     public boolean isRenderDocumentPdf() {
         return getSelectedCurrentDocument().getContentType() != null
             && getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_PDF);
     }
 
-    /**
-     * @return the renderDocumentText
-     */
     public boolean isRenderDocumentText() {
         return getSelectedCurrentDocument().getContentType() != null
             && (getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_APPLICATION_XML)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
-            || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_HTML)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_PLAIN)
+                || getSelectedCurrentDocument().getContentType().equals(GatewayService.CONTENT_TYPE_TEXT_XML));
     }
 
-    /**
-     * @return the documentPdf
-     */
     public StreamedContent getDocumentPdf() {
         // return the content only if its an pdf file
         if (getSelectedCurrentDocument().getContentType() != null
@@ -624,9 +475,6 @@ public class PatientSearchBean {
         return null;
     }
 
-    /**
-     * @return the XML Clinical document in HTML format
-     */
     public String getDocumentXml() {
         // return the content only if its an pdf file
         if (getSelectedCurrentDocument().getContentType() != null && (getSelectedCurrentDocument().getContentType()
@@ -639,32 +487,18 @@ public class PatientSearchBean {
         return null;
     }
 
-    /**
-     * @return the renderDcoumentNotSupported
-     */
     public boolean isRenderDcoumentNotSupported() {
         return !(isRenderDocumentPdf() || isRenderDocumentText() || isRenderDocumentimage());
     }
 
-    /**
-     *
-     * @return displayOrganizationName
-     */
     public String getDisplayOrganizationName() {
         return displayOrganizationName;
     }
 
-    /**
-     *
-     * @param displayOrganizationName the displayOrganizationName to set
-     */
     public void setDisplayOrganizationName(String displayOrganizationName) {
         this.displayOrganizationName = displayOrganizationName;
     }
 
-    /**
-     * @return the documentTypeName
-     */
     public String getDocumentTypeName() {
         return getDocumentTypeNameFromTheStaticList(getSelectedCurrentDocument().getDocumentClassCode());
     }
@@ -678,9 +512,6 @@ public class PatientSearchBean {
         return "Unknown Document";
     }
 
-    /**
-     * @return the documentInfoModalWindowHeader
-     */
     public String getDocumentInfoModalWindowHeader() {
         return getDocumentTypeName() + " for " + getSelectedCurrentPatient().getName();
     }

@@ -74,8 +74,8 @@ public class AuditSearchBean {
     private long auditId;
     private Map<String, String> remoteHcidOrgNameMap;
     private String auditBlobMsg;
-    private final String AUDIT_RECORDS_FOUND = "Audit Records Found";
-    private final String AUDIT_RECORDS_NOT_FOUND = "Audit Records not Found";
+    private static final String AUDIT_RECORDS_FOUND = "Audit Records Found";
+    private static final String AUDIT_RECORDS_NOT_FOUND = "Audit Records not Found";
     public static final String DEFAULT_AUDIT_XSL_FILE = "/WEB-INF/audit.xsl";
     public String blobContent;
 
@@ -166,16 +166,16 @@ public class AuditSearchBean {
         return convertXmlToHtml;
     }
 
-    private void closeStream(InputStream stream) {
+    private static void closeStream(InputStream stream) {
         StreamUtils.closeStreamSilently(stream);
 
     }
 
-    private Map<String, String> populateRemoteOrgHcid() {
+    private static Map<String, String> populateRemoteOrgHcid() {
         return new ConnectionHelper().getOrgNameRemoteHcidExternalEntities();
     }
 
-    private List<String> populateEventTypeList() {
+    private static List<String> populateEventTypeList() {
         List<String> serviceNames = new ArrayList<>();
         for (String serviceName : NhincConstants.NHIN_SERVICE_NAMES.getEnumServiceNamesList()) {
             serviceNames.add(NhincConstants.NHIN_SERVICE_NAMES.valueOf(serviceName).getUDDIServiceName());
@@ -295,16 +295,10 @@ public class AuditSearchBean {
         this.auditBlobMsg = auditBlobMsg;
     }
 
-    /**
-     * @return the auditId
-     */
     public long getAuditId() {
         return auditId;
     }
 
-    /**
-     * @param auditId
-     */
     public void setAuditId(long auditId) {
         this.auditId = auditId;
     }
@@ -328,7 +322,7 @@ public class AuditSearchBean {
         return null;
     }
 
-    private Map<String, String> populateRemoteHcidAndOrgName() {
+    private static Map<String, String> populateRemoteHcidAndOrgName() {
         return new ConnectionHelper().getRemoteHcidOrgNameMap();
     }
 

@@ -76,7 +76,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
 
     @Override
     public Set<OrganizationType> getOrganizationSet(List<String> hcids, String exchangeName) throws
-        ExchangeManagerException {
+    ExchangeManagerException {
         if (hcids == null) {
             return null;
         }
@@ -157,7 +157,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     @Override
     public String getDefaultEndpointURL(String hcid, String sUniformServiceName, String exchangeName)
         throws ExchangeManagerException {
-        LOG.info("Picking endpoint from {} exchange", null == exchangeName ? this.getDefaultExchange() : exchangeName);
+        LOG.info("Picking endpoint from {} exchange", null == exchangeName ? getDefaultExchange() : exchangeName);
         OrganizationType org = this.getOrganization(exchangeName, hcid);
         if (null == org) {
             return "";
@@ -168,7 +168,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
                 if (ExchangeManagerHelper.hasService(epType, sUniformServiceName)) {
                     NhincConstants.UDDI_SPEC_VERSION highestVersion = ExchangeManagerHelper.getHighestUDDISpecVersion(
                         ExchangeManagerHelper.
-                            getSpecVersions(epType));
+                        getSpecVersions(epType));
                     return ExchangeManagerHelper.getEndpointURLBySpecVersion(epType.getEndpointConfigurationList(),
                         highestVersion);
                 }
@@ -179,13 +179,13 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
 
     @Override
     public String getEndpointURL(String hcid, String sServiceName, T apiSpec) throws
-        ExchangeManagerException {
+    ExchangeManagerException {
         return getEndpointURL(hcid, sServiceName, apiSpec, null);
     }
 
     @Override
     public abstract String getEndpointURL(String hcid, String sServiceName, T apiSpec, String exchangeName) throws
-        ExchangeManagerException;
+    ExchangeManagerException;
 
     @Override
     public String getEndpointURL(String sServiceName) throws ExchangeManagerException {
@@ -195,7 +195,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
 
     @Override
     public String getEndpointURL(String sServiceName, String exchangeName) throws
-        ExchangeManagerException {
+    ExchangeManagerException {
         String sHomeCommunityId;
         String sEndpointURL = null;
         sHomeCommunityId = ExchangeManagerHelper.getHomeCommunityFromPropFile();
@@ -213,13 +213,13 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
 
     @Override
     public String getEndpointURL(String sServiceName, T apiSpec, String exchangeName) throws
-        ExchangeManagerException {
+    ExchangeManagerException {
         return getEndpointURL(ExchangeManagerHelper.getHomeCommunityFromPropFile(), sServiceName, apiSpec, null);
     }
 
     @Override
     public String getEndpointURLFromNhinTarget(NhinTargetSystemType targetSystem, String serviceName) throws
-        ExchangeManagerException {
+    ExchangeManagerException {
         String sEndpointURL = null;
 
         if (targetSystem != null) {
@@ -262,7 +262,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     public List<UrlInfo> getEndpointURLFromNhinTargetCommunities(NhinTargetCommunitiesType targets, String serviceName)
         throws ExchangeManagerException {
         Set<UrlInfo> endpointUrlSet = new HashSet<>();
-        String exchangeName = null == targets ? this.getDefaultExchange() : targets.getExchangeName();
+        String exchangeName = null == targets ? getDefaultExchange() : targets.getExchangeName();
         LOG.info("Picking endpoint(s) from {}", exchangeName);
         if (null == targets || CollectionUtils.isEmpty(targets.getNhinTargetCommunity())) {
             // This is the broadcast/fanout scenario so retrieve the entire list of URLs for the specified service
@@ -333,7 +333,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
         }
     }
 
-    private void logURLList(List<UrlInfo> urlList) {
+    private static void logURLList(List<UrlInfo> urlList) {
         int idx = 0;
 
         if (urlList != null) {

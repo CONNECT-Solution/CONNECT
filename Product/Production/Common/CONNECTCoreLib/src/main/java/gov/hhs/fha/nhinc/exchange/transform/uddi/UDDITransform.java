@@ -174,7 +174,7 @@ public class UDDITransform implements ExchangeTransforms<BusinessDetail> {
         }
     }
 
-    private List<EndpointConfigurationType> buildEndpointConfiguration(BindingTemplate bTemplate) {
+    private static List<EndpointConfigurationType> buildEndpointConfiguration(BindingTemplate bTemplate) {
         List<EndpointConfigurationType> epConfigList = null;
         List<String> serviceVersions = getServiceVersion(bTemplate);
         if (CollectionUtils.isNotEmpty(serviceVersions)) {

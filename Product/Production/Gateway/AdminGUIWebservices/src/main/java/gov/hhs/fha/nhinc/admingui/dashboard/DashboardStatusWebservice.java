@@ -112,14 +112,14 @@ public class DashboardStatusWebservice implements AdminGUIManagementPortType{
         return response;
     }
 
-    private LogEventSimpleResponseMessageType buildSimpleResponse(Boolean status, String message) {
+    private static LogEventSimpleResponseMessageType buildSimpleResponse(Boolean status, String message) {
         LogEventSimpleResponseMessageType resp = new LogEventSimpleResponseMessageType();
         resp.setStatus(status);
         resp.setMessage(message);
         return resp;
     }
 
-    private DatabaseEventLoggerDao getEventDAO(){
+    private static DatabaseEventLoggerDao getEventDAO() {
         return DatabaseEventLoggerDao.getInstance();
     }
 

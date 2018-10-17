@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -42,17 +42,8 @@ import org.slf4j.LoggerFactory;
 public class AdapterDocRetrieveImpl {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocRetrieveImpl.class);
 
-    /**
-     * Perform Doc Retrieve.
-     *
-     * @param bIsSecure TRUE if this is being called from a secure web service.
-     * @param respondingGatewayCrossGatewayRetrieveRequest The information about the document that is being retrieved.
-     * @param context The web service context information.
-     * @return The document(s) that were retrieved.
-     */
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieveUnsecured(
-            RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest,
-            WebServiceContext context) {
+        RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest) {
         LOG.debug("Entering AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
         AssertionType assertion = null;
@@ -70,15 +61,8 @@ public class AdapterDocRetrieveImpl {
 
     }
 
-    /**
-     * Perform Doc Retrieve.
-     *
-     * @param body The information about the document that is being retrieved.
-     * @param context The web service context information.
-     * @return The document(s) that were retrieved.
-     */
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieveSecured(
-            RetrieveDocumentSetRequestType body, WebServiceContext context) {
+        RetrieveDocumentSetRequestType body, WebServiceContext context) {
         LOG.debug("Entering AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
         AssertionType assertion;
@@ -95,15 +79,8 @@ public class AdapterDocRetrieveImpl {
         return response;
     }
 
-    /**
-     * Calls the orchestrator.
-     *
-     * @param body The message to be sent to the orchestrator.
-     * @param assertion The assertion information.
-     * @return The response from the orchestrator.
-     */
-    private RetrieveDocumentSetResponseType callOrchestrator(RetrieveDocumentSetRequestType body,
-            AssertionType assertion) {
+    private static RetrieveDocumentSetResponseType callOrchestrator(RetrieveDocumentSetRequestType body,
+        AssertionType assertion) {
         AdapterDocRetrieveOrchImpl oOrchestrator = new AdapterDocRetrieveOrchImpl();
         return oOrchestrator.respondingGatewayCrossGatewayRetrieve(body, assertion);
     }

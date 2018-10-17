@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -83,7 +83,8 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
         return participantObject;
     }
 
-    private ParticipantObjectIdentificationType createSubmissionSetParticipantObjectIdentification(String submissionId) {
+    private ParticipantObjectIdentificationType createSubmissionSetParticipantObjectIdentification(
+        String submissionId) {
 
         ParticipantObjectIdentificationType participantObject = createParticipantObject(
             DocSubmissionAuditTransformsConstants.PARTICIPANT_SUBMISSION_SET_OBJ_TYPE_CODE_SYSTEM,
@@ -98,14 +99,15 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
         return participantObject;
     }
 
-    private ParticipantObjectIdentificationType createParticipantObject(short objTypeCodeSys, short objTypeCodeRole,
+    private ParticipantObjectIdentificationType createParticipantObject(short objTypeCodeSys,
+        short objTypeCodeRole,
         String objIdTypeCode, String objIdTypeCodeSys, String objIdTypeDisplayName) {
 
         return createParticipantObjectIdentification(objTypeCodeSys, objTypeCodeRole,
             objIdTypeCode, objIdTypeCodeSys, objIdTypeDisplayName);
     }
 
-    private String getIdValue(ProvideAndRegisterDocumentSetRequestType request, String idType) {
+    private static String getIdValue(ProvideAndRegisterDocumentSetRequestType request, String idType) {
         String idValue = null;
         RegistryObjectType registryObj = extractRegistryObject(
             request.getSubmitObjectsRequest().getRegistryObjectList());
@@ -115,7 +117,7 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
         return idValue;
     }
 
-    private String getIdFromExternalIdentifiers(List<ExternalIdentifierType> externalIdentifiers, String type) {
+    private static String getIdFromExternalIdentifiers(List<ExternalIdentifierType> externalIdentifiers, String type) {
         String id = null;
         for (ExternalIdentifierType identifier : externalIdentifiers) {
             if (identifier.getName() != null
@@ -129,7 +131,7 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
         return id;
     }
 
-    private RegistryObjectType extractRegistryObject(RegistryObjectListType registryList) {
+    private static RegistryObjectType extractRegistryObject(RegistryObjectListType registryList) {
         RegistryObjectType registryObj = null;
         if (registryList != null && registryList.getIdentifiable() != null) {
             for (JAXBElement<? extends IdentifiableType> object : registryList.getIdentifiable()) {
