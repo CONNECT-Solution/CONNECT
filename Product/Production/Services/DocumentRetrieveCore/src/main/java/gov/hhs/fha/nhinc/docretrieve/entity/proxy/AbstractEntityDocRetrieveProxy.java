@@ -45,7 +45,7 @@ public abstract class AbstractEntityDocRetrieveProxy implements EntityDocRetriev
         try {
             result = getWebServiceProxyHelper().getUrlLocalHomeCommunity(serviceName);
         } catch (Exception ex) {
-            LOG.warn("Unable to retreive url for service: " + serviceName + " Error: " + ex.getMessage(), ex);
+            LOG.warn("Unable to retreive url for service: {} Error: {} ", serviceName, ex.getMessage(), ex);
         }
 
         return result;
