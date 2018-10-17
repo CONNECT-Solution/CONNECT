@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
         <groupId>org.connectopensource</groupId>
@@ -14,19 +15,18 @@
     <properties>
         <skip.unpack>false</skip.unpack>
         <soapui.testFailIgnore>true</soapui.testFailIgnore>
-     </properties>
+    </properties>
 
     <profiles>
-    <profile>
+        <profile>
             <id>wildfly-embedded</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <plugins>
-                    <!-- You need the maven dependency plugin to download locally a zip
-                        with the server, unless you provide your own, it will download under the
-                        /target directory -->
+                    <!-- You need the maven dependency plugin to download locally a zip with the server, unless you provide 
+                        your own, it will download under the /target directory -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
@@ -34,7 +34,7 @@
                         <executions>
                             <execution>
                                 <id>unpack jboss server</id>
-                                <!--<phase>process-test-classes</phase>-->
+                                <!--<phase>process-test-classes</phase> -->
                                 <goals>
                                     <goal>unpack</goal>
                                 </goals>
@@ -57,25 +57,27 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
                         <executions>
-                         <execution>
+                            <execution>
                                 <id>setupUser</id>
                                 <phase>process-test-classes</phase>
                                 <goals>
                                     <goal>run</goal>
                                 </goals>
                                 <configuration>
-                                        <target>
-                                            <exec executable="${project.build.directory}/wildfly-${wildfly.version}/bin/add-user.sh" osfamily="unix">
-                                                <arg value="-s" />
-                                                <arg value="${as.username}" />
-                                                <arg value="${as.password}" />
-                                            </exec>
-                                             <exec executable="${project.build.directory}/wildfly-${wildfly.version}/bin/add-user.bat" osfamily="windows">
-                                                <arg value="-s" />
-                                                <arg value="${as.username}" />
-                                                <arg value="${as.password}" />
-                                            </exec>
-                                        </target>
+                                    <target>
+                                        <exec executable="${project.build.directory}/wildfly-${wildfly.version}/bin/add-user.sh"
+                                            osfamily="unix">
+                                            <arg value="-s" />
+                                            <arg value="${as.username}" />
+                                            <arg value="${as.password}" />
+                                        </exec>
+                                        <exec executable="${project.build.directory}/wildfly-${wildfly.version}/bin/add-user.bat"
+                                            osfamily="windows">
+                                            <arg value="-s" />
+                                            <arg value="${as.username}" />
+                                            <arg value="${as.password}" />
+                                        </exec>
+                                    </target>
                                 </configuration>
                             </execution>
                             <execution>
@@ -87,11 +89,9 @@
                                 <configuration>
                                     <target>
                                         <!-- <mkdir dir="${project.build.directory}/domain1/config" /> -->
-                                        <copy
-                                            file="${project.basedir}/src/test/resources/chaincerts/gateway.jks"
+                                        <copy file="${project.basedir}/src/test/resources/chaincerts/gateway.jks"
                                             todir="${project.build.directory}/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main" />
-                                        <copy
-                                            file="${project.basedir}/src/test/resources/chaincerts/cacerts.jks"
+                                        <copy file="${project.basedir}/src/test/resources/chaincerts/cacerts.jks"
                                             todir="${project.build.directory}/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main" />
                                     </target>
                                 </configuration>
@@ -107,8 +107,7 @@
 
                             <execution>
                                 <id>unpack-nhin-properties-wildfly</id>
-                                <!-- Using the initialize phase because it is before the generate
-                                    sources phase -->
+                                <!-- Using the initialize phase because it is before the generate sources phase -->
                                 <phase>process-resources</phase>
                                 <goals>
                                     <goal>unpack</goal>
@@ -237,7 +236,7 @@
                                         </resource>
                                     </resources>
                                 </configuration>
-                            </execution>              
+                            </execution>
                         </executions>
                     </plugin>
                     <plugin>
@@ -303,7 +302,7 @@
                         </executions>
 
                     </plugin>
-<plugin>
+                    <plugin>
                         <groupId>com.github.redfish4ktc.soapui</groupId>
                         <artifactId>maven-soapui-extension-plugin</artifactId>
                         <configuration>
@@ -364,7 +363,7 @@
                 </plugins>
             </build>
         </profile>
-            <profile>
+        <profile>
             <id>DB</id>
             <activation>
                 <property>
@@ -374,9 +373,8 @@
             </activation>
             <build>
                 <plugins>
-                    <!-- You need the maven dependency plugin to download locally a zip
-                        with the server, unless you provide your own, it will download under the
-                        /target directory -->
+                    <!-- You need the maven dependency plugin to download locally a zip with the server, unless you provide 
+                        your own, it will download under the /target directory -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
@@ -384,7 +382,7 @@
                         <executions>
                             <execution>
                                 <id>unpack jboss server</id>
-                                <!--<phase>process-test-classes</phase>-->
+                                <!--<phase>process-test-classes</phase> -->
                                 <goals>
                                     <goal>unpack</goal>
                                 </goals>
@@ -407,25 +405,27 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
                         <executions>
-                         <execution>
+                            <execution>
                                 <id>setupUser</id>
                                 <phase>process-test-classes</phase>
                                 <goals>
                                     <goal>run</goal>
                                 </goals>
                                 <configuration>
-                                        <target>
-                                            <exec executable="${project.build.directory}/wildfly-${wildfly.version}/bin/add-user.sh" osfamily="unix">
-                                                <arg value="-s" />
-                                                <arg value="${as.username}" />
-                                                <arg value="${as.password}" />
-                                            </exec>
-                                             <exec executable="${project.build.directory}/wildfly-${wildfly.version}/bin/add-user.bat" osfamily="windows">
-                                                <arg value="-s" />
-                                                <arg value="${as.username}" />
-                                                <arg value="${as.password}" />
-                                            </exec>
-                                        </target>
+                                    <target>
+                                        <exec executable="${project.build.directory}/wildfly-${wildfly.version}/bin/add-user.sh"
+                                            osfamily="unix">
+                                            <arg value="-s" />
+                                            <arg value="${as.username}" />
+                                            <arg value="${as.password}" />
+                                        </exec>
+                                        <exec executable="${project.build.directory}/wildfly-${wildfly.version}/bin/add-user.bat"
+                                            osfamily="windows">
+                                            <arg value="-s" />
+                                            <arg value="${as.username}" />
+                                            <arg value="${as.password}" />
+                                        </exec>
+                                    </target>
                                 </configuration>
                             </execution>
                             <execution>
@@ -437,11 +437,9 @@
                                 <configuration>
                                     <target>
                                         <!-- <mkdir dir="${project.build.directory}/domain1/config" /> -->
-                                        <copy
-                                            file="${project.basedir}/src/test/resources/chaincerts/gateway.jks"
+                                        <copy file="${project.basedir}/src/test/resources/chaincerts/gateway.jks"
                                             todir="${project.build.directory}/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main" />
-                                        <copy
-                                            file="${project.basedir}/src/test/resources/chaincerts/cacerts.jks"
+                                        <copy file="${project.basedir}/src/test/resources/chaincerts/cacerts.jks"
                                             todir="${project.build.directory}/wildfly-${wildfly.version}/modules/system/layers/base/org/connectopensource/configuration/main" />
                                     </target>
                                 </configuration>
@@ -457,8 +455,7 @@
 
                             <execution>
                                 <id>unpack-nhin-properties-wildfly</id>
-                                <!-- Using the initialize phase because it is before the generate
-                                    sources phase -->
+                                <!-- Using the initialize phase because it is before the generate sources phase -->
                                 <phase>process-resources</phase>
                                 <goals>
                                     <goal>unpack</goal>
@@ -587,7 +584,7 @@
                                         </resource>
                                     </resources>
                                 </configuration>
-                            </execution>					
+                            </execution>
                         </executions>
                     </plugin>
                     <!-- run sql script -->

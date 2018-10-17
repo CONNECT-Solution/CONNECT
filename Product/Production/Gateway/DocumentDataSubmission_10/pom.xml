@@ -43,7 +43,7 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentDataSubmissionCore</artifactId>
-             <version>${parent.version}</version>
+            <version>${parent.version}</version>
         </dependency>
         <!-- Testing -->
         <dependency>
@@ -66,8 +66,7 @@
                 <executions>
                     <execution>
                         <id>unpack-test-resources</id>
-                        <!-- Using the initialize phase because it is before the generate sources
-                            phase -->
+                        <!-- Using the initialize phase because it is before the generate sources phase -->
                         <phase>initialize</phase>
                         <goals>
                             <goal>unpack</goal>
