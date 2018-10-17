@@ -84,7 +84,8 @@ public class AdapterXDRSecuredRequestErrorImpl extends BaseService {
 
     protected XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
         ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
-        return AdapterDocSubmissionDeferredRequestErrorOrchImpl.provideAndRegisterDocumentSetBRequestError(
+        return new AdapterDocSubmissionDeferredRequestErrorOrchImpl()
+            .provideAndRegisterDocumentSetBRequestError(
             request, errorMessage, assertion);
     }
 }

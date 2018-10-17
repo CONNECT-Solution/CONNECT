@@ -108,7 +108,7 @@ public class AuditRepositoryOrchImpl {
      * @param query the query
      * @return the found FindAuditEventsResponseType
      */
-    public static FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query) {
+    public FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query) {
 
         FindCommunitiesAndAuditEventsResponseType auditEvents;
         String patientId = query.getPatientId();

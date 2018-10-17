@@ -133,7 +133,7 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
         return DocQueryAuditTransformsConstants.EVENT_ACTION_CODE_RESPONDER;
     }
 
-    private static AuditMessageType getQueryParamsParticipantObjectIdentificationForRequest(AdhocQueryRequest request,
+    private AuditMessageType getQueryParamsParticipantObjectIdentificationForRequest(AdhocQueryRequest request,
         AuditMessageType auditMsg, NhinTargetSystemType target) throws JAXBException {
         String respondingHCID = target != null && target.getHomeCommunity() != null ? target.getHomeCommunity()
             .getHomeCommunityId() : null;
@@ -147,7 +147,7 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
 
     // ParticipantObjectIdentification for Patient is an optional element and can range from 0..1 . If PatientId is
     // not present in the request, the Audit Object will not hold ParticipantObjectIdentification for Patient.
-    private static AuditMessageType getPatientParticipantObjectIdentificationForRequest(AdhocQueryRequest request,
+    private AuditMessageType getPatientParticipantObjectIdentificationForRequest(AdhocQueryRequest request,
         AuditMessageType auditMsg) {
         String patientId = getPatientIdFromRequest(request);
         if (NullChecker.isNotNullish(patientId)) {
@@ -157,7 +157,7 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
         return auditMsg;
     }
 
-    private static AuditMessageType getPatientParticipantObjectIdentificationForResponse(AdhocQueryRequest request,
+    private AuditMessageType getPatientParticipantObjectIdentificationForResponse(AdhocQueryRequest request,
         AuditMessageType auditMsg) {
         String patientId = getPatientIdFromRequest(request);
         if (NullChecker.isNotNullish(patientId)) {
@@ -167,7 +167,7 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
         return auditMsg;
     }
 
-    private static AuditMessageType getQueryParticipantObjectIdentificationForResponse(AdhocQueryRequest request,
+    private AuditMessageType getQueryParticipantObjectIdentificationForResponse(AdhocQueryRequest request,
         AuditMessageType auditMsg) throws JAXBException {
 
         ParticipantObjectIdentificationType participantObj = createQueryParticipantObjectIdentification(
@@ -178,7 +178,7 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
         return auditMsg;
     }
 
-    private static ParticipantObjectIdentificationType createQueryParticipantObjectIdentification(String queryId,
+    private ParticipantObjectIdentificationType createQueryParticipantObjectIdentification(String queryId,
         String hcid) {
         ParticipantObjectIdentificationType participantObject = createParticipantObject(
             DocQueryAuditTransformsConstants.PARTICIPANT_QUERY_OBJ_TYPE_CODE_SYSTEM,
@@ -200,7 +200,7 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
     }
 
     //This is same for both Request and Response in case of DQ
-    private static ParticipantObjectIdentificationType createPatientParticipantObjectIdentification(String pid) {
+    private ParticipantObjectIdentificationType createPatientParticipantObjectIdentification(String pid) {
 
         ParticipantObjectIdentificationType participantObject = createParticipantObject(
             DocQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
@@ -215,7 +215,7 @@ public class DocQueryAuditTransforms extends AuditTransforms<AdhocQueryRequest, 
         return participantObject;
     }
 
-    private static ParticipantObjectIdentificationType createParticipantObject(short objTypeCodeSys,
+    private ParticipantObjectIdentificationType createParticipantObject(short objTypeCodeSys,
         short objTypeCodeRole,
         String objIdTypeCode, String objIdTypeCodeSys, String objIdTypeDisplayName) {
 

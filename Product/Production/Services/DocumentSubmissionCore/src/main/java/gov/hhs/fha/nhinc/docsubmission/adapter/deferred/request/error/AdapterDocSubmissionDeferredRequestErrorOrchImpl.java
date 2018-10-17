@@ -44,10 +44,7 @@ import org.slf4j.LoggerFactory;
 public class AdapterDocSubmissionDeferredRequestErrorOrchImpl {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocSubmissionDeferredRequestErrorOrchImpl.class);
 
-    private AdapterDocSubmissionDeferredRequestErrorOrchImpl() {
-    }
-
-    public static XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
         ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
         LOG.trace("Begin AdapterDocSubmissionDeferredRequestErrorOrchImpl.provideAndRegisterDocumentSetBRequestError");
 

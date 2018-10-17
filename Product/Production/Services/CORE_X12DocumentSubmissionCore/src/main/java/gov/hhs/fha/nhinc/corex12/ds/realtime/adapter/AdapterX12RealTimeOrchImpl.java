@@ -41,10 +41,7 @@ public class AdapterX12RealTimeOrchImpl {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterX12RealTimeOrchImpl.class);
     private static final String X12_REALTIME_PAYLOAD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><ClinicalDocument />";
 
-    private AdapterX12RealTimeOrchImpl() {
-    }
-
-    public static COREEnvelopeRealTimeResponse realTimeTransaction(
+    public COREEnvelopeRealTimeResponse realTimeTransaction(
         COREEnvelopeRealTimeRequest coreEnvelopeRealTimeRequest) {
 
         COREEnvelopeRealTimeResponse response;

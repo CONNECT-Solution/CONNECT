@@ -78,7 +78,7 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
      */
     @Override
     public QueryDeferredQueueResponseType queryDeferredQueue(QueryDeferredQueueRequestType queryDeferredQueueRequest) {
-        return DeferredQueueManagerHelper.queryDeferredQueue(queryDeferredQueueRequest);
+        return new DeferredQueueManagerHelper().queryDeferredQueue(queryDeferredQueueRequest);
     }
 
     /**
@@ -90,7 +90,7 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
     @Override
     public RetrieveDeferredQueueResponseType retrieveDeferredQueue(
         RetrieveDeferredQueueRequestType retrieveDeferredQueueRequest) {
-        return DeferredQueueManagerHelper.retrieveDeferredQueue(retrieveDeferredQueueRequest);
+        return new DeferredQueueManagerHelper().retrieveDeferredQueue(retrieveDeferredQueueRequest);
     }
 
     /**
@@ -102,7 +102,7 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
     @Override
     public DeferredQueueStatisticsResponseType deferredQueueStatistics(
         DeferredQueueStatisticsRequestType deferredQueueStatisticsRequest) {
-        return DeferredQueueManagerHelper.deferredQueueStatistics(deferredQueueStatisticsRequest);
+        return new DeferredQueueManagerHelper().deferredQueueStatistics(deferredQueueStatisticsRequest);
     }
 
 }

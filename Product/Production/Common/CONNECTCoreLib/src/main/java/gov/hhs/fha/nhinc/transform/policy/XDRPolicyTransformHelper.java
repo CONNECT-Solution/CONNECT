@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -78,7 +78,7 @@ public class XDRPolicyTransformHelper {
 
         SubjectHelper subjHelp = new SubjectHelper();
         SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(),
-                event.getMessage().getAssertion());
+            event.getMessage().getAssertion());
         LOG.debug("transformXDRToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 
@@ -90,7 +90,7 @@ public class XDRPolicyTransformHelper {
             ResourceType resource = new ResourceType();
             AttributeHelper attrHelper = new AttributeHelper();
             resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId,
-                    Constants.DataTypeString, assigningAuthorityId));
+                Constants.DataTypeString, assigningAuthorityId));
 
             LOG.debug("transformXDRToCheckPolicy: sStrippedPatientId = {}", patId);
             resource.getAttribute()
@@ -115,11 +115,11 @@ public class XDRPolicyTransformHelper {
         return checkPolicyRequest;
     }
 
-    private String getPatientIdFromEvent(XDREventType event) {
+    private static String getPatientIdFromEvent(XDREventType event) {
         return getIdentifiersFromRequest(event.getMessage().getProvideAndRegisterDocumentSetRequest());
     }
 
-    private String getIdentifiersFromRequest(ProvideAndRegisterDocumentSetRequestType request) {
+    private static String getIdentifiersFromRequest(ProvideAndRegisterDocumentSetRequestType request) {
         String result = "";
 
         if (request == null) {
@@ -135,12 +135,12 @@ public class XDRPolicyTransformHelper {
         }
 
         LOG.debug("List of All Identifiable Registry Object(s) on Identifiers Form Request {}",
-                request.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable());
+            request.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable());
         RegistryObjectListType object = request.getSubmitObjectsRequest().getRegistryObjectList();
 
         for (int x = 0; x < object.getIdentifiable().size(); x++) {
             LOG.debug("Name of Identifiable Registry Object on Identifiers Form Request {}",
-                    object.getIdentifiable().get(x).getName());
+                object.getIdentifiable().get(x).getName());
 
             if (object.getIdentifiable().get(x).getDeclaredType().equals(RegistryPackageType.class)) {
                 RegistryPackageType registryPackage = (RegistryPackageType) object.getIdentifiable().get(x).getValue();
@@ -149,7 +149,7 @@ public class XDRPolicyTransformHelper {
 
                 for (int y = 0; y < registryPackage.getExternalIdentifier().size(); y++) {
                     String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0)
-                            .getValue();
+                        .getValue();
                     if (test.equals("XDSSubmissionSet.patientId")) {
                         result = registryPackage.getExternalIdentifier().get(y).getValue();
                     }
@@ -169,7 +169,7 @@ public class XDRPolicyTransformHelper {
      * @return CheckPolicyRequestType
      */
     public CheckPolicyRequestType transformXDREntityToCheckPolicy(
-            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
+        RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -194,7 +194,7 @@ public class XDRPolicyTransformHelper {
 
         SubjectHelper subjHelp = new SubjectHelper();
         SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(),
-                event.getMessage().getAssertion());
+            event.getMessage().getAssertion());
         LOG.debug("transformXDRResponseToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 

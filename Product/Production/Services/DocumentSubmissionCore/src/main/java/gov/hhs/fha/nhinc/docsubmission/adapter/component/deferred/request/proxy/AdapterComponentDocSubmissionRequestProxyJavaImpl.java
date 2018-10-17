@@ -49,7 +49,7 @@ public class AdapterComponentDocSubmissionRequestProxyJavaImpl implements Adapte
     @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
         AssertionType assertion) {
-        return AdapterComponentDocSubmissionRequestOrchImpl.provideAndRegisterDocumentSetBRequest(body);
+        return new AdapterComponentDocSubmissionRequestOrchImpl().provideAndRegisterDocumentSetBRequest(body);
 
     }
 }

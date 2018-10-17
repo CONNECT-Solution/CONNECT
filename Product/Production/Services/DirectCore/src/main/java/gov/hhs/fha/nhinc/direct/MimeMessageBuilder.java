@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -80,7 +80,7 @@ public class MimeMessageBuilder {
      * @return builder
      */
     public MimeMessageBuilder subject(String str) {
-        this.subject = str;
+        subject = str;
         return this;
     }
 
@@ -89,7 +89,7 @@ public class MimeMessageBuilder {
      * @return builder
      */
     public MimeMessageBuilder text(String str) {
-        this.text = str;
+        text = str;
         return this;
     }
 
@@ -98,7 +98,7 @@ public class MimeMessageBuilder {
      * @return builder of mime messages.
      */
     public MimeMessageBuilder documents(DirectDocuments directDocuments) {
-        this.documents = directDocuments;
+        documents = directDocuments;
         return this;
     }
 
@@ -107,7 +107,7 @@ public class MimeMessageBuilder {
      * @return builder of mime messages.
      */
     public MimeMessageBuilder messageId(String str) {
-        this.messageId = str;
+        messageId = str;
         return this;
     }
 
@@ -116,7 +116,7 @@ public class MimeMessageBuilder {
      * @return builder
      */
     public MimeMessageBuilder attachment(Document doc) {
-        this.attachment = doc;
+        attachment = doc;
         return this;
     }
 
@@ -125,7 +125,7 @@ public class MimeMessageBuilder {
      * @return builder
      */
     public MimeMessageBuilder attachmentName(String str) {
-        this.attachmentName = str;
+        attachmentName = str;
         return this;
     }
 
@@ -205,8 +205,9 @@ public class MimeMessageBuilder {
         return new MimeBodyPart();
     }
 
-    private MimeBodyPart createAttachmentFromSOAPRequest(Document data, String name) throws MessagingException,
-        IOException {
+    private static MimeBodyPart createAttachmentFromSOAPRequest(Document data, String name)
+        throws MessagingException,
+    IOException {
 
         InputStream is = null;
         DataSource source;
@@ -227,6 +228,6 @@ public class MimeMessageBuilder {
             StreamUtils.closeStreamSilently(is);
         }
 
-        return (MimeBodyPart) bodypart;
+        return bodypart;
     }
 }

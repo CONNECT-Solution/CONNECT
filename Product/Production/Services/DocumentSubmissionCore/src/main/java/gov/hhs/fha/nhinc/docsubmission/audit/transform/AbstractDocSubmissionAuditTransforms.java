@@ -53,7 +53,7 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDocSubmissionAuditTransforms.class);
 
     // PatientParticipantObjectIdentification is same for both Request and Response in case of DS
-    protected static AuditMessageType getPatientParticipantObjectIdentification(
+    protected AuditMessageType getPatientParticipantObjectIdentification(
         ProvideAndRegisterDocumentSetRequestType request, AuditMessageType auditMsg) {
         auditMsg.getParticipantObjectIdentification().add(createPatientParticipantObjectIdentification(
             getIdValue(request, DocSubmissionAuditTransformsConstants.XDS_SUBMISSIONSET_PATIENT_ID)));
@@ -61,14 +61,14 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
     }
 
     // SubmissionSetParticipantObjectIdentification is same for both Request and Response in case of DS
-    protected static AuditMessageType getSubmissionSetParticipantObjectIdentification(
+    protected AuditMessageType getSubmissionSetParticipantObjectIdentification(
         ProvideAndRegisterDocumentSetRequestType request, AuditMessageType auditMsg) {
         auditMsg.getParticipantObjectIdentification().add(createSubmissionSetParticipantObjectIdentification(
             getIdValue(request, DocSubmissionAuditTransformsConstants.XDS_SUBMISSIONSET_UNIQUE_ID)));
         return auditMsg;
     }
 
-    private static ParticipantObjectIdentificationType createPatientParticipantObjectIdentification(String pid) {
+    private ParticipantObjectIdentificationType createPatientParticipantObjectIdentification(String pid) {
 
         ParticipantObjectIdentificationType participantObject = createParticipantObject(
             DocSubmissionAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
@@ -83,7 +83,7 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
         return participantObject;
     }
 
-    private static ParticipantObjectIdentificationType createSubmissionSetParticipantObjectIdentification(
+    private ParticipantObjectIdentificationType createSubmissionSetParticipantObjectIdentification(
         String submissionId) {
 
         ParticipantObjectIdentificationType participantObject = createParticipantObject(
@@ -99,7 +99,7 @@ public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTr
         return participantObject;
     }
 
-    private static ParticipantObjectIdentificationType createParticipantObject(short objTypeCodeSys,
+    private ParticipantObjectIdentificationType createParticipantObject(short objTypeCodeSys,
         short objTypeCodeRole,
         String objIdTypeCode, String objIdTypeCodeSys, String objIdTypeDisplayName) {
 

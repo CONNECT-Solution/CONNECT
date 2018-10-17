@@ -538,7 +538,7 @@ public class PatientSearchBean {
             "Error:  " + userName + " does not have valid assertion data.", "Login as a valid user."));
     }
 
-    protected static PropertyAccessor getPropAccessor() {
+    protected PropertyAccessor getPropAccessor() {
         return PropertyAccessor.getInstance();
     }
 }

@@ -44,6 +44,6 @@ public class AdapterX12RealTimeProxyJavaImpl implements AdapterX12RealTimeProxy 
     @Override
     public COREEnvelopeRealTimeResponse realTimeTransaction(COREEnvelopeRealTimeRequest msg, AssertionType assertion) {
         LOG.trace("Using Java Implementation for Adapter CORE X12 Doc Submission Service");
-        return AdapterX12RealTimeOrchImpl.realTimeTransaction(msg);
+        return new AdapterX12RealTimeOrchImpl().realTimeTransaction(msg);
     }
 }

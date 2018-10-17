@@ -47,8 +47,9 @@ public class AdapterX12RealTimeImpl extends BaseService {
         AdapterCOREEnvelopeRealTimeRequestType request) {
 
         AdapterCOREEnvelopeRealTimeResponseType response = new AdapterCOREEnvelopeRealTimeResponseType();
-        response.setCOREEnvelopeRealTimeResponse(AdapterX12RealTimeOrchImpl.realTimeTransaction(
-            request.getCOREEnvelopeRealTimeRequest()));
+        response.setCOREEnvelopeRealTimeResponse(
+            new AdapterX12RealTimeOrchImpl().realTimeTransaction(
+                request.getCOREEnvelopeRealTimeRequest()));
 
         return response;
     }
@@ -63,8 +64,8 @@ public class AdapterX12RealTimeImpl extends BaseService {
         AdapterCOREEnvelopeRealTimeSecuredRequestType request) {
 
         AdapterCOREEnvelopeRealTimeResponseType response = new AdapterCOREEnvelopeRealTimeResponseType();
-        response.setCOREEnvelopeRealTimeResponse(AdapterX12RealTimeOrchImpl
-            .realTimeTransaction(request.getCOREEnvelopeRealTimeRequest()));
+        response.setCOREEnvelopeRealTimeResponse(
+            new AdapterX12RealTimeOrchImpl().realTimeTransaction(request.getCOREEnvelopeRealTimeRequest()));
 
         return response;
     }

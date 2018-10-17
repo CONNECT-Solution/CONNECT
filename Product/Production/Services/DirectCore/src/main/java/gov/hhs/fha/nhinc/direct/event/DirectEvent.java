@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -100,7 +100,7 @@ public class DirectEvent extends BaseEvent {
          * @return this builder.
          */
         public Builder mimeMessage(MimeMessage mimeMessage) {
-            this.message = mimeMessage;
+            message = mimeMessage;
             return this;
         }
 
@@ -111,7 +111,7 @@ public class DirectEvent extends BaseEvent {
          * @return this builder.
          */
         public Builder errorMsg(String str) {
-            this.errorMsg = str;
+            errorMsg = str;
             return this;
         }
 
@@ -170,7 +170,7 @@ public class DirectEvent extends BaseEvent {
             return event;
         }
 
-        private void addToJSON(JSONObject jsonObject, String key, Object value) {
+        private static void addToJSON(JSONObject jsonObject, String key, Object value) {
             try {
                 jsonObject.put(key, value);
             } catch (JSONException e) {

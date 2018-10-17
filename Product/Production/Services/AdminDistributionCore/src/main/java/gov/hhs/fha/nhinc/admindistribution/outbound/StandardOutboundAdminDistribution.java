@@ -139,7 +139,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
         return auditLogger;
     }
 
-    private NhinTargetSystemType buildTargetSystem(UrlInfo urlInfo) {
+    private static NhinTargetSystemType buildTargetSystem(UrlInfo urlInfo) {
         LOG.debug("Begin buildTargetSystem");
         NhinTargetSystemType result = new NhinTargetSystemType();
         HomeCommunityType hc = new HomeCommunityType();

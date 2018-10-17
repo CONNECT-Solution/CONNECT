@@ -50,7 +50,7 @@ public class AdapterX12BatchResponseImpl extends BaseService {
         AdapterBatchSubmissionSecuredRequestType body, WebServiceContext context) {
 
         AdapterBatchSubmissionResponseSecuredType response = new AdapterBatchSubmissionResponseSecuredType();
-        response.setCOREEnvelopeBatchSubmissionResponse(AdapterX12BatchOrchImpl
+        response.setCOREEnvelopeBatchSubmissionResponse(new AdapterX12BatchOrchImpl()
             .batchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), getAssertion(context)));
 
         return response;
@@ -66,7 +66,7 @@ public class AdapterX12BatchResponseImpl extends BaseService {
         WebServiceContext context) {
 
         AdapterBatchSubmissionResponseType oResponse = new AdapterBatchSubmissionResponseType();
-        oResponse.setCOREEnvelopeBatchSubmissionResponse(AdapterX12BatchOrchImpl
+        oResponse.setCOREEnvelopeBatchSubmissionResponse(new AdapterX12BatchOrchImpl()
             .batchSubmitTransaction(body.getCOREEnvelopeBatchSubmission(), getAssertion(context, body.getAssertion())));
 
         return oResponse;

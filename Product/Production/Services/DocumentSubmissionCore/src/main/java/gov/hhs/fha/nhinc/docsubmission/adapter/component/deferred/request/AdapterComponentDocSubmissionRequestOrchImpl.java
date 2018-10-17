@@ -48,9 +48,6 @@ public class AdapterComponentDocSubmissionRequestOrchImpl {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterComponentDocSubmissionRequestOrchImpl.class);
 
-    private AdapterComponentDocSubmissionRequestOrchImpl() {
-    }
-
     /**
      * This method receives the document information
      *
@@ -58,7 +55,7 @@ public class AdapterComponentDocSubmissionRequestOrchImpl {
      * @return The ACK
      */
     // This is a dummy adapter - ignoring the URL parameter in interest of not updating the interface
-    public static XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
         ProvideAndRegisterDocumentSetRequestType body) {
         LOG.debug("Entering AdapterComponentXDRRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
 
