@@ -37,8 +37,6 @@ import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -47,8 +45,6 @@ import org.slf4j.LoggerFactory;
  * @param <K>
  */
 public abstract class AbstractDocSubmissionAuditTransforms<T, K> extends AuditTransforms<T, K> {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractDocSubmissionAuditTransforms.class);
 
     // PatientParticipantObjectIdentification is same for both Request and Response in case of DS
     protected AuditMessageType getPatientParticipantObjectIdentification(
