@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.aspect.DocDataSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docdatasubmission.nhin.proxy.service.NhinDocDataSubmissionServicePortDescriptor;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
@@ -37,6 +36,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti._2007.DocumentRegistryXDSPortType;
 import ihe.iti.xds_b._2007.RegisterDocumentSetRequestType;
@@ -49,11 +49,11 @@ public class NhinDocDataSubmissionProxyWebServiceSecuredImpl implements NhinDocD
     private static final Logger LOG = LoggerFactory.getLogger(NhinDocDataSubmissionProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper proxyHelper = null;
 
-    protected MessageGeneratorUtilsDocData getMessageGeneratorUtils() {
-        return MessageGeneratorUtilsDocData.getInstance();
+    protected MessageGeneratorUtils getMessageGeneratorUtils() {
+        return MessageGeneratorUtils.getInstance();
     }
 
-    protected WebServiceProxyHelper getWebServiceProxyHelper() {
+    protected WebServiceProxyHelper getWebServiceProxHelper() {
         if (proxyHelper == null) {
             proxyHelper = new WebServiceProxyHelper();
         }
@@ -77,7 +77,7 @@ public class NhinDocDataSubmissionProxyWebServiceSecuredImpl implements NhinDocD
         RegistryResponseType response = new RegistryResponseType();
 
         try {
-            String url = getWebServiceProxyHelper().getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
+            String url = getWebServiceProxHelper().getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
                 NhincConstants.NHINC_XDS_SERVICE_NAME, apiLevel);
 
             ServicePortDescriptor<DocumentRegistryXDSPortType> portDescriptor = new NhinDocDataSubmissionServicePortDescriptor();

@@ -24,31 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docdatasubmission.aspect;
 
-import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
-import javax.xml.ws.Holder;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+package gov.hhs.fha.nhinc.util;
 
-public class RegistryResponseTypeHolderBuilder extends ArgTransformerEventDescriptionBuilder {
+import javax.xml.bind.JAXBElement;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+/**
+ * @author ptambellini
+ *
+ */
 
-    public RegistryResponseTypeHolderBuilder() {
-        setDelegate(null);
+public class ServiceUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ServiceUtils.class);
+
+    private ServiceUtils() {
+
     }
 
-    @Override
-    public Object[] transformArguments(Object[] arguments) {
-        if (arguments == null || arguments[0] == null) {
-            return new Object[] {};
+    public static RegistryObjectType extractRegistryObject(RegistryObjectListType registryList) {
+        RegistryObjectType registryObj = null;
+        if (registryList != null && registryList.getIdentifiable() != null) {
+            for (JAXBElement<? extends IdentifiableType> object : registryList.getIdentifiable()) {
+                if (object.getDeclaredType() != null && object.getDeclaredType().equals(RegistryPackageType.class)) {
+                    registryObj = (RegistryObjectType) object.getValue();
+                    break;
+                }
+            }
         }
-        @SuppressWarnings("unchecked")
-        Holder<RegistryResponseType> holder = (Holder<RegistryResponseType>) arguments[0];
-        return new Object[] { holder.value };
-    }
-
-    @Override
-    public Object transformReturnValue(Object returnValue) {
-        return returnValue;
+        if (registryObj == null) {
+            LOG.error("RegistryPackage is null.");
+        }
+        return registryObj;
     }
 
 }

@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.docdatasubmission.MessageGeneratorUtilsDocData;
 import gov.hhs.fha.nhinc.docdatasubmission.audit.DocDataSubmissionAuditLogger;
 import gov.hhs.fha.nhinc.docdatasubmission.entity.OutboundDocDataSubmissionDelegate;
 import gov.hhs.fha.nhinc.docdatasubmission.entity.OutboundDocDataSubmissionOrchestratable;
@@ -91,8 +90,8 @@ public class PassthroughOutboundDocDataSubmission implements OutboundDocDataSubm
         return new SubjectHelper();
     }
 
-    protected MessageGeneratorUtilsDocData getMessageGeneratorUtilsDocData() {
-        return MessageGeneratorUtilsDocData.getInstance();
+    protected MessageGeneratorUtils getMessageGeneratorUtils() {
+        return MessageGeneratorUtils.getInstance();
     }
 
     protected OutboundDocDataSubmissionDelegate getOutboundDocDataSubmissionDelegate() {
@@ -102,7 +101,7 @@ public class PassthroughOutboundDocDataSubmission implements OutboundDocDataSubm
     private static RespondingGatewayRegisterDocumentSetSecuredRequestType createRequestForInternalProcessing(
         RegisterDocumentSetRequestType msg, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         RespondingGatewayRegisterDocumentSetSecuredRequestType request
-            = new RespondingGatewayRegisterDocumentSetSecuredRequestType();
+        = new RespondingGatewayRegisterDocumentSetSecuredRequestType();
         request.setRegisterDocumentSetRequest(msg);
         request.setNhinTargetCommunities(targets);
         request.setUrl(urlInfo);
@@ -122,7 +121,7 @@ public class PassthroughOutboundDocDataSubmission implements OutboundDocDataSubm
                 nhinResponse = sendToNhinProxy(request, assertion, nhinTargetSystemType);
             } catch (Exception e) {
                 String hcid = getNhinTargetHomeCommunityId(request);
-                nhinResponse = MessageGeneratorUtilsDocData.getInstance()
+                nhinResponse = MessageGeneratorUtils.getInstance()
                     .createRegistryBusyErrorResponse("Failed to send request to community " + hcid);
                 LOG.error("Fault encountered while trying to send message to the nhin {}", hcid, e);
             }

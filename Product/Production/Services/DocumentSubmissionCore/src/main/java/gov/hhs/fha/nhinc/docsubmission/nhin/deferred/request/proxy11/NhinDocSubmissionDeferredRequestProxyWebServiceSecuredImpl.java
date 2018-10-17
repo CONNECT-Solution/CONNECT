@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
-import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.service.NhinDocSubmissionDeferredRequestServicePortDescriptor;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
@@ -40,6 +39,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xdr._2007.XDRDeferredRequestPortType;
@@ -48,7 +48,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implements
-    NhinDocSubmissionDeferredRequestProxy {
+NhinDocSubmissionDeferredRequestProxy {
 
     private static final Logger LOG = LoggerFactory.getLogger(NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
@@ -78,9 +78,9 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
 
     @Override
     @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-        afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-        serviceType = "Document Submission Deferred Request",
-        version = "")
+    afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+    serviceType = "Document Submission Deferred Request",
+    version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest11(
         ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         LOG.debug("Begin provideAndRegisterDocumentSetBAsyncRequest");

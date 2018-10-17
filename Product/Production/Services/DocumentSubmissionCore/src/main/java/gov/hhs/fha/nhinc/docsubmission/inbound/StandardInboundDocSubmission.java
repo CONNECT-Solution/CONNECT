@@ -31,7 +31,6 @@ import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
-import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
@@ -42,6 +41,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -89,19 +89,7 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
     version = "")
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
         ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion, Properties webContextProperties) {
-        RegistryResponseType response = null;
-        try {
-            response = processDocSubmission(body, assertion, webContextProperties);
-        }
-        catch (ErrorEventException e) {
-            // only doing this for audit response.
-            response = (RegistryResponseType) e.getReturnOverride();
-            throw e;
-        } finally {
-            auditResponse(body, response, assertion, webContextProperties);
-        }
-
-        return response;
+        return super.documentRepositoryProvideAndRegisterDocumentSetB(body, assertion, webContextProperties);
     }
 
     @Override
