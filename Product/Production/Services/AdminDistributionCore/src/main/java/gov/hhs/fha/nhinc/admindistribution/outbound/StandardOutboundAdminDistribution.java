@@ -30,7 +30,7 @@ import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
-import gov.hhs.fha.nhinc.admindistribution.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.admindistribution.ADMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.admindistribution.aspect.ADRequestTransformingBuilder;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionDelegate;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionOrchestratable;
@@ -58,7 +58,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
 
     private static final Logger LOG = LoggerFactory.getLogger(StandardOutboundAdminDistribution.class);
     private AdminDistributionAuditLogger auditLogger = null;
-    private final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private final ADMessageGeneratorUtils msgUtils = ADMessageGeneratorUtils.getInstance();
 
     /**
      * This method sends AlertMessage to the target.
@@ -73,7 +73,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
         NhinTargetCommunitiesType target) {
         RespondingGatewaySendAlertMessageType unsecured = msgUtils.convertToUnsecured(message,
-            MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
+            ADMessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
 
         this.sendAlertMessage(unsecured, assertion, target);
 
@@ -90,7 +90,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion,
         NhinTargetCommunitiesType target) {
         logInfoServiceProcess(this.getClass());
-        auditMessage(message, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
+        auditMessage(message, ADMessageGeneratorUtils.getInstance().generateMessageId(assertion),
             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         List<UrlInfo> urlInfoList = getEndpoints(target);

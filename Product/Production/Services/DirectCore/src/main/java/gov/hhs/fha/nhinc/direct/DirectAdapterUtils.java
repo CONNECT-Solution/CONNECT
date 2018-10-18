@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -51,8 +51,12 @@ public class DirectAdapterUtils {
     private static final Logger LOG = LoggerFactory.getLogger(DirectAdapterUtils.class);
     private static final String MDN_CONTENT_TYPE = "DISPOSITION-NOTIFICATION";
 
+    private DirectAdapterUtils() {
+    }
+
     /**
      * Extract the NHINDAddressCollection from the mime headers of the message.
+     *
      * @param message mime message
      * @return NHINDAddressCollection - collection of NHIND Addresses
      * @throws MessagingException if there was an exception
@@ -83,8 +87,9 @@ public class DirectAdapterUtils {
     }
 
     /**
-     * Extract the Address for the sender from the mime headers of the message. Ensures that one and only one Sender
-     * is extracted.
+     * Extract the Address for the sender from the mime headers of the message. Ensures that one and only one Sender is
+     * extracted.
+     *
      * @param message mime message
      * @return Address for the sender
      * @throws MessagingException if there was an error
@@ -98,9 +103,8 @@ public class DirectAdapterUtils {
         return fromAddresses[0];
     }
 
-
     private static void addRecipients(NHINDAddressCollection recipients, Message message, RecipientType type,
-            AddressSource source) throws MessagingException {
+        AddressSource source) throws MessagingException {
 
         Address[] addresses = message.getRecipients(type);
         if (addresses == null) {
@@ -114,6 +118,7 @@ public class DirectAdapterUtils {
 
     /**
      * Return MDN Notification Messages present in a DIRECT Process result, and perform logging.
+     *
      * @param result to pull notification messages from.
      * @return collection of Notification Messages.
      */

@@ -32,6 +32,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -44,11 +46,11 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
  *
  * @author JHOPPESC
  */
-public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGeneratorUtils {
+public class PDMessageGeneratorUtils extends MessageGeneratorUtils {
 
-    private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
+    private static final PDMessageGeneratorUtils INSTANCE = new PDMessageGeneratorUtils();
 
-    MessageGeneratorUtils() {
+    PDMessageGeneratorUtils() {
     }
 
     /**
@@ -56,35 +58,31 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
      *
      * @return the singleton instance
      */
-    public static MessageGeneratorUtils getInstance() {
+    public static PDMessageGeneratorUtils getInstance() {
         return INSTANCE;
     }
 
     /**
      * Extracts the patient id from response message subject element
      *
-     * @param msg
+     * @param subject
      * @return <code>II</code> with extracted patient id
      */
     public II extractPatientIdFromSubject(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
-        II id = new II();
-
-        if (subject != null
-            && subject.getRegistrationEvent() != null
-            && subject.getRegistrationEvent().getSubject1() != null
-            && subject.getRegistrationEvent().getSubject1().getPatient() != null
-            && NullChecker.isNotNullish(subject.getRegistrationEvent().getSubject1().getPatient().getId())
-            && subject.getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null
-            && NullChecker.isNotNullish(subject.getRegistrationEvent().getSubject1().getPatient().getId().get(0)
-                .getExtension())
+        II id = null;
+        boolean hasPatient = subject != null && subject.getRegistrationEvent() != null
+            && subject.getRegistrationEvent().getSubject1() != null && subject.getRegistrationEvent().getSubject1().
+            getPatient() != null;
+        boolean hasId = hasPatient && CollectionUtils.isNotEmpty(subject.getRegistrationEvent().getSubject1().
+            getPatient().getId()) && subject.getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null;
+        if (hasId && NullChecker.isNotNullish(subject.getRegistrationEvent().getSubject1().getPatient().getId().get(0)
+            .getExtension())
             && NullChecker.isNotNullish(subject.getRegistrationEvent().getSubject1().getPatient().getId().get(0)
                 .getRoot())) {
+            id = new II();
             id.setExtension(subject.getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
             id.setRoot(subject.getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
-        } else {
-            id = null;
         }
-
         return id;
     }
 

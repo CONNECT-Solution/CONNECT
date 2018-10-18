@@ -26,14 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docquery.outbound;
 
-import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
-
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docquery.DQMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
-import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
@@ -45,6 +43,7 @@ import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +87,8 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
      * @return AdhocQueryResponse from Entity Interface.
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
+    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder
+        = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
         AssertionType assertion, NhinTargetCommunitiesType targets) {
         logInfoServiceProcess(this.getClass());
@@ -99,7 +99,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
         OutboundDocQueryAggregate aggregate = new OutboundDocQueryAggregate();
 
         List<OutboundOrchestratable> aggregateRequests = fanoutService.createChildRequests(adhocQueryRequest,
-            MessageGeneratorUtils.getInstance().generateMessageId(assertion), targets);
+            DQMessageGeneratorUtils.getInstance().generateMessageId(assertion), targets);
 
         if (aggregateRequests.isEmpty()) {
             LOG.info("no patient correlation found.");
@@ -159,7 +159,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
      * @return AdhocQueryResponse.
      */
     private static AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {
-        return MessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse(codeContext, errorCode,
+        return DQMessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse(codeContext, errorCode,
             DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
     }
 

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,21 +31,21 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.corex12.ds.audit.X12BatchAuditLogger;
 import gov.hhs.fha.nhinc.corex12.ds.audit.transform.X12BatchAuditTransforms;
+import gov.hhs.fha.nhinc.corex12.ds.genericbatch.common.adapter.proxy.AdapterX12BatchProxy;
 import gov.hhs.fha.nhinc.corex12.ds.genericbatch.response.adapter.proxy.AdapterX12BatchResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Properties;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmission;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeBatchSubmissionResponse;
-import org.junit.Test;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.corex12.ds.genericbatch.common.adapter.proxy.AdapterX12BatchProxy;
 import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -66,7 +66,7 @@ public class PassthroughInboundX12BatchResponseTest {
         PassthroughInboundX12BatchResponse inboundResp
             = new PassthroughInboundX12BatchResponse(mockFactory, getAuditLogger(true));
         COREEnvelopeBatchSubmissionResponse expectedResponse = new COREEnvelopeBatchSubmissionResponse();
-        when(mockFactory.getAdapterCORE_X12DocSubmissionProxy()).thenReturn(mockResponseProxy);
+        when(mockFactory.getAdapterCOREX12DocSubmissionProxy()).thenReturn(mockResponseProxy);
         when(mockResponseProxy.batchSubmitTransaction(eq(request), eq(assertion))).thenReturn(expectedResponse);
 
         COREEnvelopeBatchSubmissionResponse actualResponse = inboundResp.batchSubmitTransaction(request, assertion,
@@ -85,7 +85,7 @@ public class PassthroughInboundX12BatchResponseTest {
         PassthroughInboundX12BatchResponse inboundResp
             = new PassthroughInboundX12BatchResponse(mockFactory, getAuditLogger(false));
         COREEnvelopeBatchSubmissionResponse expectedResponse = new COREEnvelopeBatchSubmissionResponse();
-        when(mockFactory.getAdapterCORE_X12DocSubmissionProxy()).thenReturn(mockResponseProxy);
+        when(mockFactory.getAdapterCOREX12DocSubmissionProxy()).thenReturn(mockResponseProxy);
         when(mockResponseProxy.batchSubmitTransaction(eq(request), eq(assertion))).thenReturn(expectedResponse);
 
         COREEnvelopeBatchSubmissionResponse actualResponse = inboundResp.batchSubmitTransaction(request, assertion,

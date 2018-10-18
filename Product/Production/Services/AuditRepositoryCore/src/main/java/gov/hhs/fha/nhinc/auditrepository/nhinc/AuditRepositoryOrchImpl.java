@@ -26,13 +26,12 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
-import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getDate;
-
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryDAO;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
+import gov.hhs.fha.nhinc.auditrepository.util.AuditUtils;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -40,20 +39,12 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEvents
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
-import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
-import gov.hhs.fha.nhinc.util.StreamUtils;
-import java.io.InputStream;
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getDate;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.stream.XMLStreamException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -155,13 +146,13 @@ public class AuditRepositoryOrchImpl {
             blobMessage = eachRecord.getMessage();
             if (blobMessage != null) {
                 try {
-                    auditMessageType = unMarshallBlobToAuditMess(blobMessage);
+                    auditMessageType = AuditUtils.unMarshallBlobToAuditMessage(blobMessage);
                     if (auditMessageType != null) {
                         response.getFindAuditEventsReturn().add(auditMessageType);
 
                         if (CollectionUtils.isNotEmpty(auditMessageType.getAuditSourceIdentification())
                             && auditMessageType.getAuditSourceIdentification().get(0) != null && StringUtils.isNotEmpty(
-                                auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID())) {
+                            auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID())) {
                             String tempCommunity = auditMessageType.getAuditSourceIdentification().get(0)
                                 .getAuditSourceID();
                             if (!auditResType.getCommunities().contains(tempCommunity)) {
@@ -183,37 +174,6 @@ public class AuditRepositoryOrchImpl {
 
         auditResType.setFindAuditEventResponse(response);
         return auditResType;
-    }
-
-    /**
-     * This method unmarshalls XML Blob to AuditMessage
-     *
-     * @param auditBlob
-     * @return AuditMessageType
-     */
-    private static AuditMessageType unMarshallBlobToAuditMess(Blob auditBlob) {
-
-        AuditMessageType auditMessageType = null;
-        InputStream in = null;
-        try {
-            if (auditBlob != null && (int) auditBlob.length() > 0) {
-                JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
-                in = auditBlob.getBinaryStream();
-                JAXBContextHandler oHandler = new JAXBContextHandler();
-                JAXBContext jc = oHandler.getJAXBContext("com.services.nhinc.schema.auditmessage");
-                Unmarshaller unmarshaller = jc.createUnmarshaller();
-                JAXBElement jaxEle = (JAXBElement) unmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(in));
-                if (jaxEle.getValue() != null) {
-                    auditMessageType = (AuditMessageType) jaxEle.getValue();
-                }
-            }
-        } catch (SQLException | JAXBException | XMLStreamException e) {
-            LOG.error("Blob to Audit Message Conversion Error: {}", e.getLocalizedMessage(), e);
-        } finally {
-            StreamUtils.closeStreamSilently(in);
-        }
-
-        return auditMessageType;
     }
 
     private String logToDatabase(LogEventSecureRequestType request, AssertionType assertion) {

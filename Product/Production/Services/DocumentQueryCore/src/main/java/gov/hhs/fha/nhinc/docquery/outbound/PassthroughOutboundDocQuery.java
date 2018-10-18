@@ -32,7 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docquery.DQMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
@@ -70,14 +70,14 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
         NhinTargetCommunitiesType targets) {
         logInfoServiceProcess(this.getClass());
 
-        NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
+        NhinTargetSystemType target = DQMessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
         String targetHCID = getTargetHCID(target);
 
         if (targets.getNhinTargetCommunity().size() > 1) {
             warnTooManyTargets(targetHCID, targets);
         }
 
-        return sendRequestToNwhin(request, MessageGeneratorUtils.getInstance().generateMessageId(
+        return sendRequestToNwhin(request, DQMessageGeneratorUtils.getInstance().generateMessageId(
             assertion), target, targetHCID);
     }
 
@@ -103,7 +103,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
         } catch (Exception ex) {
             String errorMsg = "Error from target homeId = " + targetCommunityID + ". " + ex.getMessage();
-            throw new ErrorEventException(ex, MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(errorMsg),
+            throw new ErrorEventException(ex, DQMessageGeneratorUtils.getInstance().createRepositoryErrorResponse(errorMsg),
                 "Unable to call Nhin Doc Query");
         }
 

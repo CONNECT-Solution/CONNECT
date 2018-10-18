@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
-import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docquery.DQMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
@@ -170,7 +170,7 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
         initializeResponse(to);
         AdhocQueryResponse singleResponse = from.getResponse();
         if (singleResponse == null) {
-            singleResponse = MessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse("Null response.",
+            singleResponse = DQMessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse("Null response.",
                 DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR,
                 DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         }

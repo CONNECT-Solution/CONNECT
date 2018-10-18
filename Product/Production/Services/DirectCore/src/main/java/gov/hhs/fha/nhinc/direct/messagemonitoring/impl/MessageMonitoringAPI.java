@@ -73,6 +73,7 @@ public class MessageMonitoringAPI {
     private static final String STATUS_COMPLETED = "Completed";
     private static final String STATUS_PROCESSED = "Processed";
     private static final String STATUS_ARCHIVED = "Archived";
+    private static final String MSG_MONITORING_NOT_ENABLED = "Message Monitoring is not enabled.";
 
     public MessageMonitoringAPI() {
         // set the default value
@@ -84,6 +85,9 @@ public class MessageMonitoringAPI {
     private static class SingletonHolder {
 
         public static final MessageMonitoringAPI INSTANCE = new MessageMonitoringAPI();
+
+        private SingletonHolder() {
+        }
     }
 
     public static MessageMonitoringAPI getInstance() {
@@ -94,7 +98,7 @@ public class MessageMonitoringAPI {
         // Always
         // check if the message monitoring is enabled
         if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
-            LOG.debug("Message Monitoring is not enabled.");
+            LOG.debug(MSG_MONITORING_NOT_ENABLED);
             return;
         }
         LOG.debug("Message Monitoring is enabled.");
@@ -165,7 +169,7 @@ public class MessageMonitoringAPI {
     public void addOutgoingMessage(final MimeMessage message, final boolean failed) {
         // Always check if message monitoring enabled
         if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
-            LOG.debug("Message Monitoring is not enabled.");
+            LOG.debug(MSG_MONITORING_NOT_ENABLED);
             return;
         }
         try {
@@ -224,7 +228,7 @@ public class MessageMonitoringAPI {
         LOG.debug("Inside buildCache");
         // Always check if message monitoring enabled
         if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
-            LOG.debug("Message Monitoring is not enabled.");
+            LOG.debug(MSG_MONITORING_NOT_ENABLED);
             return;
         }
         LOG.debug("Message Monitoring is enabled.");
@@ -237,7 +241,8 @@ public class MessageMonitoringAPI {
         for (final MonitoredMessage trackMessage : pendingMessages) {
             if (!trackMessage.getStatus().equals(STATUS_ARCHIVED)) {
                 messageMonitoringCache.put(trackMessage.getMessageid(), trackMessage);
-                LOG.debug("Total child rows for the messageId: {}", trackMessage.getMonitoredmessagenotifications().size());
+                LOG.debug("Total child rows for the messageId: {}", trackMessage.getMonitoredmessagenotifications().
+                    size());
             } else {
                 deleteElapsedArchivedMessage(trackMessage);
             }
@@ -426,7 +431,7 @@ public class MessageMonitoringAPI {
 
         // Always check if the message monitoring is enabled
         if (!MessageMonitoringUtil.isMessageMonitoringEnabled()) {
-            LOG.debug("Message Monitoring is not enabled.");
+            LOG.debug(MSG_MONITORING_NOT_ENABLED);
             return;
         }
         // check all the pending messages and update the status
@@ -447,7 +452,7 @@ public class MessageMonitoringAPI {
     }
 
     private void checkAndUpdateMessageStatus() {
-        LOG.debug("Exiting Message Monitoring API checkAndUpdateMessageStatus() method.");
+        LOG.debug("Entering Message Monitoring API checkAndUpdateMessageStatus() method.");
         // get the pending message list
         final List<MonitoredMessage> pendingMessages = getAllPendingMessages();
 
@@ -480,7 +485,7 @@ public class MessageMonitoringAPI {
      * MessageId in order to make event assertions for Automated testing
      */
     public void processAllMessages() throws MessageMonitoringDAOException {
-        LOG.debug("Inside Message Monitoring API checkAndUpdateMessageStatus() method.");
+        LOG.debug("Inside Message Monitoring API processAllMessages() method.");
         // ********FAILED MESSAGES***********
         // get all the failed messages
         final List<MonitoredMessage> failedMessages = getAllFailedMessages();
@@ -514,7 +519,7 @@ public class MessageMonitoringAPI {
             }
         }
 
-        LOG.debug("Exiting Message Monitoring API checkAndUpdateMessageStatus() method.");
+        LOG.debug("Exiting Message Monitoring API processAllMessages() method.");
     }
 
     /**
@@ -541,7 +546,7 @@ public class MessageMonitoringAPI {
             getDirectEventLogger().log(DirectEventType.DIRECT_EDGE_NOTIFICATION_SUCCESSFUL, message);
         } catch (final MessagingException ex) {
             errorMsg = ex.getLocalizedMessage();
-            LOG.error(errorMsg,ex);
+            LOG.error(errorMsg, ex);
         }
         LOG.debug("Exiting Message Monitoring API sendSuccessEdgeNotification() method.");
     }
