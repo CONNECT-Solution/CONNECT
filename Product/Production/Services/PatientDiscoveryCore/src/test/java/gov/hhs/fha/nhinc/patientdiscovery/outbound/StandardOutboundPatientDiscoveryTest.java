@@ -47,7 +47,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.patientdiscovery.PDMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
@@ -99,7 +99,7 @@ public class StandardOutboundPatientDiscoveryTest {
         request.setPRPAIN201305UV02(new PRPAIN201305UV02());
         NhinTargetCommunitiesType targets = createNhinTargetCommunitiesType(TARGET_HCID);
         request.setNhinTargetCommunities(createNhinTargetCommunitiesType(TARGET_HCID));
-        NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
+        NhinTargetSystemType target = PDMessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
         AssertionType assertion = createAssertion();
         request.setAssertion(assertion);
 
@@ -202,7 +202,7 @@ public class StandardOutboundPatientDiscoveryTest {
 
             @Override
             protected List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities) {
-                return getEndPoints(MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
+                return getEndPoints(PDMessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
                     targetCommunities));
             }
 

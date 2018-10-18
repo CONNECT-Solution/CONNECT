@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,20 +31,20 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.corex12.ds.audit.X12RealTimeAuditLogger;
 import gov.hhs.fha.nhinc.corex12.ds.audit.transform.X12RealTimeAuditTransforms;
+import gov.hhs.fha.nhinc.corex12.ds.realtime.adapter.proxy.AdapterX12RealTimeProxy;
 import gov.hhs.fha.nhinc.corex12.ds.realtime.adapter.proxy.AdapterX12RealTimeProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Properties;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
 import org.junit.Test;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.corex12.ds.realtime.adapter.proxy.AdapterX12RealTimeProxy;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -64,7 +64,7 @@ public class PassthroughInboundX12RealTimeTest {
     public void auditLoggingOnForInboundRealTime() {
         PassthroughInboundX12RealTime realTimeX12
             = new PassthroughInboundX12RealTime(mockFactory, getAuditLogger(true));
-        when(mockFactory.getAdapterCORE_X12DocSubmissionProxy()).thenReturn(mockAdapterProxy);
+        when(mockFactory.getAdapterCOREX12DocSubmissionProxy()).thenReturn(mockAdapterProxy);
         COREEnvelopeRealTimeResponse expectedResponse = new COREEnvelopeRealTimeResponse();
         when(mockAdapterProxy.realTimeTransaction(request, assertion)).thenReturn(expectedResponse);
         COREEnvelopeRealTimeResponse actualResponse = realTimeX12.realTimeTransaction(request, assertion,
@@ -80,7 +80,7 @@ public class PassthroughInboundX12RealTimeTest {
         PassthroughInboundX12RealTime realTimeX12
             = new PassthroughInboundX12RealTime(mockFactory, getAuditLogger(false));
 
-        when(mockFactory.getAdapterCORE_X12DocSubmissionProxy()).thenReturn(mockAdapterProxy);
+        when(mockFactory.getAdapterCOREX12DocSubmissionProxy()).thenReturn(mockAdapterProxy);
         COREEnvelopeRealTimeResponse expectedResponse = new COREEnvelopeRealTimeResponse();
         when(mockAdapterProxy.realTimeTransaction(request, assertion)).thenReturn(expectedResponse);
         COREEnvelopeRealTimeResponse actualResponse = realTimeX12.realTimeTransaction(request, assertion,

@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docquery.DQMessageGeneratorUtils;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.junit.Test;
@@ -51,7 +51,7 @@ public class OutboundDocQueryStrategyTest {
 
     @Test
     public void errorHandlingUsesMessageUtils() {
-        MessageGeneratorUtils mockUtils = mock(MessageGeneratorUtils.class);
+        DQMessageGeneratorUtils mockUtils = mock(DQMessageGeneratorUtils.class);
         when(mockUtils.createRepositoryErrorResponse(any(String.class))).thenReturn(mockResponse);
 
         OutboundDocQueryStrategy strategy = mock(OutboundDocQueryStrategy.class, Mockito.CALLS_REAL_METHODS);

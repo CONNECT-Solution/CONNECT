@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.admindistribution.outbound;
 
 import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
 
-import gov.hhs.fha.nhinc.admindistribution.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.admindistribution.ADMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionDelegate;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionOrchestratable;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -39,7 +39,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMess
 
 public class PassthroughOutboundAdminDistribution implements OutboundAdminDistribution {
 
-    private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private ADMessageGeneratorUtils msgUtils = ADMessageGeneratorUtils.getInstance();
     private OutboundAdminDistributionDelegate adDelegate = new OutboundAdminDistributionDelegate();
 
     /**
@@ -60,7 +60,7 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
         NhinTargetCommunitiesType target) {
         RespondingGatewaySendAlertMessageType request = msgUtils.convertToUnsecured(message,
-            MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
+            ADMessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
 
         sendAlertMessage(request, assertion, target);
     }
@@ -77,7 +77,7 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
         NhinTargetCommunitiesType targetCommunities) {
 
         NhinTargetSystemType target = msgUtils.convertFirstToNhinTargetSystemType(targetCommunities);
-        sendToNhin(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
+        sendToNhin(request, ADMessageGeneratorUtils.getInstance().generateMessageId(assertion), target);
     }
 
     private void sendToNhin(RespondingGatewaySendAlertMessageType request, AssertionType assertion,

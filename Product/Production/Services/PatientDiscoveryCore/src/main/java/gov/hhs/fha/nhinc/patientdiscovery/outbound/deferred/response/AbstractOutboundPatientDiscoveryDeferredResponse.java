@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.patientdiscovery.PDMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredResponseAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseOrchestratable;
@@ -60,7 +60,7 @@ public abstract class AbstractOutboundPatientDiscoveryDeferredResponse implement
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
         NhinTargetCommunitiesType target) {
 
-        return process(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
+        return process(request, PDMessageGeneratorUtils.getInstance().generateMessageId(assertion),
             target);
     }
 
@@ -78,12 +78,12 @@ public abstract class AbstractOutboundPatientDiscoveryDeferredResponse implement
     public void auditRequest(PRPAIN201306UV02 message, AssertionType assertion,
         NhinTargetCommunitiesType targets) {
         getAuditLogger().auditRequestMessage(message, assertion,
-            MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets),
+            PDMessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets),
             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
             null, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
     }
 
     protected NhinTargetSystemType convertToNhinTargetSystemType(NhinTargetCommunitiesType targets) {
-        return MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
+        return PDMessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
     }
 }

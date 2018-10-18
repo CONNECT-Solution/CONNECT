@@ -31,7 +31,7 @@ import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
-import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docquery.DQMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
@@ -106,7 +106,7 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
         if (isPolicyValid(msg, assertion)) {
             resp = sendToAdapter(msg, assertion);
         } else {
-            resp = MessageGeneratorUtils.getInstance().createPolicyErrorResponse();
+            resp = DQMessageGeneratorUtils.getInstance().createPolicyErrorResponse();
         }
 
         return resp;

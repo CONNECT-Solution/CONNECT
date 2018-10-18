@@ -29,11 +29,11 @@ package gov.hhs.fha.nhinc.docquery;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.junit.Test;
 
-public class MessageGeneratorUtilsTest {
+public class DQMessageGeneratorUtilsTest {
 
     @Test
     public void errorResponseHasRegistryObjectList() throws Exception {
-        AdhocQueryResponse response = MessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse("msg", "code",
+        AdhocQueryResponse response = DQMessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse("msg", "code",
                 "status");
         AdhocQueryResponseAsserter.assertSchemaCompliant(response);
     }

@@ -100,6 +100,9 @@ public class MessageMonitoringUtil {
     public static final String AGENT_SETTINGS_CACHE_REFRESH_TIME = "AgentSettingsCacheRefreshTime";
     public static final String AGENT_SETTINGS_CACHE_REFRESH_ACTIVE = "AgentSettingsCacheRefreshActive";
 
+    private MessageMonitoringUtil() {
+    }
+
     /**
      * Returns Mail Recipients as a NHINDAddressCollection
      *

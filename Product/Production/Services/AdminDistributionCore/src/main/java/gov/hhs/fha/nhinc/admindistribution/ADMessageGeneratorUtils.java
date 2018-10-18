@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -33,15 +33,17 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 
 /**
  * @author akong
  *
  */
-public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGeneratorUtils {
-    private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
+public class ADMessageGeneratorUtils extends MessageGeneratorUtils {
 
-    MessageGeneratorUtils() {
+    private static final ADMessageGeneratorUtils INSTANCE = new ADMessageGeneratorUtils();
+
+    ADMessageGeneratorUtils() {
     }
 
     /**
@@ -49,7 +51,7 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
      *
      * @return the singleton instance
      */
-    public static MessageGeneratorUtils getInstance() {
+    public static ADMessageGeneratorUtils getInstance() {
         return INSTANCE;
     }
 
@@ -62,8 +64,8 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
      * @return the unsecured format of the message
      */
     public RespondingGatewaySendAlertMessageType convertToUnsecured(
-            RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
-            NhinTargetCommunitiesType target) {
+        RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
+        NhinTargetCommunitiesType target) {
         RespondingGatewaySendAlertMessageType request = new RespondingGatewaySendAlertMessageType();
 
         request.setAssertion(assertion);

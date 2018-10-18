@@ -35,7 +35,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.patientdiscovery.PDMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.parser.PRPAIN201306UV02Parser;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -168,7 +168,7 @@ public class PatientDiscoveryDeferredResponseAuditTransforms extends
     protected String getPDDeferredRequestInitiatorAddress() {
         try {
             String hcid = PRPAIN201306UV02Parser.getReceiverHCID(getRequest());
-            return new URL(getWebServiceUrlFromRemoteObject(MessageGeneratorUtils.getInstance().
+            return new URL(getWebServiceUrlFromRemoteObject(PDMessageGeneratorUtils.getInstance().
                 convertToNhinTargetSystemType(createNhinTargetCommunity(hcid)),
                 NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME)).getHost();
         } catch (MalformedURLException ex) {
@@ -211,7 +211,7 @@ public class PatientDiscoveryDeferredResponseAuditTransforms extends
     }
 
     private NhinTargetSystemType convertToNhinTarget(String hcid) {
-        return MessageGeneratorUtils.getInstance().convertToNhinTargetSystemType(createNhinTargetCommunity(hcid));
+        return PDMessageGeneratorUtils.getInstance().convertToNhinTargetSystemType(createNhinTargetCommunity(hcid));
     }
 
 }

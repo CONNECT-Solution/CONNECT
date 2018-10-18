@@ -31,7 +31,7 @@ import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.patientdiscovery.PDMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryDeferredRequestAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestOrchestratable;
@@ -40,7 +40,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 
 public class PassthroughOutboundPatientDiscoveryDeferredRequest extends AbstractOutboundPatientDiscoveryDeferredRequest {
 
-    private static final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private static final PDMessageGeneratorUtils msgUtils = PDMessageGeneratorUtils.getInstance();
 
     private final OutboundPatientDiscoveryDeferredRequestDelegate delegate;
     private final PatientDiscoveryDeferredRequestAuditLogger auditLogger;
@@ -78,7 +78,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequest extends Abstract
         NhinTargetCommunitiesType targets) {
         logInfoServiceProcess(this.getClass());
 
-        auditRequest(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
+        auditRequest(request, PDMessageGeneratorUtils.getInstance().generateMessageId(assertion),
             msgUtils.convertFirstToNhinTargetSystemType(targets));
         return sendToNhin(request, assertion, targets);
     }
