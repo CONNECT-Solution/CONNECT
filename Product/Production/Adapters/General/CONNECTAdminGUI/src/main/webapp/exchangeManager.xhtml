@@ -274,38 +274,49 @@
                                                     value="#{exchangeManagerBean.connectionEndpoints}"
                                                     selection="#{exchangeManagerBean.selectedEndpoint}"
                                                     rowKey="#{rec.serviceUrl}^^^#{rec.serviceSpec}" scrollable="true"
-                                                    scrollHeight="400" tableStyle="width:auto">
+                                                    scrollHeight="400">
 
                                                     <p:ajax event="rowSelectRadio" process="@this"
                                                         update=":@form:pingService" />
+                                                    <p:columnGroup type="header">
+                                                        <p:row styleClass="ui-g-1"
+                                                            style="padding: 0px; background-color: white;">
+                                                            <p:column styleClass="ui-g-12" headerText=" " />
+                                                        </p:row>
+                                                        <p:row styleClass="ui-g-11"
+                                                            style="padding: 0px; background-color: white;">
+                                                            <p:column styleClass="ui-g-5" headerText="ServiceName" />
+                                                            <p:column styleClass="ui-g-2" headerText="Version" />
+                                                            <p:column styleClass="ui-g-2" headerText="Status" />
+                                                            <p:column styleClass="ui-g-3" headerText="Date" />
+                                                        </p:row>
+                                                    </p:columnGroup>
 
-                                                    <p:column headerText="" selectionMode="single" />
-                                                    <p:column
-                                                        headerText="Endpoint details - ServiceName, Spec, PingStatus and URL">
-                                                        <div class="ui-g">
-                                                            <div class="ui-g-5">
-                                                                <h:outputText value="#{rec.name}" />
-                                                            </div>
-                                                            <div class="ui-g-2">
-                                                                <h:outputText value="#{rec.serviceSpec}" />
-                                                            </div>
-                                                            <div class="ui-g-2">
-                                                                <h:outputText rendered="#{rec.pingStatus == 'Pass'}"
-                                                                    value="PASS" style="color: green" />
-                                                                <h:outputText rendered="#{rec.pingStatus == 'Fail'}"
-                                                                    value="FAIL" style="color: red" />
-                                                                <h:outputText rendered="#{rec.pingStatus == 'None'}"
-                                                                    value="--" />
-                                                            </div>
-                                                            <div class="ui-g-3">
-                                                                <h:outputText value="#{rec.pingTimestamp}">
-                                                                    <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
-                                                                </h:outputText>
-                                                            </div>
-                                                            <div class="ui-g-12">
-                                                                <h:outputText value="#{rec.serviceUrl}" />
-                                                            </div>
+                                                    <p:column selectionMode="single" styleClass="ui-g-1" />
+                                                    <p:column styleClass="ui-g-11">
+                                                        <div class="ui-g-5">
+                                                            <h:outputText value="#{rec.name}" />
                                                         </div>
+                                                        <div class="ui-g-2">
+                                                            <h:outputText value="#{rec.serviceSpec}" />
+                                                        </div>
+                                                        <div class="ui-g-2">
+                                                            <h:outputText rendered="#{rec.pingStatus == 'Pass'}"
+                                                                value="PASS" style="color: green" />
+                                                            <h:outputText rendered="#{rec.pingStatus == 'Fail'}"
+                                                                value="FAIL" style="color: red" />
+                                                            <h:outputText rendered="#{rec.pingStatus == 'None'}"
+                                                                value="--" />
+                                                        </div>
+                                                        <div class="ui-g-3">
+                                                            <h:outputText value="#{rec.pingTimestamp}">
+                                                                <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
+                                                            </h:outputText>
+                                                        </div>
+                                                        <div class="ui-g-12">
+                                                            <h:outputText value="#{rec.serviceUrl}" />
+                                                        </div>
+
                                                     </p:column>
                                                 </p:dataTable>
 
