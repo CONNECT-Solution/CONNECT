@@ -325,11 +325,11 @@
                                                 styleClass="table table-striped table-domains">
                                                 <p:ajax event="rowSelectRadio" process="@this"
                                                     update="@form:btnViewEvent" />
-                                                <p:column headerText="" selectionMode="single" />
-                                                <p:column headerText="Date">#{rec.eventTime}</p:column>
-                                                <p:column headerText="Service">#{rec.serviceType}</p:column>
-                                                <p:column headerText="Version">#{rec.version}</p:column>
-                                                <p:column headerText="Exception">#{rec.exceptionType}</p:column>
+                                                <p:column style="width:5%" headerText="" selectionMode="single" />
+                                                <p:column style="width:20%" headerText="Date">#{rec.eventTime}</p:column>
+                                                <p:column style="width:25%" headerText="Service">#{rec.serviceType}</p:column>
+                                                <p:column style="width:5%" headerText="Version">#{rec.version}</p:column>
+                                                <p:column style="width:45%" headerText="Exception">#{rec.exceptionType}</p:column>
                                             </p:dataTable>
 
                                             <div class="row">
