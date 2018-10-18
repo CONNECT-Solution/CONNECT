@@ -39,7 +39,7 @@ import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
-import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.patientdiscovery.PDMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
@@ -60,7 +60,7 @@ import org.slf4j.LoggerFactory;
 
 public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOutboundPatientDiscoveryDeferredRequest {
 
-    private static final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private static final PDMessageGeneratorUtils msgUtils = PDMessageGeneratorUtils.getInstance();
 
     private static final Logger LOG = LoggerFactory.getLogger(StandardOutboundPatientDiscoveryDeferredRequest.class);
     private final PatientDiscovery201305Processor pd201305Processor;

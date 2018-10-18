@@ -26,36 +26,21 @@
  */
 package gov.hhs.fha.nhinc.audit.retrieve;
 
-import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getXMLGregorianCalendarFrom;
-
-import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import gov.hhs.fha.nhinc.auditrepository.hibernate.AuditRepositoryRecord;
+import gov.hhs.fha.nhinc.auditrepository.util.AuditUtils;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsBlobResponse;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResponseType;
 import gov.hhs.fha.nhinc.common.auditquerylog.QueryAuditEventsResults;
-import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
-import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
-import gov.hhs.fha.nhinc.util.StreamUtils;
-import java.io.InputStream;
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getXMLGregorianCalendarFrom;
 import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.stream.XMLStreamException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author tjafri
  */
 public class AuditRetrieveEventsUtil {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AuditRetrieveEventsUtil.class);
 
     private AuditRetrieveEventsUtil() {
     }
@@ -86,31 +71,8 @@ public class AuditRetrieveEventsUtil {
     public static QueryAuditEventsBlobResponse getQueryAuditEventBlobResponse(Blob auditBlob) {
         QueryAuditEventsBlobResponse response = new QueryAuditEventsBlobResponse();
         if (auditBlob != null) {
-            response.setAuditMessage(unmarshallBlobToAuditMsg(auditBlob));
+            response.setAuditMessage(AuditUtils.unMarshallBlobToAuditMessage(auditBlob));
         }
         return response;
-    }
-
-    private static AuditMessageType unmarshallBlobToAuditMsg(Blob auditBlob) {
-
-        AuditMessageType auditMessageType = null;
-        InputStream in = null;
-        try {
-            if (auditBlob != null && (int) auditBlob.length() > 0) {
-                JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
-                in = auditBlob.getBinaryStream();
-                JAXBContextHandler oHandler = new JAXBContextHandler();
-                JAXBContext jc = oHandler.getJAXBContext("com.services.nhinc.schema.auditmessage");
-                Unmarshaller unmarshaller = jc.createUnmarshaller();
-                JAXBElement jaxEle = (JAXBElement) unmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(in));
-                auditMessageType = (AuditMessageType) jaxEle.getValue();
-            }
-        } catch (SQLException | JAXBException | XMLStreamException e) {
-            LOG.error("Blob to Audit Message Conversion Error : " + e.getLocalizedMessage(), e);
-        } finally {
-            StreamUtils.closeStreamSilently(in);
-        }
-
-        return auditMessageType;
     }
 }

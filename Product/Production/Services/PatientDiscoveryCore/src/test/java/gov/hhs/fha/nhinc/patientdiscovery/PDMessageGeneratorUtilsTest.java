@@ -37,9 +37,9 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 
-public class MessageGeneratorUtilsTest {
+public class PDMessageGeneratorUtilsTest {
 
-    private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private PDMessageGeneratorUtils msgUtils = PDMessageGeneratorUtils.getInstance();
 
     @Test
     public void extractPatientIdFromSubject() {

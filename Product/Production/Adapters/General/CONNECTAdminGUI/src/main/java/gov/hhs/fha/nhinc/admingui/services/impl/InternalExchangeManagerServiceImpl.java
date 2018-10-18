@@ -26,12 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
-import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_INTERNAL_EXCHANGE_LIST_ENDPOINTS;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_INTERNAL_EXCHANGE_UPDATE_ENDPOINT;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ENTITY_INTERNAL_EXCHANGE_MANAGEMENT_SERVICE_NAME;
-
 import gov.hhs.fha.nhinc.admingui.services.InternalExchangeManagerService;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
 import gov.hhs.fha.nhinc.common.internalexchangemanagement.EndpointPropertyType;
 import gov.hhs.fha.nhinc.common.internalexchangemanagement.ListEndpointsRequestMessageType;
 import gov.hhs.fha.nhinc.common.internalexchangemanagement.SimpleInternalExchangeManagementResponseMessageType;
@@ -43,6 +39,9 @@ import gov.hhs.fha.nhinc.internalexchangemanagement.EntityInternalExchangeManage
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_LIST_ENDPOINTS;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_UPDATE_ENDPOINT;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ENTITY_INTERNAL_EXCHANGE_MANAGEMENT_SERVICE_NAME;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +56,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class InternalExchangeManagerServiceImpl implements InternalExchangeManagerService {
+
     private static final Logger LOG = LoggerFactory.getLogger(InternalExchangeManagerServiceImpl.class);
     private static final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
     private static CONNECTClient<EntityInternalExchangeManagementPortType> client = null;
@@ -67,9 +67,10 @@ public class InternalExchangeManagerServiceImpl implements InternalExchangeManag
         request.setConfigAssertion(buildConfigAssertion());
         request.setEndpoint(endpointProp);
         try {
-            SimpleInternalExchangeManagementResponseMessageType response = (SimpleInternalExchangeManagementResponseMessageType) invokeClientPort(
-                ADMIN_INTERNAL_EXCHANGE_UPDATE_ENDPOINT, request);
-            logDebug(ADMIN_INTERNAL_EXCHANGE_UPDATE_ENDPOINT, response.isStatus(), response.getMessage());
+            SimpleInternalExchangeManagementResponseMessageType response
+                = (SimpleInternalExchangeManagementResponseMessageType) invokeClientPort(
+                    ADMIN_EXCHANGE_UPDATE_ENDPOINT, request);
+            logDebug(ADMIN_EXCHANGE_UPDATE_ENDPOINT, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during update-endpoint: {}", e.getLocalizedMessage(), e);
@@ -77,12 +78,12 @@ public class InternalExchangeManagerServiceImpl implements InternalExchangeManag
         return false;
     }
 
-
     private static CONNECTClient<EntityInternalExchangeManagementPortType> getClient() throws ExchangeManagerException {
         if (null == client) {
             String url = oProxyHelper
                 .getAdapterEndPointFromConnectionManager(ENTITY_INTERNAL_EXCHANGE_MANAGEMENT_SERVICE_NAME);
-            ServicePortDescriptor<EntityInternalExchangeManagementPortType> portDescriptor = new InternalExchangeManagementPortDescriptor();
+            ServicePortDescriptor<EntityInternalExchangeManagementPortType> portDescriptor
+                = new InternalExchangeManagementPortDescriptor();
             client = CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
                 new AssertionType());
         }
@@ -105,9 +106,10 @@ public class InternalExchangeManagerServiceImpl implements InternalExchangeManag
         request.setConfigAssertion(buildConfigAssertion());
 
         try {
-            SimpleInternalExchangeManagementResponseMessageType response = (SimpleInternalExchangeManagementResponseMessageType) invokeClientPort(
-                ADMIN_INTERNAL_EXCHANGE_LIST_ENDPOINTS, request);
-            logDebug(ADMIN_INTERNAL_EXCHANGE_LIST_ENDPOINTS, response.getEndpointsList().size());
+            SimpleInternalExchangeManagementResponseMessageType response
+                = (SimpleInternalExchangeManagementResponseMessageType) invokeClientPort(
+                    ADMIN_EXCHANGE_LIST_ENDPOINTS, request);
+            logDebug(ADMIN_EXCHANGE_LIST_ENDPOINTS, response.getEndpointsList().size());
             return response.getEndpointsList();
         } catch (Exception e) {
             LOG.error("error during list-exchanges: {}", e.getLocalizedMessage(), e);

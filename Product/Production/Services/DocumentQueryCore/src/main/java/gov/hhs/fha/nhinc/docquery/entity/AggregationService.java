@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
-import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docquery.DQMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQueryHelper;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
@@ -161,7 +161,7 @@ public class AggregationService {
                 list.add(orchestratable);
             }
         } catch (Exception e) {
-            AdhocQueryResponse response = MessageGeneratorUtils.getInstance()
+            AdhocQueryResponse response = DQMessageGeneratorUtils.getInstance()
                 .createAdhocQueryErrorResponse("XDSRegistryError", "Unable to create fanout requests for query",
                 DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
             throw new ErrorEventException(e, response,"Unable to create fanout requests for query");
@@ -241,7 +241,7 @@ public class AggregationService {
      * @return AdhocQUery Request.
      */
     protected AdhocQueryRequest cloneRequest(AdhocQueryRequest request) {
-        return MessageGeneratorUtils.getInstance().clone(request);
+        return DQMessageGeneratorUtils.getInstance().clone(request);
     }
 
     /**
@@ -255,10 +255,9 @@ public class AggregationService {
     private AssertionType createNewAssertion(AssertionType assertion, int numTargets) {
         AssertionType newAssertion;
         if (numTargets == 1) {
-            newAssertion = MessageGeneratorUtils.getInstance().clone(
-                MessageGeneratorUtils.getInstance().generateMessageId(assertion));
+            newAssertion = DQMessageGeneratorUtils.getInstance().clone(DQMessageGeneratorUtils.getInstance().generateMessageId(assertion));
         } else {
-            newAssertion = MessageGeneratorUtils.getInstance().cloneWithNewMsgId(assertion);
+            newAssertion = DQMessageGeneratorUtils.getInstance().cloneWithNewMsgId(assertion);
         }
 
         return newAssertion;

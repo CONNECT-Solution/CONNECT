@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docquery.DQMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyFactory;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
@@ -49,7 +49,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
     private static final Logger LOG = LoggerFactory.getLogger(OutboundDocQueryStrategy.class);
     private DocQueryAuditLogger auditLogger = null;
     private NhinDocQueryProxyFactory proxyFactory;
-    private MessageGeneratorUtils messageGeneratorUtils;
+    private DQMessageGeneratorUtils messageGeneratorUtils;
     WebServiceProxyHelper webServiceProxyHelper;
 
     /**
@@ -58,7 +58,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
     OutboundDocQueryStrategy() {
         proxyFactory = new NhinDocQueryProxyObjectFactory();
         webServiceProxyHelper = new WebServiceProxyHelper();
-        messageGeneratorUtils = MessageGeneratorUtils.getInstance();
+        messageGeneratorUtils = DQMessageGeneratorUtils.getInstance();
     }
 
     /**
@@ -149,7 +149,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
         return auditLogger;
     }
 
-    protected void setMessageGeneratorUtils(MessageGeneratorUtils messageGeneratorUtils) {
+    protected void setMessageGeneratorUtils(DQMessageGeneratorUtils messageGeneratorUtils) {
         this.messageGeneratorUtils = messageGeneratorUtils;
     }
 }

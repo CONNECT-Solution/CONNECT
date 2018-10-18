@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docquery;
 
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -37,11 +38,11 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
  * @author akong
  *
  */
-public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGeneratorUtils {
+public class DQMessageGeneratorUtils extends MessageGeneratorUtils {
 
-    private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
+    private static final DQMessageGeneratorUtils INSTANCE = new DQMessageGeneratorUtils();
 
-    MessageGeneratorUtils() {
+    DQMessageGeneratorUtils() {
     }
 
     /**
@@ -49,7 +50,7 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
      *
      * @return the singleton instance
      */
-    public static MessageGeneratorUtils getInstance() {
+    public static DQMessageGeneratorUtils getInstance() {
         return INSTANCE;
     }
 
@@ -97,7 +98,7 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
      */
     public AdhocQueryResponse createPolicyErrorResponse() {
         return createAdhocQueryErrorResponse("Policy check failed.", DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR,
-                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+            DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
     }
 
     /**
@@ -108,7 +109,7 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
      */
     public AdhocQueryResponse createRepositoryErrorResponse(String codeContext) {
         return createAdhocQueryErrorResponse(codeContext, DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR,
-                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+            DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
     }
 
 }

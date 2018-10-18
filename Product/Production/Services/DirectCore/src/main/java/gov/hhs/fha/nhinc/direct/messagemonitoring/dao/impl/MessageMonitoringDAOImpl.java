@@ -26,15 +26,14 @@
  */
 package gov.hhs.fha.nhinc.direct.messagemonitoring.dao.impl;
 
-import static gov.hhs.fha.nhinc.util.GenericDBUtils.closeSession;
-import static gov.hhs.fha.nhinc.util.GenericDBUtils.rollbackTransaction;
-
 import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAO;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.dao.MessageMonitoringDAOException;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessage;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.domain.MonitoredMessageNotification;
 import gov.hhs.fha.nhinc.direct.messagemonitoring.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
+import static gov.hhs.fha.nhinc.util.GenericDBUtils.closeSession;
+import static gov.hhs.fha.nhinc.util.GenericDBUtils.rollbackTransaction;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -52,8 +51,10 @@ import org.slf4j.LoggerFactory;
 public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
 
     private static final Logger LOG = LoggerFactory.getLogger(MessageMonitoringDAOImpl.class);
+    private static final String INSERTION_ERROR_LOG = "Exception during insertion caused by : {}";
 
     private static class SingletonHolder {
+
         public static final MessageMonitoringDAO INSTANCE = new MessageMonitoringDAOImpl();
 
         private SingletonHolder() {
@@ -97,7 +98,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         } catch (final HibernateException e) {
             result = false;
             rollbackTransaction(tx);
-            LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
+            LOG.error(INSERTION_ERROR_LOG, e.getMessage(), e);
         } finally {
             closeSession(session);
         }
@@ -122,7 +123,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         boolean result = true;
 
         try {
-            LOG.debug("Inside addOutgoingMessage()");
+            LOG.debug("Inside updateOutgoingMessage()");
             session = getSession();
             if (session != null) {
                 tx = session.beginTransaction();
@@ -132,7 +133,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         } catch (final HibernateException e) {
             result = false;
             rollbackTransaction(tx);
-            LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
+            LOG.error(INSERTION_ERROR_LOG, e.getMessage(), e);
         } finally {
             closeSession(session);
         }
@@ -156,7 +157,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         boolean result = true;
 
         try {
-            LOG.debug("Inside addOutgoingMessage()");
+            LOG.debug("Inside updateMessageNotification()");
             session = getSession();
             if (session != null) {
                 tx = session.beginTransaction();
@@ -166,7 +167,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         } catch (final HibernateException e) {
             result = false;
             rollbackTransaction(tx);
-            LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
+            LOG.error(INSERTION_ERROR_LOG, e.getMessage(), e);
         } finally {
             closeSession(session);
         }
@@ -189,7 +190,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         boolean result = true;
 
         try {
-            LOG.debug("Inside addOutgoingMessage()");
+            LOG.debug("Inside deleteCompletedMessages()");
             session = getSession();
             if (session != null) {
                 tx = session.beginTransaction();
@@ -199,7 +200,7 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         } catch (final HibernateException e) {
             result = false;
             rollbackTransaction(tx);
-            LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
+            LOG.error(INSERTION_ERROR_LOG, e.getMessage(), e);
         } finally {
             closeSession(session);
         }
@@ -217,13 +218,13 @@ public class MessageMonitoringDAOImpl implements MessageMonitoringDAO {
         List<MonitoredMessage> pendingList = new ArrayList<>();
 
         try {
-            LOG.debug("Inside addOutgoingMessage()");
+            LOG.debug("Inside getAllPendingMessages()");
             session = getSession();
             if (session != null) {
                 pendingList = session.createCriteria(MonitoredMessage.class).list();
             }
         } catch (final HibernateException e) {
-            LOG.error("Exception during insertion caused by : {}", e.getMessage(), e);
+            LOG.error(INSERTION_ERROR_LOG, e.getMessage(), e);
         } finally {
             closeSession(session);
         }

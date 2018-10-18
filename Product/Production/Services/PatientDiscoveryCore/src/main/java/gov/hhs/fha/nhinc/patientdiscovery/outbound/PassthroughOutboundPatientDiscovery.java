@@ -34,7 +34,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.patientdiscovery.PDMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.audit.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestratable;
@@ -48,7 +48,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 public class PassthroughOutboundPatientDiscovery implements OutboundPatientDiscovery {
 
-    private static final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private static final PDMessageGeneratorUtils msgUtils = PDMessageGeneratorUtils.getInstance();
     private final OutboundPatientDiscoveryDelegate delegate;
     private final PatientDiscoveryAuditLogger auditLogger;
 
@@ -80,7 +80,7 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
         auditRequest(request, assertion,
             msgUtils.convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities()));
         RespondingGatewayPRPAIN201306UV02ResponseType response = sendToNhin(request.getPRPAIN201305UV02(),
-            MessageGeneratorUtils.getInstance().generateMessageId(assertion),
+            PDMessageGeneratorUtils.getInstance().generateMessageId(assertion),
             msgUtils.convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities()));
 
         return response;

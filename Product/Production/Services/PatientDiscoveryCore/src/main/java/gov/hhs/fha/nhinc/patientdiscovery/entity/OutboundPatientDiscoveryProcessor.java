@@ -34,7 +34,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.patientdiscovery.PDMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams;
@@ -54,7 +54,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
 
     private static final Logger LOG = LoggerFactory.getLogger(OutboundPatientDiscoveryProcessor.class);
 
-    private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private PDMessageGeneratorUtils msgUtils = PDMessageGeneratorUtils.getInstance();
 
     private NhincConstants.GATEWAY_API_LEVEL cumulativeSpecLevel = null;
     private int count = 0;

@@ -678,8 +678,7 @@ public class NhincConstants {
     public static final String ADMIN_EXCHANGE_SAVE_CONFIG = "saveExchangeConfig";
 
     // internal-exchange-management
-    public static final String ADMIN_INTERNAL_EXCHANGE_LIST_ENDPOINTS = "listEndpoints";
-    public static final String ADMIN_INTERNAL_EXCHANGE_UPDATE_ENDPOINT = "updateEndpoint";
+    public static final String ADMIN_EXCHANGE_UPDATE_ENDPOINT = "updateEndpoint";
     // Patient Location Query
     public static final String PLQ_NHIN_SERVICE_NAME = "PatientLocationQuery";
     public static final String PLQ_ENTITY_SERVICE_NAME = "patientlocationqueryservice";

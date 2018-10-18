@@ -36,7 +36,7 @@ import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.patientdiscovery.PDMessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PolicyChecker;
@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
 
 public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOutboundPatientDiscoveryDeferredResponse {
 
-    private final static MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private final static PDMessageGeneratorUtils msgUtils = PDMessageGeneratorUtils.getInstance();
 
     private final PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker;
     private final PatientDiscovery201306Processor pd201306Processor;
@@ -101,7 +101,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
         NhinTargetCommunitiesType target) {
 
-        return process(request, MessageGeneratorUtils.getInstance().generateMessageId(assertion),
+        return process(request, PDMessageGeneratorUtils.getInstance().generateMessageId(assertion),
             target);
     }
 
