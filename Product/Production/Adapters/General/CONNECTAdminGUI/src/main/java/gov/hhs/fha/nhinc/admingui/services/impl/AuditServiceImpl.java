@@ -167,9 +167,10 @@ public class AuditServiceImpl implements AuditService {
         return null;
     }
 
+
     private static String getEventTypeDisplayName(String eventType) {
         return GUIConstants.EVENT_NAMES.fromServiceName(eventType).getAbbServiceName();
-  }
+    }
 
     private static String getRemoteHcidDisplayName(String remoteHcid, Map<String, String> remoteOrgMap) {
         return remoteOrgMap.get(HomeCommunityMap.formatHomeCommunityId(remoteHcid));
