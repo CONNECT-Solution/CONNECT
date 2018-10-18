@@ -124,7 +124,7 @@
                                                     <div class="form-group">
                                                         <h:outputLabel for="transactionRole" class="col-sm-3 control-label" id="labelTransactionRole" value="Transaction Role:" />
                                                         <div class="col-sm-9">
-                                                            <p:selectOneMenu effect="fade" id="transactionRole" value="#{manageUserBean.transactionRoleDesc}" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="Transaction Role required">
+                                                            <p:selectOneMenu styleClass="form-control" style="min-width:0px;" effect="fade" id="transactionRole" value="#{manageUserBean.transactionRoleDesc}" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="Transaction Role required">
                                                                 <f:selectItem itemLabel="Select Role" itemValue="" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{manageUserBean.userRoleList}" />
                                                             </p:selectOneMenu>
@@ -151,11 +151,11 @@
                                             <h:form id="usersList" class="form-horizontal">
                                                 <p:messages id="userDeleteMessages" redisplay="false" autoUpdate="true" closable="true" severity="warning" />
                                                 <p:dataTable id="userDataTable" var="user" value="#{manageUserBean.users}" selection="#{manageUserBean.selectedUser}" rowKey="#{user.userName}" styleClass="table table-striped table-domains">
-                                                    <p:column headerText="Delete" selectionMode="single" />
-                                                    <p:column headerText="User Name">
+                                                    <p:column styleClass="ui-g-1" headerText="Delete" selectionMode="single" />
+                                                    <p:column styleClass="ui-g-7" headerText="User Name">
                                                         <h:outputText value="#{user.userName}" />
                                                     </p:column>
-                                                    <p:column headerText="Role">
+                                                    <p:column styleClass="ui-g-4" headerText="Role">
                                                         <h:outputText value="#{user.userRole.roleName}" />
                                                     </p:column>
                                                 </p:dataTable>
