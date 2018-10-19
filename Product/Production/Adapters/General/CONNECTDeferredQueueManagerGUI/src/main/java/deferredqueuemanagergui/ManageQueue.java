@@ -44,6 +44,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.faces.FacesException;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,6 +64,8 @@ public class ManageQueue extends AbstractPageBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(ManageQueue.class);
     private static final String PATIENT_DISCOVERY = "PatientDiscovery";
+    private static final String DATE_PARSING_ERROR
+        = "Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)";
     private TabSet processTabSet = new TabSet();
     private Tab processQueueTab = new Tab();
     private Tab unProcessQueueTab = new Tab();
@@ -272,7 +275,7 @@ public class ManageQueue extends AbstractPageBean {
         return null;
     }
 
-    public String retrieveProcessButton_action() {
+    public String retrieveProcessButtonAction() {
         // Process the action. Return value is a navigation
         // case name where null will return to the same page.
         errorMessages.setText("");
@@ -303,48 +306,20 @@ public class ManageQueue extends AbstractPageBean {
             return null;
         }
 
-        Date startDate = new Date();
-        Date stopDate = new Date();
-        String startCreationTime;
-        String stopCreationTime;
-        String statusValue;
-        try {
-            startCreationTime = (String) startCreationDate.getText();
-            stopCreationTime = (String) stopCreationDate.getText();
-            statusValue = (String) status.getValue();
+        String startCreationTime = (String) startCreationDate.getText();
+        String stopCreationTime = (String) stopCreationDate.getText();
+        String statusValue = (String) status.getValue();
 
-            if (startCreationTime == null) {
-                startCreationTime = "";
-            }
-            if (stopCreationTime == null) {
-                stopCreationTime = "";
-            }
-            if (statusValue == null) {
-                statusValue = "";
-            }
-
-            Calendar cal1 = Format.getCalendarInstance(Format.MMDDYYYYHHMMSS_DATEFORMAT, startCreationTime);
-            Calendar cal2 = Format.getCalendarInstance(Format.MMDDYYYYHHMMSS_DATEFORMAT, stopCreationTime);
-
-            if (cal1 == null || cal2 == null) {
-                errorMessages.setText(
-                    "Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
-                return null;
-            }
-
-            startDate = cal1.getTime();
-            stopDate = cal2.getTime();
-
-        } catch (Exception ex) {
-            LOG.error("Error Message: " + ex);
-            errorMessages.setText(
-                "Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
+        Date startDate = getDate(startCreationTime);
+        Date stopDate = getDate(stopCreationTime);
+        if (startDate == null || stopDate == null) {
             return null;
         }
         DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
 
         List<AsyncMsgRecord> unProcessQueueResults;
-        if (startCreationTime.isEmpty() && stopCreationTime.isEmpty() && statusValue.isEmpty()) {
+        if (StringUtils.isNotBlank(startCreationTime) && StringUtils.isNotBlank(stopCreationTime) && StringUtils.
+            isNotBlank(statusValue)) {
             unProcessQueueResults = deferredQueueManagerFacade.queryForDeferredQueueSelected();
         } else {
             unProcessQueueResults = deferredQueueManagerFacade.queryBySearchCriteria(startDate, stopDate, statusValue);
@@ -394,5 +369,21 @@ public class ManageQueue extends AbstractPageBean {
         }
 
         return null;
+    }
+
+    private Date getDate(String dateString) {
+        String datetime = dateString == null ? "" : dateString;
+        try {
+            Calendar cal1 = Format.getCalendarInstance(Format.MMDDYYYYHHMMSS_DATEFORMAT, datetime);
+            if (cal1 == null) {
+                errorMessages.setText(DATE_PARSING_ERROR);
+                return null;
+            }
+            return cal1.getTime();
+        } catch (Exception ex) {
+            LOG.error("Error Message: {}", ex.getMessage(), ex);
+            errorMessages.setText(DATE_PARSING_ERROR);
+            return null;
+        }
     }
 }

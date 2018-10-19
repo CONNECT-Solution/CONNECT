@@ -22,7 +22,7 @@
                                     <webuijsf:staticText id="staticText2"
                                         style="font-family: 'Arial','Helvetica',sans-serif; font-size: 14px; font-weight: bolder; left: 16px; top: 24px; position: absolute"
                                         text="Click the following button to retrieve queue records to be processed:"/>
-                                    <webuijsf:button actionExpression="#{ManageQueue.retrieveProcessButton_action}" id="retrieveProcessButton"
+                                    <webuijsf:button actionExpression="#{ManageQueue.retrieveProcessButtonAction}" id="retrieveProcessButton"
                                         style="font-family: 'Arial','Helvetica',sans-serif; font-size: 12px; left: 520px; top: 24px; position: absolute; width: 72px" text="Retrieve"/>                                    
                                     <webuijsf:table  augmentTitle="false" id="processQueueResults" paginateButton="true" paginationControls="true"
                                         style="left: 0px; top: 80px; position: absolute; width: 800px" title="Queue Records to be Processed" width="800">
