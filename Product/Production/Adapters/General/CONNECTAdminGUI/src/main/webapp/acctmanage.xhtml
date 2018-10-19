@@ -187,7 +187,6 @@
                                                 <div class="divManageRole">
                                                     <h:selectOneMenu value="#{manageRoleBean.selectedRole}" class="form-control">
                                                         <p:ajax event="change" listener="#{manageRoleBean.roleChanged}" update="pagesTable"/>
-                                                        <f:selectItem itemLabel="Select Role" noSelectionOption="true" />
                                                         <f:selectItems value="#{manageRoleBean.roleLabels}" var="role" itemLabel="#{role}" itemValue="#{role}"/>
                                                     </h:selectOneMenu>
                                                 </div>
