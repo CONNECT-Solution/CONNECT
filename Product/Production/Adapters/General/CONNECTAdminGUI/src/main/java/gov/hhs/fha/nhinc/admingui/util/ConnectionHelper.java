@@ -54,7 +54,7 @@ public class ConnectionHelper {
         List<OrganizationType> organizations = getAllOrganizations();
         if (NullChecker.isNotNullish(organizations)) {
             for (OrganizationType organization : organizations) {
-                organizationMap.put(getOrganizationName(organization), organization);
+                organizationMap.put(getOrganizationHcid(organization), organization);
             }
         }
         return organizationMap;
@@ -93,12 +93,19 @@ public class ConnectionHelper {
         return StringUtils.equalsIgnoreCase(formatHcid(entityHcid), formatHcid(getLocalHcid()));
     }
 
-    private String getOrganizationName(OrganizationType organization) {
+    private static String getOrganizationName(OrganizationType organization) {
         String homeCommunityName = null;
         if (organization != null && StringUtils.isNotEmpty(organization.getName())) {
             homeCommunityName = organization.getName();
         }
         return homeCommunityName;
+    }
+
+    private static String getOrganizationHcid(OrganizationType organization) {
+        if (null != organization && StringUtils.isNotEmpty(organization.getHcid())) {
+            return organization.getHcid();
+        }
+        return "";
     }
 
     protected List<OrganizationType> getAllOrganizations() {
