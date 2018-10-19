@@ -318,8 +318,8 @@ public class ManageQueue extends AbstractPageBean {
         DeferredQueueManagerFacade deferredQueueManagerFacade = new DeferredQueueManagerFacade();
 
         List<AsyncMsgRecord> unProcessQueueResults;
-        if (StringUtils.isNotBlank(startCreationTime) && StringUtils.isNotBlank(stopCreationTime) && StringUtils.
-            isNotBlank(statusValue)) {
+        if (StringUtils.isBlank(startCreationTime) && StringUtils.isBlank(stopCreationTime) && StringUtils.
+            isBlank(statusValue)) {
             unProcessQueueResults = deferredQueueManagerFacade.queryForDeferredQueueSelected();
         } else {
             unProcessQueueResults = deferredQueueManagerFacade.queryBySearchCriteria(startDate, stopDate, statusValue);
