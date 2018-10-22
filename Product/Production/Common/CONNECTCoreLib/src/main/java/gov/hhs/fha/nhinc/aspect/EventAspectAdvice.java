@@ -174,7 +174,14 @@ public class EventAspectAdvice {
             ErrorEventBuilder builder = new ErrorEventBuilder();
 
             builder.setAssertion(AssertionExtractor.getAssertion(joinPoint.getArgs()));
-            builder.setThrowable(e);
+
+            //We want to get the original cause, we dont want to log ErrorEventException as the source each time.
+            Throwable ex = e;
+            while (ex instanceof ErrorEventException && ex.getCause() != null) {
+                ex = ex.getCause();
+            }
+
+            builder.setThrowable(ex);
             builder.setInvoker(sig.getDeclaringType().getName());
             builder.setMethod(sig.getName());
             builder.setService(service);
