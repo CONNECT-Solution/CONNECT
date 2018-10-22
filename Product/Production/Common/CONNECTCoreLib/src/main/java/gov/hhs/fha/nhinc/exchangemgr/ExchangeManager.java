@@ -226,6 +226,10 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
                 exInfo.setDefaultExchange(null);
             }
             List<ExchangeType> exchanges = ExchangeManagerHelper.getAllExchanges(exInfo, true);
+
+            if (exchanges.size() == 1) {
+                throw new ExchangeManagerException("Cannot delete last exchange");
+            }
             ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, exchangeName);
             if (null != exchangeFound) {
                 exchanges.remove(exchangeFound);

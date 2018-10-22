@@ -87,7 +87,7 @@ import org.springframework.stereotype.Service;
 public class ExchangeManagerServiceImpl implements ExchangeManagerService {
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagerServiceImpl.class);
     private final PingService pingService = new PingServiceImpl();
-    private static final String DATE_FORMAT = "MM-dd-yy hh:mm:ss";
+    private static final String DATE_FORMAT = "MM-dd-yy HH:mm:ss";
     private static final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
     private static CONNECTClient<EntityExchangeManagementPortType> client = null;
 

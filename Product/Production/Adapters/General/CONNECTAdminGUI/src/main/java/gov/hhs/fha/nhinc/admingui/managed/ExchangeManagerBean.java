@@ -89,10 +89,15 @@ public class ExchangeManagerBean {
 
     private List<ConnectionEndpoint> endpoints = new ArrayList<>();
     private int cachedEndpointHashCode;
+    private boolean disableButtonsExchange;
 
     @PostConstruct
     public void initialize() {
         generalSetting = exchangeService.getExchangeInfoView();
+    }
+
+    public boolean getDisableButtonsExchange() {
+        return disableButtonsExchange || null == selectedExchange;
     }
 
     public ExchangeInfoType getGeneralSetting() {
@@ -317,11 +322,6 @@ public class ExchangeManagerBean {
             && CollectionUtils.isNotEmpty(getFormExchange().getTLSVersions().getSupports());
     }
 
-    // disable-GUI
-    public boolean getDisableButtonsExchange() {
-        return null == selectedExchange;
-    }
-
     public boolean getDisableButtonsEndpoint() {
         return null == selectedEndpoint;
     }
@@ -389,6 +389,7 @@ public class ExchangeManagerBean {
     private void updatedExchangesCaches() {
         cachedExchangesTimestamp = new Date().getTime();
         cachedExchangesTimestampUpdated = cachedExchangesTimestamp;
+        disableButtonsExchange = exchanges.size() > 1 ? false : true;
     }
 
     private List<ExchangeType> refreshCacheExchanges() {

@@ -79,8 +79,17 @@ public class EventDTO extends DatabaseEvent {
 
             try {
                 JSONObject json = new JSONObject(event.getDescription());
-                dto.setExceptionType(json.getString("exceptionClass"));
-                dto.setVersion(json.getString("action"));
+
+                if (json.has("action")) {
+                    dto.setVersion(json.getString("action"));
+                } else {
+                    dto.setVersion("N/A");
+                }
+
+                if (json.has("exceptionClass")) {
+                    dto.setExceptionType(json.getString("exceptionClass"));
+                }
+
             } catch (JSONException ex) {
                 LOG.error("error converting json-object: {}", ex.getMessage(), ex);
             }
