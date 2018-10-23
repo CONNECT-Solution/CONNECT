@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.admingui.dashboard;
 
 import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getDate;
-import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getDateTimeUTC;
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getXMLGregorianCalendarFrom;
 
 import gov.hhs.fha.nhinc.admingui.services.StatusEvent;
 import gov.hhs.fha.nhinc.admingui.services.StatusService;
@@ -141,7 +141,7 @@ public class DashboardStatusWebservice implements AdminGUIManagementPortType{
         log.setServiceType(event.getServiceType());
         log.setInitiatingHcid(event.getInitiatorHcid());
         log.setRespondingHcids(event.getRespondingHcid());
-        log.setEventTime(getDateTimeUTC(event.getEventTime()));
+        log.setEventTime(getXMLGregorianCalendarFrom(event.getEventTime()));
         log.setExceptionType(event.getExceptionType());
         log.setVersion(event.getVersion());
 
