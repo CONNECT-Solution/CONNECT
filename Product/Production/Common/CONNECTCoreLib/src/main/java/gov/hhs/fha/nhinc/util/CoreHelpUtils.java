@@ -51,7 +51,6 @@ import org.springframework.context.ApplicationContext;
  */
 public class CoreHelpUtils {
     private static final Logger LOG = LoggerFactory.getLogger(CoreHelpUtils.class);
-
     private CoreHelpUtils() {
     }
 
