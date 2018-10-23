@@ -37,6 +37,7 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -51,6 +52,7 @@ import org.springframework.context.ApplicationContext;
  */
 public class CoreHelpUtils {
     private static final Logger LOG = LoggerFactory.getLogger(CoreHelpUtils.class);
+    private static final String DATETIME_FORMAT_USER = "yyyy-MM-dd HH:mm:ss";
 
     private CoreHelpUtils() {
     }
@@ -90,6 +92,16 @@ public class CoreHelpUtils {
             }
         }
         return null;
+    }
+
+    public static String getDateTimeUTC(Date date) {
+        return getDateTimeUTC(date, DATETIME_FORMAT_USER);
+    }
+
+    public static String getDateTimeUTC(Date date, String formatString) {
+        final SimpleDateFormat sdf = new SimpleDateFormat(formatString);
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return sdf.format(date);
     }
 
     public static <T> List<T> getUniqueList(List<T> fromList) {
