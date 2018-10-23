@@ -26,6 +26,12 @@
  */
 package gov.hhs.fha.nhinc.exchangemgr;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
@@ -36,16 +42,18 @@ import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import org.junit.Test;
 
 /**
@@ -155,7 +163,7 @@ public class ExchangeManagerTest extends BaseExchangeManager {
     }
 
     @Test
-    public void testDefaultExchangeDelete() {
+    public void testDefaultExchangeDelete() throws IOException, URISyntaxException {
         ExchangeManager exMgr = createExternalExchangeManagerForDeletingDefaultExchange();
         try {
             boolean result = exMgr.deleteExchange("StateExchange");
@@ -206,12 +214,16 @@ public class ExchangeManagerTest extends BaseExchangeManager {
         };
     }
 
-    private ExchangeManager createExternalExchangeManagerForDeletingDefaultExchange() {
+    private ExchangeManager createExternalExchangeManagerForDeletingDefaultExchange() throws IOException, URISyntaxException {
+
+        copyFile( "/config/ExchangeManagerTest/exchangeInfoDefaultExDeleteTest.xml",
+            "exchangeInfoDefaultExDeleteTest-TEST.xml");
+
         return new ExchangeManager() {
             @Override
             protected ExchangeInfoDAOFileImpl getExchangeInfoDAO() {
                 return createExchangeInfoDAO(
-                    "/config/ExchangeManagerTest/exchangeInfoDefaultExDeleteTest.xml");
+                    "/config/ExchangeManagerTest/exchangeInfoDefaultExDeleteTest-TEST.xml");
             }
         };
     }
@@ -289,6 +301,39 @@ public class ExchangeManagerTest extends BaseExchangeManager {
         for (EndpointConfigurationType config : ep.getEndpointConfigurationList().getEndpointConfiguration()) {
             assertTrue("Endppoint Spec Version do not match", specUrls.containsKey(config.getVersion()));
             assertEquals("Endpoint url do not match", specUrls.get(config.getVersion()), config.getUrl());
+        }
+    }
+
+    public void copyFile(String filename, String destFilename) throws IOException, URISyntaxException {
+
+
+        URL url = this.getClass().getResource(filename);
+        File sourceExchange = new File(url.toURI());
+
+        String destPath = sourceExchange.getParentFile().getAbsolutePath() + File.separator + destFilename;
+        File destExchange = new File(destPath);
+
+        if(!destExchange.exists()) {
+            destExchange.createNewFile();
+        }
+
+        FileChannel source = null;
+        FileChannel destination = null;
+
+        try(FileInputStream sourceFile = new FileInputStream(sourceExchange);
+            FileOutputStream destFile = new FileOutputStream(destExchange);) {
+            source = sourceFile.getChannel();
+            destination = destFile.getChannel();
+            destination.transferFrom(source, 0, source.size());
+        }
+        finally {
+            if(source != null) {
+                source.close();
+            }
+            if(destination != null) {
+                destination.close();
+            }
+
         }
     }
 }
