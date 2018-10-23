@@ -128,6 +128,6 @@ public class ErrorEventBuilderTest {
         Event event = builder.getEvent();
         assertNotNull(event.getDescription());
         assertEquals(MessageProcessingFailedEvent.EVENT_NAME, event.getEventName());
-        JSONAssert.assertEquals("{\"exceptionClass\": \"" + t.getClass().getName() + "\", \"stackTrace\":[]}", event.getDescription(), true);
+        JSONAssert.assertEquals("{\"exceptionMessage\":\"N/A\",\"exceptionClass\": \"" + t.getClass().getName() + "\", \"stackTrace\":[]}", event.getDescription(), true);
     }
 }

@@ -151,10 +151,7 @@ public class ErrorLogBean {
     }
 
     private Object getJsonProperty(String key) {
-        if (null == selectedEventJson) {
-            return null;
-        }
-        return selectedEventJson.get(key);
+        return null != selectedEventJson && selectedEventJson.has(key) ? selectedEventJson.get(key) : "Not Provided";
     }
 
     public JSONArray getJsonStackTrace() {
