@@ -310,7 +310,7 @@ public class ExchangeManagerTest extends BaseExchangeManager {
         URL url = this.getClass().getResource(filename);
         File sourceExchange = new File(url.toURI());
 
-        String destPath = sourceExchange.getParentFile().getAbsolutePath() +"\\"+ destFilename;
+        String destPath = sourceExchange.getParentFile().getAbsolutePath() + File.separator + destFilename;
         File destExchange = new File(destPath);
 
         if(!destExchange.exists()) {
