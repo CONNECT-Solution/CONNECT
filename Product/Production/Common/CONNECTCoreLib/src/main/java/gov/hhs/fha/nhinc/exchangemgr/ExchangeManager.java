@@ -233,9 +233,9 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
             ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, exchangeName);
             if (null != exchangeFound) {
                 exchanges.remove(exchangeFound);
+                saveExchangeInfo();
+                bSave = true;
             }
-            saveExchangeInfo();
-            bSave = true;
         } catch (ExchangeManagerException e) {
             LOG.error("unable to delete-exchange: {}", e.getLocalizedMessage(), e);
         }
