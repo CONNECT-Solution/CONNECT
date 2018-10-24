@@ -266,9 +266,9 @@
 
         <!-- xalan dependency required for XSL transformation -->
         <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-            <scope>runtime</scope>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>Saxon-HE</artifactId>
+            <version>9.8.0-14</version>
         </dependency>
 
 
