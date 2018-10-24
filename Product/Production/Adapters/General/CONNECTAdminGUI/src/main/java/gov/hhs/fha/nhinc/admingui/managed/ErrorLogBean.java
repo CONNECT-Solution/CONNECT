@@ -151,7 +151,11 @@ public class ErrorLogBean {
     }
 
     private Object getJsonProperty(String key) {
-        return null != selectedEventJson && selectedEventJson.has(key) ? selectedEventJson.get(key) : "Not Provided";
+        return null != selectedEventJson && selectedEventJson.has(key) ? selectedEventJson.get(key) : null;
+    }
+
+    private String getJsonString(String key) {
+        return  null != selectedEventJson && selectedEventJson.has(key) ? (String) selectedEventJson.get(key) : "Not Provided";
     }
 
     public JSONArray getJsonStackTrace() {
@@ -163,23 +167,23 @@ public class ErrorLogBean {
     }
 
     public String getJsonFailedMethod() {
-        return (String) getJsonProperty("failedMethod");
+        return getJsonString("failedMethod");
     }
 
     public String getJsonServiceType() {
-        return (String) getJsonProperty("service_type");
+        return getJsonString("service_type");
     }
 
     public String getJsonExceptionClass() {
-        return (String) getJsonProperty("exceptionClass");
+        return getJsonString("exceptionClass");
     }
 
     public String getJsonFailedClass() {
-        return (String) getJsonProperty("failedClass");
+        return getJsonString("failedClass");
     }
 
     public String getJsonExceptionMessage() {
-        return (String) getJsonProperty("exceptionMessage");
+        return getJsonString("exceptionMessage");
     }
 
     public LogEventType getSelectedEvent() {
