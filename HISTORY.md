@@ -1,14 +1,29 @@
-## CONNECT 5.1.1 Release
+## CONNECT 5.2 Release
+### Summary
+The 5.2 release includes these exciting new features:
+* Certificate expiration alerts and chain of trust view
+* Exchange Manager internal endpoint editor and improved organizational view
+* Document Data Submission and Patient Location Query web services for proposed use cases
+* Failure logging to investigate transaction failures without diving into server logs
+* Exchange-compliant Cross Query Gateway Client
+
+For more information refer to the [Release Notes](https://connectopensource.atlassian.net/wiki/x/HABrJw).
+
+## CONNECT 5.1.2 Release
 ### Summary
 
-The 5.1.1 release includes these exciting new features and a bug fix for the adapter spring injection issued discovered in CONNECT 5.1:
+The 5.1.2 release includes these exciting new features and a bug fix for the adapter spring injection issued discovered in CONNECT 5.1:
 
 * Exchange Manager for downloading organizational data and endpoints from both UDDI and FHIR directories
 * Certificate Manager for adding, viewing and deleting certificates within a trust store
 * Test Data Loader for simplified data creation and management using the CONNECT reference implementation
+* Multiple exchange community targeting - send requests to non-default exchange endpoints
+* Organizational endpoint override - replace existing endpoints with user-specified URLs
+* Document Tab – CreationDateTime is optional for OnDemand documents.
+* Filtering Document Query response by serviceStartTime and serviceStopTime, only if they are know to the responding system.
 
 SAML assertions processing has been updated and CONNECT can now be deployed without defining local data sources. Minor additions include updates to ACP/IACP construction in support of the Carequality patient consent workflow, the addition of HTTP Strict Transport Security (HSTS) headers and the inclusion of the unchained certificate XML signatures hot fix. A convenient tool to convert existing uddiConectionInfo.xml and internalConnectionInfo.xml files into the new exchangeInfo.xml and internalExchangeInfo.xml files for use with the new Exchange Manager has also been provided.
-For more information refer to the [Release Notes](https://connectopensource.atlassian.net/wiki/x/E4AaEQ).
+For more information refer to the [Release Notes](https://connectopensource.atlassian.net/wiki/x/GoCgDg).
 
 ## CONNECT 5.0 Release
 ### Summary

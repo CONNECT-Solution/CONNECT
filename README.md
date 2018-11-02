@@ -32,7 +32,8 @@ Three primary elements make up the CONNECT solution:
 
 History
 -------
-* 5.1.1 released April 2018
+* 5.2 released November 2018
+* 5.1.2 released August 2018
 * 5.0 released June 2017
 * 4.7 released September 2016
 * 4.6 released March 2016
@@ -71,6 +72,8 @@ Please note that if at least one profile is explicitly defined in the build comm
 * DS - Document Submission
 * AD - Admin Distribution
 * X12 - CAQH Core X12
+* DDS - Document Data Submission
+* adminws - AdminGUI webservice
 * DB - Database scripts (dropall.sql, nhincdb.sql, populateTestData.sql)
 * was - WebSphere CONNECT ear
 * weblogic - WebLogic CONNECT ear
@@ -86,7 +89,7 @@ If the DB profile is selected, local database parameters must also be defined in
         <mysql.root.password>xxxxx</mysql.root.password>
         <mysqldriver.version>xxxxx</mysqldriver.version>
 
-For more information on CONNECT supported application servers build and deployment visit: [Installation Instructions](https://connectopensource.atlassian.net/wiki/x/YoAGAQ) page.
+For more information on CONNECT supported application servers build and deployment visit: [Installation Instructions](https://connectopensource.atlassian.net/wiki/x/uyYCBw) page.
        
 
 Testing
