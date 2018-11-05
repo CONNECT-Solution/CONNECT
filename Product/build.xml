@@ -74,12 +74,12 @@
                 <include name="*.properties" />
                 <exclude name="pom.xml" />
             </zipfileset>
-            <zipfileset prefix="wildfly_quick_setup" dir="Install/Wildfly/templates">
+            <zipfileset prefix="wildfly_quick_setup" dir="Install/WildFly/templates">
                 <include name="*.xml" />
                 <include name="*.conf" />
                 <include name="*.bat" />
             </zipfileset>
-             <zipfileset prefix="jboss_eap_quick_setup" dir="Install/JBOSS/templates">
+             <zipfileset prefix="jboss_eap_quick_setup" dir="Install/JBoss/templates">
                 <include name="*.xml" />
                 <include name="*.conf" />
                 <include name="*.bat" />
