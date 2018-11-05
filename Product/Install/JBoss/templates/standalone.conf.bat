@@ -1,6 +1,6 @@
 rem ### -*- batch file -*- ######################################################
 rem #                                                                          ##
-rem #  JBoss Bootstrap Script Configuration                                    ##
+rem #  JBoss EAP Bootstrap Script Configuration                                ##
 rem #                                                                          ##
 rem #############################################################################
 
@@ -45,9 +45,6 @@ rem # Specify options to pass to the Java VM. Note, there are some additional
 rem # options that are always passed by run.bat.
 rem #
 
-rem # JVM memory allocation pool parameters - modify as appropriate.
-set "JAVA_OPTS=-Xmx8000m"
-
 rem # Prefer IPv4
 set "JAVA_OPTS=%JAVA_OPTS% -Djava.net.preferIPv4Stack=true"
 
@@ -64,9 +61,13 @@ rem set "JAVA_OPTS=%JAVA_OPTS% -agentlib:jdwp=transport=dt_shmem,address=jboss,s
 rem # Use JBoss Modules lockless mode
 rem set "JAVA_OPTS=%JAVA_OPTS% -Djboss.modules.lockless=true"
 
-:JAVA_OPTS_SET
- 
-rem # configuration directory
+rem # Uncomment this to run with a security manager enabled
+rem set "SECMGR=true"
+rem # Increase memory allocation
+set "JAVA_OPTS=%JAVA_OPTS% -Xmx8000m"
+rem # Use standalone-full.xml instead of standalone.xml
+set "JAVA_OPTS=%JAVA_OPTS% -Djboss.server.default.config=standalone-full.xml"
+
 set "JAVA_OPTS=%JAVA_OPTS% -Dnhinc.properties.dir=%JBOSS_HOME%/modules/system/layers/base/org/connectopensource/configuration/main"
  
 rem # keystore and truststore
@@ -77,5 +78,5 @@ set "JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.keyStoreType=JKS"
 set "JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStoreType=JKS"
 set "JAVA_OPTS=%JAVA_OPTS% -Djavax.net.ssl.trustStore=%JBOSS_HOME%/modules/system/layers/base/org/connectopensource/configuration/main/cacerts.jks"
 set "JAVA_OPTS=%JAVA_OPTS% -DCLIENT_KEY_ALIAS=gateway"
-set "JAVA_OPTS=%JAVA_OPTS% -Dcom.sun.xml.ws.transport.http.HttpAdapter.dump=true"
 set "JAVA_OPTS=%JAVA_OPTS% -Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=true"
+:JAVA_OPTS_SET

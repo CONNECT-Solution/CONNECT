@@ -75,6 +75,16 @@
                 <include name="*.properties" />
                 <exclude name="pom.xml" />
             </zipfileset>
+            <zipfileset prefix="wildfly_quick_setup" dir="Install/Wildfly/templates">
+                <include name="*.xml" />
+                <include name="*.conf" />
+                <include name="*.bat" />
+            </zipfileset>
+             <zipfileset prefix="jboss_eap_quick_setup" dir="Install/JBOSS/templates">
+                <include name="*.xml" />
+                <include name="*.conf" />
+                <include name="*.bat" />
+            </zipfileset>
             <zipfileset prefix="target/wsdl" dir="SoapUI_Test/target/wsdl/"/>
             <zipfileset prefix="target/schemas" dir="SoapUI_Test/target/schemas/"/>
             <zipfileset file="${dist.artifact.dir}/version.txt"/>
