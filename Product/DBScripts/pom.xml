@@ -20,6 +20,7 @@
                 </includes>
                 <excludes>
                     <exclude>target/**</exclude>
+                    <exclude>bin/**</exclude>
                 </excludes>
             </resource>
         </resources>
