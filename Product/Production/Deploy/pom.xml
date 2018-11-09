@@ -756,68 +756,6 @@
         </plugins>
       </build>
     </profile>
-
-    <!-- AdminGUI -->
-    <profile>
-      <id>AdminGUI</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <properties>
-        <admingui.excluded>false</admingui.excluded>
-      </properties>
-
-      <dependencies>
-        <dependency>
-          <groupId>org.connectopensource</groupId>
-          <artifactId>CONNECTAdminGUI</artifactId>
-          <version>${project.parent.version}</version>
-          <type>war</type>
-        </dependency>
-
-        <dependency>
-          <groupId>org.connectopensource</groupId>
-          <artifactId>CONNECTAdminGUI</artifactId>
-          <version>${project.parent.version}</version>
-          <type>pom</type>
-          <exclusions>
-            <exclusion>
-              <groupId>org.apache.myfaces.core</groupId>
-              <artifactId>myfaces-bundle</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-
-        <dependency>
-          <groupId>org.hibernate.javax.persistence</groupId>
-          <artifactId>hibernate-jpa-2.0-api</artifactId>
-        </dependency>
-
-        <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-      </dependencies>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-ear-plugin</artifactId>
-            <configuration>
-              <modules combine.children="append">
-                <webModule>
-                  <groupId>org.connectopensource</groupId>
-                  <artifactId>CONNECTAdminGUI</artifactId>
-                  <contextRoot>/CONNECTAdminGUI</contextRoot>
-                  <excluded>${admingui.excluded}</excluded>
-                </webModule>
-              </modules>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
     
     <!-- Config Admin webservices -->
   <profile>
@@ -880,21 +818,6 @@
         </plugins>
       </build>
     </profile>
-    
-    <!-- Performance Test -->
-    <profile>
-      <id>PerfTest</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.connectopensource</groupId>
-          <artifactId>PerformanceTestTools</artifactId>
-          <version>${project.parent.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
 
     <!-- WebSphere 8.5 -->
     <profile>
@@ -920,14 +843,6 @@
       </activation>
       <modules>
         <module>jboss7</module>
-      </modules>
-    </profile>
-
-    <!-- GlassFish -->
-    <profile>
-      <id>glassfish</id>
-      <modules>
-        <module>glassfish</module>
       </modules>
     </profile>
   </profiles>
