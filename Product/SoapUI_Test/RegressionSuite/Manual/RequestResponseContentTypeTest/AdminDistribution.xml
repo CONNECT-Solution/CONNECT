@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="AdminDistribution" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="2e74cd18-6222-4ba0-8a95-82a2ca38519a" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="AdminDistribution" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.3.0" activeEnvironment="Default" id="2e74cd18-6222-4ba0-8a95-82a2ca38519a" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="../../../target/wsdl/EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="dfa6ecfc-f8da-4abd-af11-da705ac7a7a7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -40,149 +40,11 @@
    <soap:Body testSuite="Entity_g1" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
          <urn:assertion>
-            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
-            <urn1:address>
-               <urn1:addressType>
-                  <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>AddrCode</urn1:displayName>
-                  <urn1:originalText>AddrCode</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>AddrCity</urn1:city>
-               <urn1:country>AddrCountry</urn1:country>
-               <urn1:state>AddrState</urn1:state>
-               <urn1:streetAddress>AddrStreet</urn1:streetAddress>
-               <urn1:zipCode>AddrZip</urn1:zipCode>
-            </urn1:address>
-            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature>false</urn1:haveSignature>
-            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:personName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Sandy</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
-               <urn1:fullName>Sandy S. Smith</urn1:fullName>
-            </urn1:personName>
-            <urn1:phoneNumber>
-               <urn1:areaCode>321</urn1:areaCode>
-               <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>5436</urn1:extension>
-               <urn1:localNumber>253-6849</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:phoneNumber>
-            <urn1:secondWitnessAddress>
-               <urn1:addressType>
-                  <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>AddrCode</urn1:displayName>
-                  <urn1:originalText>AddrCode</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>Addr2City</urn1:city>
-               <urn1:country>Addr2Country</urn1:country>
-               <urn1:state>Addr2State</urn1:state>
-               <urn1:streetAddress>Addr2Street</urn1:streetAddress>
-               <urn1:zipCode>Addr2Zip</urn1:zipCode>
-            </urn1:secondWitnessAddress>
-            <urn1:secondWitnessName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Sammy</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
-               <urn1:fullName>Sammy S. Smith</urn1:fullName>
-            </urn1:secondWitnessName>
-            <urn1:secondWitnessPhone>
-               <urn1:areaCode>321</urn1:areaCode>
-               <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>5424</urn1:extension>
-               <urn1:localNumber>542-6823</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:secondWitnessPhone>
-            <urn1:SSN>253987546</urn1:SSN>
-            <!--1 or more repetitions:-->
-            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
-            <urn1:witnessAddress>
-               <urn1:addressType>
-                  <urn1:code>addrCode</urn1:code>
-                  <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>addrCode</urn1:displayName>
-                  <urn1:originalText>addrCode</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>Burnell</urn1:city>
-               <urn1:country>USA</urn1:country>
-               <urn1:state>FL</urn1:state>
-               <urn1:streetAddress>825 North</urn1:streetAddress>
-               <urn1:zipCode>32184</urn1:zipCode>
-            </urn1:witnessAddress>
-            <urn1:witnessName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Scott</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
-               <urn1:fullName>Scott S. Smith</urn1:fullName>
-            </urn1:witnessName>
-            <urn1:witnessPhone>
-               <urn1:areaCode>321</urn1:areaCode>
-               <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>8432</urn1:extension>
-               <urn1:localNumber>985-2239</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:witnessPhone>
             <urn1:userInfo>
                <urn1:personName>
                   <urn1:familyName>Skagerberg</urn1:familyName>
@@ -206,8 +68,6 @@
                </urn1:org>
                <urn1:roleCoded>
                   <urn1:code>80584001</urn1:code>
-                  <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
-                  <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
                   <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                   <urn1:displayName>Psychiatrist</urn1:displayName>
                   <urn1:originalText>Psychiatrist</urn1:originalText>
@@ -216,36 +76,34 @@
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>PSYCHOTHERAPY</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
             <urn1:samlAuthnStatement>
-               <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
-               <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>mySubjectLocalityDns</urn1:subjectLocalityDNSName>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>myAuthzDecisionStatementResource</urn1:resource>
-               <urn1:action>myAuthzDecisionStatementAction</urn1:action>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
-                     <urn1:id>AuthzDecisionStatementEvidenceAssertionId</urn1:id>
-                     <urn1:issueInstant>2009-09-02T14:00:00.000Z</urn1:issueInstant>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:15:39Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <urn1:conditions>
-                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notBefore>2009-04-16T13:15:39Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
-                     <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
-                     <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -369,7 +227,7 @@
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -460,149 +318,11 @@ if(context.findProperty("PassThruOn").toBoolean()){
    <soap:Body testSuite="Entity_g0" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
          <urn:assertion>
-            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
-            <urn1:address>
-               <urn1:addressType>
-                  <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>AddrCode</urn1:displayName>
-                  <urn1:originalText>AddrCode</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>AddrCity</urn1:city>
-               <urn1:country>AddrCountry</urn1:country>
-               <urn1:state>AddrState</urn1:state>
-               <urn1:streetAddress>AddrStreet</urn1:streetAddress>
-               <urn1:zipCode>AddrZip</urn1:zipCode>
-            </urn1:address>
-            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature>false</urn1:haveSignature>
-            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:personName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Sandy</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
-               <urn1:fullName>Sandy S. Smith</urn1:fullName>
-            </urn1:personName>
-            <urn1:phoneNumber>
-               <urn1:areaCode>321</urn1:areaCode>
-               <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>5436</urn1:extension>
-               <urn1:localNumber>253-6849</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:phoneNumber>
-            <urn1:secondWitnessAddress>
-               <urn1:addressType>
-                  <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>AddrCode</urn1:displayName>
-                  <urn1:originalText>AddrCode</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>Addr2City</urn1:city>
-               <urn1:country>Addr2Country</urn1:country>
-               <urn1:state>Addr2State</urn1:state>
-               <urn1:streetAddress>Addr2Street</urn1:streetAddress>
-               <urn1:zipCode>Addr2Zip</urn1:zipCode>
-            </urn1:secondWitnessAddress>
-            <urn1:secondWitnessName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Sammy</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
-               <urn1:fullName>Sammy S. Smith</urn1:fullName>
-            </urn1:secondWitnessName>
-            <urn1:secondWitnessPhone>
-               <urn1:areaCode>321</urn1:areaCode>
-               <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>5424</urn1:extension>
-               <urn1:localNumber>542-6823</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:secondWitnessPhone>
-            <urn1:SSN>253987546</urn1:SSN>
-            <!--1 or more repetitions:-->
-            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
-            <urn1:witnessAddress>
-               <urn1:addressType>
-                  <urn1:code>addrCode</urn1:code>
-                  <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>addrCode</urn1:displayName>
-                  <urn1:originalText>addrCode</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>Burnell</urn1:city>
-               <urn1:country>USA</urn1:country>
-               <urn1:state>FL</urn1:state>
-               <urn1:streetAddress>825 North</urn1:streetAddress>
-               <urn1:zipCode>32184</urn1:zipCode>
-            </urn1:witnessAddress>
-            <urn1:witnessName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Scott</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
-               <urn1:fullName>Scott S. Smith</urn1:fullName>
-            </urn1:witnessName>
-            <urn1:witnessPhone>
-               <urn1:areaCode>321</urn1:areaCode>
-               <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>8432</urn1:extension>
-               <urn1:localNumber>985-2239</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:witnessPhone>
             <urn1:userInfo>
                <urn1:personName>
                   <urn1:familyName>Skagerberg</urn1:familyName>
@@ -626,8 +346,6 @@ if(context.findProperty("PassThruOn").toBoolean()){
                </urn1:org>
                <urn1:roleCoded>
                   <urn1:code>80584001</urn1:code>
-                  <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
-                  <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
                   <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                   <urn1:displayName>Psychiatrist</urn1:displayName>
                   <urn1:originalText>Psychiatrist</urn1:originalText>
@@ -636,36 +354,34 @@ if(context.findProperty("PassThruOn").toBoolean()){
             <urn1:authorized>true</urn1:authorized>
             <urn1:purposeOfDisclosureCoded>
                <urn1:code>PSYCHOTHERAPY</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
                <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
             <urn1:samlAuthnStatement>
-               <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
-               <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>mySubjectLocalityDns</urn1:subjectLocalityDNSName>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>1.1.1.1</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>connectopensource.org</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
             <urn1:samlAuthzDecisionStatement>
                <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>myAuthzDecisionStatementResource</urn1:resource>
-               <urn1:action>myAuthzDecisionStatementAction</urn1:action>
+               <urn1:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
                   <urn1:assertion>
-                     <urn1:id>AuthzDecisionStatementEvidenceAssertionId</urn1:id>
-                     <urn1:issueInstant>2009-09-02T14:00:00.000Z</urn1:issueInstant>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:15:39Z</urn1:issueInstant>
                      <urn1:version>2.0</urn1:version>
                      <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <urn1:conditions>
-                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notBefore>2009-04-16T13:15:39Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
-                     <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
-                     <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -673,14 +389,14 @@ if(context.findProperty("PassThruOn").toBoolean()){
                <!--Optional:-->
                <urn1:keyInfo>
                   <!--Optional:-->
-                  <urn1:rsaKeyValueModulus>cid:921853060605</urn1:rsaKeyValueModulus>
+                  <urn1:rsaKeyValueModulus>cid:243113487404</urn1:rsaKeyValueModulus>
                   <!--Optional:-->
-                  <urn1:rsaKeyValueExponent>cid:507157468547</urn1:rsaKeyValueExponent>
+                  <urn1:rsaKeyValueExponent>cid:159355901562</urn1:rsaKeyValueExponent>
                </urn1:keyInfo>
                <!--Optional:-->
-               <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
+               <urn1:signatureValue>cid:383675305350</urn1:signatureValue>
             </urn1:samlSignature>
-         </urn:assertion>
+            </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
             <!--1 or more repetitions:-->
@@ -789,7 +505,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -1198,7 +914,7 @@ sql.close()
   <con:wssContainer/>
   <con:databaseConnectionContainer/>
   <con:oAuth2ProfileContainer/>
-  <con:reporting>
+  <con:oAuth1ProfileContainer/><con:reporting>
     <con:xmlTemplates/>
     <con:xmlTemplates/>
     <con:xmlTemplates/>
