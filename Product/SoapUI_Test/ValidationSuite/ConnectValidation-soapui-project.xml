@@ -1895,7 +1895,10 @@ if(passthruValue != null){
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="groovy" name="Validate Addition in DB" id="575f5eba-9f9c-4a8a-9db5-3e41aceac713"><con:settings/><con:config><script>def documents = 1;
+      </con:testStep><con:testStep type="groovy" name="Validate Addition in DB" id="575f5eba-9f9c-4a8a-9db5-3e41aceac713"><con:settings/><con:config><script>def loopback = context.findProperty('LoopBack');
+log.info "Loopback: ${loopback}"
+if(loopback == 'true'){
+def documents = 1;
 
 log.info "Assert ${documents} number of correlations"
 
@@ -1909,7 +1912,8 @@ context.withSql('DocRepositoryDB') { sql ->
 		def found = sql.firstRow('select count(*) from ' + context.findProperty('DocumentRepositoryTable') + ' where DocumentUniqueId = "CONNECT0";' )[0]
 		log.info "Found ${found} and expected ${documents} documents"
 		assert documents == found
-		}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+		}
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
@@ -2955,9 +2959,11 @@ if(!runMock){
       </con:testStep>
       <con:testStep name="count correlations" type="groovy" id="7356b1cc-bcfb-40e3-9578-0faef84aee93">
         <con:settings/>
-        <con:config>
-          <script>def pdCorrelations = 1;
+        <con:config><script>def pdCorrelations = 1;
 
+def loopback = context.findProperty('LoopBack');
+log.info "Loopback: ${loopback}"
+if(loopback == 'true'){
 if(context.findProperty("PassThruOn").toBoolean()) {
 	pdCorrelations = 0;
 }
@@ -2966,8 +2972,10 @@ log.info "Assert ${pdCorrelations} number of correlations"
 
 context.withSql('PatientCorrelationDB') { sql -> 
 		assert pdCorrelations == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
-		}</script>
-        </con:config>
+		}
+}
+
+</script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
@@ -4297,12 +4305,20 @@ context.withSql('PatientCorrelationDB') { sql ->
    </soap:Body>
 </soap:Envelope>]]></con:request><con:assertion type="SOAP Fault Assertion" id="9ef901b6-3d34-4e66-b483-d2b10008e6d6" name="Not SOAP Fault"/><con:assertion type="SOAP Response" id="20dc9b73-2174-4430-a2fb-1ed8b6a144e6"/><con:assertion type="XPath Match" id="29f542bd-6425-4e0d-9429-c5911d723d36" name="XPath Match - count(PatientLocationResponse)"><con:configuration><path>declare namespace ns1='urn:ihe:iti:xcpd:2009'; declare namespace ns3="urn:gov:hhs:fha:nhinc:common:nhinccommonentity";
 
-count(//ns3:RespondingGateway_PatientLocationQueryResponse/ns1:PatientLocationQueryResponse/ns1:PatientLocationResponse)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="delay" name="Delay - adding PLQ-response correlation-table" id="67f21d9d-aa6a-45f2-9856-695e3fe68348"><con:settings/><con:config><delay>3000</delay></con:config></con:testStep><con:testStep type="groovy" name="verified rslData in patientCorrelation" id="aa4f769a-8785-42f0-9738-b7c48fe5e552"><con:settings/><con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
-	def sqlQuery = 'select count(*) from (select* from correlatedidentifiers where PatientAssigningAuthorityId="1.1" and PatientId="D123401" and CorrelatedPatientAssignAuthId="1.1" and CorrelatedPatientId="D123401" and RlsId="2.2" union select * from correlatedidentifiers where PatientAssigningAuthorityId="1.1" and PatientId="D123401" and CorrelatedPatientAssignAuthId="4.4" and CorrelatedPatientId="111225" and RlsId="2.2") foundRec'
-	log.info "info--log: sql: ${sqlQuery}"
-	def found = sql.firstRow(sqlQuery)[0]
-	log.info "info--log: Found ${found}, expect 2-records"
-	assert found == 2
+count(//ns3:RespondingGateway_PatientLocationQueryResponse/ns1:PatientLocationQueryResponse/ns1:PatientLocationResponse)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="delay" name="Delay - adding PLQ-response correlation-table" id="67f21d9d-aa6a-45f2-9856-695e3fe68348"><con:settings/><con:config><delay>3000</delay></con:config></con:testStep><con:testStep type="groovy" name="verified rslData in patientCorrelation" id="aa4f769a-8785-42f0-9738-b7c48fe5e552"><con:settings/><con:config><script>def localAA = context.findProperty('LocalAA');
+def remoteAA = context.findProperty('RemoteAA');
+
+log.info("localAA(1.1): ${localAA}, remoteAA(2.2): ${remoteAA}")
+
+if(localAA == '1.1' &amp;&amp; remoteAA == '2.2'){
+	log.info("assert--PatientCorrelation: hardcode-value");
+	context.withSql('PatientCorrelationDB') { sql -> 
+		def sqlQuery = 'select count(*) from (select* from correlatedidentifiers where PatientAssigningAuthorityId="1.1" and PatientId="D123401" and CorrelatedPatientAssignAuthId="1.1" and CorrelatedPatientId="D123401" and RlsId="2.2" union select * from correlatedidentifiers where PatientAssigningAuthorityId="1.1" and PatientId="D123401" and CorrelatedPatientAssignAuthId="4.4" and CorrelatedPatientId="111225" and RlsId="2.2") foundRec'
+		log.info "info--log: sql: ${sqlQuery}"
+		def found = sql.firstRow(sqlQuery)[0]
+		log.info "info--log: Found ${found}, expect 2-records"
+		assert found == 2
+	}
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2018-06-20T13:19:14Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2018-06-20T13:29:14Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/20/2018 13:19:14</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2018-07-20T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:properties/>
     <con:setupScript/>
@@ -5323,7 +5339,10 @@ if(passthruValue != null){
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep type="groovy" name="Validate Addition in DB" id="e648d90d-8b11-44db-8675-6458a35fa410"><con:settings/><con:config><script>def documents = 1;
+      </con:testStep><con:testStep type="groovy" name="Validate Addition in DB" id="e648d90d-8b11-44db-8675-6458a35fa410"><con:settings/><con:config><script>def loopback = context.findProperty('LoopBack');
+log.info "Loopback: ${loopback}"
+if(loopback == 'true'){
+def documents = 1;
 
 log.info "Assert ${documents} number of correlations"
 
@@ -5337,7 +5356,8 @@ context.withSql('DocRepositoryDB') { sql ->
 		def found = sql.firstRow('select count(*) from ' + context.findProperty('DocumentRepositoryTable') + ' where DocumentUniqueId = "CONNECT0";' )[0]
 		log.info "Found ${found} and expected ${documents} documents"
 		assert documents == found
-		}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+		}
+}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
       <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
@@ -6384,8 +6404,10 @@ if(!runMock){
       </con:testStep>
       <con:testStep name="count correlations" type="groovy" id="9d506325-0494-4f68-acef-147bb0ecd30b">
         <con:settings/>
-        <con:config>
-          <script>def pdCorrelations = 1;
+        <con:config><script>def loopback = context.findProperty('LoopBack');
+log.info "Loopback: ${loopback}"
+if(loopback == 'true'){
+def pdCorrelations = 1;
 
 if(context.findProperty("PassThruOn").toBoolean()) {
 	pdCorrelations = 0;
@@ -6395,8 +6417,10 @@ log.info "Assert ${pdCorrelations} number of correlations"
 
 context.withSql('PatientCorrelationDB') { sql -> 
 		assert pdCorrelations == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
-		}</script>
-        </con:config>
+		}
+}
+
+</script></con:config>
       </con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
@@ -7892,7 +7916,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:name>DSDefReq_EntityEndpoint_g0</con:name>
       <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
     </con:property>
-  <con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>DocumentRegistryTable</con:name><con:value>docregistry</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>DocumentRepositoryTable</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>PLQRequestPatientId</con:name><con:value>38273N244</con:value></con:property></con:properties>
+  <con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>DocumentRegistryTable</con:name><con:value>docregistry</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>DocumentRepositoryTable</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>PLQRequestPatientId</con:name><con:value>38273N244</con:value></con:property><con:property><con:name>LoopBack</con:name><con:value>true</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
