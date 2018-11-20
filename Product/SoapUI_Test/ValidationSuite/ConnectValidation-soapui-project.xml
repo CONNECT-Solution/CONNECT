@@ -1248,7 +1248,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -1487,7 +1487,7 @@ if(passthruValue != null){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -1935,7 +1935,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>true</con:value>
+          <con:value>false</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2144,22 +2144,12 @@ if(passthruValue != null){
             <con:assertion type="SOAP Response" id="5a220bc9-3ba8-4ff3-96b7-a20e8ca54fdb"/>
             <con:assertion type="SOAP Fault Assertion" id="b668d1f5-809b-4adb-b1ac-29a9f96bd685"/>
             <con:assertion name="Verify Receiver" type="XPath Match" id="37f4f7ec-7f4f-4cb1-93f3-c655ec4a4b4d">
-              <con:configuration>
-                <path>declare namespace ns3='urn:hl7-org:v3';
-							//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path>
-                <content>1.1</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+							//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:assertion name="Verify Sender" type="XPath Match" id="cbea687a-b2c4-4d31-9964-b6bb9830d1cf">
-              <con:configuration>
-                <path>declare namespace ns3='urn:hl7-org:v3';
-							//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path>
-                <content>2.2</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+							//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#RemoteAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:assertion name="Verify Message" type="XPath Match" id="2995bb17-1051-4fd6-bfb8-04f95e16e60b">
               <con:configuration>
@@ -5373,7 +5363,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>true</con:value>
+          <con:value>false</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5582,22 +5572,12 @@ if(passthruValue != null){
             <con:assertion type="SOAP Response" id="064406d2-05b9-45ec-9474-e91b367f663f"/>
             <con:assertion type="SOAP Fault Assertion" id="91fa2be0-567b-4fc8-94d5-3926464d1ea4"/>
             <con:assertion name="Verify Receiver" type="XPath Match" id="fc967df4-5a96-41e1-a3fe-9cb688cc138f">
-              <con:configuration>
-                <path>declare namespace ns3='urn:hl7-org:v3';
-							//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path>
-                <content>1.1</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+							//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:assertion name="Verify Sender" type="XPath Match" id="21037f49-473b-475c-844c-31d3a4ce2845">
-              <con:configuration>
-                <path>declare namespace ns3='urn:hl7-org:v3';
-							//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path>
-                <content>2.2</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+							//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#RemoteAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:assertion name="Verify Message" type="XPath Match" id="2ecdf314-ee8b-4dfc-8c98-e477975e6133">
               <con:configuration>
@@ -6668,7 +6648,7 @@ if(passthruValue != null){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
