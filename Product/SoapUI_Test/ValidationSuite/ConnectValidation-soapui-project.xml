@@ -1939,7 +1939,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
         </con:property>
         <con:property>
           <con:name>PassThruOn</con:name>
-          <con:value>false</con:value>
+          <con:value>true</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
