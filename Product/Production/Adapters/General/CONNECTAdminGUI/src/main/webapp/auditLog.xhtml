@@ -72,23 +72,23 @@
                                                     </p:messages>
                                                     <div class="form-group col-xs-4">
                                                         <h:outputLabel for="eventbegindate"
-                                                            class="col-lg-4 control-label ui-inputfield-width"
+                                                            class="control-label ui-inputfield-width"
                                                             id="labelEventBeginDate" value="Start Time:" />
-                                                        <p:calendar styleClass="col-lg-8" id="inputEventBeginDate"
+                                                        <p:calendar id="inputEventBeginDate"
                                                             value="#{auditSearchBean.eventStartDate}" showOn="button"
                                                             pattern="MM/dd/yyyy HH:mm:ss" required="false" />
                                                     </div>
                                                     <div class="form-group col-xs-4">
-                                                        <h:outputLabel for="eventenddate" class="col-lg-4 control-label"
+                                                        <h:outputLabel for="eventenddate" class="control-label"
                                                             id="labelEventEndDate" value="End Time:" />
-                                                        <p:calendar styleClass="col-lg-8" id="inputEventEndDate"
+                                                        <p:calendar id="inputEventEndDate"
                                                             value="#{auditSearchBean.eventEndDate}" showOn="button"
                                                             pattern="MM/dd/yyyy HH:mm:ss" required="false" />
                                                     </div>
                                                     <div class="form-group col-xs-4">
-                                                        <h:outputLabel for="userid" class="col-lg-4 control-label"
+                                                        <h:outputLabel for="userid" class="control-label"
                                                             id="labelUserId" value="Requester/User:" />
-                                                        <p:inputText styleClass="col-lg-8 form-control"
+                                                        <p:inputText styleClass="form-control"
                                                             value="#{auditSearchBean.userId}" id="userId"
                                                             maxlength="100" required="false" />
                                                     </div>
@@ -96,9 +96,9 @@
 
                                                 <div class="row">
                                                     <div class="form-group col-xs-4">
-                                                        <h:outputLabel for="eventtype" class="col-lg-4 control-label"
+                                                        <h:outputLabel for="eventtype" class="control-label"
                                                             id="labelEventType" value="Service:" />
-                                                        <p:selectCheckboxMenu styleClass="col-lg-8 form-control"
+                                                        <p:selectCheckboxMenu styleClass="form-control"
                                                             id="menuEventType"
                                                             value="#{auditSearchBean.selectedEventTypeList}"
                                                             label="Service:" filter="true" filterMatchMode="startsWith"
@@ -107,9 +107,9 @@
                                                         </p:selectCheckboxMenu>
                                                     </div>
                                                     <div class="form-group col-xs-4">
-                                                        <h:outputLabel for="remoteHcid" class="col-lg-4 control-label"
+                                                        <h:outputLabel for="remoteHcid" class="control-label"
                                                             id="labelRemoteHcid" value="Organization:" />
-                                                        <p:selectCheckboxMenu styleClass="col-lg-8 form-control"
+                                                        <p:selectCheckboxMenu styleClass="form-control"
                                                             id="menuRemoteHcid"
                                                             value="#{auditSearchBean.selectedRemoteHcidList}"
                                                             label="Organization" filter="true"
@@ -122,20 +122,24 @@
 
                                                 <div class="row">
                                                     <div class="form-group col-xs-4">
-                                                        <h:outputLabel for="messageid" class="col-lg-4 control-label"
+                                                        <h:outputLabel for="messageid" class="control-label"
                                                             id="labelMessageId" value="Message ID:" />
-                                                        <p:inputText styleClass="col-lg-8 form-control"
+                                                        <p:inputText styleClass="form-control"
                                                             value="#{auditSearchBean.messageId}"
                                                             style="/*height:32px;width:200px*/" id="messageId"
-                                                            maxlength="100" required="false" />
+                                                            maxlength="100" required="false">
+                                                            <f:validator validatorId="UrnUuidValidator" />
+                                                        </p:inputText>
                                                     </div>
                                                     <div class="form-group col-xs-4">
-                                                        <h:outputLabel for="relatesto" class="col-lg-4 control-label"
+                                                        <h:outputLabel for="relatesto" class="control-label"
                                                             id="labelRelatesTo" value="Relates To:" />
-                                                        <p:inputText styleClass="col-lg-8 form-control"
+                                                        <p:inputText styleClass="form-control"
                                                             value="#{auditSearchBean.relatesTo}"
                                                             style="/*height:32px;width:200px*/" id="relatesTo"
-                                                            maxlength="100" required="false" />
+                                                            maxlength="100" required="false">
+                                                            <f:validator validatorId="UrnUuidValidator" />
+                                                        </p:inputText>
                                                     </div>
                                                 </div>
 

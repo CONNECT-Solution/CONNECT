@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.admingui.model.Audit;
 import gov.hhs.fha.nhinc.admingui.services.AuditService;
 import gov.hhs.fha.nhinc.admingui.services.impl.AuditServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
+import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.admingui.util.XSLTransformHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -99,6 +100,11 @@ public class AuditSearchBean {
      */
     public void searchAudit() {
         if (NullChecker.isNullish(messageId) && NullChecker.isNullish(relatesTo)) {
+            if (null != eventEndDate && null != eventEndDate && eventStartDate.getTime() > eventEndDate.getTime()) {
+                HelperUtil.addMessageError(null, "The EndTime should be greater than startTime.");
+                return;
+            }
+
             auditRecordList = service.searchAuditRecord(
                 selectedEventTypeList, NullChecker.isNotNullishIgnoreSpace(userId) ? userId.trim() : null,
                     getRemoteHCIDFromSelectedOrgs(), eventStartDate, eventEndDate, getRemoteHcidOrgNameMap());
@@ -133,6 +139,8 @@ public class AuditSearchBean {
         auditMessage = "";
         auditFound = false;
         auditBlobMsg = "";
+        relatesTo = null;
+        messageId = null;
         return NavigationConstant.LOGGING_PAGE;
     }
 
