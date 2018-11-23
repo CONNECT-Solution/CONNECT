@@ -79,6 +79,8 @@ public class AuditSearchBean {
     private static final String AUDIT_RECORDS_NOT_FOUND = "Audit Records not Found";
     public static final String DEFAULT_AUDIT_XSL_FILE = "/WEB-INF/audit.xsl";
     public String blobContent;
+    private static final String KEY_STARTTIME_ENDTIME_MSG = "AuditSearchStartTimeEndTimeMsg";
+    private static final String DEFAULT_STARTTIME_ENDTIME_MSG = "The EndTime should be greater than startTime.";
 
     private final XSLTransformHelper transformHelper = new XSLTransformHelper();
     private final AuditService service;
@@ -101,8 +103,8 @@ public class AuditSearchBean {
     public void searchAudit() {
         if (NullChecker.isNullish(messageId) && NullChecker.isNullish(relatesTo)) {
             if (null != eventEndDate && null != eventEndDate && eventStartDate.after(eventEndDate)) {
-                HelperUtil.addMessageError(null, HelperUtil.readPropertyAdminGui("AuditSearchStartTimeEndTimeMsg",
-                    "The EndTime should be greater than startTime."));
+                HelperUtil.addMessageError(null,
+                    HelperUtil.readPropertyAdminGui(KEY_STARTTIME_ENDTIME_MSG, DEFAULT_STARTTIME_ENDTIME_MSG));
                 return;
             }
 

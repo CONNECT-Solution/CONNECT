@@ -37,7 +37,6 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
@@ -70,6 +69,7 @@ import org.slf4j.LoggerFactory;
 public class HelperUtil {
     public static final String TO_DO_MARKER = "TO DO";
     private static final Logger LOG = LoggerFactory.getLogger(HelperUtil.class);
+    private static final String ADMINGUI_PROPERTIES = "admingui";
 
     /*
      * Utility class-private constructor
@@ -407,25 +407,8 @@ public class HelperUtil {
         return retList;
     }
 
-    public static String readPropertyFrom(String propertyFile, String propertyName) {
-        try {
-            return PropertyAccessor.getInstance().getProperty(propertyFile, propertyName);
-        } catch (PropertyAccessException ex) {
-            LOG.error("Error occurred while reading-property: {}, {}, {}", propertyFile, propertyName, ex.getMessage(),
-                ex);
-            return "";
-        }
+    public static String readPropertyAdminGui(String propertyName, String defaultValue) {
+        return PropertyAccessor.getInstance().getProperty(ADMINGUI_PROPERTIES, propertyName, defaultValue);
     }
-
-    public static String readPropertyAdminGui(String propertyName) {
-        return readPropertyFrom("admingui", propertyName);
-    }
-
-    public static String readPropertyAdminGui(String propertyName, String retDefault) {
-        String retProp = readPropertyFrom("admingui", propertyName);
-        return StringUtils.isNotBlank(retProp) ? retProp : retDefault;
-    }
-
-
 
 }
