@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -58,6 +59,8 @@ import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.primefaces.context.RequestContext;
 import org.primefaces.json.JSONArray;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Tran Tang
@@ -65,6 +68,8 @@ import org.primefaces.json.JSONArray;
  */
 public class HelperUtil {
     public static final String TO_DO_MARKER = "TO DO";
+    private static final Logger LOG = LoggerFactory.getLogger(HelperUtil.class);
+    private static final String ADMINGUI_PROPERTIES = "admingui";
 
     /*
      * Utility class-private constructor
@@ -402,5 +407,8 @@ public class HelperUtil {
         return retList;
     }
 
+    public static String readPropertyAdminGui(String propertyName, String defaultValue) {
+        return PropertyAccessor.getInstance().getProperty(ADMINGUI_PROPERTIES, propertyName, defaultValue);
+    }
 
 }

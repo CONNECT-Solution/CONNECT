@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.admingui.model.Audit;
 import gov.hhs.fha.nhinc.admingui.services.AuditService;
 import gov.hhs.fha.nhinc.admingui.services.impl.AuditServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
+import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.admingui.util.XSLTransformHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -78,6 +79,8 @@ public class AuditSearchBean {
     private static final String AUDIT_RECORDS_NOT_FOUND = "Audit Records not Found";
     public static final String DEFAULT_AUDIT_XSL_FILE = "/WEB-INF/audit.xsl";
     public String blobContent;
+    private static final String KEY_STARTTIME_ENDTIME_MSG = "AuditSearchStartTimeEndTimeMsg";
+    private static final String DEFAULT_STARTTIME_ENDTIME_MSG = "The EndTime should be greater than startTime.";
 
     private final XSLTransformHelper transformHelper = new XSLTransformHelper();
     private final AuditService service;
@@ -99,6 +102,12 @@ public class AuditSearchBean {
      */
     public void searchAudit() {
         if (NullChecker.isNullish(messageId) && NullChecker.isNullish(relatesTo)) {
+            if (null != eventEndDate && null != eventEndDate && eventStartDate.after(eventEndDate)) {
+                HelperUtil.addMessageError(null,
+                    HelperUtil.readPropertyAdminGui(KEY_STARTTIME_ENDTIME_MSG, DEFAULT_STARTTIME_ENDTIME_MSG));
+                return;
+            }
+
             auditRecordList = service.searchAuditRecord(
                 selectedEventTypeList, NullChecker.isNotNullishIgnoreSpace(userId) ? userId.trim() : null,
                     getRemoteHCIDFromSelectedOrgs(), eventStartDate, eventEndDate, getRemoteHcidOrgNameMap());
@@ -133,6 +142,8 @@ public class AuditSearchBean {
         auditMessage = "";
         auditFound = false;
         auditBlobMsg = "";
+        relatesTo = null;
+        messageId = null;
         return NavigationConstant.LOGGING_PAGE;
     }
 
