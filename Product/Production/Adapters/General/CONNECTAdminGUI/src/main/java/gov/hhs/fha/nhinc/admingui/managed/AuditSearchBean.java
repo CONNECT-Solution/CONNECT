@@ -100,7 +100,7 @@ public class AuditSearchBean {
      */
     public void searchAudit() {
         if (NullChecker.isNullish(messageId) && NullChecker.isNullish(relatesTo)) {
-            if (null != eventEndDate && null != eventEndDate && eventStartDate.getTime() > eventEndDate.getTime()) {
+            if (null != eventEndDate && null != eventEndDate && eventStartDate.after(eventEndDate)) {
                 HelperUtil.addMessageError(null, HelperUtil.readPropertyAdminGui("AuditSearchStartTimeEndTimeMsg",
                     "The EndTime should be greater than startTime."));
                 return;
