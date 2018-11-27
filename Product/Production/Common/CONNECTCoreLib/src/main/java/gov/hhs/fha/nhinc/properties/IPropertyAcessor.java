@@ -34,6 +34,8 @@ public interface IPropertyAcessor {
 
     public boolean getPropertyBoolean(String propertyFile, String propertyName) throws PropertyAccessException;
 
+    public boolean getPropertyBoolean(String propertyFile, String propertyName, boolean defaultValue);
+
     public void setProperty(String propertyFileName, String key, String value) throws PropertyAccessException;
 
     public String getPropertyComment(String propertyFileName, String key) throws PropertyAccessException;
