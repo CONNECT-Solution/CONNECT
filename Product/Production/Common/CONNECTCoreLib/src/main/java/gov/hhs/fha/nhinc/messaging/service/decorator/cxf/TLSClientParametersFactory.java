@@ -31,14 +31,15 @@ import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
 
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.security.GeneralSecurityException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
+import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.cxf.transport.https.SSLUtils;
@@ -94,15 +95,12 @@ public class TLSClientParametersFactory {
     }
 
     private static TLSClientParameters constructTLSClient(TLSClientParameters tlsClientParameters) {
-        boolean isDisableCNCheck = false;
         try {
-            isDisableCNCheck = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
-                DISABLE_CN_CHECK);
-        } catch (PropertyAccessException ex) {
-            LOG.error("Not able to read 'disableCNCheck' from the property file: {}", ex.getLocalizedMessage(), ex);
-        }
+            boolean isDisableCNCheck = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
+                DISABLE_CN_CHECK, false);
+            setKeyManagers(tlsClientParameters);
+            setTrustManager(tlsClientParameters);
 
-        try {
             SSLSocketFactory factory = SSLUtils.getSSLContext(tlsClientParameters).getSocketFactory();
             if (factory != null) {
                 tlsClientParameters.setSSLSocketFactory(factory);
@@ -119,7 +117,49 @@ public class TLSClientParametersFactory {
         return tlsClientParameters;
     }
 
-    private char[] getKeystorePassword() throws UnrecoverableKeyException {
+    /**
+     * @param tlsClientParameters
+     */
+    private static void setTrustManager(TLSClientParameters tlsClientParameters) {
+        try {
+            TrustManagerFactory trustFactory = getInstance().trustFactory;
+            if (trustFactory != null) {
+                TrustManager trustManager[] = trustFactory.getTrustManagers();
+                if (trustManager != null) {
+                    LOG.debug("Trust Manager is not empty {}", trustManager.length);
+                    tlsClientParameters.setTrustManagers(trustManager);
+                }
+            } else {
+                LOG.debug("Trust Factory is empty");
+            }
+
+        } catch (IllegalStateException e) {
+            LOG.error(e.getLocalizedMessage(), e);
+        }
+    }
+
+    /**
+     * @param tlsClientParameters
+     */
+    private static void setKeyManagers(TLSClientParameters tlsClientParameters) {
+        try {
+            KeyManagerFactory keyFactory = getInstance().keyFactory;
+            if (keyFactory != null) {
+                KeyManager keyManager[] = keyFactory.getKeyManagers();
+                if (keyManager != null) {
+                    LOG.debug("Key Manger is not empty {} ", keyManager.length);
+                    tlsClientParameters.setKeyManagers(keyManager);
+                }
+            } else {
+                LOG.debug("Key Factory is null");
+            }
+        } catch (IllegalStateException e) {
+            LOG.error(e.getLocalizedMessage(), e);
+        }
+
+    }
+
+    private static char[] getKeystorePassword() throws UnrecoverableKeyException {
         String keystorePassword = System.getProperty("javax.net.ssl.keyStorePassword");
         if (keystorePassword == null || keystorePassword.isEmpty()) {
             throw new UnrecoverableKeyException("Password for key is null or empty.");
