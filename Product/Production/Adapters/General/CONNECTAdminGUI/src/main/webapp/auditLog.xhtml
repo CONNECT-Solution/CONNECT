@@ -331,9 +331,9 @@
                                         <h:form class="form-inline" role="form" id="formViewError">
                                             <p:dataTable id="errorResult" var="rec" value="#{errorLogBean.events}"
                                                 selection="#{errorLogBean.selectedEvent}" rowKey="#{rec.id}"
-                                                scrollable="true" scrollHeight="500" paginator="true"
+                                                scrollable="true" paginator="true"
                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                rowsPerPageTemplate="20,30,50"
+                                                rowsPerPageTemplate="10,20,30,50" rows="10"
                                                 styleClass="table table-striped table-domains">
                                                 <p:ajax event="rowSelectRadio" process="@this"
                                                     update="@form:btnViewEvent" />
