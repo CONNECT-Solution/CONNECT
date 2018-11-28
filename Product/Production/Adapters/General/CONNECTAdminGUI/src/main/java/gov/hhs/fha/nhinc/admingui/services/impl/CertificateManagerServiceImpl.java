@@ -73,7 +73,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -423,15 +422,15 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         while(null != child){
             child = addCertByChild(retList, tempList, child);
         }
-        Collections.reverse(retList);
         return retList;
 
     }
 
     private CertificateDTO addCertByAlias(List<CertificateDTO> toList, List<CertificateDTO> fromList, String alias){
         for(CertificateDTO cert : fromList){
-            if(StringUtils.isNotEmpty(cert.getAlias()) && StringUtils.isNotEmpty(alias) && cert.getAlias().compareTo(alias)==0){
-                toList.add(cert);
+            if (StringUtils.isNotEmpty(cert.getAlias()) && StringUtils.isNotEmpty(alias)
+                && cert.getAlias().equals(alias)) {
+                toList.add(0, cert);
                 fromList.remove(cert);
                 return cert;
             }
@@ -442,8 +441,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     private CertificateDTO addCertByChild(List<CertificateDTO> toList, List<CertificateDTO> fromList, CertificateDTO child){
         if (null != child && CollectionUtils.isNotEmpty(fromList)) {
             for(CertificateDTO cert : fromList){
-                if(child.getAuthorityKeyID().compareTo(cert.getSubjectKeyID())==0){
-                    toList.add(cert);
+                if (child.getAuthorityKeyID().equals(cert.getSubjectKeyID())) {
+                    toList.add(0, cert);
                     fromList.remove(cert);
                     return cert;
                 }
