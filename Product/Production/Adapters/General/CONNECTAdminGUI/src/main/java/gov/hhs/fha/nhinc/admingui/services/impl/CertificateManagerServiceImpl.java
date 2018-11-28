@@ -27,6 +27,11 @@
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.JKS_TYPE;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
+
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
@@ -34,10 +39,6 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.JKS_TYPE;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
 import gov.hhs.fha.nhinc.callback.opensaml.X509CertificateHelper;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
@@ -72,11 +73,14 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.activation.DataHandler;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -255,7 +259,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
     @Override
     public SimpleCertificateResponseMessageType deleteCertificateFromTrustStore(String alias, String hashToken) throws
-        CertificateManagerException {
+    CertificateManagerException {
         DeleteCertificateRequestMessageType request = new DeleteCertificateRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         request.setHashToken(hashToken);
@@ -311,11 +315,6 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         return soapResponseToDTO(response.getCertList());
     }
 
-    /**
-     * @param response
-     * @return
-     * @throws CertificateManagerException
-     */
     private List<CertificateDTO> soapResponseToDTO(List<ListCertificateType> certList)
         throws CertificateManagerException {
         List<CertificateDTO> certs = new ArrayList<>();
@@ -412,7 +411,46 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         } catch (Exception e) {
             throw new CertificateManagerException("Error while fetching certificates-chain.", e);
         }
-        return soapResponseToDTO(response.getCertList());
+        return sortChainCertificate(response.getCertList(), alias);
+    }
+
+    private List<CertificateDTO> sortChainCertificate(List<ListCertificateType> soapList, String alias) throws CertificateManagerException{
+        List<CertificateDTO> tempList = soapResponseToDTO(soapList);
+        List<CertificateDTO> retList = new LinkedList<>();
+
+        CertificateDTO child = addCertByAlias(retList, tempList, alias);
+
+        while(null != child){
+            child = addCertByChild(retList, tempList, child);
+        }
+        Collections.reverse(retList);
+        return retList;
+
+    }
+
+    private CertificateDTO addCertByAlias(List<CertificateDTO> toList, List<CertificateDTO> fromList, String alias){
+        for(CertificateDTO cert : fromList){
+            if(StringUtils.isNotEmpty(cert.getAlias()) && StringUtils.isNotEmpty(alias) && cert.getAlias().compareTo(alias)==0){
+                toList.add(cert);
+                fromList.remove(cert);
+                return cert;
+            }
+        }
+        return null;
+    }
+
+    private CertificateDTO addCertByChild(List<CertificateDTO> toList, List<CertificateDTO> fromList, CertificateDTO child){
+        if (null != child && CollectionUtils.isNotEmpty(fromList)) {
+            for(CertificateDTO cert : fromList){
+                if(child.getAuthorityKeyID().compareTo(cert.getSubjectKeyID())==0){
+                    toList.add(cert);
+                    fromList.remove(cert);
+                    return cert;
+                }
+            }
+        }
+
+        return null;
     }
 
 }
