@@ -26,20 +26,21 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
-import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
+import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
 
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.GUIConstants.COLOR_CODING_CSS;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
-import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
-import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
+import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
@@ -508,7 +509,7 @@ public class CertficateBean {
     }
 
     private static Map<String, CertificateDTO> buildChainOfTrustMap(List<CertificateDTO> list) {
-        Map<String, CertificateDTO> retVal = new HashMap<>();
+        Map<String, CertificateDTO> retVal = new LinkedHashMap<>();
 
         for (CertificateDTO item : list) {
             retVal.put(item.getAlias(), item);
