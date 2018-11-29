@@ -19,7 +19,7 @@
     
     <profiles>
         <profile>
-          <id>AdminGUI</id>
+          <id>admingui</id>
           <activation>
             <activeByDefault>false</activeByDefault>
           </activation>
