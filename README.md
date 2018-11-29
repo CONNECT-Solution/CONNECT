@@ -73,7 +73,7 @@ Please note that if at least one profile is explicitly defined in the build comm
 * AD - Admin Distribution
 * X12 - CAQH Core X12
 * DDS - Document Data Submission
-* adminws - AdminGUI webservice
+* admingui - AdminGUI and AdminGUI webservice
 * DB - Database scripts (dropall.sql, nhincdb.sql, populateTestData.sql)
 * was - WebSphere CONNECT ear
 * weblogic - WebLogic CONNECT ear
