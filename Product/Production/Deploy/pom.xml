@@ -742,13 +742,13 @@
                   <groupId>org.connectopensource</groupId>
                   <artifactId>AdminGUIWebservices</artifactId>
                   <contextRoot>/CONNECTGateway/AdminGUIServices</contextRoot>
-                  <excluded>${adminws.excluded}</excluded>
+                  <excluded>${admingui.excluded}</excluded>
                 </webModule>
                 <webModule>
                   <groupId>org.connectopensource</groupId>
                   <artifactId>CONNECTCommonWeb</artifactId>
                   <contextRoot>/CONNECTGateway/GUIPropertyService</contextRoot>
-                  <excluded>${adminws.excluded}</excluded>
+                  <excluded>${admingui.excluded}</excluded>
                 </webModule>
                 </modules>
             </configuration>
@@ -759,12 +759,12 @@
     
     <!-- Config Admin webservices -->
   <profile>
-      <id>adminws</id>
+      <id>admingui</id>
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <adminws.excluded>false</adminws.excluded>
+        <admingui.excluded>false</admingui.excluded>
       </properties>
       <dependencies>
         <dependency>
@@ -804,13 +804,13 @@
                   <groupId>org.connectopensource</groupId>
                   <artifactId>AdminGUIWebservices</artifactId>
                   <contextRoot>/CONNECTGateway/AdminGUIServices</contextRoot>
-                  <excluded>${adminws.excluded}</excluded>
+                  <excluded>${admingui.excluded}</excluded>
                 </webModule>
                 <webModule>
                   <groupId>org.connectopensource</groupId>
                   <artifactId>CONNECTCommonWeb</artifactId>
                   <contextRoot>/CONNECTGateway/GUIPropertyService</contextRoot>
-                  <excluded>${adminws.excluded}</excluded>
+                  <excluded>${admingui.excluded}</excluded>
                 </webModule>
               </modules>
             </configuration>
