@@ -124,15 +124,13 @@ public class TLSClientParametersFactory {
         try {
             TrustManagerFactory trustFactory = getInstance().trustFactory;
             if (trustFactory != null) {
-                TrustManager trustManager[] = trustFactory.getTrustManagers();
+                TrustManager[] trustManager = trustFactory.getTrustManagers();
                 if (trustManager != null) {
-                    LOG.debug("Trust Manager is not empty {}", trustManager.length);
                     tlsClientParameters.setTrustManagers(trustManager);
                 }
             } else {
                 LOG.debug("Trust Factory is empty");
             }
-
         } catch (IllegalStateException e) {
             LOG.error(e.getLocalizedMessage(), e);
         }
@@ -145,9 +143,8 @@ public class TLSClientParametersFactory {
         try {
             KeyManagerFactory keyFactory = getInstance().keyFactory;
             if (keyFactory != null) {
-                KeyManager keyManager[] = keyFactory.getKeyManagers();
+                KeyManager[] keyManager = keyFactory.getKeyManagers();
                 if (keyManager != null) {
-                    LOG.debug("Key Manger is not empty {} ", keyManager.length);
                     tlsClientParameters.setKeyManagers(keyManager);
                 }
             } else {
