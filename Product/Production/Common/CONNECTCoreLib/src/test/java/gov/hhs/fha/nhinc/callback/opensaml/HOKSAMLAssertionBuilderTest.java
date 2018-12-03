@@ -252,10 +252,10 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getAuthenticationInstant()).thenReturn(AuthIns);
         when(callbackProps.getAuthenticationStatementExists()).thenReturn(true);
 
-        final List<AuthnStatement> authnStatement = builder.createAuthenicationStatements(callbackProps);
+        final AuthnStatement authnStatement = builder.createAuthenicationStatements(callbackProps);
         assertNotNull(authnStatement);
 
-        assertFalse(authnStatement.isEmpty());
+        assertFalse(authnStatement.toString().isEmpty());
     }
 
     @Test

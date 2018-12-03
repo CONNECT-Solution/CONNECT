@@ -287,7 +287,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         // Not a *single* one of these methods ever returns a list with more than one element.
         // so in that case we can eventually drop the whole "List" thing going on and just add individual elements.
-        statements.add((Statement) createAuthenicationStatements(properties));
+        statements.add(createAuthenicationStatements(properties));
 
         // The following 6 statements are required for NHIN Spec
         statements.add(createSubjectIdAttributeStatement(properties));
@@ -319,9 +319,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return componentBuilder.createOrganizationIdAttributeStatement(organizationId);
     }
 
-    public List<AuthnStatement> createAuthenicationStatements(final CallbackProperties properties) {
+    public AuthnStatement createAuthenicationStatements(final CallbackProperties properties) {
 
-        final List<AuthnStatement> authnStatements = new ArrayList<>();
+        AuthnStatement authnStatements = null;
+
         if (properties.getAuthenticationStatementExists()) {
             String cntxCls = properties.getAuthenticationContextClass();
             if (cntxCls == null || !isValidAuthnCntxCls(cntxCls)) {
@@ -352,7 +353,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             final AuthnStatement authnStatement = componentBuilder
                 .createAuthenticationStatements(cntxCls, sessionIndex, authInstant, inetAddr, dnsName);
 
-            authnStatements.add(authnStatement);
+            authnStatements = authnStatement;
         }
         return authnStatements;
 
