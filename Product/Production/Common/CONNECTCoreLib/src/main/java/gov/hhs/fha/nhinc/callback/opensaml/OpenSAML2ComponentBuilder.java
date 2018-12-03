@@ -92,19 +92,14 @@ import org.slf4j.LoggerFactory;
  */
 public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
-
     private final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder;
-
     private static final String X509_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
-
     private static final String NAME_FORMAT_STRING = "urn:oasis:names:tc:SAML:2.0:attrname-format:uri";
-
+    private static final String PROPERTY_FILE_NAME = "assertioninfo";
+    private static final String SIG_ALGO = "saml.DigestAlgorithm";
     private final SAMLObjectBuilder<Evidence> evidenceBuilder;
-
     private final XSAnyBuilder xsAnyBuilder;
-
     private static OpenSAML2ComponentBuilder openSamlInstance;
-
     private static final Logger LOG = LoggerFactory.getLogger(OpenSAML2ComponentBuilder.class);
 
     /**
@@ -660,7 +655,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         final Signature signature = OpenSAMLUtil.buildSignature();
         signature.setSigningCredential(credential);
 
-        signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
+        String algorithm = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, SIG_ALGO,
+            SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
+
+        signature.setSignatureAlgorithm(algorithm);
 
         signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
         try {
