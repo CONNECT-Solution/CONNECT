@@ -450,11 +450,10 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getEvidenceAccessConstent()).thenReturn(evidenceAccessConstent);
         when(callbackProps.getEvidenceInstantAccessConsent()).thenReturn(evidenceInstantAccessConsent);
 
-        final List<AuthzDecisionStatement> statementList = getNonDefaultConditionBuilder()
+        final AuthzDecisionStatement statement = getNonDefaultConditionBuilder()
             .createAuthorizationDecisionStatements(callbackProps, subject);
 
-        assertFalse(statementList.isEmpty());
-        final AuthzDecisionStatement statement = statementList.get(0);
+        assertFalse(statement.toString().isEmpty());
         assertEquals(DecisionTypeEnumeration.PERMIT, statement.getDecision());
 
         final Action action = statement.getActions().get(0);
@@ -499,11 +498,11 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
 
-        final List<AuthzDecisionStatement> statementList = getNonDefaultConditionBuilder()
+        final AuthzDecisionStatement statement = getNonDefaultConditionBuilder()
             .createAuthorizationDecisionStatements(callbackProps, subject);
 
-        assertFalse(statementList.isEmpty());
-        final AuthzDecisionStatement statement = statementList.get(0);
+        assertFalse(statement.toString().isEmpty());
+        // final AuthzDecisionStatement statement = statementList.get(0);
 
         final Evidence evidence = statement.getEvidence();
         final Assertion assertion = evidence.getAssertions().get(0);
@@ -526,11 +525,11 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(null);
-        final List<AuthzDecisionStatement> statementList = getNonDefaultConditionBuilder()
+        final AuthzDecisionStatement statement = getNonDefaultConditionBuilder()
             .createAuthorizationDecisionStatements(callbackProps, subject);
 
-        assertFalse(statementList.isEmpty());
-        final AuthzDecisionStatement statement = statementList.get(0);
+        assertFalse(statement.toString().isEmpty());
+        // final AuthzDecisionStatement statement = statementList.get(0);
 
         final Evidence evidence = statement.getEvidence();
         final Assertion assertion = evidence.getAssertions().get(0);
@@ -552,11 +551,11 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getEvidenceConditionNotBefore()).thenReturn(conditionNotBefore);
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(null);
 
-        final List<AuthzDecisionStatement> statementList = getNonDefaultConditionBuilder()
+        final AuthzDecisionStatement statement = getNonDefaultConditionBuilder()
             .createAuthorizationDecisionStatements(callbackProps, subject);
 
-        assertFalse(statementList.isEmpty());
-        final AuthzDecisionStatement statement = statementList.get(0);
+        assertFalse(statement.toString().isEmpty());
+        // final AuthzDecisionStatement statement = statementList.get(0);
 
         final Evidence evidence = statement.getEvidence();
         final Assertion assertion = evidence.getAssertions().get(0);
@@ -660,11 +659,11 @@ public class HOKSAMLAssertionBuilderTest {
         when(callbackProps.getEvidenceConditionNotAfter()).thenReturn(conditionNotAfter);
         when(callbackProps.getAuthorizationStatementExists()).thenReturn(true);
 
-        final List<AuthzDecisionStatement> statementList = getNonDefaultConditionBuilder()
+        final AuthzDecisionStatement statement = getNonDefaultConditionBuilder()
             .createAuthorizationDecisionStatements(callbackProps, subject);
 
-        assertFalse(statementList.isEmpty());
-        final AuthzDecisionStatement statement = statementList.get(0);
+        assertFalse(statement.toString().isEmpty());
+        // final AuthzDecisionStatement statement = statementList.get(0);
         assertEquals(DecisionTypeEnumeration.PERMIT, statement.getDecision());
 
         final Action action = statement.getActions().get(0);
