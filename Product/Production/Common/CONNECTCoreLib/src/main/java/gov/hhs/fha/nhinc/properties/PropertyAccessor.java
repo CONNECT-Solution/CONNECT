@@ -148,6 +148,27 @@ public class PropertyAccessor implements IPropertyAcessor {
     }
 
     /**
+     * This will return true if the property value is: T, t, or any case combination of "TRUE" and it will return false
+     * for all other values. If entry is not found, it will return the default value
+     *
+     * @param propertyFile The name of the property file.
+     * @param propertyName The name of the property that contains a boolean value. This will return true if the value
+     *            is: T, t, or any case combination of "TRUE" and it will return false for all other values.
+     * @param defaultValue default value if entry doesn't exist in property file
+     */
+    @Override
+    public synchronized boolean getPropertyBoolean(String propertyFile, String propertyName, boolean defaultValue) {
+        try {
+            return getPropertyBoolean(propertyFile, propertyName);
+        } catch (PropertyAccessException e) {
+            LOG.error("Fail to retrieve {} from {}.property file. Default to {} ", propertyName, defaultValue,
+                propertyFile, e);
+            return defaultValue;
+        }
+
+    }
+
+    /**
      * This will return the long value conversion of the property. If the property value cannot be converted to a long,
      * an exception will be thrown.
      *
