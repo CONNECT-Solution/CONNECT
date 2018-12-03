@@ -89,7 +89,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     private final OpenSAML2ComponentBuilder componentBuilder;
     private static final String PROPERTY_FILE_NAME = "assertioninfo";
     private static final String PROPERTY_SAML_ISSUER_NAME = "SamlIssuerName";
-
+    private static final String DIG_ALGO = "saml.DigestAlgorithm";
     public HOKSAMLAssertionBuilder() {
         certificateManager = CertificateManagerImpl.getInstance();
         componentBuilder = OpenSAML2ComponentBuilder.getInstance();
@@ -159,7 +159,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                 publicKey);
             final SamlAssertionWrapper wrapper = new SamlAssertionWrapper(assertion);
 
-            wrapper.setSignature(signature, SignatureConstants.ALGO_ID_DIGEST_SHA1);
+            String algorithm = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, DIG_ALGO,
+                SignatureConstants.ALGO_ID_DIGEST_SHA1);
+
+            wrapper.setSignature(signature, algorithm);
             final MarshallerFactory marshallerFactory = XMLObjectProviderRegistrySupport.getMarshallerFactory();
             final Marshaller marshaller = marshallerFactory.getMarshaller(wrapper.getSamlObject());
             assertionElement = marshaller.marshall(wrapper.getSamlObject());
