@@ -290,22 +290,34 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         statements.add(createAuthenicationStatements(properties));
 
         // The following 6 statements are required for NHIN Spec
-        statements.add(createSubjectIdAttributeStatement(properties));
-        statements.add(createOrganizationAttributeStatements(properties));
-        statements.add(createSubjectRoleStatement(properties));
-        statements.add(createPurposeOfUseStatements(properties));
-        statements.add(createHomeCommunityIdAttributeStatement(properties));
-        statements.add(createOrganizationIdAttributeStatement(properties));
+        addOptionalStatement(statements, createSubjectIdAttributeStatement(properties));
+        addOptionalStatement(statements, createOrganizationAttributeStatement(properties));
+        addOptionalStatement(statements, createSubjectRoleStatement(properties));
+        addOptionalStatement(statements, createPurposeOfUseStatement(properties));
+        addOptionalStatement(statements, createHomeCommunityIdAttributeStatement(properties));
+        addOptionalStatement(statements, createOrganizationIdAttributeStatement(properties));
 
         // These are optional and may be omitted in the NHIN Spec
-        statements.add(createResourceIdAttributeStatement(properties));
-        statements.add(createNPIAttributeStatement(properties));
-        statements.addAll(createAcpAttributeStatements(properties));
+        addOptionalStatement(statements, createResourceIdAttributeStatement(properties));
+        addOptionalStatement(statements, createNPIAttributeStatement(properties));
+        addOptionalAttributeStatements(statements, createAcpAttributeStatements(properties));
         if (isAcpOrIacpExists(properties)) {
-            statements.add(createAuthorizationDecisionStatements(properties, subject));
+            addOptionalStatement(statements, createAuthorizationDecisionStatement(properties, subject));
         }
 
         return statements;
+    }
+
+    public void addOptionalStatement(List<Statement> statements, Statement statement) {
+        if (statement != null) {
+            statements.add(statement);
+        }
+    }
+
+    public void addOptionalAttributeStatements(List<Statement> statements, List<AttributeStatement> statementList) {
+        if (statementList != null) {
+            statements.addAll(statementList);
+        }
     }
 
     protected AttributeStatement createOrganizationIdAttributeStatement(
@@ -366,7 +378,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param subject
      * @return
      */
-    public AuthzDecisionStatement createAuthorizationDecisionStatements(final CallbackProperties properties,
+    public AuthzDecisionStatement createAuthorizationDecisionStatement(final CallbackProperties properties,
         final Subject subject) {
         AuthzDecisionStatement authDecisionStatement = null;
         final Boolean hasAuthzStmt = properties.getAuthorizationStatementExists();
@@ -590,7 +602,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    protected AttributeStatement createPurposeOfUseStatements(final CallbackProperties properties) {
+    protected AttributeStatement createPurposeOfUseStatement(final CallbackProperties properties) {
         AttributeStatement statement;
 
         final String purposeCode = properties.getPurposeCode();
@@ -626,7 +638,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    protected AttributeStatement createOrganizationAttributeStatements(final CallbackProperties properties) {
+    protected AttributeStatement createOrganizationAttributeStatement(final CallbackProperties properties) {
 
         Attribute attribute = null;
         final String organizationId = properties.getUserOrganization();
