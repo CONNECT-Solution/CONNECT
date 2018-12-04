@@ -287,7 +287,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         // Not a *single* one of these methods ever returns a list with more than one element.
         // so in that case we can eventually drop the whole "List" thing going on and just add individual elements.
-        statements.add(createAuthenicationStatements(properties));
+        addOptionalStatement(statements, createAuthenicationStatements(properties));
 
         // The following 6 statements are required for NHIN Spec
         addOptionalStatement(statements, createSubjectIdAttributeStatement(properties));
@@ -315,7 +315,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     public void addOptionalAttributeStatements(List<Statement> statements, List<AttributeStatement> statementList) {
-        if (statementList != null) {
+        if (CollectionUtils.isNotEmpty(statementList)) {
             statements.addAll(statementList);
         }
     }
