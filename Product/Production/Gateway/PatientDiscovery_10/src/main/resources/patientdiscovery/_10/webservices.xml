@@ -6,9 +6,6 @@
     in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
     ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under
     the License. -->
-    
-
-    
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:jaxws="http://cxf.apache.org/jaxws"
@@ -24,9 +21,8 @@
         http://cxf.apache.org/policy                http://cxf.apache.org/schemas/policy.xsd
         http://cxf.apache.org/core                  http://cxf.apache.org/schemas/core.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-        
-        
-    <context:property-placeholder location="file:///${nhinc.properties.dir}/assertioninfo.properties"/>
+
+    
     <!-- Patient Discovery -->
 
     <cxf:bus>
@@ -34,7 +30,8 @@
             <p:policies />
         </cxf:features>
     </cxf:bus>
-
+    <context:property-placeholder location="file:///${nhinc.properties.dir}/assertioninfo.properties"/>
+    
     <!-- Nhin services -->
 
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xcpd:2009" id="RespondingGateway_Service" address="/NhinService/NhinPatientDiscovery"
@@ -238,6 +235,7 @@
         endpointName="tns:EntityPatientLocationQuerySecuredPortSoap" implementor="#entitySecuredPLQ"
         wsdlLocation="classpath:wsdl/EntityPatientLocationQuerySecured.wsdl">
         <jaxws:properties>
+            <entry key="ws-security.asymmetric.signature.algorithm" value="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
