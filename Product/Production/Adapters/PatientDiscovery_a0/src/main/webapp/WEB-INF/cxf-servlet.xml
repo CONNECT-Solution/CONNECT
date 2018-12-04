@@ -48,7 +48,6 @@
         serviceName="tns:AdapterMpiSecuredService" endpointName="tns:AdapterMpiSecuredPortType" implementor="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiSecured"
         wsdlLocation="classpath:wsdl/AdapterMpiSecured.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.asymmetric.signature.algorithm" value="http://www.w3.org/2000/09/xmldsig#rsa-sha256"/>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
@@ -72,7 +71,6 @@
         address="/AdapterComponentMpiSecuredService" serviceName="tns:AdapterComponentMpiSecuredService" endpointName="tns:AdapterComponentMpiSecuredPort"
         implementor="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiSecured" wsdlLocation="classpath:wsdl/AdapterComponentSecuredMpi.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.asymmetric.signature.algorithm" value="http://www.w3.org/2000/09/xmldsig#rsa-sha256"/>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
@@ -96,7 +94,6 @@
         address="/AdapterPatientDiscoverySecured" serviceName="tns:AdapterPatientDiscoverySecured" endpointName="tns:AdapterPatientDiscoverySecuredPortSoap"
         implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscoverySecured" wsdlLocation="classpath:wsdl/AdapterPatientDiscoverySecured.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.asymmetric.signature.algorithm" value="http://www.w3.org/2000/09/xmldsig#rsa-sha256"/>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
@@ -124,7 +121,6 @@
         implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestSecured"
         wsdlLocation="classpath:wsdl/AdapterPatientDiscoverySecuredAsyncReq.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.asymmetric.signature.algorithm" value="http://www.w3.org/2000/09/xmldsig#rsa-sha256"/>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
@@ -152,7 +148,6 @@
         implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseSecured"
         wsdlLocation="classpath:wsdl/AdapterPatientDiscoverySecuredAsyncResp.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.asymmetric.signature.algorithm" value="http://www.w3.org/2000/09/xmldsig#rsa-sha256"/>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
@@ -189,7 +184,6 @@
         implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorSecured"
         wsdlLocation="classpath:wsdl/AdapterPatientDiscoverySecuredAsyncReqError.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.asymmetric.signature.algorithm" value="http://www.w3.org/2000/09/xmldsig#rsa-sha256"/>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
@@ -211,7 +205,6 @@
         implementor="gov.hhs.fha.nhinc.patientlocationquery.adapter.AdapterPatientLocationQuerySecured"
         wsdlLocation="classpath:wsdl/AdapterPatientLocationQuerySecured.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.asymmetric.signature.algorithm" value="http://www.w3.org/2000/09/xmldsig#rsa-sha256"/>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">

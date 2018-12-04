@@ -96,7 +96,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     private static final String X509_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
     private static final String NAME_FORMAT_STRING = "urn:oasis:names:tc:SAML:2.0:attrname-format:uri";
     private static final String PROPERTY_FILE_NAME = "assertioninfo";
-    private static final String SIG_ALGO = "saml.DigestAlgorithm";
+    private static final String SIG_ALGO = "saml.SignatureAlgorithm";
     private final SAMLObjectBuilder<Evidence> evidenceBuilder;
     private final XSAnyBuilder xsAnyBuilder;
     private static OpenSAML2ComponentBuilder openSamlInstance;
