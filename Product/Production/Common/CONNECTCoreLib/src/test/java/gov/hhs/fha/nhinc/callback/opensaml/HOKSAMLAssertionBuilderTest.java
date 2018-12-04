@@ -555,7 +555,6 @@ public class HOKSAMLAssertionBuilderTest {
             .createAuthorizationDecisionStatements(callbackProps, subject);
 
         assertFalse(statement.toString().isEmpty());
-        // final AuthzDecisionStatement statement = statementList.get(0);
 
         final Evidence evidence = statement.getEvidence();
         final Assertion assertion = evidence.getAssertions().get(0);
@@ -663,7 +662,6 @@ public class HOKSAMLAssertionBuilderTest {
             .createAuthorizationDecisionStatements(callbackProps, subject);
 
         assertFalse(statement.toString().isEmpty());
-        // final AuthzDecisionStatement statement = statementList.get(0);
         assertEquals(DecisionTypeEnumeration.PERMIT, statement.getDecision());
 
         final Action action = statement.getActions().get(0);
