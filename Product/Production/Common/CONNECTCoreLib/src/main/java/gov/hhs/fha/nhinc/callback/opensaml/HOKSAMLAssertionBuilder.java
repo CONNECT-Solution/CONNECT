@@ -284,9 +284,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     public List<Statement> createAttributeStatements(final CallbackProperties properties, final Subject subject) {
         final List<Statement> statements = new ArrayList<>();
-
-        // Not a *single* one of these methods ever returns a list with more than one element.
-        // so in that case we can eventually drop the whole "List" thing going on and just add individual elements.
         addOptionalStatement(statements, createAuthenicationStatements(properties));
 
         // The following 6 statements are required for NHIN Spec
