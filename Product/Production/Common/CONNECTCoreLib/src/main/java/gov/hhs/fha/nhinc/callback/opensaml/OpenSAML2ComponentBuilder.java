@@ -473,6 +473,12 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the list
      */
 
+    public AttributeStatement createAttributeStatement(final Attribute attribute) {
+        final AttributeStatement attributeStatement = attributeStatementBuilder.buildObject();
+        attributeStatement.getAttributes().add(attribute);
+        return attributeStatement;
+    }
+
     public List<AttributeStatement> createAttributeStatement(final List<Attribute> attributes) {
         final List<AttributeStatement> attributeStatements = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(attributes)) {
@@ -519,11 +525,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             attributes.add(createAttribute(null, SamlConstants.INST_ACCESS_CONSENT_ATTR, namespace,
                 evidenceInstanceAccessConsentValues));
         }
-        if (CollectionUtils.isNotEmpty(attributes)) {
-            statements = createAttributeStatement(attributes);
-        }
 
-        return statements;
+        return CollectionUtils.isNotEmpty(attributes) ? createAttributeStatement(attributes) : statements;
     }
 
     /**
@@ -631,14 +634,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param communityId the community id
      * @return the list
      */
-    public List<AttributeStatement> createHomeCommunitAttributeStatement(final String communityId) {
-        final List<AttributeStatement> statements = new ArrayList<>();
+    public AttributeStatement createHomeCommunitAttributeStatement(final String communityId) {
         final Attribute attribute = createAttribute(null, SamlConstants.HOME_COM_ID_ATTR, null,
             Arrays.asList(communityId));
 
-        statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
-
-        return statements;
+        return createAttributeStatement(attribute);
     }
 
 
@@ -681,14 +681,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param purposeDisplay the purpose display
      * @return the list
      */
-    public List<AttributeStatement> createPurposeOfUseAttributeStatements(final String purposeCode,
+    public AttributeStatement createPurposeOfUseAttributeStatement(final String purposeCode,
         final String purposeSystem, final String purposeSystemName, final String purposeDisplay) {
-
-        final List<AttributeStatement> statements = new ArrayList<>();
         final Attribute attribute = createPurposeOfUseAttribute(purposeCode, purposeSystem, purposeSystemName,
             purposeDisplay);
-        statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
-        return statements;
+        return createAttributeStatement(attribute);
     }
 
     /**
@@ -700,13 +697,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param purposeDisplay the purpose display
      * @return the list
      */
-    public List<AttributeStatement> createPurposeForUseAttributeStatements(final String purposeCode,
+    public AttributeStatement createPurposeForUseAttributeStatement(final String purposeCode,
         final String purposeSystem, final String purposeSystemName, final String purposeDisplay) {
-        final List<AttributeStatement> statements = new ArrayList<>();
         final Attribute attribute = createPurposeForUseAttribute(purposeCode, purposeSystem, purposeSystemName,
             purposeDisplay);
-        statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
-        return statements;
+        return createAttributeStatement(attribute);
     }
 
     /**
@@ -749,11 +744,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @param organizationId the organization id
      * @return the list
      */
-    public List<AttributeStatement> createOrganizationIdAttributeStatement(final String organizationId) {
-        final List<AttributeStatement> statements = new ArrayList<>();
+    public AttributeStatement createOrganizationIdAttributeStatement(final String organizationId) {
         final Attribute attribute = createAttribute(null, SamlConstants.USER_ORG_ID_ATTR, null,
             Arrays.asList(organizationId));
-        statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
-        return statements;
+        return createAttributeStatement(attribute);
     }
 }

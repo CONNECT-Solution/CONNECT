@@ -38,7 +38,6 @@ import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -191,7 +190,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
             sIssuer = certificate != null ?
                 certificate.getIssuerX500Principal().getName() :
-                PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME, NhincConstants.SAML_DEFAULT_ISSUER_NAME);
+                    PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME, NhincConstants.SAML_DEFAULT_ISSUER_NAME);
         }
 
         if (StringUtils.isBlank(sIssuer)) {
@@ -285,31 +284,40 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     public List<Statement> createAttributeStatements(final CallbackProperties properties, final Subject subject) {
         final List<Statement> statements = new ArrayList<>();
-
-        // Not a *single* one of these methods ever returns a list with more than one element.
-        // so in that case we can eventually drop the whole "List" thing going on and just add individual elements.
-        statements.addAll(createAuthenicationStatements(properties));
+        addOptionalStatement(statements, createAuthenicationStatements(properties));
 
         // The following 6 statements are required for NHIN Spec
-        statements.addAll(createSubjectIdAttributeStatement(properties));
-        statements.addAll(createOrganizationAttributeStatements(properties));
-        statements.addAll(createSubjectRoleStatement(properties));
-        statements.addAll(createPurposeOfUseStatements(properties));
-        statements.addAll(createHomeCommunityIdAttributeStatements(properties));
-        statements.addAll(createOrganizationIdAttributeStatements(properties));
+        addOptionalStatement(statements, createSubjectIdAttributeStatement(properties));
+        addOptionalStatement(statements, createOrganizationAttributeStatement(properties));
+        addOptionalStatement(statements, createSubjectRoleStatement(properties));
+        addOptionalStatement(statements, createPurposeOfUseStatement(properties));
+        addOptionalStatement(statements, createHomeCommunityIdAttributeStatement(properties));
+        addOptionalStatement(statements, createOrganizationIdAttributeStatement(properties));
 
         // These are optional and may be omitted in the NHIN Spec
-        statements.addAll(createResourceIdAttributeStatements(properties));
-        statements.addAll(createNPIAttributeStatements(properties));
-        statements.addAll(createAcpAttributeStatements(properties));
+        addOptionalStatement(statements, createResourceIdAttributeStatement(properties));
+        addOptionalStatement(statements, createNPIAttributeStatement(properties));
+        addOptionalAttributeStatements(statements, createAcpAttributeStatements(properties));
         if (isAcpOrIacpExists(properties)) {
-            statements.addAll(createAuthorizationDecisionStatements(properties, subject));
+            addOptionalStatement(statements, createAuthorizationDecisionStatement(properties, subject));
         }
 
         return statements;
     }
 
-    protected Collection<AttributeStatement> createOrganizationIdAttributeStatements(
+    public void addOptionalStatement(List<Statement> statements, Statement statement) {
+        if (statement != null) {
+            statements.add(statement);
+        }
+    }
+
+    public void addOptionalAttributeStatements(List<Statement> statements, List<AttributeStatement> statementList) {
+        if (CollectionUtils.isNotEmpty(statementList)) {
+            statements.addAll(statementList);
+        }
+    }
+
+    protected AttributeStatement createOrganizationIdAttributeStatement(
         final CallbackProperties properties) {
         String organizationId = properties.getUserOrganizationId();
         if (organizationId == null) {
@@ -320,9 +328,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return componentBuilder.createOrganizationIdAttributeStatement(organizationId);
     }
 
-    public List<AuthnStatement> createAuthenicationStatements(final CallbackProperties properties) {
+    public AuthnStatement createAuthenicationStatements(final CallbackProperties properties) {
 
-        final List<AuthnStatement> authnStatements = new ArrayList<>();
+        AuthnStatement authnStatements = null;
+
         if (properties.getAuthenticationStatementExists()) {
             String cntxCls = properties.getAuthenticationContextClass();
             if (cntxCls == null || !isValidAuthnCntxCls(cntxCls)) {
@@ -353,23 +362,22 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             final AuthnStatement authnStatement = componentBuilder
                 .createAuthenticationStatements(cntxCls, sessionIndex, authInstant, inetAddr, dnsName);
 
-            authnStatements.add(authnStatement);
+            authnStatements = authnStatement;
         }
         return authnStatements;
 
     }
 
     /**
-     * Creates the optional Autorization Decision Statement for the SAML 2 Assertion
+     * Creates the optional Authorization Decision Statement for the SAML 2 Assertion
      *
      * @param properties
      * @param subject
      * @return
      */
-    public List<AuthzDecisionStatement> createAuthorizationDecisionStatements(final CallbackProperties properties,
+    public AuthzDecisionStatement createAuthorizationDecisionStatement(final CallbackProperties properties,
         final Subject subject) {
-        final List<AuthzDecisionStatement> authDecisionStatements = new ArrayList<>();
-
+        AuthzDecisionStatement authDecisionStatement = null;
         final Boolean hasAuthzStmt = properties.getAuthorizationStatementExists();
         // The authorization Decision Statement is optional
         if (hasAuthzStmt) {
@@ -377,11 +385,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             final String resource = properties.getAuthorizationResource();
             final Evidence evidence = createEvidence(properties, subject);
 
-            authDecisionStatements.add(componentBuilder.createAuthzDecisionStatement(resource,
-                AUTHZ_DECISION_PERMIT, AUTHZ_DECISION_ACTION_EXECUTE, evidence));
+            authDecisionStatement = componentBuilder.createAuthzDecisionStatement(resource, AUTHZ_DECISION_PERMIT,
+                AUTHZ_DECISION_ACTION_EXECUTE, evidence);
         }
 
-        return authDecisionStatements;
+        return authDecisionStatement;
     }
 
     /**
@@ -545,7 +553,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     /**
      * Creates the Attribute statements for Subject ID.
      */
-    public List<AttributeStatement> createSubjectIdAttributeStatement(final CallbackProperties properties) {
+    public AttributeStatement createSubjectIdAttributeStatement(final CallbackProperties properties) {
 
         final String nameConstruct = properties.getUserFullName();
 
@@ -554,16 +562,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             throw new SAMLAssertionBuilderException("No information provided to fill in Subject ID attribute.");
         }
 
-        final List<AttributeStatement> statements = new ArrayList<>();
-        final List<Attribute> attributes = new ArrayList<>();
-
         LOG.debug("UserName: {}", nameConstruct);
-        attributes.add(
-            componentBuilder.createAttribute(null, SamlConstants.USERNAME_ATTR, null, Arrays.asList(nameConstruct)));
-
-        statements.addAll(componentBuilder.createAttributeStatement(attributes));
-
-        return statements;
+        Attribute attribute =
+            componentBuilder.createAttribute(null, SamlConstants.USERNAME_ATTR, null, Arrays.asList(nameConstruct));
+        return componentBuilder.createAttributeStatement(attribute);
     }
 
     /**
@@ -572,7 +574,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    protected List<AttributeStatement> createSubjectRoleStatement(final CallbackProperties properties) {
+    protected AttributeStatement createSubjectRoleStatement(final CallbackProperties properties) {
 
         final String userCode = properties.getUserCode();
         final String userSystem = properties.getUserSystem();
@@ -584,15 +586,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             throw new SAMLAssertionBuilderException("No information provided to fill in subject role attribute.");
         }
 
-        final List<AttributeStatement> statements = new ArrayList<>();
-        final List<Attribute> attributes = new ArrayList<>();
-        attributes.add(componentBuilder.createSubjectRoleAttribute(userCode, userSystem, userSystemName, userDisplay));
-
-        if (!attributes.isEmpty()) {
-            statements.addAll(componentBuilder.createAttributeStatement(attributes));
-        }
-
-        return statements;
+        Attribute attribute =
+            componentBuilder.createSubjectRoleAttribute(userCode, userSystem, userSystemName, userDisplay);
+        return attribute != null ? componentBuilder.createAttributeStatement(attribute) : null;
 
     }
 
@@ -603,8 +599,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    protected List<AttributeStatement> createPurposeOfUseStatements(final CallbackProperties properties) {
-        List<AttributeStatement> statements;
+    protected AttributeStatement createPurposeOfUseStatement(final CallbackProperties properties) {
+        AttributeStatement statement;
 
         final String purposeCode = properties.getPurposeCode();
         final String purposeSystem = properties.getPurposeSystem();
@@ -623,14 +619,14 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         // purposeofuse or purposeforuse.
         final PurposeOfForDecider pd = new PurposeOfForDecider();
         if (pd.isPurposeFor(properties)) {
-            statements = componentBuilder.createPurposeForUseAttributeStatements(purposeCode,
+            statement = componentBuilder.createPurposeForUseAttributeStatement(purposeCode,
                 purposeSystem, purposeSystemName, purposeDisplay);
         } else {
-            statements = componentBuilder.createPurposeOfUseAttributeStatements(purposeCode,
+            statement = componentBuilder.createPurposeOfUseAttributeStatement(purposeCode,
                 purposeSystem, purposeSystemName, purposeDisplay);
         }
 
-        return statements;
+        return statement;
     }
 
     /**
@@ -639,25 +635,19 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    protected List<AttributeStatement> createOrganizationAttributeStatements(final CallbackProperties properties) {
+    protected AttributeStatement createOrganizationAttributeStatement(final CallbackProperties properties) {
 
-        final List<AttributeStatement> statements = new ArrayList<>();
-        final List<Attribute> attributes = new ArrayList<>();
-
+        Attribute attribute = null;
         final String organizationId = properties.getUserOrganization();
         if (organizationId != null) {
-            attributes.add(componentBuilder.createAttribute(null, SamlConstants.USER_ORG_ATTR,
-                null, Arrays.asList(organizationId)));
-            if (!attributes.isEmpty()) {
-                statements.addAll(componentBuilder.createAttributeStatement(attributes));
-            }
+            attribute = componentBuilder.createAttribute(null, SamlConstants.USER_ORG_ATTR, null,
+                Arrays.asList(organizationId));
+
         } else {
             LOG.error("No Organization Attribute statement provided.");
             throw new SAMLAssertionBuilderException("No Organization Attribute statement provided.");
         }
-
-        return statements;
-
+        return attribute != null ? componentBuilder.createAttributeStatement(attribute) : null;
     }
 
     /**
@@ -666,7 +656,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    protected List<AttributeStatement> createHomeCommunityIdAttributeStatements(final CallbackProperties properties) {
+    protected AttributeStatement createHomeCommunityIdAttributeStatement(final CallbackProperties properties) {
 
         final String communityId = properties.getHomeCommunity();
         if (StringUtils.isBlank(communityId)) {
@@ -684,16 +674,15 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    protected List<AttributeStatement> createResourceIdAttributeStatements(final CallbackProperties properties) {
-        final List<AttributeStatement> statements = new ArrayList<>();
+    protected AttributeStatement createResourceIdAttributeStatement(final CallbackProperties properties) {
+        Attribute attribute = null;
         final String patientId = properties.getPatientID();
         if (patientId != null) {
-            Attribute attribute = componentBuilder.createResourceIDAttribute(patientId);
-            statements.addAll(componentBuilder.createAttributeStatement(Arrays.asList(attribute)));
+            attribute = componentBuilder.createResourceIDAttribute(patientId);
         } else {
             LOG.warn("Resource Id is missing");
         }
-        return statements;
+        return attribute != null ? componentBuilder.createAttributeStatement(attribute) : null;
     }
 
     /**
@@ -702,24 +691,22 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    protected List<AttributeStatement> createNPIAttributeStatements(final CallbackProperties properties) {
+    protected AttributeStatement createNPIAttributeStatement(final CallbackProperties properties) {
 
-        final List<AttributeStatement> statements = new ArrayList<>();
-        Attribute attribute;
+        Attribute attribute = null;
 
         final String npi = properties.getNPI();
         if (npi != null) {
             attribute = componentBuilder.createNPIAttribute(npi);
-            statements.addAll(componentBuilder.createAttributeStatement(Arrays.asList(attribute)));
         } else {
             LOG.warn("npi is missing");
         }
-        return statements;
+        return attribute != null ? componentBuilder.createAttributeStatement(attribute) : null;
 
     }
 
     protected List<AttributeStatement> createAcpAttributeStatements(CallbackProperties properties) {
-        final List<AttributeStatement> statements = new ArrayList<>();
+        List<AttributeStatement> statements = new ArrayList<>();
         Attribute acpAttribute;
         Attribute iacpAttribute;
 
@@ -730,16 +717,14 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                 .createAttribute(SamlConstants.ATTRIBUTE_FRIENDLY_NAME_XUA_ACP, SamlConstants.ATTRIBUTE_NAME_XUA_ACP,
                     SamlConstants.URI_NAME_FORMAT);
             acpAttribute.getAttributeValues().add(componentBuilder.createUriAttributeValue(acp));
-            statements
-            .addAll(componentBuilder.createAttributeStatement(Arrays.asList(acpAttribute)));
+            statements.add(componentBuilder.createAttributeStatement(acpAttribute));
         }
         if(StringUtils.isNotEmpty(iacp)) {
             iacpAttribute = componentBuilder
                 .createAttribute(SamlConstants.ATTRIBUTE_FRIENDLY_NAME_XUA_IACP, SamlConstants.ATTRIBUTE_NAME_XUA_IACP,
                     SamlConstants.URI_NAME_FORMAT);
             iacpAttribute.getAttributeValues().add(componentBuilder.createUriAttributeValue(iacp));
-            statements
-            .addAll(componentBuilder.createAttributeStatement(Arrays.asList(iacpAttribute)));
+            statements.add(componentBuilder.createAttributeStatement(iacpAttribute));
         }
         return statements;
     }
