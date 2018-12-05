@@ -30,7 +30,8 @@
             <p:policies />
         </cxf:features>
     </cxf:bus>
-    <context:property-placeholder location="file:///${nhinc.properties.dir}/assertioninfo.properties"/>
+    <context:property-placeholder />
+
     
     <!-- Nhin services -->
 
@@ -38,7 +39,7 @@
         serviceName="tns:RespondingGateway_Service" endpointName="tns:RespondingGateway_Port_Soap" implementor="#nhinPD"
         wsdlLocation="classpath:wsdl/NhinPatientDiscovery.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.asymmetric.signature.algorithm" value="${saml.SignatureAlgorithm : http://www.w3.org/2000/09/xmldsig#rsa-sha1}"/>
+            
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
@@ -235,7 +236,6 @@
         endpointName="tns:EntityPatientLocationQuerySecuredPortSoap" implementor="#entitySecuredPLQ"
         wsdlLocation="classpath:wsdl/EntityPatientLocationQuerySecured.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.asymmetric.signature.algorithm" value="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
