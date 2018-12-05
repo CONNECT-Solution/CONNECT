@@ -50,6 +50,7 @@ import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SAMLCallback;
 import org.apache.wss4j.common.saml.bean.Version;
 import org.apache.wss4j.policy.SPConstants;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,6 +63,9 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
     private static final Logger LOG = LoggerFactory.getLogger(CXFSAMLCallbackHandler.class);
     private PropertyAccessor accessor;
     public static final String HOK_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
+    private static final String PROPERTY_FILE_NAME = "assertioninfo";
+    private static final String SIG_ALGO = "saml.SignatureAlgorithm";
+    private static final String DIG_ALGO = "saml.DigestAlgorithm";
     private HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
     private Crypto issuerCrypto = null;
 
@@ -105,8 +109,14 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                         NhincConstants.SIGNATURE_PROPERTIES_STRING));
                     oSAMLCallback.setIssuerCrypto(issuerCrypto);
                     oSAMLCallback.setSamlVersion(Version.SAML_20);
-                    oSAMLCallback.setSignatureAlgorithm(SPConstants.SHA1);
-                    oSAMLCallback.setSignatureDigestAlgorithm(SPConstants.SHA1);
+
+                    String salgorithm = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, SIG_ALGO,
+                        SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
+
+                    String dalgorithm = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, DIG_ALGO,
+                        SPConstants.SHA1);
+                    oSAMLCallback.setSignatureAlgorithm(salgorithm);
+                    oSAMLCallback.setSignatureDigestAlgorithm(dalgorithm);
 
                     final SamlTokenCreator creator = new SamlTokenCreator();
                     final CallbackProperties properties = new CallbackMapProperties(addMessageProperties(

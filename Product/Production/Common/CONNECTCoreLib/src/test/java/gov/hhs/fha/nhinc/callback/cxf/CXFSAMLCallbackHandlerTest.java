@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -44,7 +43,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.cxf.message.Message;
 import org.apache.wss4j.common.saml.SAMLCallback;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -69,7 +67,6 @@ public class CXFSAMLCallbackHandlerTest {
     }
 
     @Test
-    @Ignore
     public void testHandle() throws Exception {
         Callback[] callbackList = new Callback[1];
         SAMLCallback samlCallback = new SAMLCallback();
@@ -96,7 +93,6 @@ public class CXFSAMLCallbackHandlerTest {
 
         assertEquals(samlCallback.getSamlVersion(), org.opensaml.saml.common.SAMLVersion.VERSION_20);
         assertEquals(samlCallback.getAssertionElement().getTextContent(), ASSERTION);
-        assertNotNull(null);
     }
 
     @Test
