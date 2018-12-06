@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.gateway.policyenginetransformation;
 
-import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.SOAPBinding;
@@ -37,24 +35,13 @@ import javax.xml.ws.soap.SOAPBinding;
  * @author Neil Webb
  */
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class PolicyEngineTransformationService implements gov.hhs.fha.nhinc.nhincinternalcomponentpolicyenginetransform.NhincInternalComponentPolicyEngineTransformPortType {
+public class PolicyEngineTransformationService implements
+    gov.hhs.fha.nhinc.nhincinternalcomponentpolicyenginetransform.NhincInternalComponentPolicyEngineTransformPortType {
 
     @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformAdhocQueryToCheckPolicy(
         gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {
         return new PolicyEngineTransformer().transformAdhocQueryToCheckPolicy(transformAdhocQueryToCheckPolicyRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformSubjectRevisedToCheckPolicy(
-        gov.hhs.fha.nhinc.common.eventcommon.SubjectRevisedEventType transformSubjectRevisedToCheckPolicyRequest
-    ) {
-        throw new UnsupportedOperationException("Not implemented.");
-    }
-
-    @Override
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformAdhocQueryResultToCheckPolicy(
-        gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResultEventType transformAdhocQueryResultToCheckPolicyRequest) {
-        throw new UnsupportedOperationException("Not implemented.");
     }
 
     @Override
@@ -65,26 +52,10 @@ public class PolicyEngineTransformationService implements gov.hhs.fha.nhinc.nhin
     }
 
     @Override
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformDocRetrieveResultToCheckPolicy(
-        gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveResultEventType transformDocRetrieveResultToCheckPolicyRequest) {
-        throw new UnsupportedOperationException("Not implemented.");
-    }
-
-    @Override
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(
         gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest) {
         return new PolicyEngineTransformer()
             .transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformNotifyToCheckPolicy(
-        gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType transformNotifyToCheckPolicyRequest) {
-        return new PolicyEngineTransformer().transformNotifyToCheckPolicy(transformNotifyToCheckPolicyRequest);
-    }
-
-    public CheckPolicyRequestType transformSubjectAddedToCheckPolicy(
-        SubjectAddedEventType transformSubjectAddedToCheckPolicyRequest) {
-        throw new UnsupportedOperationException("Not implemented.");
     }
 
 }
