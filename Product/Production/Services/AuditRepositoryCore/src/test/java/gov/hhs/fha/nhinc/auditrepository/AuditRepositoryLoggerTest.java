@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,18 +26,17 @@
  */
 package gov.hhs.fha.nhinc.auditrepository;
 
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
-import gov.hhs.fha.nhinc.common.auditlog.FindAuditEventsMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
 
 /**
  *
@@ -45,42 +44,63 @@ import org.junit.Test;
  */
 public class AuditRepositoryLoggerTest {
 
-    // TODO: Tests reference other dependencies - move to integration test suite
     public AuditRepositoryLoggerTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
     /**
-     * Test of logFindAuditEvents method, of class AuditRepositoryLogger.
+     * Test of logEntityAdminDist method, of class AuditRepositoryLogger.
      */
     @Test
-    public void testLogFindAuditEvents() {
+    public void logEntityAdminDist() {
 
-        AuditRepositoryLogger instance = new AuditRepositoryLogger();
-        FindAuditEventsMessageType message = new FindAuditEventsMessageType();
-        FindAuditEventsType auditEvent = new FindAuditEventsType();
-        auditEvent.setPatientId("D12345");
-        message.setFindAuditEvents(auditEvent);
-        LogEventRequestType result = instance.logFindAuditEvents(message, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        AuditRepositoryLogger logger = new AuditRepositoryLogger();
+        RespondingGatewaySendAlertMessageType adEntityMsg = mock(RespondingGatewaySendAlertMessageType.class);
+        LogEventRequestType auditMsg = logger.logEntityAdminDist(adEntityMsg, createAssertionInfo(), "Inbound");
+        assertNotNull(auditMsg);
+        assertEquals("Entity Inbound", auditMsg.getDirection());
+    }
 
-        assertNotNull(result);
-        assertEquals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, result.getDirection());
-        assertNotNull(result.getAuditMessage());
+    private AssertionType createAssertionInfo() {
+        AssertionType assertion = new AssertionType();
+        assertion.setPersonName(createPerson());
+        assertion.setHomeCommunity(createHomeCommunityType());
+        assertion.setUserInfo(createUserType());
+        return assertion;
+
+    }
+
+    private UserType createUserType() {
+        UserType userInfo = new UserType();
+        userInfo.setOrg(createHomeCommunityType());
+        userInfo.setPersonName(createPerson());
+        userInfo.setUserName("CONNECT");
+        userInfo.setRoleCoded(createCeType());
+        return userInfo;
+    }
+
+    private HomeCommunityType createHomeCommunityType() {
+        HomeCommunityType home = new HomeCommunityType();
+        home.setName("CONNECT");
+        home.setHomeCommunityId("1.1");
+        home.setDescription("CONNECTCommunity");
+        return home;
+    }
+
+    private CeType createCeType() {
+        CeType ce = new CeType();
+        ce.setCode("code");
+        ce.setCodeSystem("codesystem");
+        ce.setCodeSystemName("Connect");
+        ce.setDisplayName("display");
+        return ce;
+    }
+
+    private PersonNameType createPerson() {
+        PersonNameType person = new PersonNameType();
+        person.setFamilyName("HopKins");
+        person.setFullName("Michael Hunter");
+        person.setGivenName("Michael");
+        person.setSecondNameOrInitials("Simmons");
+        return person;
     }
 }

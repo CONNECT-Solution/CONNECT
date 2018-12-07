@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResultEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveResultEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.PatDiscReqEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseEventType;
@@ -44,7 +43,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
  */
 public class PolicyEngineTransformer {
 
-    private PatientDiscoveryPolicyTransformHelper pdPolicyTransformerHelepr = new PatientDiscoveryPolicyTransformHelper();
+    private PatientDiscoveryPolicyTransformHelper pdPolicyTransformerHelepr
+        = new PatientDiscoveryPolicyTransformHelper();
 
     public CheckPolicyRequestType transformPatDiscReqToCheckPolicy(
         PatDiscReqEventType transformPatDiscReqToCheckPolicyRequest) {
@@ -78,10 +78,6 @@ public class PolicyEngineTransformer {
         FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest) {
         return FindAuditEventsTransformHelper
             .transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
-    }
-
-    public CheckPolicyRequestType transformNotifyToCheckPolicy(NotifyEventType transformNotifyToCheckPolicyRequest) {
-        return NotifyTransformHelper.transformNotifyToCheckPolicy(transformNotifyToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformXDRRequestToCheckPolicy(XDREventType request) {
