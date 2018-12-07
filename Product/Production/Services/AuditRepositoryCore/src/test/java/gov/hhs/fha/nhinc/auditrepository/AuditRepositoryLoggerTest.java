@@ -26,11 +26,17 @@
  */
 package gov.hhs.fha.nhinc.auditrepository;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
 
 /**
  *
@@ -38,41 +44,63 @@ import org.junit.Test;
  */
 public class AuditRepositoryLoggerTest {
 
-    // TODO: Tests reference other dependencies - move to integration test suite
     public AuditRepositoryLoggerTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
     /**
-     * Test of logFindAuditEvents method, of class AuditRepositoryLogger.
+     * Test of logEntityAdminDist method, of class AuditRepositoryLogger.
      */
     @Test
-    public void testLogFindAuditEvents() {
+    public void logEntityAdminDist() {
 
-        /*
-         * AuditRepositoryLogger instance = new AuditRepositoryLogger(); FindAuditEventsMessageType message = new
-         * FindAuditEventsMessageType(); FindAuditEventsType auditEvent = new FindAuditEventsType();
-         * auditEvent.setPatientId("D12345"); message.setFindAuditEvents(auditEvent); LogEventRequestType result =
-         * instance.logFindAuditEvents(message, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-         * NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-         *
-         * assertNotNull(result); assertEquals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, result.getDirection());
-        assertNotNull(result.getAuditMessage());
-         */
+        AuditRepositoryLogger logger = new AuditRepositoryLogger();
+        RespondingGatewaySendAlertMessageType adEntityMsg = mock(RespondingGatewaySendAlertMessageType.class);
+        LogEventRequestType auditMsg = logger.logEntityAdminDist(adEntityMsg, createAssertionInfo(), "Inbound");
+        assertNotNull(auditMsg);
+        assertEquals("Entity Inbound", auditMsg.getDirection());
+    }
+
+    private AssertionType createAssertionInfo() {
+        AssertionType assertion = new AssertionType();
+        assertion.setPersonName(createPerson());
+        assertion.setHomeCommunity(createHomeCommunityType());
+        assertion.setUserInfo(createUserType());
+        return assertion;
+
+    }
+
+    private UserType createUserType() {
+        UserType userInfo = new UserType();
+        userInfo.setOrg(createHomeCommunityType());
+        userInfo.setPersonName(createPerson());
+        userInfo.setUserName("CONNECT");
+        userInfo.setRoleCoded(createCeType());
+        return userInfo;
+    }
+
+    private HomeCommunityType createHomeCommunityType() {
+        HomeCommunityType home = new HomeCommunityType();
+        home.setName("CONNECT");
+        home.setHomeCommunityId("1.1");
+        home.setDescription("CONNECTCommunity");
+        return home;
+    }
+
+    private CeType createCeType() {
+        CeType ce = new CeType();
+        ce.setCode("code");
+        ce.setCodeSystem("codesystem");
+        ce.setCodeSystemName("Connect");
+        ce.setDisplayName("display");
+        return ce;
+    }
+
+    private PersonNameType createPerson() {
+        PersonNameType person = new PersonNameType();
+        person.setFamilyName("HopKins");
+        person.setFullName("Michael Hunter");
+        person.setGivenName("Michael");
+        person.setSecondNameOrInitials("Simmons");
+        return person;
     }
 }

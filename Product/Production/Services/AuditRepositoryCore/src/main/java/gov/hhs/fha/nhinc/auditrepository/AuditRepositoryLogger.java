@@ -50,31 +50,6 @@ public class AuditRepositoryLogger {
     public AuditRepositoryLogger() {
     }
 
-    /**
-     * This method will create the generic Audit Log Message from an audit query request.
-     *
-     * @param message The Audit Query Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    /*
-     * public LogEventRequestType logFindAuditEvents(FindAuditEventsMessageType message, String direction, String
-     * _interface) { LOG.debug("Entering AuditRepositoryLogger.logFindAuditEvents(...)"); LogEventRequestType auditMsg;
-     * LogFindAuditEventsRequestType logReqMsg = new LogFindAuditEventsRequestType(); logReqMsg.setMessage(message);
-     * logReqMsg.setDirection(direction); logReqMsg.setInterface(_interface); auditMsg =
-     * FindAuditEventsTransforms.transformFindAuditEventsReq2AuditMsg(logReqMsg); LOG.debug("Exiting
-     * AuditRepositoryLogger.logFindAuditEvents(...)"); return auditMsg;
-    }
-     */
-    /**
-     * This method will create the generic Audit Log Message from an Entity Patient Discovery Response.
-     *
-     * @param message The Patient Discovery Response message to be audit logged.
-     * @param assertion The Assertion Class containing SAML information
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
     public LogEventRequestType logEntityAdminDist(
         gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType message,
         AssertionType assertion, String direction) {
