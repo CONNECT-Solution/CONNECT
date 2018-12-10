@@ -103,9 +103,9 @@ public class HOKSAMLAssertionBuilderTest {
         X509Certificate cert = mock(X509Certificate.class);
 
 
-        when(certManager.getDefaultPublicKey()).thenReturn(publicKey);
-        when(certManager.getDefaultPrivateKey()).thenReturn(privateKey);
-        when(certManager.getDefaultCertificate()).thenReturn(cert);
+        when(certManager.getDefaultPublicKey(Mockito.any(String.class))).thenReturn(publicKey);
+        when(certManager.getDefaultPrivateKey(Mockito.any(String.class))).thenReturn(privateKey);
+        when(certManager.getDefaultCertificate(Mockito.any(String.class))).thenReturn(cert);
         when(certManager.deleteCertificate(Mockito.isA(String.class))).thenReturn(false);
         when(certManager.updateCertificate(Mockito.isA(String.class), Mockito.isA(String.class),
             Mockito.isA(String.class), Mockito.isA(String.class), Mockito.isA(String.class),
@@ -124,7 +124,7 @@ public class HOKSAMLAssertionBuilderTest {
     @Test
     public void testBuild() throws SAMLAssertionBuilderException, CertificateManagerException {
         SAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
-        final Element assertion = builder.build(makeCallbackProperties(null));
+        final Element assertion = builder.build(makeCallbackProperties(null), null);
         assertNotNull(assertion);
     }
 
@@ -138,7 +138,7 @@ public class HOKSAMLAssertionBuilderTest {
         properties.put(SamlConstants.USER_LAST_PROP, null);
 
         try {
-            builder.build(makeCallbackProperties(properties));
+            builder.build(makeCallbackProperties(properties), null);
             fail("Builder does not fail when there is a missing user name / subject ID");
         } catch (SAMLAssertionBuilderException e) {
             assertEquals("No information provided to fill in Subject ID attribute.", e.getMessage());
@@ -155,7 +155,7 @@ public class HOKSAMLAssertionBuilderTest {
         properties.put(SamlConstants.USER_ORG_PROP, null);
 
         try {
-            builder.build(makeCallbackProperties(properties));
+            builder.build(makeCallbackProperties(properties), null);
             fail("Builder does not fail when there is a missing subject organization");
         } catch (SAMLAssertionBuilderException e) {
             assertEquals("No Organization Attribute statement provided.", e.getMessage());
@@ -173,7 +173,7 @@ public class HOKSAMLAssertionBuilderTest {
         properties.put(SamlConstants.USER_DISPLAY_PROP, null);
 
         try {
-            builder.build(makeCallbackProperties(properties));
+            builder.build(makeCallbackProperties(properties), null);
             fail("Builder does not fail when there is a missing subject role");
         } catch (SAMLAssertionBuilderException e) {
             assertEquals("No information provided to fill in subject role attribute.", e.getMessage());
@@ -191,7 +191,7 @@ public class HOKSAMLAssertionBuilderTest {
         properties.put(SamlConstants.PURPOSE_DISPLAY_PROP, null);
 
         try {
-            builder.build(makeCallbackProperties(properties));
+            builder.build(makeCallbackProperties(properties), null);
             fail("Builder does not fail when there is a missing purpose of use");
         } catch (SAMLAssertionBuilderException e) {
             assertEquals("No information provided to fill in Purpose For Use attribute.", e.getMessage());
@@ -206,7 +206,7 @@ public class HOKSAMLAssertionBuilderTest {
         properties.put(SamlConstants.HOME_COM_PROP, null);
 
         try {
-            builder.build(makeCallbackProperties(properties));
+            builder.build(makeCallbackProperties(properties), null);
             fail("Builder does not fail when there is a missing HCID");
         } catch (SAMLAssertionBuilderException e) {
             assertEquals("No Home Community ID Attribute statement provided.", e.getMessage());
@@ -221,7 +221,7 @@ public class HOKSAMLAssertionBuilderTest {
         properties.put(SamlConstants.USER_ORG_ID_PROP, null);
 
         try {
-            builder.build(makeCallbackProperties(properties));
+            builder.build(makeCallbackProperties(properties), null);
             fail("Builder does not fail when there is a missing organization ID");
         } catch (SAMLAssertionBuilderException e) {
             assertEquals("No Organization ID Attribute statement provided.", e.getMessage());
@@ -714,7 +714,7 @@ public class HOKSAMLAssertionBuilderTest {
 
         final CallbackProperties callbackProps = makeCallbackProperties(props);
 
-        Element element = builder.build(callbackProps);
+        Element element = builder.build(callbackProps, null);
 
         Node issuer = getIssuerNode(element.getChildNodes());
         String format = issuer.getAttributes().getNamedItem("Format").getNodeValue();
@@ -735,7 +735,7 @@ public class HOKSAMLAssertionBuilderTest {
 
         final CallbackProperties callbackProps = makeCallbackProperties(props);
 
-        Element element = builder.build(callbackProps);
+        Element element = builder.build(callbackProps, null);
 
         Node issuerNode = getIssuerNode(element.getChildNodes());
         String format = issuerNode.getAttributes().getNamedItem("Format").getNodeValue();
@@ -753,7 +753,7 @@ public class HOKSAMLAssertionBuilderTest {
 
         final CallbackProperties callbackProps = makeCallbackProperties(props);
 
-        Element element = builder.build(callbackProps);
+        Element element = builder.build(callbackProps, null);
 
         Node issuer = getIssuerNode(element.getChildNodes());
         String format = issuer.getAttributes().getNamedItem("Format").getNodeValue();
@@ -771,7 +771,7 @@ public class HOKSAMLAssertionBuilderTest {
 
         final CallbackProperties callbackProps = makeCallbackProperties(props);
 
-        Element element = builder.build(callbackProps);
+        Element element = builder.build(callbackProps, null);
         Node issuer = getIssuerNode(element.getChildNodes());
         String format = issuer.getAttributes().getNamedItem("Format").getNodeValue();
         String issuerName = issuer.getFirstChild().getNodeValue();

@@ -159,7 +159,7 @@ public class CertificateManagerImpl implements CertificateManager {
             }
             tstore.load(is, passkey.toCharArray());
             // restrict deleting from its own public cert
-            X509Certificate publicCert = getDefaultCertificate();
+            X509Certificate publicCert = getDefaultCertificate(null);
             String publicAlias = tstore.getCertificateAlias(publicCert);
             if (StringUtils.equalsIgnoreCase(alias, publicAlias)) {
                 throw new CertificateManagerException("System cannot remove its own public cert");
@@ -315,8 +315,8 @@ public class CertificateManagerImpl implements CertificateManager {
      * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getDefaultCertificate()
      */
     @Override
-    public X509Certificate getDefaultCertificate() throws CertificateManagerException {
-        PrivateKeyEntry pkEntry = getPrivateKeyEntry();
+    public X509Certificate getDefaultCertificate(String alias) throws CertificateManagerException {
+        PrivateKeyEntry pkEntry = getPrivateKeyEntry(alias);
         if (pkEntry != null) {
             return (X509Certificate) pkEntry.getCertificate();
         }
@@ -329,19 +329,20 @@ public class CertificateManagerImpl implements CertificateManager {
      * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getDefaultPrivateKey()
      */
     @Override
-    public PrivateKey getDefaultPrivateKey() throws CertificateManagerException {
-        PrivateKeyEntry pkEntry = getPrivateKeyEntry();
+    public PrivateKey getDefaultPrivateKey(String alias) throws CertificateManagerException {
+        PrivateKeyEntry pkEntry = getPrivateKeyEntry(alias);
         if (pkEntry != null) {
             return pkEntry.getPrivateKey();
         }
         return null;
     }
 
-    private PrivateKeyEntry getPrivateKeyEntry() throws CertificateManagerException {
+    private PrivateKeyEntry getPrivateKeyEntry(String alias) throws CertificateManagerException {
         LOG.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- Begin");
         KeyStore.PrivateKeyEntry pkEntry = null;
 
-        final String clientkeyAlias = StoreUtil.getInstance().getPrivateKeyAlias();
+        final String clientkeyAlias = StringUtils.isNotBlank(alias) ? alias
+            : StoreUtil.getInstance().getPrivateKeyAlias();
         if (clientkeyAlias != null) {
             final String password = getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY);
             if (password != null) {
@@ -372,9 +373,9 @@ public class CertificateManagerImpl implements CertificateManager {
      * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getDefaultPublicKey()
      */
     @Override
-    public RSAPublicKey getDefaultPublicKey() {
+    public RSAPublicKey getDefaultPublicKey(String alias) {
         try {
-            return (RSAPublicKey) getDefaultCertificate().getPublicKey();
+            return (RSAPublicKey) getDefaultCertificate(alias).getPublicKey();
         } catch (final Exception e) {
             LOG.error("Could not get default public key: {}", e.getLocalizedMessage(), e);
 

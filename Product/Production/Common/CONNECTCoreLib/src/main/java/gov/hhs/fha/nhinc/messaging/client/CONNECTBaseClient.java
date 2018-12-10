@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.messaging.client.interceptor.SoapResponseInInterceptor;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
@@ -70,7 +71,7 @@ public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
         ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<>(port);
         serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
         serviceEndpoint = new TimeoutServiceEndpointDecorator<>(serviceEndpoint, timeout);
-        serviceEndpoint = new TLSClientServiceEndpointDecorator<>(serviceEndpoint);
+        serviceEndpoint = new TLSClientServiceEndpointDecorator<>(serviceEndpoint, StoreUtil.getGatewayAlias(url));
 
         return serviceEndpoint;
     }

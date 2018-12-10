@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -40,6 +40,7 @@ import org.apache.cxf.transport.http.HTTPConduit;
 public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
     private TLSClientParametersFactory tlsClientFactory;
+    private String gatewayAlias;
 
     /**
      * Constructor.
@@ -48,8 +49,8 @@ public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorat
      * @param assertion
      * @param url
      */
-    public TLSClientServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
-        this(decoratoredEndpoint, TLSClientParametersFactory.getInstance());
+    public TLSClientServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String gatewayAlias) {
+        this(decoratoredEndpoint, TLSClientParametersFactory.getInstance(), gatewayAlias);
     }
 
     /**
@@ -59,9 +60,10 @@ public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorat
      * @param paramFactory
      */
     public TLSClientServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint,
-        TLSClientParametersFactory tlsClientFactory) {
+        TLSClientParametersFactory tlsClientFactory, String gatewayAlias) {
         super(decoratoredEndpoint);
         this.tlsClientFactory = tlsClientFactory;
+        this.gatewayAlias = gatewayAlias;
     }
 
     /**
@@ -70,7 +72,7 @@ public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorat
     @Override
     public void configure() {
         super.configure();
-        getHttpConduit().setTlsClientParameters(tlsClientFactory.getTLSClientParameters());
+        getHttpConduit().setTlsClientParameters(tlsClientFactory.getTLSClientParameters(gatewayAlias));
     }
     protected HTTPConduit getHttpConduit(){
         Client client = ClientProxy.getClient(getPort());

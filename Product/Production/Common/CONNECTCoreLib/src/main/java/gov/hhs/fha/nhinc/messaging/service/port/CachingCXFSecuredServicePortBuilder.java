@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -40,19 +40,21 @@ import java.util.Map;
 public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAServicePortBuilder<T> {
 
     private static Map<Class<?>, Object> CACHED_PORTS = new HashMap<>();
+    private String gatewayAlias;
 
     /**
      * Constructor.
      *
      * @param portDescriptor
      */
-    public CachingCXFSecuredServicePortBuilder(ServicePortDescriptor<T> portDescriptor) {
+    public CachingCXFSecuredServicePortBuilder(ServicePortDescriptor<T> portDescriptor, String gatewayAlias) {
         super(portDescriptor);
+        this.gatewayAlias=gatewayAlias;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.CachingCXFServicePortBuilder#getCache()
      */
     @Override
@@ -62,7 +64,7 @@ public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAService
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.CachingCXFServicePortBuilder#configurePort(java.lang.Object)
      */
     @Override
@@ -70,11 +72,11 @@ public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAService
         super.configurePort(port);
 
         ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<>(port);
-        serviceEndpoint = new TLSClientServiceEndpointDecorator<>(serviceEndpoint);
+        serviceEndpoint = new TLSClientServiceEndpointDecorator<>(serviceEndpoint, gatewayAlias);
         serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint);
         serviceEndpoint.configure();
     }
-    
+
     public static void clearCache() {
         CACHED_PORTS.clear();
     }
