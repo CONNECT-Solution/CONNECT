@@ -87,7 +87,7 @@ public class CertificateManagerImplTest {
 
     @Test
     public void testGetDefaultPrivateKey() throws Exception {
-        PrivateKey privateKey = certManager.getDefaultPrivateKey();
+        PrivateKey privateKey = certManager.getDefaultPrivateKey(null);
         assertNotNull(privateKey);
         assertEquals(privateKey.getAlgorithm(), "RSA");
         assertEquals(privateKey.getFormat(), "PKCS#8");
@@ -95,7 +95,7 @@ public class CertificateManagerImplTest {
 
     @Test
     public void testGetDefaultPublicKey() {
-        RSAPublicKey publicKey = certManager.getDefaultPublicKey();
+        RSAPublicKey publicKey = certManager.getDefaultPublicKey(null);
         assertNotNull(publicKey);
         assertEquals(publicKey.getAlgorithm(), "RSA");
         assertEquals(publicKey.getFormat(), "X.509");
@@ -103,7 +103,7 @@ public class CertificateManagerImplTest {
 
     @Test
     public void testGetDefaultCertificate() throws Exception {
-        X509Certificate certificate = certManager.getDefaultCertificate();
+        X509Certificate certificate = certManager.getDefaultCertificate(null);
         assertNotNull(certificate);
         assertEquals(certificate.getSigAlgName(), "SHA256withRSA");
         assertEquals(certificate.getSigAlgOID(), "1.2.840.113549.1.1.11");

@@ -31,6 +31,7 @@ import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
 
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.security.GeneralSecurityException;
 import java.security.KeyStoreException;
@@ -41,6 +42,7 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.cxf.transport.https.SSLUtils;
 import org.slf4j.Logger;
@@ -83,21 +85,29 @@ public class TLSClientParametersFactory {
      * @param protocols either TLS or SSLv3
      * @return
      */
-    public TLSClientParameters getTLSClientParameters(final String protocols){
+    public TLSClientParameters getTLSClientParameters(final String protocols, String url) {
         TLSClientParameters tlsCP = new TLSClientParameters();
         tlsCP.setSecureSocketProtocol(protocols);
-        return constructTLSClient(tlsCP);
+        return constructTLSClient(tlsCP, url);
 
 
     }
-    public TLSClientParameters getTLSClientParameters() {
-        return constructTLSClient(new TLSClientParameters());
+
+    public TLSClientParameters getTLSClientParameters(String gatewayAlias) {
+        return constructTLSClient(new TLSClientParameters(), gatewayAlias);
     }
 
-    private static TLSClientParameters constructTLSClient(TLSClientParameters tlsClientParameters) {
+    private static TLSClientParameters constructTLSClient(TLSClientParameters tlsClientParameters,
+        String gatewayAlias) {
         try {
             boolean isDisableCNCheck = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
                 DISABLE_CN_CHECK, false);
+
+            if (StringUtils.isNotBlank(gatewayAlias)
+                && StoreUtil.getInstance().getPrivateKeyAlias().equalsIgnoreCase(gatewayAlias)) {
+                tlsClientParameters.setCertAlias(gatewayAlias);
+            }
+
             setKeyManagers(tlsClientParameters);
             setTrustManager(tlsClientParameters);
 

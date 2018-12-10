@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
 import gov.hhs.fha.nhinc.callback.opensaml.SAMLAssertionBuilderException;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -110,7 +111,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     final SamlTokenCreator creator = new SamlTokenCreator();
                     final CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
                         creator.createRequestContext(custAssertion, getResource(message), null), message));
-                    oSAMLCallback.setAssertionElement(builder.build(properties));
+                    oSAMLCallback.setAssertionElement(builder.build(properties, StoreUtil.getGatewayAlias(message)));
                 } catch (WSSecurityException | PropertyAccessException e) {
                     LOG.error("Failed to create saml: {}", e.getLocalizedMessage(), e);
                     throw new SAMLAssertionBuilderException(e.getMessage(), e);
