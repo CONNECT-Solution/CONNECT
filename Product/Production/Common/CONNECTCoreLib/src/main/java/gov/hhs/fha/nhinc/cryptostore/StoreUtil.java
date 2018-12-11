@@ -96,9 +96,10 @@ public class StoreUtil {
             String urlKey = getUrlKey(url);
             if (StringUtils.isNotBlank(urlKey)) {
                 if (getInstance().getPrivateKeyAlias().equalsIgnoreCase(alias)) {
+                    LOG.info("debug--remove:urlKey:{}", urlKey);
                     gatewayAliasMapping.remove(urlKey);
                 } else {
-                    LOG.debug("debug--url:{}, alias:{}", url, alias);
+                    LOG.info("debug--add:urlKey:{}, alias:{}", urlKey, alias);
                     gatewayAliasMapping.put(urlKey, alias);
                 }
             }
@@ -111,7 +112,7 @@ public class StoreUtil {
             String urlKey = getUrlKey(url);
             String gatewayAlias = gatewayAliasMapping.get(urlKey);
             if(StringUtils.isNotBlank(gatewayAlias)){
-                LOG.debug("debug--found url:{}, gatewayAlias:{}", url, gatewayAlias);
+                LOG.info("debug--found url:{}, gatewayAlias:{}", url, gatewayAlias);
                 return gatewayAlias;
             }
         }
