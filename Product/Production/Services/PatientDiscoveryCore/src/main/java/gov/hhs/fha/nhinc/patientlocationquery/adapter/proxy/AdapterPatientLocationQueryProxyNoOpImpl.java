@@ -41,7 +41,7 @@ public class AdapterPatientLocationQueryProxyNoOpImpl implements AdapterPatientL
 
     @AdapterDelegationEvent(beforeBuilder = DefaultTargetedArgTransfomer.class,
         afterReturningBuilder = DefaultDelegatingEventDescriptionBuilder.class,
-        serviceType = "Patient Location Query", version = "LEVEL_A0")
+        serviceType = "Patient Location Query", version = "LEVEL_a0")
     @Override
     public PatientLocationQueryResponseType adapterPatientLocationQueryResponse(PatientLocationQueryRequestType request,
         AssertionType assertion) {

@@ -52,6 +52,6 @@ public class AdapterDocSubmissionProxyWebServiceSecuredImplTest {
         assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
         assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Submission", annotation.serviceType());
-        assertEquals("LEVEL_A0", annotation.version());
+        assertEquals("LEVEL_a0", annotation.version());
     }
 }

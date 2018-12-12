@@ -45,7 +45,7 @@ public class AdapterPatientDiscoveryDeferredReqProxyJavaImpl implements AdapterP
 
     @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
             afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
-            serviceType = "Patient Discovery Deferred Request", version = "LEVEL_A0")
+            serviceType = "Patient Discovery Deferred Request", version = "LEVEL_a0")
     @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion) {
         LOG.debug("Using Java Implementation for Adapter Patient Discovery Deferred Request Service");

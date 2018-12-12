@@ -56,7 +56,7 @@ public class AdapterDocQueryProxyNoOpImpl implements AdapterDocQueryProxy {
      */
     @AdapterDelegationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-            version = "LEVEL_A0")
+            version = "LEVEL_a0")
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         LOG.debug("Using NoOp Implementation for Adapter Doc Query Service");

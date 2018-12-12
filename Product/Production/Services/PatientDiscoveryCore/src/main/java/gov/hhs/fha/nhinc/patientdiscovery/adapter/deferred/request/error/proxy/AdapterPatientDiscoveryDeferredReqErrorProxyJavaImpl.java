@@ -48,7 +48,7 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyJavaImpl implements
     @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
             afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class,
             serviceType = "Patient Discovery Deferred Request",
-            version = "LEVEL_A0")
+            version = "LEVEL_a0")
     @Override
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response,
             AssertionType assertion, String errMsg) {

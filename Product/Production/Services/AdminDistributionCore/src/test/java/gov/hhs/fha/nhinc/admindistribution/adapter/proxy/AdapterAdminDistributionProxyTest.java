@@ -78,7 +78,7 @@ public class AdapterAdminDistributionProxyTest {
             assertEquals(EDXLDistributionEventDescriptionBuilder.class, annotation.beforeBuilder());
             assertEquals(EDXLDistributionEventDescriptionBuilder.class, annotation.afterReturningBuilder());
             assertEquals("Admin Distribution", annotation.serviceType());
-            assertEquals("LEVEL_A0", annotation.version());
+            assertEquals("LEVEL_a0", annotation.version());
         }
     }
 

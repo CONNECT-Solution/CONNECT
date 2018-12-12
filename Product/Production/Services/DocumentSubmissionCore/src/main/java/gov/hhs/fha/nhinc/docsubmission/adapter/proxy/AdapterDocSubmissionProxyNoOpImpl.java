@@ -39,7 +39,7 @@ public class AdapterDocSubmissionProxyNoOpImpl implements AdapterDocSubmissionPr
 
     @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
-            version = "LEVEL_A0")
+            version = "LEVEL_a0")
     @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {

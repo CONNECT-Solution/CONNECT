@@ -53,7 +53,7 @@ public class AdapterDocSubmissionDeferredRequestErrorProxyJavaImplTest {
         assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
         assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Submission Deferred Request", annotation.serviceType());
-        assertEquals("LEVEL_A0", annotation.version());
+        assertEquals("LEVEL_a0", annotation.version());
     }
 
 }

@@ -54,6 +54,6 @@ public class AdapterPatientDiscoveryDeferredReqErrorWebServiceSecuredImplTest {
         assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
         assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Patient Discovery Deferred Request", annotation.serviceType());
-        assertEquals("LEVEL_A0", annotation.version());
+        assertEquals("LEVEL_a0", annotation.version());
     }
 }

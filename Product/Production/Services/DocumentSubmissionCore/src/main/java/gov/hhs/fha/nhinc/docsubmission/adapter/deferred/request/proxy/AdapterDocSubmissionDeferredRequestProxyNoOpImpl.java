@@ -48,7 +48,7 @@ public class AdapterDocSubmissionDeferredRequestProxyNoOpImpl implements Adapter
     @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
             serviceType = "Document Submission Deferred Request",
-            version = "LEVEL_A0")
+            version = "LEVEL_a0")
     @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {

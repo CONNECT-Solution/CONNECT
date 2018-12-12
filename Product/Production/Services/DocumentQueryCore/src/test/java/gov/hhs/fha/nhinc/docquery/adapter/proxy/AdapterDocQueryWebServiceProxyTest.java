@@ -59,6 +59,6 @@ public class AdapterDocQueryWebServiceProxyTest {
         assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
         assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Query", annotation.serviceType());
-        assertEquals("LEVEL_A0", annotation.version());
+        assertEquals("LEVEL_a0", annotation.version());
     }
 }

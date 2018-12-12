@@ -67,7 +67,7 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl extends BaseAdapterDocQue
      */
     @AdapterDelegationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
         afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-        version = "LEVEL_A0")
+        version = "LEVEL_a0")
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(final AdhocQueryRequest msg,
             final AssertionType assertion) {
