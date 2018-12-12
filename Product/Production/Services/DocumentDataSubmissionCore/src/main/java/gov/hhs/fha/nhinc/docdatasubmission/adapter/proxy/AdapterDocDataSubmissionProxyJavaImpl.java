@@ -39,7 +39,7 @@ public class AdapterDocDataSubmissionProxyJavaImpl implements AdapterDocDataSubm
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocDataSubmissionProxyJavaImpl.class);
 
-    @AdapterDelegationEvent(serviceType = "Document Data Submission", version = "",
+    @AdapterDelegationEvent(serviceType = "Document Data Submission", version = "LEVEL_A0",
         beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
         afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class)
     @Override
