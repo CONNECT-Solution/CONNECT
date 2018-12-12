@@ -47,7 +47,7 @@ public class AdapterDocDataSubmissionProxyWebServiceSecuredImpl implements Adapt
 
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
-    @AdapterDelegationEvent(serviceType = "Document Data Submission", version = "",
+    @AdapterDelegationEvent(serviceType = "Document Data Submission", version = "LEVEL_a0",
         beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
         afterReturningBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class)
     @Override

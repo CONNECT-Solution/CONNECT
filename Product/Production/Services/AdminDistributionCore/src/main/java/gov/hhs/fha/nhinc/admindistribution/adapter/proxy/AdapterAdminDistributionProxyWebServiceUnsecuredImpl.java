@@ -95,7 +95,9 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
      * @param body Emergency Message Distribution Element transaction message body received.
      * @param assertion Assertion received.
      */
-    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
+    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
+        afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, serviceType = "Admin Distribution",
+        version = "LEVEL_a0")
     @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         LOG.debug("Begin sendAlertMessage");

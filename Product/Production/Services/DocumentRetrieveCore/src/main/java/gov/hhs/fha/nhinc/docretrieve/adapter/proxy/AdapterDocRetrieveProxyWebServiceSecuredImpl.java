@@ -63,7 +63,7 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImpl extends BaseAdapterDoc
     @Override
     @AdapterDelegationEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
     afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
-    serviceType = "Retrieve Document", version = "")
+    serviceType = "Retrieve Document", version = "LEVEL_a0")
     public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request,
         AssertionType assertion) {
         String url;

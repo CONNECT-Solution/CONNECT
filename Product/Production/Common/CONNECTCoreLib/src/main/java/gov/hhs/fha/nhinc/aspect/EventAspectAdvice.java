@@ -27,9 +27,11 @@
 package gov.hhs.fha.nhinc.aspect;
 
 import gov.hhs.fha.nhinc.event.AssertionExtractor;
+import gov.hhs.fha.nhinc.event.EventDescription;
 import gov.hhs.fha.nhinc.event.EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.EventRecorder;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -141,7 +143,15 @@ public class EventAspectAdvice {
      */
     public Object logEvents(ProceedingJoinPoint joinPoint, EventAdviceDelegate delegate, Class<? extends EventDescriptionBuilder> beforeBuilder,
         Class<? extends EventDescriptionBuilder> afterBuilder, String serviceType, String version) throws Throwable {
-        delegate.begin(joinPoint.getArgs(), serviceType, version, beforeBuilder);
+
+        // Small workaround for getting which version we hit at the individual layers on the END_* events.
+        // If the version is blank (Due to the fact that the service might be used for more than one version), the begin
+        // delegate will attempt to pull from the NhinTargetSystemType. We return that description to grab the Action
+        String resolvedVersion = version;
+        EventDescription eventDescription = delegate.begin(joinPoint.getArgs(), serviceType, resolvedVersion, beforeBuilder);
+        if (eventDescription != null && StringUtils.isBlank(resolvedVersion)) {
+            resolvedVersion = eventDescription.getAction();
+        }
 
         Object value = null;
         boolean hasFailure = false;
@@ -149,18 +159,18 @@ public class EventAspectAdvice {
             value = joinPoint.proceed();
         } catch (ErrorEventException e) {
             // Log the failure, and handle the exception. Service should still return a value in this case
-            logFailure(joinPoint, e, serviceType, version);
+            logFailure(joinPoint, e, serviceType, resolvedVersion);
             value =  e.getReturnOverride();
             hasFailure = true;
         } catch (Throwable e) {
             // We don't want to swallow the exception if its not an ErrorEventException.
             // We also don't want the delegate to log the END_* event.
-            logFailure(joinPoint, e, serviceType, version);
+            logFailure(joinPoint, e, serviceType, resolvedVersion);
             throw e;
         }
         // Delegate should only log either an END_* if we did not log a MessageProcessingFailed event.
         if (!hasFailure) {
-            delegate.end(joinPoint.getArgs(), serviceType, version, afterBuilder, value);
+            delegate.end(joinPoint.getArgs(), serviceType, resolvedVersion, afterBuilder, value);
         }
         return value;
     }

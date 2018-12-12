@@ -65,7 +65,9 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl extends BaseAdapterDocQue
      * @param assertion Assertion received.
      * @return AdhocQuery Response from Adapter interface.
      */
-    @AdapterDelegationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
+    @AdapterDelegationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
+        afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+        version = "LEVEL_a0")
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(final AdhocQueryRequest msg,
             final AssertionType assertion) {
