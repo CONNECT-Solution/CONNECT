@@ -59,7 +59,7 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImplTest {
         assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
         assertEquals(RetrieveDocumentSetResponseTypeDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Retrieve Document", annotation.serviceType());
-        assertEquals("LEVEL_A0", annotation.version());
+        assertEquals("LEVEL_a0", annotation.version());
     }
 
     @Test
