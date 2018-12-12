@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,18 +26,16 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.event.builder.TargetDescriptionExtractor;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Optional;
 
 /**
  *
@@ -104,8 +102,19 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
             && communities.getNhinTargetCommunity().get(0).getHomeCommunity() != null) {
             NhinTargetSystemType targetSystem = new NhinTargetSystemType();
             targetSystem.setHomeCommunity(communities.getNhinTargetCommunity().get(0).getHomeCommunity());
+            targetSystem.setUseSpecVersion(communities.getUseSpecVersion());
             return targetSystem;
         }
         return null;
+    }
+
+
+    @Override
+    public void buildAction() {
+        String action = msgContext.getAction();
+        if (StringUtils.isBlank(action) && target.isPresent()) {
+            action = target.get().getUseSpecVersion();
+        }
+        description.setAction(action);
     }
 }

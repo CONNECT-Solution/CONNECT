@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.Event;
 import gov.hhs.fha.nhinc.event.EventBuilder;
 import gov.hhs.fha.nhinc.event.EventContextAccessor;
+import gov.hhs.fha.nhinc.event.EventDescription;
 import gov.hhs.fha.nhinc.event.EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
 import gov.hhs.fha.nhinc.event.EventDirector;
@@ -95,14 +96,16 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      * java.lang.String)
      */
     @Override
-    public void begin(Object[] args, String serviceType, String version,
+    public EventDescription begin(Object[] args, String serviceType, String version,
         Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass) {
+        EventDescription eventDescription = null;
         if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
             EventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
                 createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, null);
-
             createAndRecordEvent(getBeginEventBuilder(eventDescriptionBuilder, args));
+            eventDescription = eventDescriptionBuilder.getEventDescription();
         }
+        return eventDescription;
     }
 
     /**

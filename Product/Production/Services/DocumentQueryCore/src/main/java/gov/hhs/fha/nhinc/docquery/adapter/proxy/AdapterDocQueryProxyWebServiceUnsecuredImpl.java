@@ -71,7 +71,7 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
      */
     @AdapterDelegationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
     afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-    version = "")
+    version = "LEVEL_A0")
     @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         LOG.debug("Begin respondingGatewayCrossGatewayQuery");
