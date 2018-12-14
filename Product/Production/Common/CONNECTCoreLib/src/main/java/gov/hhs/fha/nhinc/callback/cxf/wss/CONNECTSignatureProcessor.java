@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,19 +26,30 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf.wss;
 
-import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
+import org.apache.cxf.helpers.CastUtils;
+import org.apache.wss4j.dom.WSDataRef;
 
 import com.google.common.base.Optional;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.SHA_TYPE;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.Base64Coder;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import javax.activation.DataHandler;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.message.Attachment;
+import org.apache.wss4j.common.crypto.AlgorithmSuite;
 import org.apache.wss4j.common.ext.WSSecurityException;
+import org.apache.wss4j.common.ext.WSSecurityException.ErrorCode;
+import org.apache.wss4j.dom.WSConstants;
 import org.apache.wss4j.dom.WSDocInfo;
 import org.apache.wss4j.dom.engine.WSSecurityEngineResult;
 import org.apache.wss4j.dom.handler.RequestData;
@@ -61,14 +72,63 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
     private static final String HREF_ATTRIBUTE = "href";
     private static final String XOP_NS = "http://www.w3.org/2004/08/xop/include";
     private static final String XOP_INCLUDE_TAG = "Include";
+    private static final PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
 
     @Override
     public List<WSSecurityEngineResult> handleToken(Element signatureElem, RequestData data, WSDocInfo wsDocInfo)
         throws WSSecurityException {
-
         inlineSignatureAttachments((SoapMessage) data.getMsgContext(), signatureElem);
+        List<WSSecurityEngineResult> results = null;
+        List<SHA_TYPE> configurableList = getConfigurableSHA();
+        if (CollectionUtils.isNotEmpty(configurableList)) {
+            // Detect configurable list. If it has only sha1, then do normal workflow
+            if (configurableList.size() == 1 && SHA_TYPE.SHA1.equals(configurableList.get(0))) {
+                results = super.handleToken(signatureElem, data, wsDocInfo);
+            } else { // override default signature check. Follow pattern in AlgorithmSuiteCheck
+                AlgorithmSuite oldAlgorithm = data.getAlgorithmSuite();
+                for (SHA_TYPE configSHA : configurableList) {
+                    oldAlgorithm.addSignatureMethod(configSHA.getSignatureAlgorithm());
+                    oldAlgorithm.addDigestAlgorithm(configSHA.getDigestAlgorithm());
+                }
+                data.setAlgorithmSuite(oldAlgorithm);
+                results = super.handleToken(signatureElem, data, wsDocInfo);
+                // Revert back default Policy in CXF
+                for (WSSecurityEngineResult result : results) {
+                    Integer action = (Integer) result.get(WSSecurityEngineResult.TAG_ACTION);
+                    if (WSConstants.SIGN == action) {
+                        result.put(WSSecurityEngineResult.TAG_SIGNATURE_METHOD, SHA_TYPE.SHA1.getSignatureAlgorithm());
+                        List<WSDataRef> dataRefs = CastUtils.cast((List<?>) result
+                            .get(WSSecurityEngineResult.TAG_DATA_REF_URIS));
+                        for (WSDataRef dataRef : dataRefs) {
+                            dataRef.setDigestAlgorithm(SHA_TYPE.SHA1.getDigestAlgorithm());
+                        }
+                    }
+                }
+            }
+        }
+        return results != null ? results : super.handleToken(signatureElem, data, wsDocInfo);
+    }
 
-        return super.handleToken(signatureElem, data, wsDocInfo);
+
+
+    /**
+     * Retrieve a list of configurable SHA from gateway.properties. For example: configurableSHA=SHA1,SHA256,SHA512
+     *
+     * @return
+     */
+    private List<SHA_TYPE> getConfigurableSHA() {
+        String configurableProperty = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            NhincConstants.CONFIG_SHA, SHA_TYPE.SHA1.name());
+        List<String> configurablePropertyList = Arrays.asList(StringUtils.split(configurableProperty, ","));
+        List<SHA_TYPE> SHATypeList = new ArrayList<>();
+        for (String sha : configurablePropertyList) {
+            SHA_TYPE shaType = SHA_TYPE.getSHAType(sha);
+            if (shaType != null) {
+                SHATypeList.add(shaType);
+            }
+        }
+        return SHATypeList;
+
     }
 
     /**
