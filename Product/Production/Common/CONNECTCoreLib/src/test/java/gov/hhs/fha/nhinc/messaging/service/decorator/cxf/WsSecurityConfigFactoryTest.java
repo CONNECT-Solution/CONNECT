@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,8 +31,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import org.apache.wss4j.policy.SPConstants;
 
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
@@ -60,6 +58,7 @@ public class WsSecurityConfigFactoryTest {
 
         when(propFileUtil.loadPropertyFile("signature")).thenReturn(sigProperties);
         when(cryptoStoreUtil.getPrivateKeyAlias()).thenReturn("gateway");
+
     }
 
     @Test
@@ -92,8 +91,6 @@ public class WsSecurityConfigFactoryTest {
         assertEquals("PasswordDigest", properties.get(WSHandlerConstants.PASSWORD_TYPE));
         assertNotNull("cryptoProperties", properties.get("cryptoProperties"));
         assertEquals("cryptoProperties", properties.get(WSHandlerConstants.SIG_PROP_REF_ID));
-        assertEquals(SPConstants.RSA_SHA1, properties.get(WSHandlerConstants.SIG_ALGO));
-        assertEquals(SPConstants.SHA1, properties.get(WSHandlerConstants.SIG_DIGEST_ALGO));
         assertEquals(
             "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;",
             properties.get(WSHandlerConstants.SIGNATURE_PARTS));
