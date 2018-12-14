@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TLSUDDIClientEndpointDecorator<T> extends TLSClientServiceEndpointDecorator<T> {
     private static final Logger LOG = LoggerFactory.getLogger(TLSUDDIClientEndpointDecorator.class);
+
     /**
      * @param decoratoredEndpoint
      */
@@ -57,7 +58,7 @@ public class TLSUDDIClientEndpointDecorator<T> extends TLSClientServiceEndpointD
         super.configure();
         final String protocol = getSecureProtocol();
         LOG.info("TLS support versions {}", protocol);
-        TLSClientParameters tlsCP = getTlsClientFactory().getTLSClientParameters(protocol);
+        TLSClientParameters tlsCP = getTlsClientFactory().getTLSClientParameters(protocol, gatewayAlias);
         getHttpConduit().setTlsClientParameters(tlsCP);
     }
 

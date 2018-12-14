@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.port;
 
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSClientServiceEndpointDecorator;
@@ -39,7 +40,7 @@ import java.util.Map;
  */
 public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAServicePortBuilder<T> {
 
-    private static Map<Class<?>, Object> CACHED_PORTS = new HashMap<>();
+    private static Map<String, Map<Class<?>, Object>> CACHED_PORTS = new HashMap<>();
     private String gatewayAlias;
 
     /**
@@ -58,8 +59,13 @@ public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAService
      * @see gov.hhs.fha.nhinc.messaging.service.port.CachingCXFServicePortBuilder#getCache()
      */
     @Override
-    protected Map<Class<?>, Object> getCache() {
-        return CACHED_PORTS;
+    protected Map<Class<?>, Object> getCache(String gatewayAlias) {
+        String defaultAlias = StoreUtil.getGatewayAliasDefaultTo(gatewayAlias);
+        if (CACHED_PORTS.get(defaultAlias) == null) {
+            CACHED_PORTS.put(defaultAlias, new HashMap<Class<?>, Object>());
+        }
+
+        return CACHED_PORTS.get(defaultAlias);
     }
 
     /*
@@ -73,7 +79,7 @@ public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAService
 
         ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<>(port);
         serviceEndpoint = new TLSClientServiceEndpointDecorator<>(serviceEndpoint, gatewayAlias);
-        serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint);
+        serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint, gatewayAlias);
         serviceEndpoint.configure();
     }
 

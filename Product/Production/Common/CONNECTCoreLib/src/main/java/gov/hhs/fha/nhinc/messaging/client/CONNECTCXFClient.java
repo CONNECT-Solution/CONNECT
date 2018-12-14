@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
@@ -48,14 +49,14 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
         ServicePortBuilder<T> portBuilder) {
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url,
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(StoreUtil.getGatewayAlias(url)), url,
             assertion != null ? assertion.getTransactionTimeout() : null);
     }
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
         ServicePortBuilder<T> portBuilder, String subscriptionId) {
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), subscriptionId,
-            assertion != null ? assertion.getTransactionTimeout() : null);
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(StoreUtil.getGatewayAlias(url)),
+            subscriptionId, assertion != null ? assertion.getTransactionTimeout() : null);
     }
 
     @Override

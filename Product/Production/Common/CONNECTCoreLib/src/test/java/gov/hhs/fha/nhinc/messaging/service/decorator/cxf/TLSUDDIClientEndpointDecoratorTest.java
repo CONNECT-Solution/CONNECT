@@ -59,7 +59,18 @@ public class TLSUDDIClientEndpointDecoratorTest {
      */
     @Before
     public void setUp() throws Exception {
+        System.setProperty("nhinc.properties.dir", System.getProperty("user.dir") + "/src/test/resources");
+        System.setProperty("javax.net.ssl.keyStore",
+            System.getProperty("user.dir") + "/src/test/resources/gateway.jks");
+        System.setProperty("javax.net.ssl.keyStoreType", "JKS");
+        System.setProperty("javax.net.ssl.keyStorePassword", "changeit");
+        System.setProperty("javax.net.ssl.trustStore",
+            System.getProperty("user.dir") + "/src/test/resources/gateway.jks");
+        System.setProperty("javax.net.ssl.trustStoreType", "JKS");
+        System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
+
         mockPropAccessor = mock(PropertyAccessor.class);
+
     }
 
     /**
@@ -73,6 +84,8 @@ public class TLSUDDIClientEndpointDecoratorTest {
     @Test
     public final void testTLSConfiguration() throws PropertyAccessException {
         when(mockPropAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, "UDDI.TLS")).thenReturn(null);
+        when(mockPropAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.DISABLE_CN_CHECK,
+            false)).thenReturn(true);
         CONNECTClient<TestServicePortType> uddiClient = createClient(mockPropAccessor, null);
         Assert.assertNotNull(uddiClient);
         TLSClientParameters tlsCP = retrieveTLSClientParamters(uddiClient);
@@ -83,12 +96,14 @@ public class TLSUDDIClientEndpointDecoratorTest {
     @Test
     public void testTLSV12Configuration() throws PropertyAccessException {
         when(mockPropAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, "UDDI.TLS")).thenReturn("TLSv1.2");
-        CONNECTClient<TestServicePortType> uddiClient = createClient(mockPropAccessor, "TLSv1.2");
+        when(mockPropAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+            NhincConstants.DISABLE_CN_CHECK, false)).thenReturn(true);
+        CONNECTClient<TestServicePortType> uddiClient = createClient(mockPropAccessor, null);
         Assert.assertNotNull(uddiClient);
         TLSClientParameters tlsCP = retrieveTLSClientParamters(uddiClient);
         assertTrue(tlsCP.isDisableCNCheck());
-        String gettingNull = tlsCP.getSecureSocketProtocol();
-        // Assert.assertEquals("TLSv1.2", tlsCP.getSecureSocketProtocol()); //don't know why it return--null
+        String tls_protocol = tlsCP.getSecureSocketProtocol();
+        Assert.assertEquals("TLSv1.2", tlsCP.getSecureSocketProtocol());
     }
 
     /**

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -32,13 +32,12 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.apache.wss4j.policy.SPConstants;
-
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
 import java.util.Map;
 import java.util.Properties;
 import org.apache.wss4j.dom.handler.WSHandlerConstants;
+import org.apache.wss4j.policy.SPConstants;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -66,7 +65,7 @@ public class WsSecurityConfigFactoryTest {
     public void verifyProperties() {
         final WsSecurityConfigFactory configFactory = new WsSecurityConfigFactory(propFileUtil, cryptoStoreUtil);
 
-        final Map<String, Object> configMap = configFactory.getConfiguration();
+        final Map<String, Object> configMap = configFactory.getConfiguration(null);
         verifyWsSecurityProperties(configMap);
     }
 
@@ -74,11 +73,11 @@ public class WsSecurityConfigFactoryTest {
     public void verifyClone() {
         final WsSecurityConfigFactory configFactory = new WsSecurityConfigFactory(propFileUtil, cryptoStoreUtil);
 
-        final Map<String, Object> configMap1 = configFactory.getConfiguration();
+        final Map<String, Object> configMap1 = configFactory.getConfiguration(null);
         configMap1.remove(WSHandlerConstants.PASSWORD_TYPE);
         ((Properties) configMap1.get("cryptoProperties")).put("keyTest", "valueTest");
 
-        final Map<String, Object> configMap2 = configFactory.getConfiguration();
+        final Map<String, Object> configMap2 = configFactory.getConfiguration(null);
         assertEquals("PasswordDigest", configMap2.get(WSHandlerConstants.PASSWORD_TYPE));
         assertNull(((Properties) configMap2.get("cryptoProperties")).get("keyTest"));
     }
