@@ -29,12 +29,16 @@ package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 import gov.hhs.fha.nhinc.messaging.client.interceptor.HttpHeaderRequestOutInterceptor;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.Map;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
+import org.apache.wss4j.dom.handler.WSHandlerConstants;
+import org.apache.wss4j.policy.SPConstants;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 
 /**
  * @author akong
@@ -44,6 +48,9 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
 
     private WsSecurityConfigFactory configFactory = null;
     private String gatewayAlias = null;
+    private static final String ASSERTION_PROPERTY_FILE_NAME = "assertioninfo";
+    private static final String SIG_ALGO = "saml.SignatureAlgorithm";
+    private static final String DIG_ALGO = "saml.DigestAlgorithm";
 
     /**
      * Constructor.
@@ -77,7 +84,12 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
 
         Client client = ClientProxy.getClient(getPort());
         Map<String, Object> outProps = configFactory.getConfiguration(gatewayAlias);
-
+        String salgorithm = PropertyAccessor.getInstance().getProperty(ASSERTION_PROPERTY_FILE_NAME, SIG_ALGO,
+            SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
+        String dalgorithm = PropertyAccessor.getInstance().getProperty(ASSERTION_PROPERTY_FILE_NAME, DIG_ALGO,
+            SPConstants.SHA1);
+        outProps.put(WSHandlerConstants.SIG_ALGO, salgorithm);
+        outProps.put(WSHandlerConstants.SIG_DIGEST_ALGO, dalgorithm);
         configureWSSecurityOnClient(client, outProps);
     }
 

@@ -33,7 +33,6 @@ import java.util.Map;
 import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wss4j.dom.handler.WSHandlerConstants;
-import org.apache.wss4j.policy.SPConstants;
 
 /**
  * @author akong
@@ -93,9 +92,6 @@ public class WsSecurityConfigFactory {
         outProps.put(WSHandlerConstants.SAML_CALLBACK_CLASS, "gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler");
         outProps.put(CRYPTO_PROPERTIES, getSignatureProperties());
         outProps.put(WSHandlerConstants.SIG_PROP_REF_ID, CRYPTO_PROPERTIES);
-        outProps.put(WSHandlerConstants.SIG_ALGO, SPConstants.RSA_SHA1);
-        outProps.put(WSHandlerConstants.SIG_DIGEST_ALGO, SPConstants.SHA1);
-
         outProps.put(WSHandlerConstants.SIGNATURE_PARTS,
             "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;");
 

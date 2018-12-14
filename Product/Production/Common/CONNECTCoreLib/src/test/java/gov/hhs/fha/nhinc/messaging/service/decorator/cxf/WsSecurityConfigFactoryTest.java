@@ -59,6 +59,7 @@ public class WsSecurityConfigFactoryTest {
 
         when(propFileUtil.loadPropertyFile("signature")).thenReturn(sigProperties);
         when(cryptoStoreUtil.getPrivateKeyAlias()).thenReturn("gateway");
+
     }
 
     @Test
@@ -91,8 +92,6 @@ public class WsSecurityConfigFactoryTest {
         assertEquals("PasswordDigest", properties.get(WSHandlerConstants.PASSWORD_TYPE));
         assertNotNull("cryptoProperties", properties.get("cryptoProperties"));
         assertEquals("cryptoProperties", properties.get(WSHandlerConstants.SIG_PROP_REF_ID));
-        assertEquals(SPConstants.RSA_SHA1, properties.get(WSHandlerConstants.SIG_ALGO));
-        assertEquals(SPConstants.SHA1, properties.get(WSHandlerConstants.SIG_DIGEST_ALGO));
         assertEquals(
             "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;",
             properties.get(WSHandlerConstants.SIGNATURE_PARTS));
