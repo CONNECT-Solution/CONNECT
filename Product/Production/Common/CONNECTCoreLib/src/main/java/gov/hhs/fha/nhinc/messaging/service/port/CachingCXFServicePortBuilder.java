@@ -31,6 +31,8 @@ import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapResponseServiceEndpointDecorator;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author bhumphrey
@@ -38,6 +40,7 @@ import javax.xml.ws.BindingProvider;
  *
  */
 public abstract class CachingCXFServicePortBuilder<T> extends CXFServicePortBuilder<T> {
+    private static final Logger LOG = LoggerFactory.getLogger(CachingCXFServicePortBuilder.class);
 
     /**
      * This is a CXF configuration that will ensure that the request context are thread local and will not be shared

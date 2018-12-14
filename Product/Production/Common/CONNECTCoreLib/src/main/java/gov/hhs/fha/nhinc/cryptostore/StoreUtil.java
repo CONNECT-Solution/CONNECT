@@ -56,7 +56,7 @@ public class StoreUtil {
         return instance;
     }
 
-    public StoreUtil() {
+    private StoreUtil() {
 
     }
 
@@ -120,7 +120,7 @@ public class StoreUtil {
     }
 
     public static String getGatewayAlias(Message msg) {
-        String url = null != msg ? (String) msg.get(msg.ENDPOINT_ADDRESS) : null;
+        String url = null != msg ? (String) msg.get(Message.ENDPOINT_ADDRESS) : null;
         return getGatewayAlias(url);
     }
 

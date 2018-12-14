@@ -27,8 +27,6 @@
 package gov.hhs.fha.nhinc.messaging.service.port;
 
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
@@ -36,7 +34,6 @@ import org.slf4j.LoggerFactory;
  */
 public class CXFServicePortBuilder<T> implements ServicePortBuilder<T> {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(CXFServicePortBuilder.class);
     protected Class<T> serviceEndpointClass;
     protected String optionalBindingId;
 
