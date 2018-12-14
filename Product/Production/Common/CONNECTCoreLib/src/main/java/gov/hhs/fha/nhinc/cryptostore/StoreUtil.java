@@ -76,7 +76,7 @@ public class StoreUtil {
         if(StringUtils.isNotBlank(url)){
             try{
                 URL uri = new URL(url);
-                return MessageFormat.format("{0}:{1}", uri.getHost(), uri.getProtocol()).toLowerCase();
+                return MessageFormat.format("{0}:{1}", uri.getHost(), uri.getPort()).toLowerCase();
             } catch (MalformedURLException ex) {
                 LOG.error("unable to parse the url: {}", ex.getMessage(), ex);
             }
@@ -96,10 +96,10 @@ public class StoreUtil {
             String urlKey = getUrlKey(url);
             if (StringUtils.isNotBlank(urlKey)) {
                 if (getInstance().getPrivateKeyAlias().equalsIgnoreCase(alias)) {
-                    LOG.info("debug--remove:urlKey:{}", urlKey);
+                    LOG.debug("debug--remove:urlKey:{}", urlKey);
                     gatewayAliasMapping.remove(urlKey);
                 } else {
-                    LOG.info("debug--add:urlKey:{}, alias:{}", urlKey, alias);
+                    LOG.debug("debug--add:urlKey:{}, alias:{}", urlKey, alias);
                     gatewayAliasMapping.put(urlKey, alias);
                 }
             }
@@ -112,7 +112,7 @@ public class StoreUtil {
             String urlKey = getUrlKey(url);
             String gatewayAlias = gatewayAliasMapping.get(urlKey);
             if(StringUtils.isNotBlank(gatewayAlias)){
-                LOG.info("debug--found url:{}, gatewayAlias:{}", url, gatewayAlias);
+                LOG.debug("debug--found url:{}, gatewayAlias:{}", url, gatewayAlias);
                 return gatewayAlias;
             }
         }
@@ -122,5 +122,13 @@ public class StoreUtil {
     public static String getGatewayAlias(Message msg) {
         String url = null != msg ? (String) msg.get(msg.ENDPOINT_ADDRESS) : null;
         return getGatewayAlias(url);
+    }
+
+    public static String getGatewayAliasDefaultTo(String overrideAlias) {
+        if (StringUtils.isNotBlank(overrideAlias)) {
+            return overrideAlias;
+        }
+        String alias = System.getProperty(NhincConstants.CLIENT_KEY_ALIAS);
+        return StringUtils.isBlank(alias) ? NhincConstants.DEFAULT_CLIENT_KEY_ALIAS : alias;
     }
 }

@@ -316,6 +316,7 @@ public class CertificateManagerImpl implements CertificateManager {
      */
     @Override
     public X509Certificate getDefaultCertificate(String alias) throws CertificateManagerException {
+        LOG.debug("debug -- CertificateManagerImpl-getDefaultCertificate:{}", alias);
         PrivateKeyEntry pkEntry = getPrivateKeyEntry(alias);
         if (pkEntry != null) {
             return (X509Certificate) pkEntry.getCertificate();
@@ -330,6 +331,7 @@ public class CertificateManagerImpl implements CertificateManager {
      */
     @Override
     public PrivateKey getDefaultPrivateKey(String alias) throws CertificateManagerException {
+        LOG.debug("debug -- CertificateManagerImpl-getDefaultPrivateKey:{}", alias);
         PrivateKeyEntry pkEntry = getPrivateKeyEntry(alias);
         if (pkEntry != null) {
             return pkEntry.getPrivateKey();
@@ -343,6 +345,7 @@ public class CertificateManagerImpl implements CertificateManager {
 
         final String clientkeyAlias = StringUtils.isNotBlank(alias) ? alias
             : StoreUtil.getInstance().getPrivateKeyAlias();
+        LOG.debug("debug--getPrivateKeyEntry-clientkeyAlias:{}", clientkeyAlias);
         if (clientkeyAlias != null) {
             final String password = getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY);
             if (password != null) {
@@ -374,6 +377,7 @@ public class CertificateManagerImpl implements CertificateManager {
      */
     @Override
     public RSAPublicKey getDefaultPublicKey(String alias) {
+        LOG.debug("debug -- CertificateManagerImpl-getDefaultPublicKey:{}", alias);
         try {
             return (RSAPublicKey) getDefaultCertificate(alias).getPublicKey();
         } catch (final Exception e) {

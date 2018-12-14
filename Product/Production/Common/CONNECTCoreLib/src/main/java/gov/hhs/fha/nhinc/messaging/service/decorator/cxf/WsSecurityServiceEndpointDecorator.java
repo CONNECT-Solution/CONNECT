@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -43,14 +43,16 @@ import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
 public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
     private WsSecurityConfigFactory configFactory = null;
+    private String gatewayAlias = null;
 
     /**
      * Constructor.
      *
      * @param decoratoredEndpoint - endpoint instance where this decorator will be applied
      */
-    public WsSecurityServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
+    public WsSecurityServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String gatewayAlias) {
         this(decoratoredEndpoint, WsSecurityConfigFactory.getInstance());
+        this.gatewayAlias = gatewayAlias;
     }
 
     /**
@@ -60,7 +62,7 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
      * @param configFactory - factory that produce a config map
      */
     public WsSecurityServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint,
-            WsSecurityConfigFactory configFactory) {
+        WsSecurityConfigFactory configFactory) {
         super(decoratoredEndpoint);
         this.configFactory = configFactory;
     }
@@ -74,7 +76,7 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
         super.configure();
 
         Client client = ClientProxy.getClient(getPort());
-        Map<String, Object> outProps = configFactory.getConfiguration();
+        Map<String, Object> outProps = configFactory.getConfiguration(gatewayAlias);
 
         configureWSSecurityOnClient(client, outProps);
     }

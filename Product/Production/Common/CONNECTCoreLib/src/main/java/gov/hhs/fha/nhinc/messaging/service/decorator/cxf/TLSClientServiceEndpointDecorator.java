@@ -40,7 +40,7 @@ import org.apache.cxf.transport.http.HTTPConduit;
 public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
     private TLSClientParametersFactory tlsClientFactory;
-    private String gatewayAlias;
+    protected String gatewayAlias = null;
 
     /**
      * Constructor.

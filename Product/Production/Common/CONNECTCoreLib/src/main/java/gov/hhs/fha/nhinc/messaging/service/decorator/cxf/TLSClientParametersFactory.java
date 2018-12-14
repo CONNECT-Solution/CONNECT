@@ -85,10 +85,10 @@ public class TLSClientParametersFactory {
      * @param protocols either TLS or SSLv3
      * @return
      */
-    public TLSClientParameters getTLSClientParameters(final String protocols, String url) {
+    public TLSClientParameters getTLSClientParameters(final String protocols, String gatewayAlias) {
         TLSClientParameters tlsCP = new TLSClientParameters();
         tlsCP.setSecureSocketProtocol(protocols);
-        return constructTLSClient(tlsCP, url);
+        return constructTLSClient(tlsCP, gatewayAlias);
 
 
     }
@@ -105,7 +105,7 @@ public class TLSClientParametersFactory {
 
             if (StringUtils.isNotBlank(gatewayAlias)
                 && StoreUtil.getInstance().getPrivateKeyAlias().equalsIgnoreCase(gatewayAlias)) {
-                LOG.info("debug--SSLContext.setCertAlias:{}", gatewayAlias);
+                LOG.debug("debug--SSLContext.setCertAlias:{}", gatewayAlias);
                 tlsClientParameters.setCertAlias(gatewayAlias);
             }
 

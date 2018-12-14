@@ -6,7 +6,7 @@
   <exchanges>
     <exchange type="uddi">
       <name>Exchange 1</name>
-	  <gatewayAlias>gateway</gatewayAlias>
+      <gatewayAlias>gateway</gatewayAlias>
       <url>https://testurl/uddi/list</url>
       <disabled>true</disabled>
       <lastUpdated></lastUpdated>
@@ -353,9 +353,9 @@
         </organization>
       </organizationList>
     </exchange>
-	    <exchange type="uddi">
+      <exchange type="uddi">
       <name>testExchange</name>
-	  <gatewayAlias>gateway_b</gatewayAlias>
+      <gatewayAlias>gateway_b</gatewayAlias>
       <url>https://testurl/uddi/list</url>
       <disabled>true</disabled>
       <lastUpdated></lastUpdated>
