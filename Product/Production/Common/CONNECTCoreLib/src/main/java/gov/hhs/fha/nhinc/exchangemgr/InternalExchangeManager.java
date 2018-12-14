@@ -220,4 +220,9 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
     public List<OrganizationType> getAllOrganizations(String exchangeName) throws ExchangeManagerException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    protected String getGatewayAlias(String exchangeName) {
+        return null;
+    }
 }

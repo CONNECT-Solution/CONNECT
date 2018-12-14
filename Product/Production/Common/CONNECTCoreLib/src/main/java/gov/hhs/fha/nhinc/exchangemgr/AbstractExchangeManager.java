@@ -361,7 +361,5 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
         return innerMap;
     }
 
-    protected String getGatewayAlias(String exchangeName) {
-        return null;
-    }
+    protected abstract String getGatewayAlias(String exchangeName);
 }
