@@ -546,6 +546,6 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
     protected String getGatewayAlias(String exchangeName) {
         ExchangeType exchange = ExchangeManagerHelper
             .findExchangeTypeBy(ExchangeManagerHelper.getExchangeTypeBy(exInfo), exchangeName);
-        return null != exchange ? exchange.getGatewayAlias() : null;
+        return null != exchange ? exchange.getCertificateAlias() : null;
     }
 }

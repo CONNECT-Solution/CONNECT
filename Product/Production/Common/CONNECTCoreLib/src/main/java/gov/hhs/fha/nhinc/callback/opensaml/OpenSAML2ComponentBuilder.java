@@ -347,7 +347,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         final CertificateManager cm = CertificateManagerImpl.getInstance();
         X509Certificate certificate = null;
         try {
-            certificate = cm.getDefaultCertificate(gatewayAlias);
+            certificate = cm.getCertificateBy(gatewayAlias);
         } catch (final CertificateManagerException e) {
             throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
         }

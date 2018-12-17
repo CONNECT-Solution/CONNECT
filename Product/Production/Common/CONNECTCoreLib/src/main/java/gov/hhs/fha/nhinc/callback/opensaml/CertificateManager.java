@@ -31,6 +31,7 @@ import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
+import java.util.List;
 import java.util.Map;
 import javax.activation.DataHandler;
 
@@ -47,14 +48,16 @@ public interface CertificateManager {
      * @return X509Certificate
      * @throws CertificateManagerException
      */
-    public abstract X509Certificate getDefaultCertificate(String alias) throws CertificateManagerException;
+    public abstract X509Certificate getCertificateBy(String alias) throws CertificateManagerException;
 
-    public abstract PrivateKey getDefaultPrivateKey(String alias) throws CertificateManagerException;
+    public abstract List<X509Certificate> getDefaultCertificates() throws CertificateManagerException;
+
+    public abstract PrivateKey getPrivateKeyBy(String alias) throws CertificateManagerException;
 
     /**
      * @return
      */
-    public abstract RSAPublicKey getDefaultPublicKey(String alias);
+    public abstract RSAPublicKey getPublicKeyBy(String alias);
 
     /**
      * @return the keyStore

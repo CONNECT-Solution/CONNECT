@@ -103,9 +103,9 @@ public class HOKSAMLAssertionBuilderTest {
         X509Certificate cert = mock(X509Certificate.class);
 
 
-        when(certManager.getDefaultPublicKey(Mockito.any(String.class))).thenReturn(publicKey);
-        when(certManager.getDefaultPrivateKey(Mockito.any(String.class))).thenReturn(privateKey);
-        when(certManager.getDefaultCertificate(Mockito.any(String.class))).thenReturn(cert);
+        when(certManager.getPublicKeyBy(Mockito.any(String.class))).thenReturn(publicKey);
+        when(certManager.getPrivateKeyBy(Mockito.any(String.class))).thenReturn(privateKey);
+        when(certManager.getCertificateBy(Mockito.any(String.class))).thenReturn(cert);
         when(certManager.deleteCertificate(Mockito.isA(String.class))).thenReturn(false);
         when(certManager.updateCertificate(Mockito.isA(String.class), Mockito.isA(String.class),
             Mockito.isA(String.class), Mockito.isA(String.class), Mockito.isA(String.class),

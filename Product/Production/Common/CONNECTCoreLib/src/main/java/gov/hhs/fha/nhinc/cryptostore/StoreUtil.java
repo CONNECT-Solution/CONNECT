@@ -85,7 +85,10 @@ public class StoreUtil {
     }
 
     /**
-     * to successfully add the gatewayAlias it url and alias cannot be blank and alias cannot be CLIENT_KEY_ALIAS
+     *
+     * addGatewayAlias will remember the URL(Hostname and Port) with associated alias (private key) this will allow
+     * CONNECT to retrieve proper certificate need to communicate with different community when multiple default
+     * certicates exist in the gateway.jks
      *
      * @param url
      * @param alias
@@ -96,10 +99,10 @@ public class StoreUtil {
             String urlKey = getUrlKey(url);
             if (StringUtils.isNotBlank(urlKey)) {
                 if (getInstance().getPrivateKeyAlias().equalsIgnoreCase(alias)) {
-                    LOG.debug("debug--remove:urlKey:{}", urlKey);
+                    LOG.debug("remove:urlKey:{}", urlKey);
                     gatewayAliasMapping.remove(urlKey);
                 } else {
-                    LOG.debug("debug--add:urlKey:{}, alias:{}", urlKey, alias);
+                    LOG.debug("add:urlKey:{}, alias:{}", urlKey, alias);
                     gatewayAliasMapping.put(urlKey, alias);
                 }
             }
@@ -112,7 +115,7 @@ public class StoreUtil {
             String urlKey = getUrlKey(url);
             String gatewayAlias = gatewayAliasMapping.get(urlKey);
             if(StringUtils.isNotBlank(gatewayAlias)){
-                LOG.debug("debug--found url:{}, gatewayAlias:{}", url, gatewayAlias);
+                LOG.debug("found url:{}, gatewayAlias:{}", url, gatewayAlias);
                 return gatewayAlias;
             }
         }

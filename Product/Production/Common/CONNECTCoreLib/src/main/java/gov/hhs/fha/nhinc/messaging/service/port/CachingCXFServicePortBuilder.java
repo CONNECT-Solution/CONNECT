@@ -91,7 +91,7 @@ public abstract class CachingCXFServicePortBuilder<T> extends CXFServicePortBuil
     @SuppressWarnings("unchecked")
     @Override
     public synchronized T createPort(String gatewayAlias) {
-        LOG.debug("debug--createPort-gatewayAlias: {}", gatewayAlias);
+        LOG.debug("createPort-gatewayAlias: {}", gatewayAlias);
         T port = (T) getCache(gatewayAlias).get(serviceEndpointClass);
         if (port == null) {
             port = super.createPort(gatewayAlias);

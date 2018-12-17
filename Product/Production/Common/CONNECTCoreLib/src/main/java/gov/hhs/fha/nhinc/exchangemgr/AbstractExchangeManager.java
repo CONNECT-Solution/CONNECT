@@ -169,8 +169,9 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
                 if (ExchangeManagerHelper.hasService(epType, sUniformServiceName)) {
                     NhincConstants.UDDI_SPEC_VERSION highestVersion = ExchangeManagerHelper.getHighestUDDISpecVersion(
                         ExchangeManagerHelper.getSpecVersions(epType));
-                    return StoreUtil.addGatewayAlias(ExchangeManagerHelper.getEndpointURLBySpecVersion(
-                        epType.getEndpointConfigurationList(), highestVersion), getGatewayAlias(exchangeName));
+                    String url = ExchangeManagerHelper
+                        .getEndpointURLBySpecVersion(epType.getEndpointConfigurationList(), highestVersion);
+                    return StoreUtil.addGatewayAlias(url, getGatewayAlias(exchangeName));
                 }
             }
         }
