@@ -175,7 +175,6 @@ public class CertificateManagerImpl implements CertificateManager {
                 isDeleteSuccessful = true;
             }
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
-            LOG.error("Unable to delete the Certifiate: ", ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(ex.getMessage(), ex);
         } finally {
             closeStream(is, os);
@@ -200,7 +199,6 @@ public class CertificateManagerImpl implements CertificateManager {
             }
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
             isUpdateSuccessful = false;
-            LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(ex.getMessage(), ex);
         } finally {
             IOUtils.closeQuietly(is);
@@ -216,7 +214,6 @@ public class CertificateManagerImpl implements CertificateManager {
             tstore.setCertificateEntry(newAlias, certificate);
             tstore.store(os, passkey.toCharArray());
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
-            LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(ex.getMessage(), ex);
         }
     }
@@ -357,7 +354,6 @@ public class CertificateManagerImpl implements CertificateManager {
                 }
 
             } catch (final NoSuchAlgorithmException | KeyStoreException | UnrecoverableEntryException ex) {
-                LOG.error("Error initializing Private Keys: {}", ex.getLocalizedMessage(), ex);
                 throw new CertificateManagerException(ex.getLocalizedMessage(), ex);
             }
 
