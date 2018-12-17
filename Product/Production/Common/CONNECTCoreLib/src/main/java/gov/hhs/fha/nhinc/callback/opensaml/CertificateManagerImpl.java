@@ -382,7 +382,6 @@ public class CertificateManagerImpl implements CertificateManager {
                     new KeyStore.PasswordProtection(password.toCharArray()));
 
             } catch (final NoSuchAlgorithmException | KeyStoreException | UnrecoverableEntryException ex) {
-                LOG.error("Error initializing Private Key: {}", ex.getLocalizedMessage(), ex);
                 throw new CertificateManagerException(ex.getLocalizedMessage(), ex);
             }
 
