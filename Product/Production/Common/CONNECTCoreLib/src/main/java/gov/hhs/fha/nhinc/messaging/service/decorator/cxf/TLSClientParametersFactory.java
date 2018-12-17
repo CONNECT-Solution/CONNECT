@@ -105,7 +105,7 @@ public class TLSClientParametersFactory {
 
             if (StringUtils.isNotBlank(gatewayAlias)
                 && StoreUtil.getInstance().getPrivateKeyAlias().equalsIgnoreCase(gatewayAlias)) {
-                LOG.debug("debug--SSLContext.setCertAlias:{}", gatewayAlias);
+                LOG.debug("SSLContext.setCertAlias:{}", gatewayAlias);
                 tlsClientParameters.setCertAlias(gatewayAlias);
             }
 

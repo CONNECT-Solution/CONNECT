@@ -32,6 +32,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
@@ -51,6 +52,7 @@ public class CertificateManagerImplTest {
     private CertificateManagerImpl certManager;
     private final String KEY_STORE_PATH = "src/test/resources/gov/hhs/fha/nhinc/callback/gateway.jks";
     private final String TRUST_STORE_PATH = "src/test/resources/gov/hhs/fha/nhinc/callback/cacerts.jks";
+    private final String KEY_DEFAULT_CERT = StoreUtil.getInstance().getPrivateKeyAlias();
 
     @Before
     public void setUp() {
@@ -87,7 +89,7 @@ public class CertificateManagerImplTest {
 
     @Test
     public void testGetDefaultPrivateKey() throws Exception {
-        PrivateKey privateKey = certManager.getDefaultPrivateKey(null);
+        PrivateKey privateKey = certManager.getPrivateKeyBy(KEY_DEFAULT_CERT);
         assertNotNull(privateKey);
         assertEquals(privateKey.getAlgorithm(), "RSA");
         assertEquals(privateKey.getFormat(), "PKCS#8");
@@ -95,7 +97,7 @@ public class CertificateManagerImplTest {
 
     @Test
     public void testGetDefaultPublicKey() {
-        RSAPublicKey publicKey = certManager.getDefaultPublicKey(null);
+        RSAPublicKey publicKey = certManager.getPublicKeyBy(KEY_DEFAULT_CERT);
         assertNotNull(publicKey);
         assertEquals(publicKey.getAlgorithm(), "RSA");
         assertEquals(publicKey.getFormat(), "X.509");
@@ -103,7 +105,7 @@ public class CertificateManagerImplTest {
 
     @Test
     public void testGetDefaultCertificate() throws Exception {
-        X509Certificate certificate = certManager.getDefaultCertificate(null);
+        X509Certificate certificate = certManager.getCertificateBy(KEY_DEFAULT_CERT);
         assertNotNull(certificate);
         assertEquals(certificate.getSigAlgName(), "SHA256withRSA");
         assertEquals(certificate.getSigAlgOID(), "1.2.840.113549.1.1.11");
