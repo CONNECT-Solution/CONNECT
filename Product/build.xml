@@ -16,8 +16,6 @@
 
     <property name="root.project.directory.path" value="${codeline.directory.path}/Product" />
 
-    <import file="./Install/deploy.xml" />
-
     <condition property="progress-filepath" value="${java.io.tmpdir}/ant-progress.txt">
         <not>
             <isset property="progress-filepath" />
