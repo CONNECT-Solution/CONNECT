@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wss4j.dom.handler.WSHandlerConstants;
 import org.apache.wss4j.policy.SPConstants;
 
@@ -77,8 +78,8 @@ public class WsSecurityConfigFactory {
      *
      * @return
      */
-    public Map<String, Object> getConfiguration() {
-        return deepCopy(configuration);
+    public Map<String, Object> getConfiguration(String gatewayAlias) {
+        return deepCopy(configuration, gatewayAlias);
     }
 
     private HashMap<String, Object> createWSSecurityConfiguration() {
@@ -109,8 +110,11 @@ public class WsSecurityConfigFactory {
         return propFileUtil.loadPropertyFile(SIGNATURE_PROPERTIES_FILENAME);
     }
 
-    private static Map<String, Object> deepCopy(final HashMap<String, Object> configMap) {
+    private static Map<String, Object> deepCopy(final HashMap<String, Object> configMap, String gatewayAlias) {
         final HashMap<String, Object> clonedMap = new HashMap<>(configMap);
+        if(StringUtils.isNotBlank(gatewayAlias)){
+            clonedMap.put(WSHandlerConstants.USER, gatewayAlias);
+        }
 
         final Properties cryptoProperties = (Properties) clonedMap.get(CRYPTO_PROPERTIES);
         clonedMap.put(CRYPTO_PROPERTIES, cryptoProperties.clone());

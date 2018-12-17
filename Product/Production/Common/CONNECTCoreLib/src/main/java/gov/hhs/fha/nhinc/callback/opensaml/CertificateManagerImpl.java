@@ -33,7 +33,6 @@ import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.loadKeyStore;
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFSecuredServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFUnsecuredServicePortBuilder;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -48,7 +47,10 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import javax.activation.DataHandler;
 import org.apache.commons.io.IOUtils;
@@ -158,11 +160,13 @@ public class CertificateManagerImpl implements CertificateManager {
                 is = new FileInputStream(storeLoc);
             }
             tstore.load(is, passkey.toCharArray());
-            // restrict deleting from its own public cert
-            X509Certificate publicCert = getDefaultCertificate();
-            String publicAlias = tstore.getCertificateAlias(publicCert);
-            if (StringUtils.equalsIgnoreCase(alias, publicAlias)) {
-                throw new CertificateManagerException("System cannot remove its own public cert");
+            // restrict deleting from its own public cert(s)
+            List<X509Certificate> publicCerts = getDefaultCertificates();
+            for (X509Certificate publicCert : publicCerts) {
+                String publicAlias = tstore.getCertificateAlias(publicCert);
+                if (StringUtils.equalsIgnoreCase(alias, publicAlias)) {
+                    throw new CertificateManagerException("System cannot remove its own public cert");
+                }
             }
             if (tstore.containsAlias(alias)) {
                 tstore.deleteEntry(alias);
@@ -171,7 +175,6 @@ public class CertificateManagerImpl implements CertificateManager {
                 isDeleteSuccessful = true;
             }
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
-            LOG.error("Unable to delete the Certifiate: ", ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(ex.getMessage(), ex);
         } finally {
             closeStream(is, os);
@@ -196,7 +199,6 @@ public class CertificateManagerImpl implements CertificateManager {
             }
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
             isUpdateSuccessful = false;
-            LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(ex.getMessage(), ex);
         } finally {
             IOUtils.closeQuietly(is);
@@ -212,7 +214,6 @@ public class CertificateManagerImpl implements CertificateManager {
             tstore.setCertificateEntry(newAlias, certificate);
             tstore.store(os, passkey.toCharArray());
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
-            LOG.error("Unable to update the Certifiate: ", ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(ex.getMessage(), ex);
         }
     }
@@ -312,11 +313,12 @@ public class CertificateManagerImpl implements CertificateManager {
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getDefaultCertificate()
+     * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getCertificateBy()
      */
     @Override
-    public X509Certificate getDefaultCertificate() throws CertificateManagerException {
-        PrivateKeyEntry pkEntry = getPrivateKeyEntry();
+    public X509Certificate getCertificateBy(String alias) throws CertificateManagerException {
+        LOG.debug("debug -- CertificateManagerImpl-getDefaultCertificate:{}", alias);
+        PrivateKeyEntry pkEntry = getPrivateKeyEntry(alias);
         if (pkEntry != null) {
             return (X509Certificate) pkEntry.getCertificate();
         }
@@ -329,37 +331,58 @@ public class CertificateManagerImpl implements CertificateManager {
      * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getDefaultPrivateKey()
      */
     @Override
-    public PrivateKey getDefaultPrivateKey() throws CertificateManagerException {
-        PrivateKeyEntry pkEntry = getPrivateKeyEntry();
+    public PrivateKey getPrivateKeyBy(String alias) throws CertificateManagerException {
+        LOG.debug("debug -- CertificateManagerImpl-getDefaultPrivateKey:{}", alias);
+        PrivateKeyEntry pkEntry = getPrivateKeyEntry(alias);
         if (pkEntry != null) {
             return pkEntry.getPrivateKey();
         }
         return null;
     }
 
-    private PrivateKeyEntry getPrivateKeyEntry() throws CertificateManagerException {
-        LOG.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- Begin");
-        KeyStore.PrivateKeyEntry pkEntry = null;
-
-        final String clientkeyAlias = StoreUtil.getInstance().getPrivateKeyAlias();
-        if (clientkeyAlias != null) {
-            final String password = getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY);
-            if (password != null) {
-                try {
-                    pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(clientkeyAlias,
+    private Map<String, PrivateKeyEntry> getPrivateKeyEntries() throws CertificateManagerException {
+        Map<String, PrivateKeyEntry> pkEntries = new HashMap<>();
+        final String password = getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY);
+        if (password != null) {
+            try {
+                Enumeration enumeration = keyStore.aliases();
+                while(enumeration.hasMoreElements()) {
+                    String alias = (String)enumeration.nextElement();
+                    PrivateKeyEntry pkEntry = (PrivateKeyEntry) keyStore.getEntry(alias,
                         new KeyStore.PasswordProtection(password.toCharArray()));
-
-                } catch (final NoSuchAlgorithmException | KeyStoreException | UnrecoverableEntryException ex) {
-                    LOG.error("Error initializing Private Key: {}", ex.getLocalizedMessage(), ex);
-                    throw new CertificateManagerException(ex.getLocalizedMessage(), ex);
+                    pkEntries.put(alias, pkEntry);
                 }
 
-            } else {
-                LOG.error("{} is not a defined system property.", KEY_STORE_PASSWORD_KEY);
+            } catch (final NoSuchAlgorithmException | KeyStoreException | UnrecoverableEntryException ex) {
+                throw new CertificateManagerException(ex.getLocalizedMessage(), ex);
             }
 
         } else {
-            LOG.error("{} is not a defined system property.", NhincConstants.CLIENT_KEY_ALIAS);
+            LOG.error("{} is not a defined system property.", KEY_STORE_PASSWORD_KEY);
+        }
+        return pkEntries;
+    }
+
+    private PrivateKeyEntry getPrivateKeyEntry(String alias) throws CertificateManagerException {
+        LOG.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- Begin");
+        PrivateKeyEntry pkEntry = null;
+
+        final String clientkeyAlias = StringUtils.isNotBlank(alias) ? alias
+            : StoreUtil.getInstance().getPrivateKeyAlias();
+        LOG.debug("getPrivateKeyEntry-clientkeyAlias:{}", clientkeyAlias);
+
+        final String password = getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY);
+        if (password != null) {
+            try {
+                pkEntry = (PrivateKeyEntry) keyStore.getEntry(clientkeyAlias,
+                    new KeyStore.PasswordProtection(password.toCharArray()));
+
+            } catch (final NoSuchAlgorithmException | KeyStoreException | UnrecoverableEntryException ex) {
+                throw new CertificateManagerException(ex.getLocalizedMessage(), ex);
+            }
+
+        } else {
+            LOG.error("{} is not a defined system property.", KEY_STORE_PASSWORD_KEY);
         }
 
         LOG.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- End");
@@ -369,12 +392,13 @@ public class CertificateManagerImpl implements CertificateManager {
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getDefaultPublicKey()
+     * @see gov.hhs.fha.nhinc.callback.openSAML.CertificateManager#getPublicKeyBy()
      */
     @Override
-    public RSAPublicKey getDefaultPublicKey() {
+    public RSAPublicKey getPublicKeyBy(String alias) {
+        LOG.debug("debug -- CertificateManagerImpl-getDefaultPublicKey:{}", alias);
         try {
-            return (RSAPublicKey) getDefaultCertificate().getPublicKey();
+            return (RSAPublicKey) getCertificateBy(alias).getPublicKey();
         } catch (final Exception e) {
             LOG.error("Could not get default public key: {}", e.getLocalizedMessage(), e);
 
@@ -475,6 +499,22 @@ public class CertificateManagerImpl implements CertificateManager {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         handler.writeTo(output);
         return output.toByteArray();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.callback.opensaml.CertificateManager#getDefaultCertificates()
+     */
+    @Override
+    public List<X509Certificate> getDefaultCertificates() throws CertificateManagerException {
+        List<X509Certificate> certList = new LinkedList<>();
+
+        for (Map.Entry<String, PrivateKeyEntry> entry : getPrivateKeyEntries().entrySet()) {
+            certList.add((X509Certificate) entry.getValue().getCertificate());
+        }
+
+        return certList;
     }
 
 }

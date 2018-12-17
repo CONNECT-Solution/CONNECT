@@ -10,7 +10,7 @@
       <disabled>true</disabled>
       <lastUpdated></lastUpdated>
       <organizationList>
-         <organization>
+        <organization>
           <ns2:name>Gateway 1</ns2:name>
           <ns2:hcid>urn:oid:1.1</ns2:hcid>
           <ns2:endpointList>

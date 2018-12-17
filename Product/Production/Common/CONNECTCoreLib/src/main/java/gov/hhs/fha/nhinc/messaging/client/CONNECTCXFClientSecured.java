@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.messaging.service.decorator.HttpHeaderServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
@@ -44,17 +45,19 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
     private static final Logger LOG = LoggerFactory.getLogger(CONNECTCXFClientSecured.class);
 
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        super(portDescriptor, url, assertion, new CachingCXFSecuredServicePortBuilder<>(portDescriptor));
+        super(portDescriptor, url, assertion,
+            new CachingCXFSecuredServicePortBuilder<>(portDescriptor, StoreUtil.getGatewayAlias(url)));
         decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), null, null);
 
         serviceEndpoint.configure();
     }
 
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, AssertionType assertion, String url,
-            String targetHomeCommunityId, String serviceName) {
-        super(portDescriptor, url, assertion, new CachingCXFSecuredServicePortBuilder<>(portDescriptor));
+        String targetHomeCommunityId, String serviceName) {
+        super(portDescriptor, url, assertion,
+            new CachingCXFSecuredServicePortBuilder<>(portDescriptor, StoreUtil.getGatewayAlias(url)));
         decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), targetHomeCommunityId,
-                serviceName);
+            serviceName);
 
         serviceEndpoint.configure();
     }
@@ -65,17 +68,17 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
     }
 
     private void decorateEndpoint(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId,
-            String targetHomeCommunityId, String serviceName) {
+        String targetHomeCommunityId, String serviceName) {
         serviceEndpoint = new SAMLServiceEndpointDecorator<>(serviceEndpoint, assertion, targetHomeCommunityId,
-                serviceName);
+            serviceName);
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo,
-                wsAddressingActionId, assertion);
+            wsAddressingActionId, assertion);
         serviceEndpoint = new HttpHeaderServiceEndpointDecorator<>(serviceEndpoint, assertion);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClient#enableWSA(gov.hhs.fha.nhinc.common.nhinccommon.AssertionType,
      * java.lang.String, java.lang.String)

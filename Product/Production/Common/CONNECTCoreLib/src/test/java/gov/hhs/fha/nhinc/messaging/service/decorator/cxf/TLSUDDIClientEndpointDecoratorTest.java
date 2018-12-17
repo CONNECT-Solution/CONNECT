@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -59,7 +59,18 @@ public class TLSUDDIClientEndpointDecoratorTest {
      */
     @Before
     public void setUp() throws Exception {
+        System.setProperty("nhinc.properties.dir", System.getProperty("user.dir") + "/src/test/resources");
+        System.setProperty("javax.net.ssl.keyStore",
+            System.getProperty("user.dir") + "/src/test/resources/gateway.jks");
+        System.setProperty("javax.net.ssl.keyStoreType", "JKS");
+        System.setProperty("javax.net.ssl.keyStorePassword", "changeit");
+        System.setProperty("javax.net.ssl.trustStore",
+            System.getProperty("user.dir") + "/src/test/resources/gateway.jks");
+        System.setProperty("javax.net.ssl.trustStoreType", "JKS");
+        System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
+
         mockPropAccessor = mock(PropertyAccessor.class);
+
     }
 
     /**
@@ -73,7 +84,9 @@ public class TLSUDDIClientEndpointDecoratorTest {
     @Test
     public final void testTLSConfiguration() throws PropertyAccessException {
         when(mockPropAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, "UDDI.TLS")).thenReturn(null);
-        CONNECTClient<TestServicePortType> uddiClient = createClient(mockPropAccessor);
+        when(mockPropAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.DISABLE_CN_CHECK,
+            false)).thenReturn(true);
+        CONNECTClient<TestServicePortType> uddiClient = createClient(mockPropAccessor, null);
         Assert.assertNotNull(uddiClient);
         TLSClientParameters tlsCP = retrieveTLSClientParamters(uddiClient);
         assertTrue(tlsCP.isDisableCNCheck());
@@ -83,10 +96,13 @@ public class TLSUDDIClientEndpointDecoratorTest {
     @Test
     public void testTLSV12Configuration() throws PropertyAccessException {
         when(mockPropAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, "UDDI.TLS")).thenReturn("TLSv1.2");
-        CONNECTClient<TestServicePortType> uddiClient = createClient(mockPropAccessor);
+        when(mockPropAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+            NhincConstants.DISABLE_CN_CHECK, false)).thenReturn(true);
+        CONNECTClient<TestServicePortType> uddiClient = createClient(mockPropAccessor, null);
         Assert.assertNotNull(uddiClient);
         TLSClientParameters tlsCP = retrieveTLSClientParamters(uddiClient);
         assertTrue(tlsCP.isDisableCNCheck());
+        String tls_protocol = tlsCP.getSecureSocketProtocol();
         Assert.assertEquals("TLSv1.2", tlsCP.getSecureSocketProtocol());
     }
 
@@ -101,12 +117,13 @@ public class TLSUDDIClientEndpointDecoratorTest {
         return tlsCP;
     }
 
-    private CONNECTClient<TestServicePortType> createClient(final PropertyAccessor propAccessor)
+    private CONNECTClient<TestServicePortType> createClient(final PropertyAccessor propAccessor, String gatewayAlias)
         throws PropertyAccessException {
         CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<>(new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
-        final TLSUDDIClientEndpointDecorator uddiDecorator = new TLSUDDIClientEndpointDecorator(serviceEndpoint) {
+        final TLSUDDIClientEndpointDecorator uddiDecorator = new TLSUDDIClientEndpointDecorator(serviceEndpoint,
+            gatewayAlias) {
             @Override
             protected PropertyAccessor getPropertyAccessor() {
                 return propAccessor;

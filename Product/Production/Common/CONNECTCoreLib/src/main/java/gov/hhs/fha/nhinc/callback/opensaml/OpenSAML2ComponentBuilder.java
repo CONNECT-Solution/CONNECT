@@ -343,11 +343,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the public key
      * @throws SAMLComponentBuilderException the exception
      */
-    public PublicKey getPublicKey() throws SAMLComponentBuilderException {
+    public PublicKey getPublicKey(String gatewayAlias) throws SAMLComponentBuilderException {
         final CertificateManager cm = CertificateManagerImpl.getInstance();
         X509Certificate certificate = null;
         try {
-            certificate = cm.getDefaultCertificate();
+            certificate = cm.getCertificateBy(gatewayAlias);
         } catch (final CertificateManagerException e) {
             throw new SAMLComponentBuilderException(e.getLocalizedMessage(), e);
         }

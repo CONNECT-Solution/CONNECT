@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -167,10 +168,10 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
             for (EndpointType epType : org.getEndpointList().getEndpoint()) {
                 if (ExchangeManagerHelper.hasService(epType, sUniformServiceName)) {
                     NhincConstants.UDDI_SPEC_VERSION highestVersion = ExchangeManagerHelper.getHighestUDDISpecVersion(
-                        ExchangeManagerHelper.
-                        getSpecVersions(epType));
-                    return ExchangeManagerHelper.getEndpointURLBySpecVersion(epType.getEndpointConfigurationList(),
-                        highestVersion);
+                        ExchangeManagerHelper.getSpecVersions(epType));
+                    String url = ExchangeManagerHelper
+                        .getEndpointURLBySpecVersion(epType.getEndpointConfigurationList(), highestVersion);
+                    return StoreUtil.addGatewayAlias(url, getGatewayAlias(exchangeName));
                 }
             }
         }
@@ -178,8 +179,7 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
     }
 
     @Override
-    public String getEndpointURL(String hcid, String sServiceName, T apiSpec) throws
-    ExchangeManagerException {
+    public String getEndpointURL(String hcid, String sServiceName, T apiSpec) throws ExchangeManagerException {
         return getEndpointURL(hcid, sServiceName, apiSpec, null);
     }
 
@@ -255,7 +255,8 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
             }
         }
         LOG.debug("Returning URL: {}", sEndpointURL);
-        return sEndpointURL;
+        return StoreUtil.addGatewayAlias(sEndpointURL,
+            getGatewayAlias(null != targetSystem ? targetSystem.getExchangeName() : null));
     }
 
     @Override
@@ -360,4 +361,6 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
         }
         return innerMap;
     }
+
+    protected abstract String getGatewayAlias(String exchangeName);
 }

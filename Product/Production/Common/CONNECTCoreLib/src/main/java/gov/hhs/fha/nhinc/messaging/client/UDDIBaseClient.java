@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,12 +27,13 @@
 package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSUDDIClientEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CXFServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -52,10 +53,10 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
 
         CXFServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<>(portDescriptor);
 
-        serviceEndpoint = new BaseServiceEndpoint<>(portBuilder.createPort());
+        serviceEndpoint = new BaseServiceEndpoint<>(portBuilder.createPort(StoreUtil.getGatewayAlias(url)));
         serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
         serviceEndpoint = new TimeoutServiceEndpointDecorator<>(serviceEndpoint, -1);
-        serviceEndpoint = new TLSUDDIClientEndpointDecorator<>(serviceEndpoint);
+        serviceEndpoint = new TLSUDDIClientEndpointDecorator<>(serviceEndpoint, StoreUtil.getGatewayAlias(url));
         serviceEndpoint.configure();
 
     }
@@ -72,7 +73,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#supportMtom()
      */
     @Override
@@ -82,7 +83,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * gov.hhs.fha.nhinc.messaging.client.CONNECTClient#enableWSA(gov.hhs.fha.nhinc.common.nhinccommon.AssertionType,
      * java.lang.String, java.lang.String)
@@ -90,7 +91,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
     @Override
     public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo,
-                wsAddressingActionId, assertion);
+            wsAddressingActionId, assertion);
     }
 
 }

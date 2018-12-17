@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.exchangemgr;
 
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationListType;
@@ -152,7 +153,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         if (null == configType) {
             throw new ExchangeManagerException("No matching target endpoint for guidance: " + getApiSpec(api_spec));
         }
-        return configType.getUrl();
+        return StoreUtil.addGatewayAlias(configType.getUrl(), getGatewayAlias(exchangeName));
     }
 
     @Override
@@ -398,7 +399,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
     }
 
     private OrganizationType retrieveOrganizationFromCache(String exchangeName, String hcid) throws
-        ExchangeManagerException {
+    ExchangeManagerException {
         refreshExchangeCacheIfRequired();
         String hcidWithoutPrefix = HomeCommunityMap.formatHomeCommunityId(hcid);
         String hcidWithPrefix = HomeCommunityMap.getHomeCommunityIdWithPrefix(hcid);
@@ -539,5 +540,12 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         }
         LOG.warn("Incorrect Exchange type in exchangeInfo.xml {}", type);
         return false;
+    }
+
+    @Override
+    protected String getGatewayAlias(String exchangeName) {
+        ExchangeType exchange = ExchangeManagerHelper
+            .findExchangeTypeBy(ExchangeManagerHelper.getExchangeTypeBy(exInfo), exchangeName);
+        return null != exchange ? exchange.getCertificateAlias() : null;
     }
 }
