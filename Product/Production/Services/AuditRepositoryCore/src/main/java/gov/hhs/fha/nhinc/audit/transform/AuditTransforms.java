@@ -677,12 +677,12 @@ public abstract class AuditTransforms<T, K> {
         return userInfo.getUserName().trim();
     }
 
-    private boolean checkDistinguishedName(String userName) {
+    private static boolean checkDistinguishedName(String userName) {
         Name name = null;
         try {
             name = new LdapName(userName);
-        } catch (InvalidNameException e) {
-            LOG.error("Invalid distinguished name {}", userName);
+        } catch (InvalidNameException ex) {
+            LOG.error("Invalid distinguished name {}", userName, ex);
         }
         return name != null;
     }

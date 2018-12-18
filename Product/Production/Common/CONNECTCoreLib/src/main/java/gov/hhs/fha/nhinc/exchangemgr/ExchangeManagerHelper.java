@@ -460,14 +460,12 @@ public class ExchangeManagerHelper {
 
     public static String getExchangeAlias(String exchangeName) {
         String alias = null;
-        if (StringUtils.isNotBlank(exchangeName)) {
-            List<ExchangeType> exchanges = ExchangeManager.getInstance().getAllExchanges();
-            if (CollectionUtils.isNotEmpty(exchanges)) {
-                for (ExchangeType ex : exchanges) {
-                    if (exchangeName.equalsIgnoreCase(ex.getName())) {
-                        alias = ex.getCertificateAlias();
-                        break;
-                    }
+        List<ExchangeType> exchanges = ExchangeManager.getInstance().getAllExchanges();
+        if (StringUtils.isNotBlank(exchangeName) && CollectionUtils.isNotEmpty(exchanges)) {
+            for (ExchangeType ex : exchanges) {
+                if (exchangeName.equalsIgnoreCase(ex.getName())) {
+                    alias = ex.getCertificateAlias();
+                    break;
                 }
             }
         }
