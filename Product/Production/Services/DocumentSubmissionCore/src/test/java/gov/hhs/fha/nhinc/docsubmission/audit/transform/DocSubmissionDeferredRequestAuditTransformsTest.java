@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -30,6 +30,7 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransformsTest;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -69,8 +70,13 @@ public class DocSubmissionDeferredRequestAuditTransformsTest extends AuditTransf
     private final String REMOTE_IP = "16.14.13.12";
     private final String WS_REQUEST_URL = "http://" + REMOTE_IP + ":9090/AuditService";
 
+    public DocSubmissionDeferredRequestAuditTransformsTest() {
+        super.initialize();
+    }
+
     @Test
     public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException, JAXBException {
+        final CertificateManager certMgr = getCertificateMgr();
         DocSubmissionAuditTransforms transforms = new DocSubmissionAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
@@ -89,6 +95,11 @@ public class DocSubmissionDeferredRequestAuditTransformsTest extends AuditTransf
             @Override
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
                 return WS_REQUEST_URL;
+            }
+
+            @Override
+            protected CertificateManager getCertificateManager() {
+                return certMgr;
             }
         };
 

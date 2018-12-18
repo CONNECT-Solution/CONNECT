@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.exchangemgr;
 
-import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
-import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
-
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeListType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
@@ -43,6 +40,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import static gov.hhs.fha.nhinc.util.HomeCommunityMap.equalsIgnoreCaseForHCID;
+import static gov.hhs.fha.nhinc.util.NhincCollections.addAll;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -457,5 +456,21 @@ public class ExchangeManagerHelper {
             newList.add(copyExchangeType(exchange));
         }
         return newList;
+    }
+
+    public static String getExchangeAlias(String exchangeName) {
+        String alias = null;
+        if (StringUtils.isNotBlank(exchangeName)) {
+            List<ExchangeType> exchanges = ExchangeManager.getInstance().getAllExchanges();
+            if (CollectionUtils.isNotEmpty(exchanges)) {
+                for (ExchangeType ex : exchanges) {
+                    if (exchangeName.equalsIgnoreCase(ex.getName())) {
+                        alias = ex.getCertificateAlias();
+                        break;
+                    }
+                }
+            }
+        }
+        return alias;
     }
 }

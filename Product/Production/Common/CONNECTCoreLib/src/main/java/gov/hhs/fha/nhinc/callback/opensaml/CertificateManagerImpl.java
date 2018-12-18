@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.callback.opensaml;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.PKCS11_TYPE;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.createCertificate;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.loadKeyStore;
-
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFSecuredServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFUnsecuredServicePortBuilder;
@@ -96,7 +95,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @param trustStoreProperties
      * @return
      */
-    static CertificateManager getInstance(final Map<String, String> keyStoreProperties,
+    public static CertificateManager getInstance(final Map<String, String> keyStoreProperties,
         final Map<String, String> trustStoreProperties) {
         return new CertificateManagerImpl() {
             @Override
@@ -277,8 +276,6 @@ public class CertificateManagerImpl implements CertificateManager {
         }
         LOG.debug("initKeyStore() -- End");
     }
-
-
 
     /**
      * Initializes the truststore access using the system properties defined in the domain.xml javax.net.ssl.trustStore

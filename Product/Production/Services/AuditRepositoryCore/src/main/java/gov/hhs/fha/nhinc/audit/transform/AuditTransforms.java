@@ -33,12 +33,16 @@ import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
@@ -50,11 +54,15 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.security.cert.X509Certificate;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
 import java.util.TimeZone;
 import java.util.UUID;
+import javax.naming.InvalidNameException;
+import javax.naming.Name;
+import javax.naming.ldap.LdapName;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -112,8 +120,7 @@ public abstract class AuditTransforms<T, K> {
         return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
             serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(),
             auditMsg.getEventIdentification().getEventOutcomeIndicator(),
-            auditMsg.getEventIdentification().getEventDateTime(),
-            getRequestorUserId(auditMsg.getActiveParticipant(), assertion));
+            auditMsg.getEventIdentification().getEventDateTime(), getRequestorUserId(target, assertion.getUserInfo()));
     }
 
     /**
@@ -144,18 +151,16 @@ public abstract class AuditTransforms<T, K> {
             serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(),
             auditMsg.getEventIdentification().getEventOutcomeIndicator(),
             auditMsg.getEventIdentification().getEventDateTime(),
-            getRequestorUserId(auditMsg.getActiveParticipant(), assertion));
+            getRequestorUserId(auditMsg.getActiveParticipant()));
     }
 
     /**
      * Retrieve User Id from Audit Active Participant or AssertionType
      *
      * @param ActiveParticipant List of Active Participants
-     * @param assertionType Assertion Type
      * @return return userId from Audit Active participant/AssertType in order
      */
-    private final String getRequestorUserId(final List<ActiveParticipant> activeParticipants,
-        final AssertionType assertionType) {
+    private String getRequestorUserId(final List<ActiveParticipant> activeParticipants) {
         String userId = getUserId(activeParticipants);
         LOG.debug("Extract userName from Active Participant: {}", userId);
         if (StringUtils.isEmpty(userId)) {
@@ -193,14 +198,14 @@ public abstract class AuditTransforms<T, K> {
         return createAuditSourceIdentification(hcid, HomeCommunityMap.getHomeCommunityName(hcid));
     }
 
-    protected ActiveParticipant getActiveParticipant(UserType oUserInfo) {
+    protected ActiveParticipant getActiveParticipant(NhinTargetSystemType target, UserType oUserInfo) {
         // Create Active Participant Section
         // create a method to call the AuditDataTransformHelper - one expectation
-        ActiveParticipant participant = createActiveParticipantFromUser(oUserInfo);
+        ActiveParticipant participant = createActiveParticipantFromUser(target, oUserInfo);
         if (oUserInfo != null && oUserInfo.getRoleCoded() != null) {
             participant.getRoleIDCode()
-            .add(AuditDataTransformHelper.createCodeValueType(oUserInfo.getRoleCoded().getCode(), "",
-                oUserInfo.getRoleCoded().getCodeSystemName(), oUserInfo.getRoleCoded().getDisplayName()));
+                .add(AuditDataTransformHelper.createCodeValueType(oUserInfo.getRoleCoded().getCode(), "",
+                    oUserInfo.getRoleCoded().getCodeSystemName(), oUserInfo.getRoleCoded().getDisplayName()));
         }
         return participant;
     }
@@ -208,8 +213,8 @@ public abstract class AuditTransforms<T, K> {
     protected EventIdentificationType createEventIdentification(boolean isRequesting) {
         CodedValueType eventId = createCodeValueType(
             isRequesting ? getServiceEventIdCodeRequestor() : getServiceEventIdCodeResponder(), null,
-                getServiceEventCodeSystem(),
-                isRequesting ? getServiceEventDisplayRequestor() : getServiceEventDisplayResponder());
+            getServiceEventCodeSystem(),
+            isRequesting ? getServiceEventDisplayRequestor() : getServiceEventDisplayResponder());
 
         EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventId, isRequesting);
         oEventIdentificationType.getEventTypeCode().add(AuditDataTransformHelper.createCodeValueType(
@@ -224,13 +229,11 @@ public abstract class AuditTransforms<T, K> {
      * @param userInfo
      * @return
      */
-    private ActiveParticipant createActiveParticipantFromUser(UserType userInfo) {
+    private ActiveParticipant createActiveParticipantFromUser(NhinTargetSystemType target, UserType userInfo) {
         ActiveParticipant participant = new ActiveParticipant();
 
         // Set the User Id
-        if (userInfo != null && StringUtils.isNotEmpty(userInfo.getUserName())) {
-            participant.setUserID(userInfo.getUserName());
-        }
+        participant.setUserID(getRequestorUserId(target, userInfo));
 
         // If specified, set the User Name
         String userName = getUserName(userInfo);
@@ -291,14 +294,14 @@ public abstract class AuditTransforms<T, K> {
 
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
         participant
-        .setUserID(isRequesting ? NhincConstants.WSA_REPLY_TO : getInboundReplyToFromHeader(webContextProperties));
+            .setUserID(isRequesting ? NhincConstants.WSA_REPLY_TO : getInboundReplyToFromHeader(webContextProperties));
         participant.setNetworkAccessPointID(ipOrHost);
         participant.setNetworkAccessPointTypeCode(getNetworkAccessPointTypeCode(ipOrHost));
         participant.getRoleIDCode()
-        .add(AuditDataTransformHelper.createCodeValueType(
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
-            AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
+            .add(AuditDataTransformHelper.createCodeValueType(
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE, null,
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_CODE_SYSTEM_NAME,
+                AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME));
         participant.setUserIsRequestor(Boolean.TRUE);
 
         if (isRequesting) {
@@ -516,7 +519,7 @@ public abstract class AuditTransforms<T, K> {
         // *********************************Construct Active Participant************************
         // Active Participant for human requester only required for requesting gateway
         if (isRequesting) {
-            ActiveParticipant participantHumanFactor = getActiveParticipant(assertion.getUserInfo());
+            ActiveParticipant participantHumanFactor = getActiveParticipant(target, assertion.getUserInfo());
             if (participantHumanFactor != null) {
                 auditMsg.getActiveParticipant().add(participantHumanFactor);
             }
@@ -632,13 +635,17 @@ public abstract class AuditTransforms<T, K> {
         this.assertion = assertion;
     }
 
+    protected CertificateManager getCertificateManager() {
+        return CertificateManagerImpl.getInstance();
+    }
+
     private static String getUserId(List<ActiveParticipant> participants) {
         for (ActiveParticipant obj : participants) {
             if (NullChecker.isNotNullish(obj.getRoleIDCode())
                 && !obj.getRoleIDCode().get(0).getDisplayName()
-                .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)
+                    .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_SOURCE_DISPLAY_NAME)
                 && !obj.getRoleIDCode().get(0).getDisplayName()
-                .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
+                    .equals(AuditTransformsConstants.ACTIVE_PARTICIPANT_ROLE_CODE_DESTINATION_DISPLAY_NAME)) {
 
                 return obj.getUserID();
             }
@@ -653,5 +660,30 @@ public abstract class AuditTransforms<T, K> {
 
     private static String getRelatesToValue(List<String> relatesTo) {
         return StringUtils.isNotEmpty(relatesTo.get(0)) ? relatesTo.get(0) : null;
+    }
+
+    private String getRequestorUserId(NhinTargetSystemType target, UserType userInfo) {
+        if (userInfo == null || StringUtils.isBlank(userInfo.getUserName()) || !checkDistinguishedName(userInfo.
+            getUserName().trim())) {
+            String alias = ExchangeManagerHelper.getExchangeAlias(target.getExchangeName());
+            try {
+                X509Certificate cert = getCertificateManager().getCertificateBy(alias);
+                return cert.getSubjectX500Principal().getName();
+            } catch (CertificateManagerException ex) {
+                LOG.error("Unable to load certificate with alias {}", alias, ex);
+                return null;
+            }
+        }
+        return userInfo.getUserName().trim();
+    }
+
+    private boolean checkDistinguishedName(String userName) {
+        Name name = null;
+        try {
+            name = new LdapName(userName);
+        } catch (InvalidNameException e) {
+            LOG.error("Invalid distinguished name {}", userName);
+        }
+        return name != null;
     }
 }

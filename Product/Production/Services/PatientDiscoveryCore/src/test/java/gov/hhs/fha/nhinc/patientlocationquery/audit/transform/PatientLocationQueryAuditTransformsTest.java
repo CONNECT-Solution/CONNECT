@@ -26,15 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientlocationquery.audit.transform;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransformsTest;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -46,10 +42,10 @@ import ihe.iti.xcpd._2009.PatientLocationQueryRequestType;
 import ihe.iti.xcpd._2009.PatientLocationQueryResponseType;
 import java.net.UnknownHostException;
 import java.util.Properties;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import org.junit.Test;
 
 /**
@@ -60,24 +56,7 @@ public class PatientLocationQueryAuditTransformsTest
     extends AuditTransformsTest<PatientLocationQueryRequestType, PatientLocationQueryResponseType> {
 
     public PatientLocationQueryAuditTransformsTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    @Override
-    public void setUp() {
-    }
-
-    @After
-    @Override
-    public void tearDown() {
+        super.initialize();
     }
 
     @Test
@@ -90,7 +69,7 @@ public class PatientLocationQueryAuditTransformsTest
         Properties webContextProperties = new Properties();
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
-
+        final CertificateManager certMgr = getCertificateMgr();
         PatientLocationQueryAuditTransforms transforms = new PatientLocationQueryAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
@@ -110,6 +89,11 @@ public class PatientLocationQueryAuditTransformsTest
             @Override
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
                 return remoteObjectUrl;
+            }
+
+            @Override
+            protected CertificateManager getCertificateManager() {
+                return certMgr;
             }
         };
 
