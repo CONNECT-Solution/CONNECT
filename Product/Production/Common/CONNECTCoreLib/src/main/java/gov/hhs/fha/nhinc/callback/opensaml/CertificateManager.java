@@ -45,14 +45,15 @@ public interface CertificateManager {
      * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
      * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
      *
+     * @param alias
      * @return X509Certificate
      * @throws CertificateManagerException
      */
-    public abstract X509Certificate getCertificateBy(String alias) throws CertificateManagerException;
+    public X509Certificate getCertificateBy(String alias) throws CertificateManagerException;
 
-    public abstract List<X509Certificate> getDefaultCertificates() throws CertificateManagerException;
+    public List<X509Certificate> getDefaultCertificates() throws CertificateManagerException;
 
-    public abstract PrivateKey getPrivateKeyBy(String alias) throws CertificateManagerException;
+    public PrivateKey getPrivateKeyBy(String alias) throws CertificateManagerException;
 
     /**
      * @return
@@ -102,7 +103,8 @@ public interface CertificateManager {
      * @param refreshCache
      * @throws CertificateManagerException
      */
-    public void importCertificate(String alias, DataHandler data, boolean refreshCache) throws CertificateManagerException;
+    public void importCertificate(String alias, DataHandler data, boolean refreshCache) throws
+        CertificateManagerException;
 
     /**
      * @return

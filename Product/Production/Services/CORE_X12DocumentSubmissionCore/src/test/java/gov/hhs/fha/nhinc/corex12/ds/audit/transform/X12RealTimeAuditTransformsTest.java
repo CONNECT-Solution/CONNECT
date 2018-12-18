@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,11 +26,11 @@
  */
 package gov.hhs.fha.nhinc.corex12.ds.audit.transform;
 
-import gov.hhs.fha.nhinc.corex12.ds.audit.transform.X12RealTimeAuditTransforms;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransformsTest;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -41,17 +41,21 @@ import java.net.UnknownHostException;
 import java.util.Properties;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeRequest;
 import org.caqh.soap.wsdl.corerule2_2_0.COREEnvelopeRealTimeResponse;
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import org.junit.Test;
 
 /**
  *
  * @author achidamb
  */
 public class X12RealTimeAuditTransformsTest extends AuditTransformsTest<COREEnvelopeRealTimeRequest, COREEnvelopeRealTimeResponse> {
+
+    public X12RealTimeAuditTransformsTest() {
+        super.initialize();
+    }
 
     @Test
     public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
@@ -63,6 +67,7 @@ public class X12RealTimeAuditTransformsTest extends AuditTransformsTest<COREEnve
         Properties webContextProperties = new Properties();
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
+        final CertificateManager certMgr = getCertificateMgr();
 
         X12RealTimeAuditTransforms transforms = new X12RealTimeAuditTransforms() {
             @Override
@@ -83,6 +88,11 @@ public class X12RealTimeAuditTransformsTest extends AuditTransformsTest<COREEnve
             @Override
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
                 return remoteObjectUrl;
+            }
+
+            @Override
+            protected CertificateManager getCertificateManager() {
+                return certMgr;
             }
         };
 
@@ -135,13 +145,13 @@ public class X12RealTimeAuditTransformsTest extends AuditTransformsTest<COREEnve
         AssertionType assertion = createAssertion();
         LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(createCOREEnvelopeRealTimeRequest(),
             createCOREEnvelopeRealTimeResponse(), assertion, createNhinTarget(),
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.TRUE,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
             webContextProperties, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
 
-        testGetEventIdentificationType(auditRequest, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
-        testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
-        testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
+        testGetEventIdentificationType(auditRequest, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, Boolean.FALSE);
+        testGetActiveParticipantSource(auditRequest, Boolean.FALSE, webContextProperties, localIp);
+        testGetActiveParticipantDestination(auditRequest, Boolean.FALSE, webContextProperties, remoteObjectUrl);
+        testCreateActiveParticipantFromUser(auditRequest, Boolean.FALSE, assertion);
         assertParticipantObjectIdentification(auditRequest);
     }
 
