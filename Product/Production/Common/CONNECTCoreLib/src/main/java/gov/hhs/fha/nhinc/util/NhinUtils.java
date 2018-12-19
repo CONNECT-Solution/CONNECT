@@ -53,13 +53,12 @@ public class NhinUtils {
     private static final NhinUtils INSTANCE = new NhinUtils();
     private static CertificateManager certMgr;
 
-    public static NhinUtils getInstance() {
-        return INSTANCE;
+    private NhinUtils() {
+        NhinUtils.certMgr = CertificateManagerImpl.getInstance();
     }
 
-    private NhinUtils() {
-        this.certMgr = CertificateManagerImpl.getInstance();
-
+    public static NhinUtils getInstance() {
+        return INSTANCE;
     }
 
     /**
@@ -108,7 +107,7 @@ public class NhinUtils {
             && null != x509Cert.getSubjectX500Principal()) {
             subjectDN = x509Cert.getSubjectX500Principal().getName();
         }
-        return subjectDN.trim();
+        return subjectDN;
     }
 
     public boolean checkDistinguishedName(String userName) {
@@ -121,11 +120,11 @@ public class NhinUtils {
         return name != null;
     }
 
-    private CertificateManager getCertificateManager() {
+    private static CertificateManager getCertificateManager() {
         return certMgr;
     }
 
-    protected void setCertificateManager(CertificateManager certMgr) {
+    protected static void setCertificateManager(CertificateManager certMgr) {
         NhinUtils.certMgr = certMgr;
     }
 }
