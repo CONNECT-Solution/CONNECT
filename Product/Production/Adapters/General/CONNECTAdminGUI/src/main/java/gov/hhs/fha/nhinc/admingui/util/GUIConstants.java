@@ -38,6 +38,11 @@ public class GUIConstants {
 
     }
 
+    public static final String JSF_SECRET = "jsf.secret";
+    public static final String JSF_ALGORITHM = "jsf.algorithm";
+    public static final String JSF_ALGORITHM_PADDING = "jsf.algorithm.padding";
+    public static final String JSF_ALGORITHM_IV = "jsf.algorithm.iv";
+
     public enum EVENT_NAMES {
 
         PATIENT_DISCOVERY(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME,"PD"),

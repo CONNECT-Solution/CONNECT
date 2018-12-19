@@ -16,7 +16,7 @@
     </listener>
 
     <listener>
-        <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+        <listener-class>gov.hhs.fha.nhinc.admingui.servlet.CustomServletListener</listener-class>
     </listener>
 
     <servlet>
