@@ -544,8 +544,13 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
     @Override
     protected String getGatewayAlias(String exchangeName) {
+        String defaultExchange = StringUtils.isNotBlank(exchangeName) ? exchangeName : getDefaultExchange();
+        if (StringUtils.isBlank(defaultExchange)) {
+            return null;
+        }
+
         ExchangeType exchange = ExchangeManagerHelper
-            .findExchangeTypeBy(ExchangeManagerHelper.getExchangeTypeBy(exInfo), exchangeName);
+            .findExchangeTypeBy(ExchangeManagerHelper.getExchangeTypeBy(exInfo), defaultExchange);
         return null != exchange ? exchange.getCertificateAlias() : null;
     }
 }
