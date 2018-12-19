@@ -30,8 +30,6 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
@@ -43,7 +41,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.lang.management.ManagementFactory;
 import java.net.UnknownHostException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import static org.junit.Assert.assertEquals;
@@ -57,24 +54,7 @@ import static org.junit.Assert.assertNotNull;
  */
 public abstract class AuditTransformsTest<T, K> {
 
-    private static CertificateManagerImpl certManager;
-    private static final String KEY_STORE_PATH = "src/test/resources/gateway.jks";
-    private static final String TRUST_STORE_PATH = "src/test/resources/cacerts.jks";
-
     public AuditTransformsTest() {
-    }
-
-    public void initialize() {
-        final HashMap<String, String> keyStoreMap = new HashMap<>();
-        keyStoreMap.put(CertificateManagerImpl.KEY_STORE_KEY, KEY_STORE_PATH);
-        keyStoreMap.put(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY, "changeit");
-        keyStoreMap.put(CertificateManagerImpl.KEY_STORE_TYPE_KEY, "JKS");
-
-        final HashMap<String, String> trustStoreMap = new HashMap<>();
-        trustStoreMap.put(CertificateManagerImpl.TRUST_STORE_KEY, TRUST_STORE_PATH);
-        trustStoreMap.put(CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY, "changeit");
-        trustStoreMap.put(CertificateManagerImpl.TRUST_STORE_TYPE_KEY, "JKS");
-        certManager = (CertificateManagerImpl) CertificateManagerImpl.getInstance(keyStoreMap, trustStoreMap);
     }
 
     /**
@@ -150,7 +130,7 @@ public abstract class AuditTransformsTest<T, K> {
             }
 
             assertNotNull("userActiveParticipant is null", userActiveParticipant);
-            assertNotNull("UserID is null", userActiveParticipant.getUserID());
+            assertEquals("UserID mismatch", assertion.getUserInfo().getUserName(), userActiveParticipant.getUserID());
             assertEquals("UserName mismatch",
                 assertion.getUserInfo().getPersonName().getGivenName() + " "
                 + assertion.getUserInfo().getPersonName().getFamilyName(),
@@ -317,7 +297,7 @@ public abstract class AuditTransformsTest<T, K> {
         userType.setOrg(createHomeCommunityType());
         userType.setPersonName(createPersonNameType());
         userType.setRoleCoded(createCeType());
-        userType.setUserName("Wanderson");
+        userType.setUserName("CN=Wanderson");
 
         AssertionType assertion = new AssertionType();
         assertion.setUserInfo(userType);
@@ -362,10 +342,6 @@ public abstract class AuditTransformsTest<T, K> {
         homeCommunityType.setName("SSA");
         homeCommunityType.setDescription("This is DOD Gateway");
         return homeCommunityType;
-    }
-
-    protected CertificateManager getCertificateMgr() {
-        return certManager;
     }
 
     protected abstract AuditTransforms<T, K> getAuditTransforms();

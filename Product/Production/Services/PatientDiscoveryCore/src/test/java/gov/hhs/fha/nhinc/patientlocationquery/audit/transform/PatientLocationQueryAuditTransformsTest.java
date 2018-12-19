@@ -30,7 +30,6 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransformsTest;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -56,7 +55,6 @@ public class PatientLocationQueryAuditTransformsTest
     extends AuditTransformsTest<PatientLocationQueryRequestType, PatientLocationQueryResponseType> {
 
     public PatientLocationQueryAuditTransformsTest() {
-        super.initialize();
     }
 
     @Test
@@ -69,7 +67,6 @@ public class PatientLocationQueryAuditTransformsTest
         Properties webContextProperties = new Properties();
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
-        final CertificateManager certMgr = getCertificateMgr();
         PatientLocationQueryAuditTransforms transforms = new PatientLocationQueryAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
@@ -89,11 +86,6 @@ public class PatientLocationQueryAuditTransformsTest
             @Override
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
                 return remoteObjectUrl;
-            }
-
-            @Override
-            protected CertificateManager getCertificateManager() {
-                return certMgr;
             }
         };
 

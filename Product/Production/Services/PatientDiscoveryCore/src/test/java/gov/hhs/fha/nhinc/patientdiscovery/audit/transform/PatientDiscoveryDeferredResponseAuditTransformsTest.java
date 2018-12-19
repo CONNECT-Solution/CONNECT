@@ -30,7 +30,6 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransformsTest;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -57,7 +56,6 @@ import org.junit.Test;
 public class PatientDiscoveryDeferredResponseAuditTransformsTest extends AuditTransformsTest<PRPAIN201306UV02, MCCIIN000002UV01> {
 
     public PatientDiscoveryDeferredResponseAuditTransformsTest() {
-        super.initialize();
     }
 
     @Test
@@ -70,7 +68,6 @@ public class PatientDiscoveryDeferredResponseAuditTransformsTest extends AuditTr
         Properties webContextProperties = new Properties();
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
-        final CertificateManager certMgr = getCertificateMgr();
         PatientDiscoveryDeferredResponseAuditTransforms transforms
             = new PatientDiscoveryDeferredResponseAuditTransforms() {
             @Override
@@ -96,11 +93,6 @@ public class PatientDiscoveryDeferredResponseAuditTransformsTest extends AuditTr
             @Override
             protected String getPDDeferredRequestInitiatorAddress() {
                 return localIp;
-            }
-
-            @Override
-            protected CertificateManager getCertificateManager() {
-                return certMgr;
             }
         };
 

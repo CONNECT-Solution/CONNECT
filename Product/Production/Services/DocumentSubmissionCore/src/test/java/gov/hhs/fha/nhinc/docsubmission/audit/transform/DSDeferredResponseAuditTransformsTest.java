@@ -31,7 +31,6 @@ import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransformsTest;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -61,12 +60,10 @@ public class DSDeferredResponseAuditTransformsTest extends
     private final String REQUEST_WS_REQUEST_URL = "http://" + REQUEST_LOCAL_IP + ":9090/AuditService";
 
     public DSDeferredResponseAuditTransformsTest() {
-        super.initialize();
     }
 
     @Test
     public void testTransformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException, JAXBException {
-        final CertificateManager certMgr = getCertificateMgr();
         DSDeferredResponseAuditTransforms transforms = new DSDeferredResponseAuditTransforms() {
 
             @Override
@@ -82,11 +79,6 @@ public class DSDeferredResponseAuditTransformsTest extends
             @Override
             protected String getDSDeferredRequestInitiatorAddress(NhinTargetSystemType target) {
                 return REQUEST_REMOTE_IP;
-            }
-
-            @Override
-            protected CertificateManager getCertificateManager() {
-                return certMgr;
             }
         };
 
