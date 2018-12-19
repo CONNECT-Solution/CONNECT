@@ -30,7 +30,6 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransformsTest;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -66,7 +65,6 @@ public class DocDataSubmissionAuditTransformsTest
     private final String WS_REQUEST_URL = "http://" + REMOTE_IP + ":9090/AuditService";
 
     public DocDataSubmissionAuditTransformsTest() {
-        super.initialize();
     }
 
     @Test
@@ -117,7 +115,6 @@ public class DocDataSubmissionAuditTransformsTest
     }
 
     private DocDataSubmissionAuditTransforms makeTransformer() {
-        final CertificateManager certMgr = getCertificateMgr();
         DocDataSubmissionAuditTransforms transforms = new DocDataSubmissionAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
@@ -132,11 +129,6 @@ public class DocDataSubmissionAuditTransformsTest
             @Override
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
                 return WS_REQUEST_URL;
-            }
-
-            @Override
-            protected CertificateManager getCertificateManager() {
-                return certMgr;
             }
         };
         return transforms;

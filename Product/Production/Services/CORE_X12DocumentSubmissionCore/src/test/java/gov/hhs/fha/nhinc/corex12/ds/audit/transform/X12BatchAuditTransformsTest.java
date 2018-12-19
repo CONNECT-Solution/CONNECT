@@ -30,7 +30,6 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransformsTest;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -45,7 +44,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -56,10 +54,9 @@ public class X12BatchAuditTransformsTest extends
     AuditTransformsTest<COREEnvelopeBatchSubmission, COREEnvelopeBatchSubmissionResponse> {
 
     public X12BatchAuditTransformsTest() {
-        super.initialize();
     }
 
-    @Ignore
+    @Test
     public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
         final String localIp = "10.10.10.10";
         final String remoteIp = "16.14.13.12";
@@ -69,7 +66,6 @@ public class X12BatchAuditTransformsTest extends
         Properties webContextProperties = new Properties();
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
-        final CertificateManager certMgr = getCertificateMgr();
 
         X12BatchAuditTransforms transforms = new X12BatchAuditTransforms() {
             @Override
@@ -90,11 +86,6 @@ public class X12BatchAuditTransformsTest extends
             @Override
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
                 return remoteObjectUrl;
-            }
-
-            @Override
-            protected CertificateManager getCertificateManager() {
-                return certMgr;
             }
         };
 

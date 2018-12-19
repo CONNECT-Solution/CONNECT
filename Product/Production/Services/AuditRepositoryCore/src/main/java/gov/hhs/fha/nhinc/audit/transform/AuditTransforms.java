@@ -33,36 +33,29 @@ import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
-import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
 import gov.hhs.fha.nhinc.transform.policy.AssertionHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import gov.hhs.fha.nhinc.util.NhinUtils;
 import java.lang.management.ManagementFactory;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.security.cert.X509Certificate;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
 import java.util.TimeZone;
 import java.util.UUID;
-import javax.naming.InvalidNameException;
-import javax.naming.Name;
-import javax.naming.ldap.LdapName;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -120,7 +113,8 @@ public abstract class AuditTransforms<T, K> {
         return buildLogEventRequestType(auditMsg, direction, getMessageCommunityId(assertion, target, isRequesting),
             serviceName, assertion, auditMsg.getEventIdentification().getEventID().getDisplayName(),
             auditMsg.getEventIdentification().getEventOutcomeIndicator(),
-            auditMsg.getEventIdentification().getEventDateTime(), getRequestorUserId(target, assertion.getUserInfo()));
+            auditMsg.getEventIdentification().getEventDateTime(), NhinUtils.getInstance().getSAMLSubjectNameDN(target,
+            assertion.getUserInfo()));
     }
 
     /**
@@ -233,7 +227,7 @@ public abstract class AuditTransforms<T, K> {
         ActiveParticipant participant = new ActiveParticipant();
 
         // Set the User Id
-        participant.setUserID(getRequestorUserId(target, userInfo));
+        participant.setUserID(NhinUtils.getInstance().getSAMLSubjectNameDN(target, userInfo));
 
         // If specified, set the User Name
         String userName = getUserName(userInfo);
@@ -635,10 +629,6 @@ public abstract class AuditTransforms<T, K> {
         this.assertion = assertion;
     }
 
-    protected CertificateManager getCertificateManager() {
-        return CertificateManagerImpl.getInstance();
-    }
-
     private static String getUserId(List<ActiveParticipant> participants) {
         for (ActiveParticipant obj : participants) {
             if (NullChecker.isNotNullish(obj.getRoleIDCode())
@@ -660,30 +650,5 @@ public abstract class AuditTransforms<T, K> {
 
     private static String getRelatesToValue(List<String> relatesTo) {
         return StringUtils.isNotEmpty(relatesTo.get(0)) ? relatesTo.get(0) : null;
-    }
-
-    private String getRequestorUserId(NhinTargetSystemType target, UserType userInfo) {
-        if (userInfo == null || StringUtils.isBlank(userInfo.getUserName()) || !checkDistinguishedName(userInfo.
-            getUserName().trim())) {
-            String alias = ExchangeManagerHelper.getExchangeAlias(target.getExchangeName());
-            try {
-                X509Certificate cert = getCertificateManager().getCertificateBy(alias);
-                return cert.getSubjectX500Principal().getName();
-            } catch (CertificateManagerException ex) {
-                LOG.error("Unable to load certificate with alias {}", alias, ex);
-                return null;
-            }
-        }
-        return userInfo.getUserName().trim();
-    }
-
-    private static boolean checkDistinguishedName(String userName) {
-        Name name = null;
-        try {
-            name = new LdapName(userName);
-        } catch (InvalidNameException ex) {
-            LOG.error("Invalid distinguished name {}", userName, ex);
-        }
-        return name != null;
     }
 }

@@ -30,7 +30,6 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
 import gov.hhs.fha.nhinc.audit.AuditTransformsConstants;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransformsTest;
-import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -54,7 +53,6 @@ import org.junit.Test;
 public class X12RealTimeAuditTransformsTest extends AuditTransformsTest<COREEnvelopeRealTimeRequest, COREEnvelopeRealTimeResponse> {
 
     public X12RealTimeAuditTransformsTest() {
-        super.initialize();
     }
 
     @Test
@@ -67,7 +65,6 @@ public class X12RealTimeAuditTransformsTest extends AuditTransformsTest<COREEnve
         Properties webContextProperties = new Properties();
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
-        final CertificateManager certMgr = getCertificateMgr();
 
         X12RealTimeAuditTransforms transforms = new X12RealTimeAuditTransforms() {
             @Override
@@ -88,11 +85,6 @@ public class X12RealTimeAuditTransformsTest extends AuditTransformsTest<COREEnve
             @Override
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
                 return remoteObjectUrl;
-            }
-
-            @Override
-            protected CertificateManager getCertificateManager() {
-                return certMgr;
             }
         };
 

@@ -26,15 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.v10.entity;
 
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION.SPEC_1_0;
-import static gov.hhs.fha.nhinc.util.NhinUtils.setTargetCommunitiesVersion;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docdatasubmission.outbound.OutboundDocDataSubmission;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION.SPEC_1_0;
+import gov.hhs.fha.nhinc.util.NhinUtils;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -51,7 +50,7 @@ class EntityDocDataSubmissionImpl extends BaseService {
         RegistryResponseType response = null;
 
         try {
-            setTargetCommunitiesVersion(request.getNhinTargetCommunities(), SPEC_1_0);
+            NhinUtils.getInstance().setTargetCommunitiesVersion(request.getNhinTargetCommunities(), SPEC_1_0);
             response = outboundDocDataSubmission.registerDocumentSetB(request.getRegisterDocumentSetRequest(),
                 request.getAssertion(), request.getNhinTargetCommunities(), request.getUrl());
 
@@ -69,7 +68,7 @@ class EntityDocDataSubmissionImpl extends BaseService {
 
         try {
             AssertionType assertion = getAssertion(context, null);
-            setTargetCommunitiesVersion(request.getNhinTargetCommunities(), SPEC_1_0);
+            NhinUtils.getInstance().setTargetCommunitiesVersion(request.getNhinTargetCommunities(), SPEC_1_0);
             response = outboundDocDataSubmission.registerDocumentSetB(request.getRegisterDocumentSetRequest(),
                 assertion, request.getNhinTargetCommunities(), request.getUrl());
 
@@ -79,6 +78,5 @@ class EntityDocDataSubmissionImpl extends BaseService {
 
         return response;
     }
-
 
 }
