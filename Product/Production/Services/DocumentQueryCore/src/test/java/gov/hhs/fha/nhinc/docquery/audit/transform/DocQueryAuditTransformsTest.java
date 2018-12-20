@@ -72,7 +72,6 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
     private final String WS_REEQUEST_URL = "http://" + REMOTE_IP + ":9090/AuditService";
 
     public DocQueryAuditTransformsTest() {
-        //initialize();
     }
 
     @AfterClass
@@ -109,7 +108,6 @@ public class DocQueryAuditTransformsTest extends AuditTransformsTest<AdhocQueryR
         Properties webContextProperties = new Properties();
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, WS_REEQUEST_URL);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, REMOTE_IP);
-        //final CertificateManager certMgr = getCertificateMgr();
         DocQueryAuditTransforms transforms = new DocQueryAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
