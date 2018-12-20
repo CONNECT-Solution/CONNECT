@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.admingui.servlet;
 
 import gov.hhs.fha.nhinc.admingui.util.GUIConstants;
-
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -38,29 +37,24 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Secure JSF application to prevent people hijack jsf view state.
- * 
+ *
  * @author mpnguyen
  */
 public class CustomServletListener extends StartupServletContextListener {
     private static final Logger LOG = LoggerFactory.getLogger(CustomServletListener.class);
+
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        LOG.debug("Calling Custom contextInitialized");
+        LOG.trace("Calling Custom contextInitialized");
         String secret = HelperUtil.readPropertyAdminGui(GUIConstants.JSF_SECRET, null);
         String algorithm = HelperUtil.readPropertyAdminGui(GUIConstants.JSF_ALGORITHM, null);
         String paddingMode = HelperUtil.readPropertyAdminGui(GUIConstants.JSF_ALGORITHM_PADDING, null);
         String ivHash = HelperUtil.readPropertyAdminGui(GUIConstants.JSF_ALGORITHM_IV, null);
         ServletContext context = servletContextEvent.getServletContext();
-        if (secret != null) {
+        if (secret != null && algorithm != null && paddingMode != null && ivHash != null) {
             context.setInitParameter(StateUtils.INIT_SECRET, secret);
-        }
-        if (algorithm != null) {
             context.setInitParameter(StateUtils.INIT_ALGORITHM, algorithm);
-        }
-        if (paddingMode != null) {
             context.setInitParameter(StateUtils.INIT_ALGORITHM_PARAM, paddingMode);
-        }
-        if (ivHash != null) {
             context.setInitParameter(StateUtils.INIT_ALGORITHM_IV, ivHash);
         }
         super.contextInitialized(servletContextEvent);
