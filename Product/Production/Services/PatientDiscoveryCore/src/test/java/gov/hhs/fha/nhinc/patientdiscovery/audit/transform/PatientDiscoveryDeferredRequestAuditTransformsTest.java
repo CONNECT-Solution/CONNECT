@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -55,6 +55,9 @@ import org.junit.Test;
 public class PatientDiscoveryDeferredRequestAuditTransformsTest extends AuditTransformsTest<
     PRPAIN201305UV02, MCCIIN000002UV01> {
 
+    public PatientDiscoveryDeferredRequestAuditTransformsTest() {
+    }
+
     @Test
     public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
         final String localIp = "10.10.10.10";
@@ -65,8 +68,8 @@ public class PatientDiscoveryDeferredRequestAuditTransformsTest extends AuditTra
         Properties webContextProperties = new Properties();
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
-
-        PatientDiscoveryDeferredRequestAuditTransforms transforms = new PatientDiscoveryDeferredRequestAuditTransforms() {
+        PatientDiscoveryDeferredRequestAuditTransforms transforms
+            = new PatientDiscoveryDeferredRequestAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
                 return localIp;
@@ -86,6 +89,7 @@ public class PatientDiscoveryDeferredRequestAuditTransformsTest extends AuditTra
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
                 return remoteObjectUrl;
             }
+
         };
 
         AssertionType assertion = createAssertion();
@@ -127,7 +131,8 @@ public class PatientDiscoveryDeferredRequestAuditTransformsTest extends AuditTra
         webContextProperties.setProperty(NhincConstants.INBOUND_REPLY_TO,
             NhincConstants.WSA_REPLY_TO);
 
-        PatientDiscoveryDeferredRequestAuditTransforms transforms = new PatientDiscoveryDeferredRequestAuditTransforms() {
+        PatientDiscoveryDeferredRequestAuditTransforms transforms
+            = new PatientDiscoveryDeferredRequestAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
                 return localIp;

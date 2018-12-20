@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -52,6 +52,9 @@ import org.junit.Test;
  */
 public class X12BatchAuditTransformsTest extends
     AuditTransformsTest<COREEnvelopeBatchSubmission, COREEnvelopeBatchSubmissionResponse> {
+
+    public X12BatchAuditTransformsTest() {
+    }
 
     @Test
     public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException {
@@ -136,14 +139,14 @@ public class X12BatchAuditTransformsTest extends
         AssertionType assertion = createAssertion();
         LogEventRequestType auditRequest = transforms.transformResponseToAuditMsg(
             createCOREEnvelopeBatchSubmissionRequest(), createCOREEnvelopeBatchSubmissionResponse(), assertion,
-            createNhinTarget(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-            Boolean.TRUE, webContextProperties, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
+            createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            Boolean.FALSE, webContextProperties, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME);
 
-        testGetEventIdentificationType(auditRequest, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, Boolean.TRUE);
-        testGetActiveParticipantSource(auditRequest, Boolean.TRUE, webContextProperties, localIp);
-        testGetActiveParticipantDestination(auditRequest, Boolean.TRUE, webContextProperties, remoteObjectUrl);
+        testGetEventIdentificationType(auditRequest, NhincConstants.CORE_X12DS_REALTIME_SERVICE_NAME, Boolean.FALSE);
+        testGetActiveParticipantSource(auditRequest, Boolean.FALSE, webContextProperties, localIp);
+        testGetActiveParticipantDestination(auditRequest, Boolean.FALSE, webContextProperties, remoteObjectUrl);
         testAuditSourceIdentification(auditRequest.getAuditMessage().getAuditSourceIdentification(), assertion);
-        testCreateActiveParticipantFromUser(auditRequest, Boolean.TRUE, assertion);
+        testCreateActiveParticipantFromUser(auditRequest, Boolean.FALSE, assertion);
         assertParticipantObjectIdentification(auditRequest);
     }
 

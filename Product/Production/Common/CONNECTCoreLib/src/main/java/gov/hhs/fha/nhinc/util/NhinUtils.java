@@ -26,18 +26,39 @@
  */
 package gov.hhs.fha.nhinc.util;
 
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
+import java.security.cert.X509Certificate;
+import javax.naming.InvalidNameException;
+import javax.naming.Name;
+import javax.naming.ldap.LdapName;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author ttang
  *
  */
-public final class NhinUtils {
+public class NhinUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(NhinUtils.class);
+    private static final NhinUtils INSTANCE = new NhinUtils();
+    private static CertificateManager certMgr;
 
     private NhinUtils() {
+        NhinUtils.certMgr = CertificateManagerImpl.getInstance();
+    }
+
+    public static NhinUtils getInstance() {
+        return INSTANCE;
     }
 
     /**
@@ -46,7 +67,7 @@ public final class NhinUtils {
      * @param targets NhinTargetCommunitiesType
      * @param version service spec version
      */
-    public static void setTargetCommunitiesVersion(NhinTargetCommunitiesType targets, UDDI_SPEC_VERSION version) {
+    public void setTargetCommunitiesVersion(NhinTargetCommunitiesType targets, UDDI_SPEC_VERSION version) {
         if (targets == null) {
             targets = new ObjectFactory().createNhinTargetCommunitiesType();
         }
@@ -54,5 +75,56 @@ public final class NhinUtils {
         if (StringUtils.isBlank(targets.getUseSpecVersion())) {
             targets.setUseSpecVersion(version.toString());
         }
+    }
+
+    /**
+     * <p>
+     * This method extract userName from assertion-->userInfo element. If it is not a valid DN, it pulls the subject DN
+     * name from certificate based on exchangeName
+     *
+     * @param target
+     * @param userInfo
+     * @return String - a valid DN string
+     */
+    public String getSAMLSubjectNameDN(NhinTargetSystemType target, UserType userInfo) {
+        if (userInfo == null || StringUtils.isBlank(userInfo.getUserName()) || !checkDistinguishedName(userInfo.
+            getUserName())) {
+            String alias = ExchangeManagerHelper.getExchangeAlias(target.getExchangeName());
+            try {
+                X509Certificate cert = getCertificateManager().getCertificateBy(alias);
+                return cert.getSubjectX500Principal().getName();
+            } catch (CertificateManagerException ex) {
+                LOG.error("Unable to load certificate with alias {}", alias, ex);
+                return null;
+            }
+        }
+        return userInfo.getUserName().trim();
+    }
+
+    public String getSAMLSubjectNameDN(X509Certificate x509Cert, String userName) {
+        String subjectDN = userName;
+        if ((StringUtils.isBlank(userName) || !checkDistinguishedName(userName)) && null != x509Cert
+            && null != x509Cert.getSubjectX500Principal()) {
+            subjectDN = x509Cert.getSubjectX500Principal().getName();
+        }
+        return subjectDN;
+    }
+
+    public boolean checkDistinguishedName(String userName) {
+        Name name = null;
+        try {
+            name = new LdapName(userName);
+        } catch (InvalidNameException ex) {
+            LOG.error("Invalid distinguished name {}", userName, ex);
+        }
+        return name != null;
+    }
+
+    private static CertificateManager getCertificateManager() {
+        return certMgr;
+    }
+
+    protected static void setCertificateManager(CertificateManager certMgr) {
+        NhinUtils.certMgr = certMgr;
     }
 }

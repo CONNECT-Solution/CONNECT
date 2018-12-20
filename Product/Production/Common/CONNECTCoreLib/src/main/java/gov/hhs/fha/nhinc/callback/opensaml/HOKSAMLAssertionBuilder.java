@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.NhinUtils;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
@@ -41,9 +42,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
-import javax.naming.InvalidNameException;
-import javax.naming.Name;
-import javax.naming.ldap.LdapName;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.wss4j.common.ext.WSSecurityException;
@@ -77,7 +75,7 @@ import org.w3c.dom.Element;
  * This class builds the SAML2 Assertion for Outbound requests from the given CONNECT AssertionType. All Inbound
  * requests go through this assertion builder to in order to generate the appropriate SAML for Outbound requests via
  * CXFSAMLCallbackHandler::handle(Callback[] callbacks).
- *
+ * <p>
  * For more information regarding the SAML 2 Spec for use with CONNECT, please see section 3.2
  * https://sequoiaproject.org/wp-content/uploads/2014/11/nhin-authorization-framework-production-specification-v3.0.pdf
  *
@@ -185,12 +183,12 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         // If it is a X509 Subject, check if the DN is valid. If not, grab it from the local cert.
         // If there is no local cert, grab it from the properties file.
         // If there is no properties file, use the default issuer name
-        if (format == NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509
-            && (StringUtils.isBlank(sIssuer) || !checkDistinguishedName(sIssuer))) {
+        if (format.equals(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509)
+            && (StringUtils.isBlank(sIssuer) || !NhinUtils.getInstance().checkDistinguishedName(sIssuer))) {
 
-            sIssuer = certificate != null ?
-                certificate.getIssuerX500Principal().getName() :
-                    PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME, NhincConstants.SAML_DEFAULT_ISSUER_NAME);
+            sIssuer = certificate != null ? certificate.getIssuerX500Principal().getName() : PropertyAccessor.
+                getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME,
+                    NhincConstants.SAML_DEFAULT_ISSUER_NAME);
         }
 
         if (StringUtils.isBlank(sIssuer)) {
@@ -203,17 +201,16 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     /**
-     * @param PSApk
+     * @param properties
+     * @param publicKey
      * @param certificate
      * @return
+     * @throws gov.hhs.fha.nhinc.callback.opensaml.SAMLComponentBuilderException
      */
     protected Subject createSubject(final CallbackProperties properties, final X509Certificate certificate,
         final PublicKey publicKey) throws SAMLComponentBuilderException {
         String x509Name = properties.getUsername();
-        if ((NullChecker.isNullish(x509Name) || !checkDistinguishedName(x509Name)) && null != certificate
-            && null != certificate.getSubjectX500Principal()) {
-            x509Name = certificate.getSubjectX500Principal().getName();
-        }
+        x509Name = NhinUtils.getInstance().getSAMLSubjectNameDN(certificate, x509Name);
         Subject subject = componentBuilder.createSubject(x509Name, publicKey);
         // Add additional subject confirmation if exist
         List<SAMLSubjectConfirmation> subjectConfirmations = properties.getSubjectConfirmations();
@@ -225,24 +222,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                 }
             }
         }
-
         return subject;
-    }
-
-    /**
-     * Checks Distinguished Name by checking if it conforms to RFC 2253
-     *
-     * @param userName
-     * @return boolean
-     */
-    private static boolean checkDistinguishedName(final String userName) {
-        Name name = null;
-        try {
-            name = new LdapName(userName);
-        } catch (InvalidNameException e) {
-            LOG.error("Invalid distinguished name {}", userName);
-        }
-        return name != null;
     }
 
     protected Subject createEvidenceSubject(final CallbackProperties properties, final X509Certificate certificate,
@@ -252,12 +232,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         String x509Name;
         if (NullChecker.isNullish(evidenceSubject)) {
             String userName = properties.getUsername();
-
-            if ((NullChecker.isNullish(userName) || !checkDistinguishedName(userName)) && null != certificate
-                && null != certificate.getSubjectDN()) {
-                userName = certificate.getSubjectDN().getName();
-            }
-            x509Name = userName;
+            x509Name = NhinUtils.getInstance().getSAMLSubjectNameDN(certificate, userName);
         } else {
             x509Name = evidenceSubject;
         }
@@ -393,15 +368,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     /**
-     * Creates the Evidence element that encompasses the Assertion defining the
-     * authorization form needed in cases where evidence of authorization to
-     * access the medical records must be provided along with the message
-     * request.
+     * Creates the Evidence element that encompasses the Assertion defining the authorization form needed in cases where
+     * evidence of authorization to access the medical records must be provided along with the message request.
      *
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
-     * @param issueInstant The calendar representing the time of Assertion
-     * issuance
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
+     * @param issueInstant The calendar representing the time of Assertion issuance
      * @return The Evidence element
      */
     public Evidence createEvidence(final CallbackProperties properties, final Subject subject) {
@@ -528,12 +499,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     /**
-     * Creates the Attribute Statements needed for the Evidence element. These
-     * include the Attributes for the Access Consent Policy and the Instance
-     * Access Consent Policy
+     * Creates the Attribute Statements needed for the Evidence element. These include the Attributes for the Access
+     * Consent Policy and the Instance Access Consent Policy
      *
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of the attribute statements for the Evidence element
      */
     protected List<AttributeStatement> createEvidenceStatements(final CallbackProperties properties) {
@@ -563,8 +532,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         }
 
         LOG.debug("UserName: {}", nameConstruct);
-        Attribute attribute =
-            componentBuilder.createAttribute(null, SamlConstants.USERNAME_ATTR, null, Arrays.asList(nameConstruct));
+        Attribute attribute = componentBuilder.createAttribute(null, SamlConstants.USERNAME_ATTR, null, Arrays.asList(
+            nameConstruct));
         return componentBuilder.createAttributeStatement(attribute);
     }
 
@@ -586,8 +555,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             throw new SAMLAssertionBuilderException("No information provided to fill in subject role attribute.");
         }
 
-        Attribute attribute =
-            componentBuilder.createSubjectRoleAttribute(userCode, userSystem, userSystemName, userDisplay);
+        Attribute attribute = componentBuilder.createSubjectRoleAttribute(userCode, userSystem, userSystemName,
+            userDisplay);
         return attribute != null ? componentBuilder.createAttributeStatement(attribute) : null;
 
     }
@@ -595,8 +564,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     /**
      * Creates the Attribute statements PurposeOfUse
      *
-     * @param factory The factory object used to assist in the construction of
-     * the SAML Assertion token
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
     protected AttributeStatement createPurposeOfUseStatement(final CallbackProperties properties) {
@@ -719,7 +687,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             acpAttribute.getAttributeValues().add(componentBuilder.createUriAttributeValue(acp));
             statements.add(componentBuilder.createAttributeStatement(acpAttribute));
         }
-        if(StringUtils.isNotEmpty(iacp)) {
+        if (StringUtils.isNotEmpty(iacp)) {
             iacpAttribute = componentBuilder
                 .createAttribute(SamlConstants.ATTRIBUTE_FRIENDLY_NAME_XUA_IACP, SamlConstants.ATTRIBUTE_NAME_XUA_IACP,
                     SamlConstants.URI_NAME_FORMAT);

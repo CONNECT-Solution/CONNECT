@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
  * @author achidamb
  */
 public class DSDeferredResponseAuditTransforms extends
-AbstractDocSubmissionAuditTransforms<RegistryResponseType, XDRAcknowledgementType> {
+    AbstractDocSubmissionAuditTransforms<RegistryResponseType, XDRAcknowledgementType> {
 
     private static final Logger LOG = LoggerFactory.getLogger(DSDeferredResponseAuditTransforms.class);
 
@@ -121,7 +121,7 @@ AbstractDocSubmissionAuditTransforms<RegistryResponseType, XDRAcknowledgementTyp
     }
 
     @Override
-    protected AuditMessageType.ActiveParticipant getActiveParticipant(UserType oUserInfo) {
+    protected AuditMessageType.ActiveParticipant getActiveParticipant(NhinTargetSystemType target, UserType oUserInfo) {
         return null;
     }
 

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -41,15 +41,11 @@ import java.net.UnknownHostException;
 import java.util.Properties;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -59,24 +55,6 @@ import org.junit.Test;
 public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRPAIN201305UV02, PRPAIN201306UV02> {
 
     public PatientDiscoveryAuditTransformsTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    @Override
-    public void setUp() {
-    }
-
-    @After
-    @Override
-    public void tearDown() {
     }
 
     @Test
@@ -89,7 +67,6 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         Properties webContextProperties = new Properties();
         webContextProperties.setProperty(NhincConstants.WEB_SERVICE_REQUEST_URL, wsRequestUrl);
         webContextProperties.setProperty(NhincConstants.REMOTE_HOST_ADDRESS, remoteIp);
-
         PatientDiscoveryAuditTransforms transforms = new PatientDiscoveryAuditTransforms() {
             @Override
             protected String getLocalHostAddress() {
@@ -110,6 +87,7 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
             protected String getWebServiceUrlFromRemoteObject(NhinTargetSystemType target, String serviceName) {
                 return remoteObjectUrl;
             }
+
         };
 
         AssertionType assertion = createAssertion();
@@ -166,8 +144,8 @@ public class PatientDiscoveryAuditTransformsTest extends AuditTransformsTest<PRP
         LogEventRequestType auditResponse = transforms.transformResponseToAuditMsg(
             TestPatientDiscoveryMessageHelper.createPRPAIN201305UV02Request("Gallow", "Younger", "M", "01-12-2967",
                 "1.1", "D123401", "2.2", "abd3453dcd24wkkks545"), TestPatientDiscoveryMessageHelper.
-            createPRPAIN201306UV02Response("Gallow", "Younger", "M", "01-12-2967", "1.1", "D123401", "2.2",
-                "abd3453dcd24wkkks545"), assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                createPRPAIN201306UV02Response("Gallow", "Younger", "M", "01-12-2967", "1.1", "D123401", "2.2",
+                    "abd3453dcd24wkkks545"), assertion, createNhinTarget(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
             NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE, webContextProperties,
             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 

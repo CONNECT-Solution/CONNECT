@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docdatasubmission.audit.transform;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.audit.transform.AuditTransforms;
@@ -52,6 +49,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import org.junit.Test;
 
 public class DocDataSubmissionAuditTransformsTest
@@ -64,6 +63,9 @@ public class DocDataSubmissionAuditTransformsTest
     private final String LOCAL_IP = "10.10.10.10";
     private final String REMOTE_IP = "16.14.13.12";
     private final String WS_REQUEST_URL = "http://" + REMOTE_IP + ":9090/AuditService";
+
+    public DocDataSubmissionAuditTransformsTest() {
+    }
 
     @Test
     public void transformRequestToAuditMsg() throws ConnectionManagerException, UnknownHostException, JAXBException {
