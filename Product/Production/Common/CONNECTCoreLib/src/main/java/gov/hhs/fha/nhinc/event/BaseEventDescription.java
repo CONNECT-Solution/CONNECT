@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,7 +31,7 @@ import java.util.List;
 public class BaseEventDescription implements EventDescription {
 
     private List<String> responseMsgids;
-    private String action;
+    private String version;
     private List<String> errorCodes;
     private List<String> statuses;
     private String npi;
@@ -103,8 +103,8 @@ public class BaseEventDescription implements EventDescription {
     }
 
     @Override
-    public String getAction() {
-        return action;
+    public String getVersion() {
+        return version;
     }
 
     @Override
@@ -116,8 +116,8 @@ public class BaseEventDescription implements EventDescription {
         this.responseMsgids = responseMsgids;
     }
 
-    public void setAction(String action) {
-        this.action = action;
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public void setErrorCodes(List<String> errorCodes) {

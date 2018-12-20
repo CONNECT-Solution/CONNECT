@@ -197,7 +197,7 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
             }
 
             @Override
-            public String getAction() {
+            public String getVersion() {
                 return version;
             }
         };
