@@ -110,11 +110,17 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
 
 
     @Override
-    public void buildAction() {
-        String action = msgContext.getAction();
-        if (StringUtils.isBlank(action) && target.isPresent()) {
-            action = target.get().getUseSpecVersion();
+    public void buildVersion() {
+        String version = msgContext.getVersion();
+        if (StringUtils.isBlank(version) && target.isPresent()) {
+            version = target.get().getUseSpecVersion();
         }
-        description.setAction(action);
+
+        // if version is still blank due to target not being populated, grab it from the AssertionType instead
+        if (StringUtils.isBlank(version) && assertion.isPresent()) {
+            version = assertion.get().getImplementsSpecVersion();
+        }
+
+        description.setVersion(version);
     }
 }

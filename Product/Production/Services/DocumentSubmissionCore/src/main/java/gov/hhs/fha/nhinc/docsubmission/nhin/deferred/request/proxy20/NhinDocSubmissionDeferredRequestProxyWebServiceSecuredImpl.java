@@ -80,7 +80,7 @@ NhinDocSubmissionDeferredRequestProxy {
     @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
         afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
         serviceType = "Document Submission Deferred Request",
-        version = "")
+        version = "2.0")
     @Override
     public RegistryResponseType provideAndRegisterDocumentSetBRequest20(
         ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {

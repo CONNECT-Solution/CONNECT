@@ -80,7 +80,7 @@ NhinDocSubmissionDeferredRequestProxy {
     @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
     afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
     serviceType = "Document Submission Deferred Request",
-    version = "")
+    version = "1.1")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest11(
         ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         LOG.debug("Begin provideAndRegisterDocumentSetBAsyncRequest");

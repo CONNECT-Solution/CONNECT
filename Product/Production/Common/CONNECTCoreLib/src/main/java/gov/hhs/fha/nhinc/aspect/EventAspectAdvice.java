@@ -150,7 +150,7 @@ public class EventAspectAdvice {
         String resolvedVersion = version;
         EventDescription eventDescription = delegate.begin(joinPoint.getArgs(), serviceType, resolvedVersion, beforeBuilder);
         if (eventDescription != null && StringUtils.isBlank(resolvedVersion)) {
-            resolvedVersion = eventDescription.getAction();
+            resolvedVersion = eventDescription.getVersion();
         }
 
         Object value = null;

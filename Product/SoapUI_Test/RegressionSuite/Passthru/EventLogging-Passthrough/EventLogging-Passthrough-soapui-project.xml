@@ -1099,7 +1099,7 @@
                             </con:configuration>
                         </con:assertion>
                         <con:credentials>
-                            <con:authType>Global HTTP Settings</con:authType>
+                            <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                         </con:credentials>
                         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                         <con:jmsPropertyConfig/>
@@ -1148,6 +1148,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "2.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -1598,6 +1608,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "2.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -2182,6 +2202,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "2.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -2612,6 +2642,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "1.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -3069,6 +3109,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "1.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -4051,6 +4101,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "3.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -4448,6 +4508,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "3.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -4875,9 +4945,7 @@ context.setGatewayStandard(isStandardMode);log.info "Set service in standard mod
             </con:testStep>
             <con:testStep name="Delay" type="delay" id="dfd5195e-0989-4248-86dc-af28eb0b378e">
                 <con:settings/>
-                <con:config>
-                    <delay>30000</delay>
-                </con:config>
+                <con:config><delay>15000</delay></con:config>
             </con:testStep>
             <con:testStep type="groovy" name="Verify Event Logs" id="0710ead2-4643-491d-aed3-da7b97dc02dd">
                 <con:settings/>
@@ -5455,6 +5523,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "1.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -5613,6 +5691,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "1.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -6169,7 +6257,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
                             <con:configuration/>
                         </con:assertion>
                         <con:credentials>
-                            <con:authType>Global HTTP Settings</con:authType>
+                            <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                         </con:credentials>
                         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                         <con:jmsPropertyConfig/>
@@ -6217,6 +6305,7 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -6239,6 +6328,15 @@ public validateResponsdingHCIDs(String respondingHcids, Object parsedObject){
 	hcids=parsedObject.responding_hcids.join(',')
 	log.info "hcids: "+ hcids
 	assert respondingHcids == hcids
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "1.1"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 def parseJsonString(String description){
@@ -6666,6 +6764,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "1.1"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -7249,6 +7357,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "1.1"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -7678,6 +7796,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "1.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -8134,6 +8262,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "1.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -8509,7 +8647,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                             </con:configuration>
                         </con:assertion>
                         <con:credentials>
-                            <con:authType>Global HTTP Settings</con:authType>
+                            <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                         </con:credentials>
                         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                         <con:jmsPropertyConfig/>
@@ -8685,6 +8823,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "1.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -9114,6 +9262,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "2.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){
@@ -9510,6 +9668,16 @@ public validateElements(Object dbRecord){
 	validateMessageId(name, messageId, parsedObject)
 	validateInitiatingHCID(initiatingHcid, parsedObject)
 	validateResponsdingHCIDs(respondingHcids, parsedObject)
+	validateVersion(name, parsedObject)
+}
+
+public validateVersion(String name, Object jsonObj) {
+	def expectedVersion = "2.0"
+	 if(name.indexOf("DELEGATION_TO_ADAPTER") > 0){
+		expectedVersion = "LEVEL_a0"
+	 }
+	
+	assert jsonObj.version == expectedVersion
 }
 
 public validateMessageId(String name, String messageId, Object parsedObject){

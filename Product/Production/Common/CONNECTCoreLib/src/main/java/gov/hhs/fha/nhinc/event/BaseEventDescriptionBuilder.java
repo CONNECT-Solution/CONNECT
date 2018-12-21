@@ -107,8 +107,8 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
      * Do not override in subclasses - only non-final so class can be effectively mocked.
      */
     @Override
-    public void buildAction() {
-        description.setAction(msgContext.getAction());
+    public void buildVersion() {
+        description.setVersion(msgContext.getVersion());
     }
 
     /**
