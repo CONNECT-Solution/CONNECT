@@ -80,8 +80,8 @@ public class EventDTO extends DatabaseEvent {
             try {
                 JSONObject json = new JSONObject(event.getDescription());
 
-                if (json.has("action")) {
-                    dto.setVersion(json.getString("action"));
+                if (json.has("version")) {
+                    dto.setVersion(json.getString("version"));
                 } else {
                     dto.setVersion("N/A");
                 }

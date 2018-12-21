@@ -76,7 +76,7 @@ public class ErrorEventBuilder implements EventBuilder {
                     jsonObject.put("service_type", service);
                 }
                 if (StringUtils.isNotBlank(version)) {
-                    jsonObject.put("action", version);
+                    jsonObject.put("version", version);
                 }
 
             } catch (JSONException e) {

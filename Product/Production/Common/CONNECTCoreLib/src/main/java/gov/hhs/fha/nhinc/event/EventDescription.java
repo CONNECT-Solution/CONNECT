@@ -107,7 +107,7 @@ public interface EventDescription {
      */
     public List<String> getErrorCodes();
 
-    public String getAction();
+    public String getVersion();
 
     /**
      * Returns a list of response message ids. Can be an empty list (eg [] ).
