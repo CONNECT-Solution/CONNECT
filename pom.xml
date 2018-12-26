@@ -52,7 +52,7 @@ By advancing the adoption of interoperable health IT systems and health informat
         <!-- SCA and Reporting Options -->
         <checkstyle.skip>false</checkstyle.skip>
         <skip.findbugs>false</skip.findbugs>
-        <skip.cobertura>false</skip.cobertura>
+        <skip.cobertura>true</skip.cobertura>
         <skip.source>true</skip.source>
         <pmd.failOnViolation>false</pmd.failOnViolation>
         <cobertura.check.haltOnFailure>false</cobertura.check.haltOnFailure>
@@ -190,7 +190,19 @@ By advancing the adoption of interoperable health IT systems and health informat
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${surefire.version}</version>
                     <configuration>
-                        <argLine>-XX:MaxPermSize=1012m</argLine>
+                        <argLine>-XX:MaxPermSize=1012m -noverify</argLine>
+                        <systemProperties>
+                            <property>
+                                <name>com.sun.aas.instanceRoot</name>
+                                <!--value>${project.baseUri}/test-classes/</value-->
+                                <value>${project.build.testOutputDirectory}</value>
+                            </property>
+                            <property>
+                                <name>nhinc.properties.dir</name>
+                                <!--value>${project.baseUri}/test-classes/</value-->
+                                <value>${project.build.testOutputDirectory}</value>
+                            </property>
+                        </systemProperties>
                     </configuration>
                 </plugin>
 
@@ -256,7 +268,7 @@ By advancing the adoption of interoperable health IT systems and health informat
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.2</version>
+                    <version>3.6</version>
                 </plugin>
 
                 <!-- Web Service Plugins -->
@@ -290,74 +302,6 @@ By advancing the adoption of interoperable health IT systems and health informat
                 </dependencies>
                 <configuration>
                     <skipDeploy>true</skipDeploy>
-                    <reportPlugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-project-info-reports-plugin</artifactId>
-                            <version>2.5.1</version>
-                            <configuration>
-                                <dependencyDetailsEnabled>true</dependencyDetailsEnabled>
-                                <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                                <linkOnly>true</linkOnly>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-surefire-report-plugin</artifactId>
-                            <version>${surefire.report.version}</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-checkstyle-plugin</artifactId>
-                            <version>${checkstyle.version}</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>cobertura-maven-plugin</artifactId>
-                            <version>${cobertura.version}</version>
-                            <configuration>
-                                <formats>
-                                    <format>html</format>
-                                </formats>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-pmd-plugin</artifactId>
-                            <version>${pmd.version}</version>
-                            <configuration>
-                                <targetJdk>${compiler.target}</targetJdk>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>findbugs-maven-plugin</artifactId>
-                            <version>${findbugs.version}</version>
-                            <configuration>
-                                <plugins>
-                                    <plugin>
-                                        <groupId>com.h3xstream.findsecbugs</groupId>
-                                        <artifactId>plugin</artifactId>
-                                        <version>${findsecbugs.version}</version>
-                                    </plugin>
-                                </plugins>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.owasp</groupId>
-                            <artifactId>dependency-check-maven</artifactId>
-                            <configuration>
-                                <aggregate>true</aggregate>
-                            </configuration>
-                            <reportSets>
-                                <reportSet>
-                                    <reports>
-                                        <report>check</report>
-                                    </reports>
-                                </reportSet>
-                            </reportSets>
-                        </plugin>
-                    </reportPlugins>
                 </configuration>
                 <executions>
                     <execution>
@@ -371,6 +315,79 @@ By advancing the adoption of interoperable health IT systems and health informat
         </plugins>
     </build>
 
+    
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <dependencyDetailsEnabled>true</dependencyDetailsEnabled>
+                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                    <linkOnly>true</linkOnly>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${surefire.report.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>${cobertura.version}</version>
+                <configuration>
+                    <formats>
+                        <format>html</format>
+                    </formats>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${pmd.version}</version>
+                <configuration>
+                    <targetJdk>${compiler.target}</targetJdk>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.version}</version>
+                <configuration>
+                    <plugins>
+                        <plugin>
+                            <groupId>com.h3xstream.findsecbugs</groupId>
+                            <artifactId>plugin</artifactId>
+                            <version>${findsecbugs.version}</version>
+                        </plugin>
+                    </plugins>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <configuration>
+                    <aggregate>true</aggregate>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>check</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+    
+    
     <profiles>
         <profile>
             <id>github-site-deploy</id>

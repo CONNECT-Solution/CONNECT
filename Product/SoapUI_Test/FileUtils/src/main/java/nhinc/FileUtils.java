@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -76,11 +76,11 @@ public class FileUtils {
      */
     public static String readFile(String fileName, Logger log) {
         try {
-            log.info(MessageFormat.format("read file: {0}", fileName));
+            log.debug(MessageFormat.format("read file: {0}", fileName));
             File sourceFile = new File(fileName);
             String filecontents = null;
             if (sourceFile.exists()) {
-                log.info("file exists");
+                log.debug("file exists");
                 StringBuilder sb = new StringBuilder();
 
                 try (BufferedReader input = new BufferedReader(new FileReader(sourceFile))) {
@@ -98,7 +98,7 @@ public class FileUtils {
                 }
                 filecontents = sb.toString();
             } else {
-                log.info(MessageFormat.format("unable to find source fileName: {0}", fileName));
+                log.warn(MessageFormat.format("unable to find source fileName: {0}", fileName));
             }
 
             return filecontents;
@@ -151,12 +151,12 @@ public class FileUtils {
         File sourceFile = new File(sourceDirectory, sourceFileName);
         File destinationFile = new File(destinationDirectory, destinationFileName);
 
-        log.info(MessageFormat.format("copying property file from ''{0}'' to ''{1}''", sourceFile, destinationFile));
+        log.debug(MessageFormat.format("copying property file from ''{0}'' to ''{1}''", sourceFile, destinationFile));
 
         if (sourceFile.exists()) {
             try {
                 org.apache.commons.io.FileUtils.copyFile(sourceFile, destinationFile, false);
-                log.info(MessageFormat.format("File ''{0}'' copied to ''{1}''.", sourceFileName, destinationFileName));
+                log.debug(MessageFormat.format("File ''{0}'' copied to ''{1}''.", sourceFileName, destinationFileName));
             } catch (FileNotFoundException ex) {
                 log.error(MessageFormat.format("{0} in the specified directory.", ex.getLocalizedMessage()), ex);
             } catch (IOException e) {
@@ -178,9 +178,9 @@ public class FileUtils {
         File file = new File(sourceDirectory, sourceFileName);
         if (file.exists()) {
             file.delete();
-            log.info(MessageFormat.format("file deleted: {0}", file.getName()));
+            log.debug(MessageFormat.format("file deleted: {0}", file.getName()));
         } else {
-            log.info(MessageFormat.format("file not found, skipping delete for: {0}", file));
+            log.warn(MessageFormat.format("file not found, skipping delete for: {0}", file));
         }
     }
 
@@ -200,7 +200,7 @@ public class FileUtils {
         FileReader frPropFile = null;
 
         try {
-            log.info(MessageFormat.format(
+            log.debug(MessageFormat.format(
                 "begin updateProperty; directory=''{0}'';filename=''{1}'';key=''{2}'';value=''{3}'';", directory,
                 filename, propertyKey, propertyValue));
 
@@ -235,7 +235,7 @@ public class FileUtils {
         String propertyValue = null;
 
         try {
-            log.info(MessageFormat.format("begin ReadProperty; directory=''{0}'';filename=''{1}'';key=''{2}'';",
+            log.debug(MessageFormat.format("begin ReadProperty; directory=''{0}'';filename=''{1}'';key=''{2}'';",
                 directory, filename, propertyKey));
 
             frPropFile = new FileReader(new File(directory, filename));
@@ -270,7 +270,7 @@ public class FileUtils {
         String oldAliasLine = MessageFormat.format("<alias alias=\"{0}\" name=\"{1}\" />", alias, oldAliasName);
         String newAliasLine = MessageFormat.format("<alias alias=\"{0}\" name=\"{1}\" />", alias, newAliasName);
 
-        log.info(MessageFormat.format("OLD: {0} NEW: {1}", oldAliasLine, newAliasLine));
+        log.debug(MessageFormat.format("OLD: {0} NEW: {1}", oldAliasLine, newAliasLine));
 
         File configDirFile = new File(configDir);
         File tempConfigFile = new File(configDirFile.getAbsolutePath(), "tempConfigFile.xml");
@@ -319,7 +319,7 @@ public class FileUtils {
                 log.error(e.getLocalizedMessage(), e);
             }
         } else {
-            log.info(MessageFormat.format("Unable to find source file: {0}.", fileName));
+            log.debug(MessageFormat.format("Unable to find source file: {0}.", fileName));
         }
     }
 
@@ -337,7 +337,7 @@ public class FileUtils {
     public static void createOrUpdateConnection(String fileName, String directory, String communityId,
         String serviceName, String serviceUrl, String defaultVersion, Logger log) {
 
-        log.info(MessageFormat.format(
+        log.debug(MessageFormat.format(
             "begin CreateOrUpdateConnection; directory=''{0}'';community-id=''{1}'';service-name=''{2}'';service-url=''{3}'';",
             directory, communityId, serviceName, serviceUrl));
 
@@ -359,7 +359,7 @@ public class FileUtils {
                     boolean serviceNodeFound = checkServiceEndpointByLatest(log, organization, serviceName, serviceUrl);
 
                     if (!serviceNodeFound) {
-                        log.info(MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
+                        log.debug(MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
                             communityId, serviceName));
                         try {
                             getFirstElementOf(organization, "endpointList", REQUIRED_ELEMENT_TRUE)
@@ -386,7 +386,7 @@ public class FileUtils {
                 StreamResult stream = new StreamResult(fileOutput);
                 transformer.transform(source, stream);
             }
-            log.info(MessageFormat.format("Done createorupdate: {0}", fileName));
+            log.debug(MessageFormat.format("Done createorupdate: {0}", fileName));
         } catch (IllegalArgumentException | TransformerException | IOException e) {
             log.error(MessageFormat.format("Exception writing out connection info file: {0}", e.getLocalizedMessage()),
                 e);
@@ -407,7 +407,7 @@ public class FileUtils {
     public static void configureConnection(String fileName, String directory, String communityId, String serviceName,
         String serviceUrl, String endpointVersion, Logger log) {
 
-        log.info(MessageFormat.format(
+        log.debug(MessageFormat.format(
             "begin CreateOrUpdateConnection; directory=''{0}'';community-id=''{1}'';service-name=''{2}'';service-url=''{3}'';",
             directory, communityId, serviceName, serviceUrl));
 
@@ -429,7 +429,7 @@ public class FileUtils {
                         endpointVersion);
 
                     if (!serviceNodeFound) {
-                        log.info(MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
+                        log.debug(MessageFormat.format("Service not found for: Adding HCID ''{0}'' and service ''{1}''",
                             communityId, serviceName));
                         try {
                             getFirstElementOf(organization, "endpointList", REQUIRED_ELEMENT_TRUE)
@@ -454,7 +454,7 @@ public class FileUtils {
                 StreamResult stream = new StreamResult(fileOutput);
                 transformer.transform(source, stream);
             }
-            log.info(MessageFormat.format("Done configureConnection: {0}", fileName));
+            log.debug(MessageFormat.format("Done configureConnection: {0}", fileName));
         } catch (IllegalArgumentException | TransformerException | IOException e) {
             log.error(MessageFormat.format("Exception writing out connection info file: {0}", e.getLocalizedMessage()),
                 e);
@@ -468,7 +468,7 @@ public class FileUtils {
      * @param log SoapUI logger.
      */
     public static void backupConfiguration(String configDir, Logger log) {
-        log.info("Start backupConfiguration");
+        log.debug("Start backupConfiguration");
         try {
             File backupDir = new File(configDir, TEMP_DIR);
             File confDir = new File(configDir);
@@ -479,7 +479,7 @@ public class FileUtils {
         } catch (IOException ioe) {
             log.error(ioe.getLocalizedMessage(), ioe);
         }
-        log.info("End backupConfiguration");
+        log.debug("End backupConfiguration");
     }
 
     /**
@@ -491,9 +491,9 @@ public class FileUtils {
      * @param optionDel Flag for deleting the temporary directory.
      */
     public static void restoreConfiguration(String configDir, Logger log, Boolean optionDel) {
-        log.info("Start restoreConfiguration");
+        log.debug("Start restoreConfiguration");
         try {
-            log.info(MessageFormat.format("configDir: {0}", configDir));
+            log.debug(MessageFormat.format("configDir: {0}", configDir));
             File backupDir = new File(configDir, TEMP_DIR);
             File confDir = new File(configDir);
             // restore the files back
@@ -510,7 +510,7 @@ public class FileUtils {
         } catch (IOException ioe) {
             log.error(ioe.getLocalizedMessage(), ioe);
         }
-        log.info("End restoreConfiguration");
+        log.debug("End restoreConfiguration");
     }
 
     /**
@@ -531,7 +531,7 @@ public class FileUtils {
      * @param log SoapUI logger.
      */
     public static void backupFile(String configDir, String fileName, Logger log) {
-        log.info(MessageFormat.format("Backing up file {0} in {1} directory.", fileName, configDir));
+        log.debug(MessageFormat.format("Backing up file {0} in {1} directory.", fileName, configDir));
         copyFile(configDir, fileName, configDir + File.separator + TEMP_DIR, fileName, log);
     }
 
@@ -543,7 +543,7 @@ public class FileUtils {
      * @param log SoapUI logger.
      */
     public static void restoreFile(String configDir, String fileName, Logger log) {
-        log.info(MessageFormat.format("Restoring file: {0}", fileName));
+        log.debug(MessageFormat.format("Restoring file: {0}", fileName));
         File configDirFile = new File(configDir);
         File backupDir = new File(configDir, TEMP_DIR);
         copyFile(backupDir.getAbsolutePath(), fileName, configDirFile.getAbsolutePath(), fileName, log);
@@ -704,7 +704,7 @@ public class FileUtils {
             "endpointConfiguration");
 
         if (configurationList != null) {
-            log.info(MessageFormat.format("found-endpoint-configuration: {0}", configurationList.getLength()));
+            log.debug(MessageFormat.format("found-endpoint-configuration: {0}", configurationList.getLength()));
             if (configurationList.getLength() > 1) {
                 if (matchEndpointVersion != null) {
                     latestVersion = getEndpointConfigurationVersionBy(configurationList, matchEndpointVersion);
@@ -716,7 +716,7 @@ public class FileUtils {
             }
 
             if (latestVersion != null) {
-                log.info(MessageFormat.format("version: {0}", getTextContentOf(latestVersion, "version")));
+                log.debug(MessageFormat.format("version: {0}", getTextContentOf(latestVersion, "version")));
             }
         } else {
             log.error(
@@ -779,7 +779,7 @@ public class FileUtils {
                 String endpointName = getFirstElementOf(endpoint, "name").getTextContent();
 
                 if (endpointName.equalsIgnoreCase(serviceName)) {
-                    log.info(MessageFormat.format("Found service: {0}", serviceName));
+                    log.debug(MessageFormat.format("Found service: {0}", serviceName));
                     serviceNodeFound = true;
                     Element epConfigurationLatestVersion = getEndpointConfigurationBy(log, endpoint,
                         matchEndpointVersion);
@@ -789,12 +789,12 @@ public class FileUtils {
                         if (url != null) {
                             if (!serviceUrl.equalsIgnoreCase(url.getTextContent())) {
                                 url.setTextContent(serviceUrl);
-                                log.info(
+                                log.debug(
                                     MessageFormat.format("setting the endpoint-configuration-url: {0}", serviceUrl));
                             }
                         } else {
                             createElementBy(epConfigurationLatestVersion, "url", serviceUrl);
-                            log.info(MessageFormat.format("created the endpoint-configuration-url: {0}", serviceUrl));
+                            log.debug(MessageFormat.format("created the endpoint-configuration-url: {0}", serviceUrl));
                         }
                     }
                     log.debug(getCheckpoint(MessageFormat.format("checkServiceEndpoint-found: {0}", serviceName)));
@@ -808,7 +808,7 @@ public class FileUtils {
     }
 
     private static Document getDocument(Logger log, String fullPath) {
-        log.info(MessageFormat.format("Path to connection info file: {0}", fullPath));
+        log.debug(MessageFormat.format("Path to connection info file: {0}", fullPath));
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
@@ -829,7 +829,7 @@ public class FileUtils {
         if (orgRoot != null) {
             organizationList = orgRoot.getElementsByTagNameNS(XML_ALL_NS, "organization");
             if (organizationList != null) {
-                log.info(MessageFormat.format("organization-list: {0}", organizationList.getLength()));
+                log.debug(MessageFormat.format("organization-list: {0}", organizationList.getLength()));
             } else {
                 log.warn("organizationList-organization element is null");
             }
