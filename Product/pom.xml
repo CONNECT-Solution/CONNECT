@@ -1210,6 +1210,9 @@
 
     <profile>
       <id>SCA</id>
+       <properties>
+        <skip.cobertura>false</skip.cobertura>
+       </properties>
       <build>
         <plugins>
           <plugin>

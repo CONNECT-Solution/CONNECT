@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -63,10 +63,10 @@ public class FileUtilsTest {
         String fileDestination = "copyTestFile.properties";
 
         FileUtils.copyFile(RESOURCE_FOLDER, TEST_FILE_ORG, BACKUP_FOLDER, fileDestination, log);
-        verify(log).info("File 'testFileOrg.properties' copied to 'copyTestFile.properties'.");
+        verify(log).debug("File 'testFileOrg.properties' copied to 'copyTestFile.properties'.");
 
         FileUtils.deleteFile(BACKUP_FOLDER, fileDestination, log);
-        verify(log).info("file deleted: copyTestFile.properties");
+        verify(log).debug("file deleted: copyTestFile.properties");
 
         try{
             FileUtils.deleteFolder(getFileBy(BACKUP_FOLDER), log);
@@ -130,7 +130,7 @@ public class FileUtilsTest {
 
         FileUtils.deleteFile(RESOURCE_FOLDER, EXCHANGE_FILE, log);
 
-        verify(log, new AtLeast(2)).info("Done createorupdate: exchangeInfo.xml");
+        verify(log, new AtLeast(2)).debug("Done createorupdate: exchangeInfo.xml");
     }
 
     @Test
@@ -157,7 +157,7 @@ public class FileUtilsTest {
 
         FileUtils.deleteFile(RESOURCE_FOLDER, EXCHANGE_FILE, log);
 
-        verify(log, new AtLeast(2)).info("Done configureConnection: exchangeInfo.xml");
+        verify(log, new AtLeast(2)).debug("Done configureConnection: exchangeInfo.xml");
     }
 
     private String getResourceBy(String fileName) {
