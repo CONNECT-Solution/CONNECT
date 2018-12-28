@@ -186,6 +186,8 @@ public class AttributeHelper {
                     // why the string values are treated differently I am not going to change this logic.
                 } else if (o instanceof XSStringImpl) {
                     strBuilder.append(((XSStringImpl) o).getValue());
+                } else if (o instanceof XSAnyImpl) {
+                    strBuilder.append(((XSAnyImpl) o).getTextContent());
                 }
             }
         }
