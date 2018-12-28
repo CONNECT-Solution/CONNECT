@@ -86,7 +86,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
      * The Constant ALLOW_NO_SUBJECT_ASSERTION_PROP.
      */
     private static final String ALLOW_NO_SUBJECT_ASSERTION_PROP = "allowNoSubjectAssertion";
-    
+
     private static final Set<String> VALIDATED_ATTRIBUTES = new HashSet<>(Arrays.asList(NhincConstants.ATTRIBUTE_NAME_SUBJECT_ID_XSPA,
             NhincConstants.ATTRIBUTE_NAME_ORG, NhincConstants.ATTRIBUTE_NAME_ORG_ID, NhincConstants.ATTRIBUTE_NAME_HCID, NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE,
             NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE));
@@ -314,22 +314,32 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         if (value instanceof XSStringImpl) {
             return NullChecker.isNotNullish(((XSStringImpl) value).getValue());
         } else if (value instanceof XSAnyImpl) {
-            if (CollectionUtils.isNotEmpty(((XSAnyImpl) value).getUnknownXMLObjects())
-                    && ((XSAnyImpl) value).getUnknownXMLObjects().get(0) instanceof XSAnyImpl) {
-                XSAnyImpl attributeValues = (XSAnyImpl) ((XSAnyImpl) value).getUnknownXMLObjects().get(0);
-                if (!attributeValues.getUnknownAttributes().isEmpty()) {
-                    return containsCodeQName(attributeValues.getUnknownAttributes());
-                } 
+            if (NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE.equals(name)
+                    || NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE.equals(name)) {
+                return containsCodeQName((XSAnyImpl) value);
+            } else {
+                return NullChecker.isNotNullish(((XSAnyImpl) value).getTextContent());
             }
-            return false;
+        } else {
+            LOG.warn("Unknown type of Attribute object for name: {}, default to add to found list.", name);
+            return true;
         }
-        LOG.warn("Unknown type of Attribute object for name: {}, default to add to found list.", name);
-        return true;
     }
-    
+
+    private static boolean containsCodeQName(XSAnyImpl value) {
+        if (CollectionUtils.isNotEmpty(value.getUnknownXMLObjects())
+                && value.getUnknownXMLObjects().get(0) instanceof XSAnyImpl) {
+            XSAnyImpl attributeValues = (XSAnyImpl) value.getUnknownXMLObjects().get(0);
+            if (!attributeValues.getUnknownAttributes().isEmpty()) {
+                return containsCodeQName(attributeValues.getUnknownAttributes());
+            }
+        }
+        return false;
+    }
+
     private static boolean containsCodeQName(AttributeMap unknownAttributes) {
-        for(QName qName : unknownAttributes.keySet()) {
-            if(NhincConstants.CE_CODE.equals(qName.getLocalPart())) {
+        for (QName qName : unknownAttributes.keySet()) {
+            if (NhincConstants.CE_CODE.equals(qName.getLocalPart())) {
                 return true;
             }
         }
