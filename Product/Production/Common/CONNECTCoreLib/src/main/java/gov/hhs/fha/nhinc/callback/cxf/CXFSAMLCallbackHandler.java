@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
 import gov.hhs.fha.nhinc.callback.opensaml.SAMLAssertionBuilderException;
+import gov.hhs.fha.nhinc.callback.opensaml.SAMLUtils;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -49,8 +50,6 @@ import org.apache.wss4j.common.crypto.CryptoFactory;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SAMLCallback;
 import org.apache.wss4j.common.saml.bean.Version;
-import org.apache.wss4j.policy.SPConstants;
-import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,9 +62,6 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
     private static final Logger LOG = LoggerFactory.getLogger(CXFSAMLCallbackHandler.class);
     private PropertyAccessor accessor;
     public static final String HOK_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
-    private static final String PROPERTY_FILE_NAME = "assertioninfo";
-    private static final String SIG_ALGO = "saml.SignatureAlgorithm";
-    private static final String DIG_ALGO = "saml.DigestAlgorithm";
     private HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
     private Crypto issuerCrypto = null;
 
@@ -110,13 +106,8 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     oSAMLCallback.setIssuerCrypto(issuerCrypto);
                     oSAMLCallback.setSamlVersion(Version.SAML_20);
 
-                    String salgorithm = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, SIG_ALGO,
-                        SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
-
-                    String dalgorithm = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, DIG_ALGO,
-                        SPConstants.SHA1);
-                    oSAMLCallback.setSignatureAlgorithm(salgorithm);
-                    oSAMLCallback.setSignatureDigestAlgorithm(dalgorithm);
+                    oSAMLCallback.setSignatureAlgorithm(SAMLUtils.getSignatureAlgorithm());
+                    oSAMLCallback.setSignatureDigestAlgorithm(SAMLUtils.getDigestAlgorithm());
 
                     final SamlTokenCreator creator = new SamlTokenCreator();
                     final CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
