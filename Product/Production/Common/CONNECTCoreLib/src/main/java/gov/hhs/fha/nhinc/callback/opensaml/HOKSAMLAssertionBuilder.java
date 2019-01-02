@@ -133,7 +133,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             assertion.getStatements().addAll(
                 createAttributeStatements(properties, createEvidenceSubject(properties, certificate, publicKey)));
 
-            signedAssertion = sign(assertion, certificate, privateKey, publicKey);
+            signedAssertion = sign(properties, assertion, certificate, privateKey, publicKey);
         } catch (final SAMLComponentBuilderException | CertificateManagerException ex) {
             LOG.error("Unable to create HOK Assertion: {}", ex.getLocalizedMessage());
             throw new SAMLAssertionBuilderException(ex.getLocalizedMessage(), ex);
@@ -143,21 +143,22 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     /**
+     * @param properties
      * @param assertion
      * @param privateKey
      * @param certificate
      * @param publicKey
      * @return
      */
-    protected Element sign(final Assertion assertion, final X509Certificate certificate, final PrivateKey privateKey,
+    protected Element sign(CallbackProperties properties, final Assertion assertion, final X509Certificate certificate, final PrivateKey privateKey,
         final PublicKey publicKey) {
         Element assertionElement = null;
         try {
-            final Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature(certificate, privateKey,
+            final Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature(properties, certificate, privateKey,
                 publicKey);
             final SamlAssertionWrapper wrapper = new SamlAssertionWrapper(assertion);
 
-            wrapper.setSignature(signature, SAMLUtils.getDigestAlgorithm());
+            wrapper.setSignature(signature, properties.getDigestAlgorithm());
             final MarshallerFactory marshallerFactory = XMLObjectProviderRegistrySupport.getMarshallerFactory();
             final Marshaller marshaller = marshallerFactory.getMarshaller(wrapper.getSamlObject());
             assertionElement = marshaller.marshall(wrapper.getSamlObject());

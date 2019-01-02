@@ -115,7 +115,8 @@ public class NhinUtils {
         try {
             name = new LdapName(userName);
         } catch (InvalidNameException ex) {
-            LOG.error("Invalid distinguished name {}", userName, ex);
+            LOG.error("Invalid distinguished name {}", userName);
+            LOG.debug("Invalid distinguished name {}", userName, ex);
         }
         return name != null;
     }

@@ -637,6 +637,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
     /**
      * Creates the signature.
+     * @param properties
      *
      * @param certificate the certificate
      * @param privateKey the private key
@@ -644,7 +645,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the signature
      * @throws SAMLComponentBuilderException the exception
      */
-    public Signature createSignature(final X509Certificate certificate, final PrivateKey privateKey,
+    public Signature createSignature(CallbackProperties properties, final X509Certificate certificate, final PrivateKey privateKey,
         final PublicKey publicKey) {
         final BasicX509Credential credential = new BasicX509Credential(certificate, privateKey);
         credential.setEntityCertificate(certificate);
@@ -653,7 +654,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         final Signature signature = OpenSAMLUtil.buildSignature();
         signature.setSigningCredential(credential);
 
-        signature.setSignatureAlgorithm(SAMLUtils.getSignatureAlgorithm());
+        signature.setSignatureAlgorithm(properties.getSignatureAlgorithm());
 
         signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
         try {

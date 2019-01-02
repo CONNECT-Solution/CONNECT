@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.port;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
@@ -72,8 +73,8 @@ public class CachingCXFWSAServicePortBuilder<T> extends CachingCXFServicePortBui
      * @see gov.hhs.fha.nhinc.messaging.service.port.CachingCXFServicePortBuilder#configurePort(java.lang.Object)
      */
     @Override
-    protected void configurePort(T port) {
-        super.configurePort(port);
+    protected void configurePort(T port, AssertionType assertion) {
+        super.configurePort(port, assertion);
 
         ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<>(port);
         serviceEndpoint.configure();

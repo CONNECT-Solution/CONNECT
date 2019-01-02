@@ -107,7 +107,7 @@ public class WsSecurityServiceEndpointDecoratorTest {
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
 
-        serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint, (String) null);
+        serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint, (String) null, null);
         serviceEndpoint.configure();
 
         return testClient;

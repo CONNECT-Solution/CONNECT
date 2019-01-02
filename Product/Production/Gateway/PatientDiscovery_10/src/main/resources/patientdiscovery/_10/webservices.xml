@@ -13,14 +13,12 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:cxf="http://cxf.apache.org/core"
        xmlns:p="http://cxf.apache.org/policy"
-       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://cxf.apache.org/bindings/soap         http://cxf.apache.org/schemas/configuration/soap.xsd
         http://cxf.apache.org/jaxws                 http://cxf.apache.org/schemas/jaxws.xsd
         http://cxf.apache.org/policy                http://cxf.apache.org/schemas/policy.xsd
-        http://cxf.apache.org/core                  http://cxf.apache.org/schemas/core.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+        http://cxf.apache.org/core                  http://cxf.apache.org/schemas/core.xsd">
 
     
     <!-- Patient Discovery -->
@@ -30,7 +28,6 @@
             <p:policies />
         </cxf:features>
     </cxf:bus>
-    <context:property-placeholder />
 
     
     <!-- Nhin services -->
