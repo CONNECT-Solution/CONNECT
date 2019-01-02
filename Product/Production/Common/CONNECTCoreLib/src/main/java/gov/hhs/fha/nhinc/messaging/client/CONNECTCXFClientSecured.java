@@ -74,7 +74,7 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo,
             wsAddressingActionId, assertion);
         serviceEndpoint = new HttpHeaderServiceEndpointDecorator<>(serviceEndpoint, assertion);
-        serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint, StoreUtil.getGatewayAlias(wsAddressingTo));
+        serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint, StoreUtil.getGatewayAlias(wsAddressingTo), assertion);
     }
 
     /*

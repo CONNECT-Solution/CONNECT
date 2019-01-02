@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.port;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 
 /**
@@ -57,7 +58,7 @@ public class CXFServicePortBuilder<T> implements ServicePortBuilder<T> {
 
     @SuppressWarnings("unchecked")
     @Override
-    public T createPort(String gatewayAlias) {
+    public T createPort(String gatewayAlias, AssertionType assertion) {
         JaxWsProxyFactoryBean clientFactory = new JaxWsProxyFactoryBean();
         configureJaxWsProxyFactory(clientFactory);
         return (T) clientFactory.create();

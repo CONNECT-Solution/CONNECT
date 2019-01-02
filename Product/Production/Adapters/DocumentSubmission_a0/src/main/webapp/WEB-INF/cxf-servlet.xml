@@ -49,6 +49,7 @@
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
         <jaxws:inInterceptors>
+            <ref bean="securityConfigInInterceptor" />
             <ref bean="timestampInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
@@ -84,6 +85,7 @@
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
         <jaxws:inInterceptors>
+            <ref bean="securityConfigInInterceptor" />
             <ref bean="timestampInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
@@ -117,6 +119,7 @@
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
         <jaxws:inInterceptors>
+            <ref bean="securityConfigInInterceptor" />
             <ref bean="timestampInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
@@ -163,6 +166,7 @@
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
         <jaxws:inInterceptors>
+            <ref bean="securityConfigInInterceptor" />
             <ref bean="timestampInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>

@@ -51,7 +51,7 @@ public class CONNECTTestClient<T> implements CONNECTClient<T> {
      */
     public CONNECTTestClient(ServicePortDescriptor<T> portDescriptor) {
         serviceEndpoint = new BaseServiceEndpoint<>(
-            new CachingCXFSecuredServicePortBuilder<>(portDescriptor, null).createPort(null));
+            new CachingCXFSecuredServicePortBuilder<>(portDescriptor, null).createPort(null, null));
     }
 
     public ServiceEndpoint<T> getServiceEndpoint() {

@@ -37,6 +37,7 @@ import org.apache.cxf.helpers.CastUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.xmlsec.signature.support.SignatureConstants;
 
 /**
  * @author bhumphrey
@@ -555,6 +556,22 @@ public class CallbackMapProperties implements CallbackProperties {
         } else {
             return new ArrayList<SAMLSubjectConfirmation>();
         }
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties#getSignatureAlgorithm()
+     */
+    @Override
+    public String getSignatureAlgorithm() {
+        return getNullSafeString(SamlConstants.SIGNATURE_KEY, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties#getDigestAlgorithm()
+     */
+    @Override
+    public String getDigestAlgorithm() {
+        return getNullSafeString(SamlConstants.DIGEST_KEY, SignatureConstants.ALGO_ID_DIGEST_SHA1);
     }
 
 }

@@ -106,8 +106,8 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     oSAMLCallback.setIssuerCrypto(issuerCrypto);
                     oSAMLCallback.setSamlVersion(Version.SAML_20);
 
-                    oSAMLCallback.setSignatureAlgorithm(SAMLUtils.getSignatureAlgorithm());
-                    oSAMLCallback.setSignatureDigestAlgorithm(SAMLUtils.getDigestAlgorithm());
+                    oSAMLCallback.setSignatureAlgorithm(SAMLUtils.extractSignatureFromAssertion(custAssertion));
+                    oSAMLCallback.setSignatureDigestAlgorithm(SAMLUtils.extractDigestFromAssertion(custAssertion));
 
                     final SamlTokenCreator creator = new SamlTokenCreator();
                     final CallbackProperties properties = new CallbackMapProperties(addMessageProperties(

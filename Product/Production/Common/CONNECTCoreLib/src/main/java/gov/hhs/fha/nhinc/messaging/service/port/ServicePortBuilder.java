@@ -26,11 +26,13 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.port;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+
 /**
  * @author akong
  *
  */
 public interface ServicePortBuilder<T> {
 
-    public T createPort(String gatewayAlias);
+    public T createPort(String gatewayAlias, AssertionType assertion);
 }

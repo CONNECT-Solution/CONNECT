@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.wss4j.policy.SPConstants;
 
 /**
  *
@@ -40,36 +39,7 @@ import org.apache.wss4j.policy.SPConstants;
  * @author Jon Hoppesch
  */
 public class NhincConstants {
-    public static final String CONFIG_SHA = "configurableSHA";
 
-    public static enum SHA_TYPE {
-        SHA1(SPConstants.RSA_SHA1, SPConstants.SHA1), SHA256(SPConstants.RSA_SHA256, SPConstants.SHA256), SHA512(
-            SPConstants.RSA_SHA512, SPConstants.SHA512);
-        private String signatureAlgorithm = null;
-        private String digestAlgorithm = null;
-
-        SHA_TYPE(String signatureAlgorithm, String digestAlgorithm) {
-            this.signatureAlgorithm = signatureAlgorithm;
-            this.digestAlgorithm = digestAlgorithm;
-        }
-
-        public static SHA_TYPE getSHAType(String type) {
-            for (SHA_TYPE SHAType : SHA_TYPE.values()) {
-                if (SHAType.name().equalsIgnoreCase(type)) {
-                    return SHAType;
-                }
-            }
-            return null;// match nothing
-        }
-
-        public String getSignatureAlgorithm() {
-            return signatureAlgorithm;
-        }
-
-        public String getDigestAlgorithm() {
-            return digestAlgorithm;
-        }
-    }
     public static enum GATEWAY_API_LEVEL {
 
         LEVEL_g0, LEVEL_g1

@@ -49,13 +49,13 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
         ServicePortBuilder<T> portBuilder) {
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(StoreUtil.getGatewayAlias(url)), url,
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(StoreUtil.getGatewayAlias(url), assertion), url,
             assertion != null ? assertion.getTransactionTimeout() : null);
     }
 
     protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
         ServicePortBuilder<T> portBuilder, String subscriptionId) {
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(StoreUtil.getGatewayAlias(url)),
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(StoreUtil.getGatewayAlias(url), assertion),
             subscriptionId, assertion != null ? assertion.getTransactionTimeout() : null);
     }
 

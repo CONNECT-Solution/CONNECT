@@ -53,7 +53,7 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
 
         CXFServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<>(portDescriptor);
 
-        serviceEndpoint = new BaseServiceEndpoint<>(portBuilder.createPort(StoreUtil.getGatewayAlias(url)));
+        serviceEndpoint = new BaseServiceEndpoint<>(portBuilder.createPort(StoreUtil.getGatewayAlias(url), null));
         serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
         serviceEndpoint = new TimeoutServiceEndpointDecorator<>(serviceEndpoint, -1);
         serviceEndpoint = new TLSUDDIClientEndpointDecorator<>(serviceEndpoint, StoreUtil.getGatewayAlias(url));
