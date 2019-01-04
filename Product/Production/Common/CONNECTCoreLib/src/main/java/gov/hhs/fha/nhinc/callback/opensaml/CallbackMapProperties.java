@@ -57,361 +57,181 @@ public class CallbackMapProperties implements CallbackProperties {
         map.putAll(properties);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAssertionIssuerFormat()
-     */
     @Override
     public String getAssertionIssuerFormat() {
         return getNullSafeString(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getIssuer()
-     */
     @Override
     public String getIssuer() {
         return getNullSafeString(SamlConstants.ASSERTION_ISSUER_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUsername()
-     */
     @Override
     public String getUsername() {
         return getNullSafeString(SamlConstants.USER_NAME_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenticationStatementExists()
-     */
     @Override
     public Boolean getAuthenticationStatementExists() {
         return getNullSafeBoolean(SamlConstants.AUTHN_STATEMENT_EXISTS_PROP, Boolean.FALSE);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationContextClass()
-     */
     @Override
     public String getAuthenticationContextClass() {
         return getNullSafeString(SamlConstants.AUTHN_CONTEXT_CLASS_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationSessionIndex()
-     */
     @Override
     public String getAuthenticationSessionIndex() {
         return getNullSafeString(SamlConstants.AUTHN_SESSION_INDEX_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationInstant()
-     */
     @Override
     public DateTime getAuthenticationInstant() {
         return getNullSafeDateTime(SamlConstants.AUTHN_INSTANT_PROP, null);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getSamlConditionsNotBefore()
-     */
     @Override
     public DateTime getSamlConditionsNotBefore() {
         return getNullSafeDateTime(SamlConstants.SAMLCONDITIONS_NOT_BEFORE_PROP, null);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceConditionNotAfter()
-     */
     @Override
     public DateTime getSamlConditionsNotAfter() {
         return getNullSafeDateTime(SamlConstants.SAMLCONDITIONS_NOT_AFTER_PROP, null);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getSubjectLocality()
-     */
     @Override
     public String getSubjectLocality() {
         return getNullSafeString(SamlConstants.SUBJECT_LOCALITY_ADDR_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getSubjectDNS()
-     */
     @Override
     public String getSubjectDNS() {
         return getNullSafeString(SamlConstants.SUBJECT_LOCALITY_DNS_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationStatementExists()
-     */
     @Override
     public Boolean getAuthorizationStatementExists() {
         return getNullSafeBoolean(SamlConstants.AUTHZ_STATEMENT_EXISTS_PROP, Boolean.FALSE);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthnicationResource()
-     */
     @Override
     public String getAuthorizationResource() {
         return getNullSafeString(SamlConstants.RESOURCE_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationDecision()
-     */
     @Override
     public String getAuthorizationDecision() {
         return getNullSafeString(SamlConstants.AUTHZ_DECISION_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceID()
-     */
     @Override
     public String getEvidenceID() {
         return getNullSafeString(SamlConstants.EVIDENCE_ID_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceInstant()
-     */
     @Override
     public DateTime getEvidenceInstant() {
         return getNullSafeDateTime(SamlConstants.EVIDENCE_INSTANT_PROP, null);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceIssuerFormat()
-     */
     @Override
     public String getEvidenceIssuerFormat() {
         return getNullSafeString(SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceIssuer()
-     */
     @Override
     public String getEvidenceIssuer() {
         return getNullSafeString(SamlConstants.EVIDENCE_ISSUER_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceConditionNotBefore()
-     */
     @Override
     public DateTime getEvidenceConditionNotBefore() {
         return getNullSafeDateTime(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP, null);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceConditionNotAfter()
-     */
     @Override
     public DateTime getEvidenceConditionNotAfter() {
         return getNullSafeDateTime(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP, null);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceAccessConstent()
-     */
     @Override
     public List<Object> getEvidenceAccessConstent() {
         return getNullSafeList(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceInstanctAccessConsent()
-     */
     @Override
     public List<Object> getEvidenceInstantAccessConsent() {
         return getNullSafeList(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceSubject()
-     */
     @Override
     public String getEvidenceSubject() {
         return getNullSafeString(SamlConstants.EVIDENCE_SUBJECT_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserCode()
-     */
     @Override
     public String getUserCode() {
         return getNullSafeString(SamlConstants.USER_CODE_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserSystem()
-     */
     @Override
     public String getUserSystem() {
         return getNullSafeString(SamlConstants.USER_SYST_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserSystemName()
-     */
     @Override
     public String getUserSystemName() {
         return getNullSafeString(SamlConstants.USER_SYST_NAME_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserDisplay()
-     */
     @Override
     public String getUserDisplay() {
         return getNullSafeString(SamlConstants.USER_DISPLAY_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getPurposeCode()
-     */
     @Override
     public String getPurposeCode() {
         return getNullSafeString(SamlConstants.PURPOSE_CODE_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getPurposeSystem()
-     */
     @Override
     public String getPurposeSystem() {
         return getNullSafeString(SamlConstants.PURPOSE_SYST_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getPurposeSystemName()
-     */
     @Override
     public String getPurposeSystemName() {
         return getNullSafeString(SamlConstants.PURPOSE_SYST_NAME_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getPurposeDisplay()
-     */
     @Override
     public String getPurposeDisplay() {
         return getNullSafeString(SamlConstants.PURPOSE_DISPLAY_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserOrganization()
-     */
     @Override
     public String getUserOrganization() {
         return getNullSafeString(SamlConstants.USER_ORG_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserOrganization()
-     */
     @Override
     public String getUserOrganizationId() {
         return getNullSafeString(SamlConstants.USER_ORG_ID_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getHomeCommunity()
-     */
     @Override
     public String getHomeCommunity() {
         return getNullSafeString(SamlConstants.HOME_COM_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getPatientID()
-     */
     @Override
     public String getPatientID() {
         return getNullSafeString(SamlConstants.PATIENT_ID_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserFullName()
-     */
     @Override
     public String getUserFullName() {
         StringBuilder nameConstruct = new StringBuilder();
@@ -439,21 +259,11 @@ public class CallbackMapProperties implements CallbackProperties {
         return nameConstruct.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getTargetHomeCommunityId()
-     */
     @Override
     public String getTargetHomeCommunityId() {
         return getNullSafeString(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAction()
-     */
     @Override
     public String getAction() {
         return getNullSafeString(SamlConstants.ACTION_PROP);
@@ -464,11 +274,6 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(NhincConstants.SERVICE_NAME);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getTargetApiLevel()
-     */
     @Override
     public GATEWAY_API_LEVEL getTargetApiLevel() {
         return (GATEWAY_API_LEVEL) getNullSafeObject(NhincConstants.TARGET_API_LEVEL, null);
@@ -543,11 +348,6 @@ public class CallbackMapProperties implements CallbackProperties {
         return getNullSafeString(SamlConstants.IACP_ATTRIBUTE_PROP);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties#getSubjectConfirmations()
-     */
     @Override
     public List<SAMLSubjectConfirmation> getSubjectConfirmations() {
         List<Object> senderObj = getNullSafeList(SamlConstants.SUBJECT_CONFIRMATION);
@@ -558,17 +358,11 @@ public class CallbackMapProperties implements CallbackProperties {
         }
     }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties#getSignatureAlgorithm()
-     */
     @Override
     public String getSignatureAlgorithm() {
         return getNullSafeString(SamlConstants.SIGNATURE_KEY, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
     }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties#getDigestAlgorithm()
-     */
     @Override
     public String getDigestAlgorithm() {
         return getNullSafeString(SamlConstants.DIGEST_KEY, SignatureConstants.ALGO_ID_DIGEST_SHA1);
