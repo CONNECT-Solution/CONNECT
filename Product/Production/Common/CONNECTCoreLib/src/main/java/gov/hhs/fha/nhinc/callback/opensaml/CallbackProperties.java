@@ -260,12 +260,12 @@ public interface CallbackProperties {
     List<SAMLSubjectConfirmation> getSubjectConfirmations();
 
     /**
-     * @return
+     * @return the requested Signature Algorithm
      */
     public String getSignatureAlgorithm();
 
     /**
-     * @return
+     * @return The requested Digest Algorithm
      */
     public String getDigestAlgorithm();
 
