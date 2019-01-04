@@ -247,7 +247,6 @@ public class NhincConstants {
     public static final String FHIR_DIRECTORY_FILE = "FHIRDirectoryMapping";
     public static final String MESSAGES_PROPERTY_FILE = "messages";
     public static final String ASSIGNING_AUTH_PROPERTY = "assigningAuthorityId";
-    public static final String ASSERTION_INFO_PROPERTY_FILE = "assertioninfo";
     // Concurrent Executor Service Constants (used to retrieve values from
     // gateway.properties)
     public static final String CONCURRENT_POOL_SIZE = "ConcurrentPoolSize";
