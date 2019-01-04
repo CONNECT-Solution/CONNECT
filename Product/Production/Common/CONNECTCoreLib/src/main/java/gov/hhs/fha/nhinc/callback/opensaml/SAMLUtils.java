@@ -50,14 +50,14 @@ public class SAMLUtils {
 
 
     public static String getDigestAlgorithm() {
-        String algo = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, SamlConstants.DEFAULT_DIG_ALGO_PROPERTY,
+        String algo = PropertyAccessor.getInstance().getProperty(NhincConstants.SAML_PROPERTY_FILE, SamlConstants.DEFAULT_DIG_ALGO_PROPERTY,
             SignatureConstants.ALGO_ID_DIGEST_SHA1);
 
         return constructNamespace(algo);
     }
 
     public static String getSignatureAlgorithm() {
-        String algo = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, SamlConstants.DEFAULT_SIG_ALGO_PROPERTY,
+        String algo = PropertyAccessor.getInstance().getProperty(NhincConstants.SAML_PROPERTY_FILE, SamlConstants.DEFAULT_SIG_ALGO_PROPERTY,
             SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
 
         return constructNamespace(algo);
@@ -98,10 +98,10 @@ public class SAMLUtils {
      * or the full URI of the requested algorithm.
      */
     public static Map<String, List<String>> getConfigurableSHA() {
-        String digestAlgorithms = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+        String digestAlgorithms = PropertyAccessor.getInstance().getProperty(NhincConstants.SAML_PROPERTY_FILE,
             SamlConstants.DIG_ALGO_PROPERTY, SignatureConstants.ALGO_ID_DIGEST_SHA1);
 
-        String signatureAlgorithms = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+        String signatureAlgorithms = PropertyAccessor.getInstance().getProperty(NhincConstants.SAML_PROPERTY_FILE,
             SamlConstants.SIG_ALGO_PROPERTY, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
 
         HashMap<String, List<String>> configSHA = new HashMap<>();
@@ -113,10 +113,10 @@ public class SAMLUtils {
     }
 
     public static String extractSignatureFromAssertion(AssertionType assertion) {
-        return assertion != null && !StringUtils.isBlank(assertion.getSignatureAlgorithm()) ?  assertion.getSignatureAlgorithm() : getSignatureAlgorithm();
+        return assertion != null && StringUtils.isNotBlank(assertion.getSignatureAlgorithm()) ?  assertion.getSignatureAlgorithm() : getSignatureAlgorithm();
     }
 
     public static String extractDigestFromAssertion(AssertionType assertion) {
-        return assertion != null && !StringUtils.isBlank(assertion.getDigestAlgorithm()) ?  assertion.getDigestAlgorithm() : getDigestAlgorithm();
+        return assertion != null && StringUtils.isNotBlank(assertion.getDigestAlgorithm()) ?  assertion.getDigestAlgorithm() : getDigestAlgorithm();
     }
 }
