@@ -48,20 +48,14 @@ public class SAMLUtils {
 
     }
 
-    /**
-     * @param string
-     * @return
-     */
+
     public static String getDigestAlgorithm() {
         String algo = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, SamlConstants.DEFAULT_DIG_ALGO_PROPERTY,
             SignatureConstants.ALGO_ID_DIGEST_SHA1);
 
         return constructNamespace(algo);
     }
-    /**
-     * @param string
-     * @return
-     */
+
     public static String getSignatureAlgorithm() {
         String algo = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, SamlConstants.DEFAULT_SIG_ALGO_PROPERTY,
             SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
@@ -97,6 +91,12 @@ public class SAMLUtils {
         return list;
     }
 
+    /**
+     * Gets the configuration for SAML Signature and Digest algorithms.
+     *
+     * The configuration takes in a comma separated list of either the constant string from SignatureConstants
+     * or the full URI of the requested algorithm.
+     */
     public static Map<String, List<String>> getConfigurableSHA() {
         String digestAlgorithms = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
             SamlConstants.DIG_ALGO_PROPERTY, SignatureConstants.ALGO_ID_DIGEST_SHA1);

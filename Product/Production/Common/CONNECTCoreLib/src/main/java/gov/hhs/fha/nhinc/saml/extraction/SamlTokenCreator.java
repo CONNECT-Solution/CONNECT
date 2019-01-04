@@ -130,10 +130,6 @@ public class SamlTokenCreator {
 
     }
 
-    /**
-     * @param assertion
-     * @param requestContext
-     */
     private static void extractSamlAlgorithmTypes(AssertionType assertion, Map<String, Object> requestContext) {
         String signature = assertion.getSignatureAlgorithm();
         if (StringUtils.isBlank(signature)) {
