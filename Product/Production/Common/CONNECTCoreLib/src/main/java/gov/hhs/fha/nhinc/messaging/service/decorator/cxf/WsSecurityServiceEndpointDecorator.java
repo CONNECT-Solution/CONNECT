@@ -76,12 +76,6 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
     }
 
     /**
-     * @param assertion
-     * @return
-     */
-
-
-    /**
      * Configures the endpoint for WS-Security. This call is not thread safe if the port is a shared instance as it adds
      * interceptors to the CXF client.
      */
