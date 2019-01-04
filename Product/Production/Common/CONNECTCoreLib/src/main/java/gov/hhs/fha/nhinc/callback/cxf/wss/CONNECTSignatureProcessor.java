@@ -36,7 +36,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import javax.activation.DataHandler;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.helpers.CastUtils;
 import org.apache.cxf.message.Attachment;
@@ -88,12 +87,14 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
     }
 
     private static boolean isCustomAlgorithmSet(List<String> signatureAlgorithms, List<String> digestAlgorithms) {
-        boolean isPopulated =  CollectionUtils.isNotEmpty(signatureAlgorithms) && CollectionUtils.isNotEmpty(digestAlgorithms);
+
+        if (signatureAlgorithms == null || digestAlgorithms == null) {
+            return false;
+        }
 
         boolean isSHA1 = signatureAlgorithms.size() == 1 && SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1.equals(signatureAlgorithms.get(0))
             && digestAlgorithms.size() == 1 && SignatureConstants.ALGO_ID_DIGEST_SHA1.equals(digestAlgorithms.get(0));
-
-        return isPopulated && !isSHA1;
+        return !isSHA1;
     }
 
     private List<WSSecurityEngineResult> handleCustomAlgorithm(Element signatureElem, RequestData data,
