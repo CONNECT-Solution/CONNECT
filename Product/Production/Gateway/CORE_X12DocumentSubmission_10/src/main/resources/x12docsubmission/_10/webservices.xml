@@ -51,6 +51,9 @@
             <ref bean="SOAPHeaderHandler" />
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
+        <jaxws:inInterceptors>
+            <ref bean="securityConfigInInterceptor" />
+        </jaxws:inInterceptors>
     </jaxws:endpoint>
 
     <jaxws:endpoint
@@ -77,6 +80,9 @@
             <ref bean="SOAPHeaderHandler" />
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
+        <jaxws:inInterceptors>
+            <ref bean="securityConfigInInterceptor" />
+        </jaxws:inInterceptors>
     </jaxws:endpoint>
 
     <jaxws:endpoint
@@ -103,6 +109,9 @@
             <ref bean="SOAPHeaderHandler" />
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
+        <jaxws:inInterceptors>
+            <ref bean="securityConfigInInterceptor" />
+        </jaxws:inInterceptors>
     </jaxws:endpoint>
 
     <!-- Entity Unsecured services -->

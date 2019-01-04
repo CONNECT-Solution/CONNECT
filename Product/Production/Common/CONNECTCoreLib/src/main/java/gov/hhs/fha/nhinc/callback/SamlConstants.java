@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -137,6 +137,8 @@ public class SamlConstants {
     public static final String ADMIN_AUTH_METHOD = "urn:oasis:names:tc:SAML:2.0:ac:classes:Password";
     public static final String SIGNATURE_KEY = "Signatures";
     public static final String DIGEST_KEY = "Digests";
-    public static final String SIG_ALGO_PROPERTY = "saml.SignatureAlgorithm";
-    public static final String DIG_ALGO_PROPERTY = "saml.DigestAlgorithm";
+    public static final String SIG_ALGO_PROPERTY = "saml.signatureAlgorithms";
+    public static final String DIG_ALGO_PROPERTY = "saml.digestAlgorithms";
+    public static final String DEFAULT_DIG_ALGO_PROPERTY = "saml.defaultDigestAlgorithm";
+    public static final String DEFAULT_SIG_ALGO_PROPERTY = "saml.defaultSignatureAlgorithm";
 }

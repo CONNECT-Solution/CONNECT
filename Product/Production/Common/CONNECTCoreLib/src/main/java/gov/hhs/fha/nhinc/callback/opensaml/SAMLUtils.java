@@ -53,16 +53,20 @@ public class SAMLUtils {
      * @return
      */
     public static String getDigestAlgorithm() {
-        return PropertyAccessor.getInstance().getProperty(NhincConstants.ASSERTION_INFO_PROPERTY_FILE, SamlConstants.DIG_ALGO_PROPERTY,
+        String algo = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, SamlConstants.DEFAULT_DIG_ALGO_PROPERTY,
             SignatureConstants.ALGO_ID_DIGEST_SHA1);
+
+        return constructNamespace(algo);
     }
     /**
      * @param string
      * @return
      */
     public static String getSignatureAlgorithm() {
-        return PropertyAccessor.getInstance().getProperty(NhincConstants.ASSERTION_INFO_PROPERTY_FILE, SamlConstants.SIG_ALGO_PROPERTY,
+        String algo = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, SamlConstants.DEFAULT_SIG_ALGO_PROPERTY,
             SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
+
+        return constructNamespace(algo);
     }
 
 
@@ -76,7 +80,7 @@ public class SAMLUtils {
                 return uri;
             } else {
                 LOG.error("Could not resove SAML algorithm: {}. Not a URL or constant field found in org.opensaml.xmlsec.signature.support.SignatureConstants",uri, e);
-                throw new SAMLAssertionBuilderException(e.getMessage());
+                throw new SAMLAssertionBuilderException(uri + " is not a valid algorithm");
             }
         } catch (SecurityException | IllegalArgumentException | IllegalAccessException e) {
             LOG.error("Could not resolve SAML algorithm: {}",uri, e);
@@ -99,8 +103,8 @@ public class SAMLUtils {
 
         String signatureAlgorithms = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
             SamlConstants.SIG_ALGO_PROPERTY, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
-        HashMap<String, List<String>> configSHA = new HashMap<>();
 
+        HashMap<String, List<String>> configSHA = new HashMap<>();
         configSHA.put(SamlConstants.DIGEST_KEY, constructNamespaceList(StringUtils.split(digestAlgorithms, ",")));
         configSHA.put(SamlConstants.SIGNATURE_KEY, constructNamespaceList(StringUtils.split(signatureAlgorithms, ",")));
 

@@ -197,6 +197,9 @@
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
+        <jaxws:inInterceptors>
+            <ref bean="securityConfigInInterceptor" />
+        </jaxws:inInterceptors>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrresponse" id="AdapterXDRResponse"
