@@ -26,6 +26,13 @@
 */
 package gov.hhs.fha.nhinc.docrepository.adapter.model;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getDate;
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getXMLGregorianCalendarFrom;
+
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentMetadataType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.EventCodeType;
+import gov.hhs.fha.nhinc.util.CoreHelpUtils;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.Set;
 
@@ -35,6 +42,7 @@ import java.util.Set;
  * @author Neil Webb
  */
 public class DocumentMetadata {
+    public static final boolean METADATA_ONLY = true;
 
     private Long documentid;
     private String documentUniqueId;
@@ -95,6 +103,148 @@ public class DocumentMetadata {
 
     public DocumentMetadata() {
         persistent = false;
+    }
+
+    public DocumentMetadata(DocumentMetadataType docMetadata){
+
+        documentid = CoreHelpUtils.isId(docMetadata.getDocumentid()) ? docMetadata.getDocumentid() : null;
+        documentUniqueId=docMetadata.getDocumentUniqueId();
+        documentTitle=docMetadata.getDocumentTitle();
+        authorPerson=docMetadata.getAuthorPerson();
+        authorInstitution=docMetadata.getAuthorInstitution();
+        authorRole=docMetadata.getAuthorRole();
+        authorSpecialty=docMetadata.getAuthorSpecialty();
+        availablityStatus=docMetadata.getAvailablityStatus();
+        classCode=docMetadata.getClassCode();
+        classCodeScheme=docMetadata.getClassCodeScheme();
+        classCodeDisplayName=docMetadata.getClassCodeDisplayName();
+        confidentialityCode=docMetadata.getConfidentialityCode();
+        confidentialityCodeScheme=docMetadata.getConfidentialityCodeScheme();
+        confidentialityCodeDisplayName=docMetadata.getConfidentialityCodeDisplayName();
+        creationTime=getDate(docMetadata.getCreationTime());
+        formatCode=docMetadata.getFormatCode();
+        formatCodeScheme=docMetadata.getFormatCodeScheme();
+        formatCodeDisplayName=docMetadata.getFormatCodeDisplayName();
+        patientId=docMetadata.getPatientId();
+        serviceStartTime=getDate(docMetadata.getServiceStartTime());
+        serviceStopTime=getDate(docMetadata.getServiceStopTime());
+        status=docMetadata.getStatus();
+        comments=docMetadata.getComments();
+        hash=docMetadata.getHash();
+        facilityCode=docMetadata.getFacilityCode();
+        facilityCodeScheme=docMetadata.getFacilityCodeScheme();
+        facilityCodeDisplayName=docMetadata.getFacilityCodeDisplayName();
+        intendedRecipientPerson=docMetadata.getIntendedRecipientPerson();
+        intendedRecipientOrganization=docMetadata.getIntendedRecipientOrganization();
+        languageCode=docMetadata.getLanguageCode();
+        legalAuthenticator=docMetadata.getLegalAuthenticator();
+        mimeType=docMetadata.getMimeType();
+        parentDocumentId = docMetadata.getParentDocumentId();
+        parentDocumentRelationship=docMetadata.getParentDocumentRelationship();
+        practiceSetting=docMetadata.getPracticeSetting();
+        practiceSettingScheme=docMetadata.getPracticeSettingScheme();
+        practiceSettingDisplayName=docMetadata.getPracticeSettingDisplayName();
+        size = docMetadata.getSize() != null ? docMetadata.getSize().intValue() : null;
+        sourcePatientId=docMetadata.getSourcePatientId();
+        pid3=docMetadata.getPid3();
+        pid5 = docMetadata.getPid5();
+        pid8=docMetadata.getPid8();
+        pid7=docMetadata.getPid7();
+        pid11=docMetadata.getPid11();
+        typeCode=docMetadata.getTypeCode();
+        typeCodeScheme=docMetadata.getTypeCodeScheme();
+        typeCodeDisplayName=docMetadata.getTypeCodeDisplayName();
+        documentUri=docMetadata.getDocumentUri();
+        onDemand=docMetadata.isOnDemand();
+        newDocumentUniqueId=docMetadata.getNewDocumentUniqueId();
+        newRepositoryUniqueId=docMetadata.getNewRepositoryUniqueId();
+        persistent = docMetadata.isPersistent() == Boolean.TRUE ? true : false;
+        for(EventCodeType item : docMetadata.getEventCodeList()){
+            getEventCodes().add(new EventCode(item, this));
+        }
+        patientRecordId=docMetadata.getPatientRecordId();
+        patientIdentifier=docMetadata.getPatientIdentifier();
+        if (null != docMetadata.getDocument()) {
+            document=new Document(docMetadata.getDocument(), this);
+        }
+
+    }
+
+    public DocumentMetadataType getDocumentMetadataType() {
+        return getDocumentMetadataType(!METADATA_ONLY);
+    }
+
+    public DocumentMetadataType getDocumentMetadataType(boolean metadataOnly) {
+        DocumentMetadataType build = new DocumentMetadataType();
+
+        build.setDocumentid(documentid);
+        build.setDocumentUniqueId(documentUniqueId);
+        build.setDocumentTitle(documentTitle);
+        build.setAuthorPerson(authorPerson);
+        build.setAuthorInstitution(authorInstitution);
+        build.setAuthorRole(authorRole);
+        build.setAuthorSpecialty(authorSpecialty);
+        build.setAvailablityStatus(availablityStatus);
+        build.setClassCode(classCode);
+        build.setClassCodeScheme(classCodeScheme);
+        build.setClassCodeDisplayName(classCodeDisplayName);
+        build.setConfidentialityCode(confidentialityCode);
+        build.setConfidentialityCodeScheme(confidentialityCodeScheme);
+        build.setConfidentialityCodeDisplayName(confidentialityCodeDisplayName);
+        build.setCreationTime(getXMLGregorianCalendarFrom(creationTime));
+        build.setFormatCode(formatCode);
+        build.setFormatCodeScheme(formatCodeScheme);
+        build.setFormatCodeDisplayName(formatCodeDisplayName);
+        build.setPatientId(patientId);
+        build.setServiceStartTime(getXMLGregorianCalendarFrom(serviceStartTime));
+        build.setServiceStopTime(getXMLGregorianCalendarFrom(serviceStopTime));
+        build.setStatus(status);
+        build.setComments(comments);
+        build.setHash(hash);
+        build.setFacilityCode(facilityCode);
+        build.setFacilityCodeScheme(facilityCodeScheme);
+        build.setFacilityCodeDisplayName(facilityCodeDisplayName);
+        build.setIntendedRecipientPerson(intendedRecipientPerson);
+        build.setIntendedRecipientOrganization(intendedRecipientOrganization);
+        build.setLanguageCode(languageCode);
+        build.setLegalAuthenticator(legalAuthenticator);
+        build.setMimeType(mimeType);
+        build.setParentDocumentId(parentDocumentId);
+        build.setParentDocumentRelationship(parentDocumentRelationship);
+        build.setPracticeSetting(practiceSetting);
+        build.setPracticeSettingScheme(practiceSettingScheme);
+        build.setPracticeSettingDisplayName(practiceSettingDisplayName);
+        build.setSize(null != size ? BigInteger.valueOf(size.longValue()) : null);
+        build.setSourcePatientId(sourcePatientId);
+        build.setPid3(pid3);
+        build.setPid5(pid5);
+        build.setPid8(pid8);
+        build.setPid7(pid7);
+        build.setPid11(pid11);
+        build.setTypeCode(typeCode);
+        build.setTypeCodeScheme(typeCodeScheme);
+        build.setTypeCodeDisplayName(typeCodeDisplayName);
+        build.setDocumentUri(documentUri);
+        build.setOnDemand(onDemand);
+        build.setNewDocumentUniqueId(newDocumentUniqueId);
+        build.setNewRepositoryUniqueId(newRepositoryUniqueId);
+        build.setPersistent(persistent);
+
+        build.setPatientRecordId(patientRecordId);
+        build.setPatientIdentifier(patientIdentifier);
+
+        build.setStatusDisplay(getStatusDisplay());
+
+        if (!metadataOnly) {
+            if(null != document){
+                build.setDocument(document.getDocumentType());
+            }
+            for (EventCode item : eventCodes) {
+                build.getEventCodeList().add(item.getEventCodeType());
+            }
+        }
+
+        return build;
     }
 
     public Document getDocument() {

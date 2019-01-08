@@ -47,4 +47,11 @@
                     endpointName="tns:AdminGUIManagementPort" implementor="gov.hhs.fha.nhinc.admingui.dashboard.DashboardStatusWebservice"
                     wsdlLocation="classpath:wsdl/AdminGUIManagement.wsdl">
     </jaxws:endpoint>
+    
+    <!-- Load Test Data Services -->
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:loadtestdatamanagement" id="EntityLoadTestDataManagement"
+                    address="/LoadTestData" serviceName="tns:EntityLoadTestDataManagement"
+                    endpointName="tns:EntityLoadTestDataManagementPort" implementor="gov.hhs.fha.nhinc.admingui.loadtestdata.LoadTestDataManagement"
+                    wsdlLocation="classpath:wsdl/LoadTestDataManagement.wsdl">
+    </jaxws:endpoint>
 </beans>

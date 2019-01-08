@@ -26,10 +26,19 @@
 */
 package gov.hhs.fha.nhinc.patientdb.model;
 
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getXMLGregorianCalendarFrom;
+
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.AddressType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.IdentifierType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PatientType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonnameType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhonenumberType;
+import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 
@@ -43,56 +52,20 @@ public class Patient implements Serializable {
 
     private static final long serialVersionUID = -5941897049106149743L;
 
-    /**
-     *
-     * Attribute patientId.
-     */
     private Long patientId;
-
-    /**
-     *
-     * Attribute dateOfBirth.
-     */
     private Timestamp dateOfBirth;
-
-    /**
-     *
-     * Attribute gender.
-     */
     private String gender;
-
-    /**
-     *
-     * Attribute ssn.
-     */
     private String ssn;
 
-    /**
-     *
-     * List of Addresses
-     */
     private List<Address> addresses;
-
-    /**
-     *
-     * List of Identifiers
-     */
     private List<Identifier> identifiers;
-
-    /**
-     *
-     * List of Personnames
-     */
     private List<Personname> personnames;
-
-    /**
-     *
-     * List of Phonenumbers
-     */
     private List<Phonenumber> phonenumbers;
 
     private int nameIndex = 0;
     private int identifierIndex = 0;
+
+    private boolean loadAll = false;
 
     public Patient() {
         // default-constructor
@@ -108,217 +81,103 @@ public class Patient implements Serializable {
         loadAllLazyObjects(false);
     }
 
-    /**
-     *
-     * @return patientId
-     */
+    public Patient(PatientType patient) {
+        setPatient(patient);
+    }
+
     public Long getPatientId() {
-
         return patientId;
-
     }
 
-    /**
-     *
-     * @param patientId new value for patientId
-     */
     public void setPatientId(Long patientId) {
-
         this.patientId = patientId;
-
     }
 
-    /**
-     *
-     * @return dateOfBirth
-     */
     public Timestamp getDateOfBirth() {
-
         return dateOfBirth;
-
     }
 
-    /**
-     *
-     * @param dateOfBirth new value for dateOfBirth
-     */
     public void setDateOfBirth(Timestamp dateOfBirth) {
-
         this.dateOfBirth = dateOfBirth;
-
     }
 
-    /**
-     *
-     * @return gender
-     */
     public String getGender() {
-
         return gender;
-
     }
 
-    /**
-     *
-     * @param gender new value for gender
-     */
     public void setGender(String gender) {
-
         this.gender = gender;
-
     }
 
-    /**
-     *
-     * @return ssn
-     */
     public String getSsn() {
-
         return ssn;
-
     }
 
-    /**
-     *
-     * @param ssn new value for ssn
-     */
     public void setSsn(String ssn) {
-
         this.ssn = ssn;
-
     }
 
-    /**
-     *
-     * Get the list of Addresses
-     */
     public List<Address> getAddresses() {
-
         if (addresses == null) {
-
             addresses = new ArrayList<>();
-
         }
-
         return addresses;
-
     }
 
-    /**
-     *
-     * Set the list of Addresses
-     */
     public void setAddresses(List<Address> addresses) {
-
         this.addresses = addresses;
-
     }
 
-    /**
-     *
-     * Get the list of Identifiers
-     */
     public List<Identifier> getIdentifiers() {
-
         if (identifiers == null) {
-
             identifiers = new ArrayList<>();
-
         }
-
         return identifiers;
-
     }
 
-    /**
-     *
-     * Set the list of Identifiers
-     */
     public void setIdentifiers(List<Identifier> identifiers) {
-
         this.identifiers = identifiers;
-
     }
 
-    /**
-     *
-     * Get the list of Personnames
-     */
     public List<Personname> getPersonnames() {
-
         if (personnames == null) {
-
             personnames = new ArrayList<>();
-
         }
-
         return personnames;
-
     }
 
-    /**
-     *
-     * Set the list of Personnames
-     */
     public void setPersonnames(List<Personname> personnames) {
-
         this.personnames = personnames;
-
     }
-
-    /**
-     *
-     * Get the list of Phonenumbers
-     */
     public List<Phonenumber> getPhonenumbers() {
-
         if (phonenumbers == null) {
-
             phonenumbers = new ArrayList<>();
-
         }
-
         return phonenumbers;
-
     }
 
-    /**
-     *
-     * Set the list of Phonenumbers
-     */
     public void setPhonenumbers(List<Phonenumber> phonenumbers) {
-
         this.phonenumbers = phonenumbers;
-
     }
 
     @Override
     public String toString() {
-
         StringBuilder output = new StringBuilder("");
-
         int counter = 0;
 
         for (Identifier identifier : getIdentifiers()) {
-
             output.append("Identifer[").append(counter).append("] = '").append(identifier.getId()).append("^^^&")
             .append(identifier.getOrganizationId()).append("&ISO'; ");
-
         }
 
         if (CollectionUtils.isNotEmpty(getPersonnames())) {
-
             output.append("Personname = '").append(getPersonnames().get(0).getLastName()).append(", ")
             .append(getPersonnames().get(0).getFirstName()).append("'; ");
-
         }
 
         output.append("Gender = '").append(gender).append("'; ");
-
         output.append("DateOfBirth = '").append(dateOfBirth);
-
         return output.toString();
-
     }
 
     // READ-ONLY PROPERITES
@@ -405,14 +264,66 @@ public class Patient implements Serializable {
     }
 
     public long[] loadAllLazyObjects(boolean allRecords) {
+        loadAll = allRecords;
         nameIndex = CollectionUtils.isNotEmpty(getPersonnames()) ? personnames.size() - 1 : 0;
         identifierIndex = CollectionUtils.isNotEmpty(getIdentifiers()) ? identifiers.size() - 1 : 0;
 
-        return new long[]{patientId, personnames != null ? (long) personnames.size() : 0,
+        return new long[] { patientId, personnames != null ? (long) personnames.size() : 0,
             identifiers != null ? (long) identifiers.size() : 0,
                 // Optional
                 addresses != null && allRecords ? (long) addresses.size() : 0,
-                    phonenumbers != null && allRecords ? (long) phonenumbers.size() : 0};
+                    phonenumbers != null && allRecords ? (long) phonenumbers.size() : 0 };
+    }
+
+    private void setPatient(PatientType patient) {
+        dateOfBirth = new Timestamp(CoreHelpUtils.getDate(patient.getDateOfBirth()).getTime());
+        gender = patient.getGender();
+        patientId = CoreHelpUtils.isId(patient.getPatientId()) ? patient.getPatientId() : null;
+        ssn = patient.getSsn();
+
+        for (IdentifierType item : patient.getIdentifierList()) {
+            getIdentifiers().add(new Identifier(item, this));
+        }
+
+        for (PersonnameType item : patient.getPersonnameList()) {
+            getPersonnames().add(new Personname(item, this));
+        }
+
+        for (AddressType item : patient.getAddressList()) {
+            getAddresses().add(new Address(item, this));
+        }
+
+        for (PhonenumberType item : patient.getPhonenumberList()) {
+            getPhonenumbers().add(new Phonenumber(item, this));
+        }
+    }
+
+    public PatientType getPatientType() {
+        PatientType build = new PatientType();
+        build.setPatientId(patientId);
+        build.setGender(gender);
+        build.setSsn(ssn);
+        build.setDateOfBirth(getXMLGregorianCalendarFrom(new Date(dateOfBirth.getTime())));
+
+        if (loadAll) {
+            for (Address item : addresses) {
+                build.getAddressList().add(item.getAddessType());
+            }
+
+            for (Phonenumber item : phonenumbers) {
+                build.getPhonenumberList().add(item.getPhonenumberType());
+            }
+        }
+
+        for (Identifier item : identifiers) {
+            build.getIdentifierList().add(item.getIdentifierType());
+        }
+
+        for (Personname item : personnames) {
+            build.getPersonnameList().add(item.getPersonnameType());
+        }
+
+        return build;
     }
 
 }

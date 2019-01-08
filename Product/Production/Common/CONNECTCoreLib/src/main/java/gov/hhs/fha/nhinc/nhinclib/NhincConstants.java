@@ -698,6 +698,40 @@ public class NhincConstants {
     public static final String ADMIN_DASHBOARD_ERRORLOG_GETFILTERS = "getSearchFilter";
     public static final String ADMIN_DASHBOARD_ERRORLOG_VIEW = "viewErrorLog";
 
+    // load-test-data: ADMIN_LTD_SAVE/LIST/DELETE/GET
+    public static final String ENTITY_LOAD_TEST_DATA_SERVICE_NAME = "entityloadtestdata";
+    public static final String ADMIN_LTD_DELETEADDRESS = "deleteAddress";
+    public static final String ADMIN_LTD_DELETEIDENTIFIER = "deleteIdentifier";
+    public static final String ADMIN_LTD_DELETEPATIENT = "deletePatient";
+    public static final String ADMIN_LTD_DELETEPERSONNAME = "deletePersonname";
+    public static final String ADMIN_LTD_DELETEPHONENUMBER = "deletePhonenumber";
+    public static final String ADMIN_LTD_DELETEDOCUMENT = "deleteDocument";
+    public static final String ADMIN_LTD_DELETEEVENTCODE = "deleteEventCode";
+    public static final String ADMIN_LTD_DUPLICATEDOCUMENT = "duplicateDocument";
+    public static final String ADMIN_LTD_DUPLICATEPATIENT = "duplicatePatient";
+    public static final String ADMIN_LTD_GETADDRESS = "getAddress";
+    public static final String ADMIN_LTD_GETDOCUMENT = "getDocument";
+    public static final String ADMIN_LTD_GETEVENTCODE = "getEventCode";
+    public static final String ADMIN_LTD_GETIDENTIFIER = "getIdentifier";
+    public static final String ADMIN_LTD_GETPATIENT = "getPatient";
+    public static final String ADMIN_LTD_GETPATIENT_BYIDENTIFIER = "getPatientByIdentifier";
+    public static final String ADMIN_LTD_GETPERSONNAME = "getPersonname";
+    public static final String ADMIN_LTD_GETPHONENUMBER = "getPhonenumber";
+    public static final String ADMIN_LTD_LISTALLADDRESS = "listAllAddress";
+    public static final String ADMIN_LTD_LISTALLDOCUMENT = "listAllDocument";
+    public static final String ADMIN_LTD_LISTALLEVENTCODE = "listAllEventCode";
+    public static final String ADMIN_LTD_LISTALLIDENTIER = "listAllIdentier";
+    public static final String ADMIN_LTD_LISTALLPATIENT = "listAllPatient";
+    public static final String ADMIN_LTD_LISTALLPERSONNAME = "listAllPersonname";
+    public static final String ADMIN_LTD_LISTALLPHONENUMBER = "listAllPhonenumber";
+    public static final String ADMIN_LTD_SAVEADDRESS = "saveAddress";
+    public static final String ADMIN_LTD_SAVEDOCUMENT = "saveDocument";
+    public static final String ADMIN_LTD_SAVEEVENTCODE = "saveEventCode";
+    public static final String ADMIN_LTD_SAVEIDENTIFIER = "saveIdentifier";
+    public static final String ADMIN_LTD_SAVEPATIENT = "savePatient";
+    public static final String ADMIN_LTD_SAVEPERSONNAME = "savePersonname";
+    public static final String ADMIN_LTD_SAVEPHONENUMBER = "savePhonenumber";
+
     private NhincConstants() {
     }
 }

@@ -48,6 +48,12 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>AdminGUIManagementWebservices</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>PatientDiscoveryCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        
         <!-- Logging -->
         <dependency>
             <groupId>log4j</groupId>

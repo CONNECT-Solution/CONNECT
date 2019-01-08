@@ -23,23 +23,32 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-package gov.hhs.fha.nhinc.admingui.services.exception;
+ */
+package gov.hhs.fha.nhinc.configuration;
 
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
- * @author Tran tang
+ * @author ttang
  *
  */
-public class LoadTestDataException extends Exception {
+public class GenericPortDescriptor<T> extends SOAP12ServicePortDescriptor<T> {
+    private String wsAddressingAction;
+    private Class<T> clazz;
 
-    private static final long serialVersionUID = 3411908166300033417L;
+    public GenericPortDescriptor(String wsAddressingAction, Class<T> clazz){
+        this.clazz = clazz;
+        this.wsAddressingAction = wsAddressingAction;
 
-    public LoadTestDataException(String message) {
-        super(message);
     }
 
-    public LoadTestDataException(String message, Throwable cause) {
-        super(message, cause);
+    @Override
+    public String getWSAddressingAction() {
+        return wsAddressingAction;
+    }
+
+    @Override
+    public Class<T> getPortClass() {
+        return clazz;
     }
 }

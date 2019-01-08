@@ -23,39 +23,22 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-package gov.hhs.fha.nhinc.gateway.policyenginetransformation;
-
-import gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.soap.SOAPBinding;
+ */
+package gov.hhs.fha.nhinc.loadtestdata;
 
 /**
+ * @author Tran tang
  *
- * @author Neil Webb
  */
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class PolicyEngineTransformationService implements
-    gov.hhs.fha.nhinc.nhincinternalcomponentpolicyenginetransform.NhincInternalComponentPolicyEngineTransformPortType {
+public class LoadTestDataException extends Exception {
 
-    @Override
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformAdhocQueryToCheckPolicy(
-        gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {
-        return new PolicyEngineTransformer().transformAdhocQueryToCheckPolicy(transformAdhocQueryToCheckPolicyRequest);
+    private static final long serialVersionUID = 3411908166300033417L;
+
+    public LoadTestDataException(String message) {
+        super(message);
     }
 
-    @Override
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformDocRetrieveToCheckPolicy(
-        gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType transformDocRetrieveToCheckPolicyRequest) {
-        return new PolicyEngineTransformer()
-            .transformDocRetrieveToCheckPolicy(transformDocRetrieveToCheckPolicyRequest);
+    public LoadTestDataException(String message, Throwable cause) {
+        super(message, cause);
     }
-
-    @Override
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(
-        gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest) {
-        return new PolicyEngineTransformer()
-            .transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
-    }
-
 }
