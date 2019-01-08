@@ -130,7 +130,7 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType deletePersonname(DeletePersonNameRequestMessageType request) {
+    public LoadTestDataSimpleResponseMessageType deletePersonName(DeletePersonNameRequestMessageType request) {
         Personname record = new Personname(request.getPersonName(),
             loadTestDataService.getPatientBy(request.getPersonName().getPatientId()));
         boolean result = loadTestDataService.deletePersonname(record);
@@ -141,7 +141,7 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType deletePhonenumber(DeletePhoneNumberRequestMessageType request) {
+    public LoadTestDataSimpleResponseMessageType deletePhoneNumber(DeletePhoneNumberRequestMessageType request) {
         Phonenumber record = new Phonenumber(request.getPhoneNumber(),
             loadTestDataService.getPatientBy(request.getPhoneNumber().getPatientId()));
         boolean result = loadTestDataService.deletePhonenumber(record);
@@ -272,7 +272,7 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType getPersonname(GetPersonNameRequestMessageType request) {
+    public LoadTestDataSimpleResponseMessageType getPersonName(GetPersonNameRequestMessageType request) {
         if (!isId(request.getPersonNameId())) {
             return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
@@ -283,7 +283,7 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType getPhonenumber(GetPhoneNumberRequestMessageType request) {
+    public LoadTestDataSimpleResponseMessageType getPhoneNumber(GetPhoneNumberRequestMessageType request) {
         if (!isId(request.getPhoneNumberId())) {
             return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
@@ -350,7 +350,7 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType listAllPersonname(ListAllPersonNameRequestMessageType request) {
+    public LoadTestDataSimpleResponseMessageType listAllPersonName(ListAllPersonNameRequestMessageType request) {
         if (!isId(request.getPatientId())) {
             return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
@@ -362,7 +362,7 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType listAllPhonenumber(ListAllPhoneNumberRequestMessageType request) {
+    public LoadTestDataSimpleResponseMessageType listAllPhoneNumber(ListAllPhoneNumberRequestMessageType request) {
         if (!isId(request.getPatientId())) {
             return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
@@ -457,7 +457,7 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType savePersonname(SavePersonNameRequestMessageType request) {
+    public LoadTestDataSimpleResponseMessageType savePersonName(SavePersonNameRequestMessageType request) {
         Patient patient = loadTestDataService.getPatientBy(request.getPersonName().getPatientId());
         if (null != patient) {
             try {
@@ -474,7 +474,7 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType savePhonenumber(SavePhoneNumberRequestMessageType request) {
+    public LoadTestDataSimpleResponseMessageType savePhoneNumber(SavePhoneNumberRequestMessageType request) {
         Patient patient = loadTestDataService.getPatientBy(request.getPhoneNumber().getPatientId());
         if (null != patient) {
             try {
