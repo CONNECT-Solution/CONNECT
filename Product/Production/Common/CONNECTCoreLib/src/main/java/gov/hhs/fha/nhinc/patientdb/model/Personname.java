@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdb.model;
 
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonnameType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonNameType;
 import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import java.io.Serializable;
 
@@ -51,9 +51,9 @@ public class Personname implements Serializable {
     public Personname() {
     }
 
-    public Personname(PersonnameType personname, Patient patient) {
+    public Personname(PersonNameType personname, Patient patient) {
         this.patient = patient;
-        personnameId = CoreHelpUtils.isId(personname.getPersonnameId()) ? personname.getPersonnameId() : null;
+        personnameId = CoreHelpUtils.isId(personname.getPersonNameId()) ? personname.getPersonNameId() : null;
         prefix = personname.getPrefix();
         firstName = personname.getFirstName();
         middleName = personname.getMiddleName();
@@ -61,10 +61,10 @@ public class Personname implements Serializable {
         suffix = personname.getLastName();
     }
 
-    public PersonnameType getPersonnameType() {
-        PersonnameType build = new PersonnameType();
+    public PersonNameType getPersonNameType() {
+        PersonNameType build = new PersonNameType();
         build.setPatientId(patient.getPatientId());
-        build.setPersonnameId(personnameId);
+        build.setPersonNameId(personnameId);
         build.setPrefix(prefix);
         build.setFirstName(firstName);
         build.setMiddleName(middleName);

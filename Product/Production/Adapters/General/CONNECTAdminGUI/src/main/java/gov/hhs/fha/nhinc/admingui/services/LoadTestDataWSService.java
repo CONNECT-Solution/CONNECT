@@ -31,8 +31,8 @@ import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentMetadataType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.EventCodeType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.IdentifierType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PatientType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonnameType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhonenumberType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonNameType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhoneNumberType;
 import gov.hhs.fha.nhinc.loadtestdata.LoadTestDataException;
 import java.util.List;
 
@@ -45,45 +45,45 @@ public interface LoadTestDataWSService {
 
     public List<PatientType> getAllPatients();
 
-    public List<PersonnameType> getAllPersonnamesBy(Long patientId);
+    public List<PersonNameType> getAllPersonNamesBy(Long patientId);
 
     public List<AddressType> getAllAddressesBy(Long patientId);
 
     public List<IdentifierType> getAllIdentiersBy(Long patientId);
 
-    public List<PhonenumberType> getAllPhonenumbersBy(Long patientId);
+    public List<PhoneNumberType> getAllPhoneNumbersBy(Long patientId);
 
     public boolean deletePatient(PatientType patient);
 
-    public boolean deletePersonname(PersonnameType personname);
+    public boolean deletePersonName(PersonNameType personname);
 
     public boolean deleteAddress(AddressType address);
 
     public boolean deleteIdentifier(IdentifierType identifier);
 
-    public boolean deletePhonenumber(PhonenumberType phonenumber);
+    public boolean deletePhoneNumber(PhoneNumberType phonenumber);
 
     public PatientType getPatientBy(Long patientId);
 
     public PatientType duplicatePatient(Long patientId);
 
-    public PersonnameType getPersonnameBy(Long personnameId);
+    public PersonNameType getPersonNameBy(Long personnameId);
 
     public AddressType getAddressBy(Long addressId);
 
     public IdentifierType getIdentifierBy(Long identifierId);
 
-    public PhonenumberType getPhonenumberBy(Long phonenumberId);
+    public PhoneNumberType getPhoneNumberBy(Long phonenumberId);
 
     public boolean savePatient(PatientType patient) throws LoadTestDataException;
 
-    public boolean savePersonname(PersonnameType personname) throws LoadTestDataException;
+    public boolean savePersonName(PersonNameType personname) throws LoadTestDataException;
 
     public boolean saveAddress(AddressType address) throws LoadTestDataException;
 
     public boolean saveIdentifier(IdentifierType identifier) throws LoadTestDataException;
 
-    public boolean savePhonenumber(PhonenumberType phonenumber) throws LoadTestDataException;
+    public boolean savePhoneNumber(PhoneNumberType phonenumber) throws LoadTestDataException;
 
     public List<DocumentMetadataType> getAllDocuments();
 

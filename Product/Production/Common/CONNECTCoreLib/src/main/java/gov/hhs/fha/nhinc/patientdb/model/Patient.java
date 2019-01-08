@@ -31,8 +31,8 @@ import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getXMLGregorianCalendarFrom;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.AddressType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.IdentifierType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PatientType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonnameType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhonenumberType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonNameType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhoneNumberType;
 import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -285,7 +285,7 @@ public class Patient implements Serializable {
             getIdentifiers().add(new Identifier(item, this));
         }
 
-        for (PersonnameType item : patient.getPersonnameList()) {
+        for (PersonNameType item : patient.getPersonNameList()) {
             getPersonnames().add(new Personname(item, this));
         }
 
@@ -293,7 +293,7 @@ public class Patient implements Serializable {
             getAddresses().add(new Address(item, this));
         }
 
-        for (PhonenumberType item : patient.getPhonenumberList()) {
+        for (PhoneNumberType item : patient.getPhoneNumberList()) {
             getPhonenumbers().add(new Phonenumber(item, this));
         }
     }
@@ -311,7 +311,7 @@ public class Patient implements Serializable {
             }
 
             for (Phonenumber item : phonenumbers) {
-                build.getPhonenumberList().add(item.getPhonenumberType());
+                build.getPhoneNumberList().add(item.getPhoneNumberType());
             }
         }
 
@@ -320,7 +320,7 @@ public class Patient implements Serializable {
         }
 
         for (Personname item : personnames) {
-            build.getPersonnameList().add(item.getPersonnameType());
+            build.getPersonNameList().add(item.getPersonNameType());
         }
 
         return build;

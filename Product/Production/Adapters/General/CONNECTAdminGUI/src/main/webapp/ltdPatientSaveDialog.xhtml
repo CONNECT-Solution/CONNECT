@@ -213,7 +213,7 @@
                                 <p:dataTable id="personnameDataTable" var="record"
                                     value="#{loadTestDataPatientBean.personnames}"
                                     selection="#{loadTestDataPatientBean.selectedPersonname}"
-                                    rowKey="#{record.personnameId}" styleClass="table table-striped table-domains">
+                                    rowKey="#{record.personNameId}" styleClass="table table-striped table-domains">
                                     <p:ajax event="rowSelectRadio" process="@this" 
                                         update=":patientAccordionPanel:deleteFormAdditionalName:editPersonname 
                                            :patientAccordionPanel:deleteFormAdditionalName:deletePersonname" />
@@ -488,7 +488,7 @@
                                 <p:dataTable id="phonenumbersDataTable" var="record"
                                     value="#{loadTestDataPatientBean.phonenumbers}"
                                     selection="#{loadTestDataPatientBean.selectedPhonenumber}"
-                                    rowKey="#{record.phonenumberId}" styleClass="table table-striped table-domains">
+                                    rowKey="#{record.phoneNumberId}" styleClass="table table-striped table-domains">
                                     <p:ajax event="rowSelectRadio" process="@this" 
                                         update=":patientAccordionPanel:deleteFormPhonenumber:editPhonenumber 
                                            :patientAccordionPanel:deleteFormPhonenumber:deletePhonenumber" />

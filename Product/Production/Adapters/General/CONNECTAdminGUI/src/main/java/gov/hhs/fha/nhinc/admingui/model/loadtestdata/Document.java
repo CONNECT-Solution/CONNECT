@@ -40,7 +40,7 @@ public class Document extends DocumentMetadataType {
     }
 
     public Document(DocumentMetadataType parent){
-        setDocumentid(parent.getDocumentid());
+        setDocumentId(parent.getDocumentId());
         setDocumentUniqueId(parent.getDocumentUniqueId());
         setDocumentTitle(parent.getDocumentTitle());
         setAuthorPerson(parent.getAuthorPerson());

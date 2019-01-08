@@ -34,8 +34,8 @@ import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeleteDocumentRequestMess
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeleteEventCodeRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeleteIdentifierRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeletePatientRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeletePersonnameRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeletePhonenumberRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeletePersonNameRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeletePhoneNumberRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentMetadataType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DuplicateDocumentRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DuplicatePatientRequestMessageType;
@@ -46,27 +46,27 @@ import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetEventCodeRequestMessag
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetIdentifierRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetPatientByIdentifierRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetPatientRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetPersonnameRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetPhonenumberRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetPersonNameRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetPhoneNumberRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.IdentifierType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllAddressRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllDocumentRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllEventCodeRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllIdentierRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllPatientRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllPersonnameRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllPhonenumberRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllPersonNameRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllPhoneNumberRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.LoadTestDataSimpleResponseMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PatientType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonnameType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhonenumberType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonNameType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhoneNumberType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SaveAddressRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SaveDocumentRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SaveEventCodeRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SaveIdentifierRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SavePatientRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SavePersonnameRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SavePhonenumberRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SavePersonNameRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SavePhoneNumberRequestMessageType;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.loadtestdata.LoadTestDataException;
@@ -101,76 +101,76 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
     @Override
     public LoadTestDataSimpleResponseMessageType deleteAddress(DeleteAddressRequestMessageType request) {
         Address record = new Address(request.getAddress(), loadTestDataService.getPatientBy(request.getAddress().getPatientId()));
-        if (null == record) {
-            return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
+        boolean result = loadTestDataService.deleteAddress(record);
+        if (result) {
+            return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
         }
-        loadTestDataService.deleteAddress(record);
-        return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+        return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
     }
 
     @Override
     public LoadTestDataSimpleResponseMessageType deleteIdentifier(DeleteIdentifierRequestMessageType request) {
         Identifier record = new Identifier(request.getIdentifier(),
             loadTestDataService.getPatientBy(request.getIdentifier().getPatientId()));
-        if (null == record) {
-            return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
+        boolean result = loadTestDataService.deleteIdentifier(record);
+        if (result) {
+            return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
         }
-        loadTestDataService.deleteIdentifier(record);
-        return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+        return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
     }
 
     @Override
     public LoadTestDataSimpleResponseMessageType deletePatient(DeletePatientRequestMessageType request) {
         Patient record = new Patient(request.getPatient());
-        if (null == record) {
-            return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
+        boolean result = loadTestDataService.deletePatient(record);
+        if (result) {
+            return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
         }
-        loadTestDataService.deletePatient(record);
-        return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+        return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType deletePersonname(DeletePersonnameRequestMessageType request) {
-        Personname record = new Personname(request.getPersonname(),
-            loadTestDataService.getPatientBy(request.getPersonname().getPatientId()));
-        if (null == record) {
-            return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
+    public LoadTestDataSimpleResponseMessageType deletePersonname(DeletePersonNameRequestMessageType request) {
+        Personname record = new Personname(request.getPersonName(),
+            loadTestDataService.getPatientBy(request.getPersonName().getPatientId()));
+        boolean result = loadTestDataService.deletePersonname(record);
+        if (result) {
+            return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
         }
-        loadTestDataService.deletePersonname(record);
-        return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+        return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType deletePhonenumber(DeletePhonenumberRequestMessageType request) {
-        Phonenumber record = new Phonenumber(request.getPhonename(),
-            loadTestDataService.getPatientBy(request.getPhonename().getPatientId()));
-        if (null == record) {
-            return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
+    public LoadTestDataSimpleResponseMessageType deletePhonenumber(DeletePhoneNumberRequestMessageType request) {
+        Phonenumber record = new Phonenumber(request.getPhoneNumber(),
+            loadTestDataService.getPatientBy(request.getPhoneNumber().getPatientId()));
+        boolean result = loadTestDataService.deletePhonenumber(record);
+        if (result) {
+            return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
         }
-        loadTestDataService.deletePhonenumber(record);
-        return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+        return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
     }
 
 
     @Override
     public LoadTestDataSimpleResponseMessageType deleteDocument(DeleteDocumentRequestMessageType request) {
         DocumentMetadata record = new DocumentMetadata(request.getDocument());
-        if (null == record) {
-            return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
+        boolean result = loadTestDataService.deleteDocument(record);
+        if (result) {
+            return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
         }
-        loadTestDataService.deleteDocument(record);
-        return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+        return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
     }
 
     @Override
     public LoadTestDataSimpleResponseMessageType deleteEventCode(DeleteEventCodeRequestMessageType request) {
         EventCode record = new EventCode(request.getEventCode(),
             loadTestDataService.getDocumentBy(request.getEventCode().getDocumentid()));
-        if (null == record) {
-            return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
+        boolean result = loadTestDataService.deleteEventCode(record);
+        if (result) {
+            return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
         }
-        loadTestDataService.deleteEventCode(record);
-        return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
+        return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
     }
 
     @Override
@@ -180,7 +180,7 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
         }
         DocumentMetadataType document = loadTestDataService.duplicateDocument(request.getDocumentId())
             .getDocumentMetadataType();
-        if (null != document && isId(document.getDocumentid())) {
+        if (null != document && isId(document.getDocumentId())) {
             LoadTestDataSimpleResponseMessageType response = buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL);
             response.getDocumentMetadataList().add(document);
             return response;
@@ -272,24 +272,24 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType getPersonname(GetPersonnameRequestMessageType request) {
-        if (!isId(request.getPersonnameId())) {
+    public LoadTestDataSimpleResponseMessageType getPersonname(GetPersonNameRequestMessageType request) {
+        if (!isId(request.getPersonNameId())) {
             return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
         LoadTestDataSimpleResponseMessageType response = new LoadTestDataSimpleResponseMessageType();
-        PersonnameType record = loadTestDataService.getPersonnameBy(request.getPersonnameId()).getPersonnameType();
-        response.getPersonnameList().add(record);
+        PersonNameType record = loadTestDataService.getPersonnameBy(request.getPersonNameId()).getPersonNameType();
+        response.getPersonNameList().add(record);
         return response;
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType getPhonenumber(GetPhonenumberRequestMessageType request) {
-        if (!isId(request.getPhonenumberId())) {
+    public LoadTestDataSimpleResponseMessageType getPhonenumber(GetPhoneNumberRequestMessageType request) {
+        if (!isId(request.getPhoneNumberId())) {
             return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
         LoadTestDataSimpleResponseMessageType response = new LoadTestDataSimpleResponseMessageType();
-        PhonenumberType record = loadTestDataService.getPhonenumberBy(request.getPhonenumberId()).getPhonenumberType();
-        response.getPhonenumberList().add(record);
+        PhoneNumberType record = loadTestDataService.getPhonenumberBy(request.getPhoneNumberId()).getPhoneNumberType();
+        response.getPhoneNumberList().add(record);
         return response;
     }
 
@@ -350,25 +350,25 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType listAllPersonname(ListAllPersonnameRequestMessageType request) {
+    public LoadTestDataSimpleResponseMessageType listAllPersonname(ListAllPersonNameRequestMessageType request) {
         if (!isId(request.getPatientId())) {
             return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
         LoadTestDataSimpleResponseMessageType response = new LoadTestDataSimpleResponseMessageType();
         for (Personname item : loadTestDataService.getAllPersonnamesBy(request.getPatientId())) {
-            response.getPersonnameList().add(item.getPersonnameType());
+            response.getPersonNameList().add(item.getPersonNameType());
         }
         return response;
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType listAllPhonenumber(ListAllPhonenumberRequestMessageType request) {
+    public LoadTestDataSimpleResponseMessageType listAllPhonenumber(ListAllPhoneNumberRequestMessageType request) {
         if (!isId(request.getPatientId())) {
             return buildSimpleResponse(Boolean.FALSE, ACT_FAIL);
         }
         LoadTestDataSimpleResponseMessageType response = new LoadTestDataSimpleResponseMessageType();
         for (Phonenumber item : loadTestDataService.getAllPhonenumbersBy(request.getPatientId())) {
-            response.getPhonenumberList().add(item.getPhonenumberType());
+            response.getPhoneNumberList().add(item.getPhoneNumberType());
         }
         return response;
     }
@@ -457,11 +457,11 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType savePersonname(SavePersonnameRequestMessageType request) {
-        Patient patient = loadTestDataService.getPatientBy(request.getPersonname().getPatientId());
+    public LoadTestDataSimpleResponseMessageType savePersonname(SavePersonNameRequestMessageType request) {
+        Patient patient = loadTestDataService.getPatientBy(request.getPersonName().getPatientId());
         if (null != patient) {
             try {
-                Personname record = new Personname(request.getPersonname(), patient);
+                Personname record = new Personname(request.getPersonName(), patient);
                 loadTestDataService.savePersonname(record);
                 if (isId(record.getPersonnameId())) {
                     return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL, record.getPersonnameId());
@@ -474,11 +474,11 @@ public class LoadTestDataManagement implements EntityLoadTestDataManagementPortT
     }
 
     @Override
-    public LoadTestDataSimpleResponseMessageType savePhonenumber(SavePhonenumberRequestMessageType request) {
-        Patient patient = loadTestDataService.getPatientBy(request.getPhonenumber().getPatientId());
+    public LoadTestDataSimpleResponseMessageType savePhonenumber(SavePhoneNumberRequestMessageType request) {
+        Patient patient = loadTestDataService.getPatientBy(request.getPhoneNumber().getPatientId());
         if (null != patient) {
             try {
-                Phonenumber record = new Phonenumber(request.getPhonenumber(), patient);
+                Phonenumber record = new Phonenumber(request.getPhoneNumber(), patient);
                 loadTestDataService.savePhonenumber(record);
                 if (isId(record.getPhonenumberId())) {
                     return buildSimpleResponse(Boolean.TRUE, ACT_SUCCESSFUL, record.getPhonenumberId());

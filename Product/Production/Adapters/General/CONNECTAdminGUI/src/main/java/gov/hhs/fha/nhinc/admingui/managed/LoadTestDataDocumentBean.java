@@ -132,7 +132,7 @@ public class LoadTestDataDocumentBean {
 
                 if (actionResult) {
                     refreshDocumentList();
-                    addFacesMessageBy(GROWL_MESSAGE, msgForSaveSuccess(DOCUMENT, withDocument.getDocumentid()));
+                    addFacesMessageBy(GROWL_MESSAGE, msgForSaveSuccess(DOCUMENT, withDocument.getDocumentId()));
                 }
             } else {
                 addFacesMessageBy(GROWL_MESSAGE, HelperUtil.getMsgInfo("Document is null."));
@@ -146,7 +146,7 @@ public class LoadTestDataDocumentBean {
     public void duplicateDocument() {
         if (selectedDocument != null) {
             dialogTitle = "Edit Document";
-            withDocument = new Document(wsService.duplicateDocument(selectedDocument.getDocumentid()));
+            withDocument = new Document(wsService.duplicateDocument(selectedDocument.getDocumentId()));
             if (null != withDocument) {
                 selectedDocument = withDocument;
                 refreshDocumentList();
@@ -180,7 +180,7 @@ public class LoadTestDataDocumentBean {
     public void editDocument() {
         if (selectedDocument != null) {
             dialogTitle = "Edit Document";
-            withDocument = new Document(wsService.getDocumentBy(selectedDocument.getDocumentid()));
+            withDocument = new Document(wsService.getDocumentBy(selectedDocument.getDocumentId()));
             newEventCode();
         } else {
             newDocument();
@@ -200,7 +200,7 @@ public class LoadTestDataDocumentBean {
 
         if (isValidDocumentId()) {
             try {
-                withEventCode.setDocumentid(withDocument.getDocumentid());
+                withEventCode.setDocumentid(withDocument.getDocumentId());
                 actionResult = wsService.saveEventCode(withEventCode);
 
                 if (actionResult) {
@@ -322,13 +322,12 @@ public class LoadTestDataDocumentBean {
                 wsService.getPatientBy(identifierValue[0].replace("^^^", ""), identifierValue[1]));
         } else {
             throw new RuntimeException("PatientIdentifier should not be empty.");
-            // CoreHelpUtils.updateDocumentBy(withDocument, new PatientType());
         }
     }
 
     // IDs and isValidId
     private boolean isValidDocumentId() {
-        return withDocument != null && CoreHelpUtils.isId(withDocument.getDocumentid());
+        return withDocument != null && CoreHelpUtils.isId(withDocument.getDocumentId());
     }
 
     private static Map<Long, Patient> mapPatientById(List<Patient> patients) {

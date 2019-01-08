@@ -38,8 +38,8 @@ import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeleteDocumentRequestMess
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeleteEventCodeRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeleteIdentifierRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeletePatientRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeletePersonnameRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeletePhonenumberRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeletePersonNameRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DeletePhoneNumberRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentMetadataType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DuplicateDocumentRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DuplicatePatientRequestMessageType;
@@ -50,27 +50,27 @@ import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetEventCodeRequestMessag
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetIdentifierRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetPatientByIdentifierRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetPatientRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetPersonnameRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetPhonenumberRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetPersonNameRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.GetPhoneNumberRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.IdentifierType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllAddressRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllDocumentRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllEventCodeRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllIdentierRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllPatientRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllPersonnameRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllPhonenumberRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllPersonNameRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.ListAllPhoneNumberRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.LoadTestDataSimpleResponseMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PatientType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonnameType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhonenumberType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonNameType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhoneNumberType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SaveAddressRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SaveDocumentRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SaveEventCodeRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SaveIdentifierRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SavePatientRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SavePersonnameRequestMessageType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SavePhonenumberRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SavePersonNameRequestMessageType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SavePhoneNumberRequestMessageType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.loadtestdata.LoadTestDataException;
 import gov.hhs.fha.nhinc.loadtestdatamanagement.EntityLoadTestDataManagementPortType;
@@ -114,16 +114,16 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
     }
 
     @Override
-    public List<PersonnameType> getAllPersonnamesBy(Long patientId) {
-        ListAllPersonnameRequestMessageType request = new ListAllPersonnameRequestMessageType();
+    public List<PersonNameType> getAllPersonNamesBy(Long patientId) {
+        ListAllPersonNameRequestMessageType request = new ListAllPersonNameRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         request.setPatientId(patientId);
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
                 NhincConstants.ADMIN_LTD_LISTALLPERSONNAME, request);
-            logDebug(NhincConstants.ADMIN_LTD_LISTALLPERSONNAME, response.getPersonnameList().size());
-            return response.getPersonnameList();
+            logDebug(NhincConstants.ADMIN_LTD_LISTALLPERSONNAME, response.getPersonNameList().size());
+            return response.getPersonNameList();
         } catch (Exception e) {
             LOG.error("error during get-all personnames: {}, {}", patientId, e.getLocalizedMessage(), e);
         }
@@ -165,16 +165,16 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
     }
 
     @Override
-    public List<PhonenumberType> getAllPhonenumbersBy(Long patientId) {
-        ListAllPhonenumberRequestMessageType request = new ListAllPhonenumberRequestMessageType();
+    public List<PhoneNumberType> getAllPhoneNumbersBy(Long patientId) {
+        ListAllPhoneNumberRequestMessageType request = new ListAllPhoneNumberRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         request.setPatientId(patientId);
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
                 NhincConstants.ADMIN_LTD_LISTALLPHONENUMBER, request);
-            logDebug(NhincConstants.ADMIN_LTD_LISTALLPHONENUMBER, response.getPhonenumberList().size());
-            return response.getPhonenumberList();
+            logDebug(NhincConstants.ADMIN_LTD_LISTALLPHONENUMBER, response.getPhoneNumberList().size());
+            return response.getPhoneNumberList();
         } catch (Exception e) {
             LOG.error("error during get-all phonenumbers: {}, {}", patientId, e.getLocalizedMessage(), e);
         }
@@ -199,10 +199,10 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
     }
 
     @Override
-    public boolean deletePersonname(PersonnameType personname) {
-        DeletePersonnameRequestMessageType request = new DeletePersonnameRequestMessageType();
+    public boolean deletePersonName(PersonNameType personname) {
+        DeletePersonNameRequestMessageType request = new DeletePersonNameRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
-        request.setPersonname(personname);
+        request.setPersonName(personname);
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
@@ -210,7 +210,7 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
             logDebug(NhincConstants.ADMIN_LTD_DELETEPERSONNAME, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
-            LOG.error("error during delete personname: {}, {}", personname.getPersonnameId(), e.getLocalizedMessage(),
+            LOG.error("error during delete personname: {}, {}", personname.getPersonNameId(), e.getLocalizedMessage(),
                 e);
         }
         return false;
@@ -252,10 +252,10 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
     }
 
     @Override
-    public boolean deletePhonenumber(PhonenumberType phonenumber) {
-        DeletePhonenumberRequestMessageType request = new DeletePhonenumberRequestMessageType();
+    public boolean deletePhoneNumber(PhoneNumberType phonenumber) {
+        DeletePhoneNumberRequestMessageType request = new DeletePhoneNumberRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
-        request.setPhonename(phonenumber);
+        request.setPhoneNumber(phonenumber);
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
@@ -263,7 +263,7 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
             logDebug(NhincConstants.ADMIN_LTD_DELETEPHONENUMBER, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
-            LOG.error("error during delete phonenumber: {}, {}", phonenumber.getPhonenumberId(),
+            LOG.error("error during delete phonenumber: {}, {}", phonenumber.getPhoneNumberId(),
                 e.getLocalizedMessage(), e);
         }
         return false;
@@ -304,16 +304,16 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
     }
 
     @Override
-    public PersonnameType getPersonnameBy(Long personnameId) {
-        GetPersonnameRequestMessageType request = new GetPersonnameRequestMessageType();
+    public PersonNameType getPersonNameBy(Long personnameId) {
+        GetPersonNameRequestMessageType request = new GetPersonNameRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
-        request.setPersonnameId(personnameId);
+        request.setPersonNameId(personnameId);
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
                 NhincConstants.ADMIN_LTD_GETPERSONNAME, request);
             logDebug(NhincConstants.ADMIN_LTD_GETPERSONNAME, response.isStatus(), response.getMessage());
-            return firstItem(response.getPersonnameList());
+            return firstItem(response.getPersonNameList());
         } catch (Exception e) {
             LOG.error("error during retrieval personname: {}, {}", personnameId, e.getLocalizedMessage(), e);
         }
@@ -355,16 +355,16 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
     }
 
     @Override
-    public PhonenumberType getPhonenumberBy(Long phonenumberId) {
-        GetPhonenumberRequestMessageType request = new GetPhonenumberRequestMessageType();
+    public PhoneNumberType getPhoneNumberBy(Long phonenumberId) {
+        GetPhoneNumberRequestMessageType request = new GetPhoneNumberRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
-        request.setPhonenumberId(phonenumberId);
+        request.setPhoneNumberId(phonenumberId);
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
                 NhincConstants.ADMIN_LTD_GETPHONENUMBER, request);
             logDebug(NhincConstants.ADMIN_LTD_GETPHONENUMBER, response.isStatus(), response.getMessage());
-            return firstItem(response.getPhonenumberList());
+            return firstItem(response.getPhoneNumberList());
         } catch (Exception e) {
             LOG.error("error during retrieval identifier: {}, {}", phonenumberId, e.getLocalizedMessage(), e);
         }
@@ -392,10 +392,10 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
     }
 
     @Override
-    public boolean savePersonname(PersonnameType personname) throws LoadTestDataException {
-        SavePersonnameRequestMessageType request = new SavePersonnameRequestMessageType();
+    public boolean savePersonName(PersonNameType personname) throws LoadTestDataException {
+        SavePersonNameRequestMessageType request = new SavePersonNameRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
-        request.setPersonname(personname);
+        request.setPersonName(personname);
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
@@ -443,10 +443,10 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
     }
 
     @Override
-    public boolean savePhonenumber(PhonenumberType phonenumber) throws LoadTestDataException {
-        SavePhonenumberRequestMessageType request = new SavePhonenumberRequestMessageType();
+    public boolean savePhoneNumber(PhoneNumberType phonenumber) throws LoadTestDataException {
+        SavePhoneNumberRequestMessageType request = new SavePhoneNumberRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
-        request.setPhonenumber(phonenumber);
+        request.setPhoneNumber(phonenumber);
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
@@ -589,7 +589,7 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
                 NhincConstants.ADMIN_LTD_SAVEDOCUMENT, request);
             logDebug(NhincConstants.ADMIN_LTD_SAVEDOCUMENT, response.isStatus(), response.getMessage());
             if (CoreHelpUtils.isId(response.getSaveRecordId())) {
-                document.setDocumentid(response.getSaveRecordId());
+                document.setDocumentId(response.getSaveRecordId());
             }
             return response.isStatus();
         } catch (Exception e) {

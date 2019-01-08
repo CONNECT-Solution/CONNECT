@@ -34,8 +34,8 @@ import gov.hhs.fha.nhinc.admingui.services.impl.LoadTestDataWSServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.AddressType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.IdentifierType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonnameType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhonenumberType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonNameType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhoneNumberType;
 import gov.hhs.fha.nhinc.loadtestdata.LoadTestDataException;
 import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import java.text.MessageFormat;
@@ -70,16 +70,16 @@ public class LoadTestDataPatientBean {
     private String dialogTitle;
 
     private Patient selectedPatient;
-    private PersonnameType selectedPersonname;
+    private PersonNameType selectedPersonname;
     private IdentifierType selectedIdentifier;
     private AddressType selectedAddress;
-    private PhonenumberType selectedPhonenumber;
+    private PhoneNumberType selectedPhonenumber;
 
     private Patient withPatient;
-    private PersonnameType withPersonname;
+    private PersonNameType withPersonname;
     private IdentifierType withIdentifier;
     private AddressType withAddress;
-    private PhonenumberType withPhonenumber;
+    private PhoneNumberType withPhonenumber;
 
     private List<Patient> patientList;
 
@@ -94,11 +94,11 @@ public class LoadTestDataPatientBean {
     }
 
     // selected-record
-    public PersonnameType getSelectedPersonname() {
+    public PersonNameType getSelectedPersonname() {
         return selectedPersonname;
     }
 
-    public void setSelectedPersonname(PersonnameType selectedPersonname) {
+    public void setSelectedPersonname(PersonNameType selectedPersonname) {
         this.selectedPersonname = selectedPersonname;
     }
 
@@ -118,18 +118,18 @@ public class LoadTestDataPatientBean {
         this.selectedAddress = selectedAddress;
     }
 
-    public PhonenumberType getSelectedPhonenumber() {
+    public PhoneNumberType getSelectedPhonenumber() {
         return selectedPhonenumber;
     }
 
-    public void setSelectedPhonenumber(PhonenumberType selectedPhonenumber) {
+    public void setSelectedPhonenumber(PhoneNumberType selectedPhonenumber) {
         this.selectedPhonenumber = selectedPhonenumber;
     }
 
     // database-methods
-    public List<PhonenumberType> getPhonenumbers() {
+    public List<PhoneNumberType> getPhonenumbers() {
         if(null != withPatient){
-            return withPatient.getPhonenumberList();
+            return withPatient.getPhoneNumberList();
         }
         return new ArrayList<>();
     }
@@ -137,9 +137,9 @@ public class LoadTestDataPatientBean {
     public boolean deletePhonenumber() {
         boolean result = false;
         if (selectedPhonenumber != null) {
-            result = wsService.deletePhonenumber(selectedPhonenumber);
+            result = wsService.deletePhoneNumber(selectedPhonenumber);
             if (result) {
-                withPatient.getPhonenumberList().remove(selectedPhonenumber);
+                withPatient.getPhoneNumberList().remove(selectedPhonenumber);
             }
             selectedPhonenumber = null;
         } else {
@@ -154,11 +154,11 @@ public class LoadTestDataPatientBean {
         if (isValidPatientId()) {
             try {
                 withPhonenumber.setPatientId(withPatient.getPatientId());
-                actionResult = wsService.savePhonenumber(withPhonenumber);
+                actionResult = wsService.savePhoneNumber(withPhonenumber);
 
                 if (actionResult) {
                     refreshPatient();
-                    addPatientInfoMessages(msgForSaveSuccess(PHONE_NUMBER, withPhonenumber.getPhonenumberId()));
+                    addPatientInfoMessages(msgForSaveSuccess(PHONE_NUMBER, withPhonenumber.getPhoneNumberId()));
                     withPhonenumber = null;
                 }
             } catch (LoadTestDataException e) {
@@ -172,7 +172,7 @@ public class LoadTestDataPatientBean {
 
     public void editPhonenumber() {
         if (selectedPhonenumber != null) {
-            withPhonenumber = wsService.getPhonenumberBy(selectedPhonenumber.getPhonenumberId());
+            withPhonenumber = wsService.getPhoneNumberBy(selectedPhonenumber.getPhoneNumberId());
         } else {
             addPatientErrorMessages(msgForSelectEdit(PHONE_NUMBER));
         }
@@ -298,9 +298,9 @@ public class LoadTestDataPatientBean {
         withIdentifier = null;
     }
 
-    public List<PersonnameType> getPersonnames() {
+    public List<PersonNameType> getPersonnames() {
         if (null != withPatient) {
-            return withPatient.getPersonnameList();
+            return withPatient.getPersonNameList();
         }
         return new ArrayList<>();
     }
@@ -310,9 +310,9 @@ public class LoadTestDataPatientBean {
         if (selectedPersonname != null) {
             // Patient-Personname&Identifier: are required for patient-record
             if (CollectionUtils.isNotEmpty(getPersonnames()) && getPersonnames().size() > 1) {
-                result = wsService.deletePersonname(selectedPersonname);
+                result = wsService.deletePersonName(selectedPersonname);
                 if (result) {
-                    withPatient.getPersonnameList().remove(selectedPersonname);
+                    withPatient.getPersonNameList().remove(selectedPersonname);
                 }
                 selectedPersonname = null;
             } else {
@@ -329,11 +329,11 @@ public class LoadTestDataPatientBean {
         if (isValidPatientId()) {
             try {
                 withPersonname.setPatientId(withPatient.getPatientId());
-                actionResult = wsService.savePersonname(withPersonname);
+                actionResult = wsService.savePersonName(withPersonname);
 
                 if (actionResult) {
                     refreshPatient();
-                    addPatientInfoMessages(msgForSaveSuccess(ADDITIONAL_NAME, withPersonname.getPersonnameId()));
+                    addPatientInfoMessages(msgForSaveSuccess(ADDITIONAL_NAME, withPersonname.getPersonNameId()));
                     withPersonname = null;
                 }
             } catch (LoadTestDataException e) {
@@ -347,7 +347,7 @@ public class LoadTestDataPatientBean {
 
     public void editPersonname() {
         if (selectedPersonname != null) {
-            withPersonname = wsService.getPersonnameBy(selectedPersonname.getPersonnameId());
+            withPersonname = wsService.getPersonNameBy(selectedPersonname.getPersonNameId());
         } else {
             addPatientErrorMessages(msgForSelectEdit(ADDITIONAL_NAME));
         }
@@ -431,11 +431,11 @@ public class LoadTestDataPatientBean {
         return withPatient;
     }
 
-    public PersonnameType getPatientPersonnameForm() {
-        PersonnameType record = lastItem(getPatientForm().getPersonnameList());
+    public PersonNameType getPatientPersonnameForm() {
+        PersonNameType record = lastItem(getPatientForm().getPersonNameList());
         if (null == record) {
-            record = new PersonnameType();
-            getPatientForm().getPersonnameList().add(record);
+            record = new PersonNameType();
+            getPatientForm().getPersonNameList().add(record);
         }
         return record;
     }
@@ -449,9 +449,9 @@ public class LoadTestDataPatientBean {
         return record;
     }
 
-    public PersonnameType getPersonnameForm() {
+    public PersonNameType getPersonnameForm() {
         if (null == withPersonname) {
-            withPersonname = new PersonnameType();
+            withPersonname = new PersonNameType();
         }
         return withPersonname;
     }
@@ -470,9 +470,9 @@ public class LoadTestDataPatientBean {
         return withAddress;
     }
 
-    public PhonenumberType getPhonenumberForm() {
+    public PhoneNumberType getPhonenumberForm() {
         if (null == withPhonenumber) {
-            withPhonenumber = new PhonenumberType();
+            withPhonenumber = new PhoneNumberType();
         }
         return withPhonenumber;
     }

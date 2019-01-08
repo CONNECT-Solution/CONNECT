@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdb.model;
 
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhonenumberType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhoneNumberType;
 import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import java.io.Serializable;
 
@@ -47,16 +47,17 @@ public class Phonenumber implements Serializable {
     public Phonenumber() {
     }
 
-    public Phonenumber(PhonenumberType phonenumber, Patient patient){
+    public Phonenumber(PhoneNumberType phoneNumberType, Patient patient) {
         this.patient = patient;
-        phonenumberId = CoreHelpUtils.isId(phonenumber.getPhonenumberId()) ? phonenumber.getPhonenumberId() : null;
-        value = phonenumber.getValue();
+        phonenumberId = CoreHelpUtils.isId(phoneNumberType.getPhoneNumberId()) ? phoneNumberType.getPhoneNumberId()
+            : null;
+        value = phoneNumberType.getValue();
     }
 
-    public PhonenumberType getPhonenumberType() {
-        PhonenumberType build = new PhonenumberType();
+    public PhoneNumberType getPhoneNumberType() {
+        PhoneNumberType build = new PhoneNumberType();
         build.setPatientId(patient.getPatientId());
-        build.setPhonenumberId(phonenumberId);
+        build.setPhoneNumberId(phonenumberId);
         build.setValue(value);
         return build;
     }
