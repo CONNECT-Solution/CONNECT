@@ -101,7 +101,7 @@
                                             id="labelCreationTime" value="Creation Time:" />
                                         <div class="col-sm-8">
                                             <p:calendar id="inputCreationTime"
-                                                value="#{loadTestDataDocumentBean.documentForm.creationTime}"
+                                                value="#{loadTestDataDocumentBean.documentForm.creationTimeDate}"
                                                 showOn="button" pattern="MM/dd/yyyy HH:mm:ss" required="#{!loadTestDataDocumentBean.documentForm.onDemand}"
                                                 requiredMessage="Creation Time required." size="17" tabindex="7"
                                                 maxdate="#{loadTestDataDocumentBean.dateNow}">
@@ -157,7 +157,7 @@
                                             id="labelServiceStartTime" value="Service StartTime:" />
                                         <div class="col-sm-8">
                                             <p:calendar id="inputServiceStartTime"
-                                                value="#{loadTestDataDocumentBean.documentForm.serviceStartTime}"
+                                                value="#{loadTestDataDocumentBean.documentForm.serviceStartTimeDate}"
                                                 showOn="button" pattern="MM/dd/yyyy HH:mm:ss" size="17" tabindex="1" />
                                         </div>
                                     </div>
@@ -307,7 +307,7 @@
                                             id="labelServiceStopTime" value="Service StopTime:" />
                                         <div class="col-sm-8">
                                             <p:calendar id="inputServiceStopTime"
-                                                value="#{loadTestDataDocumentBean.documentForm.serviceStopTime}"
+                                                value="#{loadTestDataDocumentBean.documentForm.serviceStopTimeDate}"
                                                 showOn="button" pattern="MM/dd/yyyy HH:mm:ss" size="17" tabindex="2" />
                                         </div>
                                     </div>

@@ -26,6 +26,9 @@
 */
 package gov.hhs.fha.nhinc.docrepository.adapter.model;
 
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentType;
+import gov.hhs.fha.nhinc.util.CoreHelpUtils;
+
 /**
  * Hibernate/JPA Entity for holding submitted document binary data.
  *
@@ -65,8 +68,29 @@ public class Document {
         document.setDocument(this);
     }
 
+
     public Document() {
         rawData = new byte[0];
+    }
+
+    public Document(DocumentType document, DocumentMetadata docMetadata) {
+        repoId = CoreHelpUtils.isId(document.getRepoId()) ? document.getRepoId() : null;
+        metadata = docMetadata;
+        documentUniqueId = null == document.getDocumentUniqueId() ? docMetadata.getDocumentUniqueId()
+            : document.getDocumentUniqueId();
+        repositoryUniqueId = null == document.getRepositoryUniqueId() ? docMetadata.getNewRepositoryUniqueId()
+            : document.getRepositoryUniqueId();
+        rawData = document.getRawData();
+    }
+
+    public DocumentType getDocumentType() {
+        DocumentType build = new DocumentType();
+        build.setRepoId(repoId);
+        build.setDocumentid(metadata.getDocumentid());
+        build.setDocumentUniqueId(documentUniqueId);
+        build.setRepositoryUniqueId(repositoryUniqueId);
+        build.setRawData(rawData);
+        return build;
     }
 
     public Long getRepoId() {

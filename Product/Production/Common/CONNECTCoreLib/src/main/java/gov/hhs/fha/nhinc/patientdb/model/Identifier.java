@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,9 +23,11 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.patientdb.model;
 
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.IdentifierType;
+import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import java.io.Serializable;
 
 /**
@@ -38,133 +40,71 @@ public class Identifier implements Serializable {
 
     private static final long serialVersionUID = 5599130866061135046L;
 
-    /**
-     *
-     * Attribute identifierId.
-     */
-    private Long identifierId;
-
-    /**
-     *
-     * Attribute patient.
-     */
+    Long identifierId;
     private Patient patient;
-
-    /**
-     *
-     * Attribute id.
-     */
     private String id;
-
-    /**
-     *
-     * Attribute organizationId.
-     */
     private String organizationId;
 
-    /**
-     *
-     * @return identifierId
-     */
-    public Long getIdentifierId() {
-
-        return identifierId;
-
+    public Identifier() {
     }
-
-    /**
-     *
-     * @param identifierId new value for identifierId
-     */
-    public void setIdentifierId(Long identifierId) {
-
-        this.identifierId = identifierId;
-
-    }
-
-    /**
-     *
-     * @return patient
-     */
-    public Patient getPatient() {
-
-        if (this.patient == null) {
-
-            this.patient = new Patient();
-
-        }
-
-        return patient;
-
-    }
-
-    /**
-     *
-     * @param patient new value for patient
-     */
-    public void setPatient(Patient patient) {
-
+    public Identifier(IdentifierType identifier, Patient patient) {
         this.patient = patient;
-
+        identifierId = CoreHelpUtils.isId(identifier.getIdentifierId()) ? identifier.getIdentifierId() : null;
+        id = identifier.getId();
+        organizationId = identifier.getOrganizationId();
     }
 
-    /**
-     *
-     * @return id
-     */
+    public IdentifierType getIdentifierType() {
+        IdentifierType build = new IdentifierType();
+        build.setPatientId(patient.getPatientId());
+        build.setIdentifierId(identifierId);
+        build.setId(id);
+        build.setOrganizationId(organizationId);
+        return build;
+    }
+
+    public Long getIdentifierId() {
+        return identifierId;
+    }
+
+    public void setIdentifierId(Long identifierId) {
+        this.identifierId = identifierId;
+    }
+
+    public Patient getPatient() {
+        if (patient == null) {
+            patient = new Patient();
+        }
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
     public String getId() {
-
         return id;
-
     }
 
-    /**
-     *
-     * @param id new value for id
-     */
     public void setId(String id) {
-
         this.id = id;
-
     }
 
-    /**
-     *
-     * @return organizationId
-     */
     public String getOrganizationId() {
-
         return organizationId;
-
     }
 
-    /**
-     *
-     * @param organizationId new value for organizationId
-     */
     public void setOrganizationId(String organizationId) {
-
         this.organizationId = organizationId;
-
     }
 
     // Helper getter methods
-    /**
-     *
-     * @return hl7UniquePatientId
-     */
     public String getHl7UniquePatientId() {
-
         String hl7UniquePatientId = "";
-
-        if (this.id != null && this.organizationId != null) {
-
-            hl7UniquePatientId = this.id + "^^^&" + this.organizationId + "&ISO";
-
+        if (id != null && organizationId != null) {
+            hl7UniquePatientId = id + "^^^&" + organizationId + "&ISO";
         }
-
         return hl7UniquePatientId;
-
     }
 
 }

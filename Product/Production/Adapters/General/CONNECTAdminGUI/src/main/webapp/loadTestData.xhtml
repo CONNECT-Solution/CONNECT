@@ -82,7 +82,7 @@
                                                     <h:outputText value="#{patient.firstName}" />
                                                 </p:column>
                                                 <p:column headerText="Birth Date">
-                                                    <h:outputText value="#{patient.dateOfBirth}">
+                                                    <h:outputText value="#{patient.dateOfBirthDate}">
                                                         <f:convertDateTime pattern="MM-dd-yyyy" />
                                                     </h:outputText>
                                                 </p:column>
@@ -181,7 +181,7 @@
                                                     <h:outputText value="#{record.statusDisplay}" />
                                                 </p:column>
                                                 <p:column headerText="Created">
-                                                    <h:outputText value="#{record.creationTime}">
+                                                    <h:outputText value="#{record.creationTimeDate}">
                                                         <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
                                                     </h:outputText>
                                                 </p:column>

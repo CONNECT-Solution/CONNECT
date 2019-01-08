@@ -27,31 +27,36 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.addFacesMessageBy;
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.isCollectionEmpty;
 
-import gov.hhs.fha.nhinc.admingui.services.LoadTestDataService;
-import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
+import gov.hhs.fha.nhinc.admingui.model.loadtestdata.Document;
+import gov.hhs.fha.nhinc.admingui.model.loadtestdata.Patient;
+import gov.hhs.fha.nhinc.admingui.services.LoadTestDataWSService;
+import gov.hhs.fha.nhinc.admingui.services.impl.LoadTestDataWSServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.EventCodeType;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
-import gov.hhs.fha.nhinc.patientdb.model.Patient;
+import gov.hhs.fha.nhinc.loadtestdata.LoadTestDataException;
+import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Component;
 
 /**
@@ -59,8 +64,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @ManagedBean(name = "LoadTestDataDocumentBean")
-@ImportResource("file:${nhinc.properties.dir}/LoadTestDataConfig.xml")
-@SessionScoped
+@ViewScoped
 @Component
 public class LoadTestDataDocumentBean {
 
@@ -70,56 +74,64 @@ public class LoadTestDataDocumentBean {
     private static final String GROWL_MESSAGE = "msgForGrowl";
 
     private String dialogTitle;
-    private DocumentMetadata withDocument;
-    private EventCode withEventCode;
+    private Document withDocument;
+    private EventCodeType withEventCode;
 
-    private DocumentMetadata selectedDocument;
-    private EventCode selectedEventCode;
+    private Document selectedDocument;
+    private EventCodeType selectedEventCode;
 
-    @Autowired
-    private LoadTestDataService loadTestDataService;
+    private LoadTestDataWSService wsService = new LoadTestDataWSServiceImpl();
     private Map<String, String> listStatusType;
+    private List<Document> documentList;
+    Map<Long, Patient> lookupPatient;
 
     public LoadTestDataDocumentBean() {
         selectedDocument = null;
     }
 
     // selected-record
-    public DocumentMetadata getSelectedDocument() {
+    public Document getSelectedDocument() {
         return selectedDocument;
     }
 
-    public void setSelectedDocument(DocumentMetadata selectedDocument) {
+    public void setSelectedDocument(Document selectedDocument) {
         this.selectedDocument = selectedDocument;
     }
 
-    public EventCode getSelectedEventCode() {
+    public EventCodeType getSelectedEventCode() {
         return selectedEventCode;
     }
 
-    public void setSelectedEventCode(EventCode selectedEventCode) {
+    public void setSelectedEventCode(EventCodeType selectedEventCode) {
         this.selectedEventCode = selectedEventCode;
     }
 
     // database-methods
-    public List<DocumentMetadata> getDocuments() {
-        List<DocumentMetadata> documents = loadTestDataService.getAllDocuments();
-        Map<Long, Patient> lookupPatient = mapPatientById(loadTestDataService.getAllPatients());
-        for (DocumentMetadata doc : documents) {
-            if (doc.getPatientRecordId() != null) {
-                doc.setPatientIdentifier(lookupPatient.get(doc.getPatientRecordId()).getPatientIdentifier());
+    public List<Document> getDocuments() {
+        if (isCollectionEmpty(lookupPatient)) {
+            List<Patient> patients = HelperUtil.convertPatients(wsService.getAllPatients());
+            lookupPatient = mapPatientById(patients);
+        }
+        if (CollectionUtils.isEmpty(documentList)) {
+            documentList = HelperUtil.convertDocuments(wsService.getAllDocuments());
+            for (Document doc : documentList) {
+                if (doc.getPatientRecordId() != null) {
+                    doc.setPatientIdentifier(lookupPatient.get(doc.getPatientRecordId()).getPatientIdentifier());
+                }
             }
         }
-        return documents;
+        return documentList;
+
     }
 
     public boolean saveDocument() {
         boolean actionResult = false;
         try {
             if (withDocument != null) {
-                actionResult = loadTestDataService.saveDocument(withDocument);
+                actionResult = wsService.saveDocument(withDocument);
 
                 if (actionResult) {
+                    refreshDocumentList();
                     addFacesMessageBy(GROWL_MESSAGE, msgForSaveSuccess(DOCUMENT, withDocument.getDocumentid()));
                 }
             } else {
@@ -134,7 +146,11 @@ public class LoadTestDataDocumentBean {
     public void duplicateDocument() {
         if (selectedDocument != null) {
             dialogTitle = "Edit Document";
-            withDocument = loadTestDataService.duplicateDocument(selectedDocument.getDocumentid());
+            withDocument = new Document(wsService.duplicateDocument(selectedDocument.getDocumentid()));
+            if (null != withDocument) {
+                selectedDocument = withDocument;
+                refreshDocumentList();
+            }
         } else {
             new DocumentMetadata();
             addFacesMessageBy(msgForInvalidDocument("document"));
@@ -144,7 +160,10 @@ public class LoadTestDataDocumentBean {
     public boolean deleteDocument() {
         boolean result = false;
         if (selectedDocument != null) {
-            result = loadTestDataService.deleteDocument(selectedDocument);
+            result = wsService.deleteDocument(selectedDocument);
+            if(result){
+                getDocuments().remove(selectedDocument);
+            }
             selectedDocument = null;
         } else {
             addFacesMessageBy(GROWL_MESSAGE, msgForSelectDelete("Document"));
@@ -154,14 +173,14 @@ public class LoadTestDataDocumentBean {
 
     public void newDocument() {
         dialogTitle = "Create Document";
-        withDocument = new DocumentMetadata();
+        withDocument = new Document();
         newEventCode();
     }
 
     public void editDocument() {
         if (selectedDocument != null) {
             dialogTitle = "Edit Document";
-            withDocument = loadTestDataService.getDocumentBy(selectedDocument.getDocumentid());
+            withDocument = new Document(wsService.getDocumentBy(selectedDocument.getDocumentid()));
             newEventCode();
         } else {
             newDocument();
@@ -169,8 +188,11 @@ public class LoadTestDataDocumentBean {
         }
     }
 
-    public List<EventCode> getEventCodes() {
-        return loadTestDataService.getAllEventCodesBy(getDocumentid());
+    public List<EventCodeType> getEventCodes() {
+        if (null != withDocument) {
+            return withDocument.getEventCodeList();
+        }
+        return new ArrayList<>();
     }
 
     public boolean saveEventCode() {
@@ -178,12 +200,13 @@ public class LoadTestDataDocumentBean {
 
         if (isValidDocumentId()) {
             try {
-                withEventCode.setDocument(withDocument);
-                actionResult = loadTestDataService.saveEventCode(withEventCode);
+                withEventCode.setDocumentid(withDocument.getDocumentid());
+                actionResult = wsService.saveEventCode(withEventCode);
 
                 if (actionResult) {
+                    refreshDocument();
                     addFacesMessageBy(msgForSaveSuccess(EVENT_CODE, withEventCode.getEventCodeId()));
-                    withEventCode = new EventCode();
+                    withEventCode = new EventCodeType();
                 }
             } catch (LoadTestDataException e) {
                 logError(EVENT_CODE, e);
@@ -197,7 +220,10 @@ public class LoadTestDataDocumentBean {
     public boolean deleteEventCode() {
         boolean result = false;
         if (selectedEventCode != null) {
-            result = loadTestDataService.deleteEventCode(selectedEventCode);
+            result = wsService.deleteEventCode(selectedEventCode);
+            if (result) {
+                getEventCodes().remove(selectedEventCode);
+            }
             selectedEventCode = null;
         } else {
             addFacesMessageBy(msgForSelectDelete(EVENT_CODE));
@@ -206,12 +232,12 @@ public class LoadTestDataDocumentBean {
     }
 
     public void newEventCode() {
-        withEventCode = new EventCode();
+        withEventCode = new EventCodeType();
     }
 
     public void editEventCode() {
         if (selectedEventCode != null) {
-            withEventCode = loadTestDataService.getEventCodeBy(selectedEventCode.getEventCodeId());
+            withEventCode = wsService.getEventCodeBy(selectedEventCode.getEventCodeId());
         } else {
             newEventCode();
             addFacesMessageBy(msgForSelectEdit(EVENT_CODE));
@@ -235,22 +261,23 @@ public class LoadTestDataDocumentBean {
         return selectedEventCode == null;
     }
 
-    public DocumentMetadata getDocumentForm() {
+    public Document getDocumentForm() {
         if (null == withDocument) {
-            withDocument = new DocumentMetadata();
+            withDocument = new Document();
         }
         return withDocument;
     }
 
-    public EventCode getEventCodeForm() {
+    public EventCodeType getEventCodeForm() {
         if (null == withEventCode) {
-            withEventCode = new EventCode();
+            withEventCode = new EventCodeType();
         }
         return withEventCode;
     }
 
     public Map<String, String> getListPatientId() {
-        return HelperUtil.populateListPatientId(loadTestDataService.getAllPatients());
+        List<Patient> temp = HelperUtil.convertPatients(wsService.getAllPatients());
+        return HelperUtil.populateListPatientId(temp);
     }
 
     public Map<String, String> getListStatusType() {
@@ -262,11 +289,11 @@ public class LoadTestDataDocumentBean {
 
     public void setDocumentFile(UploadedFile file) {
         if (file != null && withDocument != null) {
-            Document doc = new Document(withDocument);
+            DocumentType doc = new DocumentType();
             doc.setRawData(file.getContents());
 
             withDocument.setDocument(doc);
-            withDocument.setSize(file.getContents().length);
+            withDocument.setSize(BigInteger.valueOf(file.getContents().length));
             withDocument.setMimeType(file.getContentType());
             try {
                 withDocument.setHash(DigestUtils.md5Hex(file.getInputstream()));
@@ -291,24 +318,17 @@ public class LoadTestDataDocumentBean {
 
         if (StringUtils.isNotBlank(patientIdentifierIso)) {
             String[] identifierValue = patientIdentifierIso.split("&");
-            HelperUtil.updateDocumentBy(withDocument,
-                loadTestDataService.getPatientBy(identifierValue[0].replace("^^^", ""), identifierValue[1]));
+            CoreHelpUtils.updateDocumentBy(withDocument,
+                wsService.getPatientBy(identifierValue[0].replace("^^^", ""), identifierValue[1]));
         } else {
-            HelperUtil.updateDocumentBy(withDocument, new Patient());
+            throw new RuntimeException("PatientIdentifier should not be empty.");
+            // CoreHelpUtils.updateDocumentBy(withDocument, new PatientType());
         }
     }
 
     // IDs and isValidId
     private boolean isValidDocumentId() {
-        return withDocument != null && HelperUtil.isId(withDocument.getDocumentid());
-    }
-
-    private Long getDocumentid() {
-        Long localId = 0L;
-        if (isValidDocumentId()) {
-            localId = withDocument.getDocumentid();
-        }
-        return localId;
+        return withDocument != null && CoreHelpUtils.isId(withDocument.getDocumentid());
     }
 
     private static Map<Long, Patient> mapPatientById(List<Patient> patients) {
@@ -345,5 +365,17 @@ public class LoadTestDataDocumentBean {
         addFacesMessageBy(HelperUtil.getMsgError(
             MessageFormat.format("Cannot save document {0}: {1}", logOf.toLowerCase(), e.getLocalizedMessage())));
         LOG.error("Error save-document-{0}: {}", logOf.toLowerCase(), e.getLocalizedMessage(), e);
+    }
+
+    private void refreshDocumentList() {
+        documentList = null;
+        getDocuments();
+    }
+
+    private void refreshDocument(){
+        if(null == selectedDocument){
+            selectedDocument = withDocument;
+        }
+        editDocument();
     }
 }
