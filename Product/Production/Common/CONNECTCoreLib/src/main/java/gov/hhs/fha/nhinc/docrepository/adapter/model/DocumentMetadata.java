@@ -107,7 +107,7 @@ public class DocumentMetadata {
 
     public DocumentMetadata(DocumentMetadataType docMetadata){
 
-        documentid = CoreHelpUtils.isId(docMetadata.getDocumentid()) ? docMetadata.getDocumentid() : null;
+        documentid = CoreHelpUtils.isId(docMetadata.getDocumentId()) ? docMetadata.getDocumentId() : null;
         documentUniqueId=docMetadata.getDocumentUniqueId();
         documentTitle=docMetadata.getDocumentTitle();
         authorPerson=docMetadata.getAuthorPerson();
@@ -177,7 +177,7 @@ public class DocumentMetadata {
     public DocumentMetadataType getDocumentMetadataType(boolean metadataOnly) {
         DocumentMetadataType build = new DocumentMetadataType();
 
-        build.setDocumentid(documentid);
+        build.setDocumentId(documentid);
         build.setDocumentUniqueId(documentUniqueId);
         build.setDocumentTitle(documentTitle);
         build.setAuthorPerson(authorPerson);

@@ -50,8 +50,8 @@ public class Patient extends PatientType {
         setSsn(parent.getSsn());
         getAddressList().addAll(parent.getAddressList());
         getIdentifierList().addAll(parent.getIdentifierList());
-        getPersonnameList().addAll(parent.getPersonnameList());
-        getPhonenumberList().addAll(parent.getPhonenumberList());
+        getPersonNameList().addAll(parent.getPersonNameList());
+        getPhoneNumberList().addAll(parent.getPhoneNumberList());
     }
 
     public Date getDateOfBirthDate() {
@@ -63,11 +63,11 @@ public class Patient extends PatientType {
     }
 
     public String getFirstName() {
-        return CollectionUtils.isNotEmpty(getPersonnameList()) ? lastItem(getPersonnameList()).getFirstName() : "";
+        return CollectionUtils.isNotEmpty(getPersonNameList()) ? lastItem(getPersonNameList()).getFirstName() : "";
     }
 
     public String getLastName() {
-        return CollectionUtils.isNotEmpty(getPersonnameList()) ? lastItem(getPersonnameList()).getLastName() : "";
+        return CollectionUtils.isNotEmpty(getPersonNameList()) ? lastItem(getPersonNameList()).getLastName() : "";
     }
 
     public String getPatientIdentifierId() {
@@ -79,7 +79,7 @@ public class Patient extends PatientType {
     }
 
     public String getPatientIdentifier() {
-        if (CollectionUtils.isNotEmpty(getIdentifierList()) && CollectionUtils.isNotEmpty(getPersonnameList())) {
+        if (CollectionUtils.isNotEmpty(getIdentifierList()) && CollectionUtils.isNotEmpty(getPersonNameList())) {
             return MessageFormat.format("{0} {1} - {2}", getFirstName(), getLastName(), getPatientIdentifierId());
         }
         return "";

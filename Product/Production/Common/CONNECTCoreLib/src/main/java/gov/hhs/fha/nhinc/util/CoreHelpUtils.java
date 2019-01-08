@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.common.loadtestdatamanagement.AddressType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentMetadataType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.IdentifierType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PatientType;
-import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonnameType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonNameType;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
@@ -164,7 +164,7 @@ public class CoreHelpUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
         // setPIDs
-        PersonnameType personname = lastItem(patientType.getPersonnameList());
+        PersonNameType personname = lastItem(patientType.getPersonNameList());
         if (personname != null) {
             doc.setPid5(MessageFormat.format("{0}^{1}^^^", personname.getLastName(), personname.getFirstName()));
         }
@@ -205,7 +205,7 @@ public class CoreHelpUtils {
     }
 
     public static String getPatientIdentifier(PatientType patient) {
-        PersonnameType name = lastItem(patient.getPersonnameList());
+        PersonNameType name = lastItem(patient.getPersonNameList());
         IdentifierType identifier = lastItem(patient.getIdentifierList());
         if (null != name && null != identifier) {
             return MessageFormat.format("{0} {1} - {2}", name.getFirstName(), name.getLastName(), identifier.getId());
