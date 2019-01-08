@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>General</artifactId>
-        <version>5.2.0</version>
+        <version>5.2.0.1</version>
     </parent>
 
     <artifactId>CONNECTAdminGUI</artifactId>
