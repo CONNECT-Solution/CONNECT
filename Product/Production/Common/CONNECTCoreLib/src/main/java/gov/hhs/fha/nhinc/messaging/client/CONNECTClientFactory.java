@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
@@ -35,13 +37,23 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  */
 public abstract class CONNECTClientFactory {
     public abstract <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
-        AssertionType assertion);
+        String exchangeName, AssertionType assertion);
+
+    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
+        AssertionType assertion) {
+        return getCONNECTClientSecured(portDescriptor, url, StoreUtil.INTERNAL_EXCHANGE, assertion);
+    }
 
     public abstract <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
-        AssertionType assertion, String url, String targetHomeCommunityId, String serviceName);
+        AssertionType assertion, String url, NhinTargetSystemType target, String serviceName);
 
     public abstract <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
-        AssertionType assertion);
+        String exchangeName, AssertionType assertion);
+
+    public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
+        AssertionType assertion) {
+        return getCONNECTClientUnsecured(portDescriptor, url, StoreUtil.INTERNAL_EXCHANGE, assertion);
+    }
 
     public static CONNECTClientFactory getInstance() {
         return new CONNECTCXFClientFactory();

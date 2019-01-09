@@ -77,9 +77,7 @@ public class NhinPatientLocationQueryProxyWebServiceSecuredImpl implements NhinP
                 = new NhinPatientLocationQueryServicePortDescriptor();
 
             CONNECTClient<RespondingGatewayPLQPortType> client = CONNECTClientFactory.getInstance().
-                getCONNECTClientSecured(
-                    portDescriptor, assertion, url,
-                    targetSystem.getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId(),
+                getCONNECTClientSecured(portDescriptor, assertion, url, nhinTargetSystemType,
                     NhincConstants.PLQ_NHIN_SERVICE_NAME);
 
             response = (PatientLocationQueryResponseType) client.invokePort(RespondingGatewayPLQPortType.class,

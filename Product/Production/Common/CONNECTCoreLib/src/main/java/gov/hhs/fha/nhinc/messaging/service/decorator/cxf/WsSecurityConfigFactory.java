@@ -77,8 +77,8 @@ public class WsSecurityConfigFactory {
      *
      * @return
      */
-    public Map<String, Object> getConfiguration(String gatewayAlias) {
-        return deepCopy(configuration, gatewayAlias);
+    public Map<String, Object> getConfiguration(String certificateAlias) {
+        return deepCopy(configuration, certificateAlias);
     }
 
     private HashMap<String, Object> createWSSecurityConfiguration() {
@@ -106,10 +106,10 @@ public class WsSecurityConfigFactory {
         return propFileUtil.loadPropertyFile(SIGNATURE_PROPERTIES_FILENAME);
     }
 
-    private static Map<String, Object> deepCopy(final HashMap<String, Object> configMap, String gatewayAlias) {
+    private static Map<String, Object> deepCopy(final HashMap<String, Object> configMap, String certificateAlias) {
         final HashMap<String, Object> clonedMap = new HashMap<>(configMap);
-        if(StringUtils.isNotBlank(gatewayAlias)){
-            clonedMap.put(WSHandlerConstants.USER, gatewayAlias);
+        if(StringUtils.isNotBlank(certificateAlias)){
+            clonedMap.put(WSHandlerConstants.USER, certificateAlias);
         }
 
         final Properties cryptoProperties = (Properties) clonedMap.get(CRYPTO_PROPERTIES);

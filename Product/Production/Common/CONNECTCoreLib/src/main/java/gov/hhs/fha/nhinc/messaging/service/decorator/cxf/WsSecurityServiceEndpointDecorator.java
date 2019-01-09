@@ -46,7 +46,7 @@ import org.apache.wss4j.dom.handler.WSHandlerConstants;
 public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
     private WsSecurityConfigFactory configFactory = null;
-    private String gatewayAlias = null;
+    private String certificateAlias = null;
     private String sigAlgorithm;
     private String digAlgorithm;
 
@@ -55,9 +55,9 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
      *
      * @param decoratoredEndpoint - endpoint instance where this decorator will be applied
      */
-    public WsSecurityServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String gatewayAlias, AssertionType assertion) {
+    public WsSecurityServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String certificateAlias, AssertionType assertion) {
         this(decoratoredEndpoint, WsSecurityConfigFactory.getInstance(), assertion);
-        this.gatewayAlias = gatewayAlias;
+        this.certificateAlias = certificateAlias;
     }
 
     /**
@@ -84,7 +84,7 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
         super.configure();
 
         Client client = ClientProxy.getClient(getPort());
-        Map<String, Object> outProps = configFactory.getConfiguration(gatewayAlias);
+        Map<String, Object> outProps = configFactory.getConfiguration(certificateAlias);
 
         outProps.put(WSHandlerConstants.SIG_ALGO, sigAlgorithm);
         outProps.put(WSHandlerConstants.SIG_DIGEST_ALGO, digAlgorithm);

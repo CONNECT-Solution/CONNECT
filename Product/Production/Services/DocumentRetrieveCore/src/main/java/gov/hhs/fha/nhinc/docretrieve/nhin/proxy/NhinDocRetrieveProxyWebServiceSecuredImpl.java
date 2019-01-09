@@ -162,6 +162,6 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
         final ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor,
         final AssertionType assertion, final String url, final NhinTargetSystemType target) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-            target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+            target, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 }

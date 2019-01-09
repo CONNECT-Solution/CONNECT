@@ -40,7 +40,7 @@ import org.apache.cxf.transport.http.HTTPConduit;
 public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
     private TLSClientParametersFactory tlsClientFactory;
-    protected String gatewayAlias = null;
+    protected String certificateAlias = null;
 
     /**
      * Constructor.
@@ -60,10 +60,10 @@ public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorat
      * @param paramFactory
      */
     public TLSClientServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint,
-        TLSClientParametersFactory tlsClientFactory, String gatewayAlias) {
+        TLSClientParametersFactory tlsClientFactory, String certificateAlias) {
         super(decoratoredEndpoint);
         this.tlsClientFactory = tlsClientFactory;
-        this.gatewayAlias = gatewayAlias;
+        this.certificateAlias = certificateAlias;
     }
 
     /**
@@ -72,7 +72,7 @@ public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorat
     @Override
     public void configure() {
         super.configure();
-        getHttpConduit().setTlsClientParameters(tlsClientFactory.getTLSClientParameters(gatewayAlias));
+        getHttpConduit().setTlsClientParameters(tlsClientFactory.getTLSClientParameters(certificateAlias));
     }
     protected HTTPConduit getHttpConduit(){
         Client client = ClientProxy.getClient(getPort());

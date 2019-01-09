@@ -58,7 +58,7 @@ public class TLSUDDIClientEndpointDecorator<T> extends TLSClientServiceEndpointD
         super.configure();
         final String protocol = getSecureProtocol();
         LOG.info("TLS support versions {}", protocol);
-        TLSClientParameters tlsCP = getTlsClientFactory().getTLSClientParameters(protocol, gatewayAlias);
+        TLSClientParameters tlsCP = getTlsClientFactory().getTLSClientParameters(protocol, certificateAlias);
         getHttpConduit().setTlsClientParameters(tlsCP);
     }
 

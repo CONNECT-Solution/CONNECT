@@ -47,16 +47,16 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
     private WebServiceProxyHelper proxyHelper;
     private ServiceEndpoint<T> serviceEndpoint = null;
 
-    public UDDIBaseClient(ServicePortDescriptor<T> portDescriptor, String url) {
+    public UDDIBaseClient(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName) {
 
         proxyHelper = new WebServiceProxyHelper();
 
         CXFServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<>(portDescriptor);
 
-        serviceEndpoint = new BaseServiceEndpoint<>(portBuilder.createPort(StoreUtil.getGatewayAlias(url), null));
+        serviceEndpoint = new BaseServiceEndpoint<>(portBuilder.createPort(StoreUtil.getGatewayCertificateAlias(exchangeName), null));
         serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
         serviceEndpoint = new TimeoutServiceEndpointDecorator<>(serviceEndpoint, -1);
-        serviceEndpoint = new TLSUDDIClientEndpointDecorator<>(serviceEndpoint, StoreUtil.getGatewayAlias(url));
+        serviceEndpoint = new TLSUDDIClientEndpointDecorator<>(serviceEndpoint, StoreUtil.getGatewayCertificateAlias(exchangeName));
         serviceEndpoint.configure();
 
     }

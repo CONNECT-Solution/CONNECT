@@ -63,8 +63,7 @@ public class NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl
         ServicePortDescriptor<RespondingGatewayDeferredResponsePortType> portDescriptor, AssertionType assertion,
         String url, NhinTargetSystemType target) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-            target.getHomeCommunity().getHomeCommunityId(),
-            NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
+            target, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
     }
 
     @Override

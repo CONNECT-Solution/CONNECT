@@ -67,11 +67,11 @@ public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
      * @param url
      * @return
      */
-    protected ServiceEndpoint<T> configureBasePort(T port, String url, Integer timeout) {
+    protected ServiceEndpoint<T> configureBasePort(T port, String url, String exchangeName, Integer timeout) {
         ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<>(port);
         serviceEndpoint = new URLServiceEndpointDecorator<>(serviceEndpoint, url);
         serviceEndpoint = new TimeoutServiceEndpointDecorator<>(serviceEndpoint, timeout);
-        serviceEndpoint = new TLSClientServiceEndpointDecorator<>(serviceEndpoint, StoreUtil.getGatewayAlias(url));
+        serviceEndpoint = new TLSClientServiceEndpointDecorator<>(serviceEndpoint, StoreUtil.getGatewayCertificateAlias(exchangeName));
 
         return serviceEndpoint;
     }

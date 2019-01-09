@@ -62,9 +62,9 @@ public class NhinDocDataSubmissionProxyWebServiceSecuredImpl implements NhinDocD
 
     protected CONNECTClient<DocumentRegistryXDSPortType> getCONNECTClientSecured(
         ServicePortDescriptor<DocumentRegistryXDSPortType> portDescriptor, AssertionType assertion, String url,
-        String targetHomeCommunityId, String serviceName) {
+        NhinTargetSystemType target, String serviceName) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-            targetHomeCommunityId, serviceName);
+            target, serviceName);
     }
 
     @NwhinInvocationEvent(beforeBuilder = DocDataSubmissionBaseEventDescriptionBuilder.class,
@@ -83,7 +83,7 @@ public class NhinDocDataSubmissionProxyWebServiceSecuredImpl implements NhinDocD
             ServicePortDescriptor<DocumentRegistryXDSPortType> portDescriptor = new NhinDocDataSubmissionServicePortDescriptor();
 
             CONNECTClient<DocumentRegistryXDSPortType> client = getCONNECTClientSecured(portDescriptor, assertion, url,
-                targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHINC_XDS_SERVICE_NAME);
+                targetSystem, NhincConstants.NHINC_XDS_SERVICE_NAME);
 
             response = (RegistryResponseType) client.invokePort(DocumentRegistryXDSPortType.class,
                 "documentRegistryXDSRegisterDocumentSetB", request);

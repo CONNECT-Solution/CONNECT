@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import javax.xml.ws.WebServiceException;
 import org.apache.commons.lang3.StringUtils;
@@ -42,14 +43,14 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      * Returns a CONNECTClient configured for secured invocation.
      */
     @Override
-    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
+    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName,
         AssertionType assertion) {
 
         if (StringUtils.isEmpty(url)) {
             throw new WebServiceException(ERROR);
         }
 
-        return new CONNECTCXFClientSecured<>(portDescriptor, url, assertion);
+        return new CONNECTCXFClientSecured<>(portDescriptor, url, exchangeName, assertion);
     }
 
     /**
@@ -58,27 +59,27 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
-        AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
+        AssertionType assertion, String url, NhinTargetSystemType target, String serviceName) {
 
         if (StringUtils.isEmpty(url)) {
             throw new WebServiceException(ERROR);
         }
 
-        return new CONNECTCXFClientSecured<>(portDescriptor, assertion, url, targetHomeCommunityId, serviceName);
+        return new CONNECTCXFClientSecured<>(portDescriptor, assertion, url, target, serviceName);
     }
 
     /**
      * Returns a CONNECTClient configured for unsecured invocation.
      */
     @Override
-    public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
+    public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName,
         AssertionType assertion) {
 
         if (StringUtils.isEmpty(url)) {
             throw new WebServiceException(ERROR);
         }
 
-        return new CONNECTCXFClientUnsecured<>(portDescriptor, url, assertion);
+        return new CONNECTCXFClientUnsecured<>(portDescriptor, url, exchangeName, assertion);
     }
 
 }

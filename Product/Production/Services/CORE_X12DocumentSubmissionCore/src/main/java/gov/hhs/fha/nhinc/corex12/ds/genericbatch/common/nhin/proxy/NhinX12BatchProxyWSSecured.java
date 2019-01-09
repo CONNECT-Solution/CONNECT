@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -58,10 +58,10 @@ public class NhinX12BatchProxyWSSecured implements NhinX12BatchProxy {
 
     protected CONNECTClient<GenericBatchTransactionPort> getCONNECTClientSecured(
         ServicePortDescriptor<GenericBatchTransactionPort> portDescriptor, AssertionType assertion, String url,
-        String targetHomeCommunityId, String serviceName) {
+        NhinTargetSystemType target, String serviceName) {
 
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-            targetHomeCommunityId, serviceName);
+            target, serviceName);
     }
 
     @Override
@@ -69,13 +69,6 @@ public class NhinX12BatchProxyWSSecured implements NhinX12BatchProxy {
         AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
 
         COREEnvelopeBatchSubmissionResponse response;
-
-        String targetHCID = null;
-        if (targetSystem != null && targetSystem.getHomeCommunity() != null
-            && targetSystem.getHomeCommunity().getHomeCommunityId() != null) {
-
-            targetHCID = targetSystem.getHomeCommunity().getHomeCommunityId();
-        }
 
         try {
             String url = proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem, getServiceName(), apiLevel);
@@ -86,7 +79,7 @@ public class NhinX12BatchProxyWSSecured implements NhinX12BatchProxy {
                     = new COREGenericBatchServicePortDescriptor();
 
                 CONNECTClient<GenericBatchTransactionPort> client = getCONNECTClientSecured(portDescriptor, assertion,
-                    url, targetHCID, getServiceName());
+                    url, targetSystem, getServiceName());
                 client.enableMtom();
                 response = (COREEnvelopeBatchSubmissionResponse) client.invokePort(GenericBatchTransactionPort.class,
                     "batchSubmitTransaction", msg);
@@ -94,6 +87,12 @@ public class NhinX12BatchProxyWSSecured implements NhinX12BatchProxy {
                     X12LargePayloadUtils.convertDataToFileLocationIfEnabled(response);
                 }
             } else {
+                String targetHCID = null;
+                if (targetSystem != null && targetSystem.getHomeCommunity() != null
+                    && targetSystem.getHomeCommunity().getHomeCommunityId() != null) {
+
+                    targetHCID = targetSystem.getHomeCommunity().getHomeCommunityId();
+                }
                 return X12EntityExceptionBuilder.getInstance().createErrorResponse(msg, targetHCID);
             }
         } catch (Exception ex) {

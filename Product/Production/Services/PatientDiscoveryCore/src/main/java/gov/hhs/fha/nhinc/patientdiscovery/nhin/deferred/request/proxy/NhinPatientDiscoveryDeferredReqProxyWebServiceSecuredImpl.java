@@ -60,8 +60,7 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
             ServicePortDescriptor<RespondingGatewayDeferredRequestPortType> portDescriptor, AssertionType assertion,
             String url, NhinTargetSystemType target) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-                target.getHomeCommunity().getHomeCommunityId(),
-                NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
+                target, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
     }
 
     @NwhinInvocationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Request", version = "1.0")

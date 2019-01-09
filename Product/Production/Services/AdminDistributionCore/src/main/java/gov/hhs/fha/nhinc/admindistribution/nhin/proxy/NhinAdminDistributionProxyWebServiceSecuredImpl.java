@@ -106,7 +106,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
      */
     protected CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> getCONNECTClientSecured(
             ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor, String url,
-            AssertionType assertion, String target, String serviceName) {
+            AssertionType assertion, NhinTargetSystemType target, String serviceName) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
                 serviceName);
@@ -138,8 +138,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
                     getServicePortDescriptor(apiLevel);
 
                 CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> client = getCONNECTClientSecured(
-                        portDescriptor, url, assertion, target.getHomeCommunity().getHomeCommunityId(),
-                        NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+                        portDescriptor, url, assertion, target, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
 
                 if (apiLevel == GATEWAY_API_LEVEL.LEVEL_g1) {
                     client.enableMtom();

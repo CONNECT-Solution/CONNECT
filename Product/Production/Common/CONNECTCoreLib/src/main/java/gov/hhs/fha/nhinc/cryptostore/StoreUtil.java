@@ -27,13 +27,10 @@
 package gov.hhs.fha.nhinc.cryptostore;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.cxf.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +43,7 @@ import org.slf4j.LoggerFactory;
 public class StoreUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(StoreUtil.class);
+    public static final String INTERNAL_EXCHANGE = "INTERNAL";
     private static Map<String, String> gatewayAliasMapping = new HashMap<>();
     private static StoreUtil instance;
 
@@ -72,18 +70,6 @@ public class StoreUtil {
         return StringUtils.isBlank(alias) ? NhincConstants.DEFAULT_CLIENT_KEY_ALIAS : alias;
     }
 
-    private static String getUrlKey(String url) {
-        if(StringUtils.isNotBlank(url)){
-            try{
-                URL uri = new URL(url);
-                return MessageFormat.format("{0}:{1}", uri.getHost(), uri.getPort()).toLowerCase();
-            } catch (MalformedURLException ex) {
-                LOG.error("unable to parse the url: {}", ex.getMessage(), ex);
-            }
-        }
-        return null;
-    }
-
     /**
      *
      * addGatewayAlias will remember the URL(Hostname and Port) with associated alias (private key) this will allow
@@ -94,6 +80,7 @@ public class StoreUtil {
      * @param alias
      * @return url-parameter
      */
+    /*
     public static String addGatewayAlias(String url, String alias) {
         if (StringUtils.isNotBlank(url) && StringUtils.isNotBlank(alias)) {
             String urlKey = getUrlKey(url);
@@ -109,6 +96,7 @@ public class StoreUtil {
         }
         return url;
     }
+
 
     public static String getGatewayAlias(String url) {
         if (StringUtils.isNotBlank(url)) {
@@ -126,6 +114,14 @@ public class StoreUtil {
         String url = null != msg ? (String) msg.get(Message.ENDPOINT_ADDRESS) : null;
         return getGatewayAlias(url);
     }
+    */
+    public static void addGatewayCertificateAlias(String exchangeName, String alias) {
+        if (!INTERNAL_EXCHANGE.equals(exchangeName) && ArrayUtils.contains(new String[]{exchangeName,alias}, null)) {
+            gatewayAliasMapping.put(exchangeName, alias);
+        }
+
+    }
+
 
     public static String getGatewayAliasDefaultTo(String overrideAlias) {
         if (StringUtils.isNotBlank(overrideAlias)) {
@@ -133,5 +129,22 @@ public class StoreUtil {
         }
         String alias = System.getProperty(NhincConstants.CLIENT_KEY_ALIAS);
         return StringUtils.isBlank(alias) ? NhincConstants.DEFAULT_CLIENT_KEY_ALIAS : alias;
+    }
+
+    /**
+     * @param exchangeName
+     * @return
+     */
+    public static String getGatewayCertificateAlias(String exchangeName) {
+
+        if (!INTERNAL_EXCHANGE.equals(exchangeName)) {
+            String gatewayAlias = gatewayAliasMapping.get(exchangeName);
+            if(StringUtils.isNotBlank(gatewayAlias)){
+                LOG.debug("found url:{}, gatewayAlias:{}", exchangeName, gatewayAlias);
+                return gatewayAlias;
+            }
+        }
+
+        return getInstance().getPrivateKeyAlias();
     }
 }

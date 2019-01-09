@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.messaging.service.decorator;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.Map;
@@ -42,6 +43,7 @@ public class SAMLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T>
     private AssertionType assertion;
     private String targetHomeCommunityId = null;
     private String serviceName = null;
+    private NhinTargetSystemType target;
 
     public SAMLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, AssertionType assertion) {
         super(decoratoredEndpoint);
@@ -52,10 +54,11 @@ public class SAMLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T>
      * @param decoratored
      */
     public SAMLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, AssertionType assertion,
-        String targetHomeCommunityId, String serviceName) {
+        NhinTargetSystemType target, String serviceName) {
         super(decoratoredEndpoint);
         this.assertion = assertion;
-        this.targetHomeCommunityId = targetHomeCommunityId;
+        this.targetHomeCommunityId = target!=null ? target.getHomeCommunity().getHomeCommunityId() : null;
+        this.target = target;
         this.serviceName = serviceName;
     }
 
@@ -73,6 +76,9 @@ public class SAMLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T>
         }
         if (serviceName != null) {
             requestContext.put(SamlConstants.ACTION_PROP, serviceName);
+        }
+        if (target != null) {
+            requestContext.put("targetSystemType", target);
         }
     }
 

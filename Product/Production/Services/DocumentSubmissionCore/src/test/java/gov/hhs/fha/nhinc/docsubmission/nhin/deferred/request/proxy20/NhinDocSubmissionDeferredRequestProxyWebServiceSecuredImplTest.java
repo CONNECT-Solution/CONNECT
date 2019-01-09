@@ -101,7 +101,7 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
             @Override
             protected CONNECTClient<XDRDeferredRequest20PortType> getCONNECTClientSecured(
                 ServicePortDescriptor<XDRDeferredRequest20PortType> portDescriptor, String url,
-                AssertionType assertion, String target, String serviceName) {
+                AssertionType assertion, NhinTargetSystemType target, String serviceName) {
                 return client;
             }
 

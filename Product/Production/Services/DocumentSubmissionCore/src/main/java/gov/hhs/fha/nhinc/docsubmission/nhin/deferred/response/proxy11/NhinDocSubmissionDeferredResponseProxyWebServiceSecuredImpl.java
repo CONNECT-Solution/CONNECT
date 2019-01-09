@@ -71,7 +71,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
 
     protected CONNECTClient<XDRDeferredResponsePortType> getCONNECTClientSecured(
         ServicePortDescriptor<XDRDeferredResponsePortType> portDescriptor, String url, AssertionType assertion,
-        String target, String serviceName) {
+        NhinTargetSystemType target, String serviceName) {
 
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
             serviceName);
@@ -94,8 +94,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
                 ServicePortDescriptor<XDRDeferredResponsePortType> portDescriptor
                     = new NhinDocSubmissionDeferredResponseServicePortDescriptor();
                 CONNECTClient<XDRDeferredResponsePortType> client = getCONNECTClientSecured(portDescriptor, url,
-                    assertion, target.getHomeCommunity().getHomeCommunityId(),
-                    NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
+                    assertion, target, NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
                 client.enableMtom();
 
                 response = (XDRAcknowledgementType) client.invokePort(XDRDeferredResponsePortType.class,
