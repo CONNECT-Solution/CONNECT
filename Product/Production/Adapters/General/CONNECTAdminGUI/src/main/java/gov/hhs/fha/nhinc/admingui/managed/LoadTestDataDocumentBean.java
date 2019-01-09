@@ -27,11 +27,11 @@
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.addFacesMessageBy;
-import static gov.hhs.fha.nhinc.util.CoreHelpUtils.isCollectionEmpty;
 
 import gov.hhs.fha.nhinc.admingui.model.loadtestdata.Document;
 import gov.hhs.fha.nhinc.admingui.model.loadtestdata.Patient;
 import gov.hhs.fha.nhinc.admingui.services.LoadTestDataWSService;
+import gov.hhs.fha.nhinc.admingui.services.exception.ValidationException;
 import gov.hhs.fha.nhinc.admingui.services.impl.LoadTestDataWSServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentType;
@@ -52,6 +52,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -108,7 +109,7 @@ public class LoadTestDataDocumentBean {
 
     // database-methods
     public List<Document> getDocuments() {
-        if (isCollectionEmpty(lookupPatient)) {
+        if (MapUtils.isEmpty(lookupPatient)) {
             List<Patient> patients = HelperUtil.convertPatients(wsService.getAllPatients());
             lookupPatient = mapPatientById(patients);
         }
@@ -163,7 +164,7 @@ public class LoadTestDataDocumentBean {
         if (selectedDocument != null) {
             result = wsService.deleteDocument(selectedDocument);
             if(result){
-                getDocuments().remove(selectedDocument);
+                refreshDocumentList();
             }
             selectedDocument = null;
         } else {
@@ -223,7 +224,7 @@ public class LoadTestDataDocumentBean {
         if (selectedEventCode != null) {
             result = wsService.deleteEventCode(selectedEventCode);
             if (result) {
-                getEventCodes().remove(selectedEventCode);
+                refreshDocument();
             }
             selectedEventCode = null;
         } else {
@@ -322,7 +323,7 @@ public class LoadTestDataDocumentBean {
             CoreHelpUtils.updateDocumentBy(withDocument,
                 wsService.getPatientBy(identifierValue[0].replace("^^^", ""), identifierValue[1]));
         } else {
-            throw new RuntimeException("PatientIdentifier should not be empty.");
+            throw new ValidationException("PatientIdentifier should not be empty.");
         }
     }
 

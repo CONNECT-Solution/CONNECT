@@ -496,11 +496,6 @@ public class NhincConstants {
     public static final String ADAPTER_ADMIN_DIST_SERVICE_NAME = "adapteradmindist";
     public static final String ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME = "adapteradmindistsecured";
 
-    // Config Admin
-    public static final String ENTITY_CONFIG_ADMIN_SERVICE_NAME = "entityconfigadmin";
-    public static final String ENTITY_EXCHANGE_MANAGEMENT_SERVICE_NAME = "entityexchangemanagement";
-    public static final String ENTITY_INTERNAL_EXCHANGE_MANAGEMENT_SERVICE_NAME = "entityinternalexchangemanagement";
-
     // CORE X12 Document Submission RealTime Constants
     public static final String CORE_X12DS_REALTIME_SERVICE_NAME = "CORE_X12DSRealTime";
     public static final String NHIN_CORE_X12DS_REALTIME_SERVICE_NAME = "nhincore_x12dsrealtime";
@@ -649,13 +644,6 @@ public class NhincConstants {
     // FHIR TLS version
     public static final String FHIR_TLS = "FHIR.TLS";
 
-    public static final String ADMIN_CERT_IMPORT = "importCertificate";
-    public static final String ADMIN_CERT_LIST_TRUSTSTORE = "listTrustStores";
-    public static final String ADMIN_CERT_LIST_KEYSTORE = "listKeyStores";
-    public static final String ADMIN_CERT_DELETE = "deleteCertificate";
-    public static final String ADMIN_CERT_EDIT = "editCertificate";
-    public static final String ADMIN_CERT_LIST_CHAINOFTRUST = "listChainOfTrust";
-
     public static final String DISABLE_CN_CHECK = "disableCNCheck";
 
     // jaxb-hl7-context-name
@@ -667,18 +655,6 @@ public class NhincConstants {
     public static final String ADAPTER_XDS_SERVICE_NAME = "adapterxdsservice";
     public static final String ADAPTER_XDS_SECURED_SERVICE_NAME = "adapterxdsservicesecured";
 
-    // exchange-management
-    public static final String ADMIN_EXCHANGE_SAVE_EXCHANGE = "saveExchange";
-    public static final String ADMIN_EXCHANGE_DELETE = "deleteExchange";
-    public static final String ADMIN_EXCHANGE_REFRESH = "refreshExchangeManager";
-    public static final String ADMIN_EXCHANGE_INFOVIEW = "getExchangeInfoView";
-    public static final String ADMIN_EXCHANGE_LIST_ENDPOINTS = "listEndpoints";
-    public static final String ADMIN_EXCHANGE_LIST_EXCHANGES = "listExchanges";
-    public static final String ADMIN_EXCHANGE_LIST_ORGANIZATIONS = "listOrganizations";
-    public static final String ADMIN_EXCHANGE_SAVE_CONFIG = "saveExchangeConfig";
-
-    // internal-exchange-management
-    public static final String ADMIN_EXCHANGE_UPDATE_ENDPOINT = "updateEndpoint";
     // Patient Location Query
     public static final String PLQ_NHIN_SERVICE_NAME = "PatientLocationQuery";
     public static final String PLQ_ENTITY_SERVICE_NAME = "patientlocationqueryservice";
@@ -687,50 +663,6 @@ public class NhincConstants {
     public static final String PLQ_ADAPTERSECURED_SERVICE_NAME = "adapterplqservicesecured";
     public static final String ADAPTER_PLQ_SERVICE_NAME = "adapterpatientlocationqueryservice";
     public static final String ADAPTER_PLQ_SECURED_SERVICE_NAME = "adapterpatientlocationqueryservicesecured";
-
-    // Properties
-    public static final String PROPERTIES_SERVICE_NAME = "adapterpropertyaccessor";
-    public static final String PROPERTIES_LIST_PROP = "listProperties";
-    public static final String PROPERTIES_SAVE_PROP = "saveProperty";
-
-    public static final String ADMIN_GUI_MANAGEMENT_SERVICE_NAME = "admindashboard";
-    public static final String ADMIN_DASHBOARD_ERRORLOG_LIST = "listErrorLog";
-    public static final String ADMIN_DASHBOARD_ERRORLOG_GETFILTERS = "getSearchFilter";
-    public static final String ADMIN_DASHBOARD_ERRORLOG_VIEW = "viewErrorLog";
-
-    // load-test-data: ADMIN_LTD_SAVE/LIST/DELETE/GET
-    public static final String ENTITY_LOAD_TEST_DATA_SERVICE_NAME = "entityloadtestdata";
-    public static final String ADMIN_LTD_DELETEADDRESS = "deleteAddress";
-    public static final String ADMIN_LTD_DELETEIDENTIFIER = "deleteIdentifier";
-    public static final String ADMIN_LTD_DELETEPATIENT = "deletePatient";
-    public static final String ADMIN_LTD_DELETEPERSONNAME = "deletePersonName";
-    public static final String ADMIN_LTD_DELETEPHONENUMBER = "deletePhoneNumber";
-    public static final String ADMIN_LTD_DELETEDOCUMENT = "deleteDocument";
-    public static final String ADMIN_LTD_DELETEEVENTCODE = "deleteEventCode";
-    public static final String ADMIN_LTD_DUPLICATEDOCUMENT = "duplicateDocument";
-    public static final String ADMIN_LTD_DUPLICATEPATIENT = "duplicatePatient";
-    public static final String ADMIN_LTD_GETADDRESS = "getAddress";
-    public static final String ADMIN_LTD_GETDOCUMENT = "getDocument";
-    public static final String ADMIN_LTD_GETEVENTCODE = "getEventCode";
-    public static final String ADMIN_LTD_GETIDENTIFIER = "getIdentifier";
-    public static final String ADMIN_LTD_GETPATIENT = "getPatient";
-    public static final String ADMIN_LTD_GETPATIENT_BYIDENTIFIER = "getPatientByIdentifier";
-    public static final String ADMIN_LTD_GETPERSONNAME = "getPersonName";
-    public static final String ADMIN_LTD_GETPHONENUMBER = "getPhoneNumber";
-    public static final String ADMIN_LTD_LISTALLADDRESS = "listAllAddress";
-    public static final String ADMIN_LTD_LISTALLDOCUMENT = "listAllDocument";
-    public static final String ADMIN_LTD_LISTALLEVENTCODE = "listAllEventCode";
-    public static final String ADMIN_LTD_LISTALLIDENTIER = "listAllIdentier";
-    public static final String ADMIN_LTD_LISTALLPATIENT = "listAllPatient";
-    public static final String ADMIN_LTD_LISTALLPERSONNAME = "listAllPersonName";
-    public static final String ADMIN_LTD_LISTALLPHONENUMBER = "listAllPhoneNumber";
-    public static final String ADMIN_LTD_SAVEADDRESS = "saveAddress";
-    public static final String ADMIN_LTD_SAVEDOCUMENT = "saveDocument";
-    public static final String ADMIN_LTD_SAVEEVENTCODE = "saveEventCode";
-    public static final String ADMIN_LTD_SAVEIDENTIFIER = "saveIdentifier";
-    public static final String ADMIN_LTD_SAVEPATIENT = "savePatient";
-    public static final String ADMIN_LTD_SAVEPERSONNAME = "savePersonName";
-    public static final String ADMIN_LTD_SAVEPHONENUMBER = "savePhoneNumber";
 
     private NhincConstants() {
     }
