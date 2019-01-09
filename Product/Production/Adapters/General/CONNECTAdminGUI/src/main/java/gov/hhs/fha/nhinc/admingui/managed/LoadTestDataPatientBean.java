@@ -139,7 +139,7 @@ public class LoadTestDataPatientBean {
         if (selectedPhonenumber != null) {
             result = wsService.deletePhoneNumber(selectedPhonenumber);
             if (result) {
-                withPatient.getPhoneNumberList().remove(selectedPhonenumber);
+                refreshPatient();
             }
             selectedPhonenumber = null;
         } else {
@@ -194,7 +194,7 @@ public class LoadTestDataPatientBean {
         if (selectedAddress != null) {
             result = wsService.deleteAddress(selectedAddress);
             if (result) {
-                withPatient.getAddressList().remove(selectedAddress);
+                refreshPatient();
             }
             selectedAddress = null;
         } else {
@@ -251,11 +251,11 @@ public class LoadTestDataPatientBean {
             if (CollectionUtils.isNotEmpty(getIdentifiers()) && getIdentifiers().size() > 1) {
                 result = wsService.deleteIdentifier(selectedIdentifier);
                 if (result) {
-                    withPatient.getIdentifierList().remove(selectedIdentifier);
+                    refreshPatient();
                 }
                 selectedIdentifier = null;
             } else {
-                addPatientErrorMessages("Patient-identifier cannot be empty: fail to delete the last record");
+                addPatientErrorMessages("Last identifier cannot be deleted.");
             }
         } else {
             addPatientErrorMessages(msgForSelectDelete(IDENTIFIER));
@@ -312,11 +312,11 @@ public class LoadTestDataPatientBean {
             if (CollectionUtils.isNotEmpty(getPersonnames()) && getPersonnames().size() > 1) {
                 result = wsService.deletePersonName(selectedPersonname);
                 if (result) {
-                    withPatient.getPersonNameList().remove(selectedPersonname);
+                    refreshPatient();
                 }
                 selectedPersonname = null;
             } else {
-                addPatientErrorMessages("Patient-personname cannot be empty: fail to delete the last record");
+                addPatientErrorMessages("Last person name cannot be deleted.");
             }
         } else {
             addPatientErrorMessages(msgForSelectDelete(ADDITIONAL_NAME));
@@ -369,7 +369,7 @@ public class LoadTestDataPatientBean {
         if (selectedPatient != null) {
             result = wsService.deletePatient(selectedPatient);
             if (result) {
-                patientList.remove(selectedPatient);
+                refreshPatientList();
             }
             selectedPatient = null;
         } else {
@@ -414,7 +414,7 @@ public class LoadTestDataPatientBean {
             actionResult = wsService.savePatient(withPatient);
 
             if (actionResult) {
-                patientList = HelperUtil.convertPatients(wsService.getAllPatients());
+                refreshPatientList();
                 addPatientInfoMessages(msgForSaveSuccess("patient basic-info", withPatient.getPatientId()));
             }
         } catch (LoadTestDataException e) {
@@ -580,6 +580,10 @@ public class LoadTestDataPatientBean {
             selectedPatient = withPatient;
         }
         editPatient();
+    }
+
+    private void refreshPatientList() {
+        patientList = HelperUtil.convertPatients(wsService.getAllPatients());
     }
 
 }

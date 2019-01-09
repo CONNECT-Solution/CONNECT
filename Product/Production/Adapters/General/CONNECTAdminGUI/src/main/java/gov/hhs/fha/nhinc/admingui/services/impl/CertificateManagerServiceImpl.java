@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
@@ -32,6 +32,7 @@ import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_S
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
 
+import gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants;
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
@@ -61,7 +62,6 @@ import gov.hhs.fha.nhinc.configuration.ConfigAdminPortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
 import gov.hhs.fha.nhinc.util.UtilException;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -101,7 +101,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     @Override
     public List<CertificateDTO> fetchKeyStores() throws CertificateManagerException {
         try {
-            return listKeyStore(NhincConstants.ADMIN_CERT_LIST_KEYSTORE);
+            return listKeyStore(AdminWSConstants.ADMIN_CERT_LIST_KEYSTORE);
         } catch (Exception ex) {
             LOG.error(UNABLE_TO_GET_CERTIFICATE, ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
@@ -112,7 +112,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     @Override
     public List<CertificateDTO> fetchTrustStores() throws CertificateManagerException {
         try {
-            return listTrustStore(NhincConstants.ADMIN_CERT_LIST_TRUSTSTORE, false);
+            return listTrustStore(AdminWSConstants.ADMIN_CERT_LIST_TRUSTSTORE, false);
         } catch (Exception ex) {
             LOG.error(UNABLE_TO_GET_CERTIFICATE, ex.getLocalizedMessage(), ex);
             throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
@@ -158,7 +158,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     @Override
     public List<CertificateDTO> refreshTrustStores(boolean refreshCache) throws CertificateManagerException {
         try {
-            return listTrustStore(NhincConstants.ADMIN_CERT_LIST_TRUSTSTORE, refreshCache);
+            return listTrustStore(AdminWSConstants.ADMIN_CERT_LIST_TRUSTSTORE, refreshCache);
         } catch (Exception e) {
             LOG.error(UNABLE_TO_GET_CERTIFICATE, e.getLocalizedMessage(), e);
             throw new CertificateManagerException(UNABLE_TO_GET_CERTIFICATE);
@@ -231,7 +231,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         try {
             ImportCertificateRequestMessageType requestMessage = createImportCertRequest(cert, refreshCache, hashToken);
             SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
-                .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_IMPORT, requestMessage);
+                .invokePort(EntityConfigAdminPortType.class, AdminWSConstants.ADMIN_CERT_IMPORT, requestMessage);
             importStatus = response.isStatus();
         } catch (Exception ex) {
             throw new CertificateManagerException("Error sending import request message.", ex);
@@ -265,7 +265,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         request.setAlias(alias);
         try {
             return (SimpleCertificateResponseMessageType) getClient()
-                .invokePort(EntityConfigAdminPortType.class, NhincConstants.ADMIN_CERT_DELETE, request);
+                .invokePort(EntityConfigAdminPortType.class, AdminWSConstants.ADMIN_CERT_DELETE, request);
         } catch (Exception e) {
             throw new CertificateManagerException("Error deleting the selected certificate.", e);
         }
@@ -274,7 +274,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     private CONNECTClient<EntityConfigAdminPortType> getClient() throws Exception {
 
         String url = oProxyHelper
-            .getAdapterEndPointFromConnectionManager(NhincConstants.ENTITY_CONFIG_ADMIN_SERVICE_NAME);
+            .getAdapterEndPointFromConnectionManager(AdminWSConstants.ENTITY_CONFIG_ADMIN_SERVICE_NAME);
 
         ServicePortDescriptor<EntityConfigAdminPortType> portDescriptor = new ConfigAdminPortDescriptor();
 
@@ -371,7 +371,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             requestMessage.setConfigAssertion(assertion);
 
             response = (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
-                NhincConstants.ADMIN_CERT_EDIT, requestMessage);
+                AdminWSConstants.ADMIN_CERT_EDIT, requestMessage);
 
         } catch (Exception ex) {
             response.setStatus(false);
@@ -406,7 +406,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         ListCertificatesResponseMessageType response;
         try {
             response = (ListCertificatesResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
-                NhincConstants.ADMIN_CERT_LIST_CHAINOFTRUST, message);
+                AdminWSConstants.ADMIN_CERT_LIST_CHAINOFTRUST, message);
         } catch (Exception e) {
             throw new CertificateManagerException("Error while fetching certificates-chain.", e);
         }

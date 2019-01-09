@@ -27,9 +27,9 @@
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ENTITY_LOAD_TEST_DATA_SERVICE_NAME;
 import static gov.hhs.fha.nhinc.util.CoreHelpUtils.firstItem;
 
+import gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants;
 import gov.hhs.fha.nhinc.admingui.services.LoadTestDataWSService;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.AddressType;
@@ -75,7 +75,6 @@ import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.loadtestdata.LoadTestDataException;
 import gov.hhs.fha.nhinc.loadtestdatamanagement.EntityLoadTestDataManagementPortType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.ArrayList;
@@ -104,8 +103,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_LISTALLPATIENT, request);
-            logDebug(NhincConstants.ADMIN_LTD_LISTALLPATIENT, response.getPatientList().size());
+                AdminWSConstants.ADMIN_LTD_LISTALLPATIENT, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_LISTALLPATIENT, response.getPatientList().size());
             return response.getPatientList();
         } catch (Exception e) {
             LOG.error("error during get-all patients: {}", e.getLocalizedMessage(), e);
@@ -121,8 +120,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_LISTALLPERSONNAME, request);
-            logDebug(NhincConstants.ADMIN_LTD_LISTALLPERSONNAME, response.getPersonNameList().size());
+                AdminWSConstants.ADMIN_LTD_LISTALLPERSONNAME, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_LISTALLPERSONNAME, response.getPersonNameList().size());
             return response.getPersonNameList();
         } catch (Exception e) {
             LOG.error("error during get-all personnames: {}, {}", patientId, e.getLocalizedMessage(), e);
@@ -138,8 +137,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_LISTALLADDRESS, request);
-            logDebug(NhincConstants.ADMIN_LTD_LISTALLADDRESS, response.getAddressList().size());
+                AdminWSConstants.ADMIN_LTD_LISTALLADDRESS, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_LISTALLADDRESS, response.getAddressList().size());
             return response.getAddressList();
         } catch (Exception e) {
             LOG.error("error during get-all addresses: {}, {}", patientId, e.getLocalizedMessage(), e);
@@ -155,8 +154,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_LISTALLIDENTIER, request);
-            logDebug(NhincConstants.ADMIN_LTD_LISTALLIDENTIER, response.getIdentifierList().size());
+                AdminWSConstants.ADMIN_LTD_LISTALLIDENTIER, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_LISTALLIDENTIER, response.getIdentifierList().size());
             return response.getIdentifierList();
         } catch (Exception e) {
             LOG.error("error during get-all identiers: {}, {}", patientId, e.getLocalizedMessage(), e);
@@ -172,8 +171,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_LISTALLPHONENUMBER, request);
-            logDebug(NhincConstants.ADMIN_LTD_LISTALLPHONENUMBER, response.getPhoneNumberList().size());
+                AdminWSConstants.ADMIN_LTD_LISTALLPHONENUMBER, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_LISTALLPHONENUMBER, response.getPhoneNumberList().size());
             return response.getPhoneNumberList();
         } catch (Exception e) {
             LOG.error("error during get-all phonenumbers: {}, {}", patientId, e.getLocalizedMessage(), e);
@@ -189,8 +188,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_DELETEPATIENT, request);
-            logDebug(NhincConstants.ADMIN_LTD_DELETEPATIENT, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_DELETEPATIENT, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_DELETEPATIENT, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during delete patient: {}, {}", patient.getPatientId(), e.getLocalizedMessage(), e);
@@ -206,8 +205,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_DELETEPERSONNAME, request);
-            logDebug(NhincConstants.ADMIN_LTD_DELETEPERSONNAME, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_DELETEPERSONNAME, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_DELETEPERSONNAME, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during delete personname: {}, {}", personname.getPersonNameId(), e.getLocalizedMessage(),
@@ -224,8 +223,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_DELETEADDRESS, request);
-            logDebug(NhincConstants.ADMIN_LTD_DELETEADDRESS, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_DELETEADDRESS, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_DELETEADDRESS, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during delete address: {}, {}", address.getAddressId(), e.getLocalizedMessage(), e);
@@ -241,8 +240,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_DELETEIDENTIFIER, request);
-            logDebug(NhincConstants.ADMIN_LTD_DELETEIDENTIFIER, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_DELETEIDENTIFIER, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_DELETEIDENTIFIER, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during delete identifier: {}, {}", identifier.getIdentifierId(), e.getLocalizedMessage(),
@@ -259,8 +258,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_DELETEPHONENUMBER, request);
-            logDebug(NhincConstants.ADMIN_LTD_DELETEPHONENUMBER, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_DELETEPHONENUMBER, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_DELETEPHONENUMBER, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during delete phonenumber: {}, {}", phonenumber.getPhoneNumberId(),
@@ -277,8 +276,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_GETPATIENT, request);
-            logDebug(NhincConstants.ADMIN_LTD_GETPATIENT, response.getPatientList().size());
+                AdminWSConstants.ADMIN_LTD_GETPATIENT, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_GETPATIENT, response.getPatientList().size());
             return firstItem(response.getPatientList());
         } catch (Exception e) {
             LOG.error("error during get patient: {}, {}", patientId, e.getLocalizedMessage(), e);
@@ -294,8 +293,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_DUPLICATEPATIENT, request);
-            logDebug(NhincConstants.ADMIN_LTD_DUPLICATEPATIENT, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_DUPLICATEPATIENT, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_DUPLICATEPATIENT, response.isStatus(), response.getMessage());
             return firstItem(response.getPatientList());
         } catch (Exception e) {
             LOG.error("error during duplicate patient: {}, {}", patientId, e.getLocalizedMessage(), e);
@@ -311,8 +310,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_GETPERSONNAME, request);
-            logDebug(NhincConstants.ADMIN_LTD_GETPERSONNAME, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_GETPERSONNAME, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_GETPERSONNAME, response.isStatus(), response.getMessage());
             return firstItem(response.getPersonNameList());
         } catch (Exception e) {
             LOG.error("error during retrieval personname: {}, {}", personnameId, e.getLocalizedMessage(), e);
@@ -328,8 +327,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_GETADDRESS, request);
-            logDebug(NhincConstants.ADMIN_LTD_GETADDRESS, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_GETADDRESS, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_GETADDRESS, response.isStatus(), response.getMessage());
             return firstItem(response.getAddressList());
         } catch (Exception e) {
             LOG.error("error during retrieval address: {}, {}", addressId, e.getLocalizedMessage(), e);
@@ -345,8 +344,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_GETIDENTIFIER, request);
-            logDebug(NhincConstants.ADMIN_LTD_GETIDENTIFIER, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_GETIDENTIFIER, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_GETIDENTIFIER, response.isStatus(), response.getMessage());
             return firstItem(response.getIdentifierList());
         } catch (Exception e) {
             LOG.error("error during retrieval identifier: {}, {}", identifierId, e.getLocalizedMessage(), e);
@@ -362,8 +361,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_GETPHONENUMBER, request);
-            logDebug(NhincConstants.ADMIN_LTD_GETPHONENUMBER, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_GETPHONENUMBER, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_GETPHONENUMBER, response.isStatus(), response.getMessage());
             return firstItem(response.getPhoneNumberList());
         } catch (Exception e) {
             LOG.error("error during retrieval identifier: {}, {}", phonenumberId, e.getLocalizedMessage(), e);
@@ -379,8 +378,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_SAVEPATIENT, request);
-            logDebug(NhincConstants.ADMIN_LTD_SAVEPATIENT, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_SAVEPATIENT, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_SAVEPATIENT, response.isStatus(), response.getMessage());
             if (response.isStatus()) {
                 patient.setPatientId(response.getSaveRecordId());
             }
@@ -399,8 +398,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_SAVEPERSONNAME, request);
-            logDebug(NhincConstants.ADMIN_LTD_SAVEPERSONNAME, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_SAVEPERSONNAME, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_SAVEPERSONNAME, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during save personname: {}", e.getLocalizedMessage(), e);
@@ -416,8 +415,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_SAVEADDRESS, request);
-            logDebug(NhincConstants.ADMIN_LTD_SAVEADDRESS, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_SAVEADDRESS, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_SAVEADDRESS, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during save address: {}", e.getLocalizedMessage(), e);
@@ -433,8 +432,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_SAVEIDENTIFIER, request);
-            logDebug(NhincConstants.ADMIN_LTD_SAVEIDENTIFIER, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_SAVEIDENTIFIER, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_SAVEIDENTIFIER, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during save identifier: {}", e.getLocalizedMessage(), e);
@@ -450,8 +449,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_SAVEPHONENUMBER, request);
-            logDebug(NhincConstants.ADMIN_LTD_SAVEPHONENUMBER, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_SAVEPHONENUMBER, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_SAVEPHONENUMBER, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during save phonenumber: {}", e.getLocalizedMessage(), e);
@@ -466,8 +465,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_LISTALLDOCUMENT, request);
-            logDebug(NhincConstants.ADMIN_LTD_LISTALLDOCUMENT, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_LISTALLDOCUMENT, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_LISTALLDOCUMENT, response.isStatus(), response.getMessage());
             return response.getDocumentMetadataList();
         } catch (Exception e) {
             LOG.error("error during get-all documents: {}", e.getLocalizedMessage(), e);
@@ -484,8 +483,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_LISTALLEVENTCODE, request);
-            logDebug(NhincConstants.ADMIN_LTD_LISTALLEVENTCODE, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_LISTALLEVENTCODE, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_LISTALLEVENTCODE, response.isStatus(), response.getMessage());
             return response.getEventCodeList();
         } catch (Exception e) {
             LOG.error("error during get-all eventCodes: {}, {}", documentId, e.getLocalizedMessage(), e);
@@ -501,8 +500,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_DUPLICATEDOCUMENT, request);
-            logDebug(NhincConstants.ADMIN_LTD_DUPLICATEDOCUMENT, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_DUPLICATEDOCUMENT, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_DUPLICATEDOCUMENT, response.isStatus(), response.getMessage());
             return firstItem(response.getDocumentMetadataList());
         } catch (Exception e) {
             LOG.error("error during duplicate document: {}, {}", documentId, e.getLocalizedMessage(), e);
@@ -518,8 +517,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_DELETEDOCUMENT, request);
-            logDebug(NhincConstants.ADMIN_LTD_DELETEDOCUMENT, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_DELETEDOCUMENT, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_DELETEDOCUMENT, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during delete document: {}", e.getLocalizedMessage(), e);
@@ -535,8 +534,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_DELETEEVENTCODE, request);
-            logDebug(NhincConstants.ADMIN_LTD_DELETEEVENTCODE, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_DELETEEVENTCODE, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_DELETEEVENTCODE, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during delete eventcode: {}", e.getLocalizedMessage(), e);
@@ -552,8 +551,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_GETDOCUMENT, request);
-            logDebug(NhincConstants.ADMIN_LTD_GETDOCUMENT, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_GETDOCUMENT, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_GETDOCUMENT, response.isStatus(), response.getMessage());
             return firstItem(response.getDocumentMetadataList());
         } catch (Exception e) {
             LOG.error("error during get document: {}, {}", documentId, e.getLocalizedMessage(), e);
@@ -569,8 +568,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_GETEVENTCODE, request);
-            logDebug(NhincConstants.ADMIN_LTD_GETEVENTCODE, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_GETEVENTCODE, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_GETEVENTCODE, response.isStatus(), response.getMessage());
             return firstItem(response.getEventCodeList());
         } catch (Exception e) {
             LOG.error("error during get eventCode: {}, {}", eventCodeId, e.getLocalizedMessage(), e);
@@ -586,8 +585,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_SAVEDOCUMENT, request);
-            logDebug(NhincConstants.ADMIN_LTD_SAVEDOCUMENT, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_SAVEDOCUMENT, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_SAVEDOCUMENT, response.isStatus(), response.getMessage());
             if (CoreHelpUtils.isId(response.getSaveRecordId())) {
                 document.setDocumentId(response.getSaveRecordId());
             }
@@ -606,8 +605,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_SAVEEVENTCODE, request);
-            logDebug(NhincConstants.ADMIN_LTD_SAVEEVENTCODE, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_SAVEEVENTCODE, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_SAVEEVENTCODE, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during save eventCode: {}", e.getLocalizedMessage(), e);
@@ -624,8 +623,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
         try {
             LoadTestDataSimpleResponseMessageType response = (LoadTestDataSimpleResponseMessageType) invokeClientPort(
-                NhincConstants.ADMIN_LTD_GETPATIENT_BYIDENTIFIER, request);
-            logDebug(NhincConstants.ADMIN_LTD_GETPATIENT_BYIDENTIFIER, response.isStatus(), response.getMessage());
+                AdminWSConstants.ADMIN_LTD_GETPATIENT_BYIDENTIFIER, request);
+            logDebug(AdminWSConstants.ADMIN_LTD_GETPATIENT_BYIDENTIFIER, response.isStatus(), response.getMessage());
             return firstItem(response.getPatientList());
         } catch (Exception e) {
             LOG.error("error during get patientByIdentifier: {}, {}, {}", identifierId, identifierOrg,
@@ -636,7 +635,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
 
     private static <T> Object invokeClientPort(String serviceName, T request)
         throws Exception {
-        String url = proxyHelper.getAdapterEndPointFromConnectionManager(ENTITY_LOAD_TEST_DATA_SERVICE_NAME);
+        String url = proxyHelper
+            .getAdapterEndPointFromConnectionManager(AdminWSConstants.ENTITY_LOAD_TEST_DATA_SERVICE_NAME);
         return getClient(url, WS_ADDRESSING_ACTION, PORT_TYPE).invokePort(PORT_TYPE, serviceName, request);
     }
 
