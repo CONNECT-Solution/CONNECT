@@ -49,8 +49,8 @@ public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorat
      * @param assertion
      * @param url
      */
-    public TLSClientServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String gatewayAlias) {
-        this(decoratoredEndpoint, TLSClientParametersFactory.getInstance(), gatewayAlias);
+    public TLSClientServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String certificateAlias) {
+        this(decoratoredEndpoint, TLSClientParametersFactory.getInstance(), certificateAlias);
     }
 
     /**

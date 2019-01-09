@@ -42,7 +42,7 @@ import java.util.Map;
 public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAServicePortBuilder<T> {
 
     private static final Map<String, Map<Class<?>, Object>> CACHED_PORTS = new HashMap<>();
-    private String gatewayAlias;
+    private String certificateAlias;
 
     /**
      * Constructor.
@@ -51,7 +51,7 @@ public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAService
      */
     public CachingCXFSecuredServicePortBuilder(ServicePortDescriptor<T> portDescriptor, String gatewayAlias) {
         super(portDescriptor);
-        this.gatewayAlias=gatewayAlias;
+        this.certificateAlias=gatewayAlias;
     }
 
     /*
@@ -79,8 +79,8 @@ public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAService
         super.configurePort(port, assertion);
 
         ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<>(port);
-        serviceEndpoint = new TLSClientServiceEndpointDecorator<>(serviceEndpoint, gatewayAlias);
-        serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint, gatewayAlias, assertion);
+        serviceEndpoint = new TLSClientServiceEndpointDecorator<>(serviceEndpoint, certificateAlias);
+        serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint, certificateAlias, assertion);
         serviceEndpoint.configure();
     }
 

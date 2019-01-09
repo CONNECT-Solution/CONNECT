@@ -106,13 +106,13 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @throws Exception
      */
     @Override
-    public Element build(final CallbackProperties properties, String gatewayAlias) {
+    public Element build(final CallbackProperties properties, String certificateAlias) {
         LOG.debug("SamlCallbackHandler.build() -- Start");
         Element signedAssertion = null;
         try {
-            final X509Certificate certificate = certificateManager.getCertificateBy(gatewayAlias);
-            final PublicKey publicKey = certificateManager.getPublicKeyBy(gatewayAlias);
-            final PrivateKey privateKey = certificateManager.getPrivateKeyBy(gatewayAlias);
+            final X509Certificate certificate = certificateManager.getCertificateBy(certificateAlias);
+            final PublicKey publicKey = certificateManager.getPublicKeyBy(certificateAlias);
+            final PrivateKey privateKey = certificateManager.getPrivateKeyBy(certificateAlias);
             Assertion assertion = componentBuilder.createAssertion();
 
             // create the assertion id
