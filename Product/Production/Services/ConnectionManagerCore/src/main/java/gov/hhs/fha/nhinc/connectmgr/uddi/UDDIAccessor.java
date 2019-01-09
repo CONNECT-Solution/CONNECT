@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.connectmgr.uddi;
 import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessException;
 import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxy;
 import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyObjectFactory;
+import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
@@ -117,16 +118,16 @@ public class UDDIAccessor {
      * This method is used to retrieve the data from the UDDI server. The data is returned in the form of
      * CMBusinessEntities.
      *
-     * @param exchangeURL
+     * @param exchange
      * @return The Business Entities that were retrieved from the UDDI server.
      * @throws gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessorException
      *
      */
-    public BusinessDetail retrieveFromUDDIServer(String exchangeURL) throws UDDIAccessorException {
+    public BusinessDetail retrieveFromUDDIServer(ExchangeType exchange) throws UDDIAccessorException {
         loadProperties();
 
-        BusinessList businessList = retrieveBusinessesListFromUDDI(exchangeURL);
-        return retrieveBusinessDetail(businessList, exchangeURL);
+        BusinessList businessList = retrieveBusinessesListFromUDDI(exchange);
+        return retrieveBusinessDetail(businessList, exchange);
     }
 
     /**
@@ -136,7 +137,7 @@ public class UDDIAccessor {
      * @return the BusinessEntities retrieved from the UDDI server.
      * @throws UDDIAccessorException
      */
-    private BusinessList retrieveBusinessesListFromUDDI(String exchangeURL) throws UDDIAccessorException {
+    private BusinessList retrieveBusinessesListFromUDDI(ExchangeType exchange) throws UDDIAccessorException {
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Retrieving business entities from UDDI using find_business web service call.");
@@ -146,7 +147,7 @@ public class UDDIAccessor {
         try {
             UDDIFindBusinessProxyObjectFactory uddiFactory = new UDDIFindBusinessProxyObjectFactory();
             UDDIFindBusinessProxy uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
-            businessList = uddiProxy.findBusinessesFromUDDI(exchangeURL);
+            businessList = uddiProxy.findBusinessesFromUDDI(exchange);
 
             removeIgnoredBusinesses(businessList);
         } catch (UDDIFindBusinessException e) {
@@ -159,7 +160,7 @@ public class UDDIAccessor {
         return businessList;
     }
 
-    private static BusinessDetail retrieveBusinessDetail(BusinessList businessList, String exchangeURL) throws
+    private static BusinessDetail retrieveBusinessDetail(BusinessList businessList, ExchangeType exchange) throws
         UDDIAccessorException {
 
         if (businessList == null) {
@@ -173,7 +174,7 @@ public class UDDIAccessor {
 
             UDDIFindBusinessProxyObjectFactory uddiFactory = new UDDIFindBusinessProxyObjectFactory();
             UDDIFindBusinessProxy uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
-            businessDetail = uddiProxy.getBusinessDetail(searchParams, exchangeURL);
+            businessDetail = uddiProxy.getBusinessDetail(searchParams, exchange);
         } catch (UDDIFindBusinessException e) {
             String sErrorMessage = "Failed to call UDDI web service get_businessDetail method.  Error: "
                 + e.getMessage();

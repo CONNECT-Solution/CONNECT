@@ -26,15 +26,14 @@
 */
 package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 
+import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.FindBusiness;
-import org.uddi.api_v3.GetBusinessDetail;
 
 /**
  *
@@ -50,7 +49,7 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
      * @throws UDDIFindBusinessException
      */
     @Override
-    public BusinessList findBusinessesFromUDDI(String exchangeURL) throws UDDIFindBusinessException {
+    public BusinessList findBusinessesFromUDDI(ExchangeType exchange) throws UDDIFindBusinessException {
         LOG.debug("Using HP Implementation for UDDI Business Info Service");
 
         BusinessList oBusinessList;
@@ -65,7 +64,7 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
             }
 
             ServicePortDescriptor<UDDIInquiryPortType> portDescriptor = new UDDIFindBusinessProxyServicePortDescriptor();
-            CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, exchangeURL);
+            CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, exchange.getUrl(), exchange.getName());
             oBusinessList = (BusinessList) client.invokePort(UDDIInquiryPortType.class, "findBusiness", oSearchParams);
         } catch (Exception e) {
             String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: "
@@ -77,10 +76,5 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
         return oBusinessList;
     }
 
-    @Override
-    public BusinessDetail getBusinessDetail(GetBusinessDetail searchParams, String exchangeURL) throws
-        UDDIFindBusinessException {
-        return super.getBusinessDetail(searchParams, exchangeURL);
-    }
 
 }

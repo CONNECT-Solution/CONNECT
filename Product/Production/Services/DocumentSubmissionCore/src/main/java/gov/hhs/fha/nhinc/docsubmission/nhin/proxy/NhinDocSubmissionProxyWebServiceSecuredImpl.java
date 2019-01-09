@@ -82,9 +82,9 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
 
     protected CONNECTClient<DocumentRepositoryXDRPortType> getCONNECTClientSecured(
         ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor, AssertionType assertion, String url,
-        String targetHomeCommunityId, String serviceName) {
+        NhinTargetSystemType target, String serviceName) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-            targetHomeCommunityId, serviceName);
+            target, serviceName);
     }
 
     @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class, afterReturningBuilder
@@ -103,7 +103,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
             ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor = getServicePortDescriptor(apiLevel);
 
             CONNECTClient<DocumentRepositoryXDRPortType> client = getCONNECTClientSecured(portDescriptor, assertion,
-                url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHINC_XDR_SERVICE_NAME);
+                url, targetSystem, NhincConstants.NHINC_XDR_SERVICE_NAME);
             client.enableMtom();
 
             response = (RegistryResponseType) client.invokePort(DocumentRepositoryXDRPortType.class,

@@ -169,9 +169,9 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
                 if (ExchangeManagerHelper.hasService(epType, sUniformServiceName)) {
                     NhincConstants.UDDI_SPEC_VERSION highestVersion = ExchangeManagerHelper.getHighestUDDISpecVersion(
                         ExchangeManagerHelper.getSpecVersions(epType));
-                    String url = ExchangeManagerHelper
-                        .getEndpointURLBySpecVersion(epType.getEndpointConfigurationList(), highestVersion);
-                    return StoreUtil.addGatewayAlias(url, getGatewayAlias(exchangeName));
+                    String url = ExchangeManagerHelper.getEndpointURLBySpecVersion(epType.getEndpointConfigurationList(), highestVersion);
+                    StoreUtil.addGatewayCertificateAlias(exchangeName, getGatewayAlias(exchangeName));
+                    return url;
                 }
             }
         }
@@ -255,8 +255,8 @@ public abstract class AbstractExchangeManager<T> implements Exchange<T> {
             }
         }
         LOG.debug("Returning URL: {}", sEndpointURL);
-        return StoreUtil.addGatewayAlias(sEndpointURL,
-            getGatewayAlias(null != targetSystem ? targetSystem.getExchangeName() : null));
+        StoreUtil.addGatewayCertificateAlias(sEndpointURL, getGatewayAlias(null != targetSystem ? targetSystem.getExchangeName() : null));
+        return sEndpointURL;
     }
 
     @Override

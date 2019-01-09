@@ -69,7 +69,7 @@ public class EntityPatientDiscoveryDeferredRequestProxyWebServiceSecuredImpl imp
             ServicePortDescriptor<EntityPatientDiscoverySecuredAsyncReqPortType> portDescriptor
                 = new EntityPatientDiscoverySecuredAsyncReqServicePortDescriptor();
             CONNECTClient<EntityPatientDiscoverySecuredAsyncReqPortType> client = CONNECTClientFactory.getInstance()
-                .getCONNECTClientSecured(portDescriptor, url, assertion);
+                .getCONNECTClientSecured(portDescriptor, url,  assertion);
             RespondingGatewayPRPAIN201305UV02SecuredRequestType securedRequest
                 = new RespondingGatewayPRPAIN201305UV02SecuredRequestType();
             securedRequest.setNhinTargetCommunities(targets);

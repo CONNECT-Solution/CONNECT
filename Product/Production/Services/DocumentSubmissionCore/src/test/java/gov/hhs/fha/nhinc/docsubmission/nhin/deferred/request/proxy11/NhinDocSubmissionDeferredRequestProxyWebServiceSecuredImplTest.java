@@ -87,25 +87,14 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
 
     private NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl getImpl() {
         return new NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {
-            /*
-             * (non-Javadoc)
-             *
-             * @see gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20.
-             * NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl
-             * #getCONNECTClientSecured(gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor,
-             * java.lang.String, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String, java.lang.String)
-             */
+
             @Override
             protected CONNECTClient<XDRDeferredRequestPortType> getCONNECTClientSecured(
                 ServicePortDescriptor<XDRDeferredRequestPortType> portDescriptor, String url,
-                AssertionType assertion, String target, String serviceName) {
+                AssertionType assertion, NhinTargetSystemType target, String serviceName) {
                 return client;
             }
 
-            /*
-             * (non-Javadoc) @see
-             * gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl#getDocSubmissionUtils()
-             */
             @Override
             protected DocSubmissionUtils getDocSubmissionUtils() {
                 return utils;

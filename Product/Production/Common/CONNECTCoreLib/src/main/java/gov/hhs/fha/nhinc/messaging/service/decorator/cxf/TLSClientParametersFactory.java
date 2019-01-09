@@ -93,20 +93,20 @@ public class TLSClientParametersFactory {
 
     }
 
-    public TLSClientParameters getTLSClientParameters(String gatewayAlias) {
-        return constructTLSClient(new TLSClientParameters(), gatewayAlias);
+    public TLSClientParameters getTLSClientParameters(String certificateAlias) {
+        return constructTLSClient(new TLSClientParameters(), certificateAlias);
     }
 
     private static TLSClientParameters constructTLSClient(TLSClientParameters tlsClientParameters,
-        String gatewayAlias) {
+        String certificateAlias) {
         try {
             boolean isDisableCNCheck = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
                 DISABLE_CN_CHECK, false);
 
-            if (StringUtils.isNotBlank(gatewayAlias)
-                && StoreUtil.getInstance().getPrivateKeyAlias().equalsIgnoreCase(gatewayAlias)) {
-                LOG.debug("SSLContext.setCertAlias:{}", gatewayAlias);
-                tlsClientParameters.setCertAlias(gatewayAlias);
+            if (StringUtils.isNotBlank(certificateAlias)
+                && StoreUtil.getInstance().getPrivateKeyAlias().equalsIgnoreCase(certificateAlias)) {
+                LOG.debug("SSLContext.setCertAlias:{}", certificateAlias);
+                tlsClientParameters.setCertAlias(certificateAlias);
             }
 
             setKeyManagers(tlsClientParameters);

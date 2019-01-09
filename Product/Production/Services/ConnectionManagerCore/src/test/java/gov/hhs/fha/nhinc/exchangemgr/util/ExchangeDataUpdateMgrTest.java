@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.common.exchangemanagement.ExchangeDownloadStatusType;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessor;
 import gov.hhs.fha.nhinc.connectmgr.uddi.UDDIAccessorException;
+import gov.hhs.fha.nhinc.exchange.ExchangeType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.exchangemgr.fhir.FhirClient;
 import gov.hhs.fha.nhinc.exchangemgr.fhir.FhirClientException;
@@ -50,6 +51,7 @@ import java.util.List;
 import javax.xml.datatype.DatatypeConfigurationException;
 import org.apache.http.client.methods.HttpGet;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.uddi.api_v3.BusinessDetail;
 
 /**
@@ -82,7 +84,7 @@ public class ExchangeDataUpdateMgrTest {
     public void testExchangeDownloadSuccess() throws ExchangeManagerException, UDDIAccessorException,
     DatatypeConfigurationException, FhirClientException, URISyntaxException {
         ExchangeDataUpdateMgr workerThread = createExchangeScheduledTask();
-        when(uddiAccessor.retrieveFromUDDIServer(anyString())).thenReturn(
+        when(uddiAccessor.retrieveFromUDDIServer(Mockito.any(ExchangeType.class))).thenReturn(
             new BusinessDetail());
         when(mockRequestBuilder.get(anyString(), any(MimeType.class))).thenReturn(mockRequest);
         when(fhirClient.sendRequest(mockRequest)).thenReturn(FHIR_XML);
@@ -108,7 +110,7 @@ public class ExchangeDataUpdateMgrTest {
     public void testFhirExchangeDownloadFailure() throws ExchangeManagerException, UDDIAccessorException,
     DatatypeConfigurationException, FhirClientException, URISyntaxException {
         ExchangeDataUpdateMgr workerThread = createExchangeScheduledTask();
-        when(uddiAccessor.retrieveFromUDDIServer(anyString())).thenReturn(
+        when(uddiAccessor.retrieveFromUDDIServer(Mockito.any(ExchangeType.class))).thenReturn(
             new BusinessDetail());
         when(mockRequestBuilder.get(anyString(), any(MimeType.class))).thenReturn(mockRequest);
         when(fhirClient.sendRequest(mockRequest)).thenThrow(new FhirClientException());
@@ -129,7 +131,7 @@ public class ExchangeDataUpdateMgrTest {
     public void testFhirExchangeSchemaValidationFailed() throws ExchangeManagerException, UDDIAccessorException,
     DatatypeConfigurationException, FhirClientException, URISyntaxException {
         ExchangeDataUpdateMgr workerThread = createExchangeScheduledTask();
-        when(uddiAccessor.retrieveFromUDDIServer(anyString())).thenReturn(
+        when(uddiAccessor.retrieveFromUDDIServer(Mockito.any(ExchangeType.class))).thenReturn(
             new BusinessDetail());
         when(mockRequestBuilder.get(anyString(), any(MimeType.class))).thenReturn(mockRequest);
         when(fhirClient.sendRequest(mockRequest)).thenReturn(BAD_XML);
@@ -153,7 +155,7 @@ public class ExchangeDataUpdateMgrTest {
     public void testRefreshLockReleaseForFetchSuccess() throws ExchangeManagerException, UDDIAccessorException,
     DatatypeConfigurationException, FhirClientException, URISyntaxException {
         ExchangeDataUpdateMgr exUpdateMgr = createExchangeScheduledTask();
-        when(uddiAccessor.retrieveFromUDDIServer(anyString())).thenReturn(
+        when(uddiAccessor.retrieveFromUDDIServer(Mockito.any(ExchangeType.class))).thenReturn(
             new BusinessDetail());
         when(mockRequestBuilder.get(anyString(), any(MimeType.class))).thenReturn(mockRequest);
         when(fhirClient.sendRequest(mockRequest)).thenReturn(FHIR_XML);
@@ -165,7 +167,7 @@ public class ExchangeDataUpdateMgrTest {
     public void testRefreshLockReleaseForFetchFailure() throws ExchangeManagerException, UDDIAccessorException,
     DatatypeConfigurationException, FhirClientException, URISyntaxException {
         ExchangeDataUpdateMgr exUpdateMgr = createExchangeScheduledTask();
-        when(uddiAccessor.retrieveFromUDDIServer(anyString())).thenReturn(
+        when(uddiAccessor.retrieveFromUDDIServer(Mockito.any(ExchangeType.class))).thenReturn(
             new BusinessDetail());
         when(mockRequestBuilder.get(anyString(), any(MimeType.class))).thenReturn(mockRequest);
         when(fhirClient.sendRequest(mockRequest)).thenThrow(new RuntimeException());

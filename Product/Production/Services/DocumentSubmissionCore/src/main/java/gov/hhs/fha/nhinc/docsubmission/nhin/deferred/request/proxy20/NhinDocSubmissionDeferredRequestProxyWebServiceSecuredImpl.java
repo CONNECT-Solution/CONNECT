@@ -71,7 +71,7 @@ NhinDocSubmissionDeferredRequestProxy {
 
     protected CONNECTClient<XDRDeferredRequest20PortType> getCONNECTClientSecured(
         ServicePortDescriptor<XDRDeferredRequest20PortType> portDescriptor, String url, AssertionType assertion,
-        String target, String serviceName) {
+        NhinTargetSystemType target, String serviceName) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
             serviceName);
@@ -98,8 +98,7 @@ NhinDocSubmissionDeferredRequestProxy {
                 ServicePortDescriptor<XDRDeferredRequest20PortType> portDescriptor = new NhinDocSubmissionDeferredRequestServicePortDescriptor();
 
                 CONNECTClient<XDRDeferredRequest20PortType> client = getCONNECTClientSecured(portDescriptor, url,
-                    assertion, targetSystem.getHomeCommunity().getHomeCommunityId(),
-                    NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
+                    assertion, targetSystem, NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
                 client.enableMtom();
 
                 response = (RegistryResponseType) client.invokePort(XDRDeferredRequest20PortType.class,

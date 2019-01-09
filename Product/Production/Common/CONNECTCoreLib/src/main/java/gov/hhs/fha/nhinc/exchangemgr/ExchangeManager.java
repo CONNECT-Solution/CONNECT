@@ -153,7 +153,9 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         if (null == configType) {
             throw new ExchangeManagerException("No matching target endpoint for guidance: " + getApiSpec(api_spec));
         }
-        return StoreUtil.addGatewayAlias(configType.getUrl(), getGatewayAlias(exchangeName));
+        StoreUtil.addGatewayCertificateAlias(exchangeName, getGatewayAlias(exchangeName));
+
+        return configType.getUrl();
     }
 
     @Override

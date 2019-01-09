@@ -97,6 +97,6 @@ public class EntityDocDataSubmissionProxyWebServiceSecuredImpl implements Entity
      */
     protected CONNECTClient<EntityXDSSecuredPortType> getCONNECTClient(
         ServicePortDescriptor<EntityXDSSecuredPortType> portDescriptor, String url, AssertionType assertion) {
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url,  assertion);
     }
 }

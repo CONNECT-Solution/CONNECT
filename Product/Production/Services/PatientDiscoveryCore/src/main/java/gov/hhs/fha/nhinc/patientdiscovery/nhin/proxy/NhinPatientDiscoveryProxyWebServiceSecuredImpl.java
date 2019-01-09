@@ -58,7 +58,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
     protected CONNECTClient<RespondingGatewayPortType> getCONNECTSecuredClient(NhinTargetSystemType target,
         ServicePortDescriptor<RespondingGatewayPortType> portDescriptor, String url, AssertionType assertion) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-            target.getHomeCommunity().getHomeCommunityId(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+            target, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
     }
 
     @Override

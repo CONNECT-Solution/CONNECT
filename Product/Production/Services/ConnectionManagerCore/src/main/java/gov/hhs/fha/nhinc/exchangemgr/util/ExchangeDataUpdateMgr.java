@@ -181,7 +181,7 @@ public class ExchangeDataUpdateMgr {
 
         try {
             LOG.info("Starting UDDI download from {}", exchange.getUrl());
-            BusinessDetail bDetail = getUDDIAccessor().retrieveFromUDDIServer(exchange.getUrl());
+            BusinessDetail bDetail = getUDDIAccessor().retrieveFromUDDIServer(exchange);
             exStatus.getStepStatus().add(buildExchangeDownloadStatusMsg(true, DOWNLOAD_SUCCESS_MSG, null, null));
             exStatus.getStepStatus().add(buildExchangeDownloadStatusMsg(true, SCHEMA_VAL_SKIP_MSG, null, null));
             ExchangeTransforms<BusinessDetail> transformer = new UDDITransform();

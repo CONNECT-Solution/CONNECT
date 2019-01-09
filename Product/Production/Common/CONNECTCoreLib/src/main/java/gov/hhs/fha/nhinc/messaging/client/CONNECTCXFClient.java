@@ -43,20 +43,24 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
 
     protected ServiceEndpoint<T> serviceEndpoint = null;
 
-    protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        this(portDescriptor, url, assertion, new CXFServicePortBuilder<>(portDescriptor));
+    protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName, AssertionType assertion) {
+        this(portDescriptor, url, exchangeName, assertion, new CXFServicePortBuilder<>(portDescriptor));
     }
 
-    protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
+    protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName, AssertionType assertion,
         ServicePortBuilder<T> portBuilder) {
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(StoreUtil.getGatewayAlias(url), assertion), url,
-            assertion != null ? assertion.getTransactionTimeout() : null);
+
+        T port = portBuilder.createPort(StoreUtil.getGatewayCertificateAlias(exchangeName), assertion);
+        Integer timeout = assertion != null ? assertion.getTransactionTimeout() : null;
+        serviceEndpoint = super.configureBasePort(port, url, exchangeName, timeout);
     }
 
-    protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
+    protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName, AssertionType assertion,
         ServicePortBuilder<T> portBuilder, String subscriptionId) {
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(StoreUtil.getGatewayAlias(url), assertion),
-            subscriptionId, assertion != null ? assertion.getTransactionTimeout() : null);
+
+        T port = portBuilder.createPort(StoreUtil.getGatewayCertificateAlias(exchangeName), assertion);
+        Integer timeout = assertion != null ? assertion.getTransactionTimeout() : null;
+        serviceEndpoint = super.configureBasePort(port, subscriptionId, exchangeName, timeout);
     }
 
     @Override

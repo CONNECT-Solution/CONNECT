@@ -81,10 +81,6 @@ public class NhinAdminDistributionProxyWebServiceSecuredImplTest {
     private NhinAdminDistributionProxyWebServiceSecuredImpl getImpl() {
         return new NhinAdminDistributionProxyWebServiceSecuredImpl() {
 
-
-            /* (non-Javadoc)
-             * @see gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyWebServiceSecuredImpl#getHelper()
-             */
             @Override
             protected AdminDistributionHelper getHelper() {
                AdminDistributionHelper helperMock = Mockito.mock(AdminDistributionHelper.class);
@@ -95,7 +91,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImplTest {
             @Override
             protected CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> getCONNECTClientSecured(
                     ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor,
-                    String url, AssertionType assertion, String target, String serviceName) {
+                    String url, AssertionType assertion, NhinTargetSystemType target, String serviceName) {
                 return client;
             }
         };

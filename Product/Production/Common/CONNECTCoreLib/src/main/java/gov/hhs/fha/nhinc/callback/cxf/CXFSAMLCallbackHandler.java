@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
 import gov.hhs.fha.nhinc.callback.opensaml.SAMLAssertionBuilderException;
 import gov.hhs.fha.nhinc.callback.opensaml.SAMLUtils;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -89,8 +90,9 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                 try {
 
                     final Message message = getCurrentMessage();
-                    final Object obj = message.get("assertion");
-                    AssertionType custAssertion = getCustAssertion(obj);
+                    AssertionType custAssertion = getCustAssertion(message.get("assertion"));
+                    NhinTargetSystemType systemType = (NhinTargetSystemType) message.get("targetSystemType");
+                    String exchangeName = systemType != null ? systemType.getExchangeName() : StoreUtil.INTERNAL_EXCHANGE;
                     final SAMLCallback oSAMLCallback = (SAMLCallback) callback;
 
                     oSAMLCallback.setIssuerKeyName(
@@ -112,7 +114,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     final SamlTokenCreator creator = new SamlTokenCreator();
                     final CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
                         creator.createRequestContext(custAssertion, getResource(message), null), message));
-                    oSAMLCallback.setAssertionElement(builder.build(properties, StoreUtil.getGatewayAlias(message)));
+                    oSAMLCallback.setAssertionElement(builder.build(properties, StoreUtil.getGatewayCertificateAlias(exchangeName)));
                 } catch (WSSecurityException | PropertyAccessException e) {
                     LOG.error("Failed to create saml: {}", e.getLocalizedMessage(), e);
                     throw new SAMLAssertionBuilderException(e.getMessage(), e);
