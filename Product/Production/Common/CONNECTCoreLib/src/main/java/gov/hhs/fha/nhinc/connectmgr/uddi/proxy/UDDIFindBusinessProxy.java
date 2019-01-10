@@ -36,7 +36,7 @@ public interface UDDIFindBusinessProxy {
     /**
      * Override in implementation class
      *
-     * @param exchangeURL
+     * @param ExchangeType to pull from
      * @return list of businesses from UDDI
      * @throws UDDIFindBusinessException
      */
