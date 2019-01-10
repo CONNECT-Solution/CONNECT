@@ -26,9 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.util;
 
-import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
-
 import com.google.gson.Gson;
+import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.common.nhinccommon.ConfigAssertionType;
@@ -37,6 +36,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -64,7 +64,9 @@ import org.primefaces.json.JSONArray;
  *
  */
 public class HelperUtil {
+
     public static final String TO_DO_MARKER = "TO DO";
+    private static final String ADMINGUI_PROPERTIES = "admingui";
 
     /*
      * Utility class-private constructor
@@ -187,7 +189,6 @@ public class HelperUtil {
     public static void addMessageInfo(String clientId, String theMessage) {
         FacesContext.getCurrentInstance().addMessage(clientId, getMsgInfo(theMessage));
     }
-
 
     // populateList
     public static Map<String, String> populateListPatientId(List<Patient> listPatient) {
@@ -402,5 +403,7 @@ public class HelperUtil {
         return retList;
     }
 
-
+    public static String readPropertyAdminGui(String propertyName, String defaultValue) {
+        return PropertyAccessor.getInstance().getProperty(ADMINGUI_PROPERTIES, propertyName, defaultValue);
+    }
 }
