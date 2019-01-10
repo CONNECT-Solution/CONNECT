@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import org.apache.commons.lang.StringUtils;
 import org.caqh.soap.wsdl.GenericBatchTransactionPort;
@@ -87,12 +88,7 @@ public class NhinX12BatchProxyWSSecured implements NhinX12BatchProxy {
                     X12LargePayloadUtils.convertDataToFileLocationIfEnabled(response);
                 }
             } else {
-                String targetHCID = null;
-                if (targetSystem != null && targetSystem.getHomeCommunity() != null
-                    && targetSystem.getHomeCommunity().getHomeCommunityId() != null) {
-
-                    targetHCID = targetSystem.getHomeCommunity().getHomeCommunityId();
-                }
+                String targetHCID = HomeCommunityMap.getCommunityIdFromTargetSystem(targetSystem);
                 return X12EntityExceptionBuilder.getInstance().createErrorResponse(msg, targetHCID);
             }
         } catch (Exception ex) {

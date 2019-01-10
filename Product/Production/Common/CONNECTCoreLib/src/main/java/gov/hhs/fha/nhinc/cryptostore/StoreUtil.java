@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -45,14 +45,6 @@ public class StoreUtil {
     private static final Logger LOG = LoggerFactory.getLogger(StoreUtil.class);
     public static final String INTERNAL_EXCHANGE = "INTERNAL";
     private static Map<String, String> gatewayAliasMapping = new HashMap<>();
-    private static StoreUtil instance;
-
-    public static StoreUtil getInstance() {
-        if (null == instance) {
-            instance = new StoreUtil();
-        }
-        return instance;
-    }
 
     private StoreUtil() {
 
@@ -65,7 +57,7 @@ public class StoreUtil {
      *
      * @return String containing the private key alias.
      */
-    public String getPrivateKeyAlias() {
+    public static String getPrivateKeyAlias() {
         String alias = System.getProperty(NhincConstants.CLIENT_KEY_ALIAS);
         return StringUtils.isBlank(alias) ? NhincConstants.DEFAULT_CLIENT_KEY_ALIAS : alias;
     }
@@ -74,8 +66,8 @@ public class StoreUtil {
         if (StringUtils.isNotBlank(overrideAlias)) {
             return overrideAlias;
         }
-        String alias = System.getProperty(NhincConstants.CLIENT_KEY_ALIAS);
-        return StringUtils.isBlank(alias) ? NhincConstants.DEFAULT_CLIENT_KEY_ALIAS : alias;
+
+        return getPrivateKeyAlias();
     }
 
     public static void addGatewayCertificateAlias(String exchangeName, String alias) {
@@ -94,6 +86,6 @@ public class StoreUtil {
             }
         }
 
-        return getInstance().getPrivateKeyAlias();
+        return getPrivateKeyAlias();
     }
 }
