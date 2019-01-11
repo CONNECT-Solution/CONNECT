@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import gov.hhs.fha.nhinc.callback.opensaml.OpenSAML2ComponentBuilder;
@@ -67,6 +67,7 @@ import org.junit.Test;
 import org.opensaml.core.xml.XMLObjectBuilderFactory;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.io.UnmarshallingException;
+import org.opensaml.core.xml.schema.impl.XSAnyImpl;
 import org.opensaml.saml.common.SAMLObjectBuilder;
 import org.opensaml.saml.common.SAMLObjectContentReference;
 import org.opensaml.saml.common.SAMLVersion;
@@ -550,6 +551,39 @@ public class CONNECTSamlAssertionValidatorTest {
         statements.add(attributeStatement);
 
         when(saml2Assertion.getAttributeStatements()).thenReturn(statements);
+
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        validator.checkAttributes(assertionWrapper);
+    }
+    
+    @Test
+    public void testValidateAttributesAnyType() throws WSSecurityException {
+        final org.opensaml.saml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml.saml2.core.Assertion.class);
+        final SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(saml2Assertion);
+        final XMLObjectBuilderFactory builderFactory = XMLObjectProviderRegistrySupport.getBuilderFactory();
+        final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder = (SAMLObjectBuilder<AttributeStatement>) builderFactory
+                .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
+        final XSAnyImpl anyType = mock(XSAnyImpl.class);
+
+        List<Object> values = new ArrayList<>();
+            values.add("value");
+        List<Attribute> attributes = new ArrayList<>();
+        for (String name : VALIDATED_ATTRIBUTES) {
+            Attribute attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", values);
+            if(name.equals(NhincConstants.ATTRIBUTE_NAME_ORG)) {
+                attr.getAttributeValues().clear();
+                attr.getAttributeValues().add(anyType);
+            }
+            attributes.add(attr);
+        }
+
+        final AttributeStatement attributeStatement = attributeStatementBuilder.buildObject();
+        attributeStatement.getAttributes().addAll(attributes);
+        List<AttributeStatement> statements = new ArrayList<>();
+        statements.add(attributeStatement);
+
+        when(saml2Assertion.getAttributeStatements()).thenReturn(statements);
+        when(anyType.getTextContent()).thenReturn("value");
 
         CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
         validator.checkAttributes(assertionWrapper);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,18 +26,18 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_EXCHANGE_DELETE;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_EXCHANGE_INFOVIEW;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_EXCHANGE_LIST_ENDPOINTS;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_EXCHANGE_LIST_EXCHANGES;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_EXCHANGE_LIST_ORGANIZATIONS;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_EXCHANGE_REFRESH;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_EXCHANGE_SAVE_CONFIG;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_EXCHANGE_SAVE_EXCHANGE;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ENTITY_EXCHANGE_MANAGEMENT_SERVICE_NAME;
 import static gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl.IGNORE_DEADHOST;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
 import static gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper.getEndpointConfigurationTypeBy;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_DELETE;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_INFOVIEW;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_LIST_ENDPOINTS;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_LIST_EXCHANGES;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_LIST_ORGANIZATIONS;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_REFRESH;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_SAVE_CONFIG;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_SAVE_EXCHANGE;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ENTITY_EXCHANGE_MANAGEMENT_SERVICE_NAME;
 
 import gov.hhs.fha.nhinc.admingui.application.EndpointManagerCache;
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;

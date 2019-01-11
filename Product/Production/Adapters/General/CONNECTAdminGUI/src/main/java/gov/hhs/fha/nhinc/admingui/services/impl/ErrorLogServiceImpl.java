@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,13 +26,13 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_DASHBOARD_ERRORLOG_GETFILTERS;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_DASHBOARD_ERRORLOG_LIST;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_DASHBOARD_ERRORLOG_VIEW;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_GUI_MANAGEMENT_SERVICE_NAME;
 import static gov.hhs.fha.nhinc.admingui.managed.ErrorLogBean.KEY_EXCEPTIONS;
 import static gov.hhs.fha.nhinc.admingui.managed.ErrorLogBean.KEY_SERVICES;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_DASHBOARD_ERRORLOG_GETFILTERS;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_DASHBOARD_ERRORLOG_LIST;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_DASHBOARD_ERRORLOG_VIEW;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_GUI_MANAGEMENT_SERVICE_NAME;
 import static gov.hhs.fha.nhinc.util.CoreHelpUtils.getXMLGregorianCalendarFrom;
 import static gov.hhs.fha.nhinc.util.CoreHelpUtils.returnSort;
 

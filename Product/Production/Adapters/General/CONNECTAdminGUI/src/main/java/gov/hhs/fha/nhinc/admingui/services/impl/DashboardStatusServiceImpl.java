@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_GUI_MANAGEMENT_SERVICE_NAME;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_GUI_MANAGEMENT_SERVICE_NAME;
 
 import gov.hhs.fha.nhinc.admingui.model.StatusSnapshot;
 import gov.hhs.fha.nhinc.adminguimanagement.AdminGUIManagementPortType;
@@ -56,7 +56,7 @@ public class DashboardStatusServiceImpl {
 
     public StatusSnapshot getStatus() {
         return getStatus(true);
-     }
+    }
 
     public StatusSnapshot getStatus(boolean refreshMessages) {
 

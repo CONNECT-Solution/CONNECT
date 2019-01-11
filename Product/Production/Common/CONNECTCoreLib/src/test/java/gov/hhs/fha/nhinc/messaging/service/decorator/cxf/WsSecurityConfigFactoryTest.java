@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
 import static org.junit.Assert.assertEquals;
@@ -37,7 +37,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
 import java.util.Map;
 import java.util.Properties;
 import org.apache.wss4j.dom.handler.WSHandlerConstants;
-import org.apache.wss4j.policy.SPConstants;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,12 +57,12 @@ public class WsSecurityConfigFactoryTest {
         cryptoStoreUtil = mock(StoreUtil.class);
 
         when(propFileUtil.loadPropertyFile("signature")).thenReturn(sigProperties);
-        when(cryptoStoreUtil.getPrivateKeyAlias()).thenReturn("gateway");
+
     }
 
     @Test
     public void verifyProperties() {
-        final WsSecurityConfigFactory configFactory = new WsSecurityConfigFactory(propFileUtil, cryptoStoreUtil);
+        final WsSecurityConfigFactory configFactory = new WsSecurityConfigFactory(propFileUtil);
 
         final Map<String, Object> configMap = configFactory.getConfiguration(null);
         verifyWsSecurityProperties(configMap);
@@ -71,7 +70,7 @@ public class WsSecurityConfigFactoryTest {
 
     @Test
     public void verifyClone() {
-        final WsSecurityConfigFactory configFactory = new WsSecurityConfigFactory(propFileUtil, cryptoStoreUtil);
+        final WsSecurityConfigFactory configFactory = new WsSecurityConfigFactory(propFileUtil);
 
         final Map<String, Object> configMap1 = configFactory.getConfiguration(null);
         configMap1.remove(WSHandlerConstants.PASSWORD_TYPE);
@@ -91,8 +90,6 @@ public class WsSecurityConfigFactoryTest {
         assertEquals("PasswordDigest", properties.get(WSHandlerConstants.PASSWORD_TYPE));
         assertNotNull("cryptoProperties", properties.get("cryptoProperties"));
         assertEquals("cryptoProperties", properties.get(WSHandlerConstants.SIG_PROP_REF_ID));
-        assertEquals(SPConstants.RSA_SHA1, properties.get(WSHandlerConstants.SIG_ALGO));
-        assertEquals(SPConstants.SHA1, properties.get(WSHandlerConstants.SIG_DIGEST_ALGO));
         assertEquals(
             "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;",
             properties.get(WSHandlerConstants.SIGNATURE_PARTS));

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,8 +26,12 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
-import gov.hhs.fha.nhinc.admingui.services.InternalExchangeManagerService;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_EXCHANGE_LIST_ENDPOINTS;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ADMIN_EXCHANGE_UPDATE_ENDPOINT;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.ENTITY_INTERNAL_EXCHANGE_MANAGEMENT_SERVICE_NAME;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
+
+import gov.hhs.fha.nhinc.admingui.services.InternalExchangeManagerService;
 import gov.hhs.fha.nhinc.common.internalexchangemanagement.EndpointPropertyType;
 import gov.hhs.fha.nhinc.common.internalexchangemanagement.ListEndpointsRequestMessageType;
 import gov.hhs.fha.nhinc.common.internalexchangemanagement.SimpleInternalExchangeManagementResponseMessageType;
@@ -39,9 +43,6 @@ import gov.hhs.fha.nhinc.internalexchangemanagement.EntityInternalExchangeManage
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_LIST_ENDPOINTS;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADMIN_EXCHANGE_UPDATE_ENDPOINT;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ENTITY_INTERNAL_EXCHANGE_MANAGEMENT_SERVICE_NAME;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,8 +69,8 @@ public class InternalExchangeManagerServiceImpl implements InternalExchangeManag
         request.setEndpoint(endpointProp);
         try {
             SimpleInternalExchangeManagementResponseMessageType response
-                = (SimpleInternalExchangeManagementResponseMessageType) invokeClientPort(
-                    ADMIN_EXCHANGE_UPDATE_ENDPOINT, request);
+            = (SimpleInternalExchangeManagementResponseMessageType) invokeClientPort(
+                ADMIN_EXCHANGE_UPDATE_ENDPOINT, request);
             logDebug(ADMIN_EXCHANGE_UPDATE_ENDPOINT, response.isStatus(), response.getMessage());
             return response.isStatus();
         } catch (Exception e) {
@@ -83,7 +84,7 @@ public class InternalExchangeManagerServiceImpl implements InternalExchangeManag
             String url = oProxyHelper
                 .getAdapterEndPointFromConnectionManager(ENTITY_INTERNAL_EXCHANGE_MANAGEMENT_SERVICE_NAME);
             ServicePortDescriptor<EntityInternalExchangeManagementPortType> portDescriptor
-                = new InternalExchangeManagementPortDescriptor();
+            = new InternalExchangeManagementPortDescriptor();
             client = CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
                 new AssertionType());
         }
@@ -107,8 +108,8 @@ public class InternalExchangeManagerServiceImpl implements InternalExchangeManag
 
         try {
             SimpleInternalExchangeManagementResponseMessageType response
-                = (SimpleInternalExchangeManagementResponseMessageType) invokeClientPort(
-                    ADMIN_EXCHANGE_LIST_ENDPOINTS, request);
+            = (SimpleInternalExchangeManagementResponseMessageType) invokeClientPort(
+                ADMIN_EXCHANGE_LIST_ENDPOINTS, request);
             logDebug(ADMIN_EXCHANGE_LIST_ENDPOINTS, response.getEndpointsList().size());
             return response.getEndpointsList();
         } catch (Exception e) {

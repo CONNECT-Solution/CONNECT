@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *
+ *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 package gov.hhs.fha.nhinc.callback.opensaml;
 
 import gov.hhs.fha.nhinc.callback.PurposeOfForDecider;
@@ -64,7 +64,6 @@ import org.opensaml.saml.saml2.core.Statement;
 import org.opensaml.saml.saml2.core.Subject;
 import org.opensaml.saml.saml2.core.SubjectConfirmation;
 import org.opensaml.xmlsec.signature.Signature;
-import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.opensaml.xmlsec.signature.support.SignatureException;
 import org.opensaml.xmlsec.signature.support.Signer;
 import org.slf4j.Logger;
@@ -89,7 +88,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     private final OpenSAML2ComponentBuilder componentBuilder;
     private static final String PROPERTY_FILE_NAME = "assertioninfo";
     private static final String PROPERTY_SAML_ISSUER_NAME = "SamlIssuerName";
-
     public HOKSAMLAssertionBuilder() {
         certificateManager = CertificateManagerImpl.getInstance();
         componentBuilder = OpenSAML2ComponentBuilder.getInstance();
@@ -108,13 +106,13 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @throws Exception
      */
     @Override
-    public Element build(final CallbackProperties properties, String gatewayAlias) {
+    public Element build(final CallbackProperties properties, String certificateAlias) {
         LOG.debug("SamlCallbackHandler.build() -- Start");
         Element signedAssertion = null;
         try {
-            final X509Certificate certificate = certificateManager.getCertificateBy(gatewayAlias);
-            final PublicKey publicKey = certificateManager.getPublicKeyBy(gatewayAlias);
-            final PrivateKey privateKey = certificateManager.getPrivateKeyBy(gatewayAlias);
+            final X509Certificate certificate = certificateManager.getCertificateBy(certificateAlias);
+            final PublicKey publicKey = certificateManager.getPublicKeyBy(certificateAlias);
+            final PrivateKey privateKey = certificateManager.getPrivateKeyBy(certificateAlias);
             Assertion assertion = componentBuilder.createAssertion();
 
             // create the assertion id
@@ -135,7 +133,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             assertion.getStatements().addAll(
                 createAttributeStatements(properties, createEvidenceSubject(properties, certificate, publicKey)));
 
-            signedAssertion = sign(assertion, certificate, privateKey, publicKey);
+            signedAssertion = sign(properties, assertion, certificate, privateKey, publicKey);
         } catch (final SAMLComponentBuilderException | CertificateManagerException ex) {
             LOG.error("Unable to create HOK Assertion: {}", ex.getLocalizedMessage());
             throw new SAMLAssertionBuilderException(ex.getLocalizedMessage(), ex);
@@ -145,21 +143,22 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     }
 
     /**
+     * @param properties
      * @param assertion
      * @param privateKey
      * @param certificate
      * @param publicKey
      * @return
      */
-    protected Element sign(final Assertion assertion, final X509Certificate certificate, final PrivateKey privateKey,
+    protected Element sign(CallbackProperties properties, final Assertion assertion, final X509Certificate certificate, final PrivateKey privateKey,
         final PublicKey publicKey) {
         Element assertionElement = null;
         try {
-            final Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature(certificate, privateKey,
+            final Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature(properties, certificate, privateKey,
                 publicKey);
             final SamlAssertionWrapper wrapper = new SamlAssertionWrapper(assertion);
 
-            wrapper.setSignature(signature, SignatureConstants.ALGO_ID_DIGEST_SHA1);
+            wrapper.setSignature(signature, properties.getDigestAlgorithm());
             final MarshallerFactory marshallerFactory = XMLObjectProviderRegistrySupport.getMarshallerFactory();
             final Marshaller marshaller = marshallerFactory.getMarshaller(wrapper.getSamlObject());
             assertionElement = marshaller.marshall(wrapper.getSamlObject());

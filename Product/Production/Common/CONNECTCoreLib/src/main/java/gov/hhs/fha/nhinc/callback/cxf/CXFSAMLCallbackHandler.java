@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *
+ *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
@@ -31,7 +31,9 @@ import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.HOKSAMLAssertionBuilder;
 import gov.hhs.fha.nhinc.callback.opensaml.SAMLAssertionBuilderException;
+import gov.hhs.fha.nhinc.callback.opensaml.SAMLUtils;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -49,7 +51,6 @@ import org.apache.wss4j.common.crypto.CryptoFactory;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SAMLCallback;
 import org.apache.wss4j.common.saml.bean.Version;
-import org.apache.wss4j.policy.SPConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,8 +90,9 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                 try {
 
                     final Message message = getCurrentMessage();
-                    final Object obj = message.get("assertion");
-                    AssertionType custAssertion = getCustAssertion(obj);
+                    AssertionType custAssertion = getCustAssertion(message.get("assertion"));
+                    NhinTargetSystemType systemType = (NhinTargetSystemType) message.get("targetSystemType");
+                    String exchangeName = systemType != null ? systemType.getExchangeName() : StoreUtil.INTERNAL_EXCHANGE;
                     final SAMLCallback oSAMLCallback = (SAMLCallback) callback;
 
                     oSAMLCallback.setIssuerKeyName(
@@ -105,13 +107,14 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                         NhincConstants.SIGNATURE_PROPERTIES_STRING));
                     oSAMLCallback.setIssuerCrypto(issuerCrypto);
                     oSAMLCallback.setSamlVersion(Version.SAML_20);
-                    oSAMLCallback.setSignatureAlgorithm(SPConstants.SHA1);
-                    oSAMLCallback.setSignatureDigestAlgorithm(SPConstants.SHA1);
+
+                    oSAMLCallback.setSignatureAlgorithm(SAMLUtils.extractSignatureFromAssertion(custAssertion));
+                    oSAMLCallback.setSignatureDigestAlgorithm(SAMLUtils.extractDigestFromAssertion(custAssertion));
 
                     final SamlTokenCreator creator = new SamlTokenCreator();
                     final CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
                         creator.createRequestContext(custAssertion, getResource(message), null), message));
-                    oSAMLCallback.setAssertionElement(builder.build(properties, StoreUtil.getGatewayAlias(message)));
+                    oSAMLCallback.setAssertionElement(builder.build(properties, StoreUtil.getGatewayCertificateAlias(exchangeName)));
                 } catch (WSSecurityException | PropertyAccessException e) {
                     LOG.error("Failed to create saml: {}", e.getLocalizedMessage(), e);
                     throw new SAMLAssertionBuilderException(e.getMessage(), e);

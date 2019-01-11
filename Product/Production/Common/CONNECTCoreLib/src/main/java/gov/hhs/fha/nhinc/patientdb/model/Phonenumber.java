@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdb.model;
 
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhoneNumberType;
+import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import java.io.Serializable;
 
 /**
@@ -38,88 +40,53 @@ public class Phonenumber implements Serializable {
 
     private static final long serialVersionUID = -8179798064168982080L;
 
-    /**
-     *
-     * Attribute phonenumberId.
-     */
     private Long phonenumberId;
-
-    /**
-     *
-     * Attribute patient.
-     */
     private Patient patient;
-
-    /**
-     *
-     * Attribute value.
-     */
     private String value;
 
-    /**
-     *
-     * @return phonenumberId
-     */
-    public Long getPhonenumberId() {
-
-        return phonenumberId;
-
+    public Phonenumber() {
     }
 
-    /**
-     *
-     * @param phonenumberId new value for phonenumberId
-     */
-    public void setPhonenumberId(Long phonenumberId) {
-
-        this.phonenumberId = phonenumberId;
-
-    }
-
-    /**
-     *
-     * @return patient
-     */
-    public Patient getPatient() {
-
-        if (this.patient == null) {
-
-            this.patient = new Patient();
-
-        }
-
-        return patient;
-
-    }
-
-    /**
-     *
-     * @param patient new value for patient
-     */
-    public void setPatient(Patient patient) {
-
+    public Phonenumber(PhoneNumberType phoneNumberType, Patient patient) {
         this.patient = patient;
-
+        phonenumberId = CoreHelpUtils.isId(phoneNumberType.getPhoneNumberId()) ? phoneNumberType.getPhoneNumberId()
+            : null;
+        value = phoneNumberType.getValue();
     }
 
-    /**
-     *
-     * @return value
-     */
+    public PhoneNumberType getPhoneNumberType() {
+        PhoneNumberType build = new PhoneNumberType();
+        build.setPatientId(patient.getPatientId());
+        build.setPhoneNumberId(phonenumberId);
+        build.setValue(value);
+        return build;
+    }
+
+    public Long getPhonenumberId() {
+        return phonenumberId;
+    }
+
+    public void setPhonenumberId(Long phonenumberId) {
+        this.phonenumberId = phonenumberId;
+    }
+
+    public Patient getPatient() {
+        if (patient == null) {
+            patient = new Patient();
+        }
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
     public String getValue() {
-
         return value;
-
     }
 
-    /**
-     *
-     * @param value new value for value
-     */
     public void setValue(String value) {
-
         this.value = value;
-
     }
 
 }

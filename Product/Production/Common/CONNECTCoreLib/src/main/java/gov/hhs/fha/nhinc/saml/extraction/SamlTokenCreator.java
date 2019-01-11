@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -23,11 +23,12 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 package gov.hhs.fha.nhinc.saml.extraction;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.callback.opensaml.SAMLSubjectConfirmation;
+import gov.hhs.fha.nhinc.callback.opensaml.SAMLUtils;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlConditionsType;
@@ -42,6 +43,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.slf4j.Logger;
@@ -74,7 +76,7 @@ public class SamlTokenCreator {
             if (NullChecker.isNotNullish(NPI)) {
                 requestContext.put(NhincConstants.ATTRIBUTE_NAME_NPI, NPI);
             }
-            
+
             extractAccessConsentAttributes(requestContext, assertion);
             extractSubjectConfirmation(requestContext, assertion);
             extractUserInfo(requestContext, assertion);
@@ -97,6 +99,7 @@ public class SamlTokenCreator {
             extractSamlAuthnStatement(assertion, requestContext);
             extractSamlAuthzDecisionStatement(assertion, requestContext);
             extractSamlIssuerAttributes(assertion, requestContext);
+            extractSamlAlgorithmTypes(assertion, requestContext);
 
         } else {
             LOG.error("Error: samlSendOperation input assertion is null");
@@ -125,6 +128,20 @@ public class SamlTokenCreator {
         LOG.trace("Exiting SamlTokenCreator.CreateRequestContext...");
         return requestContext;
 
+    }
+
+    private static void extractSamlAlgorithmTypes(AssertionType assertion, Map<String, Object> requestContext) {
+        String signature = assertion.getSignatureAlgorithm();
+        if (StringUtils.isBlank(signature)) {
+            signature = SAMLUtils.getSignatureAlgorithm();
+        }
+
+        String digest = assertion.getDigestAlgorithm();
+        if (StringUtils.isBlank(digest)) {
+            digest = SAMLUtils.getDigestAlgorithm();
+        }
+        requestContext.put(SamlConstants.SIGNATURE_KEY, signature);
+        requestContext.put(SamlConstants.DIGEST_KEY, digest);
     }
 
     /**

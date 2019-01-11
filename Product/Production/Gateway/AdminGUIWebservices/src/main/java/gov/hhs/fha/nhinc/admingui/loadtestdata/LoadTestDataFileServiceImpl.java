@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -24,11 +24,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admingui.services;
+package gov.hhs.fha.nhinc.admingui.loadtestdata;
 
-import gov.hhs.fha.nhinc.admingui.services.exception.LoadTestDataException;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
+import gov.hhs.fha.nhinc.loadtestdata.LoadTestDataException;
+import gov.hhs.fha.nhinc.loadtestdata.LoadTestDataService;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Identifier;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;

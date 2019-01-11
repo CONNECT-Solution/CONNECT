@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *
+ *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 package gov.hhs.fha.nhinc.docsubmission.nhin.proxy;
 
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
@@ -82,9 +82,9 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
 
     protected CONNECTClient<DocumentRepositoryXDRPortType> getCONNECTClientSecured(
         ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor, AssertionType assertion, String url,
-        String targetHomeCommunityId, String serviceName) {
+        NhinTargetSystemType target, String serviceName) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-            targetHomeCommunityId, serviceName);
+            target, serviceName);
     }
 
     @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class, afterReturningBuilder
@@ -103,7 +103,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
             ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor = getServicePortDescriptor(apiLevel);
 
             CONNECTClient<DocumentRepositoryXDRPortType> client = getCONNECTClientSecured(portDescriptor, assertion,
-                url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHINC_XDR_SERVICE_NAME);
+                url, targetSystem, NhincConstants.NHINC_XDR_SERVICE_NAME);
             client.enableMtom();
 
             response = (RegistryResponseType) client.invokePort(DocumentRepositoryXDRPortType.class,

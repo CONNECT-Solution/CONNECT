@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 package gov.hhs.fha.nhinc.callback;
 
 /**
@@ -135,4 +135,10 @@ public class SamlConstants {
     public static final String ATTRIBUTE_FRIENDLY_NAME_XUA_IACP = "Patient Privacy Policy Acknowledgement Document";
     public static final String URI_NAME_FORMAT = "urn:oasis:names:tc:SAML:2.0:attrname-format:uri";
     public static final String ADMIN_AUTH_METHOD = "urn:oasis:names:tc:SAML:2.0:ac:classes:Password";
+    public static final String SIGNATURE_KEY = "Signatures";
+    public static final String DIGEST_KEY = "Digests";
+    public static final String SIG_ALGO_PROPERTY = "saml.signatureAlgorithms";
+    public static final String DIG_ALGO_PROPERTY = "saml.digestAlgorithms";
+    public static final String DEFAULT_DIG_ALGO_PROPERTY = "saml.defaultDigestAlgorithm";
+    public static final String DEFAULT_SIG_ALGO_PROPERTY = "saml.defaultSignatureAlgorithm";
 }

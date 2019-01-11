@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *
+ *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,10 +23,21 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 package gov.hhs.fha.nhinc.util;
 
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.AddressType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentMetadataType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.IdentifierType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PatientType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonNameType;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientdb.model.Address;
+import gov.hhs.fha.nhinc.patientdb.model.Patient;
+import gov.hhs.fha.nhinc.patientdb.model.Personname;
+import java.sql.Timestamp;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,10 +47,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -118,4 +131,110 @@ public class CoreHelpUtils {
         }
         return null;
     }
+
+    public static void updateDocumentBy(DocumentMetadata doc, Patient patient) {
+        doc.setPatientId(patient.getPatientIdentifierIso());
+        doc.setSourcePatientId(patient.getPatientIdentifierIso());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+        // setPIDs
+        Personname personname = lastItem(patient.getPersonnames());
+        if (personname != null) {
+            doc.setPid5(MessageFormat.format("{0}^{1}^^^", personname.getLastName(), personname.getFirstName()));
+        }
+        Timestamp dateOfBirth = patient.getDateOfBirth();
+        if (dateOfBirth != null) {
+            doc.setPid7(sdf.format(dateOfBirth));
+        }
+        doc.setPid8(patient.getGender());
+
+        Address address = lastItem(patient.getAddresses());
+        if (address != null) {
+            doc.setPid11(MessageFormat.format("{0}^^{1}^{2}^{3}^", address.getStreet1(), address.getCity(),
+                address.getState(), address.getPostal()));
+        }
+        if (isId(patient.getPatientId())) {
+            doc.setPatientRecordId(patient.getPatientId());
+        }
+    }
+
+    public static void updateDocumentBy(DocumentMetadataType doc, PatientType patientType) {
+        doc.setPatientId(getPatientIdentifierIso(patientType));
+        doc.setSourcePatientId(getPatientIdentifierIso(patientType));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+        // setPIDs
+        PersonNameType personname = lastItem(patientType.getPersonNameList());
+        if (personname != null) {
+            doc.setPid5(MessageFormat.format("{0}^{1}^^^", personname.getLastName(), personname.getFirstName()));
+        }
+        Date dateOfBirth = getDate(patientType.getDateOfBirth());
+        if (dateOfBirth != null) {
+            doc.setPid7(sdf.format(dateOfBirth));
+        }
+        doc.setPid8(patientType.getGender());
+
+        AddressType address = lastItem(patientType.getAddressList());
+        if (address != null) {
+            doc.setPid11(MessageFormat.format("{0}^^{1}^{2}^{3}^", address.getStreet1(), address.getCity(),
+                address.getState(), address.getPostal()));
+        }
+        if (isId(patientType.getPatientId())) {
+            doc.setPatientRecordId(patientType.getPatientId());
+        }
+    }
+
+    public static <T> T lastItem(List<T> items) {
+        T item = null;
+        if (CollectionUtils.isNotEmpty(items)) {
+            item = items.get(items.size() - 1);
+        }
+        return item;
+    }
+
+    public static <T> T firstItem(List<T> items) {
+        T item = null;
+        if (CollectionUtils.isNotEmpty(items)) {
+            item = items.get(0);
+        }
+        return item;
+    }
+
+    public static boolean isId(Long id) {
+        return id != null && id.longValue() > 0L;
+    }
+
+    public static String getPatientIdentifier(PatientType patient) {
+        PersonNameType name = lastItem(patient.getPersonNameList());
+        IdentifierType identifier = lastItem(patient.getIdentifierList());
+        if (null != name && null != identifier) {
+            return MessageFormat.format("{0} {1} - {2}", name.getFirstName(), name.getLastName(), identifier.getId());
+        }
+        return null;
+    }
+
+    public static String getPatientIdentifierIso(PatientType patient) {
+        IdentifierType identifier = lastItem(patient.getIdentifierList());
+        if (null != identifier) {
+            return MessageFormat.format("{0}^^^&{1}&ISO", identifier.getId(), identifier.getOrganizationId());
+        }
+        return null;
+    }
+
+    public static <R, T> List<R> castListType(List<T> patientList) {
+        List<R> list = new ArrayList<>();
+        for (T patient : patientList) {
+            list.add((R) patient);
+        }
+        return list;
+    }
+
+    public static <K, V> boolean isCollectionEmpty(Map<K, V> map) {
+        return !isCollectionNotEmpty(map);
+    }
+
+    public static <K, V> boolean isCollectionNotEmpty(Map<K, V> map) {
+        return null != map && !map.isEmpty();
+    }
+
 }

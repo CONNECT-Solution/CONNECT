@@ -1,7 +1,7 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *
+ *  
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,20 +23,26 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 package gov.hhs.fha.nhinc.admingui.util;
 
 import static gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE;
 
 import com.google.gson.Gson;
+import gov.hhs.fha.nhinc.admingui.model.loadtestdata.Document;
+import gov.hhs.fha.nhinc.admingui.model.loadtestdata.Patient;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentMetadataType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PatientType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.ConfigAssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
-import gov.hhs.fha.nhinc.patientdb.model.Address;
-import gov.hhs.fha.nhinc.patientdb.model.Patient;
-import gov.hhs.fha.nhinc.patientdb.model.Personname;
+import gov.hhs.fha.nhinc.configuration.GenericPortDescriptor;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
@@ -77,10 +83,6 @@ public class HelperUtil {
     private HelperUtil() {
     }
 
-    public static boolean isId(Long id) {
-        return id != null && id.longValue() > 0L;
-    }
-
     // CONVERT-METHODS
     public static Timestamp toTimestamp(Date date) {
         if (date != null) {
@@ -98,48 +100,6 @@ public class HelperUtil {
 
     public static String toJsonString(Object object) {
         return new Gson().toJson(object);
-    }
-
-    public static <T> T lastItem(List<T> items) {
-        T item = null;
-        if (CollectionUtils.isNotEmpty(items)) {
-            item = items.get(items.size() - 1);
-        }
-        return item;
-    }
-
-    public static void updateDocumentBy(DocumentMetadata doc, Patient patient) {
-        doc.setPatientId(patient.getPatientIdentifierIso());
-        doc.setSourcePatientId(patient.getPatientIdentifierIso());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-
-        // setPIDs
-        Personname personname = HelperUtil.lastItem(patient.getPersonnames());
-        if (personname != null) {
-            doc.setPid5(MessageFormat.format("{0}^{1}^^^", personname.getLastName(), personname.getFirstName()));
-        }
-        Timestamp dateOfBirth = patient.getDateOfBirth();
-        if (dateOfBirth != null) {
-            doc.setPid7(sdf.format(dateOfBirth));
-        }
-        doc.setPid8(patient.getGender());
-
-        Address address = HelperUtil.lastItem(patient.getAddresses());
-        if (address != null) {
-            doc.setPid11(MessageFormat.format("{0}^^{1}^{2}^{3}^", address.getStreet1(), address.getCity(),
-                address.getState(), address.getPostal()));
-        }
-        if (HelperUtil.isId(patient.getPatientId())) {
-            doc.setPatientRecordId(patient.getPatientId());
-        }
-    }
-
-    public static <T> T firstItem(List<T> items) {
-        T item = null;
-        if (CollectionUtils.isNotEmpty(items)) {
-            item = items.get(0);
-        }
-        return item;
     }
 
     public static HttpSession getHttpSession(boolean sessionBit) {
@@ -198,7 +158,7 @@ public class HelperUtil {
     public static Map<String, String> populateListPatientId(List<Patient> listPatient) {
         Map<String, String> listPatientId = new TreeMap<>();
         for (Patient rec : listPatient) {
-            if (rec.getLastIdentifier() != null) {
+            if (CollectionUtils.isNotEmpty(rec.getIdentifierList())) {
                 listPatientId.put(rec.getPatientIdentifier(), rec.getPatientIdentifierIso());
             }
         }
@@ -409,6 +369,32 @@ public class HelperUtil {
 
     public static String readPropertyAdminGui(String propertyName, String defaultValue) {
         return PropertyAccessor.getInstance().getProperty(ADMINGUI_PROPERTIES, propertyName, defaultValue);
+    }
+
+    /**
+     * getting unsecure-connect client with generic-portDescriptor
+     */
+    public static <T> CONNECTClient<T> getClientUnsecure(String serviceUrl, String wsAddressingAction,
+        Class<T> portTypeClass) throws ExchangeManagerException {
+        ServicePortDescriptor<T> portDescriptor = new GenericPortDescriptor(wsAddressingAction, portTypeClass);
+        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, serviceUrl,
+            new AssertionType());
+    }
+
+    public static List<Patient> convertPatients(List<PatientType> patients) {
+        List<Patient> list = new ArrayList<>();
+        for(PatientType patient: patients){
+            list.add(new Patient(patient));
+        }
+        return list;
+    }
+
+    public static List<Document> convertDocuments(List<DocumentMetadataType> documents) {
+        List<Document> list = new ArrayList<>();
+        for (DocumentMetadataType meta : documents) {
+            list.add(new Document(meta));
+        }
+        return list;
     }
 
 }

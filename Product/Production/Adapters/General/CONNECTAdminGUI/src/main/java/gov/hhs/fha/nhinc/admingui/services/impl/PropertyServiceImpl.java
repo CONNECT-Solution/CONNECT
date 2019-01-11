@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,13 +26,13 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.impl;
 
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.PROPERTIES_LIST_PROP;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.PROPERTIES_SAVE_PROP;
+import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.PROPERTIES_SERVICE_NAME;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_PROPERTY_FILE_NAME;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.AUDIT_LOGGING_PROPERTY_FILE;
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.PROPERTIES_LIST_PROP;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.PROPERTIES_SAVE_PROP;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.PROPERTIES_SERVICE_NAME;
 
 import gov.hhs.fha.nhinc.admingui.services.PropertyService;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;

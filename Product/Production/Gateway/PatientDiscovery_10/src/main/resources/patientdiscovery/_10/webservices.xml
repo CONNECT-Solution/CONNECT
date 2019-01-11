@@ -20,6 +20,7 @@
         http://cxf.apache.org/policy                http://cxf.apache.org/schemas/policy.xsd
         http://cxf.apache.org/core                  http://cxf.apache.org/schemas/core.xsd">
 
+    
     <!-- Patient Discovery -->
 
     <cxf:bus>
@@ -28,12 +29,14 @@
         </cxf:features>
     </cxf:bus>
 
+    
     <!-- Nhin services -->
 
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xcpd:2009" id="RespondingGateway_Service" address="/NhinService/NhinPatientDiscovery"
         serviceName="tns:RespondingGateway_Service" endpointName="tns:RespondingGateway_Port_Soap" implementor="#nhinPD"
         wsdlLocation="classpath:wsdl/NhinPatientDiscovery.wsdl">
         <jaxws:properties>
+            
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
@@ -41,7 +44,6 @@
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -65,7 +67,6 @@
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -100,7 +101,6 @@
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -124,7 +124,6 @@
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -159,7 +158,6 @@
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -183,7 +181,6 @@
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -214,7 +211,6 @@
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -237,7 +233,6 @@
             </entry>
             <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>

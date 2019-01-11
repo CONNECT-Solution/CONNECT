@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   /*
-   * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
+   * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
    * All rights reserved.
    *
    * Redistribution and use in source and binary forms, with or without
@@ -82,7 +82,7 @@
                                                     <h:outputText value="#{patient.firstName}" />
                                                 </p:column>
                                                 <p:column headerText="Birth Date">
-                                                    <h:outputText value="#{patient.dateOfBirth}">
+                                                    <h:outputText value="#{patient.dateOfBirthDate}">
                                                         <f:convertDateTime pattern="MM-dd-yyyy" />
                                                     </h:outputText>
                                                 </p:column>
@@ -161,7 +161,7 @@
                                             <p:dataTable id="documentDataTable" var="record"
                                                 value="#{loadTestDataDocumentBean.documents}"
                                                 selection="#{loadTestDataDocumentBean.selectedDocument}"
-                                                rowKey="#{record.documentid}"
+                                                rowKey="#{record.documentId}"
                                                 styleClass="table table-striped table-domains"
                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                 paginator="true" rowsPerPageTemplate="5,10,15" rows="10">
@@ -181,7 +181,7 @@
                                                     <h:outputText value="#{record.statusDisplay}" />
                                                 </p:column>
                                                 <p:column headerText="Created">
-                                                    <h:outputText value="#{record.creationTime}">
+                                                    <h:outputText value="#{record.creationTimeDate}">
                                                         <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
                                                     </h:outputText>
                                                 </p:column>
