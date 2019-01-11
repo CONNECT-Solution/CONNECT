@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.util;
 
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
@@ -36,12 +36,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
+import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.util.Locale;
+import java.util.Optional;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import org.apache.commons.collections.CollectionUtils;
@@ -62,10 +64,26 @@ public class HomeCommunityMap {
 
     private static final Logger LOG = LoggerFactory.getLogger(HomeCommunityMap.class);
     private static ExchangeManager exManager = ExchangeManager.getInstance();
+    private static InternalExchangeManager internalExManager = InternalExchangeManager.getInstance();
     private static PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
 
     /**
-     * This method retrieves the name of the home community baased on the home community Id.
+     * Retrieve sni name based on the exchange Name. It will go through external and internal until it finds once.
+     *
+     * @param exchangeName exchange Name
+     * @return sniName
+     */
+    public static String getSNIName(String exchangeName) {
+        LOG.debug("Find SNI Name for exchange {} ", exchangeName);
+        Optional<String> sniNameOptional = exManager.getSNIServerName(exchangeName);
+        sniNameOptional = sniNameOptional.isPresent() ? sniNameOptional : internalExManager
+            .getSNIServerName(exchangeName);
+        return sniNameOptional.orElse(null);
+
+    }
+
+    /**
+     * This method retrieves the name of the home community based on the home community Id.
      *
      * @param sHomeCommunityId The home community ID to be looked up.
      * @return The textual name of the home community.
