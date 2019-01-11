@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -546,13 +546,24 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
 
     @Override
     protected String getGatewayAlias(String exchangeName) {
-        String defaultExchange = StringUtils.isNotBlank(exchangeName) ? exchangeName : getDefaultExchange();
-        if (StringUtils.isBlank(defaultExchange)) {
-            return null;
-        }
+        String defaultExchange = getDefaultExchangeIfEmpty(exchangeName);
 
         ExchangeType exchange = ExchangeManagerHelper
             .findExchangeTypeBy(ExchangeManagerHelper.getExchangeTypeBy(exInfo), defaultExchange);
         return null != exchange ? exchange.getCertificateAlias() : null;
     }
+
+    /**
+     * @param exchangeName
+     * @return
+     */
+    private String getDefaultExchangeIfEmpty(String exchangeName) {
+        return StringUtils.isNotBlank(exchangeName) ? exchangeName : getDefaultExchange();
+    }
+
+    @Override
+    ExchangeInfoType getExchangeType(String exchangeName) {
+        return exInfo;
+    }
+
 }

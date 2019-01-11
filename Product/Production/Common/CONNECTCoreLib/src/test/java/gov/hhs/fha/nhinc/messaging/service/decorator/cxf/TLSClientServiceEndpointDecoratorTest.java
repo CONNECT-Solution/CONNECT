@@ -70,7 +70,7 @@ public class TLSClientServiceEndpointDecoratorTest {
             new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
-        serviceEndpoint = new TLSClientServiceEndpointDecorator<>(serviceEndpoint, null);
+        serviceEndpoint = new TLSClientServiceEndpointDecorator<>(serviceEndpoint, null, null);
         serviceEndpoint.configure();
 
         return testClient;

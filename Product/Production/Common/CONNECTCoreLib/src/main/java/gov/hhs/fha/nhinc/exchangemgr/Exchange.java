@@ -26,6 +26,8 @@
 */
 package gov.hhs.fha.nhinc.exchangemgr;
 
+import java.util.Optional;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
@@ -35,7 +37,6 @@ import java.util.List;
 import java.util.Set;
 
 /**
- *
  * @author tjafri
  * @param <T>
  */
@@ -59,11 +60,9 @@ public interface Exchange<T> {
      * @return the organization information for the specified home community.
      * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      */
-    public OrganizationType getOrganization(String hcid) throws
-        ExchangeManagerException;
+    public OrganizationType getOrganization(String hcid) throws ExchangeManagerException;
 
-    public OrganizationType getOrganization(String exchangeName, String hcid) throws
-        ExchangeManagerException;
+    public OrganizationType getOrganization(String exchangeName, String hcid) throws ExchangeManagerException;
 
     /**
      * Returns the name of the organization for the given home community id.
@@ -82,8 +81,8 @@ public interface Exchange<T> {
      * @return The Organizations found.
      * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      */
-    public Set<OrganizationType> getOrganizationSet(List<String> hcids, String exchangeName) throws
-        ExchangeManagerException;
+    public Set<OrganizationType> getOrganizationSet(List<String> hcids, String exchangeName)
+        throws ExchangeManagerException;
 
     /**
      * TODO ask and fix this method This method retrieves the Organizations that contains the specific home community
@@ -98,7 +97,7 @@ public interface Exchange<T> {
      * @param sUniformServiceName The name of the service to locate.
      * @param exchangeName
      * @return Organization information along with only the requested service. if the service is not found, then null is
-     * returned.
+     *         returned.
      * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      */
     public OrganizationType getOrganizationByServiceName(String hcid, String sUniformServiceName, String exchangeName)
@@ -117,7 +116,7 @@ public interface Exchange<T> {
      * @param sUniformServiceName The name of the service to locate.
      * @param exchangeName
      * @return The Business Entity information along with only the requested service. If the service is not found, it
-     * will not be returned even if the business entity information exists.
+     *         will not be returned even if the business entity information exists.
      * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      */
     public Set<OrganizationType> getOrganizationSetByServiceNameForHCID(List<String> sahcid,
@@ -150,7 +149,7 @@ public interface Exchange<T> {
      * @param hcid The home community ID of the gateway that is being looked up.
      * @param sUniformServiceName The name of the service to locate.
      * @return The URL for only the requested service at the specified home community. If the service is not found, then
-     * null is returned.
+     *         null is returned.
      * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      */
     public String getDefaultEndpointURL(String hcid, String sUniformServiceName, String exchangeName)
@@ -191,7 +190,6 @@ public interface Exchange<T> {
     public String getDefaultExchange();
 
     /**
-     *
      * @param sHomeCommunityId
      * @param exchangeName
      * @param sServiceName
@@ -199,18 +197,17 @@ public interface Exchange<T> {
      * @return
      * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      */
-    public String getEndpointURL(String sHomeCommunityId, String sServiceName, T spec_level) throws
-        ExchangeManagerException;
+    public String getEndpointURL(String sHomeCommunityId, String sServiceName, T spec_level)
+        throws ExchangeManagerException;
 
-    public String getEndpointURL(String sServiceName, T spec_level) throws
-        ExchangeManagerException;
+    public String getEndpointURL(String sServiceName, T spec_level) throws ExchangeManagerException;
 
     /**
      * This method returns a local url for a specified service using default exchange.
      *
      * @param sServiceName
      * @return The URL for only the requested service at the local home community. If the service is not found, then
-     * null is returned.
+     *         null is returned.
      * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
      */
     public String getEndpointURL(String sServiceName) throws ExchangeManagerException;
@@ -224,11 +221,18 @@ public interface Exchange<T> {
      */
     public String getEndpointURL(String sServiceName, String exchangeName) throws ExchangeManagerException;
 
-    public String getEndpointURL(String sServiceName, T apiSpec, String exchangeName) throws
-        ExchangeManagerException;
+    public String getEndpointURL(String sServiceName, T apiSpec, String exchangeName) throws ExchangeManagerException;
 
-    public String getEndpointURL(String sHomeCommunityId, String sServiceName, T apiSpec, String exchangeName) throws
-        ExchangeManagerException;
+    public String getEndpointURL(String sHomeCommunityId, String sServiceName, T apiSpec, String exchangeName)
+        throws ExchangeManagerException;
 
     public List<OrganizationType> getAllOrganizations(String exchangeName) throws ExchangeManagerException;
+
+    /**
+     * Retrieve SNI Name based on exchangeName if exist.
+     *
+     * @param exchangeName exchangeName
+     * @return SNI Name if exist. Otherwise, return optional element.
+     */
+    public Optional<String> getSNIServerName(String exchangeName);
 }
