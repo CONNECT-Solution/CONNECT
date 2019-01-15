@@ -75,6 +75,7 @@ public class LoadTestDataDocumentBean {
     private static final String EVENT_CODE = " an Eventcode";
     private static final String GROWL_MESSAGE = "msgForGrowl";
     private static final String EDIT = "edit";
+    private static final String UNSUCCESSFUL = "Operation was not successful. Please refresh your browser and try again.";
 
     private String dialogTitle;
     private Document withDocument;
@@ -137,7 +138,7 @@ public class LoadTestDataDocumentBean {
                 if (actionResult) {
                     addFacesMessageBy(GROWL_MESSAGE, msgForSaveSuccess(DOCUMENT, withDocument.getDocumentId()));
                 } else {
-                    addFacesMessageBy(GROWL_MESSAGE, msgForSaveUnsuccess(DOCUMENT, withDocument.getDocumentId()));
+                    addFacesMessageBy(GROWL_MESSAGE, HelperUtil.getMsgError(UNSUCCESSFUL));
                 }
             } else {
                 addFacesMessageBy(GROWL_MESSAGE, HelperUtil.getMsgInfo("Document is null."));
@@ -217,7 +218,7 @@ public class LoadTestDataDocumentBean {
                     addFacesMessageBy(msgForSaveSuccess(EVENT_CODE, withEventCode.getEventCodeId()));
                     withEventCode = new EventCodeType();
                 } else {
-                    addFacesMessageBy(msgForSaveUnsuccess(EVENT_CODE, withEventCode.getEventCodeId()));
+                    addFacesMessageBy(HelperUtil.getMsgError(UNSUCCESSFUL));
                 }
             } catch (LoadTestDataException e) {
                 logError(EVENT_CODE, e);
@@ -358,10 +359,6 @@ public class LoadTestDataDocumentBean {
     // msgs
     private static FacesMessage msgForSaveSuccess(String ofType, Long ofId) {
         return HelperUtil.getMsgInfo(MessageFormat.format("Save {0} successful.", ofType.toLowerCase()));
-    }
-
-    private static FacesMessage msgForSaveUnsuccess(String ofType, Long ofId) {
-        return HelperUtil.getMsgError(MessageFormat.format("Save {0} unsuccessful.", ofType.toLowerCase()));
     }
 
     private static FacesMessage msgForSelectDelete(String ofType) {
