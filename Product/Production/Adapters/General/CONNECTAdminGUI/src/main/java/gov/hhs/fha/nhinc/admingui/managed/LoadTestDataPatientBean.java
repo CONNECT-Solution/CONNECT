@@ -69,6 +69,7 @@ public class LoadTestDataPatientBean {
     private static final String PHONE_NUMBER = "a Phonenumber";
     private static final String PATIENT = "Patient";
     private static final String EDIT = "edit";
+    private static final String UNSUCCESSFUL = "Operation was not successful. Please refresh your browser and try again.";
 
     private String dialogTitle;
 
@@ -162,7 +163,7 @@ public class LoadTestDataPatientBean {
                     addPatientInfoMessages(msgForSaveSuccess(PHONE_NUMBER, withPhonenumber.getPhoneNumberId()));
                     withPhonenumber = null;
                 } else {
-                    addPatientInfoMessages(msgForSaveUnsuccess(PHONE_NUMBER, withPhonenumber.getPhoneNumberId()));
+                    addPatientErrorMessages(UNSUCCESSFUL);
                 }
             } catch (LoadTestDataException e) {
                 logPatientError(PHONE_NUMBER, e);
@@ -220,7 +221,7 @@ public class LoadTestDataPatientBean {
                     addPatientInfoMessages(msgForSaveSuccess(ADDRESS, withAddress.getAddressId()));
                     withAddress = null;
                 } else {
-                    addPatientInfoMessages(msgForSaveUnsuccess(ADDRESS, withAddress.getAddressId()));
+                    addPatientErrorMessages(UNSUCCESSFUL);
                 }
             } catch (LoadTestDataException e) {
                 logPatientError(ADDRESS, e);
@@ -285,7 +286,7 @@ public class LoadTestDataPatientBean {
                     addPatientInfoMessages(msgForSaveSuccess(IDENTIFIER, withIdentifier.getIdentifierId()));
                     withIdentifier = null;
                 } else {
-                    addPatientInfoMessages(msgForSaveUnsuccess(IDENTIFIER, withIdentifier.getIdentifierId()));
+                    addPatientErrorMessages(UNSUCCESSFUL);
                 }
             } catch (LoadTestDataException e) {
                 logPatientError(IDENTIFIER, e);
@@ -350,7 +351,7 @@ public class LoadTestDataPatientBean {
                     addPatientInfoMessages(msgForSaveSuccess(ADDITIONAL_NAME, withPersonname.getPersonNameId()));
                     withPersonname = null;
                 } else {
-                    addPatientErrorMessages(msgForSaveUnsuccess(ADDITIONAL_NAME, withPersonname.getPersonNameId()));
+                    addPatientErrorMessages(UNSUCCESSFUL);
                 }
             } catch (LoadTestDataException e) {
                 logPatientError("Personname", e);
@@ -440,7 +441,7 @@ public class LoadTestDataPatientBean {
             if (actionResult) {
                 addPatientInfoMessages(msgForSaveSuccess("patient basic-info", withPatient.getPatientId()));
             } else {
-                addPatientInfoMessages(msgForSaveUnsuccess("patient basic-info", withPatient.getPatientId()));
+                addPatientErrorMessages(UNSUCCESSFUL);
             }
         } catch (LoadTestDataException e) {
             logPatientError("basic-info", e);
@@ -573,11 +574,6 @@ public class LoadTestDataPatientBean {
 
     private static String msgForSaveSuccess(String ofType, Long ofId) {
         return MessageFormat.format("Save {0} successful.", ofType.toLowerCase());
-    }
-
-    private static String msgForSaveUnsuccess(String ofType, Long ofId) {
-        return MessageFormat.format("Save {0} unsuccessful. Please refresh your browser and try again.",
-            ofType.toLowerCase());
     }
 
     private static String msgForSelectEdit(String ofType) {
