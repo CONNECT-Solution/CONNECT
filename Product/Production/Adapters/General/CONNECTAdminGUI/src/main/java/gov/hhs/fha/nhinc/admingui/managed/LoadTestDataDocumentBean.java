@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.admingui.services.LoadTestDataWSService;
 import gov.hhs.fha.nhinc.admingui.services.exception.ValidationException;
 import gov.hhs.fha.nhinc.admingui.services.impl.LoadTestDataWSServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentMetadataType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.EventCodeType;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
@@ -73,6 +74,7 @@ public class LoadTestDataDocumentBean {
     private static final String DOCUMENT = "Document Info";
     private static final String EVENT_CODE = " an Eventcode";
     private static final String GROWL_MESSAGE = "msgForGrowl";
+    private static final String EDIT = "edit";
 
     private String dialogTitle;
     private Document withDocument;
@@ -131,10 +133,11 @@ public class LoadTestDataDocumentBean {
         try {
             if (withDocument != null) {
                 actionResult = wsService.saveDocument(withDocument);
-
+                refreshDocumentList();
                 if (actionResult) {
-                    refreshDocumentList();
                     addFacesMessageBy(GROWL_MESSAGE, msgForSaveSuccess(DOCUMENT, withDocument.getDocumentId()));
+                } else {
+                    addFacesMessageBy(GROWL_MESSAGE, msgForSaveUnsuccess(DOCUMENT, withDocument.getDocumentId()));
                 }
             } else {
                 addFacesMessageBy(GROWL_MESSAGE, HelperUtil.getMsgInfo("Document is null."));
@@ -163,9 +166,7 @@ public class LoadTestDataDocumentBean {
         boolean result = false;
         if (selectedDocument != null) {
             result = wsService.deleteDocument(selectedDocument);
-            if(result){
-                refreshDocumentList();
-            }
+            refreshDocumentList();
             selectedDocument = null;
         } else {
             addFacesMessageBy(GROWL_MESSAGE, msgForSelectDelete("Document"));
@@ -182,8 +183,14 @@ public class LoadTestDataDocumentBean {
     public void editDocument() {
         if (selectedDocument != null) {
             dialogTitle = "Edit Document";
-            withDocument = new Document(wsService.getDocumentBy(selectedDocument.getDocumentId()));
-            newEventCode();
+            DocumentMetadataType docMeta = wsService.getDocumentBy(selectedDocument.getDocumentId());
+            if (null != docMeta) {
+                withDocument = new Document(docMeta);
+                newEventCode();
+            } else {
+                refreshDocumentList();
+                addFacesMessageBy(GROWL_MESSAGE, msgForLoadFor(DOCUMENT, EDIT));
+            }
         } else {
             newDocument();
             addFacesMessageBy(GROWL_MESSAGE, msgForSelectEdit(DOCUMENT));
@@ -209,6 +216,8 @@ public class LoadTestDataDocumentBean {
                     refreshDocument();
                     addFacesMessageBy(msgForSaveSuccess(EVENT_CODE, withEventCode.getEventCodeId()));
                     withEventCode = new EventCodeType();
+                } else {
+                    addFacesMessageBy(msgForSaveUnsuccess(EVENT_CODE, withEventCode.getEventCodeId()));
                 }
             } catch (LoadTestDataException e) {
                 logError(EVENT_CODE, e);
@@ -223,9 +232,7 @@ public class LoadTestDataDocumentBean {
         boolean result = false;
         if (selectedEventCode != null) {
             result = wsService.deleteEventCode(selectedEventCode);
-            if (result) {
-                refreshDocument();
-            }
+            refreshDocument();
             selectedEventCode = null;
         } else {
             addFacesMessageBy(msgForSelectDelete(EVENT_CODE));
@@ -240,6 +247,10 @@ public class LoadTestDataDocumentBean {
     public void editEventCode() {
         if (selectedEventCode != null) {
             withEventCode = wsService.getEventCodeBy(selectedEventCode.getEventCodeId());
+            if(null == withEventCode){
+                refreshDocument();
+                addFacesMessageBy(msgForLoadFor(EVENT_CODE, EDIT));
+            }
         } else {
             newEventCode();
             addFacesMessageBy(msgForSelectEdit(EVENT_CODE));
@@ -349,12 +360,21 @@ public class LoadTestDataDocumentBean {
         return HelperUtil.getMsgInfo(MessageFormat.format("Save {0} successful.", ofType.toLowerCase()));
     }
 
+    private static FacesMessage msgForSaveUnsuccess(String ofType, Long ofId) {
+        return HelperUtil.getMsgError(MessageFormat.format("Save {0} unsuccessful.", ofType.toLowerCase()));
+    }
+
     private static FacesMessage msgForSelectDelete(String ofType) {
         return HelperUtil.getMsgWarn(MessageFormat.format("Select {0} for delete.", ofType.toLowerCase()));
     }
 
     private static FacesMessage msgForSelectEdit(String ofType) {
         return HelperUtil.getMsgWarn(MessageFormat.format("Select {0} for edit.", ofType.toLowerCase()));
+    }
+
+    private static FacesMessage msgForLoadFor(String ofType, String action) {
+        return HelperUtil.getMsgError(
+            MessageFormat.format("Loading {0} for {1}.", ofType.toLowerCase(), action.toLowerCase()));
     }
 
     private static FacesMessage msgForInvalidDocument(String ofType) {
