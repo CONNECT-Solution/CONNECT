@@ -123,6 +123,14 @@ public class InternalExchangeManager extends AbstractExchangeManager<ADAPTER_API
 
     @Override
     public String getDefaultExchange() {
+        if (exInfo == null) {
+            try {
+                loadExchangeInfo();
+            } catch (ExchangeManagerException e) {
+                LOG.error("There are some exception while loading internal exchange information ",
+                    e.getLocalizedMessage(), e);
+            }
+        }
         return null != exInfo ? exInfo.getDefaultExchange() : null;
     }
 

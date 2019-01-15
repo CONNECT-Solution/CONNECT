@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
+import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
@@ -70,14 +72,15 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
 
     private void decorateEndpoint(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId,
         NhinTargetSystemType target, String serviceName) {
-        serviceEndpoint = new SAMLServiceEndpointDecorator<>(serviceEndpoint, assertion, target,
-            serviceName);
+        serviceEndpoint = new SAMLServiceEndpointDecorator<>(serviceEndpoint, assertion, target, serviceName);
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo,
             wsAddressingActionId, assertion);
         serviceEndpoint = new HttpHeaderServiceEndpointDecorator<>(serviceEndpoint, assertion);
 
-        String exchangeName = target != null ? target.getExchangeName() : StoreUtil.INTERNAL_EXCHANGE;
-        serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint, StoreUtil.getGatewayCertificateAlias(exchangeName), assertion);
+        String exchangeName = target != null ? target.getExchangeName() : InternalExchangeManager.getInstance()
+            .getDefaultExchange();
+        serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint,
+            StoreUtil.getGatewayCertificateAlias(exchangeName), assertion);
     }
 
     @Override

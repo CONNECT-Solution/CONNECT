@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
+
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
@@ -92,7 +94,8 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     final Message message = getCurrentMessage();
                     AssertionType custAssertion = getCustAssertion(message.get("assertion"));
                     NhinTargetSystemType systemType = (NhinTargetSystemType) message.get("targetSystemType");
-                    String exchangeName = systemType != null ? systemType.getExchangeName() : StoreUtil.INTERNAL_EXCHANGE;
+                    String exchangeName = systemType != null ? systemType.getExchangeName() : InternalExchangeManager
+                        .getInstance().getDefaultExchange();
                     LOG.trace("Is this exchange {} default for building assertion? {}", exchangeName,
                         systemType != null);
                     final SAMLCallback oSAMLCallback = (SAMLCallback) callback;
