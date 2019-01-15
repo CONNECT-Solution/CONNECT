@@ -312,6 +312,7 @@ public class LoadTestDataPatientBean {
             if (CollectionUtils.isNotEmpty(getPersonnames()) && getPersonnames().size() > 1) {
                 result = wsService.deletePersonName(selectedPersonname);
                 if (result) {
+                    refreshPatientList();
                     refreshPatient();
                 }
                 selectedPersonname = null;
@@ -332,6 +333,7 @@ public class LoadTestDataPatientBean {
                 actionResult = wsService.savePersonName(withPersonname);
 
                 if (actionResult) {
+                    refreshPatientList();
                     refreshPatient();
                     addPatientInfoMessages(msgForSaveSuccess(ADDITIONAL_NAME, withPersonname.getPersonNameId()));
                     withPersonname = null;
