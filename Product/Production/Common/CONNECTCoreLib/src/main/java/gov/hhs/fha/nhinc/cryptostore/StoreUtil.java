@@ -44,7 +44,6 @@ import org.slf4j.LoggerFactory;
 public class StoreUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(StoreUtil.class);
-    public static final String INTERNAL_EXCHANGE = InternalExchangeManager.getInstance().getDefaultExchange();
     private static Map<String, String> gatewayAliasMapping = new HashMap<>();
 
     private StoreUtil() {
@@ -72,7 +71,7 @@ public class StoreUtil {
     }
 
     public static void addGatewayCertificateAlias(String exchangeName, String alias) {
-        if (!StringUtils.equalsIgnoreCase(INTERNAL_EXCHANGE, exchangeName)
+        if (!StringUtils.equalsIgnoreCase(InternalExchangeManager.getInstance().getDefaultExchange(), exchangeName)
             && !ArrayUtils.contains(new String[] { exchangeName, alias }, null)) {
             gatewayAliasMapping.put(exchangeName, alias);
         }
@@ -80,7 +79,7 @@ public class StoreUtil {
 
     public static String getGatewayCertificateAlias(String exchangeName) {
         LOG.debug("Get Certification for exchange {}", exchangeName);
-        if (!StringUtils.equalsIgnoreCase(INTERNAL_EXCHANGE, exchangeName)) {
+        if (!StringUtils.equalsIgnoreCase(InternalExchangeManager.getInstance().getDefaultExchange(), exchangeName)) {
             String gatewayAlias = gatewayAliasMapping.get(exchangeName);
             if(StringUtils.isNotBlank(gatewayAlias)){
                 LOG.debug("found exchange mapping for '{}' to use '{}' JKS alias", exchangeName, gatewayAlias);

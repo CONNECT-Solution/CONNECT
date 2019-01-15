@@ -29,14 +29,12 @@ package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
 /**
  * @author mpnguyen
- *
  */
 public class SSLSocketFactoryWrapper extends SSLSocketFactory {
     private final SSLSocketFactory wrappedFactory;
@@ -48,15 +46,14 @@ public class SSLSocketFactoryWrapper extends SSLSocketFactory {
     }
 
     @Override
-    public Socket createSocket(String host, int port) throws IOException, UnknownHostException {
+    public Socket createSocket(String host, int port) throws IOException {
         SSLSocket socket = (SSLSocket) wrappedFactory.createSocket(host, port);
         setParameters(socket);
         return socket;
     }
 
     @Override
-    public Socket createSocket(String host, int port, InetAddress localHost, int localPort) throws IOException,
-    UnknownHostException {
+    public Socket createSocket(String host, int port, InetAddress localHost, int localPort) throws IOException {
         SSLSocket socket = (SSLSocket) wrappedFactory.createSocket(host, port, localHost, localPort);
         setParameters(socket);
         return socket;
