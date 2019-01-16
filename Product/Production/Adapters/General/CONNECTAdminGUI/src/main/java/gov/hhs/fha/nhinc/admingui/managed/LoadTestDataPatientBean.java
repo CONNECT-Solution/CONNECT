@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.admingui.services.impl.LoadTestDataWSServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.AddressType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.IdentifierType;
+import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PatientType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonNameType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PhoneNumberType;
 import gov.hhs.fha.nhinc.loadtestdata.LoadTestDataException;
@@ -66,6 +67,9 @@ public class LoadTestDataPatientBean {
     private static final String ADDRESS = "Address";
     private static final String IDENTIFIER = "an Identifier";
     private static final String PHONE_NUMBER = "a Phonenumber";
+    private static final String PATIENT = "Patient";
+    private static final String EDIT = "edit";
+    private static final String UNSUCCESSFUL = "Operation was not successful. Please refresh your browser and try again.";
 
     private String dialogTitle;
 
@@ -138,9 +142,7 @@ public class LoadTestDataPatientBean {
         boolean result = false;
         if (selectedPhonenumber != null) {
             result = wsService.deletePhoneNumber(selectedPhonenumber);
-            if (result) {
-                refreshPatient();
-            }
+            refreshPatient();
             selectedPhonenumber = null;
         } else {
             addPatientErrorMessages(msgForSelectDelete(PHONE_NUMBER));
@@ -160,6 +162,8 @@ public class LoadTestDataPatientBean {
                     refreshPatient();
                     addPatientInfoMessages(msgForSaveSuccess(PHONE_NUMBER, withPhonenumber.getPhoneNumberId()));
                     withPhonenumber = null;
+                } else {
+                    addPatientErrorMessages(UNSUCCESSFUL);
                 }
             } catch (LoadTestDataException e) {
                 logPatientError(PHONE_NUMBER, e);
@@ -173,6 +177,10 @@ public class LoadTestDataPatientBean {
     public void editPhonenumber() {
         if (selectedPhonenumber != null) {
             withPhonenumber = wsService.getPhoneNumberBy(selectedPhonenumber.getPhoneNumberId());
+            if (null == withPhonenumber) {
+                refreshPatient();
+                addPatientErrorMessages(msgForLoadFor(PHONE_NUMBER, EDIT));
+            }
         } else {
             addPatientErrorMessages(msgForSelectEdit(PHONE_NUMBER));
         }
@@ -193,9 +201,7 @@ public class LoadTestDataPatientBean {
         boolean result = false;
         if (selectedAddress != null) {
             result = wsService.deleteAddress(selectedAddress);
-            if (result) {
-                refreshPatient();
-            }
+            refreshPatient();
             selectedAddress = null;
         } else {
             addPatientErrorMessages(msgForSelectDelete(ADDRESS));
@@ -214,6 +220,8 @@ public class LoadTestDataPatientBean {
                     refreshPatient();
                     addPatientInfoMessages(msgForSaveSuccess(ADDRESS, withAddress.getAddressId()));
                     withAddress = null;
+                } else {
+                    addPatientErrorMessages(UNSUCCESSFUL);
                 }
             } catch (LoadTestDataException e) {
                 logPatientError(ADDRESS, e);
@@ -228,6 +236,10 @@ public class LoadTestDataPatientBean {
     public void editAddress() {
         if (selectedAddress != null) {
             withAddress = wsService.getAddressBy(selectedAddress.getAddressId());
+            if (null == withAddress) {
+                refreshPatient();
+                addPatientErrorMessages(msgForLoadFor(ADDRESS, EDIT));
+            }
         } else {
             addPatientErrorMessages(msgForSelectEdit(ADDRESS));
         }
@@ -250,9 +262,7 @@ public class LoadTestDataPatientBean {
             // Patient-Personname&Identifier: are required for patient-record
             if (CollectionUtils.isNotEmpty(getIdentifiers()) && getIdentifiers().size() > 1) {
                 result = wsService.deleteIdentifier(selectedIdentifier);
-                if (result) {
-                    refreshPatient();
-                }
+                refreshPatient();
                 selectedIdentifier = null;
             } else {
                 addPatientErrorMessages("Last identifier cannot be deleted.");
@@ -275,6 +285,8 @@ public class LoadTestDataPatientBean {
                     refreshPatient();
                     addPatientInfoMessages(msgForSaveSuccess(IDENTIFIER, withIdentifier.getIdentifierId()));
                     withIdentifier = null;
+                } else {
+                    addPatientErrorMessages(UNSUCCESSFUL);
                 }
             } catch (LoadTestDataException e) {
                 logPatientError(IDENTIFIER, e);
@@ -289,6 +301,10 @@ public class LoadTestDataPatientBean {
     public void editIdentifier() {
         if (selectedIdentifier != null) {
             withIdentifier = wsService.getIdentifierBy(selectedIdentifier.getIdentifierId());
+            if (null == withIdentifier) {
+                refreshPatient();
+                addPatientErrorMessages(msgForLoadFor(IDENTIFIER, EDIT));
+            }
         } else {
             addPatientErrorMessages(msgForSelectEdit(IDENTIFIER));
         }
@@ -311,9 +327,8 @@ public class LoadTestDataPatientBean {
             // Patient-Personname&Identifier: are required for patient-record
             if (CollectionUtils.isNotEmpty(getPersonnames()) && getPersonnames().size() > 1) {
                 result = wsService.deletePersonName(selectedPersonname);
-                if (result) {
-                    refreshPatient();
-                }
+                refreshPatientList();
+                refreshPatient();
                 selectedPersonname = null;
             } else {
                 addPatientErrorMessages("Last person name cannot be deleted.");
@@ -330,11 +345,13 @@ public class LoadTestDataPatientBean {
             try {
                 withPersonname.setPatientId(withPatient.getPatientId());
                 actionResult = wsService.savePersonName(withPersonname);
-
+                refreshPatientList();
                 if (actionResult) {
                     refreshPatient();
                     addPatientInfoMessages(msgForSaveSuccess(ADDITIONAL_NAME, withPersonname.getPersonNameId()));
                     withPersonname = null;
+                } else {
+                    addPatientErrorMessages(UNSUCCESSFUL);
                 }
             } catch (LoadTestDataException e) {
                 logPatientError("Personname", e);
@@ -348,6 +365,10 @@ public class LoadTestDataPatientBean {
     public void editPersonname() {
         if (selectedPersonname != null) {
             withPersonname = wsService.getPersonNameBy(selectedPersonname.getPersonNameId());
+            if (null == withPersonname) {
+                refreshPatient();
+                addPatientErrorMessages(msgForLoadFor(ADDITIONAL_NAME, EDIT));
+            }
         } else {
             addPatientErrorMessages(msgForSelectEdit(ADDITIONAL_NAME));
         }
@@ -368,9 +389,7 @@ public class LoadTestDataPatientBean {
         boolean result = false;
         if (selectedPatient != null) {
             result = wsService.deletePatient(selectedPatient);
-            if (result) {
-                refreshPatientList();
-            }
+            refreshPatientList();
             selectedPatient = null;
         } else {
             addPatientsListMessages(msgForSelectDelete("patient"));
@@ -381,10 +400,16 @@ public class LoadTestDataPatientBean {
     public void editPatient() {
         if (selectedPatient != null) {
             dialogTitle = "Edit Patient";
-            withPatient = new Patient(wsService.getPatientBy(selectedPatient.getPatientId()));
+            PatientType tempPatient = wsService.getPatientBy(selectedPatient.getPatientId());
+            if (null != tempPatient) {
+                withPatient = new Patient(tempPatient);
+            } else {
+                refreshPatientList();
+                addPatientErrorMessages(msgForLoadFor(PATIENT, EDIT));
+            }
         } else {
             newPatient();
-            addPatientErrorMessages(msgForSelectEdit("patient"));
+            addPatientErrorMessages(msgForSelectEdit(PATIENT));
         }
     }
 
@@ -412,10 +437,11 @@ public class LoadTestDataPatientBean {
         boolean actionResult = false;
         try {
             actionResult = wsService.savePatient(withPatient);
-
+            refreshPatientList();
             if (actionResult) {
-                refreshPatientList();
                 addPatientInfoMessages(msgForSaveSuccess("patient basic-info", withPatient.getPatientId()));
+            } else {
+                addPatientErrorMessages(UNSUCCESSFUL);
             }
         } catch (LoadTestDataException e) {
             logPatientError("basic-info", e);
@@ -552,6 +578,10 @@ public class LoadTestDataPatientBean {
 
     private static String msgForSelectEdit(String ofType) {
         return MessageFormat.format("Select {0} for edit.", ofType.toLowerCase());
+    }
+
+    private static String msgForLoadFor(String ofType, String action) {
+        return MessageFormat.format("Loading {0} for {1}.", ofType.toLowerCase(), action.toLowerCase());
     }
 
     private static String msgForSelectDelete(String ofType) {
