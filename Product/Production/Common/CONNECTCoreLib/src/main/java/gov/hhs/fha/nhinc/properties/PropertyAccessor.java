@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -62,7 +62,7 @@ public class PropertyAccessor implements IPropertyAcessor {
 
     /**
      * @param propertyFileName The name of the property file. This is the name of the file without a path and without
-     *            the ".properties" extension. Examples of this would be "connection" or "gateway".
+     * the ".properties" extension. Examples of this would be "connection" or "gateway".
      *
      */
     public synchronized void setPropertyFile(String propertyFileName) {
@@ -83,7 +83,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      * the property will be retrieved from the properties file and returned.
      *
      * @param propertyFile The name of the property file. This is the name of the file without a path and without the
-     *            ".properties" extension. Examples of this would be "connection" or "gateway".
+     * ".properties" extension. Examples of this would be "connection" or "gateway".
      * @param propertyName This is the name of the property within the property file.
      * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
      */
@@ -116,7 +116,8 @@ public class PropertyAccessor implements IPropertyAcessor {
      * @throws PropertyAccessException the property access exception
      */
     @Override
-    public synchronized void setProperty(String propertyFileName, String key, String value) throws PropertyAccessException {
+    public synchronized void setProperty(String propertyFileName, String key, String value) throws
+        PropertyAccessException {
         loadPropertyFile(propertyFileName);
 
         propertyFileDAO.setProperty(propertyFileName, key, value);
@@ -135,7 +136,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      *
      * @param propertyFile The name of the property file.
      * @param propertyName The name of the property that contains a boolean value. This will return true if the value
-     *            is: T, t, or any case combination of "TRUE" and it will return false for all other values.
+     * is: T, t, or any case combination of "TRUE" and it will return false for all other values.
      * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
      */
     @Override
@@ -153,7 +154,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      *
      * @param propertyFile The name of the property file.
      * @param propertyName The name of the property that contains a boolean value. This will return true if the value
-     *            is: T, t, or any case combination of "TRUE" and it will return false for all other values.
+     * is: T, t, or any case combination of "TRUE" and it will return false for all other values.
      * @param defaultValue default value if entry doesn't exist in property file
      */
     @Override
@@ -184,6 +185,19 @@ public class PropertyAccessor implements IPropertyAcessor {
         return propertyFileDAO.getPropertyLong(propertyFile, propertyName);
     }
 
+    @Override
+    public Long getPropertyLongObject(String propertyFile, String propertyName, Long defaultValue) {
+        try {
+            validateInput(propertyFile, propertyName);
+            loadPropertyFile(propertyFile);
+            return propertyFileDAO.getPropertyLongObject(propertyFile, propertyName, defaultValue);
+        } catch (PropertyAccessException anEx) {
+            LOG.error("Fail to retrieve {} from {}.property file. Default to {} ", propertyName, defaultValue,
+                propertyFile, anEx);
+            return defaultValue;
+        }
+    }
+
     /**
      * This method returns the set of keys in a property file.
      *
@@ -204,7 +218,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      * but the cache is not fresh, then the cache will be updated with the current values in the properties file and
      * then the property values will be returned. If the properties for that file are not cached at all, the property
      * will be retrieved from the properties file and returned.
-     *
+     * <p>
      * NOTE: THIS IS AN EXPENSIVE OPERATION. IT WILL CREATE A DEEP COPY OF THE PROPERTIES AND RETURN IT. THAT MEANS IT
      * WILL CREATE AN EXACT REPLICA WITH ALL DATA. THIS IS A PROTECTION TO MAKE SURE THAT A PROPERTY IS NOT
      * INADVERTANTLY CHANGED OUTSIDE OF THIS CLASS.
