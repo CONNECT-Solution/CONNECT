@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -151,10 +152,10 @@ public class PropertyFileDAO {
             try {
                 return properties.getLong(propertyName, defaultValue);
             } catch (ConversionException ex) {
-                throw new PropertyAccessException("Could not convert property value to long for: " + propertyName, ex);
+                LOG.error("Could not convert property value to long for: {} ", propertyName, ex);
             }
         }
-        throw new PropertyAccessException(getErrorMessage(propertyFileName, propertyName));
+        return defaultValue;
     }
 
     public Set<String> getPropertyNames(String propertyFileName) {
@@ -229,6 +230,6 @@ public class PropertyFileDAO {
     }
 
     private static String getErrorMessage(String propertyFileName, String propertyName) {
-        return "Could not find the property: " + propertyName + " in the file:" + propertyFileName;
+        return MessageFormat.format("Could not find the property: {0} in the file: {1}", propertyName, propertyFileName);
     }
 }
