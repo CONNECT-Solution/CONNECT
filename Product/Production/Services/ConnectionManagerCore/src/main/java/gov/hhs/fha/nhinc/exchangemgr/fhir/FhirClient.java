@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.security.GeneralSecurityException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
@@ -52,7 +51,7 @@ public class FhirClient {
             String response = readResponse(client.getResponseCode(), client.getInputStream());
             client.disconnect();
             return response;
-        } catch (IOException | GeneralSecurityException ex) {
+        } catch (IOException ex) {
             throw new FhirClientException("Error performing Http Request: " + ex.getLocalizedMessage(), ex);
         }
     }
