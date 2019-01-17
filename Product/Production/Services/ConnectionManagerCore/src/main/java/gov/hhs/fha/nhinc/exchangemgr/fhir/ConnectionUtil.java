@@ -30,8 +30,6 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SSLSocketFactoryWrapper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.DISABLE_CN_CHECK;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelperProperties;
@@ -97,12 +95,19 @@ public class ConnectionUtil {
     }
 
     private static HttpURLConnection getHttpConnection(String uri, SSLContext sslContext, String sniName) throws
-        KeyManagementException, IOException {
-        URL url = new URL(uri);
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        if (FhirConstants.HTTP.equals(url.getProtocol())) {
-            return urlConnection;
+        KeyManagementException, IOException, FhirClientException {
+        if (StringUtils.isBlank(uri)) {
+            throw new FhirClientException("URL not specified");
         }
+        URL url = new URL(uri);
+        if (FhirConstants.HTTPS.equals(url.getProtocol())) {
+            return getHttpsConnection(url, sslContext, sniName);
+        }
+        return (HttpURLConnection) url.openConnection();
+    }
+
+    private static HttpsURLConnection getHttpsConnection(URL url, SSLContext sslContext, String sniName) throws
+        KeyManagementException, IOException {
         SSLParameters sslParamters = sslContext.getDefaultSSLParameters();
         CertificateManager cm = CertificateManagerImpl.getInstance();
         sslContext.init(getKeyManager(cm), getTrustManager(cm), null);
@@ -115,12 +120,12 @@ public class ConnectionUtil {
         } else {
             factory = sslContext.getSocketFactory();
         }
-        HttpsURLConnection httpsConnection = ((HttpsURLConnection) urlConnection);
+        HttpsURLConnection httpsConnection = ((HttpsURLConnection) url.openConnection());
         httpsConnection.setSSLSocketFactory(factory);
-        if (isCNCheckDisabled()) {
+        if (!isHostnameVerificationEnabled()) {
             httpsConnection.setHostnameVerifier(getAllHostnameVerifier());
         }
-        return urlConnection;
+        return httpsConnection;
     }
 
     private static SSLContext getSSLContext() throws GeneralSecurityException {
@@ -183,8 +188,8 @@ public class ConnectionUtil {
         };
     }
 
-    private static boolean isCNCheckDisabled() {
-        return PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
-            DISABLE_CN_CHECK, false);
+    private static boolean isHostnameVerificationEnabled() {
+        return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+            NhincConstants.ENABLE_HOSTNAME_VERIFICATION, true);
     }
 }

@@ -33,7 +33,7 @@ package gov.hhs.fha.nhinc.exchangemgr.fhir;
 public class FhirConstants {
 
     public static final String DEFAULT_CHARSET = "utf-8";
-    public static final String HTTP = "http";
+    public static final String HTTPS = "https";
     public static final String ACCEPT_HEADER = "Accept";
     public static final String CONTENT_TYPE_HEADER = "Content-Type";
     public static final String ACCEPT_CHARSET_HEADER = "Accept-Charset";
