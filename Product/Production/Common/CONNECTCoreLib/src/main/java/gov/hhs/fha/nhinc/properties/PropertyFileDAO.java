@@ -129,8 +129,7 @@ public class PropertyFileDAO {
                 }
             }
         }
-        throw new PropertyAccessException(
-            "Could not find the property: " + propertyName + " in the file:" + propertyFileName);
+        throw new PropertyAccessException(getErrorMessage(propertyFileName, propertyName));
     }
 
     public long getPropertyLong(String propertyFileName, String propertyName) throws PropertyAccessException {
@@ -142,8 +141,7 @@ public class PropertyFileDAO {
                 throw new PropertyAccessException("Could not convert property value to long for: " + propertyName, ex);
             }
         }
-        throw new PropertyAccessException(
-            "Could not find the property: " + propertyName + " in the file:" + propertyFileName);
+        throw new PropertyAccessException(getErrorMessage(propertyFileName, propertyName));
     }
 
     public Long getPropertyLongObject(String propertyFileName, String propertyName, Long defaultValue) throws
@@ -156,8 +154,7 @@ public class PropertyFileDAO {
                 throw new PropertyAccessException("Could not convert property value to long for: " + propertyName, ex);
             }
         }
-        throw new PropertyAccessException(
-            "Could not find the property: " + propertyName + " in the file:" + propertyFileName);
+        throw new PropertyAccessException(getErrorMessage(propertyFileName, propertyName));
     }
 
     public Set<String> getPropertyNames(String propertyFileName) {
@@ -231,4 +228,7 @@ public class PropertyFileDAO {
         return oRetProps;
     }
 
+    private static String getErrorMessage(String propertyFileName, String propertyName) {
+        return "Could not find the property: " + propertyName + " in the file:" + propertyFileName;
+    }
 }
