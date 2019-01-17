@@ -30,6 +30,8 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SSLSocketFactoryWrapper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.DISABLE_CN_CHECK;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelperProperties;
@@ -43,6 +45,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
@@ -50,6 +53,7 @@ import javax.net.ssl.SNIHostName;
 import javax.net.ssl.SNIServerName;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLParameters;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
@@ -67,29 +71,36 @@ import org.springframework.http.HttpMethod;
 public class ConnectionUtil {
 
     private static final Long DEFAULT_TIMEOUT = 120000L;
+
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionUtil.class);
 
+    private ConnectionUtil() {
+    }
+
     public static HttpURLConnection createHttpUrlConnection(String uri, HttpMethod httpMethod, String sniName,
-        MimeType mimeType) throws IOException, NoSuchAlgorithmException, KeyManagementException,
-        GeneralSecurityException {
-        HttpURLConnection urlConnection = getHttpConnection(uri, getSSLContext(), sniName);
-        Long timeout = PropertyAccessor.getInstance().getPropertyLongObject(NhincConstants.GATEWAY_PROPERTY_FILE,
-            WebServiceProxyHelperProperties.CONFIG_KEY_TIMEOUT, DEFAULT_TIMEOUT);
-        urlConnection.setReadTimeout(timeout.intValue());
-        urlConnection.setConnectTimeout(timeout.intValue());
-        urlConnection.setRequestMethod(httpMethod.toString());
-        urlConnection.setRequestProperty("Accept", mimeType.getMimeType());
-        urlConnection.setRequestProperty("Content-Type", mimeType.getMimeType() + ";charset="
-            + FhirConstants.DEFAULT_CHARSET);
-        urlConnection.setRequestProperty("Accept-Charset", FhirConstants.DEFAULT_CHARSET);
-        return urlConnection;
+        MimeType mimeType) throws FhirClientException {
+        try {
+            HttpURLConnection urlConnection = getHttpConnection(uri, getSSLContext(), sniName);
+            Long timeout = PropertyAccessor.getInstance().getPropertyLongObject(NhincConstants.GATEWAY_PROPERTY_FILE,
+                WebServiceProxyHelperProperties.CONFIG_KEY_TIMEOUT, DEFAULT_TIMEOUT);
+            urlConnection.setReadTimeout(timeout.intValue());
+            urlConnection.setConnectTimeout(timeout.intValue());
+            urlConnection.setRequestMethod(httpMethod.toString());
+            urlConnection.setRequestProperty(FhirConstants.ACCEPT_HEADER, mimeType.getMimeType());
+            urlConnection.setRequestProperty(FhirConstants.CONTENT_TYPE_HEADER, mimeType.getMimeType()
+                + FhirConstants.FHIR_CHARSET_HEADER);
+            urlConnection.setRequestProperty(FhirConstants.ACCEPT_CHARSET_HEADER, FhirConstants.DEFAULT_CHARSET);
+            return urlConnection;
+        } catch (IOException | GeneralSecurityException anEx) {
+            throw new FhirClientException("Error opening Connection: " + anEx.getLocalizedMessage(), anEx);
+        }
     }
 
     private static HttpURLConnection getHttpConnection(String uri, SSLContext sslContext, String sniName) throws
         KeyManagementException, IOException {
         URL url = new URL(uri);
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        if ("http".equals(url.getProtocol())) {
+        if (FhirConstants.HTTP.equals(url.getProtocol())) {
             return urlConnection;
         }
         SSLParameters sslParamters = sslContext.getDefaultSSLParameters();
@@ -104,11 +115,15 @@ public class ConnectionUtil {
         } else {
             factory = sslContext.getSocketFactory();
         }
-        ((HttpsURLConnection) urlConnection).setSSLSocketFactory(factory);
+        HttpsURLConnection httpsConnection = ((HttpsURLConnection) urlConnection);
+        httpsConnection.setSSLSocketFactory(factory);
+        if (isCNCheckDisabled()) {
+            httpsConnection.setHostnameVerifier(getAllHostnameVerifier());
+        }
         return urlConnection;
     }
 
-    private static SSLContext getSSLContext() throws NoSuchAlgorithmException, GeneralSecurityException {
+    private static SSLContext getSSLContext() throws GeneralSecurityException {
         String protocols = getTLSVersionsFromProperties();
         TLSClientParameters tlsCP = new TLSClientParameters();
         tlsCP.setSecureSocketProtocol(protocols);
@@ -159,6 +174,17 @@ public class ConnectionUtil {
         return keystorePassword.toCharArray();
     }
 
-    private ConnectionUtil() {
+    private static HostnameVerifier getAllHostnameVerifier() {
+        return new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+    }
+
+    private static boolean isCNCheckDisabled() {
+        return PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
+            DISABLE_CN_CHECK, false);
     }
 }
