@@ -23,14 +23,15 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.cryptostore;
 
+import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +44,6 @@ import org.slf4j.LoggerFactory;
 public class StoreUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(StoreUtil.class);
-    public static final String INTERNAL_EXCHANGE = "INTERNAL";
     private static Map<String, String> gatewayAliasMapping = new HashMap<>();
 
     private StoreUtil() {
@@ -71,21 +71,21 @@ public class StoreUtil {
     }
 
     public static void addGatewayCertificateAlias(String exchangeName, String alias) {
-        if (!INTERNAL_EXCHANGE.equals(exchangeName) && !ArrayUtils.contains(new String[]{exchangeName,alias}, null)) {
+        if (!StringUtils.equalsIgnoreCase(InternalExchangeManager.getInstance().getDefaultExchange(), exchangeName)
+            && !ArrayUtils.contains(new String[] { exchangeName, alias }, null)) {
             gatewayAliasMapping.put(exchangeName, alias);
         }
     }
 
     public static String getGatewayCertificateAlias(String exchangeName) {
-
-        if (!INTERNAL_EXCHANGE.equals(exchangeName)) {
+        LOG.debug("Get Certification for exchange {}", exchangeName);
+        if (!StringUtils.equalsIgnoreCase(InternalExchangeManager.getInstance().getDefaultExchange(), exchangeName)) {
             String gatewayAlias = gatewayAliasMapping.get(exchangeName);
             if(StringUtils.isNotBlank(gatewayAlias)){
                 LOG.debug("found exchange mapping for '{}' to use '{}' JKS alias", exchangeName, gatewayAlias);
                 return gatewayAlias;
             }
         }
-
         return getPrivateKeyAlias();
     }
 }

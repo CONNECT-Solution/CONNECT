@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
 import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.DISABLE_CN_CHECK;
@@ -37,8 +37,14 @@ import java.security.GeneralSecurityException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SNIHostName;
+import javax.net.ssl.SNIServerName;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
@@ -85,20 +91,20 @@ public class TLSClientParametersFactory {
      * @param protocols either TLS or SSLv3
      * @return
      */
-    public TLSClientParameters getTLSClientParameters(final String protocols, String gatewayAlias) {
+    public TLSClientParameters getTLSClientParameters(final String protocols, String gatewayAlias, String sniName) {
         TLSClientParameters tlsCP = new TLSClientParameters();
         tlsCP.setSecureSocketProtocol(protocols);
-        return constructTLSClient(tlsCP, gatewayAlias);
+        return constructTLSClient(tlsCP, gatewayAlias, sniName);
 
 
     }
 
-    public TLSClientParameters getTLSClientParameters(String certificateAlias) {
-        return constructTLSClient(new TLSClientParameters(), certificateAlias);
+    public TLSClientParameters getTLSClientParameters(String certificateAlias, String sniName) {
+        return constructTLSClient(new TLSClientParameters(), certificateAlias, sniName);
     }
 
     private static TLSClientParameters constructTLSClient(TLSClientParameters tlsClientParameters,
-        String certificateAlias) {
+        String certificateAlias, String sniName) {
         try {
             boolean isDisableCNCheck = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE,
                 DISABLE_CN_CHECK, false);
@@ -111,18 +117,22 @@ public class TLSClientParametersFactory {
 
             setKeyManagers(tlsClientParameters);
             setTrustManager(tlsClientParameters);
-
-            SSLSocketFactory factory = SSLUtils.getSSLContext(tlsClientParameters).getSocketFactory();
-            if (factory != null) {
-                tlsClientParameters.setSSLSocketFactory(factory);
-            } else {
-                throw new SecurityException("Couldn't get the SSLSocketFactory.");
-            }
-
             tlsClientParameters.setDisableCNCheck(isDisableCNCheck);
-            LOG.info("tlsClientParameters--disableCNCheck-is-set: {}", isDisableCNCheck);
+            LOG.debug("tlsClientParameters--disableCNCheck-is-set {} and sniName {}", isDisableCNCheck, sniName);
+            if (StringUtils.isNotBlank(sniName)) {
+                SSLContext sslContext = SSLUtils.getSSLContext(tlsClientParameters);
+                SSLParameters sslParamters = sslContext.getDefaultSSLParameters();
+                List<SNIServerName> sniHostList = new ArrayList<>();
+                sniHostList.add(new SNIHostName(sniName));
+                sslParamters.setServerNames(sniHostList);
+                SSLSocketFactoryWrapper wrapper = new SSLSocketFactoryWrapper(sslContext.getSocketFactory(),
+                    sslParamters);
+                tlsClientParameters.setSSLSocketFactory(wrapper);
+            } else {
+                SSLSocketFactory factory = SSLUtils.getSSLContext(tlsClientParameters).getSocketFactory();
+                tlsClientParameters.setSSLSocketFactory(factory);
+            }
         } catch (GeneralSecurityException | IllegalStateException e) {
-            LOG.error("Could not get TLS client parameters: {} ", e.getLocalizedMessage(), e);
             throw new SecurityException("Could not create SSL Context.", e);
         }
         return tlsClientParameters;
