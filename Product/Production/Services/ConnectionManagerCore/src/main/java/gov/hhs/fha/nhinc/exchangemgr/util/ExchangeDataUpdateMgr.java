@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.exchangemgr.util;
 
 import gov.hhs.fha.nhinc.common.exchangemanagement.ExchangeDownloadStatusType;
@@ -41,7 +41,6 @@ import gov.hhs.fha.nhinc.exchangemgr.fhir.FHIRDataParserException;
 import gov.hhs.fha.nhinc.exchangemgr.fhir.FhirClient;
 import gov.hhs.fha.nhinc.exchangemgr.fhir.FhirClientException;
 import gov.hhs.fha.nhinc.exchangemgr.fhir.MimeType;
-import gov.hhs.fha.nhinc.exchangemgr.fhir.RequestBuilder;
 import gov.hhs.fha.nhinc.exchangemgr.fhir.ResponseBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.EXCHANGE_TYPE;
@@ -50,12 +49,10 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 import java.io.File;
 import java.math.BigInteger;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.client.methods.HttpGet;
 import org.hl7.fhir.dstu3.model.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,10 +109,6 @@ public class ExchangeDataUpdateMgr {
 
     protected FhirClient getFhirClient() {
         return new FhirClient();
-    }
-
-    protected RequestBuilder getRequestBuilder() {
-        return new RequestBuilder();
     }
 
     protected ExchangeInfoDAOFileImpl getExchangeDAO() {
@@ -213,10 +206,8 @@ public class ExchangeDataUpdateMgr {
         try {
             LOG.info("Starting FHIR download from {}", exchange.getUrl());
             MimeType format = getMimeType(exchange.getUrl());
-            RequestBuilder builder = getRequestBuilder();
-            HttpGet request = builder.get(exchange.getUrl(), format);
             FhirClient client = getFhirClient();
-            String response = client.sendRequest(request);
+            String response = client.doGet(exchange.getUrl(), exchange.getSniName(), format);
             exStatus.getStepStatus().add(buildExchangeDownloadStatusMsg(true, DOWNLOAD_SUCCESS_MSG, null, null));
             Bundle bundle = ResponseBuilder.build(response, format);
             exStatus.getStepStatus().add(buildExchangeDownloadStatusMsg(true, SCHEMA_VAL_SUCCESS_MSG, null, null));
@@ -226,7 +217,7 @@ public class ExchangeDataUpdateMgr {
             exStatus.getStepStatus().add(buildExchangeDownloadStatusMsg(true, TRANSFORM_SUCCESS_MSG, null, null));
             exchange.setLastUpdated(getTimestamp());
             exStatus.setSuccess(true);
-        } catch (URISyntaxException | FhirClientException ex) {
+        } catch (FhirClientException ex) {
             exStatus.getStepStatus()
                 .add(buildExchangeDownloadStatusMsg(false, DOWNLOAD_FAILED_MSG, ex.getLocalizedMessage(), ex));
             exStatus.getStepStatus()
