@@ -145,8 +145,7 @@ public class PropertyFileDAO {
         throw new PropertyAccessException(getErrorMessage(propertyFileName, propertyName));
     }
 
-    public Long getPropertyLongObject(String propertyFileName, String propertyName, Long defaultValue) throws
-        PropertyAccessException {
+    public Long getPropertyLongObject(String propertyFileName, String propertyName, Long defaultValue) {
         PropertiesConfiguration properties = propertyFilesHashmap.get(propertyFileName);
         if (properties != null && properties.containsKey(propertyName)) {
             try {
