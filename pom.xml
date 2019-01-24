@@ -69,6 +69,7 @@ By advancing the adoption of interoperable health IT systems and health informat
 
         <!--jUnit Options-->
         <surefire.reuseforks>true</surefire.reuseforks>
+        <surefire.forkcount>1</surefire.forkcount>
     </properties>
 
     <scm>
@@ -194,6 +195,7 @@ By advancing the adoption of interoperable health IT systems and health informat
                     <version>${surefire.version}</version>
                     <configuration>
                         <reuseForks>${surefire.reuseforks}</reuseForks>
+                        <forkCount>${surefire.forkcount}</forkCount>
                         <argLine>-XX:MaxPermSize=1012m -noverify</argLine>
                         <systemProperties>
                             <property>
