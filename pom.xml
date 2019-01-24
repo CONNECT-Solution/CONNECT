@@ -66,6 +66,9 @@ By advancing the adoption of interoperable health IT systems and health informat
         <db.user>nhincuser</db.user>
         <mysql.root.password>NHIE-Gateway</mysql.root.password>
         <mysqldriver.version>5.1.10</mysqldriver.version>
+
+        <!--jUnit Options-->
+        <surefire.reuseforks>true</surefire.reuseforks>
     </properties>
 
     <scm>
@@ -190,8 +193,7 @@ By advancing the adoption of interoperable health IT systems and health informat
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${surefire.version}</version>
                     <configuration>
-                        <reuseForks>false</reuseForks>
-                        <forkCount>1</forkCount>
+                        <reuseForks>${surefire.reuseforks}</reuseForks>
                         <argLine>-XX:MaxPermSize=1012m -noverify</argLine>
                         <systemProperties>
                             <property>
