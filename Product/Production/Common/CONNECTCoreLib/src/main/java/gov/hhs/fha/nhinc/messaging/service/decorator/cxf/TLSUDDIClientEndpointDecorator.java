@@ -27,11 +27,11 @@
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
-
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.slf4j.Logger;
@@ -61,7 +61,7 @@ public class TLSUDDIClientEndpointDecorator<T> extends TLSClientServiceEndpointD
         final String protocol = getSecureProtocol();
         LOG.info("TLS support versions {}", protocol);
         TLSClientParameters tlsCP = getTlsClientFactory().getTLSClientParameters(protocol, certificateAlias,
-            exchangeName);
+            HomeCommunityMap.getSNIName(exchangeName));
         getHttpConduit().setTlsClientParameters(tlsCP);
     }
 
