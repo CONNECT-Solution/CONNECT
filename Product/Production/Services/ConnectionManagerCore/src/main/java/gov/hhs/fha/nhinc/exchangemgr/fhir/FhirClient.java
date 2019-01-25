@@ -66,7 +66,7 @@ public class FhirClient {
     public String sendRequest(HttpUriRequest request) throws FhirClientException {
         LOG.info("sendRequest: {}", request);
         HttpClientBuilder client = HttpClientBuilder.create();
-        try (CloseableHttpClient httpClient = client.setSSLSocketFactory(createSSLConnectionSocketFactory()).build()) {
+        try (CloseableHttpClient httpClient = client.useSystemProperties().setSSLSocketFactory(createSSLConnectionSocketFactory()).build()) {
             try (CloseableHttpResponse response = httpClient.execute(request)) {
                 return unmarshallResponse(response);
             }
