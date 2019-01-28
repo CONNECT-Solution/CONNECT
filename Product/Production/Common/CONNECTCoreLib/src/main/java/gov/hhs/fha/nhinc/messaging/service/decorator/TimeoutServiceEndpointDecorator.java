@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2018, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,6 +31,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import javax.xml.ws.BindingProvider;
+import org.apache.cxf.endpoint.ClientImpl;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,6 +75,7 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
         } else {
             timeout = getTimeoutFromConfig();
         }
+        ((BindingProvider) getPort()).getRequestContext().put(ClientImpl.SYNC_TIMEOUT, timeout);
         httpClientPolicy.setReceiveTimeout(timeout);
         httpClientPolicy.setConnectionTimeout(timeout);
     }
@@ -81,16 +84,16 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
         int timeout = 0;
         try {
             String sValue = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    CONFIG_KEY_TIMEOUT);
+                CONFIG_KEY_TIMEOUT);
             if (NullChecker.isNotNullish(sValue)) {
                 timeout = Integer.parseInt(sValue);
             }
         } catch (PropertyAccessException ex) {
             LOG.warn("Error occurred reading property value from config file ({}): {}", CONFIG_KEY_TIMEOUT,
-                    ex.getLocalizedMessage(), ex);
+                ex.getLocalizedMessage(), ex);
         } catch (NumberFormatException nfe) {
             LOG.warn("Error occurred converting property value from config file ({}): {}", CONFIG_KEY_TIMEOUT,
-                    nfe.getLocalizedMessage(), nfe);
+                nfe.getLocalizedMessage(), nfe);
         }
         return timeout;
     }
