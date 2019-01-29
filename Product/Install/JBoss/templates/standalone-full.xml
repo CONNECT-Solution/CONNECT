@@ -161,8 +161,10 @@
                         <password>nhincpass</password>
                     </security>
                     <validation>
+                        <check-valid-connection-sql>select 1</check-valid-connection-sql>
                         <validate-on-match>false</validate-on-match>
-                        <background-validation>false</background-validation>
+                        <background-validation>true</background-validation>
+                        <background-validation-millis>10000</background-validation-millis>
                     </validation>
                     <timeout>
                         <set-tx-query-timeout>false</set-tx-query-timeout>
@@ -186,8 +188,10 @@
                         <password>nhincpass</password>
                     </security>
                     <validation>
+                        <check-valid-connection-sql>select 1</check-valid-connection-sql>
                         <validate-on-match>false</validate-on-match>
-                        <background-validation>false</background-validation>
+                        <background-validation>true</background-validation>
+                        <background-validation-millis>10000</background-validation-millis>
                     </validation>
                     <timeout>
                         <set-tx-query-timeout>false</set-tx-query-timeout>
@@ -211,8 +215,10 @@
                         <password>nhincpass</password>
                     </security>
                     <validation>
+                        <check-valid-connection-sql>select 1</check-valid-connection-sql>
                         <validate-on-match>false</validate-on-match>
-                        <background-validation>false</background-validation>
+                        <background-validation>true</background-validation>
+                        <background-validation-millis>10000</background-validation-millis>
                     </validation>
                     <timeout>
                         <set-tx-query-timeout>false</set-tx-query-timeout>
@@ -236,8 +242,10 @@
                         <password>nhincpass</password>
                     </security>
                     <validation>
+                        <check-valid-connection-sql>select 1</check-valid-connection-sql>
                         <validate-on-match>false</validate-on-match>
-                        <background-validation>false</background-validation>
+                        <background-validation>true</background-validation>
+                        <background-validation-millis>10000</background-validation-millis>
                     </validation>
                     <timeout>
                         <set-tx-query-timeout>false</set-tx-query-timeout>
@@ -261,8 +269,10 @@
                         <password>nhincpass</password>
                     </security>
                     <validation>
+                        <check-valid-connection-sql>select 1</check-valid-connection-sql>
                         <validate-on-match>false</validate-on-match>
-                        <background-validation>false</background-validation>
+                        <background-validation>true</background-validation>
+                        <background-validation-millis>10000</background-validation-millis>
                     </validation>
                     <timeout>
                         <set-tx-query-timeout>false</set-tx-query-timeout>
@@ -286,8 +296,10 @@
                         <password>nhincpass</password>
                     </security>
                     <validation>
+                        <check-valid-connection-sql>select 1</check-valid-connection-sql>
                         <validate-on-match>false</validate-on-match>
-                        <background-validation>false</background-validation>
+                        <background-validation>true</background-validation>
+                        <background-validation-millis>10000</background-validation-millis>
                     </validation>
                     <timeout>
                         <set-tx-query-timeout>false</set-tx-query-timeout>
@@ -311,8 +323,10 @@
                         <password>nhincpass</password>
                     </security>
                     <validation>
+                        <check-valid-connection-sql>select 1</check-valid-connection-sql>
                         <validate-on-match>false</validate-on-match>
-                        <background-validation>false</background-validation>
+                        <background-validation>true</background-validation>
+                        <background-validation-millis>10000</background-validation-millis>
                     </validation>
                     <timeout>
                         <set-tx-query-timeout>false</set-tx-query-timeout>
@@ -336,8 +350,10 @@
                         <password>nhincpass</password>
                     </security>
                     <validation>
+                        <check-valid-connection-sql>select 1</check-valid-connection-sql>
                         <validate-on-match>false</validate-on-match>
-                        <background-validation>false</background-validation>
+                        <background-validation>true</background-validation>
+                        <background-validation-millis>10000</background-validation-millis>
                     </validation>
                     <timeout>
                         <set-tx-query-timeout>false</set-tx-query-timeout>
@@ -361,8 +377,10 @@
                         <password>nhincpass</password>
                     </security>
                     <validation>
+                        <check-valid-connection-sql>select 1</check-valid-connection-sql>
                         <validate-on-match>false</validate-on-match>
-                        <background-validation>false</background-validation>
+                        <background-validation>true</background-validation>
+                        <background-validation-millis>10000</background-validation-millis>
                     </validation>
                     <timeout>
                         <set-tx-query-timeout>false</set-tx-query-timeout>
@@ -386,8 +404,10 @@
                         <password>nhincpass</password>
                     </security>
                     <validation>
+                        <check-valid-connection-sql>select 1</check-valid-connection-sql>
                         <validate-on-match>false</validate-on-match>
-                        <background-validation>false</background-validation>
+                        <background-validation>true</background-validation>
+                        <background-validation-millis>10000</background-validation-millis>
                     </validation>
                     <timeout>
                         <set-tx-query-timeout>false</set-tx-query-timeout>
@@ -411,8 +431,10 @@
                         <password>nhincpass</password>
                     </security>
                     <validation>
+                        <check-valid-connection-sql>select 1</check-valid-connection-sql>
                         <validate-on-match>false</validate-on-match>
-                        <background-validation>false</background-validation>
+                        <background-validation>true</background-validation>
+                        <background-validation-millis>10000</background-validation-millis>
                     </validation>
                     <timeout>
                         <set-tx-query-timeout>false</set-tx-query-timeout>
