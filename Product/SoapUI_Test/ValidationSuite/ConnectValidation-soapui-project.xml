@@ -946,7 +946,7 @@ if(passthruValue != null){
                   <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
-               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:userName>UID=kskagerb</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -1357,7 +1357,7 @@ if(passthruValue != null){
                   <urn1:prefix>?</urn1:prefix>
                   <urn1:suffix>?</urn1:suffix>
                </urn1:personName>
-               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:userName>UID=kskagerb</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -1595,7 +1595,7 @@ if(passthruValue != null){
                   <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
-               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:userName>UID=kskagerb</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -2068,7 +2068,7 @@ if(passthruValue != null){
                   <urn1:fullName>Wilma Anderson</urn1:fullName>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
-               <urn1:userName>wanderson</urn1:userName>
+               <urn1:userName>UID=wanderson</urn1:userName>
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -2386,7 +2386,7 @@ if(passthruValue != null){
                   <urn1:fullName>Wilma Anderson</urn1:fullName>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
-               <urn1:userName>wanderson</urn1:userName>
+               <urn1:userName>UID=wanderson</urn1:userName>
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -2716,7 +2716,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
                   <urn1:fullName>Wilma Anderson</urn1:fullName>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
-               <urn1:userName>wanderson</urn1:userName>
+               <urn1:userName>UID=wanderson</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -3135,7 +3135,7 @@ if(passthruValue != null){
                   <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
-               <urn3:userName>kskagerberg</urn3:userName>
+               <urn3:userName>UID=kskagerberg</urn3:userName>
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -3338,7 +3338,7 @@ if(passthruValue != null){
                   <urn2:secondNameOrInitials>S</urn2:secondNameOrInitials>
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
-               <urn2:userName>kskagerb</urn2:userName>
+               <urn2:userName>UID=kskagerb</urn2:userName>
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -3434,7 +3434,7 @@ if(passthruValue != null){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -3543,7 +3543,7 @@ if(passthruValue != null){
                   <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
-               <urn1:userName>${#TestCase#UserId}</urn1:userName>
+               <urn1:userName>UID=${#TestCase#UserId}</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -3710,7 +3710,7 @@ if(passthruValue != null){
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -3919,7 +3919,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
               <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
             </urn1:personName>
-            <urn1:userName>kskagerb</urn1:userName>
+            <urn1:userName>UID=kskagerb</urn1:userName>
             <urn1:org>
               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -4239,7 +4239,7 @@ context.withSql('PatientCorrelationDB') { sql ->
                   <urn1:fullName>Wilma Anderson</urn1:fullName>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
-               <urn1:userName>wanderson</urn1:userName>
+               <urn1:userName>UID=wanderson</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -4379,7 +4379,7 @@ if(passthruValue != null){
                   <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
-               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:userName>UID=kskagerb</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -4679,7 +4679,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -4788,7 +4788,7 @@ if(passthruValue != null){
                   <urn1:prefix>?</urn1:prefix>
                   <urn1:suffix>?</urn1:suffix>
                </urn1:personName>
-               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:userName>UID=kskagerb</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -4917,7 +4917,7 @@ if(passthruValue != null){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -5025,7 +5025,7 @@ if(passthruValue != null){
                   <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
-               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:userName>UID=kskagerb</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -5498,7 +5498,7 @@ if(passthruValue != null){
                   <urn1:fullName>Wilma Anderson</urn1:fullName>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
-               <urn1:userName>wanderson</urn1:userName>
+               <urn1:userName>UID=wanderson</urn1:userName>
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -5816,7 +5816,7 @@ if(passthruValue != null){
                   <urn1:fullName>Wilma Anderson</urn1:fullName>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
-               <urn1:userName>wanderson</urn1:userName>
+               <urn1:userName>UID=wanderson</urn1:userName>
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -6146,7 +6146,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
                   <urn1:fullName>Wilma Anderson</urn1:fullName>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
-               <urn1:userName>wanderson</urn1:userName>
+               <urn1:userName>UID=wanderson</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -6566,7 +6566,7 @@ if(passthruValue != null){
                   <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
-               <urn3:userName>kskagerberg</urn3:userName>
+               <urn3:userName>UID=kskagerberg</urn3:userName>
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -6769,7 +6769,7 @@ if(passthruValue != null){
                   <urn2:secondNameOrInitials>S</urn2:secondNameOrInitials>
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
-               <urn2:userName>kskagerb</urn2:userName>
+               <urn2:userName>UID=kskagerb</urn2:userName>
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -6974,7 +6974,7 @@ if(passthruValue != null){
                   <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
-               <urn1:userName>${#TestCase#UserId}</urn1:userName>
+               <urn1:userName>UID=${#TestCase#UserId}</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -7141,7 +7141,7 @@ if(passthruValue != null){
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -7235,7 +7235,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
                   <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
-               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:userName>UID=kskagerb</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -7314,7 +7314,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -7378,7 +7378,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                   <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
-               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:userName>UID=kskagerb</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -7455,7 +7455,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
               <con:configuration/>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -7536,7 +7536,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
                   <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
-               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:userName>UID=kskagerb</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -7615,7 +7615,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
