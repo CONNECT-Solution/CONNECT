@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
-
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
@@ -37,6 +35,7 @@ import gov.hhs.fha.nhinc.callback.opensaml.SAMLUtils;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
+import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -101,15 +100,15 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     final SAMLCallback oSAMLCallback = (SAMLCallback) callback;
 
                     oSAMLCallback.setIssuerKeyName(
-                        accessor.getProperty(NhincConstants.SAML_PROPERTY_FILE, NhincConstants.ISSUER_KEY_STRING));
+                        accessor.getProperty(NhincConstants.SAML_PROPERTY_FILE, SamlConstants.ISSUER_KEY_STRING));
                     oSAMLCallback.setIssuerKeyPassword(
-                        accessor.getProperty(NhincConstants.SAML_PROPERTY_FILE, NhincConstants.ISSUER_KEY_VALUE));
+                        accessor.getProperty(NhincConstants.SAML_PROPERTY_FILE, SamlConstants.ISSUER_KEY_VALUE));
                     oSAMLCallback.setSignAssertion(accessor.getPropertyBoolean(NhincConstants.SAML_PROPERTY_FILE,
-                        NhincConstants.SIGN_ASSERTION_BOOL));
+                        SamlConstants.SIGN_ASSERTION_BOOL));
                     oSAMLCallback.setSendKeyValue(accessor.getPropertyBoolean(NhincConstants.SAML_PROPERTY_FILE,
-                        NhincConstants.SEND_KEYVALUE_BOOL));
+                        SamlConstants.SEND_KEYVALUE_BOOL));
                     issuerCrypto = CryptoFactory.getInstance(accessor.getProperty(NhincConstants.SAML_PROPERTY_FILE,
-                        NhincConstants.SIGNATURE_PROPERTIES_STRING));
+                        SamlConstants.SIGNATURE_PROPERTIES_STRING));
                     oSAMLCallback.setIssuerCrypto(issuerCrypto);
                     oSAMLCallback.setSamlVersion(Version.SAML_20);
 
