@@ -187,11 +187,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
             sIssuer = certificate != null ? certificate.getIssuerX500Principal().getName() : PropertyAccessor.
                 getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME,
-                    NhincConstants.SAML_DEFAULT_ISSUER_NAME);
+                    SamlConstants.SAML_DEFAULT_ISSUER_NAME);
         }
 
         if (StringUtils.isBlank(sIssuer)) {
-            sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
+            sIssuer = SamlConstants.SAML_DEFAULT_ISSUER_NAME;
         }
 
         LOG.debug("Setting Assertion Issuer format to: {}", format);
@@ -704,7 +704,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         // if not provided or invalid return true else false
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(
-                NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ENABLE_CONDITIONS_DEFAULT_VALUE);
+                NhincConstants.SAML_PROPERTY_FILE, SamlConstants.ENABLE_CONDITIONS_DEFAULT_VALUE);
         } catch (final PropertyAccessException pae) {
             LOG.error("Property not found exception: {}", pae.getLocalizedMessage(), pae);
         }

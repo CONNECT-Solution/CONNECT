@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,10 +23,9 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import gov.hhs.fha.nhinc.callback.opensaml.OpenSAML2ComponentBuilder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -38,9 +37,8 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import net.shibboleth.utilities.java.support.component.ComponentInitializationException;
-
-import org.opensaml.core.xml.config.XMLConfigurationException;
+import gov.hhs.fha.nhinc.callback.SamlConstants;
+import gov.hhs.fha.nhinc.callback.opensaml.OpenSAML2ComponentBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -53,6 +51,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.xml.namespace.QName;
+import net.shibboleth.utilities.java.support.component.ComponentInitializationException;
 import net.shibboleth.utilities.java.support.xml.BasicParserPool;
 import net.shibboleth.utilities.java.support.xml.XMLParserException;
 import org.apache.wss4j.common.crypto.Crypto;
@@ -65,6 +64,7 @@ import org.apache.wss4j.dom.validate.Credential;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.opensaml.core.xml.XMLObjectBuilderFactory;
+import org.opensaml.core.xml.config.XMLConfigurationException;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.io.UnmarshallingException;
 import org.opensaml.core.xml.schema.impl.XSAnyImpl;
@@ -87,9 +87,9 @@ import org.w3c.dom.Element;
 public class CONNECTSamlAssertionValidatorTest {
 
     private static final Set<String> VALIDATED_ATTRIBUTES = new HashSet<>(Arrays.asList(NhincConstants.ATTRIBUTE_NAME_SUBJECT_ID_XSPA,
-            NhincConstants.ATTRIBUTE_NAME_ORG, NhincConstants.ATTRIBUTE_NAME_ORG_ID, NhincConstants.ATTRIBUTE_NAME_HCID, NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE,
-            NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE));
-    
+        NhincConstants.ATTRIBUTE_NAME_ORG, NhincConstants.ATTRIBUTE_NAME_ORG_ID, NhincConstants.ATTRIBUTE_NAME_HCID, NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE,
+        NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE));
+
     @Test
     public void testValidateAssertionSaml1() throws WSSecurityException {
         final org.opensaml.saml.saml1.core.Assertion saml1Assertion = mock(org.opensaml.saml.saml1.core.Assertion.class);
@@ -161,7 +161,7 @@ public class CONNECTSamlAssertionValidatorTest {
         final org.opensaml.saml.saml2.core.Issuer issuer = mock(org.opensaml.saml.saml2.core.Issuer.class);
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(saml2Assertion.getIssuer()).thenReturn(issuer);
-        when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
+        when(issuer.getValue()).thenReturn(SamlConstants.SAML_DEFAULT_ISSUER_NAME);
         when(saml2Assertion.getVersion()).thenReturn(org.opensaml.saml.common.SAMLVersion.VERSION_20);
         when(saml2Assertion.getID()).thenReturn("Assertion_ID");
         final DateTime dateTime = new DateTime();
@@ -171,7 +171,7 @@ public class CONNECTSamlAssertionValidatorTest {
         final NameID name = mock(NameID.class);
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
-        when(name.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
+        when(name.getValue()).thenReturn(SamlConstants.SAML_DEFAULT_ISSUER_NAME);
         final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
 
             /* (non-Javadoc)
@@ -196,8 +196,8 @@ public class CONNECTSamlAssertionValidatorTest {
 
     @Test
     public void testValidateAssertionSaml2_blankResource()
-            throws WSSecurityException, XMLParserException,
-            UnmarshallingException, XMLConfigurationException, ComponentInitializationException {
+        throws WSSecurityException, XMLParserException,
+        UnmarshallingException, XMLConfigurationException, ComponentInitializationException {
         final String inCommonMDFile = "authFrameworkAssertion.xml";
         // Get parser pool manager
         final BasicParserPool ppMgr = new BasicParserPool();
@@ -237,7 +237,7 @@ public class CONNECTSamlAssertionValidatorTest {
         when(saml2Assertion.getElementQName()).thenReturn(assertionQName);
         when(saml2Assertion.getIssuer()).thenReturn(issuer);
         when(saml2Assertion.getIssuer().getFormat())
-                .thenReturn("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName");
+        .thenReturn("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName");
 
         final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
             @Override
@@ -297,8 +297,8 @@ public class CONNECTSamlAssertionValidatorTest {
             }
         };
 
-        when(propAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, "allowNoSubjectAssertion"))
-                .thenReturn(true, false);
+        when(propAccessor.getPropertyBoolean(NhincConstants.SAML_PROPERTY_FILE,
+            SamlConstants.ALLOW_NO_SUBJECT_ASSERTION_PROP)).thenReturn(true, false);
 
         Collection<Saml2ExchangeAuthFrameworkValidator> validators = connectValidator.getSaml2SpecValidators();
         Saml2ExchangeAuthFrameworkValidator validator = null;
@@ -346,7 +346,7 @@ public class CONNECTSamlAssertionValidatorTest {
         final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
             @Override
             protected void checkSignedAssertion(final SamlAssertionWrapper assertion, final RequestData data)
-                    throws WSSecurityException {
+                throws WSSecurityException {
                 checkedSignedAssertion.add(true);
             }
 
@@ -442,7 +442,7 @@ public class CONNECTSamlAssertionValidatorTest {
         final SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(saml2Assertion);
         final XMLObjectBuilderFactory builderFactory = XMLObjectProviderRegistrySupport.getBuilderFactory();
         final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder = (SAMLObjectBuilder<AttributeStatement>) builderFactory
-                .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
+            .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
 
         List<Object> values = new ArrayList<>();
         values.add("value");
@@ -469,7 +469,7 @@ public class CONNECTSamlAssertionValidatorTest {
         final SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(saml2Assertion);
         final XMLObjectBuilderFactory builderFactory = XMLObjectProviderRegistrySupport.getBuilderFactory();
         final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder = (SAMLObjectBuilder<AttributeStatement>) builderFactory
-                .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
+            .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
 
         List<Object> values = new ArrayList<>();
         values.add("value");
@@ -498,7 +498,7 @@ public class CONNECTSamlAssertionValidatorTest {
         final SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(saml2Assertion);
         final XMLObjectBuilderFactory builderFactory = XMLObjectProviderRegistrySupport.getBuilderFactory();
         final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder = (SAMLObjectBuilder<AttributeStatement>) builderFactory
-                .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
+            .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
 
         List<Object> values = new ArrayList<>();
         values.add("value");
@@ -523,14 +523,14 @@ public class CONNECTSamlAssertionValidatorTest {
         CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
         validator.checkAttributes(assertionWrapper);
     }
-    
+
     @Test(expected = WSSecurityException.class)
     public void testValidateAttributes_AttributeMissingXMLObjectValue() throws WSSecurityException {
         final org.opensaml.saml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml.saml2.core.Assertion.class);
         final SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(saml2Assertion);
         final XMLObjectBuilderFactory builderFactory = XMLObjectProviderRegistrySupport.getBuilderFactory();
         final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder = (SAMLObjectBuilder<AttributeStatement>) builderFactory
-                .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
+            .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
 
         List<Object> values = new ArrayList<>();
         values.add("value");
@@ -555,18 +555,18 @@ public class CONNECTSamlAssertionValidatorTest {
         CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
         validator.checkAttributes(assertionWrapper);
     }
-    
+
     @Test
     public void testValidateAttributesAnyType() throws WSSecurityException {
         final org.opensaml.saml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml.saml2.core.Assertion.class);
         final SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(saml2Assertion);
         final XMLObjectBuilderFactory builderFactory = XMLObjectProviderRegistrySupport.getBuilderFactory();
         final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder = (SAMLObjectBuilder<AttributeStatement>) builderFactory
-                .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
+            .getBuilder(AttributeStatement.DEFAULT_ELEMENT_NAME);
         final XSAnyImpl anyType = mock(XSAnyImpl.class);
 
         List<Object> values = new ArrayList<>();
-            values.add("value");
+        values.add("value");
         List<Attribute> attributes = new ArrayList<>();
         for (String name : VALIDATED_ATTRIBUTES) {
             Attribute attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", values);
