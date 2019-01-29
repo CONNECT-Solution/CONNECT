@@ -152,7 +152,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
         final Message message) {
 
         addPropertyFromMessage(propertiesMap, message, NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
-        addPropertyFromMessage(propertiesMap, message, NhincConstants.TARGET_API_LEVEL);
+        addPropertyFromMessage(propertiesMap, message, SamlConstants.TARGET_API_LEVEL);
         addPropertyFromMessage(propertiesMap, message, SamlConstants.ACTION_PROP);
         return propertiesMap;
     }

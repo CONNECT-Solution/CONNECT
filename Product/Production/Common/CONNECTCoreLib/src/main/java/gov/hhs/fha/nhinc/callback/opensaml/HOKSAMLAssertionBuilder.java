@@ -176,13 +176,13 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         String sIssuer = properties.getIssuer();
 
         if (StringUtils.isBlank(format) || !isValidNameidFormat(format)) {
-            format = NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509;
+            format = SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509;
         }
 
         // If it is a X509 Subject, check if the DN is valid. If not, grab it from the local cert.
         // If there is no local cert, grab it from the properties file.
         // If there is no properties file, use the default issuer name
-        if (format.equals(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509)
+        if (format.equals(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509)
             && (StringUtils.isBlank(sIssuer) || !NhinUtils.getInstance().checkDistinguishedName(sIssuer))) {
 
             sIssuer = certificate != null ? certificate.getIssuerX500Principal().getName() : PropertyAccessor.

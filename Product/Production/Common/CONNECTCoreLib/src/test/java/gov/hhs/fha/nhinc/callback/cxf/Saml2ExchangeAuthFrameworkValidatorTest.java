@@ -31,7 +31,6 @@ import static org.mockito.Mockito.when;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.callback.opensaml.OpenSAML2ComponentBuilder;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.junit.Test;
@@ -63,10 +62,10 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
 
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
-        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(name.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(name.getValue()).thenReturn(SamlConstants.SAML_DEFAULT_ISSUER_NAME);
         when(assertion.getIssuer()).thenReturn(issuer);
-        when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(issuer.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(issuer.getValue()).thenReturn(SamlConstants.SAML_DEFAULT_ISSUER_NAME);
 
         validator.validateAssertion(new SamlAssertionWrapper(assertion));
@@ -89,10 +88,10 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
 
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
-        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
+        when(name.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
         when(name.getValue()).thenReturn("example@example.org");
         when(assertion.getIssuer()).thenReturn(issuer);
-        when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
+        when(issuer.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
         when(issuer.getValue()).thenReturn("example@example.org");
 
         validator.validateAssertion(new SamlAssertionWrapper(assertion));
@@ -146,13 +145,13 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
     @Test
     public void testValidateNameX509validValue() throws WSSecurityException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
-        validator.validateNameIdFormatValue(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME, "org/emailAddress");
+        validator.validateNameIdFormatValue(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME, "org/emailAddress");
     }
 
     @Test(expected = WSSecurityException.class)
     public void testValidateNameX509InValidValue() throws WSSecurityException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
-        validator.validateNameIdFormatValue(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME, "test\\test2\\test3");
+        validator.validateNameIdFormatValue(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME, "test\\test2\\test3");
     }
 
     /**
@@ -172,7 +171,7 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
 
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
-        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
+        when(name.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
         when(assertion.getIssuer()).thenReturn(issuer);
         when(issuer.getFormat()).thenReturn(null);
 
@@ -193,12 +192,12 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         Assertion assertion = mock(Assertion.class);
         Subject subject = mock(Subject.class);
         NameID name = mock(NameID.class);
-        Issuer issuer = generateIssuer(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS,
+        Issuer issuer = generateIssuer(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS,
             "this is obviously not an email address....okkk?");
 
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
-        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
+        when(name.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
         when(assertion.getIssuer()).thenReturn(issuer);
 
         validator.validateAssertion(new SamlAssertionWrapper(assertion));
@@ -218,12 +217,12 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         Assertion assertion = mock(Assertion.class);
         Subject subject = mock(Subject.class);
         NameID name = mock(NameID.class);
-        Issuer issuer = generateIssuer(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509,
+        Issuer issuer = generateIssuer(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509,
             "this is obviously not an x509 subject name....okkk?");
 
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
-        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(name.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(assertion.getIssuer()).thenReturn(issuer);
 
         validator.validateAssertion(new SamlAssertionWrapper(assertion));
@@ -243,12 +242,12 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         Assertion assertion = mock(Assertion.class);
         Subject subject = mock(Subject.class);
         NameID name = mock(NameID.class);
-        Issuer issuer = generateIssuer(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME,
+        Issuer issuer = generateIssuer(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME,
             "this is obviously not an windows domain name....okkk?");
 
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
-        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(name.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(assertion.getIssuer()).thenReturn(issuer);
 
         validator.validateAssertion(new SamlAssertionWrapper(assertion));
@@ -271,10 +270,10 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
 
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
-        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(name.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(name.getValue()).thenReturn("not a valid X509 name.");
         when(assertion.getIssuer()).thenReturn(issuer);
-        when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(issuer.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(issuer.getValue()).thenReturn(SamlConstants.SAML_DEFAULT_ISSUER_NAME);
 
         validator.validateAssertion(new SamlAssertionWrapper(assertion));
@@ -297,10 +296,10 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
 
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
-        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
+        when(name.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
         when(name.getValue()).thenReturn("not a valid email address.");
         when(assertion.getIssuer()).thenReturn(issuer);
-        when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(issuer.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(issuer.getValue()).thenReturn(SamlConstants.SAML_DEFAULT_ISSUER_NAME);
 
         validator.validateAssertion(new SamlAssertionWrapper(assertion));

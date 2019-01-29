@@ -32,7 +32,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.wss4j.common.ext.WSSecurityException;
@@ -76,10 +75,10 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
         when(assertion.getAuthzDecisionStatements()).thenReturn(authzDecisionStatementList);
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
-        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(name.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(name.getValue()).thenReturn(SamlConstants.SAML_DEFAULT_ISSUER_NAME);
         when(assertion.getIssuer()).thenReturn(issuer);
-        when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(issuer.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(issuer.getValue()).thenReturn(SamlConstants.SAML_DEFAULT_ISSUER_NAME);
         validator.validateAssertion(new SamlAssertionWrapper(assertion));
         assertTrue(true);
