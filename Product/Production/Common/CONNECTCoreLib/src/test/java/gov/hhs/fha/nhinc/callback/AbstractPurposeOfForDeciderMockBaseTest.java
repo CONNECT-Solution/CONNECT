@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,14 +23,13 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.callback;
 
 import static org.junit.Assert.assertTrue;
 
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.opensaml.CallbackProperties;
-
 import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxy;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -155,13 +154,13 @@ public abstract class AbstractPurposeOfForDeciderMockBaseTest {
 
     protected Map<String, Object> createTokenValuesg0() {
         Map<String, Object> tokenVals = createTokenValues();
-        tokenVals.put(NhincConstants.TARGET_API_LEVEL, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+        tokenVals.put(SamlConstants.TARGET_API_LEVEL, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
         return tokenVals;
     }
 
     protected Map<String, Object> createTokenValuesg1() {
         Map<String, Object> tokenVals = createTokenValues();
-        tokenVals.put(NhincConstants.TARGET_API_LEVEL, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
+        tokenVals.put(SamlConstants.TARGET_API_LEVEL, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
         return tokenVals;
     }
 
@@ -174,7 +173,7 @@ public abstract class AbstractPurposeOfForDeciderMockBaseTest {
         context.checking(new Expectations() {
             {
                 exactly(0).of(mockNhinEndpointManager).getApiVersion(with(any(String.class)),
-                        with(any(NhincConstants.NHIN_SERVICE_NAMES.class)));
+                    with(any(NhincConstants.NHIN_SERVICE_NAMES.class)));
             }
         });
     }
@@ -186,7 +185,7 @@ public abstract class AbstractPurposeOfForDeciderMockBaseTest {
         context.checking(new Expectations() {
             {
                 exactly(1).of(mockNhinEndpointManager).getApiVersion(with(any(String.class)),
-                        with(any(NhincConstants.NHIN_SERVICE_NAMES.class)));
+                    with(any(NhincConstants.NHIN_SERVICE_NAMES.class)));
                 will(returnValue(level));
             }
         });

@@ -209,14 +209,6 @@ public class NhincConstants {
         }
     }
 
-    // Authorization Framework
-    public static final String AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS
-    = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
-    public static final String AUTH_FRWK_NAME_ID_FORMAT_X509
-    = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
-    public static final String AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME
-    = "urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName";
-
     // Initiating multispec errors
     public static final String INIT_MULTISPEC_ERROR_UNSUPPORTED_GUIDANCE = "Unsupported guidance for API level.";
     public static final String INIT_MULTISPEC_ERROR_NO_MATCHING_ENDPOINT = "No matching target endpoint for guidance: ";
@@ -268,24 +260,6 @@ public class NhincConstants {
     public static final String DOC_QUERY_REQUEST_TIMEOUT = "DQRequestTimeout";
     public static final String CONNECT_TIMEOUT_NAME = "com.sun.xml.ws.connect.timeout";
     public static final String REQUEST_TIMEOUT_NAME = "com.sun.xml.ws.request.timeout";
-    // SAML Constants
-    public static final String TARGET_API_LEVEL = "targetAPILevel";
-    public static final String ISSUE_INSTANT_PROP = "issueInstant";
-    public static final String PATIENT_ID_ATTR = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
-    // Attribute NameID Constants
-    public static final String ATTRIBUTE_NAME_SUBJECT_ID = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
-    public static final String ATTRIBUTE_NAME_SUBJECT_ID_XSPA = "urn:oasis:names:tc:xspa:1.0:subject:subject-id";
-    public static final String ATTRIBUTE_NAME_ORG = "urn:oasis:names:tc:xspa:1.0:subject:organization";
-    public static final String ATTRIBUTE_NAME_ORG_ID = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
-    public static final String ATTRIBUTE_NAME_HCID = "urn:nhin:names:saml:homeCommunityId";
-    public static final String ATTRIBUTE_NAME_SUBJECT_ROLE = "urn:oasis:names:tc:xacml:2.0:subject:role";
-    public static final String ATTRIBUTE_NAME_PURPOSE_OF_USE = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
-    public static final String ATTRIBUTE_NAME_RESOURCE_ID = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
-    public static final String ATTRIBUTE_NAME_NPI = "urn:oasis:names:tc:xspa:2.0:subject:npi";
-    public static final String CE_CODE_ID = "code";
-    public static final String CE_CODESYS_ID = "codeSystem";
-    public static final String CE_CODESYSNAME_ID = "codeSystemName";
-    public static final String CE_DISPLAYNAME_ID = "displayName";
     // Async Property Constants
     public static final String ASYNC_MESSAGE_ID_PROP = "messageId";
     public static final String ASYNC_RELATES_TO_PROP = "relatesToId";

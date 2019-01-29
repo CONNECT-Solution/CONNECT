@@ -75,9 +75,10 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
     private static final Logger LOG = LoggerFactory.getLogger(CONNECTSamlAssertionValidator.class);
     private static final String IS_PRESENT = "is present.";
 
-    private static final Set<String> VALIDATED_ATTRIBUTES = new HashSet<>(Arrays.asList(NhincConstants.ATTRIBUTE_NAME_SUBJECT_ID_XSPA,
-        NhincConstants.ATTRIBUTE_NAME_ORG, NhincConstants.ATTRIBUTE_NAME_ORG_ID, NhincConstants.ATTRIBUTE_NAME_HCID, NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE,
-        NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE));
+    private static final Set<String> VALIDATED_ATTRIBUTES = new HashSet<>(
+        Arrays.asList(SamlConstants.ATTRIBUTE_NAME_SUBJECT_ID_XSPA, SamlConstants.ATTRIBUTE_NAME_ORG,
+            SamlConstants.ATTRIBUTE_NAME_ORG_ID, SamlConstants.ATTRIBUTE_NAME_HCID,
+            SamlConstants.ATTRIBUTE_NAME_SUBJECT_ROLE, SamlConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE));
 
     private final PropertyAccessor propertyAccessor;
 
@@ -296,8 +297,8 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         if (value instanceof XSStringImpl) {
             return NullChecker.isNotNullish(((XSStringImpl) value).getValue());
         } else if (value instanceof XSAnyImpl) {
-            if (NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE.equals(name)
-                || NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE.equals(name)) {
+            if (SamlConstants.ATTRIBUTE_NAME_SUBJECT_ROLE.equals(name)
+                || SamlConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE.equals(name)) {
                 return containsCodeQName((XSAnyImpl) value);
             } else {
                 return NullChecker.isNotNullish(((XSAnyImpl) value).getTextContent());

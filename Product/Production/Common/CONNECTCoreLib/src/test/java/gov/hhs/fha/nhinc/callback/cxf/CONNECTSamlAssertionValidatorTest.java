@@ -86,9 +86,10 @@ import org.w3c.dom.Element;
 
 public class CONNECTSamlAssertionValidatorTest {
 
-    private static final Set<String> VALIDATED_ATTRIBUTES = new HashSet<>(Arrays.asList(NhincConstants.ATTRIBUTE_NAME_SUBJECT_ID_XSPA,
-        NhincConstants.ATTRIBUTE_NAME_ORG, NhincConstants.ATTRIBUTE_NAME_ORG_ID, NhincConstants.ATTRIBUTE_NAME_HCID, NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE,
-        NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE));
+    private static final Set<String> VALIDATED_ATTRIBUTES = new HashSet<>(
+        Arrays.asList(SamlConstants.ATTRIBUTE_NAME_SUBJECT_ID_XSPA, SamlConstants.ATTRIBUTE_NAME_ORG,
+            SamlConstants.ATTRIBUTE_NAME_ORG_ID, SamlConstants.ATTRIBUTE_NAME_HCID,
+            SamlConstants.ATTRIBUTE_NAME_SUBJECT_ROLE, SamlConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE));
 
     @Test
     public void testValidateAssertionSaml1() throws WSSecurityException {
@@ -159,7 +160,7 @@ public class CONNECTSamlAssertionValidatorTest {
 
         when(saml2Assertion.getElementQName()).thenReturn(assertionQName);
         final org.opensaml.saml.saml2.core.Issuer issuer = mock(org.opensaml.saml.saml2.core.Issuer.class);
-        when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(issuer.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(saml2Assertion.getIssuer()).thenReturn(issuer);
         when(issuer.getValue()).thenReturn(SamlConstants.SAML_DEFAULT_ISSUER_NAME);
         when(saml2Assertion.getVersion()).thenReturn(org.opensaml.saml.common.SAMLVersion.VERSION_20);
@@ -170,7 +171,7 @@ public class CONNECTSamlAssertionValidatorTest {
         when(saml2Assertion.getSubject()).thenReturn(subject);
         final NameID name = mock(NameID.class);
         when(subject.getNameID()).thenReturn(name);
-        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(name.getFormat()).thenReturn(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(name.getValue()).thenReturn(SamlConstants.SAML_DEFAULT_ISSUER_NAME);
         final CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
 
@@ -474,7 +475,8 @@ public class CONNECTSamlAssertionValidatorTest {
         List<Object> values = new ArrayList<>();
         values.add("value");
 
-        Set<String> partialList = new HashSet<>(Arrays.asList(NhincConstants.ATTRIBUTE_NAME_ORG, NhincConstants.ATTRIBUTE_NAME_ORG_ID));
+        Set<String> partialList = new HashSet<>(
+            Arrays.asList(SamlConstants.ATTRIBUTE_NAME_ORG, SamlConstants.ATTRIBUTE_NAME_ORG_ID));
         List<Attribute> attributes = new ArrayList<>();
         for (String name : partialList) {
             Attribute attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", values);
@@ -505,7 +507,7 @@ public class CONNECTSamlAssertionValidatorTest {
         List<Attribute> attributes = new ArrayList<>();
         for (String name : VALIDATED_ATTRIBUTES) {
             Attribute attr;
-            if (name.equals(NhincConstants.ATTRIBUTE_NAME_HCID)) {
+            if (name.equals(SamlConstants.ATTRIBUTE_NAME_HCID)) {
                 attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", new ArrayList<>());
             } else {
                 attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", values);
@@ -537,7 +539,7 @@ public class CONNECTSamlAssertionValidatorTest {
         List<Attribute> attributes = new ArrayList<>();
         for (String name : VALIDATED_ATTRIBUTES) {
             Attribute attr;
-            if (name.equals(NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE)) {
+            if (name.equals(SamlConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE)) {
                 attr = OpenSAML2ComponentBuilder.getInstance().createPurposeOfUseAttribute(null, null, null, null);
             } else {
                 attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", values);
@@ -570,7 +572,7 @@ public class CONNECTSamlAssertionValidatorTest {
         List<Attribute> attributes = new ArrayList<>();
         for (String name : VALIDATED_ATTRIBUTES) {
             Attribute attr = SAML2ComponentBuilder.createAttribute("", name, "nameFormat", values);
-            if(name.equals(NhincConstants.ATTRIBUTE_NAME_ORG)) {
+            if (name.equals(SamlConstants.ATTRIBUTE_NAME_ORG)) {
                 attr.getAttributeValues().clear();
                 attr.getAttributeValues().add(anyType);
             }

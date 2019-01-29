@@ -626,7 +626,7 @@ public class HOKSAMLAssertionBuilderTest {
         values.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "targetHCID");
         values.put(NhincConstants.SERVICE_NAME, "serviceName");
         values.put(SamlConstants.ACTION_PROP, "action");
-        values.put(NhincConstants.TARGET_API_LEVEL, GATEWAY_API_LEVEL.LEVEL_g1);
+        values.put(SamlConstants.TARGET_API_LEVEL, GATEWAY_API_LEVEL.LEVEL_g1);
         values.put(SamlConstants.ATTRIBUTE_NAME_NPI, "npi");
         values.put(SamlConstants.ACP_ATTRIBUTE_PROP, "urn:oid:1.2.3.4");
         values.put(SamlConstants.IACP_ATTRIBUTE_PROP, "urn:oid:1.2.3.4.5");
@@ -719,7 +719,7 @@ public class HOKSAMLAssertionBuilderTest {
         Node issuer = getIssuerNode(element.getChildNodes());
         String format = issuer.getAttributes().getNamedItem("Format").getNodeValue();
         String issuerName = issuer.getFirstChild().getNodeValue();
-        assertEquals(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509, format);
+        assertEquals(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509, format);
         assertEquals(SamlConstants.SAML_DEFAULT_ISSUER_NAME, issuerName);
     }
 
@@ -730,7 +730,7 @@ public class HOKSAMLAssertionBuilderTest {
         String issuer = "CN=SAMLTest User,OU=SU,O=SAML Test User,L=Los Angeles,ST=CA,C=US";
 
         HashMap<String, Object> props = getDefaultProperties();
-        props.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP, NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        props.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP, SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         props.put(SamlConstants.ASSERTION_ISSUER_PROP, issuer);
 
         final CallbackProperties callbackProps = makeCallbackProperties(props);
@@ -740,7 +740,7 @@ public class HOKSAMLAssertionBuilderTest {
         Node issuerNode = getIssuerNode(element.getChildNodes());
         String format = issuerNode.getAttributes().getNamedItem("Format").getNodeValue();
         String issuerName = issuerNode.getFirstChild().getNodeValue();
-        assertEquals(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509, format);
+        assertEquals(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509, format);
         assertEquals(issuer, issuerName);
     }
 
@@ -748,7 +748,7 @@ public class HOKSAMLAssertionBuilderTest {
     public void testBuildIssuer_DomainName() throws CertificateManagerException {
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
         HashMap<String, Object> props = getDefaultProperties();
-        props.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP, NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME);
+        props.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP, SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME);
         props.put(SamlConstants.ASSERTION_ISSUER_PROP, "CONNECT\\plobre");
 
         final CallbackProperties callbackProps = makeCallbackProperties(props);
@@ -758,7 +758,7 @@ public class HOKSAMLAssertionBuilderTest {
         Node issuer = getIssuerNode(element.getChildNodes());
         String format = issuer.getAttributes().getNamedItem("Format").getNodeValue();
         String issuerName = issuer.getFirstChild().getNodeValue();
-        assertEquals(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME, format);
+        assertEquals(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME, format);
         assertEquals("CONNECT\\plobre", issuerName);
     }
 
@@ -766,7 +766,7 @@ public class HOKSAMLAssertionBuilderTest {
     public void testBuildIssuer_Email() throws CertificateManagerException {
         final HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(setupCertManager());
         HashMap<String, Object> props = getDefaultProperties();
-        props.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP, NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
+        props.put(SamlConstants.ASSERTION_ISSUER_FORMAT_PROP, SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
         props.put(SamlConstants.ASSERTION_ISSUER_PROP, "connect@connect.net");
 
         final CallbackProperties callbackProps = makeCallbackProperties(props);
@@ -775,7 +775,7 @@ public class HOKSAMLAssertionBuilderTest {
         Node issuer = getIssuerNode(element.getChildNodes());
         String format = issuer.getAttributes().getNamedItem("Format").getNodeValue();
         String issuerName = issuer.getFirstChild().getNodeValue();
-        assertEquals(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS, format);
+        assertEquals(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS, format);
         assertEquals("connect@connect.net", issuerName);
     }
 

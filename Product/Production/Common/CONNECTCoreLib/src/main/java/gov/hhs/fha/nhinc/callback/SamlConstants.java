@@ -142,6 +142,22 @@ public class SamlConstants {
     public static final String DEFAULT_DIG_ALGO_PROPERTY = "saml.defaultDigestAlgorithm";
     public static final String DEFAULT_SIG_ALGO_PROPERTY = "saml.defaultSignatureAlgorithm";
 
+    // Authorization Framework
+    public static final String AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
+    public static final String AUTH_FRWK_NAME_ID_FORMAT_X509 = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
+    public static final String AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME = "urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName";
+    // SAML Constants
+    public static final String TARGET_API_LEVEL = "targetAPILevel";
+    public static final String ISSUE_INSTANT_PROP = "issueInstant";
+    // Attribute NameID Constants
+    public static final String ATTRIBUTE_NAME_SUBJECT_ID = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
+    public static final String ATTRIBUTE_NAME_SUBJECT_ID_XSPA = "urn:oasis:names:tc:xspa:1.0:subject:subject-id";
+    public static final String ATTRIBUTE_NAME_ORG = "urn:oasis:names:tc:xspa:1.0:subject:organization";
+    public static final String ATTRIBUTE_NAME_ORG_ID = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
+    public static final String ATTRIBUTE_NAME_HCID = "urn:nhin:names:saml:homeCommunityId";
+    public static final String ATTRIBUTE_NAME_SUBJECT_ROLE = "urn:oasis:names:tc:xacml:2.0:subject:role";
+    public static final String ATTRIBUTE_NAME_PURPOSE_OF_USE = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
+    public static final String ATTRIBUTE_NAME_RESOURCE_ID = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
     // SAML constants
     public static final String SAML_DEFAULT_ISSUER_NAME = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
     public static final String ACTION_NAMESPACE_STRING = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
