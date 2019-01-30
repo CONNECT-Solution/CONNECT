@@ -56,7 +56,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6">
-                            <h:outputLabel class="control-label" for="inputAlias" value="Certificate Alias:" />
+                            <h:outputLabel class="control-label" for="inputAlias" value="* Certificate Alias:" />
                             <p:inputText styleClass="form-control" value="#{exchangeManagerBean.formExchange.certificateAlias}"
                                 id="inputAlias" maxlength="250" required="true" requiredMessage="Certificate alias is required."/>
                         </div>
@@ -64,7 +64,7 @@
                             <h:outputLabel class="control-label" for="inputSNI" value="SNI Name:" />
                             <p:inputText styleClass="form-control" value="#{exchangeManagerBean.formExchange.sniName}"
                                 id="inputSNI" maxlength="750" validatorMessage="Provided SNI is not in a valid format.">
-                               <f:validateRegex pattern="^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$" />
+                               <f:validateRegex pattern="(^$|^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$)" />
                             </p:inputText>
                         </div>
                     </div>
