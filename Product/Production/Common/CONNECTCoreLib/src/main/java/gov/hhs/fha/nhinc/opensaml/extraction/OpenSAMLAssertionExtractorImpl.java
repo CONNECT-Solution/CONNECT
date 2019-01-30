@@ -234,15 +234,15 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
             LOG.debug("Extracting Assertion.purposeOfDisclosure:");
             populatePurposeOfUseAttribute(attribute, target);
 
-        } else if (attribute.getName().equals(SamlConstants.USERNAME_ATTR)) {
+        } else if (attribute.getName().equals(SamlConstants.ATTRIBUTE_NAME_SUBJECT_ID_XSPA)) {
             helper.extractNameParts(attribute, target);
 
-        } else if (attribute.getName().equals(SamlConstants.USER_ORG_ATTR)) {
+        } else if (attribute.getName().equals(SamlConstants.ATTRIBUTE_NAME_ORG)) {
             String orgAttribute = getAttributeValue(attribute);
             target.getUserInfo().getOrg().setName(orgAttribute);
             LOG.debug("Assertion.userInfo.org.Name = {}", orgAttribute);
 
-        } else if (attribute.getName().equals(SamlConstants.USER_ORG_ID_ATTR)) {
+        } else if (attribute.getName().equals(SamlConstants.ATTRIBUTE_NAME_ORG_ID)) {
             String orgIDAttribute = getAttributeValue(attribute);
             target.getUserInfo().getOrg().setHomeCommunityId(orgIDAttribute);
             LOG.debug("Assertion.userInfo.org.homeCommunityId = {}", orgIDAttribute);

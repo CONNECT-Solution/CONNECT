@@ -96,14 +96,8 @@ public class SamlConstants {
     public static final String XDR_ACTION = "xdr";
     public static final String XDR_REQUEST_ACTION = "xdrrequest";
     public static final String XDR_RESPONSE_ACTION = "xdrresponse";
-    public static final String USERNAME_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:subject-id";
-    public static final String USER_ORG_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:organization";
-    public static final String USER_ORG_ID_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
-    public static final String HOME_COM_ID_ATTR = "urn:nhin:names:saml:homeCommunityId";
-    public static final String USER_ROLE_ATTR = "urn:oasis:names:tc:xacml:2.0:subject:role";
     public static final String USER_SYST_ATTR = "2.16.840.1.113883.6.96";
     public static final String USER_SYST_NAME_ATTR = "SNOMED_CT";
-    public static final String PURPOSE_ROLE_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
     public static final String PURPOSE_SYSTEM_ATTR = "2.16.840.1.113883.3.18.7.1";
     public static final String PURPOSE_SYSTEMNAME_ATTR = "nhin-purpose";
     public static final String HL7_NAMESPACE_URI = "urn:hl7-org:v3";

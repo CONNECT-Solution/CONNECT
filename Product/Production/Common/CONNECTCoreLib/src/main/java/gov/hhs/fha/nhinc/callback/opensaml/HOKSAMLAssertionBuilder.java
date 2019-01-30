@@ -531,7 +531,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         }
 
         LOG.debug("UserName: {}", nameConstruct);
-        Attribute attribute = componentBuilder.createAttribute(null, SamlConstants.USERNAME_ATTR, null, Arrays.asList(
+        Attribute attribute = componentBuilder.createAttribute(null, SamlConstants.ATTRIBUTE_NAME_SUBJECT_ID_XSPA, null,
+            Arrays.asList(
             nameConstruct));
         return componentBuilder.createAttributeStatement(attribute);
     }
@@ -607,7 +608,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         Attribute attribute = null;
         final String organizationId = properties.getUserOrganization();
         if (organizationId != null) {
-            attribute = componentBuilder.createAttribute(null, SamlConstants.USER_ORG_ATTR, null,
+            attribute = componentBuilder.createAttribute(null, SamlConstants.ATTRIBUTE_NAME_ORG, null,
                 Arrays.asList(organizationId));
 
         } else {
