@@ -534,7 +534,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     public Attribute createSubjectRoleAttribute(final String userCode, final String userSystem,
         final String userSystemName, final String userDisplay) {
         final Object attributeValue = createHL7Attribute("Role", userCode, userSystem, userSystemName, userDisplay);
-        return createAttribute(null, SamlConstants.USER_ROLE_ATTR, null, Arrays.asList(attributeValue));
+        return createAttribute(null, SamlConstants.ATTRIBUTE_NAME_SUBJECT_ROLE, null, Arrays.asList(attributeValue));
 
     }
 
@@ -628,7 +628,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the list
      */
     public AttributeStatement createHomeCommunitAttributeStatement(final String communityId) {
-        final Attribute attribute = createAttribute(null, SamlConstants.HOME_COM_ID_ATTR, null,
+        final Attribute attribute = createAttribute(null, SamlConstants.ATTRIBUTE_NAME_HCID, null,
             Arrays.asList(communityId));
 
         return createAttributeStatement(attribute);
@@ -711,7 +711,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         final String purposeSystemName, final String purposeDisplay) {
         final Object attributeValue = createHL7Attribute("PurposeOfUse", purposeCode, purposeSystem, purposeSystemName,
             purposeDisplay);
-        return createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR, null, Arrays.asList(attributeValue));
+        return createAttribute(null, SamlConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE, null, Arrays.asList(attributeValue));
     }
 
     /**
@@ -728,7 +728,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
         final Object attributeValue = createHL7Attribute("PurposeForUse", purposeCode, purposeSystem, purposeSystemName,
             purposeDisplay);
-        return createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR, null, Arrays.asList(attributeValue));
+        return createAttribute(null, SamlConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE, null, Arrays.asList(attributeValue));
 
     }
 
@@ -739,7 +739,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the list
      */
     public AttributeStatement createOrganizationIdAttributeStatement(final String organizationId) {
-        final Attribute attribute = createAttribute(null, SamlConstants.USER_ORG_ID_ATTR, null,
+        final Attribute attribute = createAttribute(null, SamlConstants.ATTRIBUTE_NAME_ORG_ID, null,
             Arrays.asList(organizationId));
         return createAttributeStatement(attribute);
     }
