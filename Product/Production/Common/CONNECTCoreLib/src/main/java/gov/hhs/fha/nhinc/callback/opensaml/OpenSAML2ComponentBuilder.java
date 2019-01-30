@@ -599,7 +599,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the attribute
      */
     public Attribute createResourceIDAttribute(final String patientId) {
-        return createAttribute(null, SamlConstants.PATIENT_ID_ATTR, null, Collections.singletonList(patientId));
+        return createAttribute(null, SamlConstants.ATTRIBUTE_NAME_RESOURCE_ID, null,
+            Collections.singletonList(patientId));
     }
 
     public XSAny createUriAttributeValue(String value) {
