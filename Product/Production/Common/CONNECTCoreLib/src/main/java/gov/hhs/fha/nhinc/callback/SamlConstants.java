@@ -106,7 +106,6 @@ public class SamlConstants {
     public static final String HL7_TYPE_LOCAL_PART = "type";
     public static final String HL7_TYPE_PREFIX = "xsi";
     public static final String HL7_TYPE_KEY_VALUE = "hl7:CE";
-    public static final String PATIENT_ID_ATTR = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
     public static final String ATTRIBUTE_NAME_NPI = "urn:oasis:names:tc:xspa:2.0:subject:npi";
     public static final String ACCESS_CONSENT_ATTR = "AccessConsentPolicy";
     public static final String INST_ACCESS_CONSENT_ATTR = "InstanceAccessConsentPolicy";
