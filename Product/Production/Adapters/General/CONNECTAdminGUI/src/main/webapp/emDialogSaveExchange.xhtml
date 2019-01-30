@@ -64,7 +64,7 @@
                             <h:outputLabel class="control-label" for="inputSNI" value="SNI Name:" />
                             <p:inputText styleClass="form-control" value="#{exchangeManagerBean.formExchange.sniName}"
                                 id="inputSNI" maxlength="750" validatorMessage="Provided SNI is not in a valid format.">
-                               <f:validateRegex pattern="^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$" />
+                               <f:validateRegex pattern="(^$|^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$)" />
                             </p:inputText>
                         </div>
                     </div>
