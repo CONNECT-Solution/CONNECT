@@ -55,7 +55,7 @@ public class SHA2PasswordUtil {
             outputStream.write(candidatePassword);
             candidateHash = calculateHash(outputStream.toByteArray());
         } catch (NoSuchAlgorithmException | IOException e) {
-            LOG.error("Failed to check password hash token: {}", e.getLocalizedMessage());
+            LOG.error("Failed to check password hash token: {}", e.getLocalizedMessage(), e);
             return false;
         }
         return Arrays.equals(passwordHash, candidateHash);
@@ -70,7 +70,6 @@ public class SHA2PasswordUtil {
             outputStream.write(password);
             hash = calculateHash(outputStream.toByteArray());
         } catch (NoSuchAlgorithmException | IOException e) {
-            LOG.error("Failed to calculate hash token: {}", e.getLocalizedMessage());
             throw new UtilException("Failed to calculate hash token", e);
         }
         return hash;
