@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.callback.opensaml;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
@@ -161,7 +161,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         final String action, final Evidence evidence) {
         final AuthDecisionStatementBean authzBean = new AuthDecisionStatementBean();
         final ActionBean actionBean = new ActionBean();
-        actionBean.setActionNamespace(NhincConstants.ACTION_NAMESPACE_STRING);
+        actionBean.setActionNamespace(SamlConstants.ACTION_NAMESPACE_STRING);
         actionBean.setContents(action);
         authzBean.setActions(Collections.singletonList(actionBean));
         authzBean.setResource(resource);
@@ -226,7 +226,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the issuer
      */
     protected Issuer createDefaultIssuer() {
-        return createIssuer(X509_NAME_ID, NhincConstants.SAML_DEFAULT_ISSUER_NAME);
+        return createIssuer(X509_NAME_ID, SamlConstants.SAML_DEFAULT_ISSUER_NAME);
     }
 
     /**
@@ -534,7 +534,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     public Attribute createSubjectRoleAttribute(final String userCode, final String userSystem,
         final String userSystemName, final String userDisplay) {
         final Object attributeValue = createHL7Attribute("Role", userCode, userSystem, userSystemName, userDisplay);
-        return createAttribute(null, SamlConstants.USER_ROLE_ATTR, null, Arrays.asList(attributeValue));
+        return createAttribute(null, SamlConstants.ATTRIBUTE_NAME_SUBJECT_ROLE, null, Arrays.asList(attributeValue));
 
     }
 
@@ -599,7 +599,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the attribute
      */
     public Attribute createResourceIDAttribute(final String patientId) {
-        return createAttribute(null, SamlConstants.PATIENT_ID_ATTR, null, Collections.singletonList(patientId));
+        return createAttribute(null, SamlConstants.ATTRIBUTE_NAME_RESOURCE_ID, null,
+            Collections.singletonList(patientId));
     }
 
     public XSAny createUriAttributeValue(String value) {
@@ -628,7 +629,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the list
      */
     public AttributeStatement createHomeCommunitAttributeStatement(final String communityId) {
-        final Attribute attribute = createAttribute(null, SamlConstants.HOME_COM_ID_ATTR, null,
+        final Attribute attribute = createAttribute(null, SamlConstants.ATTRIBUTE_NAME_HCID, null,
             Arrays.asList(communityId));
 
         return createAttributeStatement(attribute);
@@ -711,7 +712,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         final String purposeSystemName, final String purposeDisplay) {
         final Object attributeValue = createHL7Attribute("PurposeOfUse", purposeCode, purposeSystem, purposeSystemName,
             purposeDisplay);
-        return createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR, null, Arrays.asList(attributeValue));
+        return createAttribute(null, SamlConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE, null, Arrays.asList(attributeValue));
     }
 
     /**
@@ -728,7 +729,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
         final Object attributeValue = createHL7Attribute("PurposeForUse", purposeCode, purposeSystem, purposeSystemName,
             purposeDisplay);
-        return createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR, null, Arrays.asList(attributeValue));
+        return createAttribute(null, SamlConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE, null, Arrays.asList(attributeValue));
 
     }
 
@@ -739,7 +740,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      * @return the list
      */
     public AttributeStatement createOrganizationIdAttributeStatement(final String organizationId) {
-        final Attribute attribute = createAttribute(null, SamlConstants.USER_ORG_ID_ATTR, null,
+        final Attribute attribute = createAttribute(null, SamlConstants.ATTRIBUTE_NAME_ORG_ID, null,
             Arrays.asList(organizationId));
         return createAttributeStatement(attribute);
     }

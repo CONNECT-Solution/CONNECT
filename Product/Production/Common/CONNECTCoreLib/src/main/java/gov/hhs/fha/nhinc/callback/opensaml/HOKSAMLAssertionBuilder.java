@@ -176,22 +176,22 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         String sIssuer = properties.getIssuer();
 
         if (StringUtils.isBlank(format) || !isValidNameidFormat(format)) {
-            format = NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509;
+            format = SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509;
         }
 
         // If it is a X509 Subject, check if the DN is valid. If not, grab it from the local cert.
         // If there is no local cert, grab it from the properties file.
         // If there is no properties file, use the default issuer name
-        if (format.equals(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509)
+        if (format.equals(SamlConstants.AUTH_FRWK_NAME_ID_FORMAT_X509)
             && (StringUtils.isBlank(sIssuer) || !NhinUtils.getInstance().checkDistinguishedName(sIssuer))) {
 
             sIssuer = certificate != null ? certificate.getIssuerX500Principal().getName() : PropertyAccessor.
                 getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_SAML_ISSUER_NAME,
-                    NhincConstants.SAML_DEFAULT_ISSUER_NAME);
+                    SamlConstants.SAML_DEFAULT_ISSUER_NAME);
         }
 
         if (StringUtils.isBlank(sIssuer)) {
-            sIssuer = NhincConstants.SAML_DEFAULT_ISSUER_NAME;
+            sIssuer = SamlConstants.SAML_DEFAULT_ISSUER_NAME;
         }
 
         LOG.debug("Setting Assertion Issuer format to: {}", format);
@@ -531,7 +531,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         }
 
         LOG.debug("UserName: {}", nameConstruct);
-        Attribute attribute = componentBuilder.createAttribute(null, SamlConstants.USERNAME_ATTR, null, Arrays.asList(
+        Attribute attribute = componentBuilder.createAttribute(null, SamlConstants.ATTRIBUTE_NAME_SUBJECT_ID_XSPA, null,
+            Arrays.asList(
             nameConstruct));
         return componentBuilder.createAttributeStatement(attribute);
     }
@@ -607,7 +608,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         Attribute attribute = null;
         final String organizationId = properties.getUserOrganization();
         if (organizationId != null) {
-            attribute = componentBuilder.createAttribute(null, SamlConstants.USER_ORG_ATTR, null,
+            attribute = componentBuilder.createAttribute(null, SamlConstants.ATTRIBUTE_NAME_ORG, null,
                 Arrays.asList(organizationId));
 
         } else {
@@ -704,7 +705,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         // if not provided or invalid return true else false
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(
-                NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.ENABLE_CONDITIONS_DEFAULT_VALUE);
+                NhincConstants.SAML_PROPERTY_FILE, SamlConstants.ENABLE_CONDITIONS_DEFAULT_VALUE);
         } catch (final PropertyAccessException pae) {
             LOG.error("Property not found exception: {}", pae.getLocalizedMessage(), pae);
         }
