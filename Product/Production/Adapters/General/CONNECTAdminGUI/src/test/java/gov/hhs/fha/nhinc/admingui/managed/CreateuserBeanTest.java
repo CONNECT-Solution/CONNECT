@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -38,10 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.servlet.http.HttpSession;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -55,24 +52,13 @@ public class CreateuserBeanTest {
 
     private final HttpSession session = mock(HttpSession.class);
 
-    public CreateuserBeanTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
     @Before
-    public void setUp() throws UserLoginException {
+    public void setUp() {
 
         LoginService loginservice = new LoginService() {
 
             @Override
-            public UserLogin login(Login login) throws UserLoginException {
+            public UserLogin login(Login login) {
                 return new UserLogin();
             }
 
@@ -111,13 +97,8 @@ public class CreateuserBeanTest {
 
     }
 
-    @After
-    public void tearDown() {
-    }
-
     @Test
-    @SuppressWarnings("empty-statement")
-    public void testCreateUser_Pass1() throws UserLoginException {
+    public void testCreateUser_Pass1() {
         assertTrue(createuserBean.createUser());
     }
 
