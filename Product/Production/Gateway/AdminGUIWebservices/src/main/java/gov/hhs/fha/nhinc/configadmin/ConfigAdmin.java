@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -47,7 +47,6 @@ import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
 import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
-import gov.hhs.fha.nhinc.util.UtilException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.cert.Certificate;
@@ -126,16 +125,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     }
 
     private static boolean validateHash(String userName, String hashToken, String passKey) {
-        boolean hashCheck = false;
-        try {
-            hashCheck = SHA2PasswordUtil.checkPassword(hashToken.getBytes(),
-                passKey.getBytes(),
-                userName.getBytes());
-        } catch (UtilException e) {
-            LOG.error("Error while getting the hash token: ", e.getLocalizedMessage(), e);
-        }
-
-        return hashCheck;
+        return SHA2PasswordUtil.checkPassword(hashToken.getBytes(),passKey.getBytes(),userName.getBytes());
     }
 
     /*

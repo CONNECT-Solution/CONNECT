@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.admingui.constant.NavigationConstant;
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
-import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -160,19 +159,15 @@ public class LoginBean {
     private boolean login() {
         boolean loggedIn = false;
         Login login = new Login(userName, password);
-        try {
-            UserLogin user = loginService.login(login);
+        UserLogin user = loginService.login(login);
 
-            if (user != null) {
-                loggedIn = true;
-                FacesContext facesContext = FacesContext.getCurrentInstance();
-                ExternalContext externalContext = facesContext.getExternalContext();
-                externalContext.invalidateSession();
-                HttpSession session = (HttpSession) externalContext.getSession(true);
-                session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, user);
-            }
-        } catch (UserLoginException e) {
-            LOG.error("Exception during login: " + e.getLocalizedMessage(), e);
+        if (user != null) {
+            loggedIn = true;
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = facesContext.getExternalContext();
+            externalContext.invalidateSession();
+            HttpSession session = (HttpSession) externalContext.getSession(true);
+            session.setAttribute(UserAuthorizationListener.USER_INFO_SESSION_ATTRIBUTE, user);
         }
 
         userName = null;

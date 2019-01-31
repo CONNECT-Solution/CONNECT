@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.PasswordService;
-import gov.hhs.fha.nhinc.admingui.services.SHA2PasswordService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserRole;
@@ -43,8 +42,7 @@ import java.util.List;
 import java.util.Properties;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,22 +56,13 @@ public class LoginServiceImpl implements LoginService {
     public static final String CONNECT_ADMIN_USER = "CONNECTAdmin";
     private static final String ROLE_PROPERTIES_FILENAME = "roleCodes";
 
-    private static final Logger LOG = LoggerFactory.getLogger(LoginServiceImpl.class);
-
     @Autowired
     private UserLoginDAO userLoginDAO;
     /**
      * The credential service.
      */
-    private final PasswordService credentialService = new SHA2PasswordService();
-
-    /**
-     *
-     * @param userLoginDao
-     */
-    LoginServiceImpl(UserLoginDAO userLoginDao) {
-        userLoginDAO = userLoginDao;
-    }
+    @Autowired
+    private PasswordService credentialService;
 
     /**
      * Default constructor
@@ -82,26 +71,35 @@ public class LoginServiceImpl implements LoginService {
         //Spring can not instantiate without default constructor
     }
 
-    /*
-     * (non-Javadoc)
+
+    /**
+     * Gets the current JPA Entity from the database if the user was successfully authenticated.
      *
-     * @see gov.hhs.fha.nhinc.admingui.services.LoginService#login(gov.hhs.fha.nhinc .admingui.model.Login)
+     * Returns null if the credentials are invalid, or not provided.
      */
     @Override
-    public UserLogin login(Login login) throws UserLoginException {
-        UserLogin user = userLoginDAO.login(login);
-        if (user != null && user.getSha2() != null && user.getSalt() != null && login.getPassword() != null) {
-            try {
-                LOG.info("Prepare to check user credential");
-                boolean loggedIn = SHA2PasswordUtil.checkPassword(user.getSha2().getBytes(),
-                    login.getPassword().getBytes(), user.getSalt().getBytes());
-                if (!loggedIn) {
-                    user = null;
-                }
-            } catch (UtilException e) {
-                throw new UserLoginException("Error while trying to login.", e);
-            }
+    public UserLogin login(Login login) {
+
+        // Credentials not provided
+        if (login == null || StringUtils.isBlank(login.getPassword()) || StringUtils.isBlank(login.getUserName())) {
+            return null;
         }
+
+        UserLogin user = userLoginDAO.login(login);
+
+        // User not found, or password was not set in the database
+        if (user == null || StringUtils.isBlank(user.getSha2()) || StringUtils.isBlank(user.getSalt())) {
+            return null;
+        }
+
+        // Passwords match
+        boolean loggedIn = SHA2PasswordUtil.checkPassword(user.getSha2().getBytes(),
+            login.getPassword().getBytes(), user.getSalt().getBytes());
+
+        if (!loggedIn) {
+            user = null;
+        }
+
         return user;
     }
 
