@@ -153,12 +153,4 @@ public class LoginServiceImplTest {
         UserLogin loggedInUser = loginService.login(login);
         assertEquals(null, loggedInUser);
     }
-
-    public void doTests() {
-        //loginService.addUser(user, role, firstName, middleName, lastName, transRoleDesc);
-        //loginService.deleteUser(user);
-        //loginService.getAllUsers();
-        //loginService.getUserRoleList();
-        //loginService.login(login);
-    }
 }
