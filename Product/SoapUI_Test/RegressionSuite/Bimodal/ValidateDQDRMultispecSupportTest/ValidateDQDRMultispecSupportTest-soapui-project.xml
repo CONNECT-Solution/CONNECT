@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="ValidateDQDRMultispecSupportTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" id="bd310916-f27a-492e-b95a-86125427d37a" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="ValidateDQDRMultispecSupportTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.3.0" activeEnvironment="Default" id="bd310916-f27a-492e-b95a-86125427d37a" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="7aa3da15-2add-421d-8ebe-f3c8e994301d" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -2441,14 +2441,10 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
               </con:configuration>
             </con:assertion>
             <con:assertion type="Simple Contains" name="Contains Location" id="704cf10c-755d-443d-b8f6-2e14e818edfe">
-              <con:configuration>
-                <token>Entity Document Retrieve</token>
-                <ignoreCase>false</ignoreCase>
-                <useRegEx>false</useRegEx>
-              </con:configuration>
+              <con:configuration><token>Entity Document Query</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -4547,11 +4543,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
               </con:configuration>
             </con:assertion>
             <con:assertion type="Simple Contains" name="Contains location" id="68d254b1-ed55-4ce4-9a79-ed5dc6f730ca">
-              <con:configuration>
-                <token>Entity Document Retrieve</token>
-                <ignoreCase>false</ignoreCase>
-                <useRegEx>false</useRegEx>
-              </con:configuration>
+              <con:configuration><token>Entity Document Query</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration>
             </con:assertion>
             <con:assertion type="Simple Contains" name="Contains severity" id="dcee1c0c-e592-4a73-9716-5a69f8b94f08">
               <con:configuration>
@@ -4561,7 +4553,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript>
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -10832,14 +10824,10 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
               </con:configuration>
             </con:assertion>
             <con:assertion type="Simple Contains" name="Contains Location" id="c6bed3f8-d262-4ef5-8534-6ef2304ad7fc">
-              <con:configuration>
-                <token>Entity Document Retrieve</token>
-                <ignoreCase>false</ignoreCase>
-                <useRegEx>false</useRegEx>
-              </con:configuration>
+              <con:configuration><token>Entity Document Query</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -12939,11 +12927,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
               </con:configuration>
             </con:assertion>
             <con:assertion type="Simple Contains" name="Contains location" id="398611d9-e5b3-4ea7-aae5-4ed294e98895">
-              <con:configuration>
-                <token>Entity Document Retrieve</token>
-                <ignoreCase>false</ignoreCase>
-                <useRegEx>false</useRegEx>
-              </con:configuration>
+              <con:configuration><token>Entity Document Query</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration>
             </con:assertion>
             <con:assertion type="Simple Contains" name="Contains severity" id="41dde077-25c2-4b49-9975-7f7a1e08dac8">
               <con:configuration>
@@ -12953,7 +12937,7 @@ FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -16940,7 +16924,7 @@ log.info "Set service in standard mode ${isStandardMode}";</con:tearDownScript>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value/>
+      <con:value></con:value>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>
@@ -17216,7 +17200,7 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.checkGatewayM
   <con:wssContainer/>
   <con:databaseConnectionContainer/>
   <con:oAuth2ProfileContainer/>
-  <con:reporting>
+  <con:oAuth1ProfileContainer/><con:reporting>
     <con:xmlTemplates/>
     <con:xmlTemplates/>
     <con:xmlTemplates/>
