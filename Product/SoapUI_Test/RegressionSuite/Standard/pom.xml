@@ -27,7 +27,7 @@
                 <properties.dir>${project.parent.parent.parent.basedir}/${wildfly.properties.dir}</properties.dir>
             </properties>
             <modules>
-                <module>Admin-Distribution-Standard</module>
+                <!--<module>Admin-Distribution-Standard</module> -->
                 <module>AuditLogging-Standard</module>
                 <module>DocQueryErrorCodesStandard</module>
                 <module>DocQueryFanoutTestTarget</module>
