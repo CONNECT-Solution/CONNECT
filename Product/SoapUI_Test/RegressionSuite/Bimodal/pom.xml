@@ -24,7 +24,7 @@
                 </property>
             </activation>
             <modules>
-                <module>ValidateDQDRMultispecSupportTest</module>
+            <!--    <module>ValidateDQDRMultispecSupportTest</module> -->
                 <module>XDRAdapterTests</module>
                 <module>AdapterPatientDiscoveryAsyncReq</module>
                 <module>AdapterPatientDiscoveryAsyncReqError</module>
