@@ -245,7 +245,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         return bSave;
     }
 
-    public boolean saveExchange(ExchangeType exchangeUpdate) throws ExchangeManagerException {
+    public boolean saveExchange(ExchangeType exchangeUpdate, String originalExchangeName) throws ExchangeManagerException {
         boolean bSave = false;
         getRefreshExceptionFor("save");
         if (null == exchangeUpdate) {
@@ -256,9 +256,13 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
                 loadExchangeInfo();
             }
             List<ExchangeType> exchanges = ExchangeManagerHelper.getAllExchanges(exInfo, true);
-            ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, exchangeUpdate.getName());
+
+            String nameLookup = originalExchangeName != null ? originalExchangeName : exchangeUpdate.getName();
+
+            ExchangeType exchangeFound = ExchangeManagerHelper.findExchangeTypeBy(exchanges, nameLookup);
             if (null != exchangeFound) {
                 LOG.info("saveExchange--updated-exchangeFound");
+                exchangeFound.setName(exchangeUpdate.getName());
                 exchangeFound.setDisabled(exchangeUpdate.isDisabled());
                 exchangeFound.setKey(exchangeUpdate.getKey());
                 exchangeFound.setTLSVersions(exchangeUpdate.getTLSVersions());

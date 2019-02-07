@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -67,6 +67,7 @@ public class ExchangeManagerBean {
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagerBean.class);
     private static final String DEFAULT_VALUE = "--";
     private static final String DLG_SAVE_EXCHANGE = "wvDlgSaveExchange";
+    private static final String DLG_EDIT_EXCHANGE = "wvDlgEditExchange";
     private static final String DLG_REFRESH_EXCHANGE = "wvDlgRefreshExchangeStatus";
     private static final String DLG_CONFIRM_OVERWRITE_EXCHAGE = "wvConfirmationOverwrite";
     private ExchangeManagerService exchangeService = new ExchangeManagerServiceImpl();
@@ -243,6 +244,32 @@ public class ExchangeManagerBean {
         formExchange = new ExchangeType();
     }
 
+    public void editExchange() {
+        agreeOverwriteExchange = false;
+        formExchange = new ExchangeType();
+        if (selectedExchange != null) {
+            formExchange.setCertificateAlias(selectedExchange.getCertificateAlias());
+            formExchange.setUrl(selectedExchange.getUrl());
+            formExchange.setDisabled(selectedExchange.isDisabled());
+            formExchange.setKey(selectedExchange.getKey());
+            formExchange.setName(selectedExchange.getName());
+            formExchange.setSniName(selectedExchange.getSniName());
+            formExchange.setTLSVersions(selectedExchange.getTLSVersions());
+            formExchange.setType(selectedExchange.getType());
+            formExchange.setUrl(selectedExchange.getUrl());
+        }
+    }
+
+    public boolean editExistingExchange() {
+        boolean bSave = exchangeService.saveExchange(formExchange, selectedExchange.getName());
+        if (bSave) {
+            modifiedExchangesCache();
+            execPFHideDialog(DLG_EDIT_EXCHANGE);
+        }
+
+        return bSave;
+    }
+
     public boolean saveExchange() {
         return saveExchangeWith(false);
     }
@@ -258,7 +285,7 @@ public class ExchangeManagerBean {
                 execPFShowDialog(DLG_CONFIRM_OVERWRITE_EXCHAGE);
                 return false;
             }
-            bSave = exchangeService.saveExchange(formExchange);
+            bSave = exchangeService.saveExchange(formExchange, null);
             if (bSave) {
                 modifiedExchangesCache();
                 execPFHideDialog(DLG_SAVE_EXCHANGE);
@@ -350,7 +377,7 @@ public class ExchangeManagerBean {
     public boolean toggleIsEnabledFor(ExchangeType exchange) {
         boolean bCurrentStage = exchange.isDisabled();
         exchange.setDisabled(!bCurrentStage);
-        boolean saveSuccessful = exchangeService.saveExchange(exchange);
+        boolean saveSuccessful = exchangeService.saveExchange(exchange, null);
         if (!saveSuccessful) {
             exchange.setDisabled(bCurrentStage);
         }

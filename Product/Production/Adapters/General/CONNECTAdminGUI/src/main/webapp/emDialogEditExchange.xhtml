@@ -1,0 +1,101 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <p:dialog id="dlgEditExchange" header="Edit #{exchangeManagerBean.selectedExchange.name}" widgetVar="wvDlgEditExchange" modal="true" draggable="false"
+        resizable="false" width="650" height="560">
+
+        <div class="form-block center-block">
+            <h:form id="formDlgEditExchange" class="form form-horizontal">
+                <p:messages id="dlgExchangeErrors" closable="true" showDetail="true">
+                    <p:autoUpdate />
+                </p:messages>
+                <div class="content well">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <h:outputLabel class="control-label" for="inputName" value="* Name:" />
+                            <p:inputText styleClass="form-control" value="#{exchangeManagerBean.formExchange.name}"
+                                id="inputName" maxlength="250" required="true" requiredMessage="Name is required.">
+                            </p:inputText>
+                        </div>
+                        <div class="col-sm-6">
+                            <h:outputLabel class="control-label" for="inputType" value="* Type:" />
+                            <h:selectOneMenu class="form-control" id="inputType" style="text-transform: uppercase"
+                                value="#{exchangeManagerBean.formExchange.type}" required="true"
+                                requiredMessage="Type is required.">
+                                <f:selectItem itemLabel="---" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{exchangeManagerBean.listTypes}" var="item"
+                                    itemLabel="#{item.value}" itemValue="#{item.value}" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <h:outputLabel class="control-label" for="inputUrl" value="* URL:" />
+                            <p:inputText styleClass="form-control" value="#{exchangeManagerBean.formExchange.url}"
+                                id="inputUrl" maxlength="750" required="true" requiredMessage="URL is required.">
+                                <f:validator validatorId="UrlFacesValidator" />
+                                <f:attribute name="errorMessage" value="URL required a valid format." />
+                            </p:inputText>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <h:outputLabel class="control-label" for="inputKey" value="Key:" />
+                            <p:inputText styleClass="form-control" value="#{exchangeManagerBean.formExchange.key}"
+                                id="inputKey" maxlength="250" />
+                        </div>
+                        <div class="col-sm-6">
+                            <h:outputLabel class="control-label" for="inputTLSVersions" value="TLS:" />
+                            <h:selectOneMenu class="form-control" id="inputTLSVersions"
+                                value="#{exchangeManagerBean.formExchangeTLSVersion}">
+                                <f:selectItem itemLabel="default" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{exchangeManagerBean.listTLSes}" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <h:outputLabel class="control-label" for="inputAlias" value="* Certificate Alias:" />
+                            <p:inputText styleClass="form-control" value="#{exchangeManagerBean.formExchange.certificateAlias}"
+                                id="inputAlias" maxlength="250" required="true" requiredMessage="Certificate alias is required."/>
+                        </div>
+                        <div class="col-sm-6">
+                            <h:outputLabel class="control-label" for="inputSNI" value="SNI Name:" />
+                            <p:inputText styleClass="form-control" value="#{exchangeManagerBean.formExchange.sniName}"
+                                id="inputSNI" maxlength="750" validatorMessage="Provided SNI is not in a valid format.">
+                               <f:validateRegex pattern="(^$|^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$)" />
+                            </p:inputText>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <p:selectBooleanCheckbox id="inputEnable" value="#{exchangeManagerBean.formExchangeEnable}" />
+                            <h:outputLabel class="control-label" for="inputEnable" value="&#160;&#160; Enabled " />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-button-row">
+                    <div class="col-sm-12">
+                        <p:commandButton styleClass="btn btn-primary updateCssRefreshId" icon="ui-icon-circle-plus"
+                            action="#{exchangeManagerBean.editExistingExchange()}" value="Save"
+                            disabled="#{exchangeManagerBean.refreshLocked}" id="btnSaveExchange"
+                            update=":tabviewExchange:accordionExchange:formExchange:dataTableExchange, @(.updateCssExchangesId)">
+                        </p:commandButton>
+                        <p:commandButton styleClass="btn btn-default" icon="ui-icon-circle-close" value="Close"
+                            oncomplete="PF('wvDlgEditExchange').hide();" />
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+    </p:dialog>
+    <p:confirmDialog message="This exchange already exists - overwrite?" header="Confirmation" severity="alert"
+        widgetVar="wvConfirmationOverwrite">
+        <p:commandButton value="Yes" oncomplete="wvConfirmationOverwrite.hide()"
+            actionListener="#{exchangeManagerBean.overwriteExchange}"
+            update=":tabviewExchange:accordionExchange:formExchange:dataTableExchange, @(.updateCssExchangesId)" />
+        <p:commandButton value="No" onclick="wvConfirmationOverwrite.hide()" type="button" />
+    </p:confirmDialog>
+</ui:composition>

@@ -141,7 +141,7 @@
                                                     paginator="true" rowsPerPageTemplate="5,10,15" rows="10">
 
                                                     <p:ajax event="rowSelectRadio" process="@this"
-                                                        update=":@form:deleteExchange" />
+                                                        update=":@form:deleteExchange :@form:editExchange" />
 
                                                     <p:column headerText="" selectionMode="single" />
                                                     <p:column headerText="Name">
@@ -186,6 +186,15 @@
                                                             actionListener="#{exchangeManagerBean.newExchange}"
                                                             update=":dlgSaveExchange" value="New">
                                                             <p:resetInput target=":formDlgExchange" />
+                                                        </p:commandButton>
+                                                        <p:commandButton id="editExchange"
+                                                            styleClass="btn btn-primary pull-left"
+                                                            icon="ui-icon-gear"
+                                                            oncomplete="PF('wvDlgEditExchange').show();"
+                                                            actionListener="#{exchangeManagerBean.editExchange}"
+                                                            value="Edit"
+                                                            update=":dlgEditExchange"
+                                                            disabled="#{exchangeManagerBean.disableButtonsExchange}">
                                                         </p:commandButton>
                                                         <p:commandButton id="deleteExchange"
                                                             styleClass="delete-button updateCssRefreshId"
@@ -373,6 +382,7 @@
 
             <p:growl id="msgGrowl" for="msgForGrowl" closable="true" />
             <ui:include src="emDialogSaveExchange.xhtml" />
+            <ui:include src="emDialogEditExchange.xhtml" />
             <ui:include src="emDialogRefreshExchange.xhtml" />
         </ui:define>
     </ui:composition>
