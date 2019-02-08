@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.admingui.comparators.OrganizationsComparator;
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.ExchangeManagerServiceImpl;
+import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.common.exchangemanagement.ExchangeDownloadStatusType;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
@@ -49,6 +50,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.commons.collections.CollectionUtils;
@@ -90,6 +92,10 @@ public class ExchangeManagerBean {
     private List<ConnectionEndpoint> endpoints = new ArrayList<>();
     private int cachedEndpointHashCode;
     private boolean disableButtonsExchange;
+    private boolean isEditing;
+    private String dlgHeader;
+
+
 
     @PostConstruct
     public void initialize() {
@@ -210,6 +216,14 @@ public class ExchangeManagerBean {
         return refreshCacheEndpoints();
     }
 
+    public String getDlgHeader() {
+        return dlgHeader;
+    }
+
+    public void setDlgHeader(String dlgHeader) {
+        this.dlgHeader = dlgHeader;
+    }
+
     public boolean refreshOrganizations() {
         if (StringUtils.isNotBlank(filterExchange)) {
             organizations = exchangeService.getAllOrganizations(filterExchange);
@@ -239,12 +253,51 @@ public class ExchangeManagerBean {
     }
 
     public void newExchange() {
+        isEditing = false;
+        setDlgHeader("New Exchange");
         agreeOverwriteExchange = false;
         formExchange = new ExchangeType();
     }
 
+    public void editExchange() {
+        isEditing = true;
+        formExchange = new ExchangeType();
+        if (selectedExchange != null) {
+            setDlgHeader("Editing " + selectedExchange.getName());
+            formExchange.setCertificateAlias(selectedExchange.getCertificateAlias());
+            formExchange.setUrl(selectedExchange.getUrl());
+            formExchange.setDisabled(selectedExchange.isDisabled());
+            formExchange.setKey(selectedExchange.getKey());
+            formExchange.setName(selectedExchange.getName());
+            formExchange.setSniName(selectedExchange.getSniName());
+            formExchange.setTLSVersions(selectedExchange.getTLSVersions());
+            formExchange.setType(selectedExchange.getType());
+        }
+    }
+
+    public boolean editExistingExchange() {
+
+        if (formExchange.getName() != selectedExchange.getName() && isNotUniqueExchangeName()) {
+            HelperUtil.addFacesMessageBy("dlgExchangeErrors", FacesMessage.SEVERITY_ERROR, formExchange.getName() +
+                " already exists. Please choose a different name.");
+            return false;
+        }
+
+        boolean bSave = exchangeService.saveExchange(formExchange, selectedExchange.getName());
+        if (bSave) {
+            modifiedExchangesCache();
+            execPFHideDialog(DLG_SAVE_EXCHANGE);
+        }
+
+        return bSave;
+    }
+
     public boolean saveExchange() {
-        return saveExchangeWith(false);
+        if (isEditing) {
+            return editExistingExchange();
+        } else {
+            return saveExchangeWith(false);
+        }
     }
 
     public boolean overwriteExchange() {
@@ -258,7 +311,7 @@ public class ExchangeManagerBean {
                 execPFShowDialog(DLG_CONFIRM_OVERWRITE_EXCHAGE);
                 return false;
             }
-            bSave = exchangeService.saveExchange(formExchange);
+            bSave = exchangeService.saveExchange(formExchange, null);
             if (bSave) {
                 modifiedExchangesCache();
                 execPFHideDialog(DLG_SAVE_EXCHANGE);
@@ -350,7 +403,7 @@ public class ExchangeManagerBean {
     public boolean toggleIsEnabledFor(ExchangeType exchange) {
         boolean bCurrentStage = exchange.isDisabled();
         exchange.setDisabled(!bCurrentStage);
-        boolean saveSuccessful = exchangeService.saveExchange(exchange);
+        boolean saveSuccessful = exchangeService.saveExchange(exchange, null);
         if (!saveSuccessful) {
             exchange.setDisabled(bCurrentStage);
         }
@@ -402,4 +455,5 @@ public class ExchangeManagerBean {
         updatedExchangesCaches();
         return exchanges;
     }
+
 }

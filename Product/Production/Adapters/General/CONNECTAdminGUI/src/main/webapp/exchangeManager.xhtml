@@ -141,7 +141,7 @@
                                                     paginator="true" rowsPerPageTemplate="5,10,15" rows="10">
 
                                                     <p:ajax event="rowSelectRadio" process="@this"
-                                                        update=":@form:deleteExchange" />
+                                                        update=":@form:deleteExchange :@form:editExchange" />
 
                                                     <p:column headerText="" selectionMode="single" />
                                                     <p:column headerText="Name">
@@ -153,6 +153,12 @@
                                                     </p:column>
                                                     <p:column headerText="URL">
                                                         <h:outputText value="#{rec.url}" />
+                                                    </p:column>
+                                                     <p:column headerText="Certificate Alias">
+                                                        <h:outputText value="#{empty rec.certificateAlias ? 'N/A' : rec.certificateAlias}" />
+                                                    </p:column>
+                                                     <p:column headerText="SNI Name">
+                                                        <h:outputText value="#{empty rec.sniName  ? 'N/A' : rec.sniName }" />
                                                     </p:column>
                                                     <p:column headerText="Last Updated">
                                                         <h:outputText value="#{rec.lastUpdated}">
@@ -185,6 +191,16 @@
                                                             oncomplete="PF('wvDlgSaveExchange').show();"
                                                             actionListener="#{exchangeManagerBean.newExchange}"
                                                             update=":dlgSaveExchange" value="New">
+                                                            <p:resetInput target=":formDlgExchange" />
+                                                        </p:commandButton>
+                                                        <p:commandButton id="editExchange"
+                                                            styleClass="btn btn-primary pull-left"
+                                                            icon="ui-icon-gear"
+                                                            oncomplete="PF('wvDlgSaveExchange').show();"
+                                                            actionListener="#{exchangeManagerBean.editExchange}"
+                                                            value="Edit"
+                                                            update=":dlgSaveExchange"
+                                                            disabled="#{exchangeManagerBean.disableButtonsExchange}">
                                                             <p:resetInput target=":formDlgExchange" />
                                                         </p:commandButton>
                                                         <p:commandButton id="deleteExchange"

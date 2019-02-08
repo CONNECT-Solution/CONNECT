@@ -92,10 +92,11 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
     private static CONNECTClient<EntityExchangeManagementPortType> client = null;
 
     @Override
-    public boolean saveExchange(ExchangeType exchange) {
+    public boolean saveExchange(ExchangeType exchange, String existingExchangeName) {
         SaveExchangeRequestMessageType request = new SaveExchangeRequestMessageType();
         request.setConfigAssertion(buildConfigAssertion());
         request.setExchange(exchange);
+        request.setOriginalExchangeName(existingExchangeName);
 
         try {
             SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) invokeClientPort(
