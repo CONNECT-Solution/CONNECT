@@ -154,6 +154,12 @@
                                                     <p:column headerText="URL">
                                                         <h:outputText value="#{rec.url}" />
                                                     </p:column>
+                                                     <p:column headerText="Certificate Alias">
+                                                        <h:outputText value="#{empty rec.certificateAlias ? 'N/A' : rec.certificateAlias}" />
+                                                    </p:column>
+                                                     <p:column headerText="SNI Name">
+                                                        <h:outputText value="#{empty rec.sniName  ? 'N/A' : rec.sniName }" />
+                                                    </p:column>
                                                     <p:column headerText="Last Updated">
                                                         <h:outputText value="#{rec.lastUpdated}">
                                                             <f:converter converterId="xmlGregorianConverter" />
@@ -190,11 +196,12 @@
                                                         <p:commandButton id="editExchange"
                                                             styleClass="btn btn-primary pull-left"
                                                             icon="ui-icon-gear"
-                                                            oncomplete="PF('wvDlgEditExchange').show();"
+                                                            oncomplete="PF('wvDlgSaveExchange').show();"
                                                             actionListener="#{exchangeManagerBean.editExchange}"
                                                             value="Edit"
-                                                            update=":dlgEditExchange"
+                                                            update=":dlgSaveExchange"
                                                             disabled="#{exchangeManagerBean.disableButtonsExchange}">
+                                                            <p:resetInput target=":formDlgExchange" />
                                                         </p:commandButton>
                                                         <p:commandButton id="deleteExchange"
                                                             styleClass="delete-button updateCssRefreshId"
@@ -382,7 +389,6 @@
 
             <p:growl id="msgGrowl" for="msgForGrowl" closable="true" />
             <ui:include src="emDialogSaveExchange.xhtml" />
-            <ui:include src="emDialogEditExchange.xhtml" />
             <ui:include src="emDialogRefreshExchange.xhtml" />
         </ui:define>
     </ui:composition>

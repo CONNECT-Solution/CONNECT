@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.admingui.comparators.OrganizationsComparator;
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.ExchangeManagerService;
 import gov.hhs.fha.nhinc.admingui.services.impl.ExchangeManagerServiceImpl;
+import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.common.exchangemanagement.ExchangeDownloadStatusType;
 import gov.hhs.fha.nhinc.exchange.ExchangeInfoType;
 import gov.hhs.fha.nhinc.exchange.ExchangeType;
@@ -49,6 +50,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.commons.collections.CollectionUtils;
@@ -67,7 +69,6 @@ public class ExchangeManagerBean {
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeManagerBean.class);
     private static final String DEFAULT_VALUE = "--";
     private static final String DLG_SAVE_EXCHANGE = "wvDlgSaveExchange";
-    private static final String DLG_EDIT_EXCHANGE = "wvDlgEditExchange";
     private static final String DLG_REFRESH_EXCHANGE = "wvDlgRefreshExchangeStatus";
     private static final String DLG_CONFIRM_OVERWRITE_EXCHAGE = "wvConfirmationOverwrite";
     private ExchangeManagerService exchangeService = new ExchangeManagerServiceImpl();
@@ -91,6 +92,10 @@ public class ExchangeManagerBean {
     private List<ConnectionEndpoint> endpoints = new ArrayList<>();
     private int cachedEndpointHashCode;
     private boolean disableButtonsExchange;
+    private boolean isEditing;
+    private String dlgHeader;
+
+
 
     @PostConstruct
     public void initialize() {
@@ -211,6 +216,14 @@ public class ExchangeManagerBean {
         return refreshCacheEndpoints();
     }
 
+    public String getDlgHeader() {
+        return dlgHeader;
+    }
+
+    public void setDlgHeader(String dlgHeader) {
+        this.dlgHeader = dlgHeader;
+    }
+
     public boolean refreshOrganizations() {
         if (StringUtils.isNotBlank(filterExchange)) {
             organizations = exchangeService.getAllOrganizations(filterExchange);
@@ -240,14 +253,17 @@ public class ExchangeManagerBean {
     }
 
     public void newExchange() {
+        isEditing = false;
+        setDlgHeader("New Exchange");
         agreeOverwriteExchange = false;
         formExchange = new ExchangeType();
     }
 
     public void editExchange() {
-        agreeOverwriteExchange = false;
+        isEditing = true;
         formExchange = new ExchangeType();
         if (selectedExchange != null) {
+            setDlgHeader("Editing " + selectedExchange.getName());
             formExchange.setCertificateAlias(selectedExchange.getCertificateAlias());
             formExchange.setUrl(selectedExchange.getUrl());
             formExchange.setDisabled(selectedExchange.isDisabled());
@@ -256,22 +272,32 @@ public class ExchangeManagerBean {
             formExchange.setSniName(selectedExchange.getSniName());
             formExchange.setTLSVersions(selectedExchange.getTLSVersions());
             formExchange.setType(selectedExchange.getType());
-            formExchange.setUrl(selectedExchange.getUrl());
         }
     }
 
     public boolean editExistingExchange() {
+
+        if (formExchange.getName() != selectedExchange.getName() && isNotUniqueExchangeName()) {
+            HelperUtil.addFacesMessageBy("dlgExchangeErrors", FacesMessage.SEVERITY_ERROR, formExchange.getName() +
+                " already exists. Please choose a different name.");
+            return false;
+        }
+
         boolean bSave = exchangeService.saveExchange(formExchange, selectedExchange.getName());
         if (bSave) {
             modifiedExchangesCache();
-            execPFHideDialog(DLG_EDIT_EXCHANGE);
+            execPFHideDialog(DLG_SAVE_EXCHANGE);
         }
 
         return bSave;
     }
 
     public boolean saveExchange() {
-        return saveExchangeWith(false);
+        if (isEditing) {
+            return editExistingExchange();
+        } else {
+            return saveExchangeWith(false);
+        }
     }
 
     public boolean overwriteExchange() {
@@ -429,4 +455,5 @@ public class ExchangeManagerBean {
         updatedExchangesCaches();
         return exchanges;
     }
+
 }
