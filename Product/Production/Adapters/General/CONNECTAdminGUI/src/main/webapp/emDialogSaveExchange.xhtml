@@ -7,7 +7,7 @@
 
         <div class="form-block center-block">
             <h:form id="formDlgExchange" class="form form-horizontal">
-                <p:messages id="dlgExchangeErrors" closable="true" showDetail="true">
+                <p:messages id="dlgExchangeErrors" closable="true">
                     <p:autoUpdate />
                 </p:messages>
                 <div class="content well">
@@ -49,7 +49,7 @@
                             <h:outputLabel class="control-label" for="inputTLSVersions" value="TLS:" />
                             <h:selectOneMenu class="form-control" id="inputTLSVersions"
                                 value="#{exchangeManagerBean.formExchangeTLSVersion}">
-                                <f:selectItem itemLabel="default" itemValue="" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Default" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{exchangeManagerBean.listTLSes}" />
                             </h:selectOneMenu>
                         </div>

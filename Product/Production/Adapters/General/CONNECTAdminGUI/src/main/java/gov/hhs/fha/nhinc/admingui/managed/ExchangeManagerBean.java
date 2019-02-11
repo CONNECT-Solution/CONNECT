@@ -277,7 +277,7 @@ public class ExchangeManagerBean {
 
     public boolean editExistingExchange() {
 
-        if (formExchange.getName() != selectedExchange.getName() && isNotUniqueExchangeName()) {
+        if (!formExchange.getName().equals(selectedExchange.getName()) && isNotUniqueExchangeName()) {
             HelperUtil.addFacesMessageBy("dlgExchangeErrors", FacesMessage.SEVERITY_ERROR, formExchange.getName() +
                 " already exists. Please choose a different name.");
             return false;
@@ -451,6 +451,9 @@ public class ExchangeManagerBean {
         }
 
         exchanges = exchangeService.getAllExchanges();
+        if (!exchanges.isEmpty()) {
+            selectedExchange = exchanges.get(0);
+        }
         Collections.sort(exchanges, new ExchangesComparator());
         updatedExchangesCaches();
         return exchanges;
