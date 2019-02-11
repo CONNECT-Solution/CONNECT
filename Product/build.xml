@@ -8,7 +8,7 @@
 
     <script language="javascript">
         <![CDATA[
-      importClass(java.io.File);
+      var File = java.io.File;
       var codeLinePath = new File(self.getLocation().getFileName()).getParentFile().getParent();
       project.setProperty("codeline.directory.path", codeLinePath);
      ]]>
