@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Production</artifactId>
-        <version>5.1.2</version>
+        <version>5.1.2.1</version>
     </parent>
 
     <artifactId>Common</artifactId>
