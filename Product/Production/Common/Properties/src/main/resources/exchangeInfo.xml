@@ -6,6 +6,7 @@
   <exchanges>
     <exchange type="local">
       <name>Exchange 1</name>
+      <certificateAlias>gateway</certificateAlias>
       <url>http://YourExchangeUrl/</url>
       <disabled>true</disabled>
       <lastUpdated></lastUpdated>
