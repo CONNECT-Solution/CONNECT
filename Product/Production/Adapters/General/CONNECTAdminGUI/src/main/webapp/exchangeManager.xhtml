@@ -200,7 +200,7 @@
                                                             actionListener="#{exchangeManagerBean.editExchange}"
                                                             value="Edit"
                                                             update=":dlgSaveExchange"
-                                                            disabled="#{exchangeManagerBean.disableButtonsExchange}">
+                                                            disabled="#{exchangeManagerBean.selectedExchange eq null}">
                                                             <p:resetInput target=":formDlgExchange" />
                                                         </p:commandButton>
                                                         <p:commandButton id="deleteExchange"
