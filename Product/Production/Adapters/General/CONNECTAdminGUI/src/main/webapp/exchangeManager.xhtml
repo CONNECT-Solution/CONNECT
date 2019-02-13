@@ -230,7 +230,7 @@
                                                                 id="inputFilterExchange"
                                                                 value="#{exchangeManagerBean.filterExchange}"
                                                                 filter="true" filterMatchMode="startsWith">
-                                                                <p:ajax event="change" update="inputFilterOrganization" />
+                                                                <p:ajax event="change" update="inputFilterOrganization, displayName, displayHcid, displayDescription, displayContact, dataTableConnectionEndpoint" />
                                                                 <f:selectItem itemLabel="---" itemValue=""
                                                                     noSelectionOption="true" />
                                                                 <f:selectItems
