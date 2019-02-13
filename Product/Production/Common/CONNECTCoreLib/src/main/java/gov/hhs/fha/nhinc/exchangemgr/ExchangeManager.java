@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.exchangemgr;
 
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.ExchangeInfoDAOFileImpl;
@@ -189,9 +189,11 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         String exName = StringUtils.isNotEmpty(exchangeName) ? exchangeName : getDefaultExchange();
 
         Map<String, OrganizationType> orgMap = exCache.get(exName);
-        for (Entry<String, OrganizationType> hcidKey : orgMap.entrySet()) {
-            OrganizationType org = orgMap.get(hcidKey.getKey());
-            orgList.add(syncWithOverrides(org, hcidKey.getKey()));
+        if (null != orgMap) {
+            for (Entry<String, OrganizationType> hcidKey : orgMap.entrySet()) {
+                OrganizationType org = orgMap.get(hcidKey.getKey());
+                orgList.add(syncWithOverrides(org, hcidKey.getKey()));
+            }
         }
         return orgList;
     }
