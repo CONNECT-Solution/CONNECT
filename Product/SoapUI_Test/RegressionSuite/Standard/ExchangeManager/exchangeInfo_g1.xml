@@ -6,6 +6,7 @@
     <exchanges>
          <exchange type="uddi">
             <name>BlankDefaultExchange</name>
+            <certificateAlias>gateway</certificateAlias>
             <organizationList>
                 <organization>
                     <name>DoD</name>
@@ -25,6 +26,7 @@
         </exchange>
         <exchange type="uddi">
             <name>Exchange 1</name>
+            <certificateAlias>gateway</certificateAlias>
             <organizationList>
                 <organization>
                     <name>DoD</name>

@@ -6,6 +6,7 @@
     <exchanges>
         <exchange type="uddi">
             <name>Exchange 1</name>
+            <certificateAlias>gateway</certificateAlias>
             <url>https://testurl/uddi/list</url>
             <disabled>true</disabled>
             <organizationList>
