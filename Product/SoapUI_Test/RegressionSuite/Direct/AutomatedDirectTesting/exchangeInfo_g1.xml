@@ -6,6 +6,7 @@
     <exchanges>
         <exchange type="uddi">
             <name>Exchange 1</name>
+            <certificateAlias>gateway</certificateAlias>
             <organizationList>
                 <organization>
                     <ns2:name>Gateway 1</ns2:name>
