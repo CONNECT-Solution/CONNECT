@@ -340,15 +340,12 @@ public class ExchangeManagerBean {
     }
 
     public int pingEndpoint() {
-        String sName = selectedEndpoint.getName();
-        int pingResponse = 0;
         for (ConnectionEndpoint connEndpoint : endpoints) {
-            String eName = connEndpoint.getName();
-            if (sName.equals(eName)) {
+            if (connEndpoint.getName().equals(selectedEndpoint.getName())) {
                 return exchangeService.pingService(connEndpoint);
             }
         }
-        return pingResponse;
+        return 0;
     }
 
     public boolean pingAllEndpoint() {
@@ -357,7 +354,7 @@ public class ExchangeManagerBean {
             LOG.debug("ping-all connection-endpoints: none found.");
             return false;
         }
-        endpoints.contains(selectedEndpoint);
+
         for (ConnectionEndpoint connEndpoint : endpoints) {
             exchangeService.pingService(connEndpoint);
         }

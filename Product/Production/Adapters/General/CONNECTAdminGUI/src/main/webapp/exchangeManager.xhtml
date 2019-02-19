@@ -90,7 +90,7 @@
                                                             id="inputDefaultExchange"
                                                             value="#{exchangeManagerBean.generalSetting.defaultExchange}">
                                                             <f:selectItem itemLabel="---" itemValue=""
-                                                                noSelectionOption="true" />
+                                                                noSelectionOption="false" />
                                                             <f:selectItems value="#{exchangeManagerBean.exchanges}"
                                                                 var="item" itemLabel="#{item.name}"
                                                                 itemValue="#{item.name}" />
@@ -250,7 +250,7 @@
                                                                 <p:ajax event="change"
                                                                     update="displayName, displayHcid, displayDescription, displayContact, dataTableConnectionEndpoint" />
                                                                 <f:selectItem itemLabel="---" itemValue=""
-                                                                    noSelectionOption="true" />
+                                                                    noSelectionOption="false" />
                                                                 <f:selectItems
                                                                     value="#{exchangeManagerBean.listFilterOrganizations}"
                                                                     var="item" itemLabel="#{item.name}"

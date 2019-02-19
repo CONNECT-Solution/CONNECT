@@ -191,8 +191,7 @@ public class ExchangeManager extends AbstractExchangeManager<UDDI_SPEC_VERSION> 
         Map<String, OrganizationType> orgMap = exCache.get(exName);
         if (null != orgMap) {
             for (Entry<String, OrganizationType> hcidKey : orgMap.entrySet()) {
-                OrganizationType org = orgMap.get(hcidKey.getKey());
-                orgList.add(syncWithOverrides(org, hcidKey.getKey()));
+                orgList.add(syncWithOverrides(hcidKey.getValue(), hcidKey.getKey()));
             }
         }
         return orgList;
