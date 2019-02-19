@@ -90,7 +90,7 @@
                                                             id="inputDefaultExchange"
                                                             value="#{exchangeManagerBean.generalSetting.defaultExchange}">
                                                             <f:selectItem itemLabel="---" itemValue=""
-                                                                noSelectionOption="true" />
+                                                                noSelectionOption="false" />
                                                             <f:selectItems value="#{exchangeManagerBean.exchanges}"
                                                                 var="item" itemLabel="#{item.name}"
                                                                 itemValue="#{item.name}" />
@@ -208,8 +208,8 @@
                                                             icon="ui-icon-closethick"
                                                             actionListener="#{exchangeManagerBean.deleteExchange}"
                                                             value="Delete"
-                                                            update="@form:dataTableExchange, @(.updateCssExchangesId), @this"
-                                                            disabled="#{exchangeManagerBean.disableButtonsExchange or exchangeManagerBean.refreshLocked}">
+                                                            update="@form:dataTableExchange, @(.updateCssExchangesId), @this,@form:@parent:formOrganizations"
+                                                                disabled="#{exchangeManagerBean.disableButtonsExchange or exchangeManagerBean.refreshLocked}">
                                                             <p:confirm header="Delete Exchange Confirmation"
                                                                 message="Do you want to delete this record?"
                                                                 icon="ui-icon-alert" />
@@ -232,7 +232,7 @@
                                                                 filter="true" filterMatchMode="startsWith">
                                                                 <p:ajax event="change" update="inputFilterOrganization, displayName, displayHcid, displayDescription, displayContact, dataTableConnectionEndpoint" />
                                                                 <f:selectItem itemLabel="---" itemValue=""
-                                                                    noSelectionOption="true" />
+                                                                    noSelectionOption="false" />
                                                                 <f:selectItems
                                                                     value="#{exchangeManagerBean.listFilterExchanges}"
                                                                     var="item" itemLabel="#{item.name}"
@@ -250,7 +250,7 @@
                                                                 <p:ajax event="change"
                                                                     update="displayName, displayHcid, displayDescription, displayContact, dataTableConnectionEndpoint" />
                                                                 <f:selectItem itemLabel="---" itemValue=""
-                                                                    noSelectionOption="true" />
+                                                                    noSelectionOption="false" />
                                                                 <f:selectItems
                                                                     value="#{exchangeManagerBean.listFilterOrganizations}"
                                                                     var="item" itemLabel="#{item.name}"
@@ -260,25 +260,25 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <h:outputLabel class="control-label" value="Name:&#160;" />
+                                                            <h:outputLabel for="displayName" class="control-label" value="Name:&#160;" />
                                                             <h:outputText id="displayName"
                                                                 value="#{exchangeManagerBean.orgName}" />
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <h:outputLabel class="control-label" value="HCID:&#160;" />
+                                                            <h:outputLabel for="displayHcid" class="control-label" value="HCID:&#160;" />
                                                             <h:outputText id="displayHcid"
                                                                 value="#{exchangeManagerBean.orgHcid}" />
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <h:outputLabel class="control-label"
+                                                            <h:outputLabel for="displayDescription" class="control-label"
                                                                 value="Description:&#160;" />
                                                             <h:outputText id="displayDescription"
                                                                 value="#{exchangeManagerBean.orgDescription}" />
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <h:outputLabel class="control-label" value="Contact:&#160;" />
+                                                            <h:outputLabel for="displayContact" class="control-label" value="Contact:&#160;" />
                                                             <h:outputText id="displayContact"
                                                                 value="#{exchangeManagerBean.orgContacts}" />
                                                         </div>
