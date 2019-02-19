@@ -329,13 +329,23 @@ public class ExchangeManagerBean {
             if (bDelete) {
                 modifiedExchangesCache();
                 selectedExchange = null;
+                filterExchange = null;
+                filterOrganization = null;
+                orgFilter = null;
+                endpoints = null;
+                refreshOrganizations();
             }
         }
         return bDelete;
     }
 
     public int pingEndpoint() {
-        return exchangeService.pingService(selectedEndpoint);
+        for (ConnectionEndpoint connEndpoint : endpoints) {
+            if (connEndpoint.getName().equals(selectedEndpoint.getName())) {
+                return exchangeService.pingService(connEndpoint);
+            }
+        }
+        return 0;
     }
 
     public boolean pingAllEndpoint() {
@@ -344,6 +354,7 @@ public class ExchangeManagerBean {
             LOG.debug("ping-all connection-endpoints: none found.");
             return false;
         }
+
         for (ConnectionEndpoint connEndpoint : endpoints) {
             exchangeService.pingService(connEndpoint);
         }
