@@ -30,9 +30,7 @@ import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.PROPERTIES_LI
 import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.PROPERTIES_SAVE_PROP;
 import static gov.hhs.fha.nhinc.admingui.constant.AdminWSConstants.PROPERTIES_SERVICE_NAME;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.buildConfigAssertion;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_PROPERTY_FILE_NAME;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.AUDIT_LOGGING_PROPERTY_FILE;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.checkPropertyList;
 
 import gov.hhs.fha.nhinc.admingui.services.PropertyService;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -67,7 +65,7 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public boolean saveProperty(String file, String name, String value) {
-        if (fileNameChk(file)) {
+        if (checkPropertyList(file)) {
             SavePropertyRequestType request = new SavePropertyRequestType();
 
             request.setConfigAssertion(buildConfigAssertion());
@@ -89,7 +87,7 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public List<PropertyType> listProperties(String file) {
-        if (fileNameChk(file)) {
+        if (checkPropertyList(file)) {
             ListPropertiesRequestType request = new ListPropertiesRequestType();
             request.setConfigAssertion(buildConfigAssertion());
             request.setFile(file);
@@ -105,11 +103,6 @@ public class PropertyServiceImpl implements PropertyService {
             }
         }
         return new ArrayList<>();
-    }
-
-    private static boolean fileNameChk(String file) {
-        return file.equalsIgnoreCase(GATEWAY_PROPERTY_FILE) || file.equalsIgnoreCase(ADAPTER_PROPERTY_FILE_NAME)
-            || file.equalsIgnoreCase(AUDIT_LOGGING_PROPERTY_FILE);
     }
 
     private static CONNECTClient<NhincComponentPropAccessorPortType> getClient() throws ExchangeManagerException {

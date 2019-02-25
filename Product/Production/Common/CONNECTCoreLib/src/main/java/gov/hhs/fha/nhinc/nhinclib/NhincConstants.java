@@ -628,6 +628,8 @@ public class NhincConstants {
     public static final String ADAPTER_PLQ_SERVICE_NAME = "adapterpatientlocationqueryservice";
     public static final String ADAPTER_PLQ_SECURED_SERVICE_NAME = "adapterpatientlocationqueryservicesecured";
 
+    public static final String CA_AUTHORITY_PROPERTY_FILE = "caauthority";
+
     private NhincConstants() {
     }
 }

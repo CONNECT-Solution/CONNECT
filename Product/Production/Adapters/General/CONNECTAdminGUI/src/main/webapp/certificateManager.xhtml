@@ -367,10 +367,7 @@
                                                             update="inputOrganizationalUnit, inputOrganization, inputCountryName" />
                                                         <f:selectItem itemLabel="---" itemValue=""
                                                             noSelectionOption="true" />
-                                                        <f:selectItem itemLabel="e.Health.Exchange.Production"
-                                                            itemValue="NHIN,HHS-ONC,US" />
-                                                        <f:selectItem itemLabel="e.Health.Exchange.Valiation"
-                                                            itemValue="NHIN-test,nhin,US" />
+                                                        <f:selectItems value="#{certificateBean.caProperties}" />
                                                     </p:selectOneMenu>
                                                 </div>
                                                 <div class="col-sm-12">

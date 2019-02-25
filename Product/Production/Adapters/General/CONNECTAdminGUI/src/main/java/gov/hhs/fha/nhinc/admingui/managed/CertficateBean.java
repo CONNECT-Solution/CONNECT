@@ -30,12 +30,16 @@ import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
 
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
+import gov.hhs.fha.nhinc.admingui.services.PropertyService;
 import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
+import gov.hhs.fha.nhinc.admingui.services.impl.PropertyServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.GUIConstants.COLOR_CODING_CSS;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
+import gov.hhs.fha.nhinc.common.propertyaccess.PropertyType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import java.io.IOException;
 import java.security.cert.CertificateExpiredException;
@@ -47,6 +51,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.activation.DataHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -106,11 +111,11 @@ public class CertficateBean {
     private String organization;
     private String countryName;
 
+    private PropertyService propertyService = new PropertyServiceImpl();
     private StreamedContent csrFile;
-
     private static final int TABINDEX_CREATECSR = 1;
-
     private int importWizardTabIndex = 0;
+    private Map<String, String> caProperties = null;
 
     public CertficateBean() {
         service = new CertificateManagerServiceImpl();
@@ -679,5 +684,18 @@ public class CertficateBean {
 
     public void nextCreateCsrView() {
         setImportWizardTabIndex(TABINDEX_CREATECSR);
+    }
+
+    public Map<String, String> getCaProperties() {
+        if (null == caProperties) {
+            caProperties = new TreeMap<>();
+            List<PropertyType> properties = propertyService.listProperties(NhincConstants.CA_AUTHORITY_PROPERTY_FILE);
+            for (PropertyType item : properties) {
+                if (item.getPropertyValue().indexOf(',') >= 0) {
+                    caProperties.put(item.getPropertyName().replace('.', ' '), item.getPropertyValue());
+                }
+            }
+        }
+        return caProperties;
     }
 }

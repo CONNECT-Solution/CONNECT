@@ -30,6 +30,7 @@ import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.KEY_STO
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.CA_AUTHORITY_PROPERTY_FILE;
 
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
@@ -98,7 +99,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     private static final String FILE_JKS_GATEWAY = System.getProperty("javax.net.ssl.keyStore");
     private static final String FILE_JKS_GATEWAY_NEW = MessageFormat.format("{0}/{1}", DIR_NHINC_PROPERTIES,
         "gateway_new.jks");
-    private static final String CA_AUTHORITY = "caauthority";
     private static final String VALIDITY = "certificate.validity";
     private static final String KEYSIZE = "certificate.keysize";
     private static final String ACT_SUCCESSFUL = "successful";
@@ -464,18 +464,20 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     private static int getKeySize() {
         try{
-            return Integer.parseInt(prop.getProperty(CA_AUTHORITY, KEYSIZE, String.valueOf(DEFAULT_KEYSIZE)));
+            return Integer
+                .parseInt(prop.getProperty(CA_AUTHORITY_PROPERTY_FILE, KEYSIZE, String.valueOf(DEFAULT_KEYSIZE)));
         }catch (NumberFormatException e) {
-            LOG.debug("unable to parse keysize: {}, {}", CA_AUTHORITY, KEYSIZE, e );
+            LOG.debug("unable to parse keysize: {}, {}", CA_AUTHORITY_PROPERTY_FILE, KEYSIZE, e);
             return DEFAULT_KEYSIZE;
         }
     }
 
     private static int getValidityDays() {
         try {
-            return Integer.parseInt(prop.getProperty(CA_AUTHORITY, VALIDITY, String.valueOf(DEFAULT_VALIDITY)));
+            return Integer
+                .parseInt(prop.getProperty(CA_AUTHORITY_PROPERTY_FILE, VALIDITY, String.valueOf(DEFAULT_VALIDITY)));
         } catch (NumberFormatException e) {
-            LOG.debug("unable to parse keysize: {}, {}", CA_AUTHORITY, VALIDITY, e);
+            LOG.debug("unable to parse keysize: {}, {}", CA_AUTHORITY_PROPERTY_FILE, VALIDITY, e);
             return DEFAULT_VALIDITY;
         }
     }

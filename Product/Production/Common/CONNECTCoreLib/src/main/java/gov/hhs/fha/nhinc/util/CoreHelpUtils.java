@@ -26,6 +26,11 @@
  */
 package gov.hhs.fha.nhinc.util;
 
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_PROPERTY_FILE_NAME;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.AUDIT_LOGGING_PROPERTY_FILE;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.CA_AUTHORITY_PROPERTY_FILE;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
+
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.AddressType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentMetadataType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.IdentifierType;
@@ -336,6 +341,11 @@ public class CoreHelpUtils {
         } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException e) {
             LOG.error("error unable to save to the keystore: {}", storeLoc, e.getLocalizedMessage(), e);
         }
+    }
+
+    public static boolean checkPropertyList(String file) {
+        return file.equalsIgnoreCase(GATEWAY_PROPERTY_FILE) || file.equalsIgnoreCase(ADAPTER_PROPERTY_FILE_NAME)
+            || file.equalsIgnoreCase(AUDIT_LOGGING_PROPERTY_FILE) || file.equalsIgnoreCase(CA_AUTHORITY_PROPERTY_FILE);
     }
 
 }

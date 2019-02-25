@@ -26,9 +26,7 @@
  */
 package gov.hhs.fha.nhinc.common.propaccessor;
 
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_PROPERTY_FILE_NAME;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.AUDIT_LOGGING_PROPERTY_FILE;
-import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
+import static gov.hhs.fha.nhinc.util.CoreHelpUtils.checkPropertyList;
 
 import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileRequestType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileResponseType;
@@ -255,7 +253,7 @@ public class NhincComponentPropAccessor implements NhincComponentPropAccessorPor
     public SimplePropertyResponseType listProperties(ListPropertiesRequestType listPropertiesRequest) {
         String file = listPropertiesRequest.getFile();
 
-        if (!fileNameChk(file)) {
+        if (!checkPropertyList(file)) {
             return buildSimpleResponse(false, "Incorrect file name: " + file);
         }
         SimplePropertyResponseType response = new SimplePropertyResponseType();
@@ -288,15 +286,10 @@ public class NhincComponentPropAccessor implements NhincComponentPropAccessorPor
         }
     }
 
-    private static boolean fileNameChk(String file) {
-        return file.equalsIgnoreCase(GATEWAY_PROPERTY_FILE) || file.equalsIgnoreCase(ADAPTER_PROPERTY_FILE_NAME)
-            || file.equalsIgnoreCase(AUDIT_LOGGING_PROPERTY_FILE);
-    }
-
     @Override
     public SimplePropertyResponseType saveProperty(SavePropertyRequestType propValue) {
         String file = propValue.getFile();
-        if (!fileNameChk(file)) {
+        if (!checkPropertyList(file)) {
             return buildSimpleResponse(false, "Incorrect file name: " + file);
         }
         try {
