@@ -41,7 +41,10 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.callback.opensaml.X509CertificateHelper;
+import gov.hhs.fha.nhinc.common.configadmin.CreateCSRRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.CreateCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.DeleteGatewayNewRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestMessageType;
@@ -449,6 +452,56 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             }
         }
 
+        return null;
+    }
+
+    @Override
+    public SimpleCertificateResponseMessageType deleteGatewayNew() {
+        try {
+            DeleteGatewayNewRequestMessageType request = new DeleteGatewayNewRequestMessageType();
+            request.setConfigAssertion(buildConfigAssertion());
+            SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
+                .invokePort(EntityConfigAdminPortType.class, AdminWSConstants.ADMIN_CERT_DELETE_GATEWAYNEW, request);
+            return response;
+        } catch (Exception ex) {
+            LOG.error("error requesting gateway alias: {}", ex.getLocalizedMessage(), ex);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean createCertificate(String alias, String referenceNumber, String organizationalUnit,
+        String organization, String countryName) {
+        boolean status = false;
+        try {
+            CreateCertificateRequestMessageType request = new CreateCertificateRequestMessageType();
+            request.setAlias(alias);
+            request.setReferenceNumber(referenceNumber);
+            request.setOrganizationalUnit(organizationalUnit);
+            request.setOrganization(organization);
+            request.setCountryName(countryName);
+            request.setConfigAssertion(buildConfigAssertion());
+            SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
+                .invokePort(EntityConfigAdminPortType.class, AdminWSConstants.ADMIN_CERT_CREATE_CERTIFICATE, request);
+            return response.isStatus();
+        } catch (Exception ex) {
+            LOG.error("error creating certificate for: {}", alias, ex);
+        }
+        return status;
+    }
+
+    @Override
+    public SimpleCertificateResponseMessageType createCSR(String alias) {
+        try {
+            CreateCSRRequestMessageType request = new CreateCSRRequestMessageType();
+            request.setAlias(alias);
+            request.setConfigAssertion(buildConfigAssertion());
+            SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
+                .invokePort(EntityConfigAdminPortType.class, AdminWSConstants.ADMIN_CERT_CREATE_CSR, request);
+            return response;
+        } catch (Exception ex) {
+            LOG.error("error creating CSR for: {}", alias, ex);
+        }
         return null;
     }
 

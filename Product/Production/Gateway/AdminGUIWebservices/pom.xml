@@ -53,11 +53,17 @@
             <artifactId>PatientDiscoveryCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-        
+
         <!-- Logging -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
+        </dependency>
+
+        <!-- bouncy castle -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
         </dependency>
 
     </dependencies>
