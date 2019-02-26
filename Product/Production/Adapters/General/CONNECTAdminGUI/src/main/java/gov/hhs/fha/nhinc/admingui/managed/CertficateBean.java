@@ -87,6 +87,7 @@ public class CertficateBean {
     private static final String EDIT_PASS_ERROR_MSG = "editPassKeyErrorMsg";
     private static final String ALIAS_PLACEHOLDER = "Enter Alias";
     private static final String BAD_MISMATCH_TOKEN = "Bad token or Mismatch token";
+    private static final String ERROR_INPUTSTREAM = "unable to open input-stream from response";
     private UploadedFile importCertFile;
     private CertificateDTO selectedCertificate;
     private CertificateDTO selectedTSCertificate;
@@ -659,7 +660,8 @@ public class CertficateBean {
                 try {
                     csrFile = new DefaultStreamedContent(data.getInputStream(), data.getContentType(), filename);
                 } catch (IOException e) {
-                    LOG.error("unable to open input-stream from response", e.getLocalizedMessage(), e);
+                    LOG.error(ERROR_INPUTSTREAM, e.getLocalizedMessage(), e);
+                    HelperUtil.addMessageError(null, ERROR_INPUTSTREAM);
                 }
             }
         } else {
@@ -671,8 +673,8 @@ public class CertficateBean {
         return csrFile;
     }
 
-    public void cancelGatewayNew() {
-        SimpleCertificateResponseMessageType resp = service.deleteGatewayNew();
+    public void cancelImportWizard() {
+        SimpleCertificateResponseMessageType resp = service.deleteTempKeystore();
         if (null != resp) {
             if (resp.isStatus()) {
                 HelperUtil.addMessageInfo(null, resp.getMessage());

@@ -67,7 +67,7 @@ public interface CertificateManagerService {
 
     public List<CertificateDTO> listChainOfTrust(String alias) throws CertificateManagerException;
 
-    public SimpleCertificateResponseMessageType deleteGatewayNew();
+    public SimpleCertificateResponseMessageType deleteTempKeystore();
 
     public boolean createCertificate(String alias, String referenceNumber, String organizationalUnit,
         String organization, String countryName);

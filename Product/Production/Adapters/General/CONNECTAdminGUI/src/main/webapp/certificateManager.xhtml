@@ -347,7 +347,7 @@
                                             <p:autoUpdate />
                                         </p:messages>
                                         <div class="content">
-                                            <h:outputText>Creating a certificate will generate an entirely new key pair in the keystore file. The existing server certificate will be deleted. Please proceed to "Create CSR" if the existing server certificate is to be used.</h:outputText>
+                                            <h:outputText>Creating a certificate creates a temporary certificate. This temporary certificate will be used to replace with the existing keystore file. Please skip to Create CSR if existing certificate will be used.</h:outputText>
                                             <div class="form-group row">
                                                 <div class="col-sm-4">
                                                     <h:outputLabel class="control-label" for="inputCaAuthority"
@@ -428,7 +428,7 @@
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="delete-button" icon="ui-icon-circle-close"
                                                     value="Cancel" immediate="true"
-                                                    action="#{certificateBean.cancelGatewayNew()}" update="@form">
+                                                    action="#{certificateBean.cancelImportWizard()}" update="@form">
                                                     <p:confirm header="Cancel Import Wizard"
                                                         message="WARNING: This will clean up the file created by wizard. Continue delete?"
                                                         icon="ui-icon-alert" />
@@ -475,7 +475,7 @@
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="delete-button" icon="ui-icon-circle-close"
                                                     value="Cancel" immediate="true"
-                                                    action="#{certificateBean.cancelGatewayNew()}" update="@form">
+                                                    action="#{certificateBean.cancelImportWizard()}" update="@form">
                                                     <p:confirm header="Cancel Import Wizard"
                                                         message="WARNING: This will clean up the file created by wizard. Continue delete?"
                                                         icon="ui-icon-alert" />

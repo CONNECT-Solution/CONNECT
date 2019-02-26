@@ -285,11 +285,11 @@ public class CoreHelpUtils {
         return certs;
     }
 
-    public static void saveJksTo(KeyStore keystore, String storePass, String storeLoc) {
+    public static void saveJksTo(KeyStore keystore, String storePass, String storeLoc) throws UtilException {
         try (FileOutputStream os = new FileOutputStream(storeLoc)) {
             keystore.store(os, storePass.toCharArray());
         } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException e) {
-            LOG.error("error unable to save to the keystore: {}", storeLoc, e.getLocalizedMessage(), e);
+            throw new UtilException("Unable to save to the tempKeystore.", e);
         }
     }
 

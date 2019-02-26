@@ -82,6 +82,7 @@ import java.util.Set;
 import javax.activation.DataHandler;
 import javax.mail.util.ByteArrayDataSource;
 import javax.security.auth.x500.X500Principal;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bouncycastle.asn1.x509.ExtendedKeyUsage;
 import org.bouncycastle.asn1.x509.KeyPurposeId;
@@ -125,7 +126,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConfigAdmin.class);
     private static final PropertyAccessor prop = PropertyAccessor.getInstance();
-    private static KeyStore gatewayNew = null;
+    private static KeyStore tempKeystore = null;
 
     @Override
     public SimpleCertificateResponseMessageType importCertificate(
@@ -396,7 +397,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         // keytool -certreq -alias gateway -keystore gateway.jks -file gateway-yyyyMMdd.csr
         try {
             ByteArrayDataSource dsCsr = new ByteArrayDataSource(
-                getPemCsrBy(getGatewayNew(), System.getProperty(KEY_STORE_PASSWORD_KEY), alias), MIME_TEXT_PLAIN);
+                getPemCsrBy(getTempKeystore(), System.getProperty(KEY_STORE_PASSWORD_KEY), alias), MIME_TEXT_PLAIN);
             SimpleCertificateResponseMessageType response = buildSimpleResponse(true, ACT_SUCCESSFUL);
             response.setCsrData(new DataHandler(dsCsr));
             return response;
@@ -425,7 +426,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         if (StringUtils.isBlank(alias) || StringUtils.isBlank(ou) || StringUtils.isBlank(o) || StringUtils.isBlank(c)
             || StringUtils.isBlank(refNumber)) {
             return buildSimpleResponse(false,
-                "alias, Organizational Unit, Organization, Country Name and Reference Number are required.");
+                "Alias, Organizational Unit, Organization, Country Name and Reference Number are required.");
         }
 
         if (!copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW)) {
@@ -438,7 +439,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             String dn = MessageFormat.format("CN={0}, OU={1}, O={2}, C={3}", refNumber, ou, o, c);
             KeyPair pair = CoreHelpUtils.generateKeyPair(getKeySize(), null);
             X509Certificate x509cert = generateCertificate(pair, dn, getValidityDays(), ALGORITHM_SHA256_RSA);
-            KeyStore jksGatewayNew = getGatewayNew();
+            KeyStore jksGatewayNew = getTempKeystore();
             if (jksGatewayNew.containsAlias(alias)) {
                 jksGatewayNew.deleteEntry(alias);
             }
@@ -462,16 +463,16 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         return resp;
     }
 
-    private static KeyStore getGatewayNew() throws CertificateManagerException {
-        if (null == gatewayNew) {
+    private static KeyStore getTempKeystore() throws CertificateManagerException {
+        if (null == tempKeystore) {
             File destinationFile = new File(FILE_JKS_GATEWAY_NEW);
             if(!destinationFile.exists()){
                 copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW);
             }
-            gatewayNew = CertificateUtil.loadKeyStore(CertificateManagerImpl.JKS_TYPE,
+            tempKeystore = CertificateUtil.loadKeyStore(CertificateManagerImpl.JKS_TYPE,
                 System.getProperty(TRUST_STORE_PASSWORD_KEY), FILE_JKS_GATEWAY_NEW);
         }
-        return gatewayNew;
+        return tempKeystore;
     }
 
     private static int getKeySize() {
@@ -503,9 +504,9 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
         if (sourceFile.exists()) {
             try {
-                org.apache.commons.io.FileUtils.copyFile(sourceFile, destinationFile, false);
+                FileUtils.copyFile(sourceFile, destinationFile, false);
                 LOG.info("copy successful: {}", destinationFileName);
-                gatewayNew = null;
+                tempKeystore = null;
                 return true;
             } catch (IOException e) {
                 LOG.error("error while copy: {}", destinationFileName, e);

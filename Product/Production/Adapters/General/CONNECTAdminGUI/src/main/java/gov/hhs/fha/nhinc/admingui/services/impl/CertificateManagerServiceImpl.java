@@ -456,7 +456,7 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     @Override
-    public SimpleCertificateResponseMessageType deleteGatewayNew() {
+    public SimpleCertificateResponseMessageType deleteTempKeystore() {
         try {
             DeleteTemporaryKeystoreRequestMessageType request = new DeleteTemporaryKeystoreRequestMessageType();
             request.setConfigAssertion(buildConfigAssertion());
