@@ -689,6 +689,11 @@
         <version>1.60</version>
       </dependency>
       <dependency>
+        <groupId>org.bouncycastle</groupId>
+        <artifactId>bcpkix-jdk15on</artifactId>
+        <version>1.60</version>
+      </dependency>
+      <dependency>
         <groupId>com.sun.identity</groupId>
         <artifactId>opensso</artifactId>
         <version>1.0</version>

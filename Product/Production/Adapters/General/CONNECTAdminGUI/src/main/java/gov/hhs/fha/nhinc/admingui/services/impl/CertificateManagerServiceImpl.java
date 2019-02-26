@@ -44,7 +44,7 @@ import gov.hhs.fha.nhinc.callback.opensaml.X509CertificateHelper;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCSRRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
-import gov.hhs.fha.nhinc.common.configadmin.DeleteGatewayNewRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.DeleteTemporaryKeystoreRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestMessageType;
@@ -458,10 +458,10 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     @Override
     public SimpleCertificateResponseMessageType deleteGatewayNew() {
         try {
-            DeleteGatewayNewRequestMessageType request = new DeleteGatewayNewRequestMessageType();
+            DeleteTemporaryKeystoreRequestMessageType request = new DeleteTemporaryKeystoreRequestMessageType();
             request.setConfigAssertion(buildConfigAssertion());
             SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
-                .invokePort(EntityConfigAdminPortType.class, AdminWSConstants.ADMIN_CERT_DELETE_GATEWAYNEW, request);
+                .invokePort(EntityConfigAdminPortType.class, AdminWSConstants.ADMIN_CERT_DELETE_TEMPKEYSTORE, request);
             return response;
         } catch (Exception ex) {
             LOG.error("error requesting gateway alias: {}", ex.getLocalizedMessage(), ex);

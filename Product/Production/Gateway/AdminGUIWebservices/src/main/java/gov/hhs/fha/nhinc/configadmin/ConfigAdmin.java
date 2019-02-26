@@ -39,7 +39,7 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCSRRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
-import gov.hhs.fha.nhinc.common.configadmin.DeleteGatewayNewRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.DeleteTemporaryKeystoreRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestMessageType;
@@ -57,14 +57,15 @@ import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.Security;
 import java.security.SignatureException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.Certificate;
@@ -73,6 +74,7 @@ import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -81,9 +83,20 @@ import javax.activation.DataHandler;
 import javax.mail.util.ByteArrayDataSource;
 import javax.security.auth.x500.X500Principal;
 import org.apache.commons.lang.StringUtils;
-import org.bouncycastle.jce.PKCS10CertificationRequest;
+import org.bouncycastle.asn1.x509.ExtendedKeyUsage;
+import org.bouncycastle.asn1.x509.KeyPurposeId;
+import org.bouncycastle.asn1.x509.X509Extensions;
+import org.bouncycastle.asn1.x509.X509Name;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.operator.ContentSigner;
+import org.bouncycastle.operator.OperatorCreationException;
+import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.bouncycastle.pkcs.PKCS10CertificationRequest;
+import org.bouncycastle.pkcs.PKCS10CertificationRequestBuilder;
+import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequestBuilder;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemWriter;
+import org.bouncycastle.x509.X509V3CertificateGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -424,8 +437,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
             String dn = MessageFormat.format("CN={0}, OU={1}, O={2}, C={3}", refNumber, ou, o, c);
             KeyPair pair = CoreHelpUtils.generateKeyPair(getKeySize(), null);
-            X509Certificate x509cert = CoreHelpUtils.generateCertificate(dn, pair, getValidityDays(),
-                ALGORITHM_SHA256_RSA);
+            X509Certificate x509cert = generateCertificate(pair, dn, getValidityDays(), ALGORITHM_SHA256_RSA);
             KeyStore jksGatewayNew = getGatewayNew();
             if (jksGatewayNew.containsAlias(alias)) {
                 jksGatewayNew.deleteEntry(alias);
@@ -505,16 +517,17 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     }
 
     private byte[] getPemCsrBy(KeyStore keystore, String keystorePass, String alias)
-        throws KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException, InvalidKeyException,
-        NoSuchProviderException, SignatureException, IOException {
+        throws KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException, IOException,
+        OperatorCreationException {
 
         X509Certificate x509Cert = (X509Certificate) keystore.getCertificate(alias);
         X500Principal principal = x509Cert.getSubjectX500Principal();
         PublicKey publicKey = x509Cert.getPublicKey();
         PrivateKey privateKey = (PrivateKey) keystore.getKey(alias, keystorePass.toCharArray());
 
-        PKCS10CertificationRequest csr = new PKCS10CertificationRequest(ALGORITHM_SHA256_RSA, principal, publicKey,
-            null, privateKey);
+        PKCS10CertificationRequestBuilder builder = new JcaPKCS10CertificationRequestBuilder(principal, publicKey);
+        ContentSigner signGen = new JcaContentSignerBuilder(ALGORITHM_SHA256_RSA).build(privateKey);
+        PKCS10CertificationRequest csr = builder.build(signGen);
 
         PemObject pemObject = new PemObject(CERTIFICATE_REQUEST, csr.getEncoded());
         StringWriter str = new StringWriter();
@@ -524,6 +537,25 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         str.close();
 
         return str.toString().getBytes();
+
+    }
+
+    private X509Certificate generateCertificate(KeyPair keypair, String dn, int days, String signatureAlgorithm)
+        throws InvalidKeyException, SignatureException, CertificateEncodingException, NoSuchAlgorithmException {
+        Security.addProvider(new BouncyCastleProvider());
+        X509V3CertificateGenerator certGen = new X509V3CertificateGenerator();
+
+        // add some options
+        certGen.setSerialNumber(BigInteger.valueOf(System.currentTimeMillis()));
+        certGen.setSubjectDN(new X509Name(dn));
+        certGen.setIssuerDN(new X500Principal(dn));
+        certGen.setNotBefore(new Date(System.currentTimeMillis()));
+        certGen.setNotAfter(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * days));
+        certGen.setPublicKey(keypair.getPublic());
+        certGen.setSignatureAlgorithm(signatureAlgorithm);
+        certGen.addExtension(X509Extensions.ExtendedKeyUsage, true,
+            new ExtendedKeyUsage(KeyPurposeId.id_kp_timeStamping));
+        return certGen.generate(keypair.getPrivate());
     }
 
     /*
@@ -534,13 +566,15 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
      * DeleteGatewayNewRequestMessageType)
      */
     @Override
-    public SimpleCertificateResponseMessageType deleteGatewayNew(DeleteGatewayNewRequestMessageType request) {
+    public SimpleCertificateResponseMessageType deleteTemporaryKeystore(
+        DeleteTemporaryKeystoreRequestMessageType request) {
         File deleteFile = new File(FILE_JKS_GATEWAY_NEW);
         if (deleteFile.exists() && deleteFile.delete()) {
             return buildSimpleResponse(true, "gateway-new delete successful.");
         }
         return buildSimpleResponse(false, "gateway-new doesn't exist.");
     }
+
 
 
 }

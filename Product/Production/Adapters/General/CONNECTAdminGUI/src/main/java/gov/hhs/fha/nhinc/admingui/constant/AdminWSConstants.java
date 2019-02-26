@@ -38,7 +38,7 @@ public class AdminWSConstants {
     public static final String ADMIN_CERT_DELETE = "deleteCertificate";
     public static final String ADMIN_CERT_EDIT = "editCertificate";
     public static final String ADMIN_CERT_LIST_CHAINOFTRUST = "listChainOfTrust";
-    public static final String ADMIN_CERT_DELETE_GATEWAYNEW = "deleteGatewayNew";
+    public static final String ADMIN_CERT_DELETE_TEMPKEYSTORE = "deleteTemporaryKeystore";
     public static final String ADMIN_CERT_CREATE_CERTIFICATE = "createCertificate";
     public static final String ADMIN_CERT_CREATE_CSR = "createCSR";
 
