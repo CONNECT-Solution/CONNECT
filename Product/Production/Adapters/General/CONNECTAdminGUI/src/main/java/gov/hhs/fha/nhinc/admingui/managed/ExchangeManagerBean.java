@@ -30,6 +30,7 @@ import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.getHashCodeBy;
 
+import gov.hhs.fha.nhinc.admingui.application.EndpointManagerCache;
 import gov.hhs.fha.nhinc.admingui.comparators.ExchangesComparator;
 import gov.hhs.fha.nhinc.admingui.comparators.OrganizationsComparator;
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
@@ -94,7 +95,6 @@ public class ExchangeManagerBean {
     private boolean disableButtonsExchange;
     private boolean isEditing;
     private String dlgHeader;
-
 
 
     @PostConstruct
@@ -328,6 +328,7 @@ public class ExchangeManagerBean {
             bDelete = exchangeService.deleteExchange(selectedExchange.getName());
             if (bDelete) {
                 modifiedExchangesCache();
+                EndpointManagerCache.getInstance().deleteCache(selectedExchange.getName());
                 selectedExchange = null;
                 filterExchange = null;
                 filterOrganization = null;
@@ -341,8 +342,9 @@ public class ExchangeManagerBean {
 
     public int pingEndpoint() {
         for (ConnectionEndpoint connEndpoint : endpoints) {
-            if (connEndpoint.getName().equals(selectedEndpoint.getName())) {
-                return exchangeService.pingService(connEndpoint);
+            if (connEndpoint.getName().equals(selectedEndpoint.getName())
+                && connEndpoint.getServiceSpec().equals(selectedEndpoint.getServiceSpec())) {
+                return exchangeService.pingService(connEndpoint, filterExchange, filterOrganization);
             }
         }
         return 0;
@@ -356,7 +358,7 @@ public class ExchangeManagerBean {
         }
 
         for (ConnectionEndpoint connEndpoint : endpoints) {
-            exchangeService.pingService(connEndpoint);
+            exchangeService.pingService(connEndpoint, filterExchange, filterOrganization);
         }
         return true;
     }
@@ -437,7 +439,6 @@ public class ExchangeManagerBean {
         if(StringUtils.isBlank(filterOrganization) || StringUtils.isBlank(filterExchange)){
             return endpoints;
         }
-
         if (cachedEndpointHashCode == getHashCodeBy(filterExchange, filterOrganization)
             && CollectionUtils.isNotEmpty(endpoints)) {
             return endpoints;

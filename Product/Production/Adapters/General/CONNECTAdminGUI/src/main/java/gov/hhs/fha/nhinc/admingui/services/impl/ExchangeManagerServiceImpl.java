@@ -188,14 +188,18 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
                 String timestamp = null;
                 int httpCode = 0;
                 String url = epConf.getUrl();
-                EndpointManagerCache.EndpointCacheInfo info = EndpointManagerCache.getInstance().getEndpointInfo(url);
+
+                EndpointManagerCache.EndpointCacheInfo info = EndpointManagerCache.getInstance()
+                    .getEndpointInfo(exchangeName, HelperUtil.getHashCodeBy(hcid, url));
 
                 if (info != null) {
                     timestamp = HelperUtil.getDate(DATE_FORMAT, info.getTimestamp());
                     httpCode = info.getHttpCode();
                 }
                 endpoints.add(
-                    new ConnectionEndpoint(endpoint.getName().get(0), url, epConf.getVersion(), httpCode, timestamp));
+                    new ConnectionEndpoint(endpoint.getName().get(0), url, epConf.getVersion(), httpCode,
+                        timestamp));
+
             }
         }
         return endpoints;
@@ -257,11 +261,14 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
     }
 
     @Override
-    public int pingService(ConnectionEndpoint connEndpoint) {
+    public int pingService(ConnectionEndpoint connEndpoint, String exchangeName, String hcid) {
         if (null != connEndpoint) {
             connEndpoint.setResponseCode(pingService.ping(connEndpoint.getServiceUrl(), IGNORE_DEADHOST));
             connEndpoint.setPingTimestamp(HelperUtil.getDateNow(DATE_FORMAT));
-            EndpointManagerCache.getInstance().addOrUpdateEndpoint(connEndpoint.getServiceUrl(), new Date(),
+            EndpointManagerCache.getInstance().addOrUpdateEndpoint(
+                exchangeName, HelperUtil.getHashCodeBy(hcid, connEndpoint.getServiceUrl()),
+                connEndpoint.getServiceUrl(),
+                new Date(),
                 connEndpoint.isPingSuccessful(), connEndpoint.getResponseCode());
             return connEndpoint.getResponseCode();
         }

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import static gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl.IGNORE_DEADHOST;
@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
 import gov.hhs.fha.nhinc.admingui.services.PingService;
 import gov.hhs.fha.nhinc.admingui.services.impl.PingServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
+import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.exchange.directory.ContactType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
@@ -49,6 +50,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+
 
 /**
  *
@@ -130,15 +132,17 @@ public class ConnectionManagerBean {
         return hcid;
     }
 
-    public void ping() {
+    public void ping(String exchangeName, String hcid) {
         if (selectedEndpoint != null) {
             selectedEndpoint.setResponseCode(pingService.ping(selectedEndpoint.getServiceUrl(), IGNORE_DEADHOST));
-            EndpointManagerCache.getInstance().addOrUpdateEndpoint(selectedEndpoint.getServiceUrl(), new Date(),
+            EndpointManagerCache.getInstance().addOrUpdateEndpoint(exchangeName,
+                HelperUtil.getHashCodeBy(hcid, selectedEndpoint.getServiceUrl()),
+                selectedEndpoint.getServiceUrl(), new Date(),
                 selectedEndpoint.isPingSuccessful(), selectedEndpoint.getResponseCode());
         }
     }
 
-    public List<ConnectionEndpoint> getEndpoints() {
+    public List<ConnectionEndpoint> getEndpoints(String exchangeName, String hcid) {
         List<ConnectionEndpoint> endpoints = new ArrayList<>();
         List<EndpointType> orgEndpoints = ExchangeManagerHelper.getEndpointTypeBy(selectedEntity);
         if (selectedEntity != null && CollectionUtils.isNotEmpty(orgEndpoints)) {
@@ -151,7 +155,7 @@ public class ConnectionManagerBean {
                     int code = 0;
                     String url = epConf.getUrl();
                     EndpointManagerCache.EndpointCacheInfo info = EndpointManagerCache.getInstance()
-                        .getEndpointInfo(url);
+                        .getEndpointInfo(exchangeName, HelperUtil.getHashCodeBy(hcid, url));
 
                     if (info != null) {
                         timestamp = formatDate(DATE_FORMAT, info.getTimestamp());
@@ -159,7 +163,8 @@ public class ConnectionManagerBean {
                     }
 
                     endpoints.add(
-                        new ConnectionEndpoint(endpoint.getName().get(0), url, epConf.getVersion(), code, timestamp));
+                        new ConnectionEndpoint(endpoint.getName().get(0), url, epConf.getVersion(), code,
+                            timestamp));
                 }
             }
         }
