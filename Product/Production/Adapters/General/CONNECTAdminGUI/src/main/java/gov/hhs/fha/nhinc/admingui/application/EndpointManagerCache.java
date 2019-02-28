@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,12 +23,13 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.admingui.application;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -36,7 +37,7 @@ import java.util.HashMap;
  */
 public class EndpointManagerCache implements EndpointManager {
 
-    private static final HashMap<String, EndpointCacheInfo> endpointCache = new HashMap<>();
+    private static final Map<String, Map<Integer, EndpointCacheInfo>> endpointCache = new HashMap<>();
     private static final EndpointManagerCache INSTANCE = new EndpointManagerCache();
 
     private EndpointManagerCache() {
@@ -47,19 +48,27 @@ public class EndpointManagerCache implements EndpointManager {
     }
 
     @Override
-    public void addOrUpdateEndpoint(String url, Date timestamp, boolean pingResult, int code) {
-        endpointCache.put(url, new EndpointCacheInfo(url, timestamp, pingResult, code));
+    public void addOrUpdateEndpoint(String exchangeName, int id, String url, Date timestamp, boolean pingResult,
+        int code) {
+        getCache(exchangeName).put(id, new EndpointCacheInfo(id, url, timestamp, pingResult, code));
+    }
+
+    private static Map<Integer, EndpointCacheInfo> getCache(String exchangeName) {
+        if (null == endpointCache.get(exchangeName)) {
+            endpointCache.put(exchangeName, new HashMap<Integer, EndpointCacheInfo>());
+        }
+        return endpointCache.get(exchangeName);
     }
 
     @Override
-    public EndpointCacheInfo getEndpointInfo(String url) {
-        return endpointCache.get(url);
+    public EndpointCacheInfo getEndpointInfo(String exchangeName, int id) {
+        return getCache(exchangeName).get(id);
     }
 
     @Override
-    public void loadCache(Collection<EndpointCacheInfo> endpoints) {
+    public void loadCache(String exchangeName, Collection<EndpointCacheInfo> endpoints) {
         for (EndpointCacheInfo endpoint : endpoints) {
-            endpointCache.put(endpoint.getUrl(), endpoint);
+            getCache(exchangeName).put(endpoint.getId(), endpoint);
         }
     }
 
@@ -68,14 +77,23 @@ public class EndpointManagerCache implements EndpointManager {
         return endpointCache.values();
     }
 
+    @Override
+    public void deleteCache(String exchangeName) {
+        endpointCache.put(exchangeName, null);
+    }
+
     public class EndpointCacheInfo {
 
+        private String exchangeName;
         private String url;
         private Date timestamp;
         private boolean successfulPing;
         private int httpCode;
+        private Integer id;
 
-        public EndpointCacheInfo(String url, Date timestamp, boolean successfulPing, int httpCode) {
+        public EndpointCacheInfo(int id, String url, Date timestamp, boolean successfulPing, int httpCode)
+        {
+            this.id = id;
             this.url = url;
             this.timestamp = timestamp;
             this.successfulPing = successfulPing;
@@ -114,5 +132,22 @@ public class EndpointManagerCache implements EndpointManager {
             this.httpCode = httpCode;
         }
 
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getExchangeName() {
+            return exchangeName;
+        }
+
+        public void setExchangeName(String exchangeName) {
+            this.exchangeName = exchangeName;
+        }
+
     }
+
 }
