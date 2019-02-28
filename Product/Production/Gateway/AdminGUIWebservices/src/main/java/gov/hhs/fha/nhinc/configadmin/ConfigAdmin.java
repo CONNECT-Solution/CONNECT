@@ -23,18 +23,23 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.configadmin;
 
+import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.KEY_STORE_PASSWORD_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.CA_AUTHORITY_PROPERTY_FILE;
 
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil;
+import gov.hhs.fha.nhinc.common.configadmin.CreateCSRRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.CreateCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.DeleteTemporaryKeystoreRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestMessageType;
@@ -46,18 +51,53 @@ import gov.hhs.fha.nhinc.common.configadmin.ListKeyStoresResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.math.BigInteger;
+import java.security.InvalidKeyException;
+import java.security.KeyPair;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.Security;
+import java.security.SignatureException;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
+import java.security.cert.X509Certificate;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.activation.DataHandler;
+import javax.mail.util.ByteArrayDataSource;
+import javax.security.auth.x500.X500Principal;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.bouncycastle.asn1.x509.ExtendedKeyUsage;
+import org.bouncycastle.asn1.x509.KeyPurposeId;
+import org.bouncycastle.asn1.x509.X509Extensions;
+import org.bouncycastle.asn1.x509.X509Name;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.operator.ContentSigner;
+import org.bouncycastle.operator.OperatorCreationException;
+import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.bouncycastle.pkcs.PKCS10CertificationRequest;
+import org.bouncycastle.pkcs.PKCS10CertificationRequestBuilder;
+import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequestBuilder;
+import org.bouncycastle.util.io.pem.PemObject;
+import org.bouncycastle.util.io.pem.PemWriter;
+import org.bouncycastle.x509.X509V3CertificateGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,8 +109,24 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     private static final String UPDATE_CERTIFICATE_SUCCESS = "Update certificate success";
     private static final String INVALID_USER = "Bad token or Mismatch token";
+    private static final String DIR_NHINC_PROPERTIES = System.getProperty("nhinc.properties.dir");
+    private static final String FILE_JKS_GATEWAY = System.getProperty("javax.net.ssl.keyStore");
+    private static final String FILE_JKS_GATEWAY_NEW = MessageFormat.format("{0}/{1}", DIR_NHINC_PROPERTIES,
+        "gateway_new.jks");
+    private static final String VALIDITY = "certificate.validity";
+    private static final String KEYSIZE = "certificate.keysize";
+    private static final String ACT_SUCCESSFUL = "successful";
+    private static final String ALGORITHM_SHA256_RSA = "SHA256withRSA";
+
+    private static final String CERTIFICATE_REQUEST = "CERTIFICATE REQUEST";
+    private static final String MIME_TEXT_PLAIN = "text/plain";
+
+    private static final int DEFAULT_KEYSIZE = 2048;
+    private static final int DEFAULT_VALIDITY = 365;
 
     private static final Logger LOG = LoggerFactory.getLogger(ConfigAdmin.class);
+    private static final PropertyAccessor prop = PropertyAccessor.getInstance();
+    private KeyStore tempKeystore = null;
 
     @Override
     public SimpleCertificateResponseMessageType importCertificate(
@@ -323,4 +379,203 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     private static KeyStore getTrustStore() {
         return CertificateManagerImpl.getInstance().getTrustStore();
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#createCSR(gov.hhs.fha.nhinc.common.configadmin.
+     * CreateCSRRequestMessageType)
+     */
+    @Override
+    public SimpleCertificateResponseMessageType createCSR(CreateCSRRequestMessageType request) {
+
+        String alias = request.getAlias();
+        if(StringUtils.isBlank(alias)){
+            return buildSimpleResponse(false, "alias is required.");
+        }
+
+        // keytool -certreq -alias gateway -keystore gateway.jks -file gateway-yyyyMMdd.csr
+        try {
+            ByteArrayDataSource dsCsr = new ByteArrayDataSource(
+                getPemCsrBy(getTempKeystore(), System.getProperty(KEY_STORE_PASSWORD_KEY), alias), MIME_TEXT_PLAIN);
+            SimpleCertificateResponseMessageType response = buildSimpleResponse(true, ACT_SUCCESSFUL);
+            response.setCsrData(new DataHandler(dsCsr));
+            return response;
+        } catch (Exception e) {
+            LOG.error("error while generating the csr: {}", alias, e);
+            return buildSimpleResponse(false, "fail to generate the csr: " + alias);
+        }
+
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#createCertificate(gov.hhs.fha.nhinc.common.configadmin.
+     * CreateCertificateRequestMessageType)
+     */
+    @Override
+    public SimpleCertificateResponseMessageType createCertificate(CreateCertificateRequestMessageType request) {
+
+        String alias = request.getAlias();
+        String ou = request.getOrganizationalUnit();
+        String o = request.getOrganization();
+        String c = request.getCountryName();
+        String refNumber = request.getReferenceNumber();
+        if (StringUtils.isBlank(alias) || StringUtils.isBlank(ou) || StringUtils.isBlank(o) || StringUtils.isBlank(c)
+            || StringUtils.isBlank(refNumber)) {
+            return buildSimpleResponse(false,
+                "Alias, Organizational Unit, Organization, Country Name and Reference Number are required.");
+        }
+
+        tempKeystore = null;
+        if (!copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW)) {
+            return buildSimpleResponse(false, "unable to make a copy of gateway-jks.");
+        }
+        // keytool -genkey -alias gateway -keyalg RSA -keystore gateway.jks -dname CN=<reference number>, OU=NHIN,
+        // O=HHS-ONC, C=US -validity 365 -keysize 2048
+        try {
+
+            String dn = MessageFormat.format("CN={0}, OU={1}, O={2}, C={3}", refNumber, ou, o, c);
+            KeyPair pair = CoreHelpUtils.generateKeyPair(getKeySize(), null);
+            X509Certificate x509cert = generateCertificate(pair, dn, getValidityDays(), ALGORITHM_SHA256_RSA);
+            KeyStore jksGatewayNew = getTempKeystore();
+            if (jksGatewayNew.containsAlias(alias)) {
+                jksGatewayNew.deleteEntry(alias);
+            }
+            jksGatewayNew.setKeyEntry(alias, pair.getPrivate(),
+                System.getProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY).toCharArray(),
+                CoreHelpUtils.getCertificateChain(x509cert));
+            CoreHelpUtils.saveJksTo(jksGatewayNew, System.getProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY),
+                FILE_JKS_GATEWAY_NEW);
+        } catch (Exception e) {
+            LOG.error("error while generating the certificate for gateway_new.jks: {}", alias, e);
+            return buildSimpleResponse(false, "fail to generate the certificate: " + alias);
+        }
+        return buildSimpleResponse(true, ACT_SUCCESSFUL);
+
+    }
+
+    private static SimpleCertificateResponseMessageType buildSimpleResponse(boolean status, String msg) {
+        SimpleCertificateResponseMessageType resp = new SimpleCertificateResponseMessageType();
+        resp.setStatus(status);
+        resp.setMessage(msg);
+        return resp;
+    }
+
+    private KeyStore getTempKeystore() throws CertificateManagerException {
+        if (null == tempKeystore) {
+            File destinationFile = new File(FILE_JKS_GATEWAY_NEW);
+            if(!destinationFile.exists()){
+                copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW);
+            }
+            tempKeystore = CertificateUtil.loadKeyStore(CertificateManagerImpl.JKS_TYPE,
+                System.getProperty(TRUST_STORE_PASSWORD_KEY), FILE_JKS_GATEWAY_NEW);
+        }
+        return tempKeystore;
+    }
+
+    private static int getKeySize() {
+        try{
+            return Integer
+                .parseInt(prop.getProperty(CA_AUTHORITY_PROPERTY_FILE, KEYSIZE, String.valueOf(DEFAULT_KEYSIZE)));
+        }catch (NumberFormatException e) {
+            LOG.debug("unable to parse keysize: {}, {}", CA_AUTHORITY_PROPERTY_FILE, KEYSIZE, e);
+            return DEFAULT_KEYSIZE;
+        }
+    }
+
+    private static int getValidityDays() {
+        try {
+            return Integer
+                .parseInt(prop.getProperty(CA_AUTHORITY_PROPERTY_FILE, VALIDITY, String.valueOf(DEFAULT_VALIDITY)));
+        } catch (NumberFormatException e) {
+            LOG.debug("unable to parse keysize: {}, {}", CA_AUTHORITY_PROPERTY_FILE, VALIDITY, e);
+            return DEFAULT_VALIDITY;
+        }
+    }
+
+    private static boolean copyFile(String sourceFileName, String destinationFileName) {
+
+        File sourceFile = new File(sourceFileName);
+        File destinationFile = new File(destinationFileName);
+
+        LOG.debug("copy file from-to: {}, {}", sourceFileName, destinationFileName);
+
+        if (sourceFile.exists()) {
+            try {
+                FileUtils.copyFile(sourceFile, destinationFile, false);
+                LOG.info("copy successful: {}", destinationFileName);
+                return true;
+            } catch (IOException e) {
+                LOG.error("error while copy: {}", destinationFileName, e);
+            }
+        } else {
+            LOG.error("error while copy source not found: {}", sourceFileName);
+        }
+        return false;
+    }
+
+    private byte[] getPemCsrBy(KeyStore keystore, String keystorePass, String alias)
+        throws KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException, IOException,
+        OperatorCreationException {
+
+        X509Certificate x509Cert = (X509Certificate) keystore.getCertificate(alias);
+        X500Principal principal = x509Cert.getSubjectX500Principal();
+        PublicKey publicKey = x509Cert.getPublicKey();
+        PrivateKey privateKey = (PrivateKey) keystore.getKey(alias, keystorePass.toCharArray());
+
+        PKCS10CertificationRequestBuilder builder = new JcaPKCS10CertificationRequestBuilder(principal, publicKey);
+        ContentSigner signGen = new JcaContentSignerBuilder(ALGORITHM_SHA256_RSA).build(privateKey);
+        PKCS10CertificationRequest csr = builder.build(signGen);
+
+        PemObject pemObject = new PemObject(CERTIFICATE_REQUEST, csr.getEncoded());
+        StringWriter str = new StringWriter();
+        PemWriter pemWriter = new PemWriter(str);
+        pemWriter.writeObject(pemObject);
+        pemWriter.close();
+        str.close();
+
+        return str.toString().getBytes();
+
+    }
+
+    private X509Certificate generateCertificate(KeyPair keypair, String dn, int days, String signatureAlgorithm)
+        throws InvalidKeyException, SignatureException, CertificateEncodingException, NoSuchAlgorithmException {
+        Security.addProvider(new BouncyCastleProvider());
+        X509V3CertificateGenerator certGen = new X509V3CertificateGenerator();
+
+        // add some options
+        certGen.setSerialNumber(BigInteger.valueOf(System.currentTimeMillis()));
+        certGen.setSubjectDN(new X509Name(dn));
+        certGen.setIssuerDN(new X500Principal(dn));
+        certGen.setNotBefore(new Date(System.currentTimeMillis()));
+        certGen.setNotAfter(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * days));
+        certGen.setPublicKey(keypair.getPublic());
+        certGen.setSignatureAlgorithm(signatureAlgorithm);
+        certGen.addExtension(X509Extensions.ExtendedKeyUsage, true,
+            new ExtendedKeyUsage(KeyPurposeId.id_kp_timeStamping));
+        return certGen.generate(keypair.getPrivate());
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#deleteGatewayNew(gov.hhs.fha.nhinc.common.configadmin.
+     * DeleteGatewayNewRequestMessageType)
+     */
+    @Override
+    public SimpleCertificateResponseMessageType deleteTemporaryKeystore(
+        DeleteTemporaryKeystoreRequestMessageType request) {
+        File deleteFile = new File(FILE_JKS_GATEWAY_NEW);
+        if (deleteFile.exists() && deleteFile.delete()) {
+            return buildSimpleResponse(true, "Temporary Keystore delete successful.");
+        }
+        return buildSimpleResponse(false, "Temporary Keystore doesn't exist.");
+    }
+
+
+
 }

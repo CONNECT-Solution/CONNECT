@@ -118,7 +118,8 @@
                                                 </p:dataTable>
 
                                                 <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
-                                                    <p:row rendered="#{certificateBean.keyStoreColorCodeList.contains('GREEN')}">
+                                                    <p:row
+                                                        rendered="#{certificateBean.keyStoreColorCodeList.contains('GREEN')}">
                                                         <p:column>
                                                             <p:commandLink
                                                                 styleClass="glyphicon glyphicon-ok-circle highlightGREEN">
@@ -129,15 +130,17 @@
                                                         </p:column>
                                                     </p:row>
                                                     <p:row>
-                                                    <p:column rendered="#{certificateBean.keyStoreColorCodeList.contains('YELLOW')}">
-                                                        <p:commandLink
-                                                            styleClass="glyphicon glyphicon-warning-sign highlightYELLOW"></p:commandLink>
-                                                        <h:outputText
-                                                            value=" &nbsp;Certificate is expiring soon (&lt; 90 days).&nbsp;" />
-                                                        <h:outputText value="&lt;br/&gt;" escape="false" />
-                                                    </p:column>
+                                                        <p:column
+                                                            rendered="#{certificateBean.keyStoreColorCodeList.contains('YELLOW')}">
+                                                            <p:commandLink
+                                                                styleClass="glyphicon glyphicon-warning-sign highlightYELLOW"></p:commandLink>
+                                                            <h:outputText
+                                                                value=" &nbsp;Certificate is expiring soon (&lt; 90 days).&nbsp;" />
+                                                            <h:outputText value="&lt;br/&gt;" escape="false" />
+                                                        </p:column>
                                                     </p:row>
-                                                     <p:row rendered="#{certificateBean.keyStoreColorCodeList.contains('RED')}">
+                                                    <p:row
+                                                        rendered="#{certificateBean.keyStoreColorCodeList.contains('RED')}">
                                                         <p:column>
                                                             <p:commandLink
                                                                 styleClass="glyphicon glyphicon-remove-circle highlightRED"></p:commandLink>
@@ -145,16 +148,16 @@
                                                                 value=" &#160;Certificate expired or about to expire.&#160;" />
                                                         </p:column>
                                                     </p:row>
-                                                  <p:row>
-                                                    <p:column rowspan="3" styleClass="pull-right">
-                                                        <p:commandButton id="viewCertKeyStoreButton"
-                                                            value="View Certificate"
-                                                            action="#{certificateBean.viewCertificateKS}"
-                                                            update=":certTabView :viewCertDlgKS"
-                                                            styleClass="add-button" />
-                                                    </p:column>
-                                                </p:row>
-                                                   
+                                                    <p:row>
+                                                        <p:column rowspan="3" styleClass="pull-right">
+                                                            <p:commandButton id="viewCertKeyStoreButton"
+                                                                value="View Certificate"
+                                                                action="#{certificateBean.viewCertificateKS}"
+                                                                update=":certTabView :viewCertDlgKS"
+                                                                styleClass="add-button" />
+                                                        </p:column>
+                                                    </p:row>
+
                                                 </p:panelGrid>
 
                                             </div>
@@ -237,7 +240,8 @@
                                             </div>
 
                                             <p:panelGrid styleClass="ui-panelgrid-domain ui-panelgrid-domain-bottom">
-                                                <p:row rendered="#{certificateBean.trustStoreColorCodeList.contains('GREEN')}">
+                                                <p:row
+                                                    rendered="#{certificateBean.trustStoreColorCodeList.contains('GREEN')}">
                                                     <p:column>
                                                         <p:commandLink
                                                             styleClass="glyphicon glyphicon-ok-circle highlightGREEN">
@@ -248,15 +252,17 @@
                                                     </p:column>
                                                 </p:row>
                                                 <p:row>
-                                                    <p:column  rendered="#{certificateBean.trustStoreColorCodeList.contains('YELLOW')}">
+                                                    <p:column
+                                                        rendered="#{certificateBean.trustStoreColorCodeList.contains('YELLOW')}">
                                                         <p:commandLink
                                                             styleClass="glyphicon glyphicon-warning-sign highlightYELLOW"></p:commandLink>
                                                         <h:outputText
                                                             value=" &nbsp;Certificate is expiring soon (&lt; 90 days).&nbsp;" />
                                                         <h:outputText value="&lt;br/&gt;" escape="false" />
                                                     </p:column>
-                                                 </p:row>
-                                                  <p:row rendered="#{certificateBean.trustStoreColorCodeList.contains('RED')}">
+                                                </p:row>
+                                                <p:row
+                                                    rendered="#{certificateBean.trustStoreColorCodeList.contains('RED')}">
                                                     <p:column>
                                                         <p:commandLink
                                                             styleClass="glyphicon glyphicon-remove-circle highlightRED"></p:commandLink>
@@ -264,7 +270,7 @@
                                                             value=" &#160;Certificate expired or about to expire.&#160;" />
                                                     </p:column>
                                                 </p:row>
-                                                 <p:row>
+                                                <p:row>
                                                     <p:column rowspan="3" styleClass="pull-right">
                                                         <p:commandButton id="deleteCert" value="Delete"
                                                             styleClass="delete-button" icon="ui-icon-closethick"
@@ -318,7 +324,7 @@
                                                             styleClass="add-button" />
                                                     </p:column>
                                                 </p:row>
-                                               
+
                                             </p:panelGrid>
 
                                         </h:form>
@@ -326,6 +332,167 @@
                                 </div>
                             </div>
                         </div>
+                    </p:tab>
+                    <!-- END: TAB PANE - MANAGE TRUSTSTORE -->
+
+                    <!-- BEGIN: TAB PANE - IMPORTCERTTAB -->
+                    <p:tab id="#{tabBean.IMPORTCERTSTORETAB}" title="Import Wizard" closable="false">
+                        <p:tabView id="importCertTabView" styleClass="tab-pane active cssImportWizard"
+                            activeIndex="#{certificateBean.importWizardTabIndex}">
+                            <p:tab id="tabIdCreateCert" title="Create Certificate" closable="false">
+
+                                <div class="form-block center-block">
+                                    <h:form id="formCreateCertificate" class="form form-horizontal">
+                                        <p:messages id="errorMsgsCreateCertificate" closable="true">
+                                            <p:autoUpdate />
+                                        </p:messages>
+                                        <div class="content">
+                                            <h:outputText>Creating a certificate creates a temporary certificate. This temporary certificate will be used to replace with the existing keystore file. Please skip to Create CSR if existing certificate will be used.</h:outputText>
+                                            <div class="form-group row">
+                                                <div class="col-sm-4">
+                                                    <h:outputLabel class="control-label" for="inputCaAuthority"
+                                                        value="CA Authority:" />
+                                                    <h:selectOneMenu class="form-control" id="inputCaAuthority">
+                                                        <f:selectItem itemLabel="Entrust" itemValue="Entrust"
+                                                            noSelectionOption="true" />
+                                                    </h:selectOneMenu>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <h:outputLabel class="control-label" for="inputExchangeType"
+                                                        value="Exchange:" />
+                                                    <p:selectOneMenu styleClass="form-control" id="inputExchangeType"
+                                                        value="#{certificateBean.exchangeType}" filter="true"
+                                                        filterMatchMode="startsWith">
+                                                        <p:ajax event="change"
+                                                            update="inputOrganizationalUnit, inputOrganization, inputCountryName" />
+                                                        <f:selectItem itemLabel="---" itemValue=""
+                                                            noSelectionOption="true" />
+                                                        <f:selectItems value="#{certificateBean.caProperties}" />
+                                                    </p:selectOneMenu>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <h:outputLabel class="control-label" for="inputAlias"
+                                                        value="* Alias:" />
+                                                    <p:selectOneMenu styleClass="form-control" id="inputAlias"
+                                                        required="true" requiredMessage="Alias is required."
+                                                        value="#{certificateBean.alias}" filter="true"
+                                                        filterMatchMode="startsWith">
+                                                        <f:selectItem itemLabel="---" itemValue=""
+                                                            noSelectionOption="true" />
+                                                        <f:selectItems value="#{certificateBean.keystores}" var="item"
+                                                            itemLabel="#{item.alias}" itemValue="#{item.alias}" />
+                                                    </p:selectOneMenu>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <h:outputLabel class="control-label" for="inputReferenceNumber"
+                                                        value="* Reference Number:" />
+                                                    <p:inputText styleClass="form-control"
+                                                        value="#{certificateBean.referenceNumber}"
+                                                        id="inputReferenceNumber" maxlength="250" required="true"
+                                                        requiredMessage="Reference Number is required.">
+                                                    </p:inputText>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <h:outputLabel class="control-label" for="inputOrganizationalUnit"
+                                                        value="* OU:" />
+                                                    <p:inputText styleClass="form-control"
+                                                        value="#{certificateBean.organizationalUnit}"
+                                                        id="inputOrganizationalUnit" maxlength="250" required="true"
+                                                        requiredMessage="OU is required.">
+                                                    </p:inputText>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <h:outputLabel class="control-label" for="inputOrganization"
+                                                        value="* O:" />
+                                                    <p:inputText styleClass="form-control"
+                                                        value="#{certificateBean.organization}" id="inputOrganization"
+                                                        maxlength="250" required="true" requiredMessage="O is required.">
+                                                    </p:inputText>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <h:outputLabel class="control-label" for="inputCountryName"
+                                                        value="* C:" />
+                                                    <p:inputText styleClass="form-control"
+                                                        value="#{certificateBean.countryName}" id="inputCountryName"
+                                                        maxlength="250" required="true" requiredMessage="C is required.">
+                                                    </p:inputText>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-button-row">
+                                            <div class="col-sm-12">
+                                                <p:commandButton styleClass="btn btn-primary updateCssRefreshId"
+                                                    icon="ui-icon-circle-plus"
+                                                    action="#{certificateBean.createCertificate()}" value="Create"
+                                                    update="@(.cssImportWizard)">
+                                                </p:commandButton>
+                                                <p:commandButton styleClass="delete-button" icon="ui-icon-circle-close"
+                                                    value="Cancel" immediate="true"
+                                                    action="#{certificateBean.cancelImportWizard()}" update="@form">
+                                                    <p:confirm header="Cancel Import Wizard"
+                                                        message="WARNING: This will clean up the file created by wizard. Continue delete?"
+                                                        icon="ui-icon-alert" />
+                                                </p:commandButton>
+                                                <p:commandButton styleClass="btn btn-primary" icon="ui-icon-seek-next"
+                                                    value="Next CSR" action="#{certificateBean.nextCreateCsrView()}"
+                                                    update="@(.cssImportWizard)" immediate="true" />
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </div>
+
+                            </p:tab>
+                            <p:tab id="tabIdCreateCSR" title="Create CSR" closable="false">
+
+                                <div class="form-block center-block">
+                                    <h:form id="formCreateCSR" class="form form-horizontal">
+                                        <p:messages id="errorMsgsCreateCSR" closable="true">
+                                            <p:autoUpdate />
+                                        </p:messages>
+                                        <div class="content">
+                                            <h:outputText>A Certificate Signing Request (CSR) will be generated. The CSR will be used to request a new SSL certificate from the Certificate Authority.</h:outputText>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <h:outputLabel class="control-label" for="inputAliasCSR"
+                                                        value="* Alias:" />
+                                                    <p:selectOneMenu styleClass="form-control" id="inputAliasCSR"
+                                                        required="true" requiredMessage="Alias is required."
+                                                        value="#{certificateBean.alias}" filter="true"
+                                                        filterMatchMode="startsWith">
+                                                        <f:selectItem itemLabel="---" itemValue=""
+                                                            noSelectionOption="true" />
+                                                        <f:selectItems value="#{certificateBean.keystores}" var="item"
+                                                            itemLabel="#{item.alias}" itemValue="#{item.alias}" />
+                                                    </p:selectOneMenu>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-button-row">
+                                            <div class="col-sm-12">
+                                                <p:commandButton styleClass="btn btn-primary updateCssRefreshId"
+                                                    icon="ui-icon-circle-plus" action="#{certificateBean.createCSR()}"
+                                                    value="Create">
+                                                </p:commandButton>
+                                                <p:commandButton styleClass="delete-button" icon="ui-icon-circle-close"
+                                                    value="Cancel" immediate="true"
+                                                    action="#{certificateBean.cancelImportWizard()}" update="@form">
+                                                    <p:confirm header="Cancel Import Wizard"
+                                                        message="WARNING: This will clean up the file created by wizard. Continue delete?"
+                                                        icon="ui-icon-alert" />
+                                                </p:commandButton>
+                                                <p:commandButton styleClass="btn btn-primary" icon="ui-icon-seek-next"
+                                                    value="view CSR" />
+                                                <p:commandButton value="Download CSR" ajax="false"
+                                                    icon="pi pi-arrow-down">
+                                                    <p:fileDownload value="#{certificateBean.csrFile}" />
+                                                </p:commandButton>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </div>
+
+                            </p:tab>
+                        </p:tabView>
                     </p:tab>
                     <!-- END: TAB PANE - MANAGE TRUSTSTORE -->
                 </div>
@@ -340,6 +507,11 @@
             <ui:include src="deletePassKeyDialog.xhtml" />
             <ui:include src="dlgCertMgrChain.xhtml" />
             <!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
         </ui:define>
     </ui:composition>
 </h:body>

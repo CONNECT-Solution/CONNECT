@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,32 +23,44 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.admingui.managed;
 
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
 
 import gov.hhs.fha.nhinc.admingui.services.CertificateManagerService;
+import gov.hhs.fha.nhinc.admingui.services.PropertyService;
 import gov.hhs.fha.nhinc.admingui.services.impl.CertificateManagerServiceImpl;
+import gov.hhs.fha.nhinc.admingui.services.impl.PropertyServiceImpl;
 import gov.hhs.fha.nhinc.admingui.util.GUIConstants.COLOR_CODING_CSS;
 import gov.hhs.fha.nhinc.admingui.util.HelperUtil;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
+import gov.hhs.fha.nhinc.common.propertyaccess.PropertyType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.CoreHelpUtils;
+import java.io.IOException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+import javax.activation.DataHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,6 +87,7 @@ public class CertficateBean {
     private static final String EDIT_PASS_ERROR_MSG = "editPassKeyErrorMsg";
     private static final String ALIAS_PLACEHOLDER = "Enter Alias";
     private static final String BAD_MISMATCH_TOKEN = "Bad token or Mismatch token";
+    private static final String ERROR_INPUTSTREAM = "unable to open input-stream from response";
     private UploadedFile importCertFile;
     private CertificateDTO selectedCertificate;
     private CertificateDTO selectedTSCertificate;
@@ -91,6 +104,19 @@ public class CertficateBean {
     private List<String> keyStoreColorCodeList = new ArrayList<>();
     private List<String> trustStoreColorCodeList = new ArrayList<>();
     private boolean isChainCompleted;
+
+    private String alias;
+    private String exchangeType;
+    private String referenceNumber;
+    private String organizationalUnit;
+    private String organization;
+    private String countryName;
+
+    private PropertyService propertyService = new PropertyServiceImpl();
+    private StreamedContent csrFile;
+    private static final int TABINDEX_CREATECSR = 1;
+    private int importWizardTabIndex = 0;
+    private Map<String, String> caProperties = null;
 
     public CertficateBean() {
         service = new CertificateManagerServiceImpl();
@@ -534,4 +560,144 @@ public class CertficateBean {
         return true;
     }
 
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public String getExchangeType() {
+        return exchangeType;
+    }
+
+    public void setExchangeType(String exchangeType) {
+        this.exchangeType = exchangeType;
+        if (StringUtils.isNotBlank(exchangeType)) {
+            String[] args = exchangeType.split(",");
+            if (args.length == 3) {
+                setOrganizationalUnit(args[0].trim());
+                setOrganization(args[1].trim());
+                setCountryName(args[2].trim());
+            }
+        }
+    }
+
+    public String getReferenceNumber() {
+        return referenceNumber;
+    }
+
+    public void setReferenceNumber(String referenceNumber) {
+        this.referenceNumber = referenceNumber;
+    }
+
+    public String getOrganizationalUnit() {
+        return organizationalUnit;
+    }
+
+    public void setOrganizationalUnit(String organizationalUnit) {
+        this.organizationalUnit = organizationalUnit;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    public int getImportWizardTabIndex() {
+        return importWizardTabIndex;
+    }
+
+    public void setImportWizardTabIndex(int importWizardTabIndex) {
+        this.importWizardTabIndex = importWizardTabIndex;
+    }
+
+    public void createCertificate() {
+        if (StringUtils.isBlank(getAlias()) || StringUtils.isBlank(getReferenceNumber())
+            || StringUtils.isBlank(getOrganizationalUnit()) || StringUtils.isBlank(getOrganization())
+            || StringUtils.isBlank(getCountryName())) {
+            HelperUtil.addMessageError(null, "Required fields cannot be empty when creating certificate.");
+        }
+
+        boolean status = service.createCertificate(getAlias(), getReferenceNumber(), getOrganizationalUnit(),
+            getOrganization(), getCountryName());
+        if (status) {
+            HelperUtil.addMessageInfo(null,
+                MessageFormat.format("Successfully created certifcate for: {0}", getAlias()));
+            importWizardTabIndex = TABINDEX_CREATECSR;
+        } else {
+            HelperUtil.addMessageError(null, MessageFormat.format("Failed to create certifcate for: {0}", getAlias()));
+        }
+    }
+
+    public void createCSR() {
+        if (StringUtils.isBlank(getAlias())) {
+            HelperUtil.addMessageError(null, "Required fields cannot be empty when creating CSR.");
+            return;
+        }
+        csrFile = null;
+
+        SimpleCertificateResponseMessageType response = service.createCSR(getAlias());
+
+        if (null != response && response.isStatus()) {
+            HelperUtil.addMessageInfo(null,
+                MessageFormat.format("Successfully created CSR for: {0}", getAlias()));
+            if(null != response.getCsrData()){
+                DataHandler data = response.getCsrData();
+                String filename = MessageFormat.format("{0}-{1}.csr", getAlias(), CoreHelpUtils.formatDate("yyyyMMdd", new Date()));
+                try {
+                    csrFile = new DefaultStreamedContent(data.getInputStream(), data.getContentType(), filename);
+                } catch (IOException e) {
+                    LOG.error(ERROR_INPUTSTREAM, e.getLocalizedMessage(), e);
+                    HelperUtil.addMessageError(null, ERROR_INPUTSTREAM);
+                }
+            }
+        } else {
+            HelperUtil.addMessageError(null, MessageFormat.format("Failed to create CSR for: {0}", getAlias()));
+        }
+    }
+
+    public StreamedContent getCsrFile() {
+        return csrFile;
+    }
+
+    public void cancelImportWizard() {
+        SimpleCertificateResponseMessageType resp = service.deleteTempKeystore();
+        if (null != resp) {
+            if (resp.isStatus()) {
+                HelperUtil.addMessageInfo(null, resp.getMessage());
+            } else {
+                HelperUtil.addMessageError(null, resp.getMessage());
+            }
+        }
+    }
+
+    public void nextCreateCsrView() {
+        setImportWizardTabIndex(TABINDEX_CREATECSR);
+    }
+
+    public Map<String, String> getCaProperties() {
+        if (null == caProperties) {
+            caProperties = new TreeMap<>();
+            List<PropertyType> properties = propertyService.listProperties(NhincConstants.CA_AUTHORITY_PROPERTY_FILE);
+            for (PropertyType item : properties) {
+                if (item.getPropertyValue().indexOf(',') >= 0) {
+                    caProperties.put(item.getPropertyName().replace('.', ' '), item.getPropertyValue());
+                }
+            }
+        }
+        return caProperties;
+    }
 }
