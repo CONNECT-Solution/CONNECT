@@ -121,12 +121,12 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     private static final String CERTIFICATE_REQUEST = "CERTIFICATE REQUEST";
     private static final String MIME_TEXT_PLAIN = "text/plain";
 
-    private static final int DEFAULT_KEYSIZE = 2046;
+    private static final int DEFAULT_KEYSIZE = 2048;
     private static final int DEFAULT_VALIDITY = 365;
 
     private static final Logger LOG = LoggerFactory.getLogger(ConfigAdmin.class);
     private static final PropertyAccessor prop = PropertyAccessor.getInstance();
-    private static KeyStore tempKeystore = null;
+    private KeyStore tempKeystore = null;
 
     @Override
     public SimpleCertificateResponseMessageType importCertificate(
@@ -429,6 +429,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 "Alias, Organizational Unit, Organization, Country Name and Reference Number are required.");
         }
 
+        tempKeystore = null;
         if (!copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW)) {
             return buildSimpleResponse(false, "unable to make a copy of gateway-jks.");
         }
@@ -463,7 +464,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         return resp;
     }
 
-    private static KeyStore getTempKeystore() throws CertificateManagerException {
+    private KeyStore getTempKeystore() throws CertificateManagerException {
         if (null == tempKeystore) {
             File destinationFile = new File(FILE_JKS_GATEWAY_NEW);
             if(!destinationFile.exists()){
@@ -506,7 +507,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             try {
                 FileUtils.copyFile(sourceFile, destinationFile, false);
                 LOG.info("copy successful: {}", destinationFileName);
-                tempKeystore = null;
                 return true;
             } catch (IOException e) {
                 LOG.error("error while copy: {}", destinationFileName, e);
@@ -571,9 +571,9 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         DeleteTemporaryKeystoreRequestMessageType request) {
         File deleteFile = new File(FILE_JKS_GATEWAY_NEW);
         if (deleteFile.exists() && deleteFile.delete()) {
-            return buildSimpleResponse(true, "gateway-new delete successful.");
+            return buildSimpleResponse(true, "Temporary Keystore delete successful.");
         }
-        return buildSimpleResponse(false, "gateway-new doesn't exist.");
+        return buildSimpleResponse(false, "Temporary Keystore doesn't exist.");
     }
 
 

@@ -59,7 +59,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
@@ -260,15 +259,6 @@ public class CoreHelpUtils {
             return new SimpleDateFormat(dateFormat).format(date);
         }
         return "";
-    }
-
-    public static <T> List<T> getList(Enumeration<T> list) {
-        List<T> ret = new ArrayList<>();
-        while (list.hasMoreElements()) {
-            T item = list.nextElement();
-            ret.add(item);
-        }
-        return ret;
     }
 
     public static KeyPair generateKeyPair(int keysize, SecureRandom sr) throws NoSuchAlgorithmException {
