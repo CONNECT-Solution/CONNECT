@@ -231,7 +231,7 @@
                                                                 value="#{exchangeManagerBean.filterExchange}"
                                                                 filter="true" filterMatchMode="startsWith">
                                                                 <p:ajax event="change" update="inputFilterOrganization, displayName, displayHcid, displayDescription, displayContact, dataTableConnectionEndpoint" />
-                                                                <f:selectItem itemLabel="---" itemValue=""
+                                                                <f:selectItem itemLabel="---" itemValue="#{exchangeManagerBean.listFilterExchanges}"
                                                                     noSelectionOption="false" />
                                                                 <f:selectItems
                                                                     value="#{exchangeManagerBean.listFilterExchanges}"
@@ -249,7 +249,7 @@
                                                                 filter="true" filterMatchMode="startsWith">
                                                                 <p:ajax event="change"
                                                                     update="displayName, displayHcid, displayDescription, displayContact, dataTableConnectionEndpoint" />
-                                                                <f:selectItem itemLabel="---" itemValue=""
+                                                                <f:selectItem itemLabel="---" itemValue="#{exchangeManagerBean.listFilterExchanges}"
                                                                     noSelectionOption="false" />
                                                                 <f:selectItems
                                                                     value="#{exchangeManagerBean.listFilterOrganizations}"
@@ -289,7 +289,7 @@
                                                     styleClass="table table-striped table-domains" var="rec"
                                                     value="#{exchangeManagerBean.connectionEndpoints}"
                                                     selection="#{exchangeManagerBean.selectedEndpoint}"
-                                                    rowKey="#{rec.serviceUrl}^^^#{rec.serviceSpec}" scrollable="true"
+                                                    rowKey="#{rec.id}" scrollable="true"
                                                     scrollHeight="400">
 
                                                     <p:ajax event="rowSelectRadio" process="@this"

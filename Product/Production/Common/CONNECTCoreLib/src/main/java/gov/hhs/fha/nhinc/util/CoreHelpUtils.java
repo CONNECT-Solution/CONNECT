@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,8 +23,13 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.util;
+
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_PROPERTY_FILE_NAME;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.AUDIT_LOGGING_PROPERTY_FILE;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.CA_AUTHORITY_PROPERTY_FILE;
+import static gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_PROPERTY_FILE;
 
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.AddressType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentMetadataType;
@@ -36,6 +41,16 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -58,12 +73,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 
+
 /**
  * @author ttang
  *
  */
 public class CoreHelpUtils {
     private static final Logger LOG = LoggerFactory.getLogger(CoreHelpUtils.class);
+    private static final String ALGORITHM = "RSA";
     private CoreHelpUtils() {
     }
 
@@ -235,6 +252,40 @@ public class CoreHelpUtils {
 
     public static <K, V> boolean isCollectionNotEmpty(Map<K, V> map) {
         return null != map && !map.isEmpty();
+    }
+
+    public static String formatDate(String dateFormat, Date date) {
+        if (StringUtils.isNotBlank(dateFormat) && null != date) {
+            return new SimpleDateFormat(dateFormat).format(date);
+        }
+        return "";
+    }
+
+    public static KeyPair generateKeyPair(int keysize, SecureRandom sr) throws NoSuchAlgorithmException {
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance(ALGORITHM);
+        if (null != sr) {
+            keyGen.initialize(keysize, sr);
+        } else {
+            keyGen.initialize(keysize);
+        }
+        return keyGen.generateKeyPair();
+    }
+
+    public static Certificate[] getCertificateChain(Certificate... certs) {
+        return certs;
+    }
+
+    public static void saveJksTo(KeyStore keystore, String storePass, String storeLoc) throws UtilException {
+        try (FileOutputStream os = new FileOutputStream(storeLoc)) {
+            keystore.store(os, storePass.toCharArray());
+        } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException e) {
+            throw new UtilException("Unable to save to the tempKeystore.", e);
+        }
+    }
+
+    public static boolean checkPropertyList(String file) {
+        return file.equalsIgnoreCase(GATEWAY_PROPERTY_FILE) || file.equalsIgnoreCase(ADAPTER_PROPERTY_FILE_NAME)
+            || file.equalsIgnoreCase(AUDIT_LOGGING_PROPERTY_FILE) || file.equalsIgnoreCase(CA_AUTHORITY_PROPERTY_FILE);
     }
 
 }
