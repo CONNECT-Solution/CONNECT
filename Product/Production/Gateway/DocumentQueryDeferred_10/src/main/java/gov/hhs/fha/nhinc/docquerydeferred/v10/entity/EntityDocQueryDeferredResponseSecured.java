@@ -45,10 +45,8 @@ public class EntityDocQueryDeferredResponseSecured implements EntityDocQueryDefe
         afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query Response Deferred",
         version = "1.0")
     @Override
-    public DocQueryAcknowledgementType crossGatewayQueryResponse(
-        RespondingGatewayCrossGatewayQueryResponseSecuredType request) {
-        // TODO Auto-generated method stub
-        return null;
+    public DocQueryAcknowledgementType crossGatewayQueryResponse(RespondingGatewayCrossGatewayQueryResponseSecuredType request) {
+        return new DocQueryAcknowledgementType();
     }
 
 }
