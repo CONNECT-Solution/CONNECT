@@ -43,6 +43,8 @@ import gov.hhs.fha.nhinc.common.configadmin.DeleteTemporaryKeystoreRequestMessag
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.ImportToKeystoreRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.ImportToTruststoreRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListCertificateType;
 import gov.hhs.fha.nhinc.common.configadmin.ListCertificatesResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListChainOfTrustRequestMessageType;
@@ -54,6 +56,7 @@ import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
+import gov.hhs.fha.nhinc.util.UtilException;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -80,7 +83,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.activation.DataHandler;
-import javax.mail.util.ByteArrayDataSource;
 import javax.security.auth.x500.X500Principal;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -113,13 +115,16 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     private static final String FILE_JKS_GATEWAY = System.getProperty("javax.net.ssl.keyStore");
     private static final String FILE_JKS_GATEWAY_NEW = MessageFormat.format("{0}/{1}", DIR_NHINC_PROPERTIES,
         "gateway_new.jks");
+    private static final String FILE_JKS_CACERTS_NEW = MessageFormat.format("{0}/{1}", DIR_NHINC_PROPERTIES,
+        "cacerts_new.jks");
+    private static final String FILE_JKS_CACERTS = System.getProperty("javax.net.ssl.trustStore");
     private static final String VALIDITY = "certificate.validity";
     private static final String KEYSIZE = "certificate.keysize";
     private static final String ACT_SUCCESSFUL = "successful";
     private static final String ALGORITHM_SHA256_RSA = "SHA256withRSA";
 
     private static final String CERTIFICATE_REQUEST = "CERTIFICATE REQUEST";
-    private static final String MIME_TEXT_PLAIN = "text/plain";
+
 
     private static final int DEFAULT_KEYSIZE = 2048;
     private static final int DEFAULT_VALIDITY = 365;
@@ -127,6 +132,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigAdmin.class);
     private static final PropertyAccessor prop = PropertyAccessor.getInstance();
     private KeyStore tempKeystore = null;
+    private KeyStore tempTruststore = null;
 
     @Override
     public SimpleCertificateResponseMessageType importCertificate(
@@ -353,10 +359,18 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     private static List<ListCertificateType> buildChain(String alias, KeyStore keyStore)
         throws KeyStoreException, CertificateEncodingException {
-        List<Certificate> chain = CertificateUtil.getChain(keyStore.getCertificate(alias), keyStore);
+        return buildChain(keyStore.getCertificate(alias), keyStore);
+    }
+
+    private static List<ListCertificateType> buildChain(Certificate serverCert, KeyStore keyStore)
+        throws KeyStoreException, CertificateEncodingException {
+        List<Certificate> chain = CertificateUtil.getChain(serverCert, keyStore);
         List<ListCertificateType> certList = new ArrayList<>();
         for (Certificate cert : chain) {
-            certList.add(buildListCertificateType(keyStore.getCertificateAlias(cert), cert));
+            String alias = keyStore.getCertificateAlias(cert);
+            if (StringUtils.isNotBlank(alias)) {
+                certList.add(buildListCertificateType(alias, cert));
+            }
         }
         return certList;
     }
@@ -396,10 +410,10 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
         // keytool -certreq -alias gateway -keystore gateway.jks -file gateway-yyyyMMdd.csr
         try {
-            ByteArrayDataSource dsCsr = new ByteArrayDataSource(
-                getPemCsrBy(getTempKeystore(), System.getProperty(KEY_STORE_PASSWORD_KEY), alias), MIME_TEXT_PLAIN);
+            DataHandler certPem = CertificateUtil.getDataHandlerForPem(
+                getPemCsrBy(getTempKeystore(), System.getProperty(KEY_STORE_PASSWORD_KEY), alias));
             SimpleCertificateResponseMessageType response = buildSimpleResponse(true, ACT_SUCCESSFUL);
-            response.setCsrData(new DataHandler(dsCsr));
+            response.setCsrData(certPem);
             return response;
         } catch (Exception e) {
             LOG.error("error while generating the csr: {}", alias, e);
@@ -471,9 +485,21 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW);
             }
             tempKeystore = CertificateUtil.loadKeyStore(CertificateManagerImpl.JKS_TYPE,
-                System.getProperty(TRUST_STORE_PASSWORD_KEY), FILE_JKS_GATEWAY_NEW);
+                System.getProperty(KEY_STORE_PASSWORD_KEY), FILE_JKS_GATEWAY_NEW);
         }
         return tempKeystore;
+    }
+
+    private KeyStore getTempTruststore() throws CertificateManagerException {
+        if (null == tempTruststore) {
+            File destinationFile = new File(FILE_JKS_CACERTS_NEW);
+            if(!destinationFile.exists()){
+                copyFile(FILE_JKS_CACERTS, FILE_JKS_CACERTS_NEW);
+            }
+            tempTruststore = CertificateUtil.loadKeyStore(CertificateManagerImpl.JKS_TYPE,
+                System.getProperty(TRUST_STORE_PASSWORD_KEY), FILE_JKS_CACERTS_NEW);
+        }
+        return tempTruststore;
     }
 
     private static int getKeySize() {
@@ -569,13 +595,115 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     @Override
     public SimpleCertificateResponseMessageType deleteTemporaryKeystore(
         DeleteTemporaryKeystoreRequestMessageType request) {
-        File deleteFile = new File(FILE_JKS_GATEWAY_NEW);
-        if (deleteFile.exists() && deleteFile.delete()) {
-            return buildSimpleResponse(true, "Temporary Keystore delete successful.");
+        File deleteGateway = new File(FILE_JKS_GATEWAY_NEW);
+        File deleteCaCert = new File(FILE_JKS_CACERTS_NEW);
+        tempKeystore = null;
+        tempTruststore = null;
+
+        boolean deleted = false;
+
+        if (deleteGateway.exists() && deleteGateway.delete()) {
+            deleted = true;
         }
-        return buildSimpleResponse(false, "Temporary Keystore doesn't exist.");
+        if (deleteCaCert.exists() && deleteCaCert.delete()) {
+            deleted = true;
+        }
+
+        return buildSimpleResponse(deleted,
+            deleted ? "Temporary files are deleted: successful." : "Temporary files does not exist.");
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#importToKeystore(gov.hhs.fha.nhinc.common.configadmin.
+     * ImportToKeystoreRequestMessageType)
+     */
+    @Override
+    public SimpleCertificateResponseMessageType importToKeystore(ImportToKeystoreRequestMessageType request) {
+        String alias = request.getAlias();
+        if (StringUtils.isBlank(alias) || null == request.getServerData()) {
+            return buildSimpleResponse(false, "Alias and Certificate are required.");
+        }
+        try {
+            Certificate publicKey = CertificateUtil.createCertificate(request.getServerData());
+            PrivateKey privateKey = CertificateUtil.getPrivateKeyEntry(getTempKeystore(), alias,
+                System.getProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY)).getPrivateKey();
 
+            if(null == publicKey || null == privateKey){
+                return buildSimpleResponse(false, "Error certificate does not have keypair: "+alias);
+            }
+
+            if (null != request.getRootData() && null != request.getIntermediateData()) {
+                Certificate oldCert = CertificateManagerImpl.getInstance().getCertificateBy(alias);
+                List<ListCertificateType> oldChain = buildChain(oldCert, getTempKeystore());
+                for (ListCertificateType item : oldChain) {
+                    // remove the certificates chain but not the certificate
+                    if (!alias.equalsIgnoreCase(item.getAlias())) {
+                        getTempKeystore().deleteEntry(item.getAlias());
+                    }
+                }
+                Certificate caRoot = CertificateUtil.createCertificate(request.getRootData());
+                Certificate caIntermediate = CertificateUtil.createCertificate(request.getIntermediateData());
+                getTempKeystore().setCertificateEntry(MessageFormat.format("{0}_intermediate", alias),
+                    caIntermediate);
+                getTempKeystore().setCertificateEntry(MessageFormat.format("{0}_root", alias), caRoot);
+            }
+
+            getTempKeystore().setKeyEntry(alias, privateKey,
+                System.getProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY).toCharArray(),
+                CoreHelpUtils.getCertificateChain(publicKey));
+            CoreHelpUtils.saveJksTo(getTempKeystore(),
+                System.getProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY), FILE_JKS_GATEWAY_NEW);
+        } catch (CertificateManagerException | UtilException | KeyStoreException | CertificateEncodingException e) {
+            LOG.error("Error during import to Keystore: {}",e.getLocalizedMessage(), e);
+            return buildSimpleResponse(false, "Error during import to Keystore.");
+        }
+        return buildSimpleResponse(true, "Import to Keystore is successful.");
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#importToTruststore(gov.hhs.fha.nhinc.common.configadmin.
+     * ImportToTruststoreRequestMessageType)
+     */
+    @Override
+    public SimpleCertificateResponseMessageType importToTruststore(ImportToTruststoreRequestMessageType request) {
+        if (StringUtils.isBlank(request.getAlias()) || null == request.getIntermediateData()
+            || null == request.getRootData()) {
+            return buildSimpleResponse(false, "Alias, Root and Intermediate are required.");
+        }
+        if(!copyFile(FILE_JKS_CACERTS, FILE_JKS_CACERTS_NEW)){
+            return buildSimpleResponse(false, "unable to create the temporary Truststore.");
+        }
+        try{
+            String alias = request.getAlias();
+            Certificate certIntermediate = CertificateUtil.createCertificate(request.getIntermediateData());
+            Certificate certRoot = CertificateUtil.createCertificate(request.getRootData());
+            if (null == certIntermediate || null == certRoot) {
+                return buildSimpleResponse(false, "Error creating certificate chain for truststore.");
+            }
+
+            tempTruststore = null;
+            Certificate certAlias = CertificateManagerImpl.getInstance().getCertificateBy(alias);
+            List<ListCertificateType> certChain = buildChain(certAlias, getTempTruststore());
+            for(ListCertificateType item: certChain){
+                getTempTruststore().deleteEntry(item.getAlias());
+            }
+
+            getTempTruststore().setCertificateEntry(MessageFormat.format("{0}_intermediate",alias), certIntermediate);
+            getTempTruststore().setCertificateEntry(MessageFormat.format("{0}_root",alias), certRoot);
+            CoreHelpUtils.saveJksTo(getTempTruststore(), System.getProperty(CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY),
+                FILE_JKS_CACERTS_NEW);
+        }catch(CertificateManagerException | KeyStoreException | UtilException | CertificateEncodingException e){
+            LOG.error("error while importing to the temporary truststore: {}",e.getLocalizedMessage(), e);
+            return buildSimpleResponse(false, "error while importing to the temporary truststore.");
+        }
+
+        return buildSimpleResponse(true, "import temporary truststore successful.");
+    }
 
 }

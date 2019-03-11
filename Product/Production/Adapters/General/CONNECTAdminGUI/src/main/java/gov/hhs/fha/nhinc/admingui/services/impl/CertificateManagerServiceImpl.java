@@ -40,6 +40,7 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
+import gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil;
 import gov.hhs.fha.nhinc.callback.opensaml.X509CertificateHelper;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCSRRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCertificateRequestMessageType;
@@ -49,6 +50,8 @@ import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestType;
+import gov.hhs.fha.nhinc.common.configadmin.ImportToKeystoreRequestMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.ImportToTruststoreRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListCertificateType;
 import gov.hhs.fha.nhinc.common.configadmin.ListCertificatesResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListChainOfTrustRequestMessageType;
@@ -139,21 +142,11 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
 
     @Override
     public CertificateDTO createCertificate(byte[] data) {
-        ByteArrayInputStream bais = null;
-        try {
-            bais = new ByteArrayInputStream(data);
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(data)) {
             X509Certificate cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(bais);
             return x509CertificateHelper.buildCertificate(cert);
-        } catch (CertificateException ex) {
+        } catch (CertificateException | IOException ex) {
             LOG.error("Unable to extract a valid X509 certificate {}", ex.getLocalizedMessage(), ex);
-        } finally {
-            try {
-                if (bais != null) {
-                    bais.close();
-                }
-            } catch (IOException ex) {
-                LOG.error("Unable to close the inputstream {}", ex.getLocalizedMessage(), ex);
-            }
         }
         return null;
     }
@@ -496,11 +489,47 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
             CreateCSRRequestMessageType request = new CreateCSRRequestMessageType();
             request.setAlias(alias);
             request.setConfigAssertion(buildConfigAssertion());
-            SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
-                .invokePort(EntityConfigAdminPortType.class, AdminWSConstants.ADMIN_CERT_CREATE_CSR, request);
-            return response;
+            return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
+                AdminWSConstants.ADMIN_CERT_CREATE_CSR, request);
         } catch (Exception ex) {
             LOG.error("error creating CSR for: {}", alias, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public SimpleCertificateResponseMessageType importToKeystore(String alias, byte[] serverBytes,
+        byte[] intermediateBytes, byte[] rootBytes) {
+        try {
+            ImportToKeystoreRequestMessageType request = new ImportToKeystoreRequestMessageType();
+            request.setAlias(alias);
+            request.setServerData(CertificateUtil.getDataHandlerForPem(serverBytes));
+            if (null != intermediateBytes && null != rootBytes) {
+                request.setIntermediateData(CertificateUtil.getDataHandlerForPem(intermediateBytes));
+                request.setRootData(CertificateUtil.getDataHandlerForPem(rootBytes));
+            }
+            request.setConfigAssertion(buildConfigAssertion());
+            return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
+                AdminWSConstants.ADMIN_CERT_IMPORT_TOKEYSTORE, request);
+        } catch (Exception ex) {
+            LOG.error("error importing to keystore for: {}", alias, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public SimpleCertificateResponseMessageType importToTruststore(String alias, byte[] intermediateBytes,
+        byte[] rootBytes) {
+        try {
+            ImportToTruststoreRequestMessageType request = new ImportToTruststoreRequestMessageType();
+            request.setAlias(alias);
+            request.setIntermediateData(CertificateUtil.getDataHandlerForPem(intermediateBytes));
+            request.setRootData(CertificateUtil.getDataHandlerForPem(rootBytes));
+            request.setConfigAssertion(buildConfigAssertion());
+            return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
+                AdminWSConstants.ADMIN_CERT_IMPORT_TOTRUSTSTORE, request);
+        } catch (Exception ex) {
+            LOG.error("error importing to trust for: {}", alias, ex);
         }
         return null;
     }

@@ -74,4 +74,10 @@ public interface CertificateManagerService {
 
     public SimpleCertificateResponseMessageType createCSR(String alias);
 
+    public SimpleCertificateResponseMessageType importToKeystore(String alias, byte[] serverBytes,
+        byte[] intermediateBytes, byte[] rootBytes);
+
+    public SimpleCertificateResponseMessageType importToTruststore(String alias, byte[] intermediateBytes,
+        byte[] rootBytes);
+
 }
