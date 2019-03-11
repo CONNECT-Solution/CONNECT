@@ -19,12 +19,6 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>AuditRepositoryCore</artifactId>
-            <version>${project.parent.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
             <artifactId>DocumentQueryCore</artifactId>
             <version>${project.parent.version}</version>
             <scope>runtime</scope>
@@ -37,11 +31,7 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentQueryDeferredWebservices</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>AuditRepositoryWebservices</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+
 
         <!-- Logging -->
         <dependency>
@@ -53,18 +43,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-legacy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-junit4</artifactId>
         </dependency>
     </dependencies>
 

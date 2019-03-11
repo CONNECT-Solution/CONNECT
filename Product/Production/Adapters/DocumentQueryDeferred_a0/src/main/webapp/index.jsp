@@ -6,6 +6,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="shortcut icon" href="resources/favicon-connect.ico" type="image/x-icon" />
         <title>Query for Document Deferred Adapter</title>
     </head>
     <body>

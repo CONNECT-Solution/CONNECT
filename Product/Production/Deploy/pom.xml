@@ -316,7 +316,7 @@
       </build>
     </profile>
 
-          <!-- DQ -->
+    <!-- DDQ -->
     <profile>
       <id>DDQ</id>
       <activation>
