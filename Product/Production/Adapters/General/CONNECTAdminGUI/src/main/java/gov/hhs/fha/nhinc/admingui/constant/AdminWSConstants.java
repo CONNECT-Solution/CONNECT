@@ -41,6 +41,8 @@ public class AdminWSConstants {
     public static final String ADMIN_CERT_DELETE_TEMPKEYSTORE = "deleteTemporaryKeystore";
     public static final String ADMIN_CERT_CREATE_CERTIFICATE = "createCertificate";
     public static final String ADMIN_CERT_CREATE_CSR = "createCSR";
+    public static final String ADMIN_CERT_IMPORT_TOKEYSTORE = "importToKeystore";
+    public static final String ADMIN_CERT_IMPORT_TOTRUSTSTORE = "importToTruststore";
 
     // Config Admin
     public static final String ENTITY_CONFIG_ADMIN_SERVICE_NAME = "entityconfigadmin";
