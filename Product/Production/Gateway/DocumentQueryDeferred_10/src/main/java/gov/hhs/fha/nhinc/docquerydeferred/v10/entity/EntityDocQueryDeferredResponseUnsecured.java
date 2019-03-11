@@ -46,7 +46,7 @@ public class EntityDocQueryDeferredResponseUnsecured implements EntityDocQueryDe
         version = "1.0")
     @Override
     public DocQueryAcknowledgementType crossGatewayQueryResponse(RespondingGatewayCrossGatewayQueryResponseType request) {
-        return new DocQueryAcknowledgementType();;
+        return new DocQueryAcknowledgementType();
     }
 
 }
