@@ -259,28 +259,30 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-sm-6">
+                                                        <div class="col-sm-4">
                                                             <h:outputLabel for="displayName" class="control-label" value="Name:&#160;" />
                                                             <h:outputText id="displayName"
                                                                 value="#{exchangeManagerBean.orgName}" />
                                                         </div>
-                                                        <div class="col-sm-6">
+                                                        <div class="col-sm-4">
                                                             <h:outputLabel for="displayHcid" class="control-label" value="HCID:&#160;" />
                                                             <h:outputText id="displayHcid"
                                                                 value="#{exchangeManagerBean.orgHcid}" />
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <h:outputLabel for="displayDescription" class="control-label"
-                                                                value="Description:&#160;" />
-                                                            <h:outputText id="displayDescription"
-                                                                value="#{exchangeManagerBean.orgDescription}" />
-                                                        </div>
-                                                        <div class="col-sm-6">
+                                                        <div class="col-sm-4">
                                                             <h:outputLabel for="displayContact" class="control-label" value="Contact:&#160;" />
                                                             <h:outputText id="displayContact"
                                                                 value="#{exchangeManagerBean.orgContacts}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <h:outputLabel for="displayDescription" class="control-label"
+                                                                value="Description:&#160;" />
+                                                            <p:scrollPanel mode="native" style="width:100%;height:100px;">
+                                                                <h:outputText id="displayDescription"
+                                                                    value="#{exchangeManagerBean.orgDescription}" escape="false" style="background-color:rgb(245, 245, 245);"/>
+                                                            </p:scrollPanel>
                                                         </div>
                                                     </div>
                                                 </div>
