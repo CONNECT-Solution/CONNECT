@@ -750,10 +750,6 @@ public class CertficateBean {
         csrText = null;
     }
 
-    public void nextCreateCsrView() {
-        setImportWizardTabIndex(TABINDEX_CREATECSR);
-    }
-
     public void next(int index) {
         setImportWizardTabIndex(index);
     }
@@ -787,7 +783,7 @@ public class CertficateBean {
 
     public void importToKeystore() {
         if (null == uploadedFileServer || StringUtils.isBlank(alias)) {
-            HelperUtil.addMessageError(null, "Alias and Server upload are required.");
+            HelperUtil.addMessageError(null, "Alias and Server Certificate are required.");
             return;
         }
         SimpleCertificateResponseMessageType response;
@@ -797,9 +793,9 @@ public class CertficateBean {
             response = service.importToKeystore(alias, uploadedFileServer, null, null);
         }
         if (null == response) {
-            HelperUtil.addMessageError(null, "Fail to import to keystore.");
+            HelperUtil.addMessageError(null, "Fail to import to temporary keystore.");
         } else if (response.isStatus()) {
-            HelperUtil.addMessageInfo(null, "Import to Keystore is successful: " + alias);
+            HelperUtil.addMessageInfo(null, "Import to temporary keystore is successful: " + alias);
         } else {
             HelperUtil.addMessageError(null, response.getMessage());
         }
@@ -836,16 +832,16 @@ public class CertficateBean {
 
     public void importToTruststore() {
         if (MapUtils.isEmpty(listIntermediate) || null == uploadedFileRoot || StringUtils.isBlank(alias)) {
-            HelperUtil.addMessageError(null, "Alias, Intermediate and Root are required.");
+            HelperUtil.addMessageError(null, "Alias, CA Root and CA Intermediate are required.");
             return;
         }
         SimpleCertificateResponseMessageType response = service.importToTruststore(alias, listIntermediate,
             uploadedFileRoot);
 
         if (null == response) {
-            HelperUtil.addMessageError(null, "Fail to import to truststore.");
+            HelperUtil.addMessageError(null, "Fail to import to temporary truststore.");
         } else if (response.isStatus()) {
-            HelperUtil.addMessageInfo(null, "Import to truststore is successful");
+            HelperUtil.addMessageInfo(null, "Import to temporary truststore is successful");
         } else {
             HelperUtil.addMessageError(null, response.getMessage());
         }
