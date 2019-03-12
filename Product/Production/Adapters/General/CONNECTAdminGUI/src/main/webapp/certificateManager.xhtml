@@ -554,8 +554,7 @@
                                             <p:autoUpdate />
                                         </p:messages>
                                         <div class="content">
-                                            <h:outputText>Go to your selected CA Authority website and enter the authorization code and the reference number. 
-Then click on generate. Copy the certificate that has been generated.</h:outputText>
+                                            <h:outputText>Go to your selected CA Authority website. Follow instructions to generate a signed certificate on the CA Authority website. You will be asked to enter authorization code, reference number and the CSR generated in previous step.</h:outputText>
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <p:dataList value="#{certificateBean.caLinks}" var="link"
@@ -710,7 +709,7 @@ Then click on generate. Copy the certificate that has been generated.</h:outputT
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <h:outputLabel for="selectTruststoreIntermediate"
-                                                        class="control-label" value="* Intermediate Certificate:" />
+                                                        class="control-label" value="* CA Intermediate:" />
                                                     <h:outputText class="label label-default"
                                                         id="truststoreSubjectIntermediate"
                                                         value="#{certificateBean.intermediateCount}" />

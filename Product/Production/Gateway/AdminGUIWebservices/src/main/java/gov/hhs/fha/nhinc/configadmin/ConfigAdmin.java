@@ -628,7 +628,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     public SimpleCertificateResponseMessageType importToKeystore(ImportToKeystoreRequestMessageType request) {
         String alias = request.getAlias();
         if (StringUtils.isBlank(alias) || null == request.getServerCert()) {
-            return buildSimpleResponse(false, "Alias and Certificate are required.");
+            return buildSimpleResponse(false, "Alias and Server Certificate are required.");
         }
         try {
             Certificate publicKey = CertificateUtil.createCertificate(request.getServerCert());
@@ -681,7 +681,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     public SimpleCertificateResponseMessageType importToTruststore(ImportToTruststoreRequestMessageType request) {
         if (StringUtils.isBlank(request.getAlias()) || CollectionUtils.isEmpty(request.getIntermediateList())
             || null == request.getRootCert()) {
-            return buildSimpleResponse(false, "Alias, Root and Intermediate are required.");
+            return buildSimpleResponse(false, "Alias, CA Root and CA Intermediate are required.");
         }
         if(!copyFile(FILE_JKS_CACERTS, FILE_JKS_CACERTS_NEW)){
             return buildSimpleResponse(false, "unable to create the temporary Truststore.");
@@ -718,7 +718,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             return buildSimpleResponse(false, "error while importing to the temporary truststore.");
         }
 
-        return buildSimpleResponse(true, "import temporary truststore successful.");
+        return buildSimpleResponse(true, "Import is successful into the temporary truststore.");
     }
 
 }
