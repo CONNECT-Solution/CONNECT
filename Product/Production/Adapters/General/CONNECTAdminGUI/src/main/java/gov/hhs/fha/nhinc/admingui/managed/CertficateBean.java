@@ -57,6 +57,7 @@ import javax.activation.DataHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.helpers.IOUtils;
 import org.primefaces.event.CellEditEvent;
@@ -118,8 +119,8 @@ public class CertficateBean {
     private PropertyService propertyService = new PropertyServiceImpl();
     private String csrText;
     private String csrFileType;
-    private String[] tabTitles = new String[] { "Create Certificate", "Create CSR", "View CSR", "CA Authority Info",
-            "Import To Keystore", "Import To Truststore" };
+    private String[] tabTitles = new String[] { "Create Certificate", "Create CSR", "View CSR", "Info CA",
+            "Import Keystore", "Import Truststore" };
     private static final int TABINDEX_CREATECSR = 1;
     private static final int TABINDEX_VIEWCSR = 2;
     private int importWizardTabIndex = 0;
@@ -127,10 +128,9 @@ public class CertficateBean {
     private Map<String, String> caLinks = null;
 
     private UploadedFile uploadedFileServer;
-    private UploadedFile uploadedFileIntermediate;
+    private Map<String, UploadedFile> listIntermediate = null;
     private UploadedFile uploadedFileRoot;
     private CertificateDTO certServer;
-    private CertificateDTO certIntermediate;
     private CertificateDTO certRoot;
 
     public CertficateBean() {
@@ -266,21 +266,26 @@ public class CertficateBean {
         }
     }
 
-    private static boolean checkExpiration(CertificateDTO cert) {
+    private static boolean validateCertificate(CertificateDTO cert) {
+        if (null == cert) {
+            HelperUtil.addMessageError(null, "Certificate is invalid");
+            return false;
+        }
         try {
             cert.getX509Cert().checkValidity();
         } catch (CertificateExpiredException ex) {
             LOG.error("Certificate expired {}", ex.getLocalizedMessage(), ex);
             HelperUtil.addMessageError(null, "Expired Certificate");
-            return true;
+            return false;
         } catch (CertificateNotYetValidException ex) {
             LOG.error("Certificate not valid yet {}", ex.getLocalizedMessage(), ex);
             HelperUtil.addMessageError(null, "Certificate not valid yet");
+            return false;
         }
         if (cert.getExpiresInDays() > 30 && cert.getExpiresInDays() <= 90) {
             HelperUtil.addMessageInfo(null, "This Certificate is expiring soon.");
         }
-        return false;
+        return true;
     }
 
     public void onAliasValueEdit(CellEditEvent event) {
@@ -735,10 +740,9 @@ public class CertficateBean {
         organizationalUnit = null;
         countryName = null;
 
-        uploadedFileIntermediate = null;
+        listIntermediate = null;
         uploadedFileRoot = null;
         uploadedFileServer = null;
-        certIntermediate = null;
         certRoot = null;
         certServer = null;
 
@@ -787,11 +791,10 @@ public class CertficateBean {
             return;
         }
         SimpleCertificateResponseMessageType response;
-        if (null != uploadedFileIntermediate && null != uploadedFileRoot) {
-            response = service.importToKeystore(alias, uploadedFileServer.getContents(),
-                uploadedFileIntermediate.getContents(), uploadedFileRoot.getContents());
+        if (MapUtils.isNotEmpty(listIntermediate) && null != uploadedFileRoot) {
+            response = service.importToKeystore(alias, uploadedFileServer, listIntermediate, uploadedFileRoot);
         } else {
-            response = service.importToKeystore(alias, uploadedFileServer.getContents(), null, null);
+            response = service.importToKeystore(alias, uploadedFileServer, null, null);
         }
         if (null == response) {
             HelperUtil.addMessageError(null, "Fail to import to keystore.");
@@ -806,15 +809,20 @@ public class CertficateBean {
         uploadedFileServer = event.getFile();
         if (uploadedFileServer != null) {
             certServer = service.createCertificate(uploadedFileServer.getContents());
-            checkExpiration(certServer);
+            validateCertificate(certServer);
         }
     }
 
     public void importFileIntermediate(FileUploadEvent event) {
-        uploadedFileIntermediate = event.getFile();
-        if (uploadedFileIntermediate != null) {
-            certIntermediate = service.createCertificate(uploadedFileIntermediate.getContents());
-            checkExpiration(certIntermediate);
+        if (null == listIntermediate) {
+            listIntermediate = new HashMap<>();
+        }
+        UploadedFile uploadedFile = event.getFile();
+        if (uploadedFile != null) {
+            CertificateDTO certIntermediate = service.createCertificate(uploadedFile.getContents());
+            if (validateCertificate(certIntermediate)) {
+                listIntermediate.put(uploadedFile.getFileName(), uploadedFile);
+            }
         }
     }
 
@@ -822,17 +830,17 @@ public class CertficateBean {
         uploadedFileRoot = event.getFile();
         if (uploadedFileRoot != null) {
             certRoot = service.createCertificate(uploadedFileRoot.getContents());
-            checkExpiration(certRoot);
+            validateCertificate(certRoot);
         }
     }
 
     public void importToTruststore() {
-        if (null == uploadedFileIntermediate || null == uploadedFileRoot || StringUtils.isBlank(alias)) {
+        if (MapUtils.isEmpty(listIntermediate) || null == uploadedFileRoot || StringUtils.isBlank(alias)) {
             HelperUtil.addMessageError(null, "Alias, Intermediate and Root are required.");
             return;
         }
-        SimpleCertificateResponseMessageType response = service.importToTruststore(alias,
-            uploadedFileIntermediate.getContents(), uploadedFileRoot.getContents());
+        SimpleCertificateResponseMessageType response = service.importToTruststore(alias, listIntermediate,
+            uploadedFileRoot);
 
         if (null == response) {
             HelperUtil.addMessageError(null, "Fail to import to truststore.");
@@ -850,11 +858,11 @@ public class CertficateBean {
         return certServer.getSubjectName();
     }
 
-    public String getSubjectIntermediate() {
-        if (null == certIntermediate) {
-            return "";
+    public int getIntermediateCount() {
+        if (MapUtils.isEmpty(listIntermediate)) {
+            return 0;
         }
-        return certIntermediate.getSubjectName();
+        return listIntermediate.size();
     }
 
     public String getSubjectRoot() {
@@ -882,5 +890,9 @@ public class CertficateBean {
 
     public void onTabChangeImportWizard(TabChangeEvent event) {
         importWizardTabIndex = findTabIndexBy(event.getTab().getTitle());
+    }
+
+    public void clearIntermediate() {
+        listIntermediate = null;
     }
 }

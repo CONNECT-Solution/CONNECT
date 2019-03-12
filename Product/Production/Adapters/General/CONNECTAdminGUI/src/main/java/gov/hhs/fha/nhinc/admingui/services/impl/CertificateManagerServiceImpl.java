@@ -86,8 +86,10 @@ import javax.activation.DataHandler;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -498,15 +500,17 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     @Override
-    public SimpleCertificateResponseMessageType importToKeystore(String alias, byte[] serverBytes,
-        byte[] intermediateBytes, byte[] rootBytes) {
+    public SimpleCertificateResponseMessageType importToKeystore(String alias, UploadedFile serverFile,
+        Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile) {
         try {
             ImportToKeystoreRequestMessageType request = new ImportToKeystoreRequestMessageType();
             request.setAlias(alias);
-            request.setServerData(CertificateUtil.getDataHandlerForPem(serverBytes));
-            if (null != intermediateBytes && null != rootBytes) {
-                request.setIntermediateData(CertificateUtil.getDataHandlerForPem(intermediateBytes));
-                request.setRootData(CertificateUtil.getDataHandlerForPem(rootBytes));
+            request.setServerCert(CertificateUtil.getDataHandlerForPem(serverFile.getContents()));
+            if (MapUtils.isNotEmpty(intermediateFiles) && null != rootFile) {
+                request.setRootCert(CertificateUtil.getDataHandlerForPem(rootFile.getContents()));
+                for (UploadedFile item : intermediateFiles.values()) {
+                    request.getIntermediateList().add(CertificateUtil.getDataHandlerForPem(item.getContents()));
+                }
             }
             request.setConfigAssertion(buildConfigAssertion());
             return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
@@ -518,13 +522,15 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     @Override
-    public SimpleCertificateResponseMessageType importToTruststore(String alias, byte[] intermediateBytes,
-        byte[] rootBytes) {
+    public SimpleCertificateResponseMessageType importToTruststore(String alias,
+        Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile) {
         try {
             ImportToTruststoreRequestMessageType request = new ImportToTruststoreRequestMessageType();
             request.setAlias(alias);
-            request.setIntermediateData(CertificateUtil.getDataHandlerForPem(intermediateBytes));
-            request.setRootData(CertificateUtil.getDataHandlerForPem(rootBytes));
+            request.setRootCert(CertificateUtil.getDataHandlerForPem(rootFile.getContents()));
+            for(UploadedFile item : intermediateFiles.values()){
+                request.getIntermediateList().add(CertificateUtil.getDataHandlerForPem(item.getContents()));
+            }
             request.setConfigAssertion(buildConfigAssertion());
             return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
                 AdminWSConstants.ADMIN_CERT_IMPORT_TOTRUSTSTORE, request);
