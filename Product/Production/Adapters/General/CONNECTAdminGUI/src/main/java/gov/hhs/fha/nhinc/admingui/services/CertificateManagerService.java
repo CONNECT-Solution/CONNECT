@@ -30,6 +30,8 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateDTO;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
 import java.util.List;
+import java.util.Map;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -73,5 +75,11 @@ public interface CertificateManagerService {
         String organization, String countryName);
 
     public SimpleCertificateResponseMessageType createCSR(String alias);
+
+    public SimpleCertificateResponseMessageType importToKeystore(String alias, UploadedFile serverFile,
+        Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile);
+
+    public SimpleCertificateResponseMessageType importToTruststore(String alias,
+        Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile);
 
 }

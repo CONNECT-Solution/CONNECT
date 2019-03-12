@@ -41,6 +41,7 @@ import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType
 import gov.hhs.fha.nhinc.common.propertyaccess.PropertyType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.CoreHelpUtils;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
@@ -56,9 +57,12 @@ import javax.activation.DataHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.cxf.helpers.IOUtils;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.TabChangeEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -113,10 +117,21 @@ public class CertficateBean {
     private String countryName;
 
     private PropertyService propertyService = new PropertyServiceImpl();
-    private StreamedContent csrFile;
+    private String csrText;
+    private String csrFileType;
+    private String[] tabTitles = new String[] { "Create Certificate", "Create CSR", "View CSR", "Info CA",
+            "Import Keystore", "Import Truststore" };
     private static final int TABINDEX_CREATECSR = 1;
+    private static final int TABINDEX_VIEWCSR = 2;
     private int importWizardTabIndex = 0;
     private Map<String, String> caProperties = null;
+    private Map<String, String> caLinks = null;
+
+    private UploadedFile uploadedFileServer;
+    private Map<String, UploadedFile> listIntermediate = null;
+    private UploadedFile uploadedFileRoot;
+    private CertificateDTO certServer;
+    private CertificateDTO certRoot;
 
     public CertficateBean() {
         service = new CertificateManagerServiceImpl();
@@ -249,6 +264,28 @@ public class CertficateBean {
             LOG.error("Certificate not valid yet {}", ex.getLocalizedMessage(), ex);
             HelperUtil.addMessageError(IMPORT_CERT_ERR_MSG_ID, "Certificate not valid yet");
         }
+    }
+
+    private static boolean validateCertificate(CertificateDTO cert) {
+        if (null == cert) {
+            HelperUtil.addMessageError(null, "Certificate is invalid");
+            return false;
+        }
+        try {
+            cert.getX509Cert().checkValidity();
+        } catch (CertificateExpiredException ex) {
+            LOG.error("Certificate expired {}", ex.getLocalizedMessage(), ex);
+            HelperUtil.addMessageError(null, "Expired Certificate");
+            return false;
+        } catch (CertificateNotYetValidException ex) {
+            LOG.error("Certificate not valid yet {}", ex.getLocalizedMessage(), ex);
+            HelperUtil.addMessageError(null, "Certificate not valid yet");
+            return false;
+        }
+        if (cert.getExpiresInDays() > 30 && cert.getExpiresInDays() <= 90) {
+            HelperUtil.addMessageInfo(null, "This Certificate is expiring soon.");
+        }
+        return true;
     }
 
     public void onAliasValueEdit(CellEditEvent event) {
@@ -574,6 +611,9 @@ public class CertficateBean {
 
     public void setExchangeType(String exchangeType) {
         this.exchangeType = exchangeType;
+        setOrganizationalUnit(null);
+        setOrganization(null);
+        setCountryName(null);
         if (StringUtils.isNotBlank(exchangeType)) {
             String[] args = exchangeType.split(",");
             if (args.length == 3) {
@@ -647,8 +687,6 @@ public class CertficateBean {
             HelperUtil.addMessageError(null, "Required fields cannot be empty when creating CSR.");
             return;
         }
-        csrFile = null;
-
         SimpleCertificateResponseMessageType response = service.createCSR(getAlias());
 
         if (null != response && response.isStatus()) {
@@ -656,9 +694,10 @@ public class CertficateBean {
                 MessageFormat.format("Successfully created CSR for: {0}", getAlias()));
             if(null != response.getCsrData()){
                 DataHandler data = response.getCsrData();
-                String filename = MessageFormat.format("{0}-{1}.csr", getAlias(), CoreHelpUtils.formatDate("yyyyMMdd", new Date()));
                 try {
-                    csrFile = new DefaultStreamedContent(data.getInputStream(), data.getContentType(), filename);
+                    csrText = IOUtils.toString(data.getInputStream());
+                    csrFileType = data.getContentType();
+                    importWizardTabIndex = TABINDEX_VIEWCSR;
                 } catch (IOException e) {
                     LOG.error(ERROR_INPUTSTREAM, e.getLocalizedMessage(), e);
                     HelperUtil.addMessageError(null, ERROR_INPUTSTREAM);
@@ -670,10 +709,19 @@ public class CertficateBean {
     }
 
     public StreamedContent getCsrFile() {
-        return csrFile;
+        String filename = MessageFormat.format("{0}-{1}.csr", getAlias(),
+            CoreHelpUtils.formatDate("yyyyMMdd", new Date()));
+        return new DefaultStreamedContent(new ByteArrayInputStream(csrText.getBytes()), csrFileType, filename);
+    }
+
+    public String getCsrText() {
+        return csrText;
     }
 
     public void cancelImportWizard() {
+        importWizardTabIndex = 0;
+        clearImportWizard();
+
         SimpleCertificateResponseMessageType resp = service.deleteTempKeystore();
         if (null != resp) {
             if (resp.isStatus()) {
@@ -684,20 +732,163 @@ public class CertficateBean {
         }
     }
 
-    public void nextCreateCsrView() {
-        setImportWizardTabIndex(TABINDEX_CREATECSR);
+    private void clearImportWizard() {
+        alias = null;
+        exchangeType = null;
+        referenceNumber = null;
+        organization = null;
+        organizationalUnit = null;
+        countryName = null;
+
+        listIntermediate = null;
+        uploadedFileRoot = null;
+        uploadedFileServer = null;
+        certRoot = null;
+        certServer = null;
+
+        csrFileType = null;
+        csrText = null;
+    }
+
+    public void next(int index) {
+        setImportWizardTabIndex(index);
+    }
+
+    private void loadCaProperties() {
+        caProperties = new TreeMap<>();
+        caLinks = new TreeMap<>();
+        List<PropertyType> properties = propertyService.listProperties(NhincConstants.CA_AUTHORITY_PROPERTY_FILE);
+        for (PropertyType item : properties) {
+            if (item.getPropertyValue().indexOf(',') >= 0) {
+                caProperties.put(item.getPropertyName().replace('.', ' '), item.getPropertyValue());
+            } else if (item.getPropertyValue().indexOf("://") >= 0) {
+                caLinks.put(item.getPropertyName().replace('.', ' '), item.getPropertyValue());
+            }
+        }
     }
 
     public Map<String, String> getCaProperties() {
         if (null == caProperties) {
-            caProperties = new TreeMap<>();
-            List<PropertyType> properties = propertyService.listProperties(NhincConstants.CA_AUTHORITY_PROPERTY_FILE);
-            for (PropertyType item : properties) {
-                if (item.getPropertyValue().indexOf(',') >= 0) {
-                    caProperties.put(item.getPropertyName().replace('.', ' '), item.getPropertyValue());
-                }
-            }
+            loadCaProperties();
         }
         return caProperties;
+    }
+
+    public Map<String, String> getCaLinks() {
+        if (null == caLinks) {
+            loadCaProperties();
+        }
+        return caLinks;
+    }
+
+    public void importToKeystore() {
+        if (null == uploadedFileServer || StringUtils.isBlank(alias)) {
+            HelperUtil.addMessageError(null, "Alias and Server Certificate are required.");
+            return;
+        }
+        SimpleCertificateResponseMessageType response;
+        if (MapUtils.isNotEmpty(listIntermediate) && null != uploadedFileRoot) {
+            response = service.importToKeystore(alias, uploadedFileServer, listIntermediate, uploadedFileRoot);
+        } else {
+            response = service.importToKeystore(alias, uploadedFileServer, null, null);
+        }
+        if (null == response) {
+            HelperUtil.addMessageError(null, "Fail to import to temporary keystore.");
+        } else if (response.isStatus()) {
+            HelperUtil.addMessageInfo(null, "Import to temporary keystore is successful: " + alias);
+        } else {
+            HelperUtil.addMessageError(null, response.getMessage());
+        }
+    }
+
+    public void importFileServer(FileUploadEvent event) {
+        uploadedFileServer = event.getFile();
+        if (uploadedFileServer != null) {
+            certServer = service.createCertificate(uploadedFileServer.getContents());
+            validateCertificate(certServer);
+        }
+    }
+
+    public void importFileIntermediate(FileUploadEvent event) {
+        if (null == listIntermediate) {
+            listIntermediate = new HashMap<>();
+        }
+        UploadedFile uploadedFile = event.getFile();
+        if (uploadedFile != null) {
+            CertificateDTO certIntermediate = service.createCertificate(uploadedFile.getContents());
+            if (validateCertificate(certIntermediate)) {
+                listIntermediate.put(uploadedFile.getFileName(), uploadedFile);
+            }
+        }
+    }
+
+    public void importFileRoot(FileUploadEvent event) {
+        uploadedFileRoot = event.getFile();
+        if (uploadedFileRoot != null) {
+            certRoot = service.createCertificate(uploadedFileRoot.getContents());
+            validateCertificate(certRoot);
+        }
+    }
+
+    public void importToTruststore() {
+        if (MapUtils.isEmpty(listIntermediate) || null == uploadedFileRoot || StringUtils.isBlank(alias)) {
+            HelperUtil.addMessageError(null, "Alias, CA Root and CA Intermediate are required.");
+            return;
+        }
+        SimpleCertificateResponseMessageType response = service.importToTruststore(alias, listIntermediate,
+            uploadedFileRoot);
+
+        if (null == response) {
+            HelperUtil.addMessageError(null, "Fail to import to temporary truststore.");
+        } else if (response.isStatus()) {
+            HelperUtil.addMessageInfo(null, "Import to temporary truststore is successful");
+        } else {
+            HelperUtil.addMessageError(null, response.getMessage());
+        }
+    }
+
+    public String getSubjectServer() {
+        if (null == certServer) {
+            return "";
+        }
+        return certServer.getSubjectName();
+    }
+
+    public int getIntermediateCount() {
+        if (MapUtils.isEmpty(listIntermediate)) {
+            return 0;
+        }
+        return listIntermediate.size();
+    }
+
+    public String getSubjectRoot() {
+        if (null == certRoot) {
+            return "";
+        }
+        return certRoot.getSubjectName();
+    }
+
+    public String[] getTabTitles() {
+        return tabTitles;
+    }
+
+    public int findTabIndexBy(String title) {
+        if (StringUtils.isBlank(title)) {
+            return 0;
+        }
+        for (int i = 0; i < tabTitles.length; i++) {
+            if (title.equalsIgnoreCase(tabTitles[i])) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public void onTabChangeImportWizard(TabChangeEvent event) {
+        importWizardTabIndex = findTabIndexBy(event.getTab().getTitle());
+    }
+
+    public void clearIntermediate() {
+        listIntermediate = null;
     }
 }
