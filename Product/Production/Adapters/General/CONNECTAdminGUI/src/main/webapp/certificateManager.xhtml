@@ -636,8 +636,14 @@ Then click on generate. Copy the certificate that has been generated.</h:outputT
                                                         class="control-label" value="CA Intermediate:" />
                                                     <h:outputText class="label label-default"
                                                         id="keystoreSubjectIntermediate"
-                                                        value="#{certificateBean.subjectIntermediate}" />
-                                                    <p:fileUpload id="selectKeystoreIntermediate" auto="true"
+                                                        value="#{certificateBean.intermediateCount}" />
+                                                    <p:commandLink update="@form" styleClass="control-label"
+                                                        style="margin-left:20px;" immediate="true"
+                                                        action="#{certificateBean.clearIntermediate}">
+                                                        <h:outputText value="Clear" />
+                                                    </p:commandLink>
+                                                    <p:fileUpload id="selectKeystoreIntermediate" auto="false"
+                                                        multiple="true" mode="advanced"
                                                         fileUploadListener="#{certificateBean.importFileIntermediate}"
                                                         allowTypes="/(\.|\/)(der|cer|crt|pem)$/"
                                                         update="keystoreSubjectIntermediate" />
@@ -695,6 +701,7 @@ Then click on generate. Copy the certificate that has been generated.</h:outputT
                                                         value="* CA Root:" />
                                                     <h:outputText class="label label-default" id="truststoreSubjectRoot"
                                                         value="#{certificateBean.subjectRoot}" />
+
                                                     <p:fileUpload id="selectTruststoreRoot" auto="true"
                                                         fileUploadListener="#{certificateBean.importFileRoot}"
                                                         allowTypes="/(\.|\/)(der|cer|crt|pem)$/" required="true"
@@ -706,8 +713,14 @@ Then click on generate. Copy the certificate that has been generated.</h:outputT
                                                         class="control-label" value="* Intermediate Certificate:" />
                                                     <h:outputText class="label label-default"
                                                         id="truststoreSubjectIntermediate"
-                                                        value="#{certificateBean.subjectIntermediate}" />
-                                                    <p:fileUpload id="selectTruststoreIntermediate" auto="true"
+                                                        value="#{certificateBean.intermediateCount}" />
+                                                    <p:commandLink update="@form" styleClass="control-label"
+                                                        style="margin-left:20px;" immediate="true"
+                                                        action="#{certificateBean.clearIntermediate}">
+                                                        <h:outputText value="Clear" />
+                                                    </p:commandLink>
+                                                    <p:fileUpload id="selectTruststoreIntermediate" auto="false"
+                                                        multiple="true" mode="advanced"
                                                         fileUploadListener="#{certificateBean.importFileIntermediate}"
                                                         allowTypes="/(\.|\/)(der|cer|crt|pem)$/" required="true"
                                                         requiredMessage="CA Intermediate is Required."

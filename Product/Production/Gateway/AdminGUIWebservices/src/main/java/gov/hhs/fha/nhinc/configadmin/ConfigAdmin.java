@@ -78,12 +78,16 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import javax.activation.DataHandler;
 import javax.security.auth.x500.X500Principal;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bouncycastle.asn1.x509.ExtendedKeyUsage;
@@ -623,11 +627,11 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     @Override
     public SimpleCertificateResponseMessageType importToKeystore(ImportToKeystoreRequestMessageType request) {
         String alias = request.getAlias();
-        if (StringUtils.isBlank(alias) || null == request.getServerData()) {
+        if (StringUtils.isBlank(alias) || null == request.getServerCert()) {
             return buildSimpleResponse(false, "Alias and Certificate are required.");
         }
         try {
-            Certificate publicKey = CertificateUtil.createCertificate(request.getServerData());
+            Certificate publicKey = CertificateUtil.createCertificate(request.getServerCert());
             PrivateKey privateKey = CertificateUtil.getPrivateKeyEntry(getTempKeystore(), alias,
                 System.getProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY)).getPrivateKey();
 
@@ -635,7 +639,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 return buildSimpleResponse(false, "Error certificate does not have keypair: "+alias);
             }
 
-            if (null != request.getRootData() && null != request.getIntermediateData()) {
+            if (null != request.getRootCert() && CollectionUtils.isNotEmpty(request.getIntermediateList())) {
                 Certificate oldCert = CertificateManagerImpl.getInstance().getCertificateBy(alias);
                 List<ListCertificateType> oldChain = buildChain(oldCert, getTempKeystore());
                 for (ListCertificateType item : oldChain) {
@@ -644,11 +648,14 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                         getTempKeystore().deleteEntry(item.getAlias());
                     }
                 }
-                Certificate caRoot = CertificateUtil.createCertificate(request.getRootData());
-                Certificate caIntermediate = CertificateUtil.createCertificate(request.getIntermediateData());
-                getTempKeystore().setCertificateEntry(MessageFormat.format("{0}_intermediate", alias),
-                    caIntermediate);
+                Certificate caRoot = CertificateUtil.createCertificate(request.getRootCert());
                 getTempKeystore().setCertificateEntry(MessageFormat.format("{0}_root", alias), caRoot);
+                int indexInt = 0;
+                for (DataHandler cert : request.getIntermediateList()) {
+                    Certificate caIntermediate = CertificateUtil.createCertificate(cert);
+                    getTempKeystore().setCertificateEntry(
+                        MessageFormat.format("{0}_intermediate_{1}", alias, indexInt++), caIntermediate);
+                }
             }
 
             getTempKeystore().setKeyEntry(alias, privateKey,
@@ -672,8 +679,8 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
      */
     @Override
     public SimpleCertificateResponseMessageType importToTruststore(ImportToTruststoreRequestMessageType request) {
-        if (StringUtils.isBlank(request.getAlias()) || null == request.getIntermediateData()
-            || null == request.getRootData()) {
+        if (StringUtils.isBlank(request.getAlias()) || CollectionUtils.isEmpty(request.getIntermediateList())
+            || null == request.getRootCert()) {
             return buildSimpleResponse(false, "Alias, Root and Intermediate are required.");
         }
         if(!copyFile(FILE_JKS_CACERTS, FILE_JKS_CACERTS_NEW)){
@@ -681,9 +688,14 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         }
         try{
             String alias = request.getAlias();
-            Certificate certIntermediate = CertificateUtil.createCertificate(request.getIntermediateData());
-            Certificate certRoot = CertificateUtil.createCertificate(request.getRootData());
-            if (null == certIntermediate || null == certRoot) {
+            Certificate certRoot = CertificateUtil.createCertificate(request.getRootCert());
+            Map<String, Certificate> mapCerts = new HashMap<>();
+            int indexInt = 0;
+            for (DataHandler cert : request.getIntermediateList()) {
+                mapCerts.put(MessageFormat.format("{0}_intermediate_{1}", alias, indexInt++),
+                    CertificateUtil.createCertificate(cert));
+            }
+            if (MapUtils.isEmpty(mapCerts) || null == certRoot) {
                 return buildSimpleResponse(false, "Error creating certificate chain for truststore.");
             }
 
@@ -694,8 +706,11 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 getTempTruststore().deleteEntry(item.getAlias());
             }
 
-            getTempTruststore().setCertificateEntry(MessageFormat.format("{0}_intermediate",alias), certIntermediate);
             getTempTruststore().setCertificateEntry(MessageFormat.format("{0}_root",alias), certRoot);
+            for (Entry<String, Certificate> entryCert : mapCerts.entrySet()) {
+                getTempTruststore().setCertificateEntry(entryCert.getKey(), entryCert.getValue());
+            }
+
             CoreHelpUtils.saveJksTo(getTempTruststore(), System.getProperty(CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY),
                 FILE_JKS_CACERTS_NEW);
         }catch(CertificateManagerException | KeyStoreException | UtilException | CertificateEncodingException e){
