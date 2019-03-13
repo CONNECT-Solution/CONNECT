@@ -891,4 +891,8 @@ public class CertficateBean {
     public void clearIntermediate() {
         listIntermediate = null;
     }
+
+    public boolean getDisableActionCsr() {
+        return StringUtils.isBlank(csrText);
+    }
 }
