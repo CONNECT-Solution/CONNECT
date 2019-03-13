@@ -524,8 +524,10 @@
                                         <div class="form-button-row">
                                             <div class="col-sm-12">
                                                 <p:commandButton value="Copy" ajax="false" icon="ui-icon-clipboard"
+                                                    disabled="#{certificateBean.disableActionCsr}"
                                                     onclick="document.getElementById('certTabView:importCertTabView:formViewCSR:inputTextareaCsr').select();document.execCommand('copy');alert('copy successful.');return false;" />
-                                                <p:commandButton value="Download " ajax="false" icon="ui-icon-document">
+                                                <p:commandButton value="Download " ajax="false" icon="ui-icon-document"
+                                                    disabled="#{certificateBean.disableActionCsr}">
                                                     <p:fileDownload value="#{certificateBean.csrFile}" />
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="delete-button" icon="ui-icon-circle-close"
