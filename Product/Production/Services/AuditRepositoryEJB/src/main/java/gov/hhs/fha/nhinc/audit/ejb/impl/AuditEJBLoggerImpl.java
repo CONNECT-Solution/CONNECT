@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
  * @param <K> Response
  */
 @Stateless
-@TransactionManagement(value = TransactionManagementType.CONTAINER)
+@TransactionManagement(value = TransactionManagementType.BEAN)
 public class AuditEJBLoggerImpl<T, K> implements AuditEJBLogger<T, K> {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuditEJBLoggerImpl.class);
