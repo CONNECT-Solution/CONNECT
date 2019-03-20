@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.configadmin;
 
-import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.KEY_STORE_PASSWORD_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY;
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl.TRUST_STORE_TYPE_KEY;
@@ -58,22 +57,29 @@ import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import gov.hhs.fha.nhinc.util.SHA2PasswordUtil;
 import gov.hhs.fha.nhinc.util.UtilException;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
+import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.SecureRandom;
 import java.security.Security;
 import java.security.SignatureException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -90,16 +96,25 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
 import org.bouncycastle.asn1.x509.ExtendedKeyUsage;
 import org.bouncycastle.asn1.x509.KeyPurposeId;
 import org.bouncycastle.asn1.x509.X509Extensions;
 import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.openssl.PEMParser;
+import org.bouncycastle.openssl.PKCS8Generator;
+import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
+import org.bouncycastle.openssl.jcajce.JcaPKCS8Generator;
+import org.bouncycastle.openssl.jcajce.JceOpenSSLPKCS8DecryptorProviderBuilder;
+import org.bouncycastle.openssl.jcajce.JceOpenSSLPKCS8EncryptorBuilder;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.PKCS10CertificationRequestBuilder;
+import org.bouncycastle.pkcs.PKCS8EncryptedPrivateKeyInfo;
+import org.bouncycastle.pkcs.PKCSException;
 import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequestBuilder;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemWriter;
@@ -115,21 +130,20 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     private static final String UPDATE_CERTIFICATE_SUCCESS = "Update certificate success";
     private static final String INVALID_USER = "Bad token or Mismatch token";
-    private static final String DIR_NHINC_PROPERTIES = System.getProperty("nhinc.properties.dir");
+    private static final String DIR_NHINC_PROPERTIES_TEMP = System.getProperty("nhinc.properties.dir") + "/tmp";
     private static final String FILE_JKS_GATEWAY = System.getProperty("javax.net.ssl.keyStore");
-    private static final String FILE_JKS_GATEWAY_NEW = MessageFormat.format("{0}/{1}", DIR_NHINC_PROPERTIES,
+    private static final String FILE_JKS_GATEWAY_NEW = MessageFormat.format("{0}/{1}", DIR_NHINC_PROPERTIES_TEMP,
         "gateway_new.jks");
-    private static final String FILE_JKS_CACERTS_NEW = MessageFormat.format("{0}/{1}", DIR_NHINC_PROPERTIES,
+    private static final String FILE_JKS_CACERTS_NEW = MessageFormat.format("{0}/{1}", DIR_NHINC_PROPERTIES_TEMP,
         "cacerts_new.jks");
     private static final String FILE_JKS_CACERTS = System.getProperty("javax.net.ssl.trustStore");
+    private static final String FILE_PRIVATEKEY_FORMAT = DIR_NHINC_PROPERTIES_TEMP + "/{0}_privatekey.pem";
     private static final String VALIDITY = "certificate.validity";
     private static final String KEYSIZE = "certificate.keysize";
     private static final String ACT_SUCCESSFUL = "successful";
     private static final String ALGORITHM_SHA256_RSA = "SHA256withRSA";
 
     private static final String CERTIFICATE_REQUEST = "CERTIFICATE REQUEST";
-
-
     private static final int DEFAULT_KEYSIZE = 2048;
     private static final int DEFAULT_VALIDITY = 365;
 
@@ -137,7 +151,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     private static final PropertyAccessor prop = PropertyAccessor.getInstance();
     private KeyStore tempKeystore = null;
     private KeyStore tempTruststore = null;
-
     @Override
     public SimpleCertificateResponseMessageType importCertificate(
         ImportCertificateRequestMessageType importCertificateRequest) {
@@ -414,8 +427,12 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
         // keytool -certreq -alias gateway -keystore gateway.jks -file gateway-yyyyMMdd.csr
         try {
-            DataHandler certPem = CertificateUtil.getDataHandlerForPem(
-                getPemCsrBy(getTempKeystore(), System.getProperty(KEY_STORE_PASSWORD_KEY), alias));
+            PrivateKey privateKey = CertificateUtil.getPrivateKeyEntry(getTempKeystore(), alias, getPasswordKeystore())
+                .getPrivateKey();
+            savePrivateKey(alias, privateKey, getPasswordKeystore());
+
+            DataHandler certPem = CertificateUtil
+                .getDataHandlerForPem(getPemCsrBy(getTempKeystore(), getPasswordKeystore(), alias));
             SimpleCertificateResponseMessageType response = buildSimpleResponse(true, ACT_SUCCESSFUL);
             response.setCsrData(certPem);
             return response;
@@ -440,11 +457,11 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         String ou = request.getOrganizationalUnit();
         String o = request.getOrganization();
         String c = request.getCountryName();
-        String refNumber = request.getReferenceNumber();
+        String cn = request.getCommonName();
         if (StringUtils.isBlank(alias) || StringUtils.isBlank(ou) || StringUtils.isBlank(o) || StringUtils.isBlank(c)
-            || StringUtils.isBlank(refNumber)) {
+            || StringUtils.isBlank(cn)) {
             return buildSimpleResponse(false,
-                "Alias, Organizational Unit, Organization, Country Name and Reference Number are required.");
+                "Alias, Organizational Unit, Organization, Country Name and Common Name are required.");
         }
 
         tempKeystore = null;
@@ -455,18 +472,16 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         // O=HHS-ONC, C=US -validity 365 -keysize 2048
         try {
 
-            String dn = MessageFormat.format("CN={0}, OU={1}, O={2}, C={3}", refNumber, ou, o, c);
+            String dn = MessageFormat.format("CN={0}, OU={1}, O={2}, C={3}", cn, ou, o, c);
             KeyPair pair = CoreHelpUtils.generateKeyPair(getKeySize(), null);
             X509Certificate x509cert = generateCertificate(pair, dn, getValidityDays(), ALGORITHM_SHA256_RSA);
             KeyStore jksGatewayNew = getTempKeystore();
             if (jksGatewayNew.containsAlias(alias)) {
                 jksGatewayNew.deleteEntry(alias);
             }
-            jksGatewayNew.setKeyEntry(alias, pair.getPrivate(),
-                System.getProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY).toCharArray(),
+            jksGatewayNew.setKeyEntry(alias, pair.getPrivate(), getPasswordKeystore().toCharArray(),
                 CoreHelpUtils.getCertificateChain(x509cert));
-            CoreHelpUtils.saveJksTo(jksGatewayNew, System.getProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY),
-                FILE_JKS_GATEWAY_NEW);
+            CoreHelpUtils.saveJksTo(jksGatewayNew, getPasswordKeystore(), FILE_JKS_GATEWAY_NEW);
         } catch (Exception e) {
             LOG.error("error while generating the certificate for gateway_new.jks: {}", alias, e);
             return buildSimpleResponse(false, "fail to generate the certificate: " + alias);
@@ -488,8 +503,8 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             if(!destinationFile.exists()){
                 copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW);
             }
-            tempKeystore = CertificateUtil.loadKeyStore(CertificateManagerImpl.JKS_TYPE,
-                System.getProperty(KEY_STORE_PASSWORD_KEY), FILE_JKS_GATEWAY_NEW);
+            tempKeystore = CertificateUtil.loadKeyStore(CertificateManagerImpl.JKS_TYPE, getPasswordKeystore(),
+                FILE_JKS_GATEWAY_NEW);
         }
         return tempKeystore;
     }
@@ -500,8 +515,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             if(!destinationFile.exists()){
                 copyFile(FILE_JKS_CACERTS, FILE_JKS_CACERTS_NEW);
             }
-            tempTruststore = CertificateUtil.loadKeyStore(CertificateManagerImpl.JKS_TYPE,
-                System.getProperty(TRUST_STORE_PASSWORD_KEY), FILE_JKS_CACERTS_NEW);
+            tempTruststore = CertificateUtil.loadKeyStore(CertificateManagerImpl.JKS_TYPE,                getPasswordTruststore(), FILE_JKS_CACERTS_NEW);
         }
         return tempTruststore;
     }
@@ -599,18 +613,17 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     @Override
     public SimpleCertificateResponseMessageType deleteTemporaryKeystore(
         DeleteTemporaryKeystoreRequestMessageType request) {
-        File deleteGateway = new File(FILE_JKS_GATEWAY_NEW);
-        File deleteCaCert = new File(FILE_JKS_CACERTS_NEW);
-        tempKeystore = null;
-        tempTruststore = null;
+        File tmpFolder = new File(DIR_NHINC_PROPERTIES_TEMP);
 
         boolean deleted = false;
-
-        if (deleteGateway.exists() && deleteGateway.delete()) {
-            deleted = true;
-        }
-        if (deleteCaCert.exists() && deleteCaCert.delete()) {
-            deleted = true;
+        if (tmpFolder.exists()) {
+            try {
+                FileUtils.deleteDirectory(tmpFolder);
+                deleted = true;
+            } catch (IOException e) {
+                LOG.error("Error while cleaning up the tmp folder: {}", e.getLocalizedMessage(), e);
+                return buildSimpleResponse(false, "Error whild cleaning up the temporary folder.");
+            }
         }
 
         return buildSimpleResponse(deleted,
@@ -630,13 +643,21 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         if (StringUtils.isBlank(alias) || null == request.getServerCert()) {
             return buildSimpleResponse(false, "Alias and Server Certificate are required.");
         }
+
+        PrivateKey privateKey = readPrivateKey(alias, getPasswordKeystore());
+        if (null == privateKey) {
+            return buildSimpleResponse(false, "Error no privatekey recorded for alias: " + alias);
+        }
+
+        tempKeystore = null;
+        if (!copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW)) {
+            return buildSimpleResponse(false, "unable to make a copy of gateway-jks.");
+        }
+
         try {
             Certificate publicKey = CertificateUtil.createCertificate(request.getServerCert());
-            PrivateKey privateKey = CertificateUtil.getPrivateKeyEntry(getTempKeystore(), alias,
-                System.getProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY)).getPrivateKey();
-
-            if(null == publicKey || null == privateKey){
-                return buildSimpleResponse(false, "Error certificate does not have keypair: "+alias);
+            if (null == publicKey) {
+                return buildSimpleResponse(false, "Error server certificate is not upload.");
             }
 
             if (null != request.getRootCert() && CollectionUtils.isNotEmpty(request.getIntermediateList())) {
@@ -658,11 +679,9 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 }
             }
 
-            getTempKeystore().setKeyEntry(alias, privateKey,
-                System.getProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY).toCharArray(),
+            getTempKeystore().setKeyEntry(alias, privateKey, getPasswordKeystore().toCharArray(),
                 CoreHelpUtils.getCertificateChain(publicKey));
-            CoreHelpUtils.saveJksTo(getTempKeystore(),
-                System.getProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY), FILE_JKS_GATEWAY_NEW);
+            CoreHelpUtils.saveJksTo(getTempKeystore(), getPasswordKeystore(), FILE_JKS_GATEWAY_NEW);
         } catch (CertificateManagerException | UtilException | KeyStoreException | CertificateEncodingException e) {
             LOG.error("Error during import to Keystore: {}",e.getLocalizedMessage(), e);
             return buildSimpleResponse(false, "Error during import to Keystore.");
@@ -683,6 +702,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             || null == request.getRootCert()) {
             return buildSimpleResponse(false, "Alias, CA Root and CA Intermediate are required.");
         }
+        tempTruststore = null;
         if(!copyFile(FILE_JKS_CACERTS, FILE_JKS_CACERTS_NEW)){
             return buildSimpleResponse(false, "unable to create the temporary Truststore.");
         }
@@ -699,7 +719,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 return buildSimpleResponse(false, "Error creating certificate chain for truststore.");
             }
 
-            tempTruststore = null;
             Certificate certAlias = CertificateManagerImpl.getInstance().getCertificateBy(alias);
             List<ListCertificateType> certChain = buildChain(certAlias, getTempTruststore());
             for(ListCertificateType item: certChain){
@@ -711,14 +730,58 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 getTempTruststore().setCertificateEntry(entryCert.getKey(), entryCert.getValue());
             }
 
-            CoreHelpUtils.saveJksTo(getTempTruststore(), System.getProperty(CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY),
-                FILE_JKS_CACERTS_NEW);
+            CoreHelpUtils.saveJksTo(getTempTruststore(), getPasswordTruststore(), FILE_JKS_CACERTS_NEW);
         }catch(CertificateManagerException | KeyStoreException | UtilException | CertificateEncodingException e){
             LOG.error("error while importing to the temporary truststore: {}",e.getLocalizedMessage(), e);
             return buildSimpleResponse(false, "error while importing to the temporary truststore.");
         }
 
         return buildSimpleResponse(true, "Import is successful into the temporary truststore.");
+    }
+
+    private static void savePrivateKey(String alias, PrivateKey privatekey, String password)
+        throws CertificateManagerException {
+        String filePrivateKey = MessageFormat.format(FILE_PRIVATEKEY_FORMAT, alias);
+
+        try (FileWriter fos = new FileWriter(filePrivateKey); JcaPEMWriter pem = new JcaPEMWriter(fos)) {
+            JceOpenSSLPKCS8EncryptorBuilder encryptBuilder = new JceOpenSSLPKCS8EncryptorBuilder(
+                PKCS8Generator.PBE_SHA1_3DES);
+            encryptBuilder.setRandom(new SecureRandom());
+            encryptBuilder.setPasssword(password.toCharArray());
+
+            JcaPKCS8Generator pkcs8 = new JcaPKCS8Generator(privatekey, encryptBuilder.build());
+            pem.writeObject(pkcs8.generate());
+            pem.flush();
+        } catch (IOException | OperatorCreationException e) {
+            throw new CertificateManagerException("Error saving the privatekey to disk.", e);
+        }
+    }
+
+    private static PrivateKey readPrivateKey(String alias, String password) {
+        String filePrivateKey = MessageFormat.format(FILE_PRIVATEKEY_FORMAT, alias);
+
+        try (FileReader reader = new FileReader(filePrivateKey); PEMParser pemParser = new PEMParser(reader)) {
+            JceOpenSSLPKCS8DecryptorProviderBuilder decryptBuilder = new JceOpenSSLPKCS8DecryptorProviderBuilder();
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA", "BC");
+
+            PKCS8EncryptedPrivateKeyInfo keyPem = (PKCS8EncryptedPrivateKeyInfo) pemParser.readObject();
+            PrivateKeyInfo keyInfo = keyPem.decryptPrivateKeyInfo(decryptBuilder.build(password.toCharArray()));
+            PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyInfo.getEncoded());
+
+            return keyFactory.generatePrivate(keySpec);
+        } catch (IOException | NoSuchAlgorithmException | NoSuchProviderException | InvalidKeySpecException
+            | OperatorCreationException | PKCSException e) {
+            LOG.error("Error reading privateKey: {}", alias, e);
+        }
+        return null;
+    }
+
+    private static String getPasswordKeystore() {
+        return System.getProperty(CertificateManagerImpl.KEY_STORE_PASSWORD_KEY);
+    }
+
+    private static String getPasswordTruststore() {
+        return System.getProperty(CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY);
     }
 
 }

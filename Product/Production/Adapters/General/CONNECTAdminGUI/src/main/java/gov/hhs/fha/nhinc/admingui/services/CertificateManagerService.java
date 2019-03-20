@@ -71,7 +71,7 @@ public interface CertificateManagerService {
 
     public SimpleCertificateResponseMessageType deleteTempKeystore();
 
-    public boolean createCertificate(String alias, String referenceNumber, String organizationalUnit,
+    public boolean createCertificate(String alias, String commonName, String organizationalUnit,
         String organization, String countryName);
 
     public SimpleCertificateResponseMessageType createCSR(String alias);
