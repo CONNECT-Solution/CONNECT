@@ -622,12 +622,13 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 deleted = true;
             } catch (IOException e) {
                 LOG.error("Error while cleaning up the tmp folder: {}", e.getLocalizedMessage(), e);
-                return buildSimpleResponse(false, "Error whild cleaning up the temporary folder.");
+                return buildSimpleResponse(false, "Error while cleaning up the temporary folder.");
             }
         }
 
         return buildSimpleResponse(deleted,
-            deleted ? "Temporary files are deleted: successful." : "Temporary files does not exist.");
+            deleted ? "Temporary files were deleted successfully."
+                : "Temporary files did not exist. Skipping temporary file cleanup.");
     }
 
     /*
@@ -646,18 +647,18 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
         PrivateKey privateKey = readPrivateKey(alias, getPasswordKeystore());
         if (null == privateKey) {
-            return buildSimpleResponse(false, "Error no privatekey recorded for alias: " + alias);
+            return buildSimpleResponse(false, "No privatekey recorded for alias: " + alias);
         }
 
         tempKeystore = null;
         if (!copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW)) {
-            return buildSimpleResponse(false, "unable to make a copy of gateway-jks.");
+            return buildSimpleResponse(false, "Unable to copy keystore to temporary file.");
         }
 
         try {
             Certificate publicKey = CertificateUtil.createCertificate(request.getServerCert());
             if (null == publicKey) {
-                return buildSimpleResponse(false, "Error server certificate is not upload.");
+                return buildSimpleResponse(false, "Server certificate was not upload.");
             }
 
             if (null != request.getRootCert() && CollectionUtils.isNotEmpty(request.getIntermediateList())) {
@@ -683,8 +684,8 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 CoreHelpUtils.getCertificateChain(publicKey));
             CoreHelpUtils.saveJksTo(getTempKeystore(), getPasswordKeystore(), FILE_JKS_GATEWAY_NEW);
         } catch (CertificateManagerException | UtilException | KeyStoreException | CertificateEncodingException e) {
-            LOG.error("Error during import to Keystore: {}",e.getLocalizedMessage(), e);
-            return buildSimpleResponse(false, "Error during import to Keystore.");
+            LOG.error("Error occurred importing to keystore: {}", e.getLocalizedMessage(), e);
+            return buildSimpleResponse(false, "Error occurred importing to keystore.");
         }
         return buildSimpleResponse(true, "Import to Keystore is successful.");
     }
@@ -704,7 +705,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         }
         tempTruststore = null;
         if(!copyFile(FILE_JKS_CACERTS, FILE_JKS_CACERTS_NEW)){
-            return buildSimpleResponse(false, "unable to create the temporary Truststore.");
+            return buildSimpleResponse(false, "Unable to create the temporary Truststore.");
         }
         try{
             String alias = request.getAlias();
@@ -732,11 +733,11 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
             CoreHelpUtils.saveJksTo(getTempTruststore(), getPasswordTruststore(), FILE_JKS_CACERTS_NEW);
         }catch(CertificateManagerException | KeyStoreException | UtilException | CertificateEncodingException e){
-            LOG.error("error while importing to the temporary truststore: {}",e.getLocalizedMessage(), e);
-            return buildSimpleResponse(false, "error while importing to the temporary truststore.");
+            LOG.error("Error occurred while importing to the temporary truststore: {}", e.getLocalizedMessage(), e);
+            return buildSimpleResponse(false, "Error occurred while importing to the temporary truststore.");
         }
 
-        return buildSimpleResponse(true, "Import is successful into the temporary truststore.");
+        return buildSimpleResponse(true, "Import into the temporary truststore is successful.");
     }
 
     private static void savePrivateKey(String alias, PrivateKey privatekey, String password)
