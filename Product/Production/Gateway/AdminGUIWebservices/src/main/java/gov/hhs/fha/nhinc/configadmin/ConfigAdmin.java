@@ -684,8 +684,8 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 CoreHelpUtils.getCertificateChain(publicKey));
             CoreHelpUtils.saveJksTo(getTempKeystore(), getPasswordKeystore(), FILE_JKS_GATEWAY_NEW);
         } catch (CertificateManagerException | UtilException | KeyStoreException | CertificateEncodingException e) {
-            LOG.error("Error occurred importing to KeyStore: {}", e.getLocalizedMessage(), e);
-            return buildSimpleResponse(false, "Error occurred importing to KeyStore.");
+            LOG.error("Error occurred while importing to KeyStore: {}", e.getLocalizedMessage(), e);
+            return buildSimpleResponse(false, "Error occurred while importing to KeyStore.");
         }
         return buildSimpleResponse(true, "Import to KeyStore is successful.");
     }
