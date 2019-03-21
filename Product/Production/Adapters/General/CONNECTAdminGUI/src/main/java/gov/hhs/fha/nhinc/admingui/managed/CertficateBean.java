@@ -120,7 +120,7 @@ public class CertficateBean {
     private String csrText;
     private String csrFileType;
     private String[] tabTitles = new String[] { "Create Certificate", "Certificate Signing Request",
-            "Available CA Providers", "Import Keystore", "Import Truststore" };
+            "Available CA Providers", "Import KeyStore", "Import TrustStore" };
     private static final int TABINDEX_CREATECSR = 1;
     private int importWizardTabIndex = 0;
     private Map<String, String> caProperties = null;
@@ -790,9 +790,9 @@ public class CertficateBean {
             response = service.importToKeystore(alias, uploadedFileServer, null, null);
         }
         if (null == response) {
-            HelperUtil.addMessageError(null, "Fail to import to temporary keystore.");
+            HelperUtil.addMessageError(null, "Fail to import to temporary KeyStore.");
         } else if (response.isStatus()) {
-            HelperUtil.addMessageInfo(null, "Import to temporary keystore is successful: " + alias);
+            HelperUtil.addMessageInfo(null, "Import to temporary KeyStore is successful: " + alias);
         } else {
             HelperUtil.addMessageError(null, response.getMessage());
         }
@@ -836,9 +836,9 @@ public class CertficateBean {
             uploadedFileRoot);
 
         if (null == response) {
-            HelperUtil.addMessageError(null, "Fail to import to temporary truststore.");
+            HelperUtil.addMessageError(null, "Fail to import to temporary TrustStore.");
         } else if (response.isStatus()) {
-            HelperUtil.addMessageInfo(null, "Import to temporary truststore is successful");
+            HelperUtil.addMessageInfo(null, "Import to temporary TrustStore is successful");
         } else {
             HelperUtil.addMessageError(null, response.getMessage());
         }

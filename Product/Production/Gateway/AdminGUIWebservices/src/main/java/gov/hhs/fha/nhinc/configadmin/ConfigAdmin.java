@@ -422,7 +422,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
         String alias = request.getAlias();
         if(StringUtils.isBlank(alias)){
-            return buildSimpleResponse(false, "alias is required.");
+            return buildSimpleResponse(false, "Alias is required.");
         }
 
         // keytool -certreq -alias gateway -keystore gateway.jks -file gateway-yyyyMMdd.csr
@@ -437,8 +437,8 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             response.setCsrData(certPem);
             return response;
         } catch (Exception e) {
-            LOG.error("error while generating the csr: {}", alias, e);
-            return buildSimpleResponse(false, "fail to generate the csr: " + alias);
+            LOG.error("Error occured while generating the certificate signing request(CSR): {}", alias, e);
+            return buildSimpleResponse(false, "Fail to generate the certificate signing request(CSR): " + alias);
         }
 
     }
@@ -461,12 +461,12 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         if (StringUtils.isBlank(alias) || StringUtils.isBlank(ou) || StringUtils.isBlank(o) || StringUtils.isBlank(c)
             || StringUtils.isBlank(cn)) {
             return buildSimpleResponse(false,
-                "Alias, Organizational Unit, Organization, Country Name and Common Name are required.");
+                "Alias, Organizational Unit(OU), Organization(o), Country Name(C) and Common Name(CN) are required.");
         }
 
         tempKeystore = null;
         if (!copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW)) {
-            return buildSimpleResponse(false, "unable to make a copy of gateway-jks.");
+            return buildSimpleResponse(false, "Unable to make a copy of gateway-jks.");
         }
         // keytool -genkey -alias gateway -keyalg RSA -keystore gateway.jks -dname CN=<reference number>, OU=NHIN,
         // O=HHS-ONC, C=US -validity 365 -keysize 2048
@@ -483,8 +483,8 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 CoreHelpUtils.getCertificateChain(x509cert));
             CoreHelpUtils.saveJksTo(jksGatewayNew, getPasswordKeystore(), FILE_JKS_GATEWAY_NEW);
         } catch (Exception e) {
-            LOG.error("error while generating the certificate for gateway_new.jks: {}", alias, e);
-            return buildSimpleResponse(false, "fail to generate the certificate: " + alias);
+            LOG.error("Error occured while generating the certificate for temporary KeyStore: {}", alias, e);
+            return buildSimpleResponse(false, "Fail to generate the certificate: " + alias);
         }
         return buildSimpleResponse(true, ACT_SUCCESSFUL);
 
@@ -652,13 +652,13 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
         tempKeystore = null;
         if (!copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW)) {
-            return buildSimpleResponse(false, "Unable to copy keystore to temporary file.");
+            return buildSimpleResponse(false, "Unable to copy KeyStore to temporary file.");
         }
 
         try {
             Certificate publicKey = CertificateUtil.createCertificate(request.getServerCert());
             if (null == publicKey) {
-                return buildSimpleResponse(false, "Server certificate was not upload.");
+                return buildSimpleResponse(false, "Server certificate was not uploaded.");
             }
 
             if (null != request.getRootCert() && CollectionUtils.isNotEmpty(request.getIntermediateList())) {
@@ -684,10 +684,10 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 CoreHelpUtils.getCertificateChain(publicKey));
             CoreHelpUtils.saveJksTo(getTempKeystore(), getPasswordKeystore(), FILE_JKS_GATEWAY_NEW);
         } catch (CertificateManagerException | UtilException | KeyStoreException | CertificateEncodingException e) {
-            LOG.error("Error occurred importing to keystore: {}", e.getLocalizedMessage(), e);
-            return buildSimpleResponse(false, "Error occurred importing to keystore.");
+            LOG.error("Error occurred importing to KeyStore: {}", e.getLocalizedMessage(), e);
+            return buildSimpleResponse(false, "Error occurred importing to KeyStore.");
         }
-        return buildSimpleResponse(true, "Import to Keystore is successful.");
+        return buildSimpleResponse(true, "Import to KeyStore is successful.");
     }
 
     /*
@@ -705,7 +705,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         }
         tempTruststore = null;
         if(!copyFile(FILE_JKS_CACERTS, FILE_JKS_CACERTS_NEW)){
-            return buildSimpleResponse(false, "Unable to create the temporary Truststore.");
+            return buildSimpleResponse(false, "Unable to create the temporary TrustStore.");
         }
         try{
             String alias = request.getAlias();
@@ -717,7 +717,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                     CertificateUtil.createCertificate(cert));
             }
             if (MapUtils.isEmpty(mapCerts) || null == certRoot) {
-                return buildSimpleResponse(false, "Error creating certificate chain for truststore.");
+                return buildSimpleResponse(false, "Error creating certificate chain for TrustStore.");
             }
 
             Certificate certAlias = CertificateManagerImpl.getInstance().getCertificateBy(alias);
@@ -733,11 +733,11 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
             CoreHelpUtils.saveJksTo(getTempTruststore(), getPasswordTruststore(), FILE_JKS_CACERTS_NEW);
         }catch(CertificateManagerException | KeyStoreException | UtilException | CertificateEncodingException e){
-            LOG.error("Error occurred while importing to the temporary truststore: {}", e.getLocalizedMessage(), e);
-            return buildSimpleResponse(false, "Error occurred while importing to the temporary truststore.");
+            LOG.error("Error occurred while importing to the temporary TrustStore: {}", e.getLocalizedMessage(), e);
+            return buildSimpleResponse(false, "Error occurred while importing to the temporary TrustStore.");
         }
 
-        return buildSimpleResponse(true, "Import into the temporary truststore is successful.");
+        return buildSimpleResponse(true, "Import into the temporary TrustStore is successful.");
     }
 
     private static void savePrivateKey(String alias, PrivateKey privatekey, String password)
@@ -754,7 +754,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             pem.writeObject(pkcs8.generate());
             pem.flush();
         } catch (IOException | OperatorCreationException e) {
-            throw new CertificateManagerException("Error saving the privatekey to disk.", e);
+            throw new CertificateManagerException("Error saving the privatekey to file.", e);
         }
     }
 
