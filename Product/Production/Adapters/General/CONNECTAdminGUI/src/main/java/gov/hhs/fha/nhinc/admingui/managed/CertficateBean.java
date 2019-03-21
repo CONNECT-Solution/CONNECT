@@ -111,7 +111,7 @@ public class CertficateBean {
 
     private String alias;
     private String exchangeType;
-    private String referenceNumber;
+    private String commonName;
     private String organizationalUnit;
     private String organization;
     private String countryName;
@@ -119,10 +119,9 @@ public class CertficateBean {
     private PropertyService propertyService = new PropertyServiceImpl();
     private String csrText;
     private String csrFileType;
-    private String[] tabTitles = new String[] { "Create Certificate", "Create CSR", "View CSR", "Info CA",
-            "Import Keystore", "Import Truststore" };
+    private String[] tabTitles = new String[] { "Create Certificate", "Certificate Signing Request",
+            "Available CA Providers", "Import KeyStore", "Import TrustStore" };
     private static final int TABINDEX_CREATECSR = 1;
-    private static final int TABINDEX_VIEWCSR = 2;
     private int importWizardTabIndex = 0;
     private Map<String, String> caProperties = null;
     private Map<String, String> caLinks = null;
@@ -319,8 +318,8 @@ public class CertficateBean {
     public void openTrustStorePasskeyDlgForImport() throws CertificateManagerException {
         if (selectedCertificate == null) {
             HelperUtil.addMessageError(IMPORT_PASS_ERR_MSG_ID, "Select certificate for import");
-        } else if (StringUtils.isBlank(selectedCertificate.getAlias()) || ALIAS_PLACEHOLDER.equals(selectedCertificate.
-            getAlias())) {
+        } else if (StringUtils.isBlank(selectedCertificate.getAlias())
+            || ALIAS_PLACEHOLDER.equals(selectedCertificate.getAlias())) {
             HelperUtil.addMessageError(IMPORT_PASS_ERR_MSG_ID, "Enter an alias for the certificate");
         } else if (isHashTokenEmpty()) {
             execPFShowDialog("importPassKeyDlg");
@@ -465,8 +464,8 @@ public class CertficateBean {
     private boolean deleteCertificate(String hashToken) {
         boolean deleteStatus = false;
         try {
-            SimpleCertificateResponseMessageType response = service.deleteCertificateFromTrustStore(
-                selectedTSCertificate.getAlias(), hashToken);
+            SimpleCertificateResponseMessageType response = service
+                .deleteCertificateFromTrustStore(selectedTSCertificate.getAlias(), hashToken);
             deleteStatus = response.isStatus();
             if (deleteStatus) {
                 refreshCerts();
@@ -624,12 +623,12 @@ public class CertficateBean {
         }
     }
 
-    public String getReferenceNumber() {
-        return referenceNumber;
+    public String getCommonName() {
+        return commonName;
     }
 
-    public void setReferenceNumber(String referenceNumber) {
-        this.referenceNumber = referenceNumber;
+    public void setCommonName(String commonName) {
+        this.commonName = commonName;
     }
 
     public String getOrganizationalUnit() {
@@ -665,13 +664,13 @@ public class CertficateBean {
     }
 
     public void createCertificate() {
-        if (StringUtils.isBlank(getAlias()) || StringUtils.isBlank(getReferenceNumber())
+        if (StringUtils.isBlank(getAlias()) || StringUtils.isBlank(getCommonName())
             || StringUtils.isBlank(getOrganizationalUnit()) || StringUtils.isBlank(getOrganization())
             || StringUtils.isBlank(getCountryName())) {
             HelperUtil.addMessageError(null, "Required fields cannot be empty when creating certificate.");
         }
 
-        boolean status = service.createCertificate(getAlias(), getReferenceNumber(), getOrganizationalUnit(),
+        boolean status = service.createCertificate(getAlias(), getCommonName(), getOrganizationalUnit(),
             getOrganization(), getCountryName());
         if (status) {
             HelperUtil.addMessageInfo(null,
@@ -690,14 +689,12 @@ public class CertficateBean {
         SimpleCertificateResponseMessageType response = service.createCSR(getAlias());
 
         if (null != response && response.isStatus()) {
-            HelperUtil.addMessageInfo(null,
-                MessageFormat.format("Successfully created CSR for: {0}", getAlias()));
-            if(null != response.getCsrData()){
+            HelperUtil.addMessageInfo(null, MessageFormat.format("Successfully created CSR for: {0}", getAlias()));
+            if (null != response.getCsrData()) {
                 DataHandler data = response.getCsrData();
                 try {
                     csrText = IOUtils.toString(data.getInputStream());
                     csrFileType = data.getContentType();
-                    importWizardTabIndex = TABINDEX_VIEWCSR;
                 } catch (IOException e) {
                     LOG.error(ERROR_INPUTSTREAM, e.getLocalizedMessage(), e);
                     HelperUtil.addMessageError(null, ERROR_INPUTSTREAM);
@@ -735,7 +732,7 @@ public class CertficateBean {
     private void clearImportWizard() {
         alias = null;
         exchangeType = null;
-        referenceNumber = null;
+        commonName = null;
         organization = null;
         organizationalUnit = null;
         countryName = null;
@@ -793,9 +790,9 @@ public class CertficateBean {
             response = service.importToKeystore(alias, uploadedFileServer, null, null);
         }
         if (null == response) {
-            HelperUtil.addMessageError(null, "Fail to import to temporary keystore.");
+            HelperUtil.addMessageError(null, "Fail to import to temporary KeyStore.");
         } else if (response.isStatus()) {
-            HelperUtil.addMessageInfo(null, "Import to temporary keystore is successful: " + alias);
+            HelperUtil.addMessageInfo(null, "Import to temporary KeyStore is successful: " + alias);
         } else {
             HelperUtil.addMessageError(null, response.getMessage());
         }
@@ -839,9 +836,9 @@ public class CertficateBean {
             uploadedFileRoot);
 
         if (null == response) {
-            HelperUtil.addMessageError(null, "Fail to import to temporary truststore.");
+            HelperUtil.addMessageError(null, "Fail to import to temporary TrustStore.");
         } else if (response.isStatus()) {
-            HelperUtil.addMessageInfo(null, "Import to temporary truststore is successful");
+            HelperUtil.addMessageInfo(null, "Import to temporary TrustStore is successful");
         } else {
             HelperUtil.addMessageError(null, response.getMessage());
         }
@@ -886,6 +883,13 @@ public class CertficateBean {
 
     public void onTabChangeImportWizard(TabChangeEvent event) {
         importWizardTabIndex = findTabIndexBy(event.getTab().getTitle());
+    }
+
+    public void clearImport() {
+        alias = null;
+        certServer = null;
+        certRoot = null;
+        listIntermediate = null;
     }
 
     public void clearIntermediate() {

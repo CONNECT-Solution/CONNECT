@@ -465,13 +465,13 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     @Override
-    public boolean createCertificate(String alias, String referenceNumber, String organizationalUnit,
+    public boolean createCertificate(String alias, String commonName, String organizationalUnit,
         String organization, String countryName) {
         boolean status = false;
         try {
             CreateCertificateRequestMessageType request = new CreateCertificateRequestMessageType();
             request.setAlias(alias);
-            request.setReferenceNumber(referenceNumber);
+            request.setCommonName(commonName);
             request.setOrganizationalUnit(organizationalUnit);
             request.setOrganization(organization);
             request.setCountryName(countryName);
