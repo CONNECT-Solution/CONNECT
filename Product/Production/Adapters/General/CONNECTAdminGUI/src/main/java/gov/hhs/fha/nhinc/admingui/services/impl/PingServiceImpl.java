@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.admingui.util.ConnectionHelper;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointConfigurationType;
 import gov.hhs.fha.nhinc.exchange.directory.EndpointType;
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -67,6 +68,7 @@ public class PingServiceImpl implements PingService {
     private static final String WSDL_SUFFIX = "?wsdl";
     private static final String LOG_WSDL_KEY = "logWsdlPing";
     private static final String MSG_EXCEPTION_TIMEOUT = "Connection timed out";
+    private static final String MSG_EXCEPTION_REFUSED = "Connection refused";
     public static final boolean IGNORE_DEADHOST = true;
 
     private Set<String> deadhostList = new HashSet<>();
@@ -85,13 +87,14 @@ public class PingServiceImpl implements PingService {
                 logWsdl(readInputStreamFrom(con));
                 con.disconnect();
             } else {
-                LOG.warn("skipping ping known dead host: {}", url);
+                LOG.warn("Skipping ping of known dead host: {}", url);
             }
         } catch (IOException ex) {
             LOG.warn("Problem pinging endpoint: {}", ex.getLocalizedMessage());
             LOG.trace("Problem pinging endpoint: {}", ex.getLocalizedMessage(), ex);
 
-            if (null == responseCode && null != webserviceUrl && ex.getMessage().indexOf(MSG_EXCEPTION_TIMEOUT) > -1) {
+            if (null == responseCode && null != webserviceUrl && (ex.getMessage().indexOf(MSG_EXCEPTION_TIMEOUT) > -1
+                || ex.getMessage().indexOf(MSG_EXCEPTION_REFUSED) > -1)) {
                 deadhostList.add(getStringHostPort(webserviceUrl.getHost(), webserviceUrl.getPort()));
             }
         }
@@ -166,14 +169,19 @@ public class PingServiceImpl implements PingService {
         resetDeadhostList();
 
         ConnectionHelper cHelper = new ConnectionHelper();
-        OrganizationType localOrg = cHelper.getLocalOrganization();
-        List<EndpointType> endpoints = ExchangeManagerHelper.getEndpointTypeBy(localOrg);
+        try {
+            OrganizationType localOrg = cHelper.getLocalOrganizationFromDefaultExchange();
+            List<EndpointType> endpoints = ExchangeManagerHelper.getEndpointTypeBy(localOrg);
 
-        if (localOrg != null && CollectionUtils.isNotEmpty(endpoints)) {
-            for (NhincConstants.NHIN_SERVICE_NAMES name : NhincConstants.NHIN_SERVICE_NAMES.values()) {
-                services.addAll(getAvailableServiceFrom(localOrg, name.getUDDIServiceName()));
+            if (localOrg != null && CollectionUtils.isNotEmpty(endpoints)) {
+                for (NhincConstants.NHIN_SERVICE_NAMES name : NhincConstants.NHIN_SERVICE_NAMES.values()) {
+                    services.addAll(getAvailableServiceFrom(localOrg, name.getUDDIServiceName()));
+                }
             }
+        } catch (ExchangeManagerException e) {
+            LOG.error("Unable to build services for dashboard.", e);
         }
+
         return services;
     }
 
