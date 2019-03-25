@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.admingui.util;
 import static gov.hhs.fha.nhinc.util.HomeCommunityMap.getHomeCommunityWithoutPrefix;
 
 import gov.hhs.fha.nhinc.exchange.directory.OrganizationType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -174,6 +175,33 @@ public class ConnectionHelper {
                 if (organization != null){
                     organizationMap.put(getOrganizationName(organization), organization.getHcid());
                 }
+            }
+        }
+        return organizationMap;
+    }
+
+    public OrganizationType getLocalOrganizationFromDefaultExchange() throws ExchangeManagerException {
+        OrganizationType localEntity = null;
+        Map<String, OrganizationType> organizationMap = getOrganizationsFromDefaultExchange();
+        if (organizationMap != null && !organizationMap.isEmpty()) {
+            Iterator<Map.Entry<String, OrganizationType>> it = organizationMap.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry<String, OrganizationType> entry = it.next();
+                if (checkLocalHcid(entry.getValue().getHcid())) {
+                    localEntity = entry.getValue();
+                }
+            }
+        }
+        return localEntity;
+    }
+
+    public Map<String, OrganizationType> getOrganizationsFromDefaultExchange() throws ExchangeManagerException {
+        Map<String, OrganizationType> organizationMap = new HashMap<>();
+        ExchangeManager exchangeManager = ExchangeManager.getInstance();
+        List<OrganizationType> organizations = exchangeManager.getAllOrganizations(exchangeManager.getDefaultExchange());
+        if (NullChecker.isNotNullish(organizations)) {
+            for (OrganizationType organization : organizations) {
+                organizationMap.put(getOrganizationHcid(organization), organization);
             }
         }
         return organizationMap;

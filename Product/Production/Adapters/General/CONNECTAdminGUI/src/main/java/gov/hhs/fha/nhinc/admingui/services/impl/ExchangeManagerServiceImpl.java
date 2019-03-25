@@ -90,6 +90,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
     private static final String DATE_FORMAT = "MM-dd-yy HH:mm:ss";
     private static final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
     private static CONNECTClient<EntityExchangeManagementPortType> client = null;
+    private EndpointManagerCache endpointCache = new EndpointManagerCache();
 
     @Override
     public boolean saveExchange(ExchangeType exchange, String existingExchangeName) {
@@ -119,6 +120,11 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
             SimpleExchangeManagementResponseMessageType response = (SimpleExchangeManagementResponseMessageType) invokeClientPort(
                 ADMIN_EXCHANGE_DELETE, request);
             logDebug(ADMIN_EXCHANGE_DELETE, response.isStatus(), response.getMessage());
+
+            if (response.isStatus()) {
+                endpointCache.deleteCache(exchangeName);
+            }
+
             return response.isStatus();
         } catch (Exception e) {
             LOG.error("error during delete-exchange: {}", e.getLocalizedMessage(), e);
@@ -189,15 +195,15 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
                 int httpCode = 0;
                 String url = epConf.getUrl();
 
-                EndpointManagerCache.EndpointCacheInfo info = EndpointManagerCache.getInstance()
-                    .getEndpointInfo(exchangeName, HelperUtil.getHashCodeBy(hcid, url));
+                EndpointManagerCache.EndpointCacheInfo info = endpointCache.getEndpointInfo(exchangeName,
+                    HelperUtil.getHashCodeBy(hcid, url));
 
                 if (info != null) {
                     timestamp = HelperUtil.getDate(DATE_FORMAT, info.getTimestamp());
                     httpCode = info.getHttpCode();
                 }
                 endpoints.add(
-                    new ConnectionEndpoint(endpoint.getName().get(0), url, epConf.getVersion(), httpCode,
+                    new ConnectionEndpoint(endpoint.getName().get(0), url, epConf.getVersion(), hcid, httpCode,
                         timestamp));
 
             }
@@ -265,7 +271,7 @@ public class ExchangeManagerServiceImpl implements ExchangeManagerService {
         if (null != connEndpoint) {
             connEndpoint.setResponseCode(pingService.ping(connEndpoint.getServiceUrl(), IGNORE_DEADHOST));
             connEndpoint.setPingTimestamp(HelperUtil.getDateNow(DATE_FORMAT));
-            EndpointManagerCache.getInstance().addOrUpdateEndpoint(
+            endpointCache.addOrUpdateEndpoint(
                 exchangeName, HelperUtil.getHashCodeBy(hcid, connEndpoint.getServiceUrl()),
                 connEndpoint.getServiceUrl(),
                 new Date(),
