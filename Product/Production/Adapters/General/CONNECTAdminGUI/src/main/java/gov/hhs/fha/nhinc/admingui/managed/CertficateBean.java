@@ -899,4 +899,17 @@ public class CertficateBean {
     public boolean getDisableActionCsr() {
         return StringUtils.isBlank(csrText);
     }
+
+    public void completeImportWizard() {
+        SimpleCertificateResponseMessageType response = service.completeImportWizard();
+        if (null != response) {
+            if (response.isStatus()) {
+                HelperUtil.addMessageInfo(null, response.getMessage());
+            } else {
+                HelperUtil.addMessageError(null, response.getMessage());
+            }
+        } else {
+            HelperUtil.addMessageError(null, "Error occured while calling completeImportWizard.");
+        }
+    }
 }

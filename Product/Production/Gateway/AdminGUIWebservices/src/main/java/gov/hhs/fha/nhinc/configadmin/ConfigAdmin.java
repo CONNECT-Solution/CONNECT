@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil;
+import gov.hhs.fha.nhinc.common.configadmin.CompleteImportWizardRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCSRRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
@@ -130,14 +131,9 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     private static final String UPDATE_CERTIFICATE_SUCCESS = "Update certificate success";
     private static final String INVALID_USER = "Bad token or Mismatch token";
-    private static final String DIR_NHINC_PROPERTIES_TEMP = System.getProperty("nhinc.properties.dir") + "/tmp";
+    private static final String DIR_NHINC_PROPERTIES = System.getProperty("nhinc.properties.dir");
     private static final String FILE_JKS_GATEWAY = System.getProperty("javax.net.ssl.keyStore");
-    private static final String FILE_JKS_GATEWAY_NEW = MessageFormat.format("{0}/{1}", DIR_NHINC_PROPERTIES_TEMP,
-        "gateway_new.jks");
-    private static final String FILE_JKS_CACERTS_NEW = MessageFormat.format("{0}/{1}", DIR_NHINC_PROPERTIES_TEMP,
-        "cacerts_new.jks");
     private static final String FILE_JKS_CACERTS = System.getProperty("javax.net.ssl.trustStore");
-    private static final String FILE_PRIVATEKEY_FORMAT = DIR_NHINC_PROPERTIES_TEMP + "/{0}_privatekey.pem";
     private static final String VALIDITY = "certificate.validity";
     private static final String KEYSIZE = "certificate.keysize";
     private static final String ACT_SUCCESSFUL = "successful";
@@ -149,8 +145,17 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConfigAdmin.class);
     private static final PropertyAccessor prop = PropertyAccessor.getInstance();
+
+    private static final String FOLDER_BACKUP = "importWizard/backup";
+    private static final String FOLDER_NEW = "importWizard/new";
+    private static final String FOLDER_TEMP = "importWizard/temp";
+    private String filenameKeystore = null;
+    private String filenameTruststore = null;
     private KeyStore tempKeystore = null;
     private KeyStore tempTruststore = null;
+    private String tempKeystorePath = null;
+    private String tempTruststorePath = null;
+
     @Override
     public SimpleCertificateResponseMessageType importCertificate(
         ImportCertificateRequestMessageType importCertificateRequest) {
@@ -465,7 +470,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         }
 
         tempKeystore = null;
-        if (!copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW)) {
+        if (!copyFile(FILE_JKS_GATEWAY, getTempKeystorePath())) {
             return buildSimpleResponse(false, "Unable to make a copy of gateway-jks.");
         }
         // keytool -genkey -alias gateway -keyalg RSA -keystore gateway.jks -dname CN=<reference number>, OU=NHIN,
@@ -481,7 +486,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             }
             jksGatewayNew.setKeyEntry(alias, pair.getPrivate(), getPasswordKeystore().toCharArray(),
                 CoreHelpUtils.getCertificateChain(x509cert));
-            CoreHelpUtils.saveJksTo(jksGatewayNew, getPasswordKeystore(), FILE_JKS_GATEWAY_NEW);
+            CoreHelpUtils.saveJksTo(jksGatewayNew, getPasswordKeystore(), getTempKeystorePath());
         } catch (Exception e) {
             LOG.error("Error occured while generating the certificate for temporary KeyStore: {}", alias, e);
             return buildSimpleResponse(false, "Fail to generate the certificate: " + alias);
@@ -499,23 +504,24 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     private KeyStore getTempKeystore() throws CertificateManagerException {
         if (null == tempKeystore) {
-            File destinationFile = new File(FILE_JKS_GATEWAY_NEW);
+            File destinationFile = new File(getTempKeystorePath());
             if(!destinationFile.exists()){
-                copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW);
+                copyFile(FILE_JKS_GATEWAY, getTempKeystorePath());
             }
             tempKeystore = CertificateUtil.loadKeyStore(CertificateManagerImpl.JKS_TYPE, getPasswordKeystore(),
-                FILE_JKS_GATEWAY_NEW);
+                getTempKeystorePath());
         }
         return tempKeystore;
     }
 
     private KeyStore getTempTruststore() throws CertificateManagerException {
         if (null == tempTruststore) {
-            File destinationFile = new File(FILE_JKS_CACERTS_NEW);
+            File destinationFile = new File(getTempTrustorePath());
             if(!destinationFile.exists()){
-                copyFile(FILE_JKS_CACERTS, FILE_JKS_CACERTS_NEW);
+                copyFile(FILE_JKS_CACERTS, getTempTrustorePath());
             }
-            tempTruststore = CertificateUtil.loadKeyStore(CertificateManagerImpl.JKS_TYPE,                getPasswordTruststore(), FILE_JKS_CACERTS_NEW);
+            tempTruststore = CertificateUtil.loadKeyStore(CertificateManagerImpl.JKS_TYPE, getPasswordTruststore(),
+                getTempTrustorePath());
         }
         return tempTruststore;
     }
@@ -613,22 +619,26 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     @Override
     public SimpleCertificateResponseMessageType deleteTemporaryKeystore(
         DeleteTemporaryKeystoreRequestMessageType request) {
-        File tmpFolder = new File(DIR_NHINC_PROPERTIES_TEMP);
-
         boolean deleted = false;
-        if (tmpFolder.exists()) {
-            try {
-                FileUtils.deleteDirectory(tmpFolder);
-                deleted = true;
-            } catch (IOException e) {
-                LOG.error("Error while cleaning up the tmp folder: {}", e.getLocalizedMessage(), e);
-                return buildSimpleResponse(false, "Error while cleaning up the temporary folder.");
-            }
+        try {
+            deleted = deleteFolder(getPathFolder(FOLDER_TEMP));
+        } catch (IOException e) {
+            LOG.error("Error occured while cleaning up the Temporary folder: {}", FOLDER_TEMP, e);
+            return buildSimpleResponse(false, "Error while occurred cleaning up the temporary folder.");
         }
 
         return buildSimpleResponse(deleted,
             deleted ? "Temporary files were deleted successfully."
                 : "Temporary files did not exist. Skipping temporary file cleanup.");
+    }
+
+    private boolean deleteFolder(String pathFolder) throws IOException {
+        File tmpFolder = new File(pathFolder);
+        if (tmpFolder.exists()) {
+            FileUtils.deleteDirectory(tmpFolder);
+            return true;
+        }
+        return false;
     }
 
     /*
@@ -651,7 +661,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         }
 
         tempKeystore = null;
-        if (!copyFile(FILE_JKS_GATEWAY, FILE_JKS_GATEWAY_NEW)) {
+        if (!copyFile(FILE_JKS_GATEWAY, getTempKeystorePath())) {
             return buildSimpleResponse(false, "Unable to copy KeyStore to temporary file.");
         }
 
@@ -682,7 +692,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
             getTempKeystore().setKeyEntry(alias, privateKey, getPasswordKeystore().toCharArray(),
                 CoreHelpUtils.getCertificateChain(publicKey));
-            CoreHelpUtils.saveJksTo(getTempKeystore(), getPasswordKeystore(), FILE_JKS_GATEWAY_NEW);
+            CoreHelpUtils.saveJksTo(getTempKeystore(), getPasswordKeystore(), getTempKeystorePath());
         } catch (CertificateManagerException | UtilException | KeyStoreException | CertificateEncodingException e) {
             LOG.error("Error occurred while importing to KeyStore: {}", e.getLocalizedMessage(), e);
             return buildSimpleResponse(false, "Error occurred while importing to KeyStore.");
@@ -704,7 +714,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             return buildSimpleResponse(false, "Alias, CA Root and CA Intermediate are required.");
         }
         tempTruststore = null;
-        if(!copyFile(FILE_JKS_CACERTS, FILE_JKS_CACERTS_NEW)){
+        if (!copyFile(FILE_JKS_CACERTS, getTempTrustorePath())) {
             return buildSimpleResponse(false, "Unable to create the temporary TrustStore.");
         }
         try{
@@ -731,7 +741,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 getTempTruststore().setCertificateEntry(entryCert.getKey(), entryCert.getValue());
             }
 
-            CoreHelpUtils.saveJksTo(getTempTruststore(), getPasswordTruststore(), FILE_JKS_CACERTS_NEW);
+            CoreHelpUtils.saveJksTo(getTempTruststore(), getPasswordTruststore(), getTempTrustorePath());
         }catch(CertificateManagerException | KeyStoreException | UtilException | CertificateEncodingException e){
             LOG.error("Error occurred while importing to the temporary TrustStore: {}", e.getLocalizedMessage(), e);
             return buildSimpleResponse(false, "Error occurred while importing to the temporary TrustStore.");
@@ -742,9 +752,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     private static void savePrivateKey(String alias, PrivateKey privatekey, String password)
         throws CertificateManagerException {
-        String filePrivateKey = MessageFormat.format(FILE_PRIVATEKEY_FORMAT, alias);
-
-        try (FileWriter fos = new FileWriter(filePrivateKey); JcaPEMWriter pem = new JcaPEMWriter(fos)) {
+        try (FileWriter fos = new FileWriter(getPathPrivateKey(alias)); JcaPEMWriter pem = new JcaPEMWriter(fos)) {
             JceOpenSSLPKCS8EncryptorBuilder encryptBuilder = new JceOpenSSLPKCS8EncryptorBuilder(
                 PKCS8Generator.PBE_SHA1_3DES);
             encryptBuilder.setRandom(new SecureRandom());
@@ -759,9 +767,8 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     }
 
     private static PrivateKey readPrivateKey(String alias, String password) {
-        String filePrivateKey = MessageFormat.format(FILE_PRIVATEKEY_FORMAT, alias);
-
-        try (FileReader reader = new FileReader(filePrivateKey); PEMParser pemParser = new PEMParser(reader)) {
+        try (FileReader reader = new FileReader(getPathPrivateKey(alias));
+            PEMParser pemParser = new PEMParser(reader)) {
             JceOpenSSLPKCS8DecryptorProviderBuilder decryptBuilder = new JceOpenSSLPKCS8DecryptorProviderBuilder();
             KeyFactory keyFactory = KeyFactory.getInstance("RSA", "BC");
 
@@ -783,6 +790,107 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     private static String getPasswordTruststore() {
         return System.getProperty(CertificateManagerImpl.TRUST_STORE_PASSWORD_KEY);
+    }
+
+    @Override
+    public SimpleCertificateResponseMessageType completeImportWizard(CompleteImportWizardRequestMessageType request) {
+        String pathBackupKeystore = getPathKeystore(FOLDER_BACKUP);
+        String pathBackupTruststore = getPathTruststore(FOLDER_BACKUP);
+        String pathNewKeystore = getPathKeystore(FOLDER_NEW);
+        String pathNewTruststore = getPathTruststore(FOLDER_NEW);
+
+        File tempFolder = new File(getPathFolder(FOLDER_TEMP));
+        if (!tempFolder.exists()) {
+            return buildSimpleResponse(false, "Temporary folder does not exist.");
+        }
+
+        try {
+            deleteFolder(getPathFolder(FOLDER_BACKUP));
+            deleteFolder(getPathFolder(FOLDER_NEW));
+        } catch (IOException ex) {
+            LOG.error("Error occured while cleaning up the import folders: {}, {}", FOLDER_BACKUP, FOLDER_NEW, ex);
+            return buildSimpleResponse(false, "Error while occurred cleaning up the import folders.");
+        }
+
+        // backup the original
+        if (!copyFile(FILE_JKS_GATEWAY, pathBackupKeystore)) {
+            return buildSimpleResponse(false, "Error occured while backup KeyStore.");
+        }
+        if (!copyFile(FILE_JKS_CACERTS, pathBackupTruststore)) {
+            return buildSimpleResponse(false, "Error occured while backup TrustStore.");
+        }
+        // make copy of new KeyStore and TrustStore
+        if (!copyFile(getTempKeystorePath(), pathNewKeystore)) {
+            return buildSimpleResponse(false, "Error occured while copy new KeyStore.");
+        }
+
+
+        File fileTemp = new File(getTempTrustorePath());
+        if (!fileTemp.exists()){
+            copyFile(FILE_JKS_CACERTS, pathNewTruststore);
+        }else{
+            if(!copyFile(getTempTrustorePath(), pathNewTruststore)) {
+                return buildSimpleResponse(false, "Error occured while copy new TrustStore.");
+            }
+        }
+
+        try {
+            deleteFolder(getPathFolder(FOLDER_TEMP));
+        } catch (IOException ex) {
+            LOG.error("Error occured while cleaning up the temporary folder: {}", FOLDER_TEMP, ex);
+            return buildSimpleResponse(false, "Error while occurred cleaning up the import folders.");
+        }
+
+        return buildSimpleResponse(true,
+            MessageFormat.format(
+                "Please go to the server {0}. Go to importWizard/new, copy and replace the KeyStore and TrustStore (server restart required).",
+                DIR_NHINC_PROPERTIES));
+    }
+
+    private String getFilenameKeystore() {
+        if (null == filenameKeystore) {
+            File file = new File(FILE_JKS_GATEWAY);
+            filenameKeystore = file.getName();
+        }
+        return filenameKeystore;
+    }
+
+    private String getFilenameTruststore() {
+        if (null == filenameTruststore) {
+            File file = new File(FILE_JKS_CACERTS);
+            filenameTruststore = file.getName();
+        }
+        return filenameTruststore;
+    }
+
+    private String getPathFolder(String folder) {
+        return MessageFormat.format("{0}/{1}", DIR_NHINC_PROPERTIES, folder);
+    }
+
+    private String getPathKeystore(String folder) {
+        return MessageFormat.format("{0}/{1}/{2}", DIR_NHINC_PROPERTIES, folder, getFilenameKeystore());
+    }
+
+    private String getPathTruststore(String folder) {
+        return MessageFormat.format("{0}/{1}/{2}", DIR_NHINC_PROPERTIES, folder, getFilenameTruststore());
+    }
+
+    private String getTempKeystorePath() {
+        if (null == tempKeystorePath) {
+            tempKeystorePath = getPathKeystore(FOLDER_TEMP);
+        }
+        return tempKeystorePath;
+    }
+
+    private String getTempTrustorePath() {
+        if (null == tempTruststorePath) {
+            tempTruststorePath = getPathTruststore(FOLDER_TEMP);
+        }
+        return tempTruststorePath;
+    }
+
+    private static String getPathPrivateKey(String alias) {
+        return MessageFormat.format("{0}/{1}/{2}_privatekey.pem", DIR_NHINC_PROPERTIES, FOLDER_TEMP, alias);
     }
 
 }
