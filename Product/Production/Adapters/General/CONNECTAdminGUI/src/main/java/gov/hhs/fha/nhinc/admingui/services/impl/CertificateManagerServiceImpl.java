@@ -42,6 +42,7 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil;
 import gov.hhs.fha.nhinc.callback.opensaml.X509CertificateHelper;
+import gov.hhs.fha.nhinc.common.configadmin.CompleteImportWizardRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCSRRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
@@ -536,6 +537,24 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
                 AdminWSConstants.ADMIN_CERT_IMPORT_TOTRUSTSTORE, request);
         } catch (Exception ex) {
             LOG.error("error importing to trust for: {}", alias, ex);
+        }
+        return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.admingui.services.CertificateManagerService#completeImportWizard()
+     */
+    @Override
+    public SimpleCertificateResponseMessageType completeImportWizard() {
+        try {
+            CompleteImportWizardRequestMessageType request = new CompleteImportWizardRequestMessageType();
+            request.setConfigAssertion(buildConfigAssertion());
+            return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
+                AdminWSConstants.ADMIN_CERT_COMPLETE_IMPORTWIZARD, request);
+        } catch (Exception ex) {
+            LOG.error("Error occured while calling completeImportWizard webservice: {}", ex.getLocalizedMessage(), ex);
         }
         return null;
     }

@@ -82,4 +82,6 @@ public interface CertificateManagerService {
     public SimpleCertificateResponseMessageType importToTruststore(String alias,
         Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile);
 
+    public SimpleCertificateResponseMessageType completeImportWizard();
+
 }
