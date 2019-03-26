@@ -801,7 +801,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
         File tempFolder = new File(getPathFolder(FOLDER_TEMP));
         if (!tempFolder.exists()) {
-            return buildSimpleResponse(false, "The import process had not started yet.");
+            return buildSimpleResponse(false, "The import process has not been started yet.");
         }
 
         try {
