@@ -30,7 +30,6 @@ import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFHideDialog;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.execPFShowDialog;
 import static gov.hhs.fha.nhinc.admingui.util.HelperUtil.getHashCodeBy;
 
-import gov.hhs.fha.nhinc.admingui.application.EndpointManagerCache;
 import gov.hhs.fha.nhinc.admingui.comparators.ExchangesComparator;
 import gov.hhs.fha.nhinc.admingui.comparators.OrganizationsComparator;
 import gov.hhs.fha.nhinc.admingui.model.ConnectionEndpoint;
@@ -155,7 +154,6 @@ public class ExchangeManagerBean {
     }
 
     public String getOrgDescription() {
-        LOG.debug("organization-description does not exist need to be modified once decided.");
         if (null == orgFilter) {
             return DEFAULT_VALUE;
         }
@@ -328,7 +326,6 @@ public class ExchangeManagerBean {
             bDelete = exchangeService.deleteExchange(selectedExchange.getName());
             if (bDelete) {
                 modifiedExchangesCache();
-                EndpointManagerCache.getInstance().deleteCache(selectedExchange.getName());
                 selectedExchange = null;
                 filterExchange = null;
                 filterOrganization = null;
@@ -437,7 +434,7 @@ public class ExchangeManagerBean {
 
     private List<ConnectionEndpoint> refreshCacheEndpoints() {
         if(StringUtils.isBlank(filterOrganization) || StringUtils.isBlank(filterExchange)){
-            return endpoints;
+            return new ArrayList<>();
         }
         if (cachedEndpointHashCode == getHashCodeBy(filterExchange, filterOrganization)
             && CollectionUtils.isNotEmpty(endpoints)) {
@@ -465,10 +462,10 @@ public class ExchangeManagerBean {
         }
 
         exchanges = exchangeService.getAllExchanges();
+        Collections.sort(exchanges, new ExchangesComparator());
         if (!exchanges.isEmpty()) {
             selectedExchange = exchanges.get(0);
         }
-        Collections.sort(exchanges, new ExchangesComparator());
         updatedExchangesCaches();
         return exchanges;
     }

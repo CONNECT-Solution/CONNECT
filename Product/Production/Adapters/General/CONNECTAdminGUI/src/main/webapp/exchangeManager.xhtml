@@ -231,8 +231,8 @@
                                                                 value="#{exchangeManagerBean.filterExchange}"
                                                                 filter="true" filterMatchMode="startsWith">
                                                                 <p:ajax event="change" update="inputFilterOrganization, displayName, displayHcid, displayDescription, displayContact, dataTableConnectionEndpoint" />
-                                                                <f:selectItem itemLabel="---" itemValue="#{exchangeManagerBean.listFilterExchanges}"
-                                                                    noSelectionOption="false" />
+                                                                <f:selectItem itemLabel="--Select Exchange--" itemValue=""
+                                                                    noSelectionOption="true" />
                                                                 <f:selectItems
                                                                     value="#{exchangeManagerBean.listFilterExchanges}"
                                                                     var="item" itemLabel="#{item.name}"
@@ -248,9 +248,9 @@
                                                                 value="#{exchangeManagerBean.filterOrganization}"
                                                                 filter="true" filterMatchMode="startsWith">
                                                                 <p:ajax event="change"
-                                                                    update="displayName, displayHcid, displayDescription, displayContact, dataTableConnectionEndpoint" />
-                                                                <f:selectItem itemLabel="---" itemValue="#{exchangeManagerBean.listFilterExchanges}"
-                                                                    noSelectionOption="false" />
+                                                                    update="displayName, displayHcid, displayDescription, displayContact, dataTableConnectionEndpoint, pingAllServices" />
+                                                                <f:selectItem itemLabel="--Select Organization--" itemValue=""
+                                                                    noSelectionOption="true" />
                                                                 <f:selectItems
                                                                     value="#{exchangeManagerBean.listFilterOrganizations}"
                                                                     var="item" itemLabel="#{item.name}"
@@ -339,9 +339,11 @@
                                                 <div class="form-button-row">
                                                     <div class="col-sm-12">
                                                         <p:commandButton styleClass="btn btn-default"
+                                                            id="pingAllServices"
                                                             icon="ui-icon-search"
                                                             actionListener="#{exchangeManagerBean.pingAllEndpoint}"
                                                             update="dataTableConnectionEndpoint"
+                                                            disabled= "#{empty exchangeManagerBean.connectionEndpoints  or empty exchangeManagerBean.filterOrganization}"
                                                             value="Ping All Services">
                                                         </p:commandButton>
                                                         <p:commandButton id="pingService" styleClass="btn btn-primary"

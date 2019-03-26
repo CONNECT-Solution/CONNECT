@@ -37,14 +37,9 @@ import java.util.Map;
  */
 public class EndpointManagerCache implements EndpointManager {
 
-    private static final Map<String, Map<Integer, EndpointCacheInfo>> endpointCache = new HashMap<>();
-    private static final EndpointManagerCache INSTANCE = new EndpointManagerCache();
+    private final Map<String, Map<Integer, EndpointCacheInfo>> endpointCache = new HashMap<>();
 
-    private EndpointManagerCache() {
-    }
-
-    public static EndpointManagerCache getInstance() {
-        return INSTANCE;
+    public EndpointManagerCache() {
     }
 
     @Override
@@ -53,7 +48,7 @@ public class EndpointManagerCache implements EndpointManager {
         getCache(exchangeName).put(id, new EndpointCacheInfo(id, url, timestamp, pingResult, code));
     }
 
-    private static Map<Integer, EndpointCacheInfo> getCache(String exchangeName) {
+    private Map<Integer, EndpointCacheInfo> getCache(String exchangeName) {
         if (null == endpointCache.get(exchangeName)) {
             endpointCache.put(exchangeName, new HashMap<Integer, EndpointCacheInfo>());
         }

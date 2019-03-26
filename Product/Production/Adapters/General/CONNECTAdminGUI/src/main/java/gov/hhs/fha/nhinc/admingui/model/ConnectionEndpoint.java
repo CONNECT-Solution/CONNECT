@@ -43,10 +43,10 @@ public class ConnectionEndpoint {
     private int responseCode;
     private int id;
 
-    public ConnectionEndpoint(String name, String serviceUrl, String serviceSpec, int responseCode,
+    public ConnectionEndpoint(String name, String serviceUrl, String serviceSpec, String hcid, int responseCode,
         String pingTimestamp) {
         this.name = name;
-        id = HelperUtil.getHashCodeBy(name, serviceUrl, serviceSpec);
+        id = HelperUtil.getHashCodeBy(name, serviceUrl, serviceSpec, hcid);
 
         this.serviceSpec = serviceSpec;
         this.serviceUrl = serviceUrl;
