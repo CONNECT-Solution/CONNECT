@@ -658,7 +658,7 @@
                                         <div class="content">
                                             <h:outputText>To override the existing CA Root and CA Intermediate in the Truststore: select certificate and upload the CA chain.</h:outputText>
                                             <br />
-                                            <h:outputText>Upon completing the import wizard the new KeyStore and TrustStore will be created under `importWizard/new` and the old KeyStore and TrustStore will be backup under `importWizard/backup`. The user must manually replace the existing KeyStore and TrustStore, and restart server to complete the process.</h:outputText>
+                                            <h:outputText>Upon completion of the import wizard, a new KeyStore and TrustStore will be created under '/importWizard/new' and a backup of the KeyStore and TrustStore prior to importing will be copied to '/importWizard/backup'. The new KeyStore and TrustStore must be manually replaced with the ones provided in '/importWizard/new'. If the Admin GUI deployment is hosted on a container server independant of CONNECT, the KeyStore and TrustStore must be manually replaced there as well.</h:outputText>
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <h:outputLabel class="control-label" for="inputAliasTruststore"
@@ -727,7 +727,7 @@
                                                     value="Complete" immediate="true" update="@form"
                                                     action="#{certificateBean.completeImportWizard()}">
                                                     <p:confirm header="Complete Import Wizard"
-                                                        message="Completing the import wizard will create backup and new, and delete temporary (KeyStore and TrustStore). Do you wanted to continue?"
+                                                        message="Continue with creating backup of existing KeyStore and TrustStore and saving newly constructed KeyStore and TrustStore?"
                                                         icon="ui-icon-alert" />
                                                 </p:commandButton>
                                             </div>

@@ -909,7 +909,7 @@ public class CertficateBean {
                 HelperUtil.addMessageError(null, response.getMessage());
             }
         } else {
-            HelperUtil.addMessageError(null, "Error occured while calling completeImportWizard.");
+            HelperUtil.addMessageError(null, "Error occured while calling webservice.");
         }
     }
 }

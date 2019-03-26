@@ -801,7 +801,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
         File tempFolder = new File(getPathFolder(FOLDER_TEMP));
         if (!tempFolder.exists()) {
-            return buildSimpleResponse(false, "Temporary folder does not exist.");
+            return buildSimpleResponse(false, "The import process had not started yet.");
         }
 
         try {
@@ -843,7 +843,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
         return buildSimpleResponse(true,
             MessageFormat.format(
-                "Please go to the server {0}. Go to importWizard/new, copy and replace the KeyStore and TrustStore (server restart required).",
+                "Please replace your existing KeyStore and TrustStore with the ones provided at {0}/importWizard/new. Note: A server restart may be required",
                 DIR_NHINC_PROPERTIES));
     }
 
