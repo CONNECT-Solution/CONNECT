@@ -620,6 +620,8 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     public SimpleCertificateResponseMessageType deleteTemporaryKeystore(
         DeleteTemporaryKeystoreRequestMessageType request) {
         boolean deleted = false;
+        tempKeystore = null;
+        tempTruststore = null;
         try {
             deleted = deleteFolder(getPathFolder(FOLDER_TEMP));
         } catch (IOException e) {
@@ -675,8 +677,9 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 Certificate oldCert = CertificateManagerImpl.getInstance().getCertificateBy(alias);
                 List<ListCertificateType> oldChain = buildChain(oldCert, getTempKeystore());
                 for (ListCertificateType item : oldChain) {
-                    // remove the certificates chain but not the certificate
-                    if (!alias.equalsIgnoreCase(item.getAlias())) {
+                    // remove certificate chain and not certificate; only if alias is part of the chain
+                    if (!alias.equalsIgnoreCase(item.getAlias())
+                        && checkAliasInCertificateAlias(alias, item.getAlias())) {
                         getTempKeystore().deleteEntry(item.getAlias());
                     }
                 }
@@ -799,8 +802,8 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         String pathNewKeystore = getPathKeystore(FOLDER_NEW);
         String pathNewTruststore = getPathTruststore(FOLDER_NEW);
 
-        File tempFolder = new File(getPathFolder(FOLDER_TEMP));
-        if (!tempFolder.exists()) {
+        File tempFile = new File(getTempKeystorePath());
+        if (!tempFile.exists()) {
             return buildSimpleResponse(false, "The import process has not been started yet.");
         }
 
@@ -821,9 +824,8 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         }
         // make copy of new KeyStore and TrustStore
         if (!copyFile(getTempKeystorePath(), pathNewKeystore)) {
-            return buildSimpleResponse(false, "Error occured while copy new KeyStore.");
+            return buildSimpleResponse(false, "Error occured while copying new KeyStore.");
         }
-
 
         File fileTemp = new File(getTempTrustorePath());
         if (!fileTemp.exists()){
@@ -840,6 +842,9 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             LOG.error("Error occured while cleaning up the temporary folder: {}", FOLDER_TEMP, ex);
             return buildSimpleResponse(false, "Error while occurred cleaning up the import folders.");
         }
+
+        tempKeystore = null;
+        tempTruststore = null;
 
         return buildSimpleResponse(true,
             MessageFormat.format(
@@ -891,6 +896,13 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     private static String getPathPrivateKey(String alias) {
         return MessageFormat.format("{0}/{1}/{2}_privatekey.pem", DIR_NHINC_PROPERTIES, FOLDER_TEMP, alias);
+    }
+
+    private static boolean checkAliasInCertificateAlias(String alias, String certAlias) {
+        if (StringUtils.isNotBlank(certAlias) && StringUtils.isNotBlank(alias)) {
+            return certAlias.toLowerCase().indexOf(alias.toLowerCase()) > -1;
+        }
+        return false;
     }
 
 }
