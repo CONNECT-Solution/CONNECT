@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.callback.opensaml;
 
 import static org.junit.Assert.assertEquals;
@@ -39,7 +39,7 @@ import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -119,7 +119,7 @@ public class CertificateManagerImplTest {
         Certificate interm = keystore.getCertificate("gateway-intermediate");
         Certificate root = keystore.getCertificate("gateway-root");
 
-        List<Certificate> chain = CertificateUtil.getChain(leaf, keystore);
+        Map<String, Certificate> chain = CertificateUtil.getChain("gateway", leaf, keystore);
         assertEquals(chain.size(), 3);
 
         assertTrue("gateway-root is in the chain", CertificateUtil.isInChain(root, chain));
@@ -129,12 +129,12 @@ public class CertificateManagerImplTest {
         assertEquals(CertificateUtil.getCertSubjectCN(interm), "ca");
         assertEquals(CertificateUtil.getCertSubjectCN(root), "root");
 
-        chain = CertificateUtil.getChain(interm, keystore);
+        chain = CertificateUtil.getChain("gateway-intermediate", interm, keystore);
         assertEquals(chain.size(), 2);
 
         keystore = CertificateUtil.loadKeyStore("JKS", "changeit", TRUST_STORE_PATH);
         leaf = keystore.getCertificate("host1");
-        chain = CertificateUtil.getChain(leaf, keystore);
+        chain = CertificateUtil.getChain("gateway", leaf, keystore);
         assertEquals(chain.size(), 1);
 
     }

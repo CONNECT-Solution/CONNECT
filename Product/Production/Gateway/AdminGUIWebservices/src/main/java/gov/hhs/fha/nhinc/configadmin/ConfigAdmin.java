@@ -381,17 +381,16 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     private static List<ListCertificateType> buildChain(String alias, KeyStore keyStore)
         throws KeyStoreException, CertificateEncodingException {
-        return buildChain(keyStore.getCertificate(alias), keyStore);
+        return buildChain(alias, keyStore.getCertificate(alias), keyStore);
     }
 
-    private static List<ListCertificateType> buildChain(Certificate serverCert, KeyStore keyStore)
+    private static List<ListCertificateType> buildChain(String alias, Certificate serverCert, KeyStore keyStore)
         throws KeyStoreException, CertificateEncodingException {
-        List<Certificate> chain = CertificateUtil.getChain(serverCert, keyStore);
+        Map<String, Certificate> chain = CertificateUtil.getChain(alias, serverCert, keyStore);
         List<ListCertificateType> certList = new ArrayList<>();
-        for (Certificate cert : chain) {
-            String alias = keyStore.getCertificateAlias(cert);
-            if (StringUtils.isNotBlank(alias)) {
-                certList.add(buildListCertificateType(alias, cert));
+        for (Map.Entry<String, Certificate> certEntry : chain.entrySet()) {
+            if (null != certEntry && StringUtils.isNotBlank(certEntry.getKey())) {
+                certList.add(buildListCertificateType(certEntry.getKey(), certEntry.getValue()));
             }
         }
         return certList;
@@ -675,7 +674,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
             if (null != request.getRootCert() && CollectionUtils.isNotEmpty(request.getIntermediateList())) {
                 Certificate oldCert = CertificateManagerImpl.getInstance().getCertificateBy(alias);
-                List<ListCertificateType> oldChain = buildChain(oldCert, getTempKeystore());
+                List<ListCertificateType> oldChain = buildChain(alias, oldCert, getTempKeystore());
                 for (ListCertificateType item : oldChain) {
                     // remove certificate chain and not certificate; only if alias is part of the chain
                     if (!alias.equalsIgnoreCase(item.getAlias())
@@ -734,7 +733,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             }
 
             Certificate certAlias = CertificateManagerImpl.getInstance().getCertificateBy(alias);
-            List<ListCertificateType> certChain = buildChain(certAlias, getTempTruststore());
+            List<ListCertificateType> certChain = buildChain(alias, certAlias, getTempTruststore());
             for(ListCertificateType item: certChain){
                 getTempTruststore().deleteEntry(item.getAlias());
             }
