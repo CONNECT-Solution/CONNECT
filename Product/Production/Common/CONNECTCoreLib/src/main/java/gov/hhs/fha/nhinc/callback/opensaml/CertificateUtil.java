@@ -42,11 +42,9 @@ import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.activation.DataHandler;
 import javax.mail.util.ByteArrayDataSource;
@@ -55,6 +53,7 @@ import javax.naming.ldap.LdapName;
 import javax.naming.ldap.Rdn;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.wss4j.common.crypto.DERDecoder;
 import org.apache.wss4j.common.ext.WSSecurityException;
 import org.slf4j.Logger;
@@ -124,39 +123,48 @@ public class CertificateUtil {
         return secretStore;
     }
 
-    public static Map<String, Certificate> getKeystoreMap(final KeyStore keystore) throws KeyStoreException {
-        Map<String, Certificate> retObj = new HashMap<>();
+    public static Map<String, Pair<String, Certificate>> getKeystoreMap(final KeyStore keystore)
+        throws KeyStoreException {
+        Map<String, Pair<String, Certificate>> retObj = new HashMap<>();
         Enumeration<String> aliases = keystore.aliases();
         while (aliases.hasMoreElements()) {
             String alias = aliases.nextElement();
             Certificate cert = keystore.getCertificate(alias);
-            retObj.put(getCertKeyIdSubject(cert), cert);
+            retObj.put(getCertKeyIdSubject(cert), Pair.of(alias, cert));
         }
         return retObj;
     }
 
-    public static List<Certificate> getChain(Certificate cert, final KeyStore keystore) throws KeyStoreException {
-        return getChain((X509Certificate) cert, getKeystoreMap(keystore));
+    public static Map<String, Certificate> getChain(String alias, Certificate cert, final KeyStore keystore)
+        throws KeyStoreException {
+        return getChain(alias, (X509Certificate) cert, getKeystoreMap(keystore));
     }
 
-    public static List<Certificate> getChain(X509Certificate cert, Map<String, Certificate> keyCache) {
-        List<Certificate> chain = new ArrayList<>();
+    public static Map<String, Certificate> getChain(String alias, X509Certificate cert,
+        Map<String, Pair<String, Certificate>> keyCache) {
+        Map<String, Certificate> chain = new HashMap<>();
         if (null != cert) {
-            chain.add(cert);
+            chain.put(alias, cert);
 
             String aki = getCertKeyIdAuthority(cert); // if-root: expected-null
             while (null != aki) {
-                Certificate certLoop = keyCache.get(aki);
-                if (null != certLoop) {
-                    chain.add(certLoop);
+                Pair<String, Certificate> pair = keyCache.get(aki);
+                if (null != pair) {
+                    chain.put(pair.getKey(), pair.getValue());
                 }
-                aki = getCertKeyIdAuthority(certLoop);
+                aki = getCertKeyIdAuthority(pair);
             }
         }
 
         return chain;
     }
 
+    public static String getCertKeyIdAuthority(Pair<String, Certificate> pair) {
+        if (null == pair) {
+            return null;
+        }
+        return getCertKeyIdAuthority((X509Certificate) pair.getValue());
+    }
     public static String getCertKeyIdAuthority(Certificate cert) {
         return getCertKeyIdAuthority((X509Certificate) cert);
     }
@@ -223,10 +231,10 @@ public class CertificateUtil {
         return null;
     }
 
-    public static boolean isInChain(Certificate cert, List<Certificate> chain) {
+    public static boolean isInChain(Certificate cert, Map<String, Certificate> chain) {
         String lookSKI = getCertKeyIdSubject(cert);
         if (null != lookSKI) {
-            for (Certificate link : chain) {
+            for (Certificate link : chain.values()) {
                 String foundSKI = getCertKeyIdSubject(link);
                 if (lookSKI.equals(foundSKI)) {
                     return true;
