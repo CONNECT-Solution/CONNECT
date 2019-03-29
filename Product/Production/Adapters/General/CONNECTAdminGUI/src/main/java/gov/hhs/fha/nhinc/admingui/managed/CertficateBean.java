@@ -52,7 +52,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import javax.activation.DataHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -115,6 +117,7 @@ public class CertficateBean {
     private String organizationalUnit;
     private String organization;
     private String countryName;
+    private SortedSet<String> cacheAlias;
 
     private PropertyService propertyService = new PropertyServiceImpl();
     private String csrText;
@@ -676,6 +679,8 @@ public class CertficateBean {
             HelperUtil.addMessageInfo(null,
                 MessageFormat.format("Successfully created certifcate for: {0}", getAlias()));
             importWizardTabIndex = TABINDEX_CREATECSR;
+            cacheAlias = getOrginalAlias(getAlias());
+            createCSR();
         } else {
             HelperUtil.addMessageError(null, MessageFormat.format("Failed to create certifcate for: {0}", getAlias()));
         }
@@ -911,5 +916,25 @@ public class CertficateBean {
         } else {
             HelperUtil.addMessageError(null, "Error occured while calling webservice.");
         }
+    }
+
+    private SortedSet getOrginalAlias(String Alias) {
+        SortedSet<String> aliasList = new TreeSet<>();
+        for (CertificateDTO item : getKeystores()) {
+            aliasList.add(item.getAlias());
+        }
+
+        if (StringUtils.isNotBlank(alias)) {
+            aliasList.add(alias);
+        }
+
+        return aliasList;
+    }
+
+    public SortedSet getCacheAlias() {
+        if(CollectionUtils.isEmpty(cacheAlias)){
+            cacheAlias = getOrginalAlias(null);
+        }
+        return cacheAlias;
     }
 }

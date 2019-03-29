@@ -376,7 +376,7 @@
                                                         value="* Alias:" />
                                                     <p:selectOneMenu styleClass="form-control" id="inputAlias"
                                                         required="true" requiredMessage="Alias is required."
-                                                        value="#{certificateBean.alias}" filter="true"
+                                                        value="#{certificateBean.alias}" filter="true" editable="false"
                                                         filterMatchMode="startsWith">
                                                         <f:selectItem itemLabel="---" itemValue=""
                                                             noSelectionOption="true" />
@@ -471,10 +471,10 @@
                                                         required="true" requiredMessage="Alias is required."
                                                         value="#{certificateBean.alias}" filter="true"
                                                         filterMatchMode="startsWith">
+                                                        <p:ajax listener="#{certificateBean.createCSR}" update="@form" />
                                                         <f:selectItem itemLabel="---" itemValue=""
                                                             noSelectionOption="true" />
-                                                        <f:selectItems value="#{certificateBean.keystores}" var="item"
-                                                            itemLabel="#{item.alias}" itemValue="#{item.alias}" />
+                                                        <f:selectItems value="#{certificateBean.cacheAlias}" />
                                                     </p:selectOneMenu>
                                                 </div>
                                                 <div class="col-sm-12">
@@ -489,10 +489,6 @@
                                         </div>
                                         <div class="form-button-row">
                                             <div class="col-sm-12">
-                                                <p:commandButton styleClass="btn btn-primary updateCssRefreshId"
-                                                    icon="ui-icon-circle-plus" action="#{certificateBean.createCSR()}"
-                                                    value="Create" update="@(.cssImportWizard)">
-                                                </p:commandButton>
                                                 <p:commandButton value="Copy" ajax="false" icon="ui-icon-clipboard"
                                                     disabled="#{certificateBean.disableActionCsr}"
                                                     onclick="document.getElementById('certTabView:importCertTabView:formCreateCSR:inputTextareaCsr').select();document.execCommand('copy');alert('copy successful.');return false;" />
@@ -575,8 +571,7 @@
                                                         filterMatchMode="startsWith">
                                                         <f:selectItem itemLabel="---" itemValue=""
                                                             noSelectionOption="true" />
-                                                        <f:selectItems value="#{certificateBean.keystores}" var="item"
-                                                            itemLabel="#{item.alias}" itemValue="#{item.alias}" />
+                                                        <f:selectItems value="#{certificateBean.cacheAlias}" />
                                                     </p:selectOneMenu>
                                                 </div>
                                                 <div class="col-sm-12">
@@ -669,8 +664,7 @@
                                                         filterMatchMode="startsWith">
                                                         <f:selectItem itemLabel="---" itemValue=""
                                                             noSelectionOption="true" />
-                                                        <f:selectItems value="#{certificateBean.keystores}" var="item"
-                                                            itemLabel="#{item.alias}" itemValue="#{item.alias}" />
+                                                        <f:selectItems value="#{certificateBean.cacheAlias}" />
                                                     </p:selectOneMenu>
                                                 </div>
                                                 <div class="col-sm-12">
