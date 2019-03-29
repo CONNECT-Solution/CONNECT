@@ -176,10 +176,6 @@
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocumentQueryDeferredWebservices</artifactId>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.connectopensource</groupId>
                                     <artifactId>DocumentRetrieveWebservices</artifactId>
                                 </artifactItem>
                                 <artifactItem>
