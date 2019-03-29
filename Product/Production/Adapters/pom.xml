@@ -19,7 +19,6 @@
         <module>General</module>
         <module>AdminDistribution_a0</module>
         <module>DocumentQuery_a0</module>
-        <module>DocumentQueryDeferred_a0</module>
         <module>DocumentRetrieve_a0</module>
         <module>DocumentSubmission_a0</module>
         <module>DocumentDataSubmission_a0</module>
