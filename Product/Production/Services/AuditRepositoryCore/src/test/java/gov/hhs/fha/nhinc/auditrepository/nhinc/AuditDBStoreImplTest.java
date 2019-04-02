@@ -66,10 +66,6 @@ public class AuditDBStoreImplTest {
     @Test
     public void testCreateDBAuditObj() {
 
-        /*
-         * FHAC-977: Override getBlobFromAuditMessage() in AuditDBStoreImpl so HibernateUtil will not be used during
-         * testing.
-         */
         AuditDBStoreImpl dbStore = new AuditDBStoreImpl() {
             @Override
             protected Blob getBlobFromAuditMessage(AuditMessageType mess) {

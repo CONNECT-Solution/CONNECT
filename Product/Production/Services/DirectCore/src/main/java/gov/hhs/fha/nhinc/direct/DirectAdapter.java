@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -133,11 +133,7 @@ public abstract class DirectAdapter {
     }
 
     /**
-     * The SmtpAgentConfig.xml is removed as part of CONN-1213. The direct.appcontext.xml invokes smtpAgent and looks
-     * for ConfigurationService endpoints to be published before the deployment of Direct and this fails in case of
-     * Appservers JBoss,WebLogic and WebSphere whereas GlassFish works.
-     *
-     * CONN-1213: The SmtpAgent is created after the deployment of Direct. Whenever the DirectSender/DirectReceiver is
+     * The SmtpAgent is created after the deployment of Direct. Whenever the DirectSender/DirectReceiver is
      * initiated the SmtpAgent is created and the aAgent is used for further processing of Direct Messages. The
      * SmtpAgent injection is removed from direct.beans.xml whereas ConfigurationService url can be configured in
      * internalConnectionInfo.xml like any other CONNECT service.
