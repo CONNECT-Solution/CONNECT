@@ -348,7 +348,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         } catch (final WSSecurityException e) {
             if (certs == null && publicKey != null) {
                 LOG.warn("Could not establish trust of the signature's public key because no matching public key "
-                    + "exists in the truststore. Please see GATEWAY-3146 for more details.");
+                    + "exists in the truststore.");
             } else {
                 throw e;
             }

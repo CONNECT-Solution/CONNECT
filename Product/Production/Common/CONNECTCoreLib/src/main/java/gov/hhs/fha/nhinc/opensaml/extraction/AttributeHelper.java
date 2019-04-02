@@ -165,7 +165,7 @@ public class AttributeHelper {
      * @return The string value (or if there are multiple values, the concatenated string value.)
      */
     public String extractAttributeValueString(Attribute attrib) {
-        // this method was rewritten for GATEWAY-426
+
         StringBuilder strBuilder = new StringBuilder();
 
         if (attrib != null) {
