@@ -115,11 +115,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             final PrivateKey privateKey = certificateManager.getPrivateKeyBy(certificateAlias);
             Assertion assertion = componentBuilder.createAssertion();
 
-            // create the assertion id
-            // Per GATEWAY-847 the id attribute should not be allowed to start
-            // with a number (UUIDs can). Direction
-            // given from 2011 specification set was to prepend with and
-            // underscore.
             final String aID = createAssertionId();
             LOG.debug("Assertion ID: {}", aID);
 
@@ -697,6 +692,13 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return statements;
     }
 
+    /**
+     * Summer 2011 Authorization Framework specification has provided a clarification regarding the SAML assertion ID
+     * attribute, in that this value should be a properly formatted W3C ID Type object. Currently this Id is
+     * represented by a UUID, however this can be incorrect because a UUID can start with a number, where as the W3C
+     * ID Type cannot. The specification provides guidance that an underscore can be prepended to a UUID to conform
+     * to the spec
+     */
     private static String createAssertionId() {
         return ID_PREFIX.concat(String.valueOf(UUID.randomUUID())).replaceAll("-", "");
     }
