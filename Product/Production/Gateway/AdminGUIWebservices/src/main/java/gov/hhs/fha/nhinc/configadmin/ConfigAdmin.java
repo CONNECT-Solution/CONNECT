@@ -35,16 +35,13 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateManager;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil;
-import gov.hhs.fha.nhinc.common.configadmin.CompleteImportWizardRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCSRRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
-import gov.hhs.fha.nhinc.common.configadmin.DeleteTemporaryKeystoreRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
+import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateChainRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestMessageType;
-import gov.hhs.fha.nhinc.common.configadmin.ImportToKeystoreRequestMessageType;
-import gov.hhs.fha.nhinc.common.configadmin.ImportToTruststoreRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListCertificateType;
 import gov.hhs.fha.nhinc.common.configadmin.ListCertificatesResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListChainOfTrustRequestMessageType;
@@ -52,6 +49,7 @@ import gov.hhs.fha.nhinc.common.configadmin.ListKeyStoresRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListKeyStoresResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresResponseMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.CoreHelpUtils;
@@ -83,6 +81,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -146,6 +145,8 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigAdmin.class);
     private static final PropertyAccessor prop = PropertyAccessor.getInstance();
 
+    private static final String FORMAT_ALIAS_INTERMEDIATE = "{0}_intermediate_{1}";
+    private static final String FORMAT_ALIAS_ROOT = "{0}_root";
     private static final String FOLDER_BACKUP = "importWizard/backup";
     private static final String FOLDER_NEW = "importWizard/new";
     private static final String FOLDER_TEMP = "importWizard/temp";
@@ -616,8 +617,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
      * DeleteGatewayNewRequestMessageType)
      */
     @Override
-    public SimpleCertificateResponseMessageType deleteTemporaryKeystore(
-        DeleteTemporaryKeystoreRequestMessageType request) {
+    public SimpleCertificateResponseMessageType deleteTemporaryKeystore(SimpleCertificateRequestMessageType request) {
         boolean deleted = false;
         tempKeystore = null;
         tempTruststore = null;
@@ -650,7 +650,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
      * ImportToKeystoreRequestMessageType)
      */
     @Override
-    public SimpleCertificateResponseMessageType importToKeystore(ImportToKeystoreRequestMessageType request) {
+    public SimpleCertificateResponseMessageType importToKeystore(ImportCertificateChainRequestMessageType request) {
         String alias = request.getAlias();
         if (StringUtils.isBlank(alias) || null == request.getServerCert()) {
             return buildSimpleResponse(false, "Alias and Server Certificate are required.");
@@ -661,11 +661,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             return buildSimpleResponse(false, "No privatekey recorded for alias: " + alias);
         }
 
-        tempKeystore = null;
-        if (!copyFile(FILE_JKS_GATEWAY, getTempKeystorePath())) {
-            return buildSimpleResponse(false, "Unable to copy KeyStore to temporary file.");
-        }
-
         try {
             Certificate publicKey = CertificateUtil.createCertificate(request.getServerCert());
             if (null == publicKey) {
@@ -673,33 +668,21 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             }
 
             if (null != request.getRootCert() && CollectionUtils.isNotEmpty(request.getIntermediateList())) {
-                Certificate oldCert = CertificateManagerImpl.getInstance().getCertificateBy(alias);
-                List<ListCertificateType> oldChain = buildChain(alias, oldCert, getTempKeystore());
-                for (ListCertificateType item : oldChain) {
-                    // remove certificate chain and not certificate; only if alias is part of the chain
-                    if (!alias.equalsIgnoreCase(item.getAlias())
-                        && checkAliasInCertificateAlias(alias, item.getAlias())) {
-                        getTempKeystore().deleteEntry(item.getAlias());
-                    }
-                }
-                Certificate caRoot = CertificateUtil.createCertificate(request.getRootCert());
-                getTempKeystore().setCertificateEntry(MessageFormat.format("{0}_root", alias), caRoot);
-                int indexInt = 0;
-                for (DataHandler cert : request.getIntermediateList()) {
-                    Certificate caIntermediate = CertificateUtil.createCertificate(cert);
-                    getTempKeystore().setCertificateEntry(
-                        MessageFormat.format("{0}_intermediate_{1}", alias, indexInt++), caIntermediate);
+                removeIntermediateFrom(getTempKeystore(), alias);
+                Map<String, Certificate> mapCerts = convertCertificateMap(alias, request);
+                for (Entry<String, Certificate> entryCert : mapCerts.entrySet()) {
+                    getTempKeystore().setCertificateEntry(entryCert.getKey(), entryCert.getValue());
                 }
             }
 
             getTempKeystore().setKeyEntry(alias, privateKey, getPasswordKeystore().toCharArray(),
                 CoreHelpUtils.getCertificateChain(publicKey));
-            CoreHelpUtils.saveJksTo(getTempKeystore(), getPasswordKeystore(), getTempKeystorePath());
-        } catch (CertificateManagerException | UtilException | KeyStoreException | CertificateEncodingException e) {
-            LOG.error("Error occurred while importing to KeyStore: {}", e.getLocalizedMessage(), e);
-            return buildSimpleResponse(false, "Error occurred while importing to KeyStore.");
+            saveTempKeystore();
+        } catch (CertificateManagerException | UtilException | KeyStoreException e) {
+            LOG.error("Error occurred while importing to temporary KeyStore: {}", e.getLocalizedMessage(), e);
+            return buildSimpleResponse(false, "Error occurred while importing to temporary KeyStore.");
         }
-        return buildSimpleResponse(true, "Import to KeyStore is successful.");
+        return buildSimpleResponse(true, "Import to temporary KeyStore is successful.");
     }
 
     /*
@@ -710,40 +693,31 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
      * ImportToTruststoreRequestMessageType)
      */
     @Override
-    public SimpleCertificateResponseMessageType importToTruststore(ImportToTruststoreRequestMessageType request) {
+    public SimpleCertificateResponseMessageType importToTruststore(ImportCertificateChainRequestMessageType request) {
         if (StringUtils.isBlank(request.getAlias()) || CollectionUtils.isEmpty(request.getIntermediateList())
             || null == request.getRootCert()) {
             return buildSimpleResponse(false, "Alias, CA Root and CA Intermediate are required.");
         }
-        tempTruststore = null;
-        if (!copyFile(FILE_JKS_CACERTS, getTempTrustorePath())) {
-            return buildSimpleResponse(false, "Unable to create the temporary TrustStore.");
-        }
+
         try{
             String alias = request.getAlias();
-            Certificate certRoot = CertificateUtil.createCertificate(request.getRootCert());
-            Map<String, Certificate> mapCerts = new HashMap<>();
-            int indexInt = 0;
-            for (DataHandler cert : request.getIntermediateList()) {
-                mapCerts.put(MessageFormat.format("{0}_intermediate_{1}", alias, indexInt++),
-                    CertificateUtil.createCertificate(cert));
-            }
-            if (MapUtils.isEmpty(mapCerts) || null == certRoot) {
+            Map<String, Certificate> mapCerts = convertCertificateMap(alias, request);
+            if (MapUtils.isEmpty(mapCerts) || mapCerts.size() < 2) {
                 return buildSimpleResponse(false, "Error creating certificate chain for TrustStore.");
             }
 
-            Certificate certAlias = CertificateManagerImpl.getInstance().getCertificateBy(alias);
-            List<ListCertificateType> certChain = buildChain(alias, certAlias, getTempTruststore());
-            for(ListCertificateType item: certChain){
+            Certificate oldCertificate = CertificateManagerImpl.getInstance().getCertificateBy(alias);
+            List<ListCertificateType> oldChain = buildChain(alias, oldCertificate, getTempTruststore());
+            for (ListCertificateType item : oldChain) {
                 getTempTruststore().deleteEntry(item.getAlias());
             }
 
-            getTempTruststore().setCertificateEntry(MessageFormat.format("{0}_root",alias), certRoot);
+            removeIntermediateFrom(getTempTruststore(), alias);
             for (Entry<String, Certificate> entryCert : mapCerts.entrySet()) {
                 getTempTruststore().setCertificateEntry(entryCert.getKey(), entryCert.getValue());
             }
 
-            CoreHelpUtils.saveJksTo(getTempTruststore(), getPasswordTruststore(), getTempTrustorePath());
+            saveTempTruststore();
         }catch(CertificateManagerException | KeyStoreException | UtilException | CertificateEncodingException e){
             LOG.error("Error occurred while importing to the temporary TrustStore: {}", e.getLocalizedMessage(), e);
             return buildSimpleResponse(false, "Error occurred while importing to the temporary TrustStore.");
@@ -795,7 +769,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     }
 
     @Override
-    public SimpleCertificateResponseMessageType completeImportWizard(CompleteImportWizardRequestMessageType request) {
+    public SimpleCertificateResponseMessageType completeImportWizard(SimpleCertificateRequestMessageType request) {
         String pathBackupKeystore = getPathKeystore(FOLDER_BACKUP);
         String pathBackupTruststore = getPathTruststore(FOLDER_BACKUP);
         String pathNewKeystore = getPathKeystore(FOLDER_NEW);
@@ -897,11 +871,101 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         return MessageFormat.format("{0}/{1}/{2}_privatekey.pem", DIR_NHINC_PROPERTIES, FOLDER_TEMP, alias);
     }
 
-    private static boolean checkAliasInCertificateAlias(String alias, String certAlias) {
-        if (StringUtils.isNotBlank(certAlias) && StringUtils.isNotBlank(alias)) {
-            return certAlias.toLowerCase().indexOf(alias.toLowerCase()) > -1;
+    @Override
+    public SimpleCertificateResponseMessageType listTemporaryAlias(SimpleCertificateRequestMessageType request) {
+        try {
+            SimpleCertificateResponseMessageType response = buildSimpleResponse(true, "Temporary Aliases");
+            CollectionUtils.addAll(response.getAliasList(), getTempKeystore().aliases());
+            return response;
+        } catch (CertificateManagerException | KeyStoreException e) {
+            LOG.error("Eror while getting temporary aliases list: {}", e.getLocalizedMessage(), e);
+            return buildSimpleResponse(false, "Fail to retrieve aliases list");
         }
-        return false;
+    }
+
+    private static Map<String, Certificate> convertCertificateMap(String alias,
+        ImportCertificateChainRequestMessageType request) throws CertificateManagerException {
+        Map<String, Certificate> mapCerts = new HashMap<>();
+
+        Certificate certRoot = CertificateUtil.createCertificate(request.getRootCert());
+        if (null != certRoot) {
+            mapCerts.put(MessageFormat.format(FORMAT_ALIAS_ROOT, alias), certRoot);
+        }
+        int indexInt = 0;
+        for (DataHandler data : request.getIntermediateList()) {
+            if (null != data) {
+                mapCerts.put(MessageFormat.format(FORMAT_ALIAS_INTERMEDIATE, alias, indexInt++),
+                    CertificateUtil.createCertificate(data));
+            }
+        }
+
+        return mapCerts;
+    }
+
+    @Override
+    public SimpleCertificateResponseMessageType undoImportKeystore(ImportCertificateChainRequestMessageType request) {
+        if (StringUtils.isBlank(request.getAlias()) || null == request.getRootCert()
+            || CollectionUtils.isEmpty(request.getIntermediateList())) {
+            return buildSimpleResponse(false, "Undo import in KeyStore required Alias, CA Root and CA Intermediate.");
+        }
+
+        try{
+            Map<String, Certificate> removeCerts = convertCertificateMap(request.getAlias(), request);
+            removeCertificatesFrom(getTempKeystore(), removeCerts.values());
+            saveTempKeystore();
+        } catch (UtilException | KeyStoreException | CertificateManagerException ex) {
+            LOG.error("Error occured on undo import in temporary KeyStore: {}", ex.getLocalizedMessage(), ex);
+            return buildSimpleResponse(false, "Error occured on undo import in temporary KeyStore.");
+        }
+
+        return buildSimpleResponse(true, "Undo import in temporary Keystore successful.");
+    }
+
+    @Override
+    public SimpleCertificateResponseMessageType undoImportTruststore(ImportCertificateChainRequestMessageType request) {
+        if (StringUtils.isBlank(request.getAlias()) || null == request.getRootCert()
+            || CollectionUtils.isEmpty(request.getIntermediateList())) {
+            return buildSimpleResponse(false, "Undo import in Truststore required Alias, CA Root and CA Intermediate.");
+        }
+
+        try {
+            Map<String, Certificate> removeCerts = convertCertificateMap(request.getAlias(), request);
+            removeCertificatesFrom(getTempTruststore(), removeCerts.values());
+            saveTempTruststore();
+        } catch (UtilException | KeyStoreException | CertificateManagerException ex) {
+            LOG.error("Error occured on undo import in temporary TrustStore: {}", ex.getLocalizedMessage(), ex);
+            return buildSimpleResponse(false, "Error occured on undo import in temporary TrustStore.");
+        }
+
+        return buildSimpleResponse(true, "Undo import in temporary TrustStore successful.");
+    }
+
+    private void saveTempKeystore() throws UtilException, CertificateManagerException {
+        CoreHelpUtils.saveJksTo(getTempKeystore(), getPasswordKeystore(), getTempKeystorePath());
+    }
+
+    private void saveTempTruststore() throws UtilException, CertificateManagerException {
+        CoreHelpUtils.saveJksTo(getTempTruststore(), getPasswordTruststore(), getTempTrustorePath());
+    }
+
+    private void removeIntermediateFrom(KeyStore keystore, String alias) throws KeyStoreException {
+        int indexInt = 0;
+        String intermediateAlias = MessageFormat.format(FORMAT_ALIAS_INTERMEDIATE, alias, indexInt++);
+        Certificate certificate = keystore.getCertificate(intermediateAlias);
+        while (null != certificate) {
+            keystore.deleteEntry(intermediateAlias);
+            intermediateAlias = MessageFormat.format(FORMAT_ALIAS_INTERMEDIATE, alias, indexInt++);
+            certificate = keystore.getCertificate(intermediateAlias);
+        }
+    }
+
+    private void removeCertificatesFrom(KeyStore keystore, Collection<Certificate> certs) throws KeyStoreException {
+        for (Certificate item : certs) {
+            String removeAlias =keystore.getCertificateAlias(item);
+            if (StringUtils.isNotEmpty(removeAlias)) {
+                keystore.deleteEntry(removeAlias);
+            }
+        }
     }
 
 }
