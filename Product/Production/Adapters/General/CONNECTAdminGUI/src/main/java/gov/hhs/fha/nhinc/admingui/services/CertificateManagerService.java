@@ -84,4 +84,12 @@ public interface CertificateManagerService {
 
     public SimpleCertificateResponseMessageType completeImportWizard();
 
+    public SimpleCertificateResponseMessageType listTemporaryAlias();
+
+    public SimpleCertificateResponseMessageType undoImportKeystore(String alias,
+        Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile);
+
+    public SimpleCertificateResponseMessageType undoImportTruststore(String alias,
+        Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile);
+
 }

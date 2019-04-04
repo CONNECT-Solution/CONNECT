@@ -340,7 +340,43 @@
                         <p:tabView id="importCertTabView" styleClass="tab-pane active cssImportWizard" scrollable="true"
                             activeIndex="#{certificateBean.importWizardTabIndex}">
                             <p:ajax event="tabChange" listener="#{certificateBean.onTabChangeImportWizard}" />
-                            <p:tab id="tabIdCreateCert" title="#{certificateBean.tabTitles[0]}" closable="false">
+                            <p:tab id="tabIdGeneralInfo" title="#{certificateBean.tabTitles[0]}" closable="false">
+
+                                <div class="form-block center-block">
+                                    <h:form id="formGeneralInfo" class="form form-horizontal">
+                                        <p:messages id="errorMsgsGeneralInfo" closable="true">
+                                            <p:autoUpdate />
+                                        </p:messages>
+                                        <div class="content">
+                                            <h:outputText>Select an option below to continue with Import Wizard.</h:outputText>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item"><p:commandLink
+                                                                action="#{certificateBean.setImportWizardTabIndex(1)}"
+                                                                style="margin-right:20px;" update="@(.cssImportWizard)">
+                                                                <h:outputText value="Create a new certificate" />
+                                                            </p:commandLink></li>
+                                                        <li class="list-group-item"><p:commandLink
+                                                                action="#{certificateBean.setImportWizardTabIndex(2)}"
+                                                                style="margin-right:20px;" update="@(.cssImportWizard)">
+                                                                <h:outputText
+                                                                    value="Generate CSR for an existing Certificate" />
+                                                            </p:commandLink></li>
+                                                        <li class="list-group-item"><p:commandLink
+                                                                action="#{certificateBean.setImportWizardTabIndex(4)}"
+                                                                style="margin-right:20px;" update="@(.cssImportWizard)">
+                                                                <h:outputText value="Import SSL Certificate" />
+                                                            </p:commandLink></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                </div>
+
+                            </p:tab>
+                            <p:tab id="tabIdCreateCert" title="#{certificateBean.tabTitles[1]}" closable="false">
 
                                 <div class="form-block center-block">
                                     <h:form id="formCreateCertificate" class="form form-horizontal">
@@ -376,7 +412,7 @@
                                                         value="* Alias:" />
                                                     <p:selectOneMenu styleClass="form-control" id="inputAlias"
                                                         required="true" requiredMessage="Alias is required."
-                                                        value="#{certificateBean.alias}" filter="true" editable="false"
+                                                        value="#{certificateBean.alias}" filter="true" editable="true"
                                                         filterMatchMode="startsWith">
                                                         <f:selectItem itemLabel="---" itemValue=""
                                                             noSelectionOption="true" />
@@ -386,37 +422,37 @@
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <h:outputLabel class="control-label" for="inputReferenceNumber"
-                                                        value="* CN:" />
+                                                        value="* Common Name (CN):" />
                                                     <p:inputText styleClass="form-control"
                                                         value="#{certificateBean.commonName}" id="inputReferenceNumber"
                                                         maxlength="250" required="true"
-                                                        requiredMessage="CN is required."
+                                                        requiredMessage="Common Name (CN) is required."
                                                         placeholder="Fully qualified domain name or entrust reference number">
                                                     </p:inputText>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <h:outputLabel class="control-label" for="inputOrganizationalUnit"
-                                                        value="* OU:" />
+                                                        value="* Organizational Unit (OU):" />
                                                     <p:inputText styleClass="form-control"
                                                         value="#{certificateBean.organizationalUnit}"
                                                         id="inputOrganizationalUnit" maxlength="250" required="true"
-                                                        requiredMessage="OU is required.">
+                                                        requiredMessage="Organizational Unit (OU) is required.">
                                                     </p:inputText>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <h:outputLabel class="control-label" for="inputOrganization"
-                                                        value="* O:" />
+                                                        value="* Organization (O):" />
                                                     <p:inputText styleClass="form-control"
                                                         value="#{certificateBean.organization}" id="inputOrganization"
-                                                        maxlength="250" required="true" requiredMessage="O is required.">
+                                                        maxlength="250" required="true" requiredMessage="Organization (O) is required.">
                                                     </p:inputText>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <h:outputLabel class="control-label" for="inputCountryName"
-                                                        value="* C:" />
+                                                        value="* Country Name (C):" />
                                                     <p:inputText styleClass="form-control"
                                                         value="#{certificateBean.countryName}" id="inputCountryName"
-                                                        maxlength="250" required="true" requiredMessage="C is required.">
+                                                        maxlength="250" required="true" requiredMessage="Country Name (C) is required.">
                                                     </p:inputText>
                                                 </div>
                                             </div>
@@ -438,7 +474,7 @@
                                                         icon="ui-icon-alert" />
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="btn btn-primary" icon="ui-icon-seek-next"
-                                                    value="Next" action="#{certificateBean.next(1)}"
+                                                    value="Next" action="#{certificateBean.next()}"
                                                     update="@(.cssImportWizard)" immediate="true" />
                                             </div>
                                         </div>
@@ -446,7 +482,7 @@
                                 </div>
 
                             </p:tab>
-                            <p:tab id="tabIdCreateCSR" title="#{certificateBean.tabTitles[1]}" closable="false">
+                            <p:tab id="tabIdCreateCSR" title="#{certificateBean.tabTitles[2]}" closable="false">
 
                                 <div class="form-block center-block">
                                     <h:form id="formCreateCSR" class="form form-horizontal">
@@ -505,7 +541,7 @@
                                                         icon="ui-icon-alert" />
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="btn btn-primary" icon="ui-icon-seek-next"
-                                                    value="Next" action="#{certificateBean.next(2)}"
+                                                    value="Next" action="#{certificateBean.next()}"
                                                     update="@(.cssImportWizard)" immediate="true"></p:commandButton>
                                             </div>
                                         </div>
@@ -513,7 +549,7 @@
                                 </div>
 
                             </p:tab>
-                            <p:tab id="tabIdCaAuthorityInfo" title="#{certificateBean.tabTitles[2]}" closable="false">
+                            <p:tab id="tabIdCaAuthorityInfo" title="#{certificateBean.tabTitles[3]}" closable="false">
 
                                 <div class="form-block center-block">
                                     <h:form id="formCaAuthorityInfo" class="form form-horizontal">
@@ -543,7 +579,7 @@
                                                         icon="ui-icon-alert" />
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="btn btn-primary" icon="ui-icon-seek-next"
-                                                    value="Next" action="#{certificateBean.next(3)}"
+                                                    value="Next" action="#{certificateBean.next()}"
                                                     update="@(.cssImportWizard)" immediate="true" />
 
                                             </div>
@@ -552,7 +588,7 @@
                                 </div>
 
                             </p:tab>
-                            <p:tab id="tabIdImportToKeystore" title="#{certificateBean.tabTitles[3]}" closable="false">
+                            <p:tab id="tabIdImportToKeystore" title="#{certificateBean.tabTitles[4]}" closable="false">
 
                                 <div class="form-block center-block">
                                     <h:form id="formImportToKeystore" class="form form-horizontal">
@@ -626,6 +662,14 @@
                                                     icon="ui-icon-circle-plus"
                                                     action="#{certificateBean.importToKeystore()}" value="Import">
                                                 </p:commandButton>
+                                                <p:commandButton styleClass="refresh-button"
+                                                    icon="ui-icon-arrowreturn-1-w" value="Undo" immediate="true"
+                                                    action="#{certificateBean.undo('keystore')}"
+                                                    update="@(.cssImportWizard)">
+                                                    <p:confirm header="Undo KeyStore"
+                                                        message="WARNING: This will remove upload CA certificates from temporary KeyStore, are you sure?"
+                                                        icon="ui-icon-alert" />
+                                                </p:commandButton>
                                                 <p:commandButton styleClass="delete-button" icon="ui-icon-circle-close"
                                                     value="Cancel" immediate="true"
                                                     action="#{certificateBean.cancelImportWizard()}"
@@ -635,7 +679,7 @@
                                                         icon="ui-icon-alert" />
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="btn btn-primary" icon="ui-icon-seek-next"
-                                                    value="Next" action="#{certificateBean.next(4)}"
+                                                    value="Next" action="#{certificateBean.next()}"
                                                     update="@(.cssImportWizard)" immediate="true" />
                                             </div>
                                         </div>
@@ -643,7 +687,7 @@
                                 </div>
 
                             </p:tab>
-                            <p:tab id="tabIdImportToTruststore" title="#{certificateBean.tabTitles[4]}" closable="false">
+                            <p:tab id="tabIdImportToTruststore" title="#{certificateBean.tabTitles[5]}" closable="false">
 
                                 <div class="form-block center-block">
                                     <h:form id="formImportToTruststore" class="form form-horizontal">
@@ -708,6 +752,14 @@
                                                 <p:commandButton styleClass="btn btn-primary updateCssRefreshId"
                                                     icon="ui-icon-circle-plus"
                                                     action="#{certificateBean.importToTruststore()}" value="Import">
+                                                </p:commandButton>
+                                                <p:commandButton styleClass="refresh-button"
+                                                    icon="ui-icon-arrowreturn-1-w" value="Undo" immediate="true"
+                                                    action="#{certificateBean.undo('truststore')}"
+                                                    update="@(.cssImportWizard)">
+                                                    <p:confirm header="Undo TrustStore"
+                                                        message="WARNING: This will remove uploaded CA certificates from temporary TrustStore, are you sure?"
+                                                        icon="ui-icon-alert" />
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="delete-button" icon="ui-icon-circle-close"
                                                     value="Cancel" immediate="true"
