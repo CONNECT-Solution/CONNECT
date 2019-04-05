@@ -878,8 +878,8 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             CollectionUtils.addAll(response.getAliasList(), getTempKeystore().aliases());
             return response;
         } catch (CertificateManagerException | KeyStoreException e) {
-            LOG.error("Eror while getting temporary aliases list: {}", e.getLocalizedMessage(), e);
-            return buildSimpleResponse(false, "Fail to retrieve aliases list");
+            LOG.error("Error while getting temporary alias list: {}", e.getLocalizedMessage(), e);
+            return buildSimpleResponse(false, "Failed to retrieve alias list");
         }
     }
 
@@ -904,13 +904,12 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     @Override
     public SimpleCertificateResponseMessageType undoImportKeystore(ImportCertificateChainRequestMessageType request) {
-        if (StringUtils.isBlank(request.getAlias()) || null == request.getRootCert()
-            || CollectionUtils.isEmpty(request.getIntermediateList())) {
-            return buildSimpleResponse(false, "Undo import in KeyStore required Alias, CA Root and CA Intermediate.");
+        if (null == request.getRootCert() || CollectionUtils.isEmpty(request.getIntermediateList())) {
+            return buildSimpleResponse(false, "Undoing an import requires the CA Root, and Intermediate certificates.");
         }
 
         try{
-            Map<String, Certificate> removeCerts = convertCertificateMap(request.getAlias(), request);
+            Map<String, Certificate> removeCerts = convertCertificateMap("noalias", request);
             removeCertificatesFrom(getTempKeystore(), removeCerts.values());
             saveTempKeystore();
         } catch (UtilException | KeyStoreException | CertificateManagerException ex) {
@@ -923,13 +922,12 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     @Override
     public SimpleCertificateResponseMessageType undoImportTruststore(ImportCertificateChainRequestMessageType request) {
-        if (StringUtils.isBlank(request.getAlias()) || null == request.getRootCert()
-            || CollectionUtils.isEmpty(request.getIntermediateList())) {
-            return buildSimpleResponse(false, "Undo import in Truststore required Alias, CA Root and CA Intermediate.");
+        if (null == request.getRootCert() || CollectionUtils.isEmpty(request.getIntermediateList())) {
+            return buildSimpleResponse(false, "Undoing an import requires the CA Root, and Intermediate certificates.");
         }
 
         try {
-            Map<String, Certificate> removeCerts = convertCertificateMap(request.getAlias(), request);
+            Map<String, Certificate> removeCerts = convertCertificateMap("noalias", request);
             removeCertificatesFrom(getTempTruststore(), removeCerts.values());
             saveTempTruststore();
         } catch (UtilException | KeyStoreException | CertificateManagerException ex) {
