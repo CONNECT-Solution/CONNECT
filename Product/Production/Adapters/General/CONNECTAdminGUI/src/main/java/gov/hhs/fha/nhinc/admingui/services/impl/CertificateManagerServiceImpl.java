@@ -42,17 +42,14 @@ import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerException;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil;
 import gov.hhs.fha.nhinc.callback.opensaml.X509CertificateHelper;
-import gov.hhs.fha.nhinc.common.configadmin.CompleteImportWizardRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCSRRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.CreateCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.DeleteCertificateRequestMessageType;
-import gov.hhs.fha.nhinc.common.configadmin.DeleteTemporaryKeystoreRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.EditCertificateRequestType;
+import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateChainRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ImportCertificateRequestType;
-import gov.hhs.fha.nhinc.common.configadmin.ImportToKeystoreRequestMessageType;
-import gov.hhs.fha.nhinc.common.configadmin.ImportToTruststoreRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListCertificateType;
 import gov.hhs.fha.nhinc.common.configadmin.ListCertificatesResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListChainOfTrustRequestMessageType;
@@ -60,6 +57,7 @@ import gov.hhs.fha.nhinc.common.configadmin.ListKeyStoresRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListKeyStoresResponseMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.ListTrustStoresResponseMessageType;
+import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateRequestMessageType;
 import gov.hhs.fha.nhinc.common.configadmin.SimpleCertificateResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.ConfigAssertionType;
@@ -271,12 +269,9 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     private CONNECTClient<EntityConfigAdminPortType> getClient() throws Exception {
-
         String url = oProxyHelper
             .getAdapterEndPointFromConnectionManager(AdminWSConstants.ENTITY_CONFIG_ADMIN_SERVICE_NAME);
-
         ServicePortDescriptor<EntityConfigAdminPortType> portDescriptor = new ConfigAdminPortDescriptor();
-
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
             new AssertionType());
     }
@@ -454,11 +449,10 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     @Override
     public SimpleCertificateResponseMessageType deleteTempKeystore() {
         try {
-            DeleteTemporaryKeystoreRequestMessageType request = new DeleteTemporaryKeystoreRequestMessageType();
+            SimpleCertificateRequestMessageType request = new SimpleCertificateRequestMessageType();
             request.setConfigAssertion(buildConfigAssertion());
-            SimpleCertificateResponseMessageType response = (SimpleCertificateResponseMessageType) getClient()
-                .invokePort(EntityConfigAdminPortType.class, AdminWSConstants.ADMIN_CERT_DELETE_TEMPKEYSTORE, request);
-            return response;
+            return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
+                AdminWSConstants.ADMIN_CERT_DELETE_TEMPKEYSTORE, request);
         } catch (Exception ex) {
             LOG.error("error requesting gateway alias: {}", ex.getLocalizedMessage(), ex);
         }
@@ -504,16 +498,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     public SimpleCertificateResponseMessageType importToKeystore(String alias, UploadedFile serverFile,
         Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile) {
         try {
-            ImportToKeystoreRequestMessageType request = new ImportToKeystoreRequestMessageType();
-            request.setAlias(alias);
-            request.setServerCert(CertificateUtil.getDataHandlerForPem(serverFile.getContents()));
-            if (MapUtils.isNotEmpty(intermediateFiles) && null != rootFile) {
-                request.setRootCert(CertificateUtil.getDataHandlerForPem(rootFile.getContents()));
-                for (UploadedFile item : intermediateFiles.values()) {
-                    request.getIntermediateList().add(CertificateUtil.getDataHandlerForPem(item.getContents()));
-                }
-            }
-            request.setConfigAssertion(buildConfigAssertion());
+            ImportCertificateChainRequestMessageType request = buildRequestCertificateChain(alias, serverFile,
+                intermediateFiles, rootFile);
             return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
                 AdminWSConstants.ADMIN_CERT_IMPORT_TOKEYSTORE, request);
         } catch (Exception ex) {
@@ -526,13 +512,8 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     public SimpleCertificateResponseMessageType importToTruststore(String alias,
         Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile) {
         try {
-            ImportToTruststoreRequestMessageType request = new ImportToTruststoreRequestMessageType();
-            request.setAlias(alias);
-            request.setRootCert(CertificateUtil.getDataHandlerForPem(rootFile.getContents()));
-            for(UploadedFile item : intermediateFiles.values()){
-                request.getIntermediateList().add(CertificateUtil.getDataHandlerForPem(item.getContents()));
-            }
-            request.setConfigAssertion(buildConfigAssertion());
+            ImportCertificateChainRequestMessageType request = buildRequestCertificateChain(alias, null,
+                intermediateFiles, rootFile);
             return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
                 AdminWSConstants.ADMIN_CERT_IMPORT_TOTRUSTSTORE, request);
         } catch (Exception ex) {
@@ -541,20 +522,75 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.admingui.services.CertificateManagerService#completeImportWizard()
-     */
     @Override
     public SimpleCertificateResponseMessageType completeImportWizard() {
         try {
-            CompleteImportWizardRequestMessageType request = new CompleteImportWizardRequestMessageType();
+            SimpleCertificateRequestMessageType request = new SimpleCertificateRequestMessageType();
             request.setConfigAssertion(buildConfigAssertion());
             return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
                 AdminWSConstants.ADMIN_CERT_COMPLETE_IMPORTWIZARD, request);
         } catch (Exception ex) {
             LOG.error("Error occured while calling completeImportWizard webservice: {}", ex.getLocalizedMessage(), ex);
+        }
+        return null;
+    }
+
+    @Override
+    public SimpleCertificateResponseMessageType listTemporaryAlias() {
+        try {
+            SimpleCertificateRequestMessageType request = new SimpleCertificateRequestMessageType();
+            request.setConfigAssertion(buildConfigAssertion());
+            return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
+                AdminWSConstants.ADMIN_CERT_LIST_TEMPORARYALIAS, request);
+        } catch (Exception ex) {
+            LOG.error("Error occured while calling listTemporaryAlias webservice: {}", ex.getLocalizedMessage(), ex);
+        }
+        return null;
+    }
+
+    private static ImportCertificateChainRequestMessageType buildRequestCertificateChain(String alias,
+        UploadedFile serverFile, Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile) {
+        ImportCertificateChainRequestMessageType request = new ImportCertificateChainRequestMessageType();
+        request.setConfigAssertion(buildConfigAssertion());
+        if(StringUtils.isNotBlank(alias)) {
+            request.setAlias(alias);
+        }
+        if (null != serverFile) {
+            request.setServerCert(CertificateUtil.getDataHandlerForPem(serverFile.getContents()));
+        }
+        if (MapUtils.isNotEmpty(intermediateFiles) && null != rootFile) {
+            request.setRootCert(CertificateUtil.getDataHandlerForPem(rootFile.getContents()));
+            for (UploadedFile item : intermediateFiles.values()) {
+                request.getIntermediateList().add(CertificateUtil.getDataHandlerForPem(item.getContents()));
+            }
+        }
+        return request;
+    }
+
+    @Override
+    public SimpleCertificateResponseMessageType undoImportKeystore(String alias,
+        Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile) {
+        try {
+            ImportCertificateChainRequestMessageType request = buildRequestCertificateChain(alias, null,
+                intermediateFiles, rootFile);
+            return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
+                AdminWSConstants.ADMIN_CERT_UNDO_IMPORTKEYSTORE, request);
+        } catch (Exception ex) {
+            LOG.error("Error occured while calling undoImportKeystore webservice: {}", ex.getLocalizedMessage(), ex);
+        }
+        return null;
+    }
+
+    @Override
+    public SimpleCertificateResponseMessageType undoImportTruststore(String alias,
+        Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile) {
+        try {
+            ImportCertificateChainRequestMessageType request = buildRequestCertificateChain(alias, null,
+                intermediateFiles, rootFile);
+            return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
+                AdminWSConstants.ADMIN_CERT_UNDO_IMPORTTRUSTSTORE, request);
+        } catch (Exception ex) {
+            LOG.error("Error occured while calling undoImportTruststore webservice: {}", ex.getLocalizedMessage(), ex);
         }
         return null;
     }

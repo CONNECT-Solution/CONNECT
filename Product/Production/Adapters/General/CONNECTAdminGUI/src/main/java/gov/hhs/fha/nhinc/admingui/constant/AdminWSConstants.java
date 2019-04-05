@@ -44,6 +44,9 @@ public class AdminWSConstants {
     public static final String ADMIN_CERT_IMPORT_TOKEYSTORE = "importToKeystore";
     public static final String ADMIN_CERT_IMPORT_TOTRUSTSTORE = "importToTruststore";
     public static final String ADMIN_CERT_COMPLETE_IMPORTWIZARD = "completeImportWizard";
+    public static final String ADMIN_CERT_LIST_TEMPORARYALIAS = "listTemporaryAlias";
+    public static final String ADMIN_CERT_UNDO_IMPORTKEYSTORE = "undoImportKeystore";
+    public static final String ADMIN_CERT_UNDO_IMPORTTRUSTSTORE = "undoImportTruststore";
 
     // Config Admin
     public static final String ENTITY_CONFIG_ADMIN_SERVICE_NAME = "entityconfigadmin";

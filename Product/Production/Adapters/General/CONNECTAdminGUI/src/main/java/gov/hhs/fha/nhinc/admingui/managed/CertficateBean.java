@@ -122,9 +122,8 @@ public class CertficateBean {
     private PropertyService propertyService = new PropertyServiceImpl();
     private String csrText;
     private String csrFileType;
-    private String[] tabTitles = new String[] { "Create Certificate", "Certificate Signing Request",
-            "Available CA Providers", "Import KeyStore", "Import TrustStore" };
-    private static final int TABINDEX_CREATECSR = 1;
+    private String[] tabTitles = new String[] { "Start", "Create Certificate", "Certificate Signing Request",
+            "CA Providers", "KeyStore", "TrustStore" };
     private int importWizardTabIndex = 0;
     private Map<String, String> caProperties = null;
     private Map<String, String> caLinks = null;
@@ -678,8 +677,8 @@ public class CertficateBean {
         if (status) {
             HelperUtil.addMessageInfo(null,
                 MessageFormat.format("Successfully created certifcate for: {0}", getAlias()));
-            importWizardTabIndex = TABINDEX_CREATECSR;
-            cacheAlias = getOrginalAlias(getAlias());
+            next();
+            cacheAlias.add(getAlias());
             createCSR();
         } else {
             HelperUtil.addMessageError(null, MessageFormat.format("Failed to create certifcate for: {0}", getAlias()));
@@ -723,15 +722,7 @@ public class CertficateBean {
     public void cancelImportWizard() {
         importWizardTabIndex = 0;
         clearImportWizard();
-
-        SimpleCertificateResponseMessageType resp = service.deleteTempKeystore();
-        if (null != resp) {
-            if (resp.isStatus()) {
-                HelperUtil.addMessageInfo(null, resp.getMessage());
-            } else {
-                HelperUtil.addMessageError(null, resp.getMessage());
-            }
-        }
+        alertUserOn(service.deleteTempKeystore());
     }
 
     private void clearImportWizard() {
@@ -750,10 +741,11 @@ public class CertficateBean {
 
         csrFileType = null;
         csrText = null;
+        cacheAlias = null;
     }
 
-    public void next(int index) {
-        setImportWizardTabIndex(index);
+    public void next() {
+        setImportWizardTabIndex(getImportWizardTabIndex() + 1);
     }
 
     private void loadCaProperties() {
@@ -794,13 +786,7 @@ public class CertficateBean {
         } else {
             response = service.importToKeystore(alias, uploadedFileServer, null, null);
         }
-        if (null == response) {
-            HelperUtil.addMessageError(null, "Fail to import to temporary KeyStore.");
-        } else if (response.isStatus()) {
-            HelperUtil.addMessageInfo(null, "Import to temporary KeyStore is successful: " + alias);
-        } else {
-            HelperUtil.addMessageError(null, response.getMessage());
-        }
+        alertUserOn(response);
     }
 
     public void importFileServer(FileUploadEvent event) {
@@ -837,16 +823,7 @@ public class CertficateBean {
             HelperUtil.addMessageError(null, "Alias, CA Root and CA Intermediate are required.");
             return;
         }
-        SimpleCertificateResponseMessageType response = service.importToTruststore(alias, listIntermediate,
-            uploadedFileRoot);
-
-        if (null == response) {
-            HelperUtil.addMessageError(null, "Fail to import to temporary TrustStore.");
-        } else if (response.isStatus()) {
-            HelperUtil.addMessageInfo(null, "Import to temporary TrustStore is successful");
-        } else {
-            HelperUtil.addMessageError(null, response.getMessage());
-        }
+        alertUserOn(service.importToTruststore(alias, listIntermediate, uploadedFileRoot));
     }
 
     public String getSubjectServer() {
@@ -906,7 +883,10 @@ public class CertficateBean {
     }
 
     public void completeImportWizard() {
-        SimpleCertificateResponseMessageType response = service.completeImportWizard();
+        alertUserOn(service.completeImportWizard());
+    }
+
+    private static void alertUserOn(SimpleCertificateResponseMessageType response) {
         if (null != response) {
             if (response.isStatus()) {
                 HelperUtil.addMessageInfo(null, response.getMessage());
@@ -918,23 +898,30 @@ public class CertficateBean {
         }
     }
 
-    private SortedSet getOrginalAlias(String Alias) {
-        SortedSet<String> aliasList = new TreeSet<>();
-        for (CertificateDTO item : getKeystores()) {
-            aliasList.add(item.getAlias());
-        }
-
-        if (StringUtils.isNotBlank(alias)) {
-            aliasList.add(alias);
-        }
-
-        return aliasList;
-    }
-
     public SortedSet getCacheAlias() {
-        if(CollectionUtils.isEmpty(cacheAlias)){
-            cacheAlias = getOrginalAlias(null);
+        if (null == cacheAlias) {
+            cacheAlias = new TreeSet<>();
+            SimpleCertificateResponseMessageType response = service.listTemporaryAlias();
+            if (null == response) {
+                HelperUtil.addMessageError(null, "Error loading temporary alias.");
+            } else {
+                for (String item : response.getAliasList()) {
+                    cacheAlias.add(item);
+                }
+            }
         }
         return cacheAlias;
+    }
+
+    public void undo(String option) {
+        if (null == uploadedFileRoot || MapUtils.isEmpty(listIntermediate)) {
+            HelperUtil.addMessageError(null, "CA Root and CA Intermediate are required for undo.");
+        }
+        LOG.debug("undo option: {}", option);
+        if (option.equalsIgnoreCase("keystore")) {
+            alertUserOn(service.undoImportKeystore(getAlias(), listIntermediate, uploadedFileRoot));
+        } else if (option.equalsIgnoreCase("truststore")) {
+            alertUserOn(service.undoImportTruststore(getAlias(), listIntermediate, uploadedFileRoot));
+        }
     }
 }
