@@ -914,8 +914,8 @@ public class CertficateBean {
     }
 
     public void undo(String option) {
-        if (StringUtils.isEmpty(getAlias()) || null == uploadedFileRoot || MapUtils.isEmpty(listIntermediate)) {
-            HelperUtil.addMessageError(null, "Alias, CA Root and CA Intermediate are required for undo.");
+        if (null == uploadedFileRoot || MapUtils.isEmpty(listIntermediate)) {
+            HelperUtil.addMessageError(null, "CA Root and CA Intermediate are required for undo.");
         }
         LOG.debug("undo option: {}", option);
         if (option.equalsIgnoreCase("keystore")) {

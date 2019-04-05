@@ -348,7 +348,12 @@
                                             <p:autoUpdate />
                                         </p:messages>
                                         <div class="content">
-                                            <h:outputText>Select an option below to continue with Import Wizard.</h:outputText>
+                                            <h:outputText>This Import Wizard allows the user to add or import one certificate at a time.</h:outputText>
+                                            <br /> <br />
+                                            <h:outputText>The Import Wizard thru a couple of steps makes a certificate, sets up the Certificate Signing Request (CSR) and allows for the certificate to be sent to be processed by a CA provider (Entrust or eHealth Exchange). Once, the certificate has been verified by the CA provider, the Import Wizard can resume loading the Key and Trust Stores.</h:outputText>
+                                            <br /> <br />
+                                            <h:outputText>After the TrustStore complete button is pressed, the KeyStore and TrustStore files [stored in the importWizard/new folder] will need to be manually copied to replace the existing KeyStore and TrustStore files.</h:outputText>
+                                            <br /> <br />
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <ul class="list-group">
@@ -384,7 +389,9 @@
                                             <p:autoUpdate />
                                         </p:messages>
                                         <div class="content">
-                                            <h:outputText>This creates a temporary certificate that will be used to replace existing keystore file. Please skip to Create CSR if an existing certificate will be used.</h:outputText>
+                                            <h:outputText>This step creates a temporary certificate that will be used to the replace the existing certificate in the KeyStore file.</h:outputText>
+                                            <br /> <br />
+                                            <h:outputText>Please skip this step and use Create Certificate Signing Request (CSR) step if an existing certificate will be used.</h:outputText>
                                             <div class="form-group row">
                                                 <div class="col-sm-4">
                                                     <h:outputLabel class="control-label" for="inputCertType"
@@ -444,7 +451,8 @@
                                                         value="* Organization (O):" />
                                                     <p:inputText styleClass="form-control"
                                                         value="#{certificateBean.organization}" id="inputOrganization"
-                                                        maxlength="250" required="true" requiredMessage="Organization (O) is required.">
+                                                        maxlength="250" required="true"
+                                                        requiredMessage="Organization (O) is required.">
                                                     </p:inputText>
                                                 </div>
                                                 <div class="col-sm-12">
@@ -452,7 +460,8 @@
                                                         value="* Country Name (C):" />
                                                     <p:inputText styleClass="form-control"
                                                         value="#{certificateBean.countryName}" id="inputCountryName"
-                                                        maxlength="250" required="true" requiredMessage="Country Name (C) is required.">
+                                                        maxlength="250" required="true"
+                                                        requiredMessage="Country Name (C) is required.">
                                                     </p:inputText>
                                                 </div>
                                             </div>
@@ -557,7 +566,8 @@
                                             <p:autoUpdate />
                                         </p:messages>
                                         <div class="content">
-                                            <h:outputText>Go to your selected CA Authority website. Follow instructions to generate a signed certificate on the CA Authority website. You will be asked to enter authorization code, reference number and the CSR generated in previous step.</h:outputText>
+                                            <h:outputText>Click your Certificate Authority (CA) website links below. Follow their instructions to generate a signed Secure Sockets Layer (SSL) certificate. You will be asked to enter the authorization code, reference number and the Certificate Signing Request (CSR) generated in the previous step. When your certificate has been verified, you may resume using the Import Wizard to update Key and Trust Stores.</h:outputText>
+                                            <br /> <br />
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <p:dataList value="#{certificateBean.caLinks}" var="link"
@@ -667,7 +677,7 @@
                                                     action="#{certificateBean.undo('keystore')}"
                                                     update="@(.cssImportWizard)">
                                                     <p:confirm header="Undo KeyStore"
-                                                        message="WARNING: This will remove upload CA certificates from temporary KeyStore, are you sure?"
+                                                        message="WARNING: This will remove uploaded certificates from the temporary KeyStore. Are you sure?"
                                                         icon="ui-icon-alert" />
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="delete-button" icon="ui-icon-circle-close"
@@ -695,9 +705,13 @@
                                             <p:autoUpdate />
                                         </p:messages>
                                         <div class="content">
-                                            <h:outputText>To override the existing CA Root and CA Intermediate in the Truststore: select certificate and upload the CA chain.</h:outputText>
-                                            <br />
-                                            <h:outputText>Upon completion of the import wizard, a new KeyStore and TrustStore will be created under '/importWizard/new' and a backup of the KeyStore and TrustStore prior to importing will be copied to '/importWizard/backup'. The new KeyStore and TrustStore must be manually replaced with the ones provided in '/importWizard/new'. If the Admin GUI deployment is hosted on a container server independant of CONNECT, the KeyStore and TrustStore must be manually replaced there as well.</h:outputText>
+                                            <h:outputText>To override the existing CA Root and CA Intermediate certificates in the TrustStore: select the certificate and upload the CA chain.</h:outputText>
+                                            <br /> <br />
+                                            <h:outputText>Upon completion of the Import Wizard, the existing KeyStore and TrustStore files must be manually replaced with the ones provided in '/importWizard/new'. Once this is done, a server restart needs to be done to have the updates take effect.</h:outputText>
+                                            <br /> <br />
+                                            <h:outputText>If the Admin GUI deployment is hosted on a container server independent of CONNECT, the KeyStore and TrustStore must be manually replaced there as well.</h:outputText>
+                                            <br /> <br />
+                                            <h:outputText>The Import Wizard also stores a backup of the Key and Trust Store files (prior to the import) at /importWizard/backup folder.</h:outputText>
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <h:outputLabel class="control-label" for="inputAliasTruststore"
@@ -758,7 +772,7 @@
                                                     action="#{certificateBean.undo('truststore')}"
                                                     update="@(.cssImportWizard)">
                                                     <p:confirm header="Undo TrustStore"
-                                                        message="WARNING: This will remove uploaded CA certificates from temporary TrustStore, are you sure?"
+                                                        message="WARNING: This will remove uploaded certificates from temporary TrustStore. are you sure?"
                                                         icon="ui-icon-alert" />
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="delete-button" icon="ui-icon-circle-close"
