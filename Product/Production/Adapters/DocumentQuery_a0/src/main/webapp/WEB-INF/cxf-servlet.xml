@@ -78,6 +78,10 @@
         wsdlLocation="classpath:wsdl/DeferredDocumentQueryRequestAdapter.wsdl">
     </jaxws:endpoint>
     
-    
+    <jaxws:endpoint xmlns:adqr="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredresult" id="AdapterDocQueryDeferredResults"
+        address="/AdapterDocDeferredQueryResults" serviceName="adqr:DocumentQueryDeferredResults" endpointName="adqr:DocumentQueryDeferredResultsPortSoap"
+        implementor="gov.hhs.fha.nhinc.docquery.adapter.AdapterDocDeferredQueryResults"
+        wsdlLocation="classpath:wsdl/DeferredResultsOption.wsdl">
+    </jaxws:endpoint>
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
 </beans>
