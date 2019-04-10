@@ -26,25 +26,24 @@
 */
 package gov.hhs.fha.nhinc.docquery.adapter;
 
-import gov.hhs.fha.nhinc.adapterdocquerydeferredrequest.AdapterDocQueryDeferredRequestPortType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
+import gov.hhs.fha.nhinc.adapterdocquerydeferredresult.AdapterDocQueryDeferredResultsPortType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.SOAPBinding;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterDocDeferredQuery implements AdapterDocQueryDeferredRequestPortType {
+public class AdapterDocDeferredQueryResults implements AdapterDocQueryDeferredResultsPortType{
 
     @Resource
     private WebServiceContext context;
 
     @Override
-    public RespondingGatewayCrossGatewayQueryResponseType respondingGatewayCrossGatewayQueryDeferred(
-        RespondingGatewayCrossGatewayQueryRequestType message) {
-
-        return new RespondingGatewayCrossGatewayQueryResponseType();
+    public RegistryResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse message) {
+        return null;
     }
+
 
 }

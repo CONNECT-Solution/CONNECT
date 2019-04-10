@@ -41,8 +41,9 @@ public class AdapterDocDeferredQuerySecured implements AdapterDocQueryDeferredRe
     private WebServiceContext context;
 
     @Override
-    public RespondingGatewayCrossGatewayQuerySecureResponseType respondingGatewayCrossGatewayQuerySecured(
+    public RespondingGatewayCrossGatewayQuerySecureResponseType respondingGatewayCrossGatewayQueryDeferredSecured(
         RespondingGatewayCrossGatewayQuerySecureRequestType message) {
+
         return new RespondingGatewayCrossGatewayQuerySecureResponseType();
     }
 }
