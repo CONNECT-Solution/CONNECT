@@ -26,25 +26,24 @@
 */
 package gov.hhs.fha.nhinc.docquery.adapter;
 
+import gov.hhs.fha.nhinc.adapterdocquerydeferredrequest.AdapterDocQueryDeferredRequestPortType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.SOAPBinding;
 
-/**
- *
- * @author Sai Valluripalli
- */
 @BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterDocQuerySecured implements gov.hhs.fha.nhinc.adapterdocquerysecured.AdapterDocQuerySecuredPortType {
+public class AdapterDocDeferredQuery implements AdapterDocQueryDeferredRequestPortType {
 
     @Resource
     private WebServiceContext context;
 
     @Override
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
-        oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
-        return new AdapterDocQueryImpl().respondingGatewayCrossGatewayQuery(body, context);
+    public RespondingGatewayCrossGatewayQueryResponseType respondingGatewayCrossGatewayQuery(
+        RespondingGatewayCrossGatewayQueryRequestType message) {
+        return new RespondingGatewayCrossGatewayQueryResponseType();
     }
 
 }

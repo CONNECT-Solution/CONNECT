@@ -45,6 +45,10 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
+            <artifactId>DeferredDocumentQueryWebservices</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
             <artifactId>AuditRepositoryWebservices</artifactId>
             <scope>runtime</scope>
         </dependency>
