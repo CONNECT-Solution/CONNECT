@@ -676,12 +676,12 @@ public class CertficateBean {
             getOrganization(), getCountryName());
         if (status) {
             HelperUtil.addMessageInfo(null,
-                MessageFormat.format("Successfully created certifcate for: {0}", getAlias()));
+                MessageFormat.format("Successfully created certificate for: {0}", getAlias()));
             next();
             cacheAlias.add(getAlias());
             createCSR();
         } else {
-            HelperUtil.addMessageError(null, MessageFormat.format("Failed to create certifcate for: {0}", getAlias()));
+            HelperUtil.addMessageError(null, MessageFormat.format("Failed to create certificate for: {0}", getAlias()));
         }
     }
 
