@@ -52,7 +52,7 @@ public class StoreUtil {
 
     /**
      * Gets the private key alias used for digital signatures. The method will return the value of the system property
-     * defined in CertifcateManager.CLIENT_KEY_ALIAS or the default alias defined in
+     * defined in CertificateManager.CLIENT_KEY_ALIAS or the default alias defined in
      * CertificateManager.DEFAULT_CLIENT_KEY_ALIAS.
      *
      * @return String containing the private key alias.

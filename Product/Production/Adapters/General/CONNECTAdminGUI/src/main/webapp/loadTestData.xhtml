@@ -72,21 +72,21 @@
                                                 <p:ajax event="rowSelectRadio" process="@this"
                                                    update=":testdataTabview:patientsList:editPatient :testdataTabview:patientsList:deletePatient :testdataTabview:patientsList:duplicatePatient" />
                                                 <p:column headerText="" selectionMode="single" />
-                                                <p:column headerText="Patient Id">
+                                                <p:column headerText="Patient Id" sortBy="#{patient.patientIdentifierId}">
                                                     <h:outputText value="#{patient.patientIdentifierId}" />
                                                 </p:column>
-                                                <p:column headerText="Last Name">
+                                                <p:column headerText="Last Name" sortBy="#{patient.lastName}" >
                                                     <h:outputText value="#{patient.lastName}" />
                                                 </p:column>
-                                                <p:column headerText="First Name">
+                                                <p:column headerText="First Name" sortBy="#{patient.firstName}" >
                                                     <h:outputText value="#{patient.firstName}" />
                                                 </p:column>
-                                                <p:column headerText="Birth Date">
+                                                <p:column headerText="Birth Date" sortBy="#{patient.firstName}">
                                                     <h:outputText value="#{patient.dateOfBirthDate}">
                                                         <f:convertDateTime pattern="MM-dd-yyyy" />
                                                     </h:outputText>
                                                 </p:column>
-                                                <p:column headerText="Gender">
+                                                <p:column headerText="Gender" sortBy="#{patient.gender}">
                                                     <h:outputText value="#{patient.gender}" />
                                                 </p:column>
                                             </p:dataTable>
@@ -168,19 +168,19 @@
                                                 <p:ajax event="rowSelectRadio" process="@this"
                                                    update=":testdataTabview:documentsList:editDocument :testdataTabview:documentsList:deleteDocument :testdataTabview:documentsList:duplicateDocument" />
                                                 <p:column headerText="" selectionMode="single" />
-                                                <p:column headerText="Document Id">
+                                                <p:column headerText="Document Id" sortBy="#{record.documentUniqueId}" >
                                                     <h:outputText value="#{record.documentUniqueId}" />
                                                 </p:column>
-                                                <p:column headerText="Patient">
+                                                <p:column headerText="Patient" sortBy="#{record.patientIdentifier}" >
                                                     <h:outputText value="#{record.patientIdentifier}" />
                                                 </p:column>
-                                                <p:column headerText="Title">
+                                                <p:column headerText="Title" sortBy="#{record.documentTitle}" >
                                                     <h:outputText value="#{record.documentTitle}" />
                                                 </p:column>
-                                                <p:column headerText="Status">
+                                                <p:column headerText="Status" sortBy="#{record.statusDisplay}" >
                                                     <h:outputText value="#{record.statusDisplay}" />
                                                 </p:column>
-                                                <p:column headerText="Created">
+                                                <p:column headerText="Created" sortBy="#{record.creationTimeDate}" >
                                                     <h:outputText value="#{record.creationTimeDate}">
                                                         <f:convertDateTime pattern="MM-dd-yyyy HH:mm:ss" />
                                                     </h:outputText>
