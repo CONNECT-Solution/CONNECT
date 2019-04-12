@@ -24,27 +24,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package gov.hhs.fha.nhinc.docquery.adapter;
+package gov.hhs.fha.nhinc.docquery.deferred.adapter;
 
-import gov.hhs.fha.nhinc.adapterdocquerydeferredrequest.AdapterDocQueryDeferredRequestPortType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.SOAPBinding;
+import gov.hhs.fha.nhinc.dq.adapterdeferredresultoptionsecured.AdapterDocQueryDeferredResultsOptionSecuredPortType;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterDocDeferredQuery implements AdapterDocQueryDeferredRequestPortType {
+/**
+ * Adapter webservice to process deferred documents into a deferred response option message to send back to the Initiating
+ * Gateway at the endpoint specified in the initial request.
+ */
 
-    @Resource
-    private WebServiceContext context;
+public class AdapterDeferredResultsOptionResponseSecured implements AdapterDocQueryDeferredResultsOptionSecuredPortType{
 
     @Override
-    public RespondingGatewayCrossGatewayQueryResponseType respondingGatewayCrossGatewayQueryDeferred(
-        RespondingGatewayCrossGatewayQueryRequestType message) {
-
-        return new RespondingGatewayCrossGatewayQueryResponseType();
+    public RegistryResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse arg0) {
+        return null;
     }
 
 }
