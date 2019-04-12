@@ -41,7 +41,10 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentQueryWebservices</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DeferredDocumentQueryWebservices</artifactId>
+        </dependency>
         <!-- Spring Framework -->
         <dependency>
             <groupId>org.springframework</groupId>
