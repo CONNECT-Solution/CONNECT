@@ -24,26 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package gov.hhs.fha.nhinc.docquery.adapter;
+package gov.hhs.fha.nhinc.docquery.deferred.nhin;
 
-import gov.hhs.fha.nhinc.adapterdocquerydeferredrequestsecured.AdapterDocQueryDeferredRequestSecuredPortType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureResponseType;
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.SOAPBinding;
+import gov.hhs.fha.nhinc.dq.nhindeferredresultsecured.NhinDocQueryDeferredResponseSecuredPortType;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterDocDeferredQuerySecured implements AdapterDocQueryDeferredRequestSecuredPortType {
-
-    @Resource
-    private WebServiceContext context;
+/**
+ * A webservice to invoke the Nhin service on the Initiating gateway (The specified URL provided in the request)
+ * @author CONNECT New Staff
+ *
+ */
+public class NhinDeferredResultsOption implements NhinDocQueryDeferredResponseSecuredPortType {
 
     @Override
-    public RespondingGatewayCrossGatewayQuerySecureResponseType respondingGatewayCrossGatewayQueryDeferredSecured(
-        RespondingGatewayCrossGatewayQuerySecureRequestType message) {
-
-        return new RespondingGatewayCrossGatewayQuerySecureResponseType();
+    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredNhinSecured(AdhocQueryResponse message) {
+        return null;
     }
+
+
+
 }

@@ -54,10 +54,11 @@
     </jaxws:endpoint>
 
     <!-- Document Query Deferred-->
-    <jaxws:endpoint xmlns:adqs="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequestsecured" id="AdapterDocQueryDeferredRequestSecured"
-        address="/AdapterDocDeferredQuerySecured" serviceName="adqs:AdapterDocQueryDeferredRequestSecured" endpointName="adqs:AdapterDocQueryDeferredRequestSecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery.adapter.AdapterDocDeferredQuerySecured"
-        wsdlLocation="classpath:wsdl/DeferredDocumentQueryRequestSecuredAdapter.wsdl">
+    <!-- Adapter Deferred Response Option-->
+    <jaxws:endpoint xmlns:adqs="urn:gov:hhs:fha:nhinc:dq:adapterdeferredrequestoptionsecured" id="AdapterDeferredResponseOptionSecured"
+        address="/AdapterDeferredResponseOptionSecured" serviceName="adqs:AdapterDeferredResponseOptionRequestSecured" endpointName="adqs:AdapterDeferredResponseOptionRequestSecuredPortSoap"
+        implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.AdapterDeferredResponseOptionSecured"
+        wsdlLocation="classpath:wsdl/AdapterDeferredResponseOptionRequestSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
@@ -71,17 +72,84 @@
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
     </jaxws:endpoint>
-
-    <jaxws:endpoint xmlns:adq="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredrequest" id="AdapterDocQueryDeferredRequest"
-        address="/AdapterDocDeferredQuery" serviceName="adq:AdapterDocQueryDeferredRequest" endpointName="adq:AdapterDocQueryDeferredRequestPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery.adapter.AdapterDocDeferredQuery"
-        wsdlLocation="classpath:wsdl/DeferredDocumentQueryRequestAdapter.wsdl">
+    <jaxws:endpoint xmlns:adq="urn:gov:hhs:fha:nhinc:dq:adapterdeferredrequestoption" id="AdapterDeferredResponseOption"
+        address="/AdapterDeferredResponseOptionRequest" serviceName="adq:AdapterDeferredResponseOptionRequest" endpointName="adq:AdapterDeferredResponseOptionRequestPortSoap"
+        implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.AdapterDeferredResponseOption"
+        wsdlLocation="classpath:wsdl/AdapterDeferredResponseOptionRequest.wsdl">
     </jaxws:endpoint>
     
-    <jaxws:endpoint xmlns:adqr="urn:gov:hhs:fha:nhinc:adapterdocquerydeferredresult" id="AdapterDocQueryDeferredResults"
-        address="/AdapterDocDeferredQueryResults" serviceName="adqr:DocumentQueryDeferredResults" endpointName="adqr:DocumentQueryDeferredResultsPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery.adapter.AdapterDocDeferredQueryResults"
-        wsdlLocation="classpath:wsdl/DeferredResultsOption.wsdl">
+     <!-- Adapter Deferred Response Option Query-->
+    <jaxws:endpoint xmlns:adqs="urn:gov:hhs:fha:nhinc:dq:adapterdeferredrequestquerysecured" id="AdapterDeferredResponseOptionQuerySecured"
+        address="/AdapterDeferredResponseOptionQuerySecured" serviceName="adqs:AdapterDeferredResponseOptionQueryRequestSecured" endpointName="adqs:AdapterDeferredResponseOptionQueryRequestPortSoap"
+        implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.AdapterDeferredResponseOptionQuerySecured"
+        wsdlLocation="classpath:wsdl/AdapterDeferredResponseOptionQueryRequestSecured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+
+        <jaxws:inInterceptors>
+            <ref bean="securityConfigInInterceptor" />
+        </jaxws:inInterceptors>
     </jaxws:endpoint>
+    <jaxws:endpoint xmlns:adq="urn:gov:hhs:fha:nhinc:dq:adapterdeferredrequestquery" id="AdapterDeferredResponseOptionQuery"
+        address="/AdapterDeferredResponseOptionQueryRequest" serviceName="adq:AdapterDeferredResponseOptionQueryRequest" endpointName="adq:AdapterDeferredResponseOptionQueryRequestPortSoap"
+        implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.AdapterDeferredResponseOptionQuery"
+        wsdlLocation="classpath:wsdl/AdapterDeferredResponseOptionQueryRequest.wsdl">
+    </jaxws:endpoint>
+    
+     <!-- Adapter Deferred Results Option-->
+    <jaxws:endpoint xmlns:adqs="urn:gov:hhs:fha:nhinc:dq:adapterdeferredresultoptionsecured" id="AdapterDeferredResultsOptionSecured"
+        address="/AdapterDeferredResultsOptionSecured" serviceName="adqs:AdapterDeferredResultsOptionSecured" endpointName="adqs:AdapterDeferredResultsOptionSecuredPortSoap"
+        implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.AdapterDeferredResultsOptionResponseSecured"
+        wsdlLocation="classpath:wsdl/DeferredResultsOptionAdapterSecured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+
+        <jaxws:inInterceptors>
+            <ref bean="securityConfigInInterceptor" />
+        </jaxws:inInterceptors>
+    </jaxws:endpoint>
+    <jaxws:endpoint xmlns:adq="urn:gov:hhs:fha:nhinc:dq:adapterdeferredresultoption" id="AdapterDocQueryDeferredResultsOption"
+        address="/AdapterDeferredResultsOption" serviceName="adq:AdapterDeferredResultsOption" endpointName="adq:AdapterDeferredResultsOptionPortSoap"
+        implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.AdapterDeferredResultsOptionResponse"
+        wsdlLocation="classpath:wsdl/DeferredResultsOptionAdapter.wsdl">
+    </jaxws:endpoint>
+    
+     <!-- Adapter Deferred Results Option Query-->
+    <jaxws:endpoint xmlns:adqs="urn:gov:hhs:fha:nhinc:dq:adapterdeferredresultquerysecured" id="AdapterDeferredResultsOptionQuerySecured"
+        address="/AdapterDeferredResultsOptionQuerySecured" serviceName="adqs:AdapterDeferredResultsOptionQuerySecured" endpointName="adqs:AdapterDeferredResultsOptionQuerySecuredPortSoap"
+        implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.DeferredResultsOptionQuerySecured"
+        wsdlLocation="classpath:wsdl/DeferredResultsOptionQueryAdapterSecured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+
+        <jaxws:inInterceptors>
+            <ref bean="securityConfigInInterceptor" />
+        </jaxws:inInterceptors>
+    </jaxws:endpoint>
+    <jaxws:endpoint xmlns:adq="urn:gov:hhs:fha:nhinc:dq:adapterdeferredresultquery" id="AdapterDocQueryDeferredResultsOptionQuery"
+        address="/AdapterDeferredResultsOptionQuery" serviceName="adq:AdapterDeferredResultsOptionQueryAdapter" endpointName="adq:AdapterDeferredResultsOptionQueryPortSoap"
+        implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.DeferredResultsOptionQuery"
+        wsdlLocation="classpath:wsdl/DeferredResultsOptionQueryAdapter.wsdl">
+    </jaxws:endpoint>
+
+    
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
 </beans>
