@@ -24,27 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package gov.hhs.fha.nhinc.docquery.adapter;
+package gov.hhs.fha.nhinc.docquery.deferred.adapter;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.SOAPBinding;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
+import gov.hhs.fha.nhinc.dq.adapterdeferredrequestoption.AdapterDeferredResponseOptionRequestPortType;
 
 /**
- *
- * @author Sai Valluripalli
+ * Adapter webservice to respond to the Initiating Gateway's request and send back any results it can, as well as
+ * store the request ID to prepare for a future deferred message back to the Initiating Gateway
  */
-@BindingType(value = SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterDocQuerySecured implements gov.hhs.fha.nhinc.adapterdocquerysecured.AdapterDocQuerySecuredPortType {
 
-    @Resource
-    private WebServiceContext context;
+public class AdapterDeferredResponseOption implements AdapterDeferredResponseOptionRequestPortType{
 
     @Override
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
-        oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
-        return new AdapterDocQueryImpl().respondingGatewayCrossGatewayQuery(body, context);
+    public RespondingGatewayCrossGatewayQueryResponseType respondingGatewayCrossGatewayQueryDeferred(
+        RespondingGatewayCrossGatewayQueryRequestType message) {
+        return null;
     }
 
 }

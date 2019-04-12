@@ -1058,6 +1058,11 @@
       </dependency>
       <dependency>
         <groupId>org.connectopensource</groupId>
+        <artifactId>DeferredDocumentQueryWebservices</artifactId>
+        <version>${connect.webservices.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.connectopensource</groupId>
         <artifactId>DocumentRetrieveWebservices</artifactId>
         <version>${connect.webservices.version}</version>
       </dependency>
