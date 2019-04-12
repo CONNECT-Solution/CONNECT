@@ -31,9 +31,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- * A webservice to invoke the Nhin service on the Initiating gateway (The specified URL provided in the request)
- * @author CONNECT New Staff
- *
+ * Webservice for processing a DeferredResponseOption's response from the Responding Gateway.
  */
 public class NhinDeferredResultsOption implements NhinDocQueryDeferredResponseSecuredPortType {
 
@@ -41,7 +39,5 @@ public class NhinDeferredResultsOption implements NhinDocQueryDeferredResponseSe
     public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredNhinSecured(AdhocQueryResponse message) {
         return null;
     }
-
-
 
 }
