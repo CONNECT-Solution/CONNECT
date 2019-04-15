@@ -94,6 +94,23 @@ CREATE TABLE "NHINCUSER"."CORRELATEDIDENTIFIERS" (
 	);
 
 --------------------------------------------------------
+--  DDL for Table DEFERREDXCAREQUEST
+--------------------------------------------------------
+CREATE TABLE "NHINCUSER"."DEFERREDXCAREQUEST" (
+  "ADHOCQUERYREQUESTID" VARCHAR(45)
+  ,"DEFERREDRESPONSEENDPOINT" VARCHAR(256)
+  ,"DCADHOCQUERYREQUESTID" VARCHAR(45)
+  );
+
+--------------------------------------------------------
+--  DDL for Table DEFERREDXCARESPONSE
+--------------------------------------------------------
+CREATE TABLE "NHINCUSER"."DEFERREDXCARESPONSE" (
+  "ADHOCQUERYREQUESTID" VARCHAR(45)
+  ,"DEFERREDRESPONSEENDPOINT" VARCHAR(256)
+  );
+  
+--------------------------------------------------------
 --  DDL for Table DOCUMENT
 --------------------------------------------------------
 CREATE TABLE "NHINCUSER"."DOCREGISTRY" (
