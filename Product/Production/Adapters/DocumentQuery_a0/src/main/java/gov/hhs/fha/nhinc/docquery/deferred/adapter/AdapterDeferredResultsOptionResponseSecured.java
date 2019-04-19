@@ -53,13 +53,6 @@ public class AdapterDeferredResultsOptionResponseSecured extends BaseService imp
     @Resource
     private WebServiceContext context;
 
-    public void setContext(WebServiceContext context) {
-        this.context = context;
-    }
-    public WebServiceContext getContext() {
-        return context;
-    }
-
     @Override
     public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredResultsSecured(AdhocQueryResponse message) {
         LOG.info("Running through Adapter Secured layer.");
