@@ -141,8 +141,6 @@ public abstract class AbstractWSAddressingTest {
             }
         }
 
-        String wsdl2 = "blah";
-        wsdl2.toCharArray();
         assertEquals("ServicePortDescriptor Action and WSDL soapAction do not match for WSDL: " + wsdl,
             wsActionInPortDesc, null);
     }

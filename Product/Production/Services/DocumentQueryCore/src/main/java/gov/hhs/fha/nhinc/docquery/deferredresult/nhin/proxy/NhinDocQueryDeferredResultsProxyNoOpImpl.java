@@ -41,7 +41,7 @@ public class NhinDocQueryDeferredResultsProxyNoOpImpl implements NhinDocQueryDef
     @Override
     public RegistryResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse msg,
         AssertionType assertion) {
-        LOG.info("Running through No Op Nhin Proxy");
+        LOG.debug("Running through No Op Nhin Proxy");
         return AdapterResponseHelper.createSuccessResponse();
     }
 
