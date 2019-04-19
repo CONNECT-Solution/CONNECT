@@ -26,9 +26,11 @@
 */
 package gov.hhs.fha.nhinc.docquery.deferred.adapter;
 
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
+import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterDeferredResultsOption;
 import gov.hhs.fha.nhinc.dq.adapterdeferredresultoption.AdapterDocQueryDeferredResultsOptionPortType;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Adapter webservice to process deferred documents into a deferred response option message to send back to the Initiating
@@ -37,9 +39,13 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class AdapterDeferredResultsOptionResponse implements AdapterDocQueryDeferredResultsOptionPortType{
 
+    @Autowired
+    AdapterDeferredResultsOption adapterImpl;
+
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse arg0) {
-        return null;
+    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredResults(
+        RespondingGatewayCrossGatewayQueryResponseType message) {
+        return adapterImpl.respondingGatewayCrossGatewayQueryResults(message);
     }
 
 

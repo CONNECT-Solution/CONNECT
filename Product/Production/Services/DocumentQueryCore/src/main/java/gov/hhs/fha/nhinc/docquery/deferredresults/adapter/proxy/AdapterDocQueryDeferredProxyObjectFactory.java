@@ -24,29 +24,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package gov.hhs.fha.nhinc.docquery.deferred.entity;
+package gov.hhs.fha.nhinc.docquery.deferredresults.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseType;
-import gov.hhs.fha.nhinc.dq.entitydeferredresponse.EntityDocQueryDeferredResultPortType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
-/**
- * Entity webservice for the Document Repository to call when the deferred documents have been retrieved and should notify
- * the Initiating Gateway of the results.
- */
-public class EntityDeferredResultsOption implements EntityDocQueryDeferredResultPortType {
+public class AdapterDocQueryDeferredProxyObjectFactory extends ComponentProxyObjectFactory {
+    private static final String CONFIG_FILE_NAME = "DocumentQueryDeferredResultsOptionProxyConfig.xml";
+    private static final String BEAN_NAME = "adapterdocquerydeferredresults";
 
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDeferredResultsOption.class);
-
-    EntityDeferredResultsImpl impl = new EntityDeferredResultsImpl();
 
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredEntity(
-        RespondingGatewayCrossGatewayQueryResponseType message) {
-        LOG.debug("Inside Entity Results Option Unsecured");
-        return impl.respondingGatewayCrossGatewayQueryUnsecured(message);
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
+    }
+
+    public AdapterDocQueryDeferredProxy getAdapterDocQueryProxy() {
+        return getBean(BEAN_NAME, AdapterDocQueryDeferredProxy.class);
     }
 
 }

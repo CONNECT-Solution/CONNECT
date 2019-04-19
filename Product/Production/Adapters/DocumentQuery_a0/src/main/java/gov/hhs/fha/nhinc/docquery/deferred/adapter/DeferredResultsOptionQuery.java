@@ -26,8 +26,8 @@
 */
 package gov.hhs.fha.nhinc.docquery.deferred.adapter;
 
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
 import gov.hhs.fha.nhinc.dq.adapterdeferredresultquery.AdapterDocQueryDeferredResultsOptionQueryPortType;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
@@ -37,7 +37,9 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class DeferredResultsOptionQuery implements AdapterDocQueryDeferredResultsOptionQueryPortType {
 
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse arg0) {
+    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredResults(
+        RespondingGatewayCrossGatewayQueryResponseType message) {
+        // TODO Auto-generated method stub
         return null;
     }
 
