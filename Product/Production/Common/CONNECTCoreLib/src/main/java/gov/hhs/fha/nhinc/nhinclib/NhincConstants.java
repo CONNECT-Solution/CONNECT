@@ -92,7 +92,8 @@ public class NhincConstants {
         CORE_X12DS_GENERICBATCH_REQUEST(CORE_X12DS_GENERICBATCH_REQUEST_SERVICE_NAME),
         CORE_X12DS_GENERICBATCH_RESPONSE(CORE_X12DS_GENERICBATCH_RESPONSE_SERVICE_NAME),
         DOCUMENT_DATA_SUBMISSION(NHINC_XDS_SERVICE_NAME),
-        PATIENT_LOCATION_QUERY(PLQ_NHIN_SERVICE_NAME);
+        PATIENT_LOCATION_QUERY(PLQ_NHIN_SERVICE_NAME),
+        DOCUMENT_QUERY_DEFERRED_OPTION(DOC_QUERY_DEFERRED_RESULTS_SERVICE_NAME);
 
         private String UDDIServiceName = null;
 
@@ -364,6 +365,16 @@ public class NhincConstants {
     public static final String NHINC_ADHOC_QUERY_SUCCESS_RESPONSE
     = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     public static final BigInteger NHINC_ADHOC_QUERY_NO_RESULT_COUNT = BigInteger.valueOf(0L);
+
+    //Document Query Deferred Response Option
+    public static final String ADAPTER_DOC_QUERY_DEFERRED_RESULTS_SERVICE = "adapterdocquerydeferredresultsoption";
+    public static final String ADAPTER_DOC_QUERY_DEFERRED_RESULTS_SECURED_SERVICE = "adapterdocquerydeferredresultsoptionsecured";
+    public static final String DOC_QUERY_DEFERRED_RESULTS_SERVICE_NAME = "docquerydeferredresultsoption";
+    public static final String ENTITY_DOC_QUERY_DEFERRED_RESULTS_SECURED_SERVICE_NAME = "entitydocquerydeferredresultsoptionsecured";
+    public static final String ENTITY_DOC_QUERY_DEFERRED_RESULTS_SERVICE_NAME = "entitydocquerydeferredresultsoption";
+    public static final String NHINC_ADHOC_QUERY_PARTIAL_SUCCESS_STATUS
+    = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
+
     // Document Retrieve Constants
     public static final String ADAPTER_DOC_RETRIEVE_SERVICE_NAME = "adapterdocretrieve";
     public static final String ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME = "adapterdocretrievesecured";
