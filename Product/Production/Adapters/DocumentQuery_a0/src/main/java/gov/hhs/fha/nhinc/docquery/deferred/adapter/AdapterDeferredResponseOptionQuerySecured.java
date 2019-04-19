@@ -39,7 +39,7 @@ public class AdapterDeferredResponseOptionQuerySecured implements AdapterDeferre
 
     @Override
     public RespondingGatewayCrossGatewayQuerySecureResponseType respondingGatewayCrossGatewayQueryDeferredSecuredRequest(
-        RespondingGatewayCrossGatewayQuerySecureRequestType arg0) {
+        RespondingGatewayCrossGatewayQuerySecureRequestType request) {
         // TODO Auto-generated method stub
         return null;
     }

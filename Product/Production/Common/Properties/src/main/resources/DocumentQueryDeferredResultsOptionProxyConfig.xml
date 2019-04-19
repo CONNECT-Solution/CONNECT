@@ -26,12 +26,12 @@
     <alias alias="nhindocquerydeferredresults" name="nhinDQDeferredResultsSecured" />
 
     <!-- No-op Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresult.nhin.proxy.NhinDocQueryDeferredResultsProxyNoOpImpl" id="nhinDQDeferredResultsNoOp" name="nhindocquerynoop">
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresult.nhin.proxy.NhinDocQueryDeferredResultsProxyNoOpImpl" id="nhinDQDeferredResultsNoOp" name="nhinDQDeferredResultsNoOp">
         <meta key="impltype" value="noop"/>
     </bean>
 
     <!-- Secured web service Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresult.nhin.proxy.NhinDocQueryDeferredResultsProxyWebServiceSecuredImpl" id="nhinDQDeferredResultsSecured" name="nhindocquerywssecured">
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresult.nhin.proxy.NhinDocQueryDeferredResultsProxyWebServiceSecuredImpl" id="nhinDQDeferredResultsSecured" name="nhinDQDeferredResultsSecured">
         <meta key="impltype" value="wssecured"/>
         <meta key="default" value="true"/>
     </bean>

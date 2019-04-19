@@ -45,13 +45,6 @@ public class EntityDeferredResultsOptionSecured implements EntityDocQueryDeferre
     @Resource
     private WebServiceContext context;
 
-    public void setContext(WebServiceContext context) {
-        this.context = context;
-    }
-    public WebServiceContext getContext() {
-        return context;
-    }
-
     @Override
     public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredEntitySecured(
         RespondingGatewayCrossGatewayQueryResponseSecuredType message) {
