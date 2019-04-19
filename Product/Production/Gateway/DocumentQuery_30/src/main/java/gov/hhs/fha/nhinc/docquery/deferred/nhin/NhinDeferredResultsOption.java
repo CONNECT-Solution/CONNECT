@@ -45,13 +45,6 @@ public class NhinDeferredResultsOption implements NhinDocQueryDeferredResponseSe
     @Resource
     private WebServiceContext context;
 
-    public void setContext(WebServiceContext context) {
-        this.context = context;
-    }
-    public WebServiceContext getContext() {
-        return context;
-    }
-
     @Override
     public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredNhinSecured(AdhocQueryResponse message) {
         LOG.debug("Inside Nhin Layer Secured");
