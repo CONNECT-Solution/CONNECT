@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.docquery.deferred.nhin;
 
 import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper;
 import gov.hhs.fha.nhinc.dq.nhindeferredresultsecured.NhinDocQueryDeferredResponseSecuredPortType;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -39,7 +38,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Webservice for processing a DeferredResponseOption's response from the Responding Gateway.
  */
-public class NhinDeferredResultsOption extends BaseService implements NhinDocQueryDeferredResponseSecuredPortType {
+public class NhinDeferredResultsOption implements NhinDocQueryDeferredResponseSecuredPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(NhinDeferredResultsOption.class);
 
