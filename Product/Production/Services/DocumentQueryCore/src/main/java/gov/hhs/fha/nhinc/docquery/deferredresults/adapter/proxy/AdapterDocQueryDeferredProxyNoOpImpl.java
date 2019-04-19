@@ -39,7 +39,7 @@ public class AdapterDocQueryDeferredProxyNoOpImpl implements AdapterDocQueryDefe
     @Override
     public RegistryResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse msg,
         AssertionType assertion) {
-        LOG.info("Running through No Op Adapter Proxy");
+        LOG.debug("Running through No Op Adapter Proxy");
         return AdapterResponseHelper.createSuccessResponse();
     }
 }
