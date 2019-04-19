@@ -26,18 +26,48 @@
 */
 package gov.hhs.fha.nhinc.docquery.deferred.nhin;
 
+import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper;
 import gov.hhs.fha.nhinc.dq.nhindeferredresultsecured.NhinDocQueryDeferredResponseSecuredPortType;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import javax.annotation.Resource;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Webservice for processing a DeferredResponseOption's response from the Responding Gateway.
  */
-public class NhinDeferredResultsOption implements NhinDocQueryDeferredResponseSecuredPortType {
+public class NhinDeferredResultsOption extends BaseService implements NhinDocQueryDeferredResponseSecuredPortType {
+
+    private static final Logger LOG = LoggerFactory.getLogger(NhinDeferredResultsOption.class);
+
+    @Resource
+    private WebServiceContext context;
+
+    public void setContext(WebServiceContext context) {
+        this.context = context;
+    }
+    public WebServiceContext getContext() {
+        return context;
+    }
 
     @Override
     public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredNhinSecured(AdhocQueryResponse message) {
-        return null;
+        LOG.debug("Inside Nhin Layer Secured");
+
+        // Look up Request ID is in the "deferredxcarequest" table, and verify if a record exists
+            //If not, return a failure message
+
+        // Grab the URL of the document consumer from the table record
+        // Forward AdHocQueryResponse to the adapter located at the document consumer's endpoint
+        // Return the result of the adapter call here, and reply back to the Responding Gateway with an ACK
+
+
+        return AdapterResponseHelper.createSuccessResponse();
+
+
     }
 
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM "classpath://org/hibernate/hibernate-configuration-3.0.dtd">
+<hibernate-mapping package="gov.hhs.fha.nhinc.docrepository.adapter.model">
+    <class name="DocQueryDeferredResponseMetadata" table="deferredxcaresponse">
+        <id column="AdHocQueryRequestId" name="requestId" type="string" length="45"/>
+        <property column="DeferredResponseEndpoint" length="256" name="responseEndpoint" not-null="false" type="string"/>
+    </class>
+</hibernate-mapping>

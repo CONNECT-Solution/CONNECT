@@ -23,7 +23,9 @@
 
     <import resource="classpath:CONNECT-interceptor-beans.xml" />
     <context:property-placeholder />
-
+    <context:annotation-config />
+    <context:component-scan   base-package="gov.hhs.fha.nhinc"/>
+    
     <cxf:bus>
         <cxf:features>
             <p:policies />

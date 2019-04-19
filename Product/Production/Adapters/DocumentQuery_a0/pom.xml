@@ -27,7 +27,6 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentQueryCore</artifactId>
             <version>${project.parent.version}</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
