@@ -175,7 +175,6 @@ public class GenericDBUtils {
             entity = session.get(clazz, id);
             LOG.trace("GenericDBUtil.readBy - entity = session.get()");
         } catch (HibernateException | NullPointerException e) {
-            LOG.error("Exception during read caused by : {}", e.getMessage(), e);
             throw e;
         } finally {
             closeSession(session);
