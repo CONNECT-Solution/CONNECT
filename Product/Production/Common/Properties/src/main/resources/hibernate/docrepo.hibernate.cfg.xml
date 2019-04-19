@@ -16,7 +16,7 @@
         <mapping resource="Document.hbm.xml"/>
 		<mapping resource="DocumentRepo.hbm.xml"/>
         <mapping resource="EventCode.hbm.xml"/>
-
+        <mapping resource="DeferredXCAResponse.hbm.xml"/>
     </session-factory>
 
 </hibernate-configuration>

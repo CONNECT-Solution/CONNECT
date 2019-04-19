@@ -24,29 +24,41 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package gov.hhs.fha.nhinc.docquery.deferred.entity;
+package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseType;
-import gov.hhs.fha.nhinc.dq.entitydeferredresponse.EntityDocQueryDeferredResultPortType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DocQueryDeferredResponseMetadata;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.util.GenericDBUtils;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
-/**
- * Entity webservice for the Document Repository to call when the deferred documents have been retrieved and should notify
- * the Initiating Gateway of the results.
- */
-public class EntityDeferredResultsOption implements EntityDocQueryDeferredResultPortType {
+@Repository
+public class DeferredResponseOptionDao {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDeferredResultsOption.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeferredResponseOptionDao.class);
 
-    EntityDeferredResultsImpl impl = new EntityDeferredResultsImpl();
-
-    @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredEntity(
-        RespondingGatewayCrossGatewayQueryResponseType message) {
-        LOG.debug("Inside Entity Results Option Unsecured");
-        return impl.respondingGatewayCrossGatewayQueryUnsecured(message);
+    public boolean save(DocQueryDeferredResponseMetadata meta) {
+        return GenericDBUtils.save(getSession(), meta);
     }
 
+    public boolean delete(DocQueryDeferredResponseMetadata document) {
+        return GenericDBUtils.delete(getSession(), document);
+    }
+
+    public DocQueryDeferredResponseMetadata findByRequest(String request) {
+        return GenericDBUtils.readBy(getSession(), DocQueryDeferredResponseMetadata.class, request);
+    }
+
+    protected Session getSession() {
+        Session session = null;
+        try {
+            session = HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory().openSession();
+        } catch (HibernateException e) {
+            LOG.error("Failed to open Session: {}, {}", e.getMessage(), e);
+        }
+        return session;
+    }
 }
