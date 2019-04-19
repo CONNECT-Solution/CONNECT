@@ -26,27 +26,31 @@
 */
 package gov.hhs.fha.nhinc.docquery.deferred.entity;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseType;
-import gov.hhs.fha.nhinc.dq.entitydeferredresponse.EntityDocQueryDeferredResultPortType;
+import gov.hhs.fha.nhinc.docquery.deferredresults.adapter.proxy.AdapterDocQueryDeferredProxy;
+import gov.hhs.fha.nhinc.docquery.deferredresults.adapter.proxy.AdapterDocQueryDeferredProxyObjectFactory;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import javax.xml.ws.WebServiceContext;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-/**
- * Entity webservice for the Document Repository to call when the deferred documents have been retrieved and should notify
- * the Initiating Gateway of the results.
- */
-public class EntityDeferredResultsOption implements EntityDocQueryDeferredResultPortType {
+public class EntityDeferredResultsImpl extends BaseService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDeferredResultsOption.class);
-
-    EntityDeferredResultsImpl impl = new EntityDeferredResultsImpl();
-
-    @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredEntity(
-        RespondingGatewayCrossGatewayQueryResponseType message) {
-        LOG.debug("Inside Entity Results Option Unsecured");
-        return impl.respondingGatewayCrossGatewayQueryUnsecured(message);
+    public RegistryResponseType respondingGatewayCrossGatewayQuerySecured(
+        RespondingGatewayCrossGatewayQueryResponseSecuredType request, WebServiceContext context) {
+        AssertionType assertion = getAssertion(context, null);
+        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryResponse(), assertion);
     }
 
+    public RegistryResponseType respondingGatewayCrossGatewayQueryUnsecured(RespondingGatewayCrossGatewayQueryResponseType request) {
+        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryResponse(), request.getAssertion());
+    }
+
+    private static RegistryResponseType respondingGatewayCrossGatewayQuery(AdhocQueryResponse message, AssertionType assertion) {
+        AdapterDocQueryDeferredProxyObjectFactory factory = new AdapterDocQueryDeferredProxyObjectFactory();
+        AdapterDocQueryDeferredProxy adapterProxy = factory.getAdapterDocQueryProxy();
+        return adapterProxy.respondingGatewayCrossGatewayQueryResults(message, assertion);
+    }
 }
