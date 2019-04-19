@@ -64,7 +64,7 @@ public class AdapterDeferredResultsOptionImplTest extends DAOIntegrationTest {
         DocQueryDeferredResponseMetadata metadata = new DocQueryDeferredResponseMetadata();
         metadata.setRequestId(REQUEST);
         metadata.setResponseEndpoint(ENDPOINT);
-        when(dao.findByRequest(Mockito.anyString())).thenReturn(metadata);
+        when(dao.findByRequest(Mockito.eq(REQUEST))).thenReturn(metadata);
     }
 
     @Test
@@ -112,6 +112,28 @@ public class AdapterDeferredResultsOptionImplTest extends DAOIntegrationTest {
     }
 
 
+    @Test
+    public void testRespondingGatewayCrossGatewayQueryResultsUnsecuredNoResult() {
+
+        AdhocQueryResponse message = getNegativePathResponse();
+        RespondingGatewayCrossGatewayQueryResponseType request = new RespondingGatewayCrossGatewayQueryResponseType();
+        request.setAdhocQueryResponse(message);
+
+        request.setAssertion(generateAssertion());
+
+        RegistryResponseType response = impl.respondingGatewayCrossGatewayQueryResults(request);
+        verify(dao, Mockito.times(1)).findByRequest(Mockito.eq("NOT CONTAINED"));
+        assertEquals(FAILURE, response.getStatus());
+    }
+
+    @Test
+    public void testRespondingGatewayCrossGatewayQueryResultsSecuredNoResult() {
+        AdhocQueryResponse message = getNegativePathResponse();
+        RegistryResponseType response = impl.respondingGatewayCrossGatewayQueryResults(message, generateAssertion());
+        verify(dao, Mockito.times(1)).findByRequest(Mockito.eq("NOT CONTAINED"));
+        assertEquals(FAILURE, response.getStatus());
+    }
+
 
     private static AssertionType generateAssertion() {
         AssertionType assertion = new AssertionType();
@@ -123,6 +145,12 @@ public class AdapterDeferredResultsOptionImplTest extends DAOIntegrationTest {
     private static AdhocQueryResponse getHappyPathResponse() {
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRequestId(REQUEST);
+        return response;
+    }
+
+    private static AdhocQueryResponse getNegativePathResponse() {
+        AdhocQueryResponse response = new AdhocQueryResponse();
+        response.setRequestId("NOT CONTAINED");
         return response;
     }
 }

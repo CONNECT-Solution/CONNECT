@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.docquery.deferred.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseSecuredType;
 import gov.hhs.fha.nhinc.dq.entitydeferredresponsesecured.EntityDocQueryDeferredResultSecuredPortType;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -39,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * Entity webservice for the Document Repository to call when the deferred documents have been retrieved and should notify
  * the Initiating Gateway of the results.
  */
-public class EntityDeferredResultsOptionSecured extends BaseService implements EntityDocQueryDeferredResultSecuredPortType {
+public class EntityDeferredResultsOptionSecured implements EntityDocQueryDeferredResultSecuredPortType {
     private static final Logger LOG = LoggerFactory.getLogger(EntityDeferredResultsOptionSecured.class);
     EntityDeferredResultsImpl impl = new EntityDeferredResultsImpl();
 
