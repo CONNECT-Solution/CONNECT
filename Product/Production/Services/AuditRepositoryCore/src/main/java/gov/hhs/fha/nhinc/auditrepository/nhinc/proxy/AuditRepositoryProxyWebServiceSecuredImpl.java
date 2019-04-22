@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.service.AuditRepositorySecuredServicePortDescriptor;
@@ -68,18 +68,18 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
                 ServicePortDescriptor<AuditRepositoryManagerSecuredPortType> portDescriptor = new AuditRepositorySecuredServicePortDescriptor();
 
                 CONNECTClient<AuditRepositoryManagerSecuredPortType> client = CONNECTCXFClientFactory.getInstance()
-                        .getCONNECTClientSecured(portDescriptor, url, assertion);
+                    .getCONNECTClientSecured(portDescriptor, url, assertion, true);
 
                 result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerSecuredPortType.class,
-                        invokeMethodName, createLogSecureEventRequestType(request));
+                    invokeMethodName, createLogSecureEventRequestType(request));
             }
         } catch (Exception e) {
             LOG.error("Failed to call the web service({}). An unexpected exception occurred. Exception: {}",
-                    NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME, e.getLocalizedMessage(), e);
+                NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME, e.getLocalizedMessage(), e);
         }
 
         LOG.debug("In AuditRepositoryProxyWebServiceSecured.auditLog(...) - completed called to ConnectionManager to "
-                + "retrieve endpoint.");
+            + "retrieve endpoint.");
 
         return result;
     }

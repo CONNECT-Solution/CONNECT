@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.policyengine.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adapterpolicyenginesecured.AdapterPolicyEngineSecuredPortType;
@@ -76,7 +76,7 @@ public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy
                 ServicePortDescriptor<AdapterPolicyEngineSecuredPortType> portDescriptor = new PolicyEngineSecuredServicePortDescriptor();
 
                 CONNECTClient<AdapterPolicyEngineSecuredPortType> client = CONNECTCXFClientFactory.getInstance()
-                    .getCONNECTClientSecured(portDescriptor, url, assertion);
+                    .getCONNECTClientSecured(portDescriptor, url, assertion, true);
 
                 response = (CheckPolicyResponseType) client.invokePort(AdapterPolicyEngineSecuredPortType.class,
                     "checkPolicy", securedRequest);

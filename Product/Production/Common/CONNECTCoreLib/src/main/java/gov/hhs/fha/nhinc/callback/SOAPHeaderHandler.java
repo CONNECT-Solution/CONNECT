@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,12 +23,13 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.callback;
 
 import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
@@ -57,7 +58,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.xml.ws.handler.soap.SOAPHandler#getHeaders()
      */
     @Override
@@ -68,7 +69,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.xml.ws.handler.Handler#handleMessage(javax.xml.ws.handler.MessageContext)
      */
     @Override
@@ -88,6 +89,8 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             if (isOutboundMessage) {
                 addMustUnderstandAttribute(oHeader);
             }
+
+            adjustDeferredResponseEndpointMustUnderstandAttribute(oHeader, Boolean.FALSE);
         } catch (SOAPException e) {
             LOG.error("Unable to handle message: {}", e.getLocalizedMessage());
             LOG.trace("Unable to handle message: {}", e.getLocalizedMessage(), e);
@@ -117,13 +120,13 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
         // Steps that need to be performed
         SOAPElement oMessageIdElem = getFirstChild(oHeader, NhincConstants.WS_SOAP_HEADER_MESSAGE_ID,
-                NhincConstants.WS_ADDRESSING_URL);
+            NhincConstants.WS_ADDRESSING_URL);
         if (oMessageIdElem != null) {
             oMessageIdElem.setTextContent(messageId);
         } else {
             SOAPFactory soapFactory = SOAPFactory.newInstance();
             oMessageIdElem = soapFactory.createElement(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID, "",
-                    NhincConstants.WS_ADDRESSING_URL);
+                NhincConstants.WS_ADDRESSING_URL);
             oMessageIdElem.setTextContent(messageId);
 
             if (oHeader != null) {
@@ -141,18 +144,23 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
      * @return The first instance that matches the localname and namespace or return null
      */
     private SOAPElement getFirstChild(SOAPHeader header, String name, String ns) {
+        QName qname = new QName(ns, name);
+        return getFirstChild(header, qname);
+    }
+
+    private SOAPElement getFirstChild(SOAPHeader header, QName qname) {
         SOAPElement result = null;
         if (header == null || !header.hasChildNodes()) {
             return result;
         }
 
-        QName qname = new QName(ns, name);
         Iterator iter = header.getChildElements(qname);
         if (iter.hasNext()) {
             result = (SOAPElement) iter.next();
         }
         return result;
     }
+
 
     /**
      * Check if UUID starts with an illegal prefix ("uuid:")
@@ -193,6 +201,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             if (isOutboundMessage) {
                 addMustUnderstandAttribute(oHeader);
             }
+            adjustDeferredResponseEndpointMustUnderstandAttribute(oHeader, Boolean.FALSE);
         } catch (SOAPException ex) {
             LOG.warn("Exception adding mustunderstand to fault: {}", ex.getLocalizedMessage());
             LOG.trace("Exception adding mustunderstand to fault: {}", ex.getLocalizedMessage(), ex);
@@ -216,12 +225,21 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
     private void addMustUnderstandAttribute(SOAPHeader oHeader) throws SOAPException {
         SOAPElement action = getFirstChild(oHeader, NhincConstants.WS_SOAP_HEADER_ACTION,
-                NhincConstants.WS_ADDRESSING_URL);
+            NhincConstants.WS_ADDRESSING_URL);
 
         if (action != null && !action.hasAttribute(NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND)) {
-            QName mustUnderstandQ = new QName(NhincConstants.WS_SOAP_ENV_URL,
-                    NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND, NhincConstants.WS_SOAP_ENV_PREFIX);
-            action.addAttribute(mustUnderstandQ, Boolean.TRUE.toString());
+            action.addAttribute(CoreHelpUtils.getQNameMustUnderstand(), Boolean.TRUE.toString());
+        }
+    }
+
+    private void adjustDeferredResponseEndpointMustUnderstandAttribute(SOAPHeader oHeader, Boolean mustUnderstandValue) throws SOAPException {
+        SOAPElement endpoint = getFirstChild(oHeader, CoreHelpUtils.getQNameDeferredResponseEndpoint());
+        if(null != mustUnderstandValue &&  null != endpoint){
+            if(endpoint.hasAttribute(NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND)){
+                endpoint.setAttribute(NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND, mustUnderstandValue.toString());
+            }else{
+                endpoint.addAttribute(CoreHelpUtils.getQNameMustUnderstand(), mustUnderstandValue.toString());
+            }
         }
     }
 }

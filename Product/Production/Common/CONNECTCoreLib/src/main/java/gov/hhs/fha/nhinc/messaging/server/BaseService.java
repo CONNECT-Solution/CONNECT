@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.messaging.server;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
@@ -77,11 +77,13 @@ public abstract class BaseService {
         }
 
         if (assertion != null) {
+            handleDeferredResponseEndpoint(assertion, context);
+            LOG.debug(" handleDeferredResponseEndpoint: {}", assertion.getDeferredResponseEndpoint());
             handleMessageId(assertion, context, wsaHelper);
             handleRelatesTo(context, assertion);
             handleHttpHeaders(assertion, context);
         }
-        
+
         return assertion;
     }
 
@@ -118,6 +120,12 @@ public abstract class BaseService {
         }
     }
 
+    private void handleDeferredResponseEndpoint(AssertionType assertion, WebServiceContext context) {
+        if (NullChecker.isNullish(assertion.getDeferredResponseEndpoint())) {
+            assertion.setDeferredResponseEndpoint(extractor.getDeferredResponseEndpoint(context));
+        }
+    }
+
     protected String getLocalHomeCommunityId() {
         return HomeCommunityMap.getLocalHomeCommunityId();
     }
@@ -126,32 +134,20 @@ public abstract class BaseService {
         return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
     }
 
-    /**
-     * Returns the Remote client host address
-     *
-     * @param context
-     * @return
-     */
     protected String getRemoteAddress(WebServiceContext context) {
         String remoteAddress = null;
 
         if (context != null && context.getMessageContext() != null
-                && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
+            && context.getMessageContext().get(AbstractHTTPDestination.HTTP_REQUEST) != null) {
 
             HttpServletRequest httpServletRequest = (HttpServletRequest) context.getMessageContext()
-                    .get(AbstractHTTPDestination.HTTP_REQUEST);
+                .get(AbstractHTTPDestination.HTTP_REQUEST);
             remoteAddress = httpServletRequest.getRemoteAddr();
         }
 
         return remoteAddress;
     }
 
-    /**
-     * Returns the called Web Service URL
-     *
-     * @param context
-     * @return
-     */
     protected String getWebServiceRequestUrl(WebServiceContext context) {
         String requestWebServiceUrl = null;
 

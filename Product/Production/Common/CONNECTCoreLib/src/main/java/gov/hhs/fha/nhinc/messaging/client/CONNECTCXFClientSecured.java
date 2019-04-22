@@ -26,13 +26,13 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
+import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.messaging.service.decorator.HttpHeaderServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapHeaderServiceEndPointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsSecurityServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFSecuredServicePortBuilder;
@@ -48,20 +48,20 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
     private static final Logger LOG = LoggerFactory.getLogger(CONNECTCXFClientSecured.class);
 
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName,
-        AssertionType assertion) {
+        AssertionType assertion, boolean flagDQ) {
         super(portDescriptor, url, exchangeName, assertion, new CachingCXFSecuredServicePortBuilder<>(portDescriptor,
             exchangeName));
-        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), null, null);
+        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), null, null, flagDQ);
 
         serviceEndpoint.configure();
     }
 
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, AssertionType assertion, String url,
-        NhinTargetSystemType target, String serviceName) {
+        NhinTargetSystemType target, String serviceName, boolean flagDQ) {
 
         super(portDescriptor, url, target.getExchangeName(), assertion, new CachingCXFSecuredServicePortBuilder<>(
             portDescriptor, target.getExchangeName()));
-        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), target, serviceName);
+        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), target, serviceName, flagDQ);
         serviceEndpoint.configure();
     }
 
@@ -71,7 +71,7 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
     }
 
     private void decorateEndpoint(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId,
-        NhinTargetSystemType target, String serviceName) {
+        NhinTargetSystemType target, String serviceName, boolean flagDQ) {
         serviceEndpoint = new SAMLServiceEndpointDecorator<>(serviceEndpoint, assertion, target, serviceName);
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo,
             wsAddressingActionId, assertion);
@@ -81,6 +81,8 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
             .getDefaultExchange();
         serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint,
             StoreUtil.getGatewayCertificateAlias(exchangeName), assertion);
+        serviceEndpoint = new SoapHeaderServiceEndPointDecorator<>(serviceEndpoint, null,
+            assertion.getDeferredResponseEndpoint(), flagDQ);
     }
 
     @Override
