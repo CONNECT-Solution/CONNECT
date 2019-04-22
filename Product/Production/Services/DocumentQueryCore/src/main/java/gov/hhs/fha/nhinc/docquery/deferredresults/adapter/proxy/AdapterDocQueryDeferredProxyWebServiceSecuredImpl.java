@@ -55,7 +55,7 @@ public class AdapterDocQueryDeferredProxyWebServiceSecuredImpl extends BaseAdapt
         RegistryResponseType response = null;
         try {
             // get the Adopter Endpoint URL
-            String url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion,
+            String url = getEndPointFromConnectionManagerByAdapterAPILevel(
                 NhincConstants.ADAPTER_DOC_QUERY_DEFERRED_RESULTS_SECURED_SERVICE);
 
             // Call the service
