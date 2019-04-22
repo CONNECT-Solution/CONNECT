@@ -78,7 +78,6 @@ public abstract class BaseService {
 
         if (assertion != null) {
             handleDeferredResponseEndpoint(assertion, context);
-            LOG.debug(" handleDeferredResponseEndpoint: {}", assertion.getDeferredResponseEndpoint());
             handleMessageId(assertion, context, wsaHelper);
             handleRelatesTo(context, assertion);
             handleHttpHeaders(assertion, context);
