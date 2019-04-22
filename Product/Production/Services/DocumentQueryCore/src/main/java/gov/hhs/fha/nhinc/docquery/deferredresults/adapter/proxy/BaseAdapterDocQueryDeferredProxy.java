@@ -26,11 +26,9 @@
 */
 package gov.hhs.fha.nhinc.docquery.deferredresults.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 public abstract class BaseAdapterDocQueryDeferredProxy implements AdapterDocQueryDeferredProxy {
@@ -54,22 +52,10 @@ public abstract class BaseAdapterDocQueryDeferredProxy implements AdapterDocQuer
      * @return The endpoint URL.
      * @throws ConnectionManagerException A ConnectionManagerException if one occurs.
      */
-    public String getEndPointFromConnectionManagerByAdapterAPILevel(AssertionType assertion, String serviceName) throws
+    public String getEndPointFromConnectionManagerByAdapterAPILevel(String serviceName) throws
         ExchangeManagerException {
-        String url = null;
-        //get the Implements Spec version from the assertion
-        if (assertion != null && assertion.getImplementsSpecVersion() != null) {
-            //We only support 3.0 for now for Deferred Option Response
-            if (assertion.getImplementsSpecVersion().equals(NhincConstants.UDDI_SPEC_VERSION.SPEC_3_0.toString())) {
-                //look for ADAPTER_API_LEVEL a1 if not found then look for a0
-                url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName,
-                    NhincConstants.ADAPTER_API_LEVEL.LEVEL_a1);
-                if (NullChecker.isNullish(url)) {
-                    url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName,
-                        NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
-                }
-            }
-        }
+        String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName,
+            NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
         //If the preferred API level is not configured, then return which ever one is available
         if (url == null)
