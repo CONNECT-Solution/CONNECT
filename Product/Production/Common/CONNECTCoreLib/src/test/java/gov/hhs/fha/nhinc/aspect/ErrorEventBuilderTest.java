@@ -85,6 +85,7 @@ public class ErrorEventBuilderTest {
 
         builder.buildMessageID();
         builder.buildTransactionID();
+        builder.buildDeferredResponseEndpoint();
 
         assertEquals("messageId", builder.getEvent().getMessageID());
         assertEquals("transactionId", builder.getEvent().getTransactionID());
