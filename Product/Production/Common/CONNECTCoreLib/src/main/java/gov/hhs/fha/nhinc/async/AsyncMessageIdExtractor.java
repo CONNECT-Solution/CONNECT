@@ -34,8 +34,6 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.headers.Header;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 import org.w3c.dom.Element;
 
@@ -44,8 +42,6 @@ import org.w3c.dom.Element;
  * @author JHOPPESC
  */
 public class AsyncMessageIdExtractor {
-    private static final Logger LOG = LoggerFactory.getLogger(AsyncMessageIdExtractor.class);
-
     protected Element getSoapHeaderElement(WebServiceContext context, String headerName) {
         if (context == null) {
             return null;

@@ -66,7 +66,7 @@ public class AuditRepositoryProxyWebServiceUnsecuredImpl implements AuditReposit
                 ServicePortDescriptor<AuditRepositoryManagerPortType> portDescriptor = new AuditRepositoryUnsecuredServicePortDescriptor();
 
                 CONNECTClient<AuditRepositoryManagerPortType> client = CONNECTCXFClientFactory.getInstance()
-                    .getCONNECTClientUnsecured(portDescriptor, url, assertion, true);
+                    .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                 result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerPortType.class, invokeMethodName,
                     request);

@@ -48,20 +48,20 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
     private static final Logger LOG = LoggerFactory.getLogger(CONNECTCXFClientSecured.class);
 
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName,
-        AssertionType assertion, boolean flagDQ) {
+        AssertionType assertion) {
         super(portDescriptor, url, exchangeName, assertion, new CachingCXFSecuredServicePortBuilder<>(portDescriptor,
             exchangeName));
-        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), null, null, flagDQ);
+        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), null, null);
 
         serviceEndpoint.configure();
     }
 
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, AssertionType assertion, String url,
-        NhinTargetSystemType target, String serviceName, boolean flagDQ) {
+        NhinTargetSystemType target, String serviceName) {
 
         super(portDescriptor, url, target.getExchangeName(), assertion, new CachingCXFSecuredServicePortBuilder<>(
             portDescriptor, target.getExchangeName()));
-        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), target, serviceName, flagDQ);
+        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), target, serviceName);
         serviceEndpoint.configure();
     }
 
@@ -71,7 +71,7 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
     }
 
     private void decorateEndpoint(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId,
-        NhinTargetSystemType target, String serviceName, boolean flagDQ) {
+        NhinTargetSystemType target, String serviceName) {
         serviceEndpoint = new SAMLServiceEndpointDecorator<>(serviceEndpoint, assertion, target, serviceName);
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<>(serviceEndpoint, wsAddressingTo,
             wsAddressingActionId, assertion);
@@ -82,7 +82,7 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
         serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint,
             StoreUtil.getGatewayCertificateAlias(exchangeName), assertion);
         serviceEndpoint = new SoapHeaderServiceEndPointDecorator<>(serviceEndpoint, null,
-            assertion.getDeferredResponseEndpoint(), flagDQ);
+            assertion.getDeferredResponseEndpoint());
     }
 
     @Override
