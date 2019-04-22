@@ -52,15 +52,13 @@ public class SoapHeaderServiceEndPointDecorator<T> extends ServiceEndpointDecora
     private String subscriptionId = null;
     private BindingProvider bindingProviderPort;
     private String deferredResponseEndpoint = null;
-    private boolean isDQ = false;
 
     public SoapHeaderServiceEndPointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String subscriptionId,
-        String deferredResponseEndpoint, boolean flagDQ) {
+        String deferredResponseEndpoint) {
         super(decoratoredEndpoint);
         this.subscriptionId = subscriptionId;
         this.bindingProviderPort = (BindingProvider) decoratedEndpoint.getPort();
         this.deferredResponseEndpoint = deferredResponseEndpoint;
-        this.isDQ = flagDQ;
     }
 
     @Override
@@ -79,7 +77,7 @@ public class SoapHeaderServiceEndPointDecorator<T> extends ServiceEndpointDecora
             }
         }
 
-        if (isDQ && StringUtils.isNotEmpty(deferredResponseEndpoint)) {
+        if (StringUtils.isNotEmpty(deferredResponseEndpoint)) {
             try {
                 soapHeader = new Header(CoreHelpUtils.getQNameDeferredResponseEndpoint(), deferredResponseEndpoint,
                     new JAXBDataBinding(String.class));

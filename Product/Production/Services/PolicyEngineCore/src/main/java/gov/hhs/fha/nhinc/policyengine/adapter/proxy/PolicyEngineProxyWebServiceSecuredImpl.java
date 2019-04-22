@@ -76,7 +76,7 @@ public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy
                 ServicePortDescriptor<AdapterPolicyEngineSecuredPortType> portDescriptor = new PolicyEngineSecuredServicePortDescriptor();
 
                 CONNECTClient<AdapterPolicyEngineSecuredPortType> client = CONNECTCXFClientFactory.getInstance()
-                    .getCONNECTClientSecured(portDescriptor, url, assertion, true);
+                    .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 response = (CheckPolicyResponseType) client.invokePort(AdapterPolicyEngineSecuredPortType.class,
                     "checkPolicy", securedRequest);

@@ -152,7 +152,7 @@ public class AuditQueryLogProxyWebServiceUnsecuredImpl implements AuditRetrieve 
         String url = getAdapterQueryLogUnsecuredSerrviceUrl();
         CONNECTClient<AuditQueryLogPortType> client = null;
         if (NullChecker.isNotNullish(url)) {
-            client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, null, true);
+            client = CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, null);
         }
         return client;
 

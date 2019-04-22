@@ -88,7 +88,7 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
                     final ServicePortDescriptor<DocumentRegistryPortType> portDescriptor = getServicePortDescriptor();
 
                     final CONNECTClient<DocumentRegistryPortType> client = CONNECTClientFactory.getInstance()
-                        .getCONNECTClientUnsecured(portDescriptor, url, assertion, true);
+                        .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                     response = (AdhocQueryResponse) client.invokePort(DocumentRegistryPortType.class,
                         "documentRegistryRegistryStoredQuery", msg);
