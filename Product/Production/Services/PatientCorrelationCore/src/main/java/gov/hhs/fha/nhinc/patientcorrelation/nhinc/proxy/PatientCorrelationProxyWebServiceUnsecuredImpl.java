@@ -111,7 +111,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
                 final ServicePortDescriptor<PatientCorrelationPortType> portDescriptor = getRetrieveServicePortDescriptor();
 
                 final CONNECTClient<PatientCorrelationPortType> client = getCONNECTClientFactory()
-                    .getCONNECTClientUnsecured(portDescriptor, url, assertion, true);
+                    .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                 response = (RetrievePatientCorrelationsResponseType) client.invokePort(PatientCorrelationPortType.class,
                     "retrievePatientCorrelations", request);
@@ -151,7 +151,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
                 final ServicePortDescriptor<PatientCorrelationPortType> portDescriptor = getRetrieveServicePortDescriptor();
 
                 final CONNECTClient<PatientCorrelationPortType> client = getCONNECTClientFactory()
-                    .getCONNECTClientUnsecured(portDescriptor, url, assertion, true);
+                    .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                 response = (AddPatientCorrelationResponseType) client.invokePort(PatientCorrelationPortType.class,
                     "addPatientCorrelation", request);
@@ -181,7 +181,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
                 final ServicePortDescriptor<PatientCorrelationPortType> portDescriptor = new PatientCorrelationAddPLQServicePortDescriptor();
 
                 final CONNECTClient<PatientCorrelationPortType> client = getCONNECTClientFactory()
-                    .getCONNECTClientUnsecured(portDescriptor, url, assertion, true);
+                    .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                 client.invokePort(PatientCorrelationPortType.class,"addPatientCorrelationPLQ", request);
             }

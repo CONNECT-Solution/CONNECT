@@ -127,7 +127,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
                     NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
                 final CONNECTClient<PatientCorrelationSecuredPortType> client = CONNECTClientFactory.getInstance()
-                    .getCONNECTClientSecured(portDescriptor, url, assertion, true);
+                    .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 securedResp = (RetrievePatientCorrelationsSecuredResponseType) client
                     .invokePort(PatientCorrelationSecuredPortType.class, "retrievePatientCorrelations", request);
@@ -171,7 +171,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
                     NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
                 final CONNECTClient<PatientCorrelationSecuredPortType> client = CONNECTClientFactory.getInstance()
-                    .getCONNECTClientSecured(portDescriptor, url, assertion, true);
+                    .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 securedResp = (AddPatientCorrelationSecuredResponseType) client
                     .invokePort(PatientCorrelationSecuredPortType.class, "addPatientCorrelation", request);
@@ -206,7 +206,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
                 final ServicePortDescriptor<PatientCorrelationSecuredPortType> portDescriptor = new PatientCorrelationSecuredAddPLQServicePortDescriptor();
 
                 final CONNECTClient<PatientCorrelationSecuredPortType> client = CONNECTClientFactory.getInstance()
-                    .getCONNECTClientSecured(portDescriptor, url, assertion, true);
+                    .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 client.invokePort(PatientCorrelationSecuredPortType.class,"addPatientCorrelationPLQ", request);
             }

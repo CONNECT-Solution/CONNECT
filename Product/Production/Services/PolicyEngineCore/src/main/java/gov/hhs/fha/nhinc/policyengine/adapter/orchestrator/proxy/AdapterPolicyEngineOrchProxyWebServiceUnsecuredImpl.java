@@ -61,7 +61,7 @@ public class AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl implements Adap
         ServicePortDescriptor<AdapterPolicyEngineOrchestratorPortType> portDescriptor, String url,
         AssertionType assertion) {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion, true);
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
     /**

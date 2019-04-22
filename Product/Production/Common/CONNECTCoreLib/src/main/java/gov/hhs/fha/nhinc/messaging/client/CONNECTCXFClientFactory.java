@@ -48,13 +48,13 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName,
-        AssertionType assertion, boolean includeHeader) {
+        AssertionType assertion) {
 
         if (StringUtils.isEmpty(url)) {
             throw new WebServiceException(ERROR);
         }
 
-        return new CONNECTCXFClientSecured<>(portDescriptor, url, exchangeName, assertion, includeHeader);
+        return new CONNECTCXFClientSecured<>(portDescriptor, url, exchangeName, assertion);
     }
 
     /**
@@ -63,7 +63,7 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
-        AssertionType assertion, String url, NhinTargetSystemType target, String serviceName, boolean includeHeader) {
+        AssertionType assertion, String url, NhinTargetSystemType target, String serviceName) {
 
         if (StringUtils.isEmpty(url)) {
             throw new WebServiceException(ERROR);
@@ -72,7 +72,7 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
             LOG.debug("Set default NHIN default exchange ");
             target.setExchangeName(ExchangeManager.getInstance().getDefaultExchange());
         }
-        return new CONNECTCXFClientSecured<>(portDescriptor, assertion, url, target, serviceName, includeHeader);
+        return new CONNECTCXFClientSecured<>(portDescriptor, assertion, url, target, serviceName);
     }
 
     /**
@@ -80,13 +80,13 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName,
-        AssertionType assertion, boolean includeHeader) {
+        AssertionType assertion) {
 
         if (StringUtils.isEmpty(url)) {
             throw new WebServiceException(ERROR);
         }
 
-        return new CONNECTCXFClientUnsecured<>(portDescriptor, url, exchangeName, assertion, includeHeader);
+        return new CONNECTCXFClientUnsecured<>(portDescriptor, url, exchangeName, assertion);
     }
 
 }

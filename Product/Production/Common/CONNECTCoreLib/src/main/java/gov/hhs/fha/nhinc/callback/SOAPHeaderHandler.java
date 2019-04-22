@@ -90,7 +90,6 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 addMustUnderstandAttribute(oHeader);
             }
 
-            adjustDeferredResponseEndpointMustUnderstandAttribute(oHeader, Boolean.FALSE);
         } catch (SOAPException e) {
             LOG.error("Unable to handle message: {}", e.getLocalizedMessage());
             LOG.trace("Unable to handle message: {}", e.getLocalizedMessage(), e);
@@ -201,7 +200,6 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             if (isOutboundMessage) {
                 addMustUnderstandAttribute(oHeader);
             }
-            adjustDeferredResponseEndpointMustUnderstandAttribute(oHeader, Boolean.FALSE);
         } catch (SOAPException ex) {
             LOG.warn("Exception adding mustunderstand to fault: {}", ex.getLocalizedMessage());
             LOG.trace("Exception adding mustunderstand to fault: {}", ex.getLocalizedMessage(), ex);
@@ -232,14 +230,4 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
         }
     }
 
-    private void adjustDeferredResponseEndpointMustUnderstandAttribute(SOAPHeader oHeader, Boolean mustUnderstandValue) throws SOAPException {
-        SOAPElement endpoint = getFirstChild(oHeader, CoreHelpUtils.getQNameDeferredResponseEndpoint());
-        if(null != mustUnderstandValue &&  null != endpoint){
-            if(endpoint.hasAttribute(NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND)){
-                endpoint.setAttribute(NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND, mustUnderstandValue.toString());
-            }else{
-                endpoint.addAttribute(CoreHelpUtils.getQNameMustUnderstand(), mustUnderstandValue.toString());
-            }
-        }
-    }
 }
