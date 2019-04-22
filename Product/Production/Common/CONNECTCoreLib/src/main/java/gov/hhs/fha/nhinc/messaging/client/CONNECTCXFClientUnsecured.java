@@ -23,10 +23,11 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapHeaderServiceEndPointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFUnsecuredServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
@@ -36,9 +37,11 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  */
 public class CONNECTCXFClientUnsecured<T> extends CONNECTCXFClient<T> {
 
-    CONNECTCXFClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName, AssertionType assertion) {
+    CONNECTCXFClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName,
+        AssertionType assertion, boolean flagDQ) {
         super(portDescriptor, url, exchangeName, assertion, new CachingCXFUnsecuredServicePortBuilder<>(portDescriptor));
-
+        serviceEndpoint = new SoapHeaderServiceEndPointDecorator<>(serviceEndpoint, null,
+            assertion.getDeferredResponseEndpoint(), flagDQ);
         serviceEndpoint.configure();
     }
 
