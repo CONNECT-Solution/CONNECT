@@ -58,7 +58,7 @@ public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy {
     protected CONNECTClient<AdapterPEPPortType> getCONNECTClientUnsecured(
         ServicePortDescriptor<AdapterPEPPortType> portDescriptor, String url, AssertionType assertion) {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion, true);
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
     /**

@@ -99,7 +99,7 @@ public class EntityDocQueryProxyWebServiceSecuredImpl implements EntityDocQueryP
                     NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
                 CONNECTClient<EntityDocQuerySecuredPortType> client = CONNECTClientFactory.getInstance()
-                    .getCONNECTClientSecured(portDescriptor, url, assertion, true);
+                    .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 RespondingGatewayCrossGatewayQuerySecuredRequestType request =
                     new RespondingGatewayCrossGatewayQuerySecuredRequestType();

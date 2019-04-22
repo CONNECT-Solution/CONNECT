@@ -38,10 +38,10 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 public class CONNECTCXFClientUnsecured<T> extends CONNECTCXFClient<T> {
 
     CONNECTCXFClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName,
-        AssertionType assertion, boolean flagDQ) {
+        AssertionType assertion) {
         super(portDescriptor, url, exchangeName, assertion, new CachingCXFUnsecuredServicePortBuilder<>(portDescriptor));
         serviceEndpoint = new SoapHeaderServiceEndPointDecorator<>(serviceEndpoint, null,
-            assertion.getDeferredResponseEndpoint(), flagDQ);
+            assertion.getDeferredResponseEndpoint());
         serviceEndpoint.configure();
     }
 
