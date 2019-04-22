@@ -67,6 +67,7 @@ import java.util.Set;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.namespace.QName;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -286,6 +287,16 @@ public class CoreHelpUtils {
     public static boolean checkPropertyList(String file) {
         return file.equalsIgnoreCase(GATEWAY_PROPERTY_FILE) || file.equalsIgnoreCase(ADAPTER_PROPERTY_FILE_NAME)
             || file.equalsIgnoreCase(AUDIT_LOGGING_PROPERTY_FILE) || file.equalsIgnoreCase(CA_AUTHORITY_PROPERTY_FILE);
+    }
+
+    public static QName getQNameDeferredResponseEndpoint() {
+        return new QName(NhincConstants.NS_IHE_ITI_2007, NhincConstants.WS_IHE_DEFERRED_RESPONSE_ENDPOINT,
+            NhincConstants.NS_IHE_PREFIX);
+    }
+
+    public static QName getQNameMustUnderstand() {
+        return new QName(NhincConstants.WS_SOAP_ENV_URL, NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND,
+            NhincConstants.WS_SOAP_ENV_PREFIX);
     }
 
 }

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy;
 
 import gov.hhs.fha.nhinc.adapterpep.AdapterPEPPortType;
@@ -56,9 +56,9 @@ public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy {
     }
 
     protected CONNECTClient<AdapterPEPPortType> getCONNECTClientUnsecured(
-            ServicePortDescriptor<AdapterPEPPortType> portDescriptor, String url, AssertionType assertion) {
+        ServicePortDescriptor<AdapterPEPPortType> portDescriptor, String url, AssertionType assertion) {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion, true);
     }
 
     /**
@@ -86,13 +86,13 @@ public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy {
                 CONNECTClient<AdapterPEPPortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                 checkPolicyResponse = (CheckPolicyResponseType) client.invokePort(AdapterPEPPortType.class,
-                        "checkPolicy", request);
+                    "checkPolicy", request);
             } else {
                 LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception ex) {
             String message = "Error occurred calling AdapterPEPProxyWebServiceUnsecuredImpl.checkPolicy.  Error: "
-                    + ex.getMessage();
+                + ex.getMessage();
             LOG.error(message, ex);
             throw new RuntimeException(message, ex);
         }
