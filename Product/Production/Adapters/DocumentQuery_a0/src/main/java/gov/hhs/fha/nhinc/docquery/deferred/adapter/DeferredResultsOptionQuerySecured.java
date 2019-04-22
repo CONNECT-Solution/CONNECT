@@ -37,7 +37,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class DeferredResultsOptionQuerySecured implements AdapterDocQueryDeferredResultsOptionQuerySecuredPortType{
 
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse arg0) {
+    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredResults(AdhocQueryResponse arg0) {
+        // TODO Auto-generated method stub
         return null;
     }
 

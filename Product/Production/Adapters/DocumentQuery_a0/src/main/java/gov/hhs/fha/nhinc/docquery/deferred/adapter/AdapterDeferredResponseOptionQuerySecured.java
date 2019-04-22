@@ -37,10 +37,10 @@ import gov.hhs.fha.nhinc.dq.adapterdeferredrequestquerysecured.AdapterDeferredRe
 
 public class AdapterDeferredResponseOptionQuerySecured implements AdapterDeferredResponseOptionQueryRequestSecuredPortType{
 
-
     @Override
-    public RespondingGatewayCrossGatewayQuerySecureResponseType respondingGatewayCrossGatewayQueryDeferredSecured(
-        RespondingGatewayCrossGatewayQuerySecureRequestType message) {
+    public RespondingGatewayCrossGatewayQuerySecureResponseType respondingGatewayCrossGatewayQueryDeferredSecuredRequest(
+        RespondingGatewayCrossGatewayQuerySecureRequestType request) {
+        // TODO Auto-generated method stub
         return null;
     }
 

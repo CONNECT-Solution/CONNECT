@@ -24,29 +24,44 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package gov.hhs.fha.nhinc.docquery.deferred.entity;
+package gov.hhs.fha.nhinc.docquery.deferredresults.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseType;
-import gov.hhs.fha.nhinc.dq.entitydeferredresponse.EntityDocQueryDeferredResultPortType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-/**
- * Entity webservice for the Document Repository to call when the deferred documents have been retrieved and should notify
- * the Initiating Gateway of the results.
- */
-public class EntityDeferredResultsOption implements EntityDocQueryDeferredResultPortType {
+public abstract class BaseAdapterDocQueryDeferredProxy implements AdapterDocQueryDeferredProxy {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EntityDeferredResultsOption.class);
 
-    EntityDeferredResultsImpl impl = new EntityDeferredResultsImpl();
+    private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
-    @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredEntity(
-        RespondingGatewayCrossGatewayQueryResponseType message) {
-        LOG.debug("Inside Entity Results Option Unsecured");
-        return impl.respondingGatewayCrossGatewayQueryUnsecured(message);
+    public WebServiceProxyHelper getWebServiceProxyHelper() {
+        return oProxyHelper;
     }
 
+    public void setWebServiceProxyHelper(WebServiceProxyHelper helper) {
+        oProxyHelper = helper;
+    }
+
+    /**
+     * This method returns the URL endpoint based on the ImplementsSpecVersion
+     *
+     * @param assertion Assertion received.
+     * @param serviceName
+     * @return The endpoint URL.
+     * @throws ConnectionManagerException A ConnectionManagerException if one occurs.
+     */
+    public String getEndPointFromConnectionManagerByAdapterAPILevel(String serviceName) throws
+        ExchangeManagerException {
+        String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName,
+            NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+
+        //If the preferred API level is not configured, then return which ever one is available
+        if (url == null)
+        {
+            url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
+        }
+        return url;
+    }
 }
