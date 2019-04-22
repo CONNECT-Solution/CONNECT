@@ -37,51 +37,24 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  */
 public abstract class CONNECTClientFactory {
     public abstract <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
-        String exchangeName, AssertionType assertion, boolean includeHeader);
-
-    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
-        String exchangeName, AssertionType assertion) {
-        return getCONNECTClientSecured(portDescriptor, url, exchangeName, assertion, false);
-    }
-
-    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
-        AssertionType assertion, boolean includeHeader) {
-        return getCONNECTClientSecured(portDescriptor, url, InternalExchangeManager.getInstance().getDefaultExchange(),
-            assertion, includeHeader);
-    }
+        String exchangeName, AssertionType assertion);
 
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
         AssertionType assertion) {
         return getCONNECTClientSecured(portDescriptor, url, InternalExchangeManager.getInstance().getDefaultExchange(),
-            assertion, false);
+            assertion);
     }
 
     public abstract <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
-        AssertionType assertion, String url, NhinTargetSystemType target, String serviceName, boolean includeHeader);
-
-    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
-        AssertionType assertion, String url, NhinTargetSystemType target, String serviceName) {
-        return getCONNECTClientSecured(portDescriptor, assertion, url, target, serviceName, false);
-    }
+        AssertionType assertion, String url, NhinTargetSystemType target, String serviceName);
 
     public abstract <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
-        String exchangeName, AssertionType assertion, boolean includeHeader);
-
-    public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
-        String exchangeName, AssertionType assertion){
-        return getCONNECTClientUnsecured(portDescriptor, url, exchangeName, assertion, false);
-    }
-
-    public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
-        AssertionType assertion, boolean includeHeader) {
-        return getCONNECTClientUnsecured(portDescriptor, url, InternalExchangeManager.getInstance()
-            .getDefaultExchange(), assertion, includeHeader);
-    }
+        String exchangeName, AssertionType assertion);
 
     public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
         AssertionType assertion) {
-        return getCONNECTClientUnsecured(portDescriptor, url,
-            InternalExchangeManager.getInstance().getDefaultExchange(), assertion, false);
+        return getCONNECTClientUnsecured(portDescriptor, url, InternalExchangeManager.getInstance()
+            .getDefaultExchange(), assertion);
     }
 
     public static CONNECTClientFactory getInstance() {

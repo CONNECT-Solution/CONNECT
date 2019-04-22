@@ -67,7 +67,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImplTest {
         when(mockWebProxy.getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SERVICE_NAME)).thenReturn("");
         verify(mockClient).invokePort(any(Class.class), any(String.class), any(Object.class));
         verify(mockCONNECTClientFactory).getCONNECTClientUnsecured(any(ServicePortDescriptor.class), any(String.class),
-            any(AssertionType.class), any(boolean.class));
+            any(AssertionType.class));
     }
 
     @SuppressWarnings("unchecked")
@@ -77,7 +77,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImplTest {
         impl.retrievePatientCorrelations(mock309, mockAssertion);
         verify(mockClient).invokePort(any(Class.class), any(String.class), any(Object.class));
         verify(mockCONNECTClientFactory).getCONNECTClientUnsecured(any(ServicePortDescriptor.class), any(String.class),
-            any(AssertionType.class), any(boolean.class));
+            any(AssertionType.class));
     }
 
     @SuppressWarnings("unchecked")
@@ -89,7 +89,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImplTest {
         verify(mockClient).invokePort(any(Class.class), any(String.class),
             any(AddPatientCorrelationPLQRequestType.class));
         verify(mockCONNECTClientFactory).getCONNECTClientUnsecured(any(ServicePortDescriptor.class), any(String.class),
-            any(AssertionType.class), any(boolean.class));
+            any(AssertionType.class));
     }
 
     protected PatientCorrelationProxyWebServiceUnsecuredImpl getPatientCorrelationProxyWebServiceUnsecuredImpl() {
@@ -110,8 +110,8 @@ public class PatientCorrelationProxyWebServiceUnsecuredImplTest {
     @Before
     public void setup() {
         when(mockCONNECTClientFactory.getCONNECTClientUnsecured(any(ServicePortDescriptor.class), any(String.class),
-            any(AssertionType.class), any(boolean.class))).thenReturn(mockClient);
+            any(AssertionType.class))).thenReturn(mockClient);
         when(mockCONNECTClientFactory.getCONNECTClientSecured(any(ServicePortDescriptor.class), any(String.class), any(
-            AssertionType.class), any(boolean.class))).thenReturn(mockSecuredClient);
+            AssertionType.class))).thenReturn(mockSecuredClient);
     }
 }
