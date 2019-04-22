@@ -87,7 +87,7 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl extends BaseAdapterDocQue
                         NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
                     final CONNECTClient<AdapterDocQuerySecuredPortType> client = CONNECTClientFactory.getInstance()
-                        .getCONNECTClientSecured(portDescriptor, url, assertion, true);
+                        .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                     response = (AdhocQueryResponse) client.invokePort(AdapterDocQuerySecuredPortType.class,
                         "respondingGatewayCrossGatewayQuery", msg);

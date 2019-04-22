@@ -103,7 +103,7 @@ public abstract class BaseEvent implements Event {
     @Override
     public String getDeferredResponseEndpoint() {
         return deferredResponseEndpoint;
-    };
+    }
 
     @Override
     public void setDeferredResponseEndpoint(String deferredResponseEndpoint) {

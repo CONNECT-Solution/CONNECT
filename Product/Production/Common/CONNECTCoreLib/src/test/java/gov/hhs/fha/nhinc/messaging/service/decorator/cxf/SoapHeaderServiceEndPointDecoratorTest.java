@@ -49,7 +49,7 @@ public class SoapHeaderServiceEndPointDecoratorTest {
         when(mockBinding.getRequestContext()).thenReturn(mockMap);
 
         SoapHeaderServiceEndPointDecorator decorator = new SoapHeaderServiceEndPointDecorator<>(mockService, null,
-            "http://deferredEndpoint/", true);
+            "http://deferredEndpoint/");
         decorator.configure();
 
         verify(mockMap, Mockito.times(1)).put(Mockito.any(String.class), Mockito.any(Object.class));
