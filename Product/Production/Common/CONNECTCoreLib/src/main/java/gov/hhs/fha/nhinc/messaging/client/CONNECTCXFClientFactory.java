@@ -26,15 +26,14 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import javax.xml.ws.WebServiceException;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong
@@ -49,13 +48,13 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName,
-        AssertionType assertion) {
+        AssertionType assertion, boolean includeHeader) {
 
         if (StringUtils.isEmpty(url)) {
             throw new WebServiceException(ERROR);
         }
 
-        return new CONNECTCXFClientSecured<>(portDescriptor, url, exchangeName, assertion);
+        return new CONNECTCXFClientSecured<>(portDescriptor, url, exchangeName, assertion, includeHeader);
     }
 
     /**
@@ -64,7 +63,7 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
-        AssertionType assertion, String url, NhinTargetSystemType target, String serviceName) {
+        AssertionType assertion, String url, NhinTargetSystemType target, String serviceName, boolean includeHeader) {
 
         if (StringUtils.isEmpty(url)) {
             throw new WebServiceException(ERROR);
@@ -73,7 +72,7 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
             LOG.debug("Set default NHIN default exchange ");
             target.setExchangeName(ExchangeManager.getInstance().getDefaultExchange());
         }
-        return new CONNECTCXFClientSecured<>(portDescriptor, assertion, url, target, serviceName);
+        return new CONNECTCXFClientSecured<>(portDescriptor, assertion, url, target, serviceName, includeHeader);
     }
 
     /**
@@ -81,13 +80,13 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      */
     @Override
     public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName,
-        AssertionType assertion) {
+        AssertionType assertion, boolean includeHeader) {
 
         if (StringUtils.isEmpty(url)) {
             throw new WebServiceException(ERROR);
         }
 
-        return new CONNECTCXFClientUnsecured<>(portDescriptor, url, exchangeName, assertion);
+        return new CONNECTCXFClientUnsecured<>(portDescriptor, url, exchangeName, assertion, includeHeader);
     }
 
 }
