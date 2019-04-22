@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.event;
 
 import java.util.List;
@@ -48,6 +48,7 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
     private static final String NPI = "npi";
     private static final String STATUSES = "statuses";
     private static final String ERROR_CODES = "error_codes";
+    private static final String DEFERRED_RESPONSE_ENDPOINT = "deferred_response_endpoint";
 
     private final EventDescription description;
     private final JSONObject jsonObject;
@@ -75,6 +76,7 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
             addNPI(description);
             addStatuses(description);
             addErrorCodes(description);
+            addDeferredResponseEndpoint(description);
         } catch (JSONException e) {
             LOG.error("failed to serialize event description as JSON", e);
         }
@@ -130,6 +132,10 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
 
     private void addErrorCodes(EventDescription description) throws JSONException {
         addToJSON(ERROR_CODES, description.getErrorCodes());
+    }
+
+    private void addDeferredResponseEndpoint(EventDescription description) throws JSONException {
+        addToJSON(DEFERRED_RESPONSE_ENDPOINT, description.getDeferredResponseEndpoint());
     }
 
     private void addToJSON(String key, Object value) throws JSONException {
@@ -206,6 +212,11 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
     @Override
     public List<String> getResponseMsgIdList() {
         return description.getResponseMsgIdList();
+    }
+
+    @Override
+    public String getDeferredResponseEndpoint() {
+        return description.getDeferredResponseEndpoint();
     }
 
 }
