@@ -67,11 +67,9 @@ public class AsyncMessageIdExtractor {
         }
         for (Header header : headers) {
             if (header.getName().getLocalPart().equalsIgnoreCase(headerName)) {
-                LOG.debug("{} soapheader found.", headerName);
                 return (Element) header.getObject();
             }
         }
-        LOG.debug("{} soapheader not found.", headerName);
         return null;
     }
 
