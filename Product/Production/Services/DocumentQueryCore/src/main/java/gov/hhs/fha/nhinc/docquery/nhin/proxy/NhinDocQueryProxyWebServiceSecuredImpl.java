@@ -85,7 +85,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
         final ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor, final AssertionType assertion,
         final String url, final NhinTargetSystemType target) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-            target, NhincConstants.DOC_QUERY_SERVICE_NAME);
+            target, NhincConstants.DOC_QUERY_SERVICE_NAME, true);
     }
 
     protected ExchangeManager getCMInstance() {
