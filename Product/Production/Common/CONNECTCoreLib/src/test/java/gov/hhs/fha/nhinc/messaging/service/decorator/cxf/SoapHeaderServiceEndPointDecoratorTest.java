@@ -32,6 +32,7 @@ import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -40,6 +41,12 @@ import org.mockito.Mockito;
  *
  */
 public class SoapHeaderServiceEndPointDecoratorTest {
+    @Before
+    public void setup() {
+        // propertiesAccessor
+        System.setProperty("nhinc.properties.dir", System.getProperty("user.dir") + "/src/test/resources");
+    }
+
     @Test
     public void testSoapHeaderEndpoint() {
         ServiceEndpoint<BindingProvider> mockService = Mockito.mock(ServiceEndpoint.class);

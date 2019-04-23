@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,7 @@ public class SoapHeaderServiceEndPointDecorator<T> extends ServiceEndpointDecora
                 soapHeader = new Header(CoreHelpUtils.getQNameDeferredResponseEndpoint(), deferredResponseEndpoint,
                     new JAXBDataBinding(String.class));
                 headers.add(soapHeader);
-            } catch (JAXBException e) {
+            } catch (JAXBException | PropertyAccessException e) {
                 LOG.error("Failed to set deferred response endpoint", e);
             }
         }
