@@ -78,8 +78,8 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
                 NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME, e.getLocalizedMessage(), e);
         }
 
-        LOG.debug("In AuditRepositoryProxyWebServiceSecured.auditLog(...) - completed called to ConnectionManager to "
-            + "retrieve endpoint.");
+        LOG.debug(
+            "In AuditRepositoryProxyWebServiceSecured.auditLog(...) - completed called to ConnectionManager to retrieve endpoint.");
 
         return result;
     }
