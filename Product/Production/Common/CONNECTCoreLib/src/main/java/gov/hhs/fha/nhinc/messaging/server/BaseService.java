@@ -44,6 +44,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.helpers.CastUtils;
 import org.apache.cxf.jaxws.context.WrappedMessageContext;
 import org.apache.cxf.message.Message;
@@ -120,7 +121,7 @@ public abstract class BaseService {
     }
 
     private void handleDeferredResponseEndpoint(AssertionType assertion, WebServiceContext context) {
-        if (NullChecker.isNullish(assertion.getDeferredResponseEndpoint())) {
+        if (StringUtils.isBlank(assertion.getDeferredResponseEndpoint())) {
             assertion.setDeferredResponseEndpoint(extractor.getDeferredResponseEndpoint(context));
         }
     }
@@ -160,7 +161,7 @@ public abstract class BaseService {
     private String getInboundReplyToHeader(WebServiceContext context) {
         MessageContext messageContext = context.getMessageContext();
 
-        if (messageContext == null || !(messageContext instanceof WrappedMessageContext)) {
+        if (!(messageContext instanceof WrappedMessageContext)) {
             return null;
         }
 

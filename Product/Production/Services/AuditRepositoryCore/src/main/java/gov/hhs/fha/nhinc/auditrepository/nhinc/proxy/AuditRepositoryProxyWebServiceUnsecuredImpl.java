@@ -76,8 +76,8 @@ public class AuditRepositoryProxyWebServiceUnsecuredImpl implements AuditReposit
                 NhincConstants.AUDIT_REPO_SERVICE_NAME, e.getLocalizedMessage(), e);
         }
 
-        LOG.debug("In AuditRepositoryProxyWebServiceUnsecuredImpl.auditLog(...) - completed called to "
-            + "ConnectionManager to retrieve endpoint.");
+        LOG.debug(
+            "In AuditRepositoryProxyWebServiceUnsecuredImpl.auditLog(...) - completed called to ConnectionManager to retrieve endpoint.");
 
         return result;
     }
