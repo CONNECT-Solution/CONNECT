@@ -41,6 +41,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.KeyPair;
@@ -289,14 +291,19 @@ public class CoreHelpUtils {
             || file.equalsIgnoreCase(AUDIT_LOGGING_PROPERTY_FILE) || file.equalsIgnoreCase(CA_AUTHORITY_PROPERTY_FILE);
     }
 
-    public static QName getQNameDeferredResponseEndpoint() {
-        return new QName(NhincConstants.NS_IHE_ITI_2007, NhincConstants.WS_IHE_DEFERRED_RESPONSE_ENDPOINT,
+    public static QName getQNameDeferredResponseEndpoint() throws PropertyAccessException {
+        return new QName(getNsIheDeferredResponseOption(), NhincConstants.WS_IHE_DEFERRED_RESPONSE_ENDPOINT,
             NhincConstants.NS_IHE_PREFIX);
     }
 
     public static QName getQNameMustUnderstand() {
         return new QName(NhincConstants.WS_SOAP_ENV_URL, NhincConstants.WS_SOAP_ATTR_MUSTUNDERSTAND,
             NhincConstants.WS_SOAP_ENV_PREFIX);
+    }
+
+    public static String getNsIheDeferredResponseOption() throws PropertyAccessException {
+        return PropertyAccessor.getInstance().getProperty(NhincConstants.FILE_PROPERTY_DEFERRED_RESPONSE_ENDPOINT,
+            NhincConstants.PROPERTY_IHE_NS);
     }
 
 }
