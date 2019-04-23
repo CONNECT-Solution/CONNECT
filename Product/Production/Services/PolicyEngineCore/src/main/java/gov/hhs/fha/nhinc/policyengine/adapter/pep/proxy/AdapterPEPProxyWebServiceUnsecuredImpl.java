@@ -77,7 +77,7 @@ public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy {
         try {
             LOG.debug("Before target system URL look up.");
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
-            LOG.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            LOG.debug("After target system URL look up. URL for service: {} is: {}", serviceName, url);
 
             if (NullChecker.isNotNullish(url)) {
 
@@ -88,12 +88,11 @@ public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy {
                 checkPolicyResponse = (CheckPolicyResponseType) client.invokePort(AdapterPEPPortType.class,
                     "checkPolicy", request);
             } else {
-                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+                LOG.error("Failed to call the web service ({}).  The URL is null.", serviceName);
             }
         } catch (Exception ex) {
             String message = "Error occurred calling AdapterPEPProxyWebServiceUnsecuredImpl.checkPolicy.  Error: "
                 + ex.getMessage();
-            LOG.error(message, ex);
             throw new RuntimeException(message, ex);
         }
 
