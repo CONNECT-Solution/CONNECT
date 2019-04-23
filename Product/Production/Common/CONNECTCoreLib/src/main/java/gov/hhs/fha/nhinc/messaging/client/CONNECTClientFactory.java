@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**

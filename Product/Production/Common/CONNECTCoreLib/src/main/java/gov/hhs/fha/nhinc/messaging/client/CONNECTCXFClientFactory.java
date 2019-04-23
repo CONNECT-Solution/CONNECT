@@ -26,15 +26,14 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManager;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import javax.xml.ws.WebServiceException;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author akong

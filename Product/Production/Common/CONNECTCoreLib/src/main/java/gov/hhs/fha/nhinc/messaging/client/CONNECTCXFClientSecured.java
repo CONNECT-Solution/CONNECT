@@ -26,13 +26,13 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
+import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.messaging.service.decorator.HttpHeaderServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapHeaderServiceEndPointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsSecurityServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFSecuredServicePortBuilder;
@@ -81,6 +81,8 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
             .getDefaultExchange();
         serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint,
             StoreUtil.getGatewayCertificateAlias(exchangeName), assertion);
+        serviceEndpoint = new SoapHeaderServiceEndPointDecorator<>(serviceEndpoint, null,
+            assertion.getDeferredResponseEndpoint());
     }
 
     @Override

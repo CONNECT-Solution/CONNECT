@@ -24,62 +24,42 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event;
+package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import java.util.Map;
+import javax.xml.ws.BindingProvider;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
- * @author zmelnick
+ * @author ttang
  *
  */
-public interface Event {
+public class SoapHeaderServiceEndPointDecoratorTest {
+    @Before
+    public void setup() {
+        // propertiesAccessor
+        System.setProperty("nhinc.properties.dir", System.getProperty("user.dir") + "/src/test/resources");
+    }
 
-    /**
-     * Get the description for the event, a JSON String.
-     *
-     * @return the description
-     */
-    String getDescription();
+    @Test
+    public void testSoapHeaderEndpoint() {
+        ServiceEndpoint<BindingProvider> mockService = Mockito.mock(ServiceEndpoint.class);
+        BindingProvider mockBinding = Mockito.mock(BindingProvider.class);
+        when(mockService.getPort()).thenReturn(mockBinding);
+        Map<String, Object> mockMap = Mockito.mock(Map.class);
+        when(mockBinding.getRequestContext()).thenReturn(mockMap);
 
-    /**
-     * The name of the event triggered.
-     *
-     * @return the event name
-     */
-    String getEventName();
+        SoapHeaderServiceEndPointDecorator decorator = new SoapHeaderServiceEndPointDecorator<>(mockService, null,
+            "http://deferredEndpoint/");
+        decorator.configure();
 
-    /**
-     * The associated MessageID for the triggered event.
-     *
-     * @return the messgaeID
-     */
-    String getMessageID();
-
-    /**
-     * The associated TransactionID for the triggered event.
-     *
-     * @return the transactionID
-     */
-    String getTransactionID();
-
-    void setTransactionID(String transactionID);
-
-    void setMessageID(String messageID);
-
-    void setDescription(String description);
-
-    void setServiceType(String serviceType);
-
-    String getServiceType();
-
-    void setInitiatorHcid(String hcid);
-
-    String getInitiatorHcid();
-
-    void setRespondingHcid(String hcid);
-
-    String getRespondingHcid();
-
-    String getDeferredResponseEndpoint();
-
-    void setDeferredResponseEndpoint(String deferredResponseEndpoint);
+        verify(mockMap, Mockito.times(1)).put(Mockito.any(String.class), Mockito.any(Object.class));
+    }
 
 }
