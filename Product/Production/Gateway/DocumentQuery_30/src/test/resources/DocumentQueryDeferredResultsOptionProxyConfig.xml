@@ -12,7 +12,7 @@
         The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces
         in the description separated with a comma like the following sample: {somebean,anotherbean}
     -->
-    <description>Beans included in this file: {nhindocquerydeferredresults,adapterdocquerydeferredresults,adapterdeferredresultsoptionquery}</description>
+    <description>Beans included in this file: {nhindocquerydeferredresults,adapterdocquerydeferredresults}</description>
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
     <context:annotation-config />

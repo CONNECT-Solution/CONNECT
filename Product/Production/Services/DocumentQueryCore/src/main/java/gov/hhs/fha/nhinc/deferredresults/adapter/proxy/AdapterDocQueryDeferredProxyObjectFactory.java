@@ -23,47 +23,23 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-package gov.hhs.fha.nhinc.docrepository.adapter.dao;
+*/
+package gov.hhs.fha.nhinc.deferredresults.adapter.proxy;
 
-import gov.hhs.fha.nhinc.docrepository.adapter.model.DocQueryDeferredResponseMetadata;
-import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
-@Repository
-public class DeferredResponseOptionDao {
+public class AdapterDocQueryDeferredProxyObjectFactory extends ComponentProxyObjectFactory {
+    private static final String CONFIG_FILE_NAME = "DocumentQueryDeferredResultsOptionProxyConfig.xml";
+    private static final String BEAN_NAME = "adapterdocquerydeferredresults";
 
-    private static final Logger LOG = LoggerFactory.getLogger(DeferredResponseOptionDao.class);
 
-    public boolean save(DocQueryDeferredResponseMetadata meta) {
-        return GenericDBUtils.save(getSession(), meta);
+    @Override
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
     }
 
-    public boolean delete(DocQueryDeferredResponseMetadata document) {
-        return GenericDBUtils.delete(getSession(), document);
+    public AdapterDocQueryDeferredProxy getAdapterDocQueryProxy() {
+        return getBean(BEAN_NAME, AdapterDocQueryDeferredProxy.class);
     }
 
-    public DocQueryDeferredResponseMetadata findByRequest(String requestId) {
-        DocQueryDeferredResponseMetadata metadata = null;
-        if (StringUtils.isNotBlank(requestId)) {
-            metadata = GenericDBUtils.readBy(getSession(), DocQueryDeferredResponseMetadata.class, requestId);
-        }
-        return metadata;
-    }
-
-    protected Session getSession() {
-        Session session = null;
-        try {
-            session = HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory().openSession();
-        } catch (HibernateException e) {
-            LOG.error("Failed to open Session: {}, {}", e.getMessage(), e);
-        }
-        return session;
-    }
 }
