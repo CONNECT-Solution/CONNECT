@@ -23,47 +23,15 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-package gov.hhs.fha.nhinc.docrepository.adapter.dao;
+*/
+package gov.hhs.fha.nhinc.deferredresults.adapter.proxy;
 
-import gov.hhs.fha.nhinc.docrepository.adapter.model.DocQueryDeferredResponseMetadata;
-import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-@Repository
-public class DeferredResponseOptionDao {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DeferredResponseOptionDao.class);
+public interface AdapterDocQueryDeferredProxy {
 
-    public boolean save(DocQueryDeferredResponseMetadata meta) {
-        return GenericDBUtils.save(getSession(), meta);
-    }
-
-    public boolean delete(DocQueryDeferredResponseMetadata document) {
-        return GenericDBUtils.delete(getSession(), document);
-    }
-
-    public DocQueryDeferredResponseMetadata findByRequest(String requestId) {
-        DocQueryDeferredResponseMetadata metadata = null;
-        if (StringUtils.isNotBlank(requestId)) {
-            metadata = GenericDBUtils.readBy(getSession(), DocQueryDeferredResponseMetadata.class, requestId);
-        }
-        return metadata;
-    }
-
-    protected Session getSession() {
-        Session session = null;
-        try {
-            session = HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory().openSession();
-        } catch (HibernateException e) {
-            LOG.error("Failed to open Session: {}, {}", e.getMessage(), e);
-        }
-        return session;
-    }
+    RegistryResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse msg, AssertionType assertion);
 }
