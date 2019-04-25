@@ -24,46 +24,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docrepository.adapter.dao;
+package gov.hhs.fha.nhinc.deferredresults.adapter;
 
-import gov.hhs.fha.nhinc.docrepository.adapter.model.DocQueryDeferredResponseMetadata;
-import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
+import gov.hhs.fha.nhinc.deferredresults.impl.AdapterResponseHelper;
+import gov.hhs.fha.nhinc.dq.adapterdeferredresultquery.AdapterDocQueryDeferredResultsOptionQueryPortType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@Repository
-public class DeferredResponseOptionDao {
+/**
+ * Adapter web-service which will process a deferred response containing the deferred results sent from the Responding
+ * Gateway.
+ */
+public class DeferredResultsOptionQuery implements AdapterDocQueryDeferredResultsOptionQueryPortType {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DeferredResponseOptionDao.class);
+    @Autowired
+    DeferredResultsOption drOption;
 
-    public boolean save(DocQueryDeferredResponseMetadata meta) {
-        return GenericDBUtils.save(getSession(), meta);
-    }
+    @Override
+    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredResults(
+        RespondingGatewayCrossGatewayQueryResponseType message) {
 
-    public boolean delete(DocQueryDeferredResponseMetadata document) {
-        return GenericDBUtils.delete(getSession(), document);
-    }
-
-    public DocQueryDeferredResponseMetadata findByRequest(String requestId) {
-        DocQueryDeferredResponseMetadata metadata = null;
-        if (StringUtils.isNotBlank(requestId)) {
-            metadata = GenericDBUtils.readBy(getSession(), DocQueryDeferredResponseMetadata.class, requestId);
+        if (null != message && null != message.getAdhocQueryResponse()) {
+            return drOption.isRequestIdKnownToGateway(message.getAdhocQueryResponse().getRequestId());
+        } else {
+            return AdapterResponseHelper.createFailureWithMessage("Empty request object");
         }
-        return metadata;
-    }
-
-    protected Session getSession() {
-        Session session = null;
-        try {
-            session = HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory().openSession();
-        } catch (HibernateException e) {
-            LOG.error("Failed to open Session: {}, {}", e.getMessage(), e);
-        }
-        return session;
     }
 }

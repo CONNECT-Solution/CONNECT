@@ -24,46 +24,32 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docrepository.adapter.dao;
+/**
+ *
+ * @author tjafri
+ */
+package gov.hhs.fha.nhinc.deferredresults.adapter;
 
+import gov.hhs.fha.nhinc.deferredresults.impl.AdapterResponseHelper;
+import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocQueryDeferredResponseMetadata;
-import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@Repository
-public class DeferredResponseOptionDao {
+@Service
+public class DeferredResultsOptionImpl implements DeferredResultsOption {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DeferredResponseOptionDao.class);
+    @Autowired
+    DeferredResponseOptionDao dao;
 
-    public boolean save(DocQueryDeferredResponseMetadata meta) {
-        return GenericDBUtils.save(getSession(), meta);
-    }
-
-    public boolean delete(DocQueryDeferredResponseMetadata document) {
-        return GenericDBUtils.delete(getSession(), document);
-    }
-
-    public DocQueryDeferredResponseMetadata findByRequest(String requestId) {
-        DocQueryDeferredResponseMetadata metadata = null;
-        if (StringUtils.isNotBlank(requestId)) {
-            metadata = GenericDBUtils.readBy(getSession(), DocQueryDeferredResponseMetadata.class, requestId);
+    @Override
+    public RegistryResponseType isRequestIdKnownToGateway(String requestId) {
+        DocQueryDeferredResponseMetadata metadata = dao.findByRequest(requestId);
+        if (metadata != null) {
+            return AdapterResponseHelper.createSuccessACK();
+        } else {
+            return AdapterResponseHelper.createFailureWithMessage("Could not find entry with the given Request ID");
         }
-        return metadata;
-    }
-
-    protected Session getSession() {
-        Session session = null;
-        try {
-            session = HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory().openSession();
-        } catch (HibernateException e) {
-            LOG.error("Failed to open Session: {}, {}", e.getMessage(), e);
-        }
-        return session;
     }
 }

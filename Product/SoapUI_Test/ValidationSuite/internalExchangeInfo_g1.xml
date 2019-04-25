@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<exchangeInfo xmlns="urn:gov:hhs:fha:nhinc:exchange" xmlns:ns2="urn:gov:hhs:fha:nhinc:exchange:directory">
+<exchangeInfo xmlns="urn:gov:hhs:fha:nhinc:exchange"
+    xmlns:ns2="urn:gov:hhs:fha:nhinc:exchange:directory">
     <defaultExchange>adapter</defaultExchange>
     <exchanges>
         <exchange type="local">
             <name>adapter</name>
             <disabled>true</disabled>
-            <lastUpdated/>
+            <lastUpdated></lastUpdated>
             <organizationList>
                 <organization>
-                    <ns2:name>DoD</ns2:name>
+                    <ns2:name>Gateway 1</ns2:name>
                     <ns2:hcid>urn:oid:1.1</ns2:hcid>
                     <ns2:endpointList>
                         <ns2:endpoint>
@@ -38,20 +39,47 @@
                                 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
-                       <ns2:endpoint>
+                        <ns2:endpoint>
                             <ns2:name>entityinternalexchangemanagement</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
-                                    <ns2:url>https://localhost:8181/CONNECTGateway/AdminGUIServices/InternalExchangeManagement</ns2:url>
+                                <ns2:url>https://localhost:8181/CONNECTGateway/AdminGUIServices/InternalExchangeManagement</ns2:url>
+                                <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>entityloadtestdata</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                <ns2:url>https://localhost:8181/CONNECTGateway/AdminGUIServices/LoadTestData</ns2:url>
+                                <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adapterpropertyaccessor</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/CONNECTGateway/GUIPropertyService/NhincComponentPropAccessor</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+						<ns2:endpoint>
+                            <ns2:name>directsoapedge</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8080/YourDirectSoapEndpoint</ns2:url>
                                     <ns2:version>LEVEL_a0</ns2:version>
                                 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
-                            <ns2:name>directsoapedge</ns2:name>
+                            <ns2:name>directconfig</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
-                                    <ns2:url>https://localhost:8080/YourDirectSoapEndpoint</ns2:url>
+                                    <ns2:url>http://localhost:8080/CONNECTDirectConfig/ConfigurationService</ns2:url>
                                     <ns2:version>LEVEL_a0</ns2:version>
                                 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
@@ -300,6 +328,114 @@
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
+                            <ns2:name>adaptercore_x12dsrealtimesecured</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Adapter/CORE_X12DocumentSubmission/A_0/CORETransaction/AdapterCORETransactionSecured</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adaptercore_x12dsrealtime</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/Adapter/CORE_X12DocumentSubmission/A_0/CORETransaction/AdapterCORETransactionUnsecured</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>entitycore_x12dsrealtimesecured</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/EntityService/EntityCORETransactionSecured</ns2:url>
+                                    <ns2:version>1.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>entitycore_x12dsrealtime</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/Gateway/CORE_X12DocumentSubmission/1_0/EntityService/EntityCORETransactionUnsecured</ns2:url>
+                                    <ns2:version>1.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adaptercore_x12dsgenericbatchrequestsecured</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Adapter/CORE_X12DocumentSubmission/A_0/COREGenericBatch/AdapterCOREGenericBatchRequestSecured</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adaptercore_x12dsgenericbatchrequest</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/Adapter/CORE_X12DocumentSubmission/A_0/COREGenericBatch/AdapterCOREGenericBatchRequestUnsecured</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>entitycore_x12dsgenericbatchrequestsecured</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/EntityService/EntityCOREGenericBatchRequestSecured</ns2:url>
+                                    <ns2:version>1.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>entitycore_x12dsgenericbatchrequest</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/Gateway/CORE_X12DocumentSubmission/1_0/EntityService/EntityCOREGenericBatchRequestUnsecured</ns2:url>
+                                    <ns2:version>1.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adaptercore_x12dsgenericbatchresponsesecured</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Adapter/CORE_X12DocumentSubmission/A_0/COREGenericBatch/AdapterCOREGenericBatchResponseSecured</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adaptercore_x12dsgenericbatchresponse</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/Adapter/CORE_X12DocumentSubmission/A_0/COREGenericBatch/AdapterCOREGenericBatchResponseUnsecured</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>entitycore_x12dsgenericbatchresponsesecured</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Gateway/CORE_X12DocumentSubmission/1_0/EntityService/EntityCOREGenericBatchResponseSecured</ns2:url>
+                                    <ns2:version>1.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>entitycore_x12dsgenericbatchresponse</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/Gateway/CORE_X12DocumentSubmission/1_0/EntityService/EntityCOREGenericBatchResponseUnsecured</ns2:url>
+                                    <ns2:version>1.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
                             <ns2:name>adapterdocquery</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
@@ -324,6 +460,10 @@
                                     <ns2:url>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</ns2:url>
                                     <ns2:version>2.0</ns2:version>
                                 </ns2:endpointConfiguration>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</ns2:url>
+                                    <ns2:version>3.0</ns2:version>
+                                </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
@@ -332,6 +472,10 @@
                                 <ns2:endpointConfiguration>
                                     <ns2:url>https://localhost:8181/Gateway/DocumentQuery/2_0/EntityService/EntityDocQuerySecured</ns2:url>
                                     <ns2:version>2.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Gateway/DocumentQuery/3_0/EntityService/EntityDocQuerySecured</ns2:url>
+                                    <ns2:version>3.0</ns2:version>
                                 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
@@ -646,6 +790,15 @@
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
                         <ns2:endpoint>
+                            <ns2:name>auditquerylog</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/CONNECTGateway/GatewayService/AuditQueryLogService</ns2:url>
+                                    <ns2:version>1.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
                             <ns2:name>policyengineservice</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
@@ -704,42 +857,6 @@
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
                                     <ns2:url>http://localhost:8080/CONNECTAdapter/DocumentRegistry_Service</ns2:url>
-                                    <ns2:version>LEVEL_a0</ns2:version>
-                                </ns2:endpointConfiguration>
-                            </ns2:endpointConfigurationList>
-                        </ns2:endpoint>
-                        <ns2:endpoint>
-                            <ns2:name>adapterpip</ns2:name>
-                            <ns2:endpointConfigurationList>
-                                <ns2:endpointConfiguration>
-                                    <ns2:url>http://localhost:8080/CONNECTAdapter/AdapterPIP</ns2:url>
-                                    <ns2:version>LEVEL_a0</ns2:version>
-                                </ns2:endpointConfiguration>
-                            </ns2:endpointConfigurationList>
-                        </ns2:endpoint>
-                        <ns2:endpoint>
-                            <ns2:name>adapterpep</ns2:name>
-                            <ns2:endpointConfigurationList>
-                                <ns2:endpointConfiguration>
-                                    <ns2:url>http://localhost:8080/CONNECTAdapter/AdapterPEP</ns2:url>
-                                    <ns2:version>LEVEL_a0</ns2:version>
-                                </ns2:endpointConfiguration>
-                            </ns2:endpointConfigurationList>
-                        </ns2:endpoint>
-                        <ns2:endpoint>
-                            <ns2:name>adapterauthentication</ns2:name>
-                            <ns2:endpointConfigurationList>
-                                <ns2:endpointConfiguration>
-                                    <ns2:url>http://localhost:8080/CONNECTAdapter/AdapterAuthentication</ns2:url>
-                                    <ns2:version>LEVEL_a0</ns2:version>
-                                </ns2:endpointConfiguration>
-                            </ns2:endpointConfigurationList>
-                        </ns2:endpoint>
-                        <ns2:endpoint>
-                            <ns2:name>adapterredactionengine</ns2:name>
-                            <ns2:endpointConfigurationList>
-                                <ns2:endpointConfiguration>
-                                    <ns2:url>http://localhost:8080/CONNECTAdapter/AdapterComponentRedactionService</ns2:url>
                                     <ns2:version>LEVEL_a0</ns2:version>
                                 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
@@ -856,6 +973,72 @@
                                 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>docquerydeferredresultsoption</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Gateway/DocumentQuery/3_0//NhinService/DocumentQueryDeferredResponse</ns2:url>
+                                    <ns2:version>3.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+
+                        <ns2:endpoint>
+                            <ns2:name>entitydocquerydeferredresultsoption</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/Gateway/DocumentQuery/3_0//EntityService/EntityDeferredResultOptionResponse</ns2:url>
+                                    <ns2:version>3.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>entitydocquerydeferredresultsoptionsecured</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Gateway/DocumentQuery/3_0/EntityService/EntityDeferredResultOptionResponseSecured</ns2:url>
+                                    <ns2:version>3.0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adapterdocquerydeferredresultsoption</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDeferredResultsOption</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adapterdocquerydeferredresultsoptionsecured</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Adapter/DocumentQuery/A_0/AdapterDeferredResultsOptionSecured</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <!--DeferredResults Inbound Adapters -->
+                        <ns2:endpoint>
+                            <ns2:name>adapterdeferredresultsoption</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDeferredResultsOptionQuery</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adapterdeferredresultssecured</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Adapter/DocumentQuery/A_0/AdapterDeferredResultsOptionQuerySecured</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+
                     </ns2:endpointList>
                     <ns2:targetRegion>US-NY</ns2:targetRegion>
                     <ns2:targetRegion>US-VA</ns2:targetRegion>

@@ -40,6 +40,16 @@
         </property>
     </bean>
 
+   <bean id="nhinDeferredResults" class="gov.hhs.fha.nhinc.deferredresults.nhin.NhinDeferredResultsOption">
+        <property name="inboundDeferredResults">
+            <bean class="${deferredresults.inboundDeferredResults}" />
+        </property>
+    </bean>
+
+     <bean id="stdDeferredResultsInbound"
+      class="gov.hhs.fha.nhinc.deferredresults.inbound.StandardInboundDeferredResults">
+    </bean>
+
     <bean id="stdDQOutbound"
       class="gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQuery">
     </bean>
