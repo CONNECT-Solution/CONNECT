@@ -26,13 +26,16 @@
  */
 package gov.hhs.fha.nhinc.deferredresults.nhin;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.deferredresults.inbound.StandardInboundDeferredResults;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -60,19 +63,15 @@ public class NhinDeferredResultsOptionTest {
 
     @Ignore
     public void testRespondingGatewayCrossGatewayQueryDeferredNhinSecured() {
-        /*
-         * StandardInboundDeferredResults inboundSpy = Mockito.spy(inboundDeferredResults); RegistryResponseType result
-         * = new RegistryResponseType();
-         * Mockito.doReturn(result).when(inboundSpy).respondingGatewayCrossGatewayQueryNhinDeferredResults(Mockito.any(
-         * AdhocQueryResponse.class), Mockito.any(AssertionType.class), Mockito.any(WebServiceContext.class));
-         *
-         * AdhocQueryResponse request = new AdhocQueryResponse(); //Override the Autowired with our spy so we dont
-         * actually invoke SOAP services nhinDeferredResults.setInboundDeferredResults(inboundSpy); RegistryResponseType
-         * response = nhinDeferredResults.respondingGatewayCrossGatewayQueryDeferredNhinSecured( request);
-         * assertNotNull(response);
-         */
+        StandardInboundDeferredResults inboundSpy = Mockito.spy(stdDeferredResultsInbound);
+        RegistryResponseType result
+            = new RegistryResponseType();
+        Mockito.doReturn(result).when(inboundSpy).respondingGatewayCrossGatewayQueryNhinDeferredResults(Mockito.any(
+            AdhocQueryResponse.class), Mockito.any(AssertionType.class), Mockito.any(WebServiceContext.class));
 
         AdhocQueryResponse request = new AdhocQueryResponse();
+        //Override the Autowired with our spy so we dont  actually invoke SOAP services
+        nhinDeferredResults.setInboundDeferredResults(inboundSpy);
         RegistryResponseType response = nhinDeferredResults.respondingGatewayCrossGatewayQueryDeferredNhinSecured(
             request);
         assertNotNull(response);
