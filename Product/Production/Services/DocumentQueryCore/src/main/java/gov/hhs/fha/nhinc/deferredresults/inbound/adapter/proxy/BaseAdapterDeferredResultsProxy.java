@@ -24,46 +24,44 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docrepository.adapter.dao;
+package gov.hhs.fha.nhinc.deferredresults.inbound.adapter.proxy;
 
-import gov.hhs.fha.nhinc.docrepository.adapter.model.DocQueryDeferredResponseMetadata;
-import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
-import gov.hhs.fha.nhinc.util.GenericDBUtils;
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-@Repository
-public class DeferredResponseOptionDao {
+/**
+ *
+ * @author tjafri
+ */
+public abstract class BaseAdapterDeferredResultsProxy implements AdapterDeferredResultsProxy {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DeferredResponseOptionDao.class);
+    private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
-    public boolean save(DocQueryDeferredResponseMetadata meta) {
-        return GenericDBUtils.save(getSession(), meta);
+    public WebServiceProxyHelper getWebServiceProxyHelper() {
+        return oProxyHelper;
     }
 
-    public boolean delete(DocQueryDeferredResponseMetadata document) {
-        return GenericDBUtils.delete(getSession(), document);
+    public void setWebServiceProxyHelper(WebServiceProxyHelper helper) {
+        oProxyHelper = helper;
     }
 
-    public DocQueryDeferredResponseMetadata findByRequest(String requestId) {
-        DocQueryDeferredResponseMetadata metadata = null;
-        if (StringUtils.isNotBlank(requestId)) {
-            metadata = GenericDBUtils.readBy(getSession(), DocQueryDeferredResponseMetadata.class, requestId);
+    /**
+     * This method returns the URL endpoint based on the ImplementsSpecVersion
+     *
+     * @param serviceName
+     * @return The endpoint URL.
+     * @throws gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException
+     */
+    public String getEndPointFromExchangeManagerByAdapterAPILevel(String serviceName) throws
+        ExchangeManagerException {
+        String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName,
+            NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+
+        //If the preferred API level is not configured, then return which ever one is available
+        if (url == null) {
+            url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
         }
-        return metadata;
-    }
-
-    protected Session getSession() {
-        Session session = null;
-        try {
-            session = HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory().openSession();
-        } catch (HibernateException e) {
-            LOG.error("Failed to open Session: {}, {}", e.getMessage(), e);
-        }
-        return session;
+        return url;
     }
 }
