@@ -25,7 +25,7 @@
     <context:property-placeholder />
     <context:annotation-config />
     <context:component-scan   base-package="gov.hhs.fha.nhinc"/>
-    
+
     <cxf:bus>
         <cxf:features>
             <p:policies />
@@ -79,7 +79,7 @@
         implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.AdapterDeferredResponseOption"
         wsdlLocation="classpath:wsdl/AdapterDeferredResponseOptionRequest.wsdl">
     </jaxws:endpoint>
-    
+
      <!-- Adapter Deferred Response Option Query-->
     <jaxws:endpoint xmlns:adqs="urn:gov:hhs:fha:nhinc:dq:adapterdeferredrequestquerysecured" id="AdapterDeferredResponseOptionQuerySecured"
         address="/AdapterDeferredResponseOptionQuerySecured" serviceName="adqs:AdapterDeferredResponseOptionQueryRequestSecured" endpointName="adqs:AdapterDeferredResponseOptionQueryRequestPortSoap"
@@ -103,11 +103,11 @@
         implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.AdapterDeferredResponseOptionQuery"
         wsdlLocation="classpath:wsdl/AdapterDeferredResponseOptionQueryRequest.wsdl">
     </jaxws:endpoint>
-    
+
      <!-- Adapter Deferred Results Option-->
     <jaxws:endpoint xmlns:adqs="urn:gov:hhs:fha:nhinc:dq:adapterdeferredresultoptionsecured" id="AdapterDeferredResultsOptionSecured"
         address="/AdapterDeferredResultsOptionSecured" serviceName="adqs:AdapterDeferredResultsOptionSecured" endpointName="adqs:AdapterDeferredResultsOptionSecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.AdapterDeferredResultsOptionResponseSecured"
+        implementor="gov.hhs.fha.nhinc.deferredresults.adapter.AdapterDeferredResultsOptionResponseSecured"
         wsdlLocation="classpath:wsdl/DeferredResultsOptionAdapterSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
@@ -124,14 +124,14 @@
     </jaxws:endpoint>
     <jaxws:endpoint xmlns:adq="urn:gov:hhs:fha:nhinc:dq:adapterdeferredresultoption" id="AdapterDocQueryDeferredResultsOption"
         address="/AdapterDeferredResultsOption" serviceName="adq:AdapterDeferredResultsOption" endpointName="adq:AdapterDeferredResultsOptionPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.AdapterDeferredResultsOptionResponse"
+        implementor="gov.hhs.fha.nhinc.deferredresults.adapter.AdapterDeferredResultsOptionResponse"
         wsdlLocation="classpath:wsdl/DeferredResultsOptionAdapter.wsdl">
     </jaxws:endpoint>
-    
+
      <!-- Adapter Deferred Results Option Query-->
     <jaxws:endpoint xmlns:adqs="urn:gov:hhs:fha:nhinc:dq:adapterdeferredresultquerysecured" id="AdapterDeferredResultsOptionQuerySecured"
         address="/AdapterDeferredResultsOptionQuerySecured" serviceName="adqs:AdapterDeferredResultsOptionQuerySecured" endpointName="adqs:AdapterDeferredResultsOptionQuerySecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.DeferredResultsOptionQuerySecured"
+        implementor="gov.hhs.fha.nhinc.deferredresults.adapter.DeferredResultsOptionQuerySecured"
         wsdlLocation="classpath:wsdl/DeferredResultsOptionQueryAdapterSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
@@ -148,10 +148,10 @@
     </jaxws:endpoint>
     <jaxws:endpoint xmlns:adq="urn:gov:hhs:fha:nhinc:dq:adapterdeferredresultquery" id="AdapterDocQueryDeferredResultsOptionQuery"
         address="/AdapterDeferredResultsOptionQuery" serviceName="adq:AdapterDeferredResultsOptionQueryAdapter" endpointName="adq:AdapterDeferredResultsOptionQueryPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.DeferredResultsOptionQuery"
+        implementor="gov.hhs.fha.nhinc.deferredresults.adapter.DeferredResultsOptionQuery"
         wsdlLocation="classpath:wsdl/DeferredResultsOptionQueryAdapter.wsdl">
     </jaxws:endpoint>
 
-    
+
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
 </beans>
