@@ -23,7 +23,7 @@
     <alias alias="nhindocquerydeferredresults" name="nhinDQDeferredResultsNoOp" />
 
     <!-- No-op Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresult.nhin.proxy.NhinDocQueryDeferredResultsProxyNoOpImpl" id="nhinDQDeferredResultsNoOp" name="nhindocquerynoop">
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.deferredresults.nhin.proxy.NhinDocQueryDeferredResultsProxyNoOpImpl" id="nhinDQDeferredResultsNoOp" name="nhindocquerynoop">
         <meta key="impltype" value="noop"/>
     </bean>
 
@@ -33,7 +33,7 @@
     <alias alias="adapterdocquerydeferredresults" name="adapterDQDeferredResultsNoOp" />
 
     <!-- No-op Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresults.adapter.proxy.AdapterDocQueryDeferredProxyNoOpImpl" id="adapterDQDeferredResultsNoOp" name="adapterDQDeferredResultsNoOp">
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.deferredresults.adapter.proxy.AdapterDocQueryDeferredProxyNoOpImpl" id="adapterDQDeferredResultsNoOp" name="adapterDQDeferredResultsNoOp">
         <meta key="impltype" value="noop"/>
     </bean>
 
