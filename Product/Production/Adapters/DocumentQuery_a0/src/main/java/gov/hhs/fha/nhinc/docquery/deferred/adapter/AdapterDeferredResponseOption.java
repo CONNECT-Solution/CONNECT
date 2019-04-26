@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docquery.deferred.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper;
+import gov.hhs.fha.nhinc.deferredresults.impl.AdapterResponseHelper;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
 import gov.hhs.fha.nhinc.dq.adapterdeferredrequestoption.AdapterDeferredResponseOptionRequestPortType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
