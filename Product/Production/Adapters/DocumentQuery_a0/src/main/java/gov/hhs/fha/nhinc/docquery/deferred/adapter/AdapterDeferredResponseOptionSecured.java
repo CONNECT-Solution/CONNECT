@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docquery.deferred.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
-import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper;
+import gov.hhs.fha.nhinc.deferredresults.impl.AdapterResponseHelper;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
 import gov.hhs.fha.nhinc.dq.adapterdeferredrequestoptionsecured.AdapterDeferredResponseOptionRequestSecuredPortType;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
