@@ -44,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-           <artifactId>DeferredDocumentQueryWebservices</artifactId>
+            <artifactId>DeferredDocumentQueryWebservices</artifactId>
         </dependency>
         <!-- CXF -->
         <dependency>
@@ -57,7 +57,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <scope>test</scope>

@@ -24,33 +24,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.deferred.adapter;
+package gov.hhs.fha.nhinc.docquery.deferredresponse.descriptor;
 
-import static gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper.createRegistryResponseTypeWithXdsQueryFailure;
-
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper;
-import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
 import gov.hhs.fha.nhinc.dq.adapterdeferredrequestoption.AdapterDeferredResponseOptionRequestPortType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.springframework.beans.factory.annotation.Autowired;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
- * Adapter webservice to respond to the Initiating Gateway's request and send back any results it can, as well as
- * store the request ID to prepare for a future deferred message back to the Initiating Gateway
+ * @author ttang
+ *
  */
-
-public class AdapterDeferredResponseOption implements AdapterDeferredResponseOptionRequestPortType{
-    @Autowired
-    DeferredResponseOptionDao dao;
+public class AdapterDeferredResponseOptionServicePortDescriptor
+extends SOAP12ServicePortDescriptor<AdapterDeferredResponseOptionRequestPortType> {
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:dq:adapterdeferredrequestoption:RespondingGateway_CrossGatewayQueryDeferred";
 
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferred(
-        RespondingGatewayCrossGatewayQueryRequestType message) {
-        if (null == message) {
-            return createRegistryResponseTypeWithXdsQueryFailure("message is null.");
-        }
-        return AdapterResponseHelper.processAdapterDeferredResponseOption(dao, message.getAdhocQueryRequest(),
-            message.getAssertion());
+    public String getWSAddressingAction() {
+        return WS_ADDRESSING_ACTION;
     }
+
+    @Override
+    public Class<AdapterDeferredResponseOptionRequestPortType> getPortClass() {
+        return AdapterDeferredResponseOptionRequestPortType.class;
+    }
+
 }
