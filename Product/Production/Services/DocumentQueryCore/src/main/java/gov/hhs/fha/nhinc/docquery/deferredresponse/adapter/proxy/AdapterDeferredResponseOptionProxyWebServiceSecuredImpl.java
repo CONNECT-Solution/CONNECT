@@ -62,7 +62,7 @@ public class AdapterDeferredResponseOptionProxyWebServiceSecuredImpl implements 
             }
             response = (RegistryResponseType) invokeClientPort(getRequest(msg), assertion);
         } catch (final Exception ex) {
-            response = AdapterResponseHelper.createRegistryResponseTypeWithXdsQueryFailure(ERROR_MSG);
+            response = AdapterResponseHelper.createFailureWithMessage(ERROR_MSG);
             throw new ErrorEventException(ex, response, ERROR_MSG);
         }
 

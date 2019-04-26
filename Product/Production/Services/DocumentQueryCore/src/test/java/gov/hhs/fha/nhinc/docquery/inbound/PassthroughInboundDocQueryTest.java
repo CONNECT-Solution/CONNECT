@@ -49,23 +49,31 @@ public class PassthroughInboundDocQueryTest extends InboundDocQueryTest {
 
     @Test
     public void passthroughInboundDocQueryOrgHcid() {
-        passthroughInboundDocQueryHomeHcid(SENDING_HCID_ORG, SENDING_HCID_ORG_FORMATTED);
+        passthroughInboundDocQueryHomeHcid(SENDING_HCID_ORG, SENDING_HCID_ORG_FORMATTED, false);
     }
 
     @Test
     public void passthroughInboundDocQueryHomeHcid() {
-        passthroughInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED);
+        passthroughInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED, false);
     }
 
-    private void passthroughInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted) {
+    @Test
+    public void passthroughInboundDocQueryHomeHcidDeferred() {
+        passthroughInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED, true);
+    }
+
+    private void passthroughInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted,
+        boolean deferredFlag) {
         AssertionType mockAssertion = getMockAssertion(sendingHcid);
 
-        when(mockAssertion.getDeferredResponseEndpoint()).thenReturn("http://deferredEnpoint/");
         final AdapterDeferredResponseOptionProxy mockDeferredProxy = mock(AdapterDeferredResponseOptionProxy.class);
-        RegistryResponseType mockResponse = mock(RegistryResponseType.class);
-        when(mockDeferredProxy.processRequest(Mockito.any(AdhocQueryRequest.class), Mockito.any(AssertionType.class)))
-        .thenReturn(mockResponse);
-        when(mockResponse.getStatus()).thenReturn(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
+        if (deferredFlag) {
+            when(mockAssertion.getDeferredResponseEndpoint()).thenReturn("http://deferredEnpoint/");
+            RegistryResponseType mockResponse = mock(RegistryResponseType.class);
+            when(mockDeferredProxy.processRequest(Mockito.any(AdhocQueryRequest.class), Mockito.any(AssertionType.class)))
+            .thenReturn(mockResponse);
+            when(mockResponse.getStatus()).thenReturn(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
+        }
 
         PassthroughInboundDocQuery passthroughDocQuery = new PassthroughInboundDocQuery(
             getMockAdapterFactory(mockAssertion), getAuditLogger(true)) {
@@ -77,8 +85,14 @@ public class PassthroughInboundDocQueryTest extends InboundDocQueryTest {
 
         verifyInboundDocQuery(mockAssertion, sendingHcidFormatted, passthroughDocQuery,
             NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT);
-        verify(mockDeferredProxy, times(1)).processRequest(Mockito.any(AdhocQueryRequest.class),
+
+        int deferredCall = 0;
+        if (deferredFlag) {
+            deferredCall = 1;
+        }
+        verify(mockDeferredProxy, times(deferredCall)).processRequest(Mockito.any(AdhocQueryRequest.class),
             Mockito.any(AssertionType.class));
+
     }
 
 }

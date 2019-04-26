@@ -72,7 +72,7 @@ public class PassthroughInboundDocQuery extends AbstractInboundDocQuery {
 
         if (StringUtils.isNotBlank(assertion.getDeferredResponseEndpoint())) {
             RegistryResponseType response = getAdapterDeferredProxy().processRequest(msg, assertion);
-            if (response.getStatus().compareToIgnoreCase(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS) != 0) {
+            if (response.getStatus().compareToIgnoreCase(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE) == 0) {
                 return AdapterResponseHelper.convertAdhocQueryResponse(response);
             }
         }

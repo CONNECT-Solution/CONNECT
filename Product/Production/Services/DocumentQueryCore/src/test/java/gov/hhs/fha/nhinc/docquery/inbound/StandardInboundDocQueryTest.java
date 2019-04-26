@@ -65,17 +65,31 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
 
     @Test
     public void standardInboundDocQueryOrgHcid() {
-        standardInboundDocQueryHomeHcid(SENDING_HCID_ORG, SENDING_HCID_ORG_FORMATTED);
+        standardInboundDocQueryHomeHcid(SENDING_HCID_ORG, SENDING_HCID_ORG_FORMATTED, false);
     }
 
     @Test
     public void standardInboundDocQueryHomeHcid() {
-        standardInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED);
+        standardInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED, false);
     }
 
-    private void standardInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted) {
+    @Test
+    public void standardInboundDocQueryHomeHcidDeferred() {
+        standardInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED, true);
+    }
+
+    private void standardInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted, boolean deferredFlag) {
 
         AssertionType mockAssertion = getMockAssertion(sendingHcid);
+
+        final AdapterDeferredResponseOptionProxy mockDeferredProxy = mock(AdapterDeferredResponseOptionProxy.class);
+        if(deferredFlag){
+            when(mockAssertion.getDeferredResponseEndpoint()).thenReturn("http://deferredEnpoint/");
+            RegistryResponseType mockResponse = mock(RegistryResponseType.class);
+            when(mockDeferredProxy.processRequest(Mockito.any(AdhocQueryRequest.class), Mockito.any(AssertionType.class)))
+            .thenReturn(mockResponse);
+            when(mockResponse.getStatus()).thenReturn(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
+        }
 
         StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker,
             getMockAdapterFactory(mockAssertion), getAuditLogger(true)) {
@@ -83,11 +97,22 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
             protected String getLocalHomeCommunityId() {
                 return RESPONDING_HCID_FORMATTED;
             }
+            @Override
+            protected AdapterDeferredResponseOptionProxy getAdapterDeferredProxy() {
+                return mockDeferredProxy;
+            }
         };
 
         when(policyChecker.checkIncomingPolicy(request, mockAssertion)).thenReturn(true);
 
         verifyInboundDocQuery(mockAssertion, sendingHcidFormatted, standardDocQuery, NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT);
+
+        int deferredCall = 0;
+        if (deferredFlag) {
+            deferredCall = 1;
+        }
+        verify(mockDeferredProxy, times(deferredCall)).processRequest(Mockito.any(AdhocQueryRequest.class),
+            Mockito.any(AssertionType.class));
     }
 
     @Test
@@ -101,38 +126,25 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
 
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(false);
 
-        assertion.setDeferredResponseEndpoint("http://deferredEnpoint/");
-        final AdapterDeferredResponseOptionProxy mockDeferredProxy = mock(AdapterDeferredResponseOptionProxy.class);
-        RegistryResponseType mockResponse = mock(RegistryResponseType.class);
-        when(mockDeferredProxy.processRequest(Mockito.any(AdhocQueryRequest.class), Mockito.any(AssertionType.class)))
-        .thenReturn(mockResponse);
-        when(mockResponse.getStatus()).thenReturn(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
-
         StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker, mockAdapterFactory,
             getAuditLogger(true)) {
             @Override
             protected String getLocalHomeCommunityId() {
                 return RESPONDING_HCID_FORMATTED;
             }
-
-            @Override
-            protected AdapterDeferredResponseOptionProxy getAdapterDeferredProxy() {
-                return mockDeferredProxy;
-            }
         };
         AdhocQueryResponse actualResponse = standardDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
             webContextProperties);
 
         assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, actualResponse.getStatus());
-        assertEquals(DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR, actualResponse.getRegistryErrorList()
-            .getRegistryError().get(0).getErrorCode());
-        assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR, actualResponse.getRegistryErrorList()
-            .getRegistryError().get(0).getSeverity());
-        verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion), isNull(
-            NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
+        assertEquals(DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR,
+            actualResponse.getRegistryErrorList().getRegistryError().get(0).getErrorCode());
+        assertEquals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
+            actualResponse.getRegistryErrorList().getRegistryError().get(0).getSeverity());
+        verify(mockEJBLogger).auditResponseMessage(eq(request), eq(actualResponse), eq(assertion),
+            isNull(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
             eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE), eq(Boolean.FALSE), eq(webContextProperties),
             eq(NhincConstants.DOC_QUERY_SERVICE_NAME), any(DocQueryAuditTransforms.class));
-        verify(mockDeferredProxy, times(1)).processRequest(Mockito.any(AdhocQueryRequest.class),
-            Mockito.any(AssertionType.class));
     }
+
 }
