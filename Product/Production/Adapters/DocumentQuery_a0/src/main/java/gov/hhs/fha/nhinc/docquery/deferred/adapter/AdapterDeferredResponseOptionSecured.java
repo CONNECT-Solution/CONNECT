@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docquery.deferred.adapter;
 
-import static gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper.createRegistryResponseTypeWithXdsQueryFailure;
-
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
 import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
@@ -57,7 +55,7 @@ implements AdapterDeferredResponseOptionRequestSecuredPortType {
     public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredSecured(
         RespondingGatewayCrossGatewayQuerySecureRequestType message) {
         if (null == message) {
-            return createRegistryResponseTypeWithXdsQueryFailure("message is null.");
+            return AdapterResponseHelper.createFailureWithMessage("message is null.");
         }
 
         return AdapterResponseHelper.processAdapterDeferredResponseOption(dao, message.getAdhocQueryRequest(),
