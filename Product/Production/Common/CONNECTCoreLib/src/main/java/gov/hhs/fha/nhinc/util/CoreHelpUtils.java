@@ -36,13 +36,20 @@ import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentMetadataType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.IdentifierType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PatientType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.service.port.GenericPortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
 import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import gov.hhs.fha.nhinc.patientdb.model.Personname;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.KeyPair;
@@ -304,6 +311,42 @@ public class CoreHelpUtils {
     public static String getNsIheDeferredResponseOption() throws PropertyAccessException {
         return PropertyAccessor.getInstance().getProperty(NhincConstants.FILE_PROPERTY_DEFERRED_RESPONSE_ENDPOINT,
             NhincConstants.PROPERTY_IHE_NS);
+    }
+
+    public static String getAdapterEndpoint(String serviceName) throws ExchangeManagerException {
+        WebServiceProxyHelper helper = new WebServiceProxyHelper();
+        String url = helper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName,
+            NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+
+        if (StringUtils.isEmpty(url)) {
+            url = helper.getAdapterEndPointFromConnectionManager(serviceName);
+        }
+        return url;
+    }
+
+    /**
+     * getting unsecure-connect client with generic-portDescriptor
+     */
+    public static <T> CONNECTClient<T> getClientUnsecure(String serviceUrl, String wsAddressingAction,
+        Class<T> portTypeClass, AssertionType assertion) {
+        ServicePortDescriptor<T> portDescriptor = new GenericPortDescriptor(wsAddressingAction, portTypeClass);
+        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, serviceUrl, assertion);
+    }
+
+    public static <T> CONNECTClient<T> getClientSecure(String serviceUrl, String wsAddressingAction,
+        Class<T> portTypeClass, AssertionType assertion) {
+        ServicePortDescriptor<T> portDescriptor = new GenericPortDescriptor(wsAddressingAction, portTypeClass);
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, serviceUrl, assertion);
+    }
+
+    public static <T> CONNECTClient<T> getClientUnsecure(String serviceUrl, ServicePortDescriptor<T> portDescriptor,
+        AssertionType assertion) {
+        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, serviceUrl, assertion);
+    }
+
+    public static <T> CONNECTClient<T> getClientSecure(String serviceUrl, ServicePortDescriptor<T> portDescriptor,
+        AssertionType assertion) {
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, serviceUrl, assertion);
     }
 
 }
