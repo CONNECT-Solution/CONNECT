@@ -12,7 +12,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ArrayUtils;
 
 public class AdapterResponseHelper {
 
@@ -55,25 +54,8 @@ public class AdapterResponseHelper {
     }
 
     public static RegistryResponseType createRegistryResponseTypeWithXdsQuerySuccess() {
-        return createRegistryResponseTypeWithXdsQueryFailure();
-    }
-
-    public static RegistryResponseType createRegistryResponseTypeWithXdsQueryFailure(String... messsages) {
         RegistryResponseType response = new RegistryResponseType();
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
-        if (ArrayUtils.isNotEmpty(messsages)) {
-            response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
-
-            RegistryErrorList errorList = new RegistryErrorList();
-            List<RegistryError> list = errorList.getRegistryError();
-
-            for (String value : messsages) {
-                RegistryError error = new RegistryError();
-                error.setValue(value);
-                list.add(error);
-            }
-            response.setRegistryErrorList(errorList);
-        }
         return response;
     }
 
@@ -106,7 +88,7 @@ public class AdapterResponseHelper {
             }
         }
 
-        return createRegistryResponseTypeWithXdsQueryFailure("requestId and responseEndpoint are required.");
+        return createFailureWithMessage("requestId and responseEndpoint are required.");
     }
 
     public static AdhocQueryResponse convertAdhocQueryResponse(RegistryResponseType response) {
