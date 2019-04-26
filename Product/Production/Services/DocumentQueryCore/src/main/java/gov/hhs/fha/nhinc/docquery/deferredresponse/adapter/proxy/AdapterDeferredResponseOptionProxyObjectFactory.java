@@ -24,33 +24,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.deferred.adapter;
+package gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy;
 
-import static gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper.createRegistryResponseTypeWithXdsQueryFailure;
-
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper;
-import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
-import gov.hhs.fha.nhinc.dq.adapterdeferredrequestoption.AdapterDeferredResponseOptionRequestPortType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.springframework.beans.factory.annotation.Autowired;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- * Adapter webservice to respond to the Initiating Gateway's request and send back any results it can, as well as
- * store the request ID to prepare for a future deferred message back to the Initiating Gateway
+ * @author ttang
+ *
  */
+public class AdapterDeferredResponseOptionProxyObjectFactory extends ComponentProxyObjectFactory {
 
-public class AdapterDeferredResponseOption implements AdapterDeferredResponseOptionRequestPortType{
-    @Autowired
-    DeferredResponseOptionDao dao;
+    private static final String CONFIG_FILE_NAME = "DocumentQueryDeferredResultsOptionProxyConfig.xml";
+    private static final String BEAN_NAME = "adapterdeferredresponseoption";
 
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferred(
-        RespondingGatewayCrossGatewayQueryRequestType message) {
-        if (null == message) {
-            return createRegistryResponseTypeWithXdsQueryFailure("message is null.");
-        }
-        return AdapterResponseHelper.processAdapterDeferredResponseOption(dao, message.getAdhocQueryRequest(),
-            message.getAssertion());
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
     }
+
+    public AdapterDeferredResponseOptionProxy getAdapterDeferredResponseOptionProxy() {
+        return getBean(BEAN_NAME, AdapterDeferredResponseOptionProxy.class);
+    }
+
 }
