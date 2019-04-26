@@ -24,44 +24,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.deferred.adapter;
+package gov.hhs.fha.nhinc.docquery.deferredresponse.descriptor;
 
-import static gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper.createRegistryResponseTypeWithXdsQueryFailure;
-
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
-import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper;
-import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
 import gov.hhs.fha.nhinc.dq.adapterdeferredrequestoptionsecured.AdapterDeferredResponseOptionRequestSecuredPortType;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import javax.annotation.Resource;
-import javax.xml.ws.WebServiceContext;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
- * Adapter webservice to respond to the Initiating Gateway's request and send back any results it can, as well as
- * store the request ID to prepare for a future deferred message back to the Initiating Gateway
+ * @author ttang
+ *
  */
-
-@Service
-public class AdapterDeferredResponseOptionSecured extends BaseService
-implements AdapterDeferredResponseOptionRequestSecuredPortType {
-    @Autowired
-    DeferredResponseOptionDao dao;
-
-    @Resource
-    private WebServiceContext context;
+public class AdapterDeferredResponseOptionSecuredServicePortDescriptor
+extends SOAP12ServicePortDescriptor<AdapterDeferredResponseOptionRequestSecuredPortType> {
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:dq:adapterdeferredrequestoptionsecured:RespondingGateway_CrossGatewayQueryDeferredSecuredRequest";
 
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredSecured(
-        RespondingGatewayCrossGatewayQuerySecureRequestType message) {
-        if (null == message) {
-            return createRegistryResponseTypeWithXdsQueryFailure("message is null.");
-        }
+    public String getWSAddressingAction() {
+        return WS_ADDRESSING_ACTION;
+    }
 
-        return AdapterResponseHelper.processAdapterDeferredResponseOption(dao, message.getAdhocQueryRequest(),
-            getAssertion(context));
+    @Override
+    public Class<AdapterDeferredResponseOptionRequestSecuredPortType> getPortClass() {
+        return AdapterDeferredResponseOptionRequestSecuredPortType.class;
     }
 
 }
