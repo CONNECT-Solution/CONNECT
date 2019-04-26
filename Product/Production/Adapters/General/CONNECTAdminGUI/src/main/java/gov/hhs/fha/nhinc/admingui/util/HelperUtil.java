@@ -35,8 +35,13 @@ import gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity.UserLogin;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.DocumentMetadataType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.PatientType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.ConfigAssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.configuration.GenericPortDescriptor;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
@@ -383,6 +388,15 @@ public class HelperUtil {
             list.add(new Document(meta));
         }
         return list;
+    }
+
+    /**
+     * getting unsecure-connect client with generic-portDescriptor
+     */
+    public static <T> CONNECTClient<T> getClientUnsecure(String serviceUrl, String wsAddressingAction,
+        Class<T> portTypeClass, AssertionType assertion) {
+        ServicePortDescriptor<T> portDescriptor = new GenericPortDescriptor(wsAddressingAction, portTypeClass);
+        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, serviceUrl, assertion);
     }
 
 }
