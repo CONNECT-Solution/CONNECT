@@ -56,7 +56,8 @@
     <jaxws:endpoint xmlns:ndq="urn:gov:hhs:fha:nhinc:dq:nhindeferredresultsecured" id="NhinDocQueryDeferredResponseSecured"
         address="/NhinService/DocumentQueryDeferredResponse" serviceName="ndq:NhinDocQueryDeferredResponseSecured"
         endpointName="ndq:NhinDocQueryDeferredRequestSecuredPortSoap" implementor="#nhinDeferredResults"
-         wsdlLocation="classpath:wsdl/NhinDeferredResultsOptionResponse.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.deferredresults.nhin.NhinDeferredResultsOption"
+        wsdlLocation="classpath:wsdl/NhinDeferredResultsOptionResponse.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
@@ -119,8 +120,9 @@
 
 
     <jaxws:endpoint xmlns:edqs="urn:gov:hhs:fha:nhinc:dq:entitydeferredresponsesecured" id="EntityDocQueryDeferredResultSecured"
-        address="/EntityService/EntityDeferredResultOptionResponseSecured" serviceName="edqs:EntityDocQueryDeferredResultSecured" endpointName="edqs:EntityDocQueryDeferredResultSecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.deferredresults.entity.EntityDeferredResultsOptionSecured"
+        address="/EntityService/EntityDeferredResultOptionResponseSecured" serviceName="edqs:EntityDocQueryDeferredResultSecured"
+        endpointName="edqs:EntityDocQueryDeferredResultSecuredPortSoap" implementor="#entityDeferredResultsSecured"
+        implementorClass="gov.hhs.fha.nhinc.deferredresults.entity.EntityDeferredResultsOptionSecured"
         wsdlLocation="classpath:wsdl/EntityDeferredResultsOptionResponseSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
@@ -139,8 +141,9 @@
         </jaxws:handlers>
     </jaxws:endpoint>
     <jaxws:endpoint xmlns:edq="urn:gov:hhs:fha:nhinc:dq:entitydeferredresponse" id="EntityDocQueryDeferredResult"
-        address="/EntityService/EntityDeferredResultOptionResponse" serviceName="edq:EntityDocQueryDeferredResult" endpointName="edq:EntityDocQueryDeferredResultPortSoap"
-        implementor="gov.hhs.fha.nhinc.deferredresults.entity.EntityDeferredResultsOption"
+        address="/EntityService/EntityDeferredResultOptionResponse" serviceName="edq:EntityDocQueryDeferredResult"
+        endpointName="edq:EntityDocQueryDeferredResultPortSoap" implementor="#entityDeferredResults"
+        implementorClass="gov.hhs.fha.nhinc.deferredresults.entity.EntityDeferredResultsOption"
         wsdlLocation="classpath:wsdl/EntityDeferredResultsOptionResponse.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
