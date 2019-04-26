@@ -29,10 +29,10 @@ package gov.hhs.fha.nhinc.docquery.inbound;
 import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.deferredresults.impl.AdapterResponseHelper;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
-import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;

@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper;
+import gov.hhs.fha.nhinc.deferredresults.impl.AdapterResponseHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
