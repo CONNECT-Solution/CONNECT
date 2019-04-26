@@ -41,7 +41,6 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentMetadata;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
-import gov.hhs.fha.nhinc.messaging.service.port.GenericPortDescriptor;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdb.model.Address;
@@ -322,21 +321,6 @@ public class CoreHelpUtils {
             url = helper.getAdapterEndPointFromConnectionManager(serviceName);
         }
         return url;
-    }
-
-    /**
-     * getting unsecure-connect client with generic-portDescriptor
-     */
-    public static <T> CONNECTClient<T> getClientUnsecure(String serviceUrl, String wsAddressingAction,
-        Class<T> portTypeClass, AssertionType assertion) {
-        ServicePortDescriptor<T> portDescriptor = new GenericPortDescriptor(wsAddressingAction, portTypeClass);
-        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, serviceUrl, assertion);
-    }
-
-    public static <T> CONNECTClient<T> getClientSecure(String serviceUrl, String wsAddressingAction,
-        Class<T> portTypeClass, AssertionType assertion) {
-        ServicePortDescriptor<T> portDescriptor = new GenericPortDescriptor(wsAddressingAction, portTypeClass);
-        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, serviceUrl, assertion);
     }
 
     public static <T> CONNECTClient<T> getClientUnsecure(String serviceUrl, ServicePortDescriptor<T> portDescriptor,
