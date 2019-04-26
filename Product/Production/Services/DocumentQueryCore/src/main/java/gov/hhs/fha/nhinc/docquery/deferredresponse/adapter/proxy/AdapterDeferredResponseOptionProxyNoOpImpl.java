@@ -24,60 +24,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.inbound;
-
-import static gov.hhs.fha.nhinc.util.CoreHelpUtils.logInfoServiceProcess;
+package gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
-import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
-import gov.hhs.fha.nhinc.docquery.audit.DocQueryAuditLogger;
 import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterResponseHelper;
-import gov.hhs.fha.nhinc.document.DocumentConstants;
-import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * @author akong
+ * @author ttang
  *
  */
-public class PassthroughInboundDocQuery extends AbstractInboundDocQuery {
+public class AdapterDeferredResponseOptionProxyNoOpImpl implements AdapterDeferredResponseOptionProxy {
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDeferredResponseOptionProxyNoOpImpl.class);
 
-    private AdapterDocQueryProxyObjectFactory adapterFactory = new AdapterDocQueryProxyObjectFactory();
-
-    public PassthroughInboundDocQuery() {
-        super();
-    }
-
-    public PassthroughInboundDocQuery(AdapterDocQueryProxyObjectFactory adapterFactory,
-        DocQueryAuditLogger auditLogger) {
-        this.adapterFactory = adapterFactory;
-        this.auditLogger = auditLogger;
-    }
-
-    /**
-     * Forwards the AdhocQueryRequest to an agency's adapter doc query service
-     *
-     * @param adhocQueryRequestMsg
-     * @param communityID
-     * @return
-     */
     @Override
-    public AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String communityID,
-        Properties webContextProperties) {
-        logInfoServiceProcess(this.getClass());
-
-        if (StringUtils.isNotBlank(assertion.getDeferredResponseEndpoint())) {
-            RegistryResponseType response = getAdapterDeferredProxy().processRequest(msg, assertion);
-            if (response.getStatus().compareToIgnoreCase(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS) != 0) {
-                return AdapterResponseHelper.convertAdhocQueryResponse(response);
-            }
-        }
-        AdapterDocQueryProxy adapterProxy = adapterFactory.getAdapterDocQueryProxy();
-
-        return adapterProxy.respondingGatewayCrossGatewayQuery(msg, assertion);
+    public RegistryResponseType processRequest(AdhocQueryRequest request, AssertionType assertion) {
+        LOG.debug("Running through AdapterDeferredResponseOptionProxyNoOpImpl");
+        return AdapterResponseHelper.createRegistryResponseTypeWithXdsQuerySuccess();
     }
+
 }

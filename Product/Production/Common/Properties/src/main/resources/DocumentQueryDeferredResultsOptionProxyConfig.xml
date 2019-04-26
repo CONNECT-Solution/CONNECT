@@ -89,4 +89,31 @@
         <meta key="impltype" value="wsunsecured"/>
     </bean>
 
+    <!--
+       Beans defined for AdapterDeferredResponseOption
+    -->
+    <alias alias="adapterdeferredresponseoption" name="adapterDeferredResponseOptionSecured" />
+
+    <!-- No-op Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDeferredResponseOptionProxyNoOpImpl" id="adapterDeferredResponseOptionNoOp" name="adapterDeferredResponseOptionNoOp">
+        <meta key="impltype" value="noop"/>
+    </bean>
+
+    <!-- Java Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDeferredResponseOptionProxyJavaImpl" id="adapterDeferredResponseOptionJava" name="adapterDeferredResponseOptionJava">
+        <meta key="impltype" value="java"/>
+    </bean>
+
+    <!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDeferredResponseOptionProxyWebServiceSecuredImpl" id="adapterDeferredResponseOptionSecured" name="adapterDeferredResponseOptionSecured">
+        <meta key="impltype" value="wssecured"/>
+        <meta key="default" value="true"/>
+    </bean>
+
+    <!-- Unsecured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDeferredResponseOptionProxyWebServiceUnsecuredImpl" id="adapterDeferredResponseOptionUnsecured" name="adapterDeferredResponseOptionUnsecured">
+        <meta key="impltype" value="wsunsecured"/>
+    </bean>
+
+
 </beans>
