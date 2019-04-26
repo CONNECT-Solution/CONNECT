@@ -75,7 +75,7 @@
         </jaxws:inInterceptors>
     </jaxws:endpoint>
     <jaxws:endpoint xmlns:adq="urn:gov:hhs:fha:nhinc:dq:adapterdeferredrequestoption" id="AdapterDeferredResponseOption"
-        address="/AdapterDeferredResponseOptionRequest" serviceName="adq:AdapterDeferredResponseOptionRequest" endpointName="adq:AdapterDeferredResponseOptionRequestPortSoap"
+        address="/AdapterDeferredResponseOption" serviceName="adq:AdapterDeferredResponseOptionRequest" endpointName="adq:AdapterDeferredResponseOptionRequestPortSoap"
         implementor="gov.hhs.fha.nhinc.docquery.deferred.adapter.AdapterDeferredResponseOption"
         wsdlLocation="classpath:wsdl/AdapterDeferredResponseOptionRequest.wsdl">
     </jaxws:endpoint>
