@@ -45,7 +45,11 @@
             <bean class="${deferredresults.inboundDeferredResults}" />
         </property>
     </bean>
+    <!-- Entity DeferredResults bean -->
+    <bean id="entityDeferredResults" class="gov.hhs.fha.nhinc.deferredresults.entity.EntityDeferredResultsOption"/>
+    <bean id="entityDeferredResultsSecured" class="gov.hhs.fha.nhinc.deferredresults.entity.EntityDeferredResultsOptionSecured"/>
 
+    <!--Various standard and passthrough bean declaration -->
      <bean id="stdDeferredResultsInbound"
       class="gov.hhs.fha.nhinc.deferredresults.inbound.StandardInboundDeferredResults">
     </bean>
