@@ -24,31 +24,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.configuration;
+package gov.hhs.fha.nhinc.docquery.deferredresponse.descriptor;
 
+import gov.hhs.fha.nhinc.dq.adapterdeferredrequestoption.AdapterDeferredResponseOptionRequestPortType;
 import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author ttang
  *
  */
-public class GenericPortDescriptor<T> extends SOAP12ServicePortDescriptor<T> {
-    private String wsAddressingAction;
-    private Class<T> clazz;
-
-    public GenericPortDescriptor(String wsAddressingAction, Class<T> clazz) {
-        this.clazz = clazz;
-        this.wsAddressingAction = wsAddressingAction;
-    }
+public class AdapterDeferredResponseOptionServicePortDescriptor
+extends SOAP12ServicePortDescriptor<AdapterDeferredResponseOptionRequestPortType> {
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:dq:adapterdeferredrequestoption:RespondingGateway_CrossGatewayQueryDeferred";
 
     @Override
     public String getWSAddressingAction() {
-        return wsAddressingAction;
+        return WS_ADDRESSING_ACTION;
     }
 
     @Override
-    public Class<T> getPortClass() {
-        return clazz;
+    public Class<AdapterDeferredResponseOptionRequestPortType> getPortClass() {
+        return AdapterDeferredResponseOptionRequestPortType.class;
     }
-}
 
+}

@@ -23,24 +23,43 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.docquery.deferred.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureResponseType;
+import gov.hhs.fha.nhinc.deferredresults.impl.AdapterResponseHelper;
+import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
 import gov.hhs.fha.nhinc.dq.adapterdeferredrequestoptionsecured.AdapterDeferredResponseOptionRequestSecuredPortType;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import javax.annotation.Resource;
+import javax.xml.ws.WebServiceContext;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Adapter webservice to respond to the Initiating Gateway's request and send back any results it can, as well as
  * store the request ID to prepare for a future deferred message back to the Initiating Gateway
  */
 
-public class AdapterDeferredResponseOptionSecured implements AdapterDeferredResponseOptionRequestSecuredPortType{
+@Service
+public class AdapterDeferredResponseOptionSecured extends BaseService
+implements AdapterDeferredResponseOptionRequestSecuredPortType {
+    @Autowired
+    DeferredResponseOptionDao dao;
+
+    @Resource
+    private WebServiceContext context;
 
     @Override
-    public RespondingGatewayCrossGatewayQuerySecureResponseType respondingGatewayCrossGatewayQueryDeferredSecured(
+    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredSecured(
         RespondingGatewayCrossGatewayQuerySecureRequestType message) {
-        return null;
+        if (null == message) {
+            return AdapterResponseHelper.createFailureWithMessage("message is null.");
+        }
+
+        return AdapterResponseHelper.processAdapterDeferredResponseOption(dao, message.getAdhocQueryRequest(),
+            getAssertion(context));
     }
 
 }

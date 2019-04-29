@@ -24,31 +24,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.configuration;
+package gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy;
 
-import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
  * @author ttang
  *
  */
-public class GenericPortDescriptor<T> extends SOAP12ServicePortDescriptor<T> {
-    private String wsAddressingAction;
-    private Class<T> clazz;
+public class AdapterDeferredResponseOptionProxyObjectFactory extends ComponentProxyObjectFactory {
 
-    public GenericPortDescriptor(String wsAddressingAction, Class<T> clazz) {
-        this.clazz = clazz;
-        this.wsAddressingAction = wsAddressingAction;
-    }
+    private static final String CONFIG_FILE_NAME = "DocumentQueryDeferredResultsOptionProxyConfig.xml";
+    private static final String BEAN_NAME = "adapterdeferredresponseoption";
 
     @Override
-    public String getWSAddressingAction() {
-        return wsAddressingAction;
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
     }
 
-    @Override
-    public Class<T> getPortClass() {
-        return clazz;
+    public AdapterDeferredResponseOptionProxy getAdapterDeferredResponseOptionProxy() {
+        return getBean(BEAN_NAME, AdapterDeferredResponseOptionProxy.class);
     }
+
 }
-

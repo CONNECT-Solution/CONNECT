@@ -23,12 +23,15 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.docquery.deferred.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
+import gov.hhs.fha.nhinc.deferredresults.impl.AdapterResponseHelper;
+import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
 import gov.hhs.fha.nhinc.dq.adapterdeferredrequestoption.AdapterDeferredResponseOptionRequestPortType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Adapter webservice to respond to the Initiating Gateway's request and send back any results it can, as well as
@@ -36,11 +39,16 @@ import gov.hhs.fha.nhinc.dq.adapterdeferredrequestoption.AdapterDeferredResponse
  */
 
 public class AdapterDeferredResponseOption implements AdapterDeferredResponseOptionRequestPortType{
+    @Autowired
+    DeferredResponseOptionDao dao;
 
     @Override
-    public RespondingGatewayCrossGatewayQueryResponseType respondingGatewayCrossGatewayQueryDeferred(
+    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferred(
         RespondingGatewayCrossGatewayQueryRequestType message) {
-        return null;
+        if (null == message) {
+            return AdapterResponseHelper.createFailureWithMessage("message is null.");
+        }
+        return AdapterResponseHelper.processAdapterDeferredResponseOption(dao, message.getAdhocQueryRequest(),
+            message.getAssertion());
     }
-
 }

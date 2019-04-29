@@ -24,31 +24,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.configuration;
+package gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy;
 
-import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.deferredresults.impl.AdapterResponseHelper;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author ttang
  *
  */
-public class GenericPortDescriptor<T> extends SOAP12ServicePortDescriptor<T> {
-    private String wsAddressingAction;
-    private Class<T> clazz;
-
-    public GenericPortDescriptor(String wsAddressingAction, Class<T> clazz) {
-        this.clazz = clazz;
-        this.wsAddressingAction = wsAddressingAction;
-    }
+public class AdapterDeferredResponseOptionProxyNoOpImpl implements AdapterDeferredResponseOptionProxy {
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDeferredResponseOptionProxyNoOpImpl.class);
 
     @Override
-    public String getWSAddressingAction() {
-        return wsAddressingAction;
+    public RegistryResponseType processRequest(AdhocQueryRequest request, AssertionType assertion) {
+        LOG.debug("Running through AdapterDeferredResponseOptionProxyNoOpImpl");
+        return AdapterResponseHelper.createRegistryResponseTypeWithXdsQuerySuccess();
     }
 
-    @Override
-    public Class<T> getPortClass() {
-        return clazz;
-    }
 }
-

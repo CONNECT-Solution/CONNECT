@@ -71,6 +71,7 @@ import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SaveIdentifierRequestMess
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SavePatientRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SavePersonNameRequestMessageType;
 import gov.hhs.fha.nhinc.common.loadtestdatamanagement.SavePhoneNumberRequestMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
 import gov.hhs.fha.nhinc.loadtestdata.LoadTestDataException;
 import gov.hhs.fha.nhinc.loadtestdatamanagement.EntityLoadTestDataManagementPortType;
@@ -643,7 +644,8 @@ public class LoadTestDataWSServiceImpl implements LoadTestDataWSService {
     private static <T> CONNECTClient<T> getClient(String serviceUrl, String wsAddressingAction, Class<T> portTypeClass)
         throws ExchangeManagerException {
         if (null == client) {
-            client = HelperUtil.getClientUnsecure(serviceUrl, wsAddressingAction, portTypeClass);
+            client = HelperUtil.getClientUnsecure(serviceUrl, wsAddressingAction, portTypeClass,
+                new AssertionType());
         }
         return (CONNECTClient<T>) client;
     }
