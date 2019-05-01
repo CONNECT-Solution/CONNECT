@@ -69,7 +69,7 @@ public class NhinDocQueryDeferredResultsProxyWebServiceSecuredImpl implements Nh
 
                     response = (RegistryResponseType) client.invokePort(
                         NhinDocQueryDeferredResponseSecuredPortType.class,
-                        "respondingGatewayCrossGatewayQueryDeferredNhinSecured", msg);
+                        "initiatingGatewayCrossGatewayQueryDeferredResults", msg);
                 }
             } else {
                 throw new WebServiceException(
