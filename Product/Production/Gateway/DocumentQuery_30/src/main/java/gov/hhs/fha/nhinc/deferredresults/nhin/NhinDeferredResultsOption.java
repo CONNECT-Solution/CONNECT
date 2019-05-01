@@ -54,7 +54,7 @@ public class NhinDeferredResultsOption extends BaseService implements NhinDocQue
     private InboundDeferredResults inboundDeferredResults;
 
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredNhinSecured(AdhocQueryResponse body) {
+    public RegistryResponseType initiatingGatewayCrossGatewayQueryDeferredResults(AdhocQueryResponse body) {
         LOG.info("Nhin DeferredResults Inbound");
         AssertionType assertion = getAssertion(context, null);
         return inboundDeferredResults.respondingGatewayCrossGatewayQueryNhinDeferredResults(body, assertion, context);
@@ -72,4 +72,5 @@ public class NhinDeferredResultsOption extends BaseService implements NhinDocQue
     public void setInboundDeferredResults(InboundDeferredResults inboundDeferredResults) {
         this.inboundDeferredResults = inboundDeferredResults;
     }
+
 }
