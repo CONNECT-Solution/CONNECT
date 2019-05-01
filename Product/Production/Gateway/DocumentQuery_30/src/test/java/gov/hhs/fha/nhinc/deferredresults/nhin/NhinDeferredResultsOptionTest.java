@@ -26,12 +26,13 @@
  */
 package gov.hhs.fha.nhinc.deferredresults.nhin;
 
+import static org.junit.Assert.assertNotNull;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.deferredresults.inbound.StandardInboundDeferredResults;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,7 +73,7 @@ public class NhinDeferredResultsOptionTest {
         AdhocQueryResponse request = new AdhocQueryResponse();
         //Override the Autowired with our spy so we dont  actually invoke SOAP services
         nhinDeferredResults.setInboundDeferredResults(inboundSpy);
-        RegistryResponseType response = nhinDeferredResults.respondingGatewayCrossGatewayQueryDeferredNhinSecured(
+        RegistryResponseType response = nhinDeferredResults.initiatingGatewayCrossGatewayQueryDeferredResults(
             request);
         assertNotNull(response);
     }
