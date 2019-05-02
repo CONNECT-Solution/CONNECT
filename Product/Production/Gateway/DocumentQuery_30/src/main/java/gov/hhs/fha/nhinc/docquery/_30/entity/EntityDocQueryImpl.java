@@ -41,6 +41,7 @@ import org.apache.commons.lang.StringUtils;
 public class EntityDocQueryImpl extends BaseService {
 
     private OutboundDocQuery outboundDocQuery;
+    private DeferredDocQueryCheck deferredDocQueryCheck = new DeferredDocQueryCheck(this);
 
     /**
      * Constructor.
@@ -64,7 +65,7 @@ public class EntityDocQueryImpl extends BaseService {
 
         AssertionType assertion = getAssertion(context, null);
 
-        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), assertion,
+        return deferredDocQueryCheck.respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), assertion,
             request.getNhinTargetCommunities());
     }
 
@@ -79,11 +80,12 @@ public class EntityDocQueryImpl extends BaseService {
     public AdhocQueryResponse respondingGatewayCrossGatewayQueryUnsecured(
         RespondingGatewayCrossGatewayQueryRequestType request, WebServiceContext context) {
 
-        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(),
-            getAssertion(context, request.getAssertion()), request.getNhinTargetCommunities());
+        return deferredDocQueryCheck.respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(),
+            request.getAssertion(), request.getNhinTargetCommunities());
+
     }
 
-    private AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
         NhinTargetCommunitiesType targets) {
 
         if (targets == null) {
