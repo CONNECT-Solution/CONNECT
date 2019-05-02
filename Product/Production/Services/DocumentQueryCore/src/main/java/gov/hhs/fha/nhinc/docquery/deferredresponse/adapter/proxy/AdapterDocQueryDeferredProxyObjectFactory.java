@@ -24,24 +24,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.deferred.adapter;
+package gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResponseOptionQueryType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.dq.adapterdeferredrequestquery.AdapterDeferredResponseOptionQueryRequestPortType;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- * Adapter webservice to respond to store the request ID, generated ID for new AdHocQuery, and forward the modified message
- * off to the Responding Gateway
+ * @author ptambellini
  */
+public class AdapterDocQueryDeferredProxyObjectFactory extends ComponentProxyObjectFactory {
+    private static final String CONFIG_FILE_NAME = "DocumentQueryResponseOptionProxyConfig.xml";
+    private static final String BEAN_NAME = "adapterdocquerydeferredreponse";
 
-public class AdapterDeferredResponseOptionQuery implements AdapterDeferredResponseOptionQueryRequestPortType {
-
-
+    /**
+     * @return The Spring Proxy config file to be used"
+     */
     @Override
-    public AdapterDeferredResponseOptionQueryType
-    respondingGatewayCrossGatewayQueryDeferred(RespondingGatewayCrossGatewayQueryRequestType arg0) {
-        return null;
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
+    }
+
+    /**
+     * @return Bean for DocQuery to be instantiated (Secured, Unsecured, noop).
+     */
+    public AdapterDocQueryDeferredProxy getAdapterDocQueryProxy() {
+        return getBean(BEAN_NAME, AdapterDocQueryDeferredProxy.class);
     }
 
 }
