@@ -24,24 +24,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.deferred.adapter;
+package gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResponseOptionQueryType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.dq.adapterdeferredrequestquery.AdapterDeferredResponseOptionQueryRequestPortType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Adapter webservice to respond to store the request ID, generated ID for new AdHocQuery, and forward the modified message
- * off to the Responding Gateway
+ * @author ptambellini
+ *
  */
-
-public class AdapterDeferredResponseOptionQuery implements AdapterDeferredResponseOptionQueryRequestPortType {
-
+public class AdapterDocQueryDeferredProxyNoOpImpl implements AdapterDocQueryDeferredProxy {
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocQueryDeferredProxyNoOpImpl.class);
 
     @Override
-    public AdapterDeferredResponseOptionQueryType
-    respondingGatewayCrossGatewayQueryDeferred(RespondingGatewayCrossGatewayQueryRequestType arg0) {
-        return null;
-    }
+    public String respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg,
+        AssertionType assertion) {
+        LOG.debug("Using NoOp Implementation for Adapter Doc Query Service");
 
+        return " ";
+
+    }
 }
