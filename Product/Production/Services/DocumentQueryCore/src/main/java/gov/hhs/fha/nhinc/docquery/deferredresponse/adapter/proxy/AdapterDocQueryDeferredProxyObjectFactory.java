@@ -32,8 +32,8 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author ptambellini
  */
 public class AdapterDocQueryDeferredProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "DocumentQueryResponseOptionProxyConfig.xml";
-    private static final String BEAN_NAME = "adapterdocquerydeferredreponse";
+    private static final String CONFIG_FILE_NAME = "DocumentQueryDeferredResponseOptionProxyConfig.xml";
+    private static final String BEAN_NAME = "adapterdocquerydeferredresponsequery";
 
     /**
      * @return The Spring Proxy config file to be used"
@@ -46,8 +46,8 @@ public class AdapterDocQueryDeferredProxyObjectFactory extends ComponentProxyObj
     /**
      * @return Bean for DocQuery to be instantiated (Secured, Unsecured, noop).
      */
-    public AdapterDocQueryDeferredProxy getAdapterDocQueryProxy() {
-        return getBean(BEAN_NAME, AdapterDocQueryDeferredProxy.class);
+    public AdapterDocQueryDeferredResponseQueryProxy getAdapterDocQueryProxy() {
+        return getBean(BEAN_NAME, AdapterDocQueryDeferredResponseQueryProxy.class);
     }
 
 }

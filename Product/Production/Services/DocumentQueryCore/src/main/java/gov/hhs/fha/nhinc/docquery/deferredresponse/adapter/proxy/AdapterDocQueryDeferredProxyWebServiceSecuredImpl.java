@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-//import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResponseOptionQueryType;
-import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterDeferredResponseOptionImpl;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
+import gov.hhs.fha.nhinc.deferredresults.impl.AdapterResponseHelper;
 import gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.description.AdapterDeferredResponseOptionQueryRequestSecuredPortDescriptor;
 import gov.hhs.fha.nhinc.dq.adapterdeferredrequestquerysecured.AdapterDeferredResponseOptionQueryRequestSecuredPortType;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import javax.xml.ws.WebServiceException;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
@@ -45,14 +46,9 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
  *
  * @author ptambellini
  */
-public class AdapterDocQueryDeferredProxyWebServiceSecuredImpl extends BaseAdapterDocQueryDeferredProxy {
+public class AdapterDocQueryDeferredProxyWebServiceSecuredImpl implements AdapterDocQueryDeferredResponseQueryProxy {
 
-    /**
-     * @param apiLevel Adapter ApiLevel Param.
-     * @return Adapter apiLevel implementation to be used (a0 or a1 level).
-     */
-    public ServicePortDescriptor<AdapterDeferredResponseOptionQueryRequestSecuredPortType> getServicePortDescriptor(
-        final NhincConstants.ADAPTER_API_LEVEL apiLevel) {
+    public ServicePortDescriptor<AdapterDeferredResponseOptionQueryRequestSecuredPortType> getServicePortDescriptor() {
         return new AdapterDeferredResponseOptionQueryRequestSecuredPortDescriptor();
     }
 
@@ -63,8 +59,7 @@ public class AdapterDocQueryDeferredProxyWebServiceSecuredImpl extends BaseAdapt
         String url;
         try {
             // get the Adopter Endpoint URL
-            url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion,
-                NhincConstants.ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME);
+            url = CoreHelpUtils.getAdapterEndpoint(NhincConstants.ADAPTER_DEFERRED_RESPONSE_QUERY_SECURED_SERVICE_NAME);
 
             // Call the service
             if (NullChecker.isNotNullish(url)) {
@@ -72,24 +67,25 @@ public class AdapterDocQueryDeferredProxyWebServiceSecuredImpl extends BaseAdapt
                     throw new IllegalArgumentException("Request Message must be provided");
                 }
                 final ServicePortDescriptor<AdapterDeferredResponseOptionQueryRequestSecuredPortType> portDescriptor =
-                    getServicePortDescriptor(
-                        NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+                    getServicePortDescriptor();
 
                 final CONNECTClient<AdapterDeferredResponseOptionQueryRequestSecuredPortType> client =
                     CONNECTClientFactory.getInstance()
                     .getCONNECTClientSecured(portDescriptor, url, assertion);
 
+                RespondingGatewayCrossGatewayQuerySecureRequestType request = new RespondingGatewayCrossGatewayQuerySecureRequestType();
+                request.setAdhocQueryRequest(msg);
+
                 response = (String) client.invokePort(
                     AdapterDeferredResponseOptionQueryRequestSecuredPortType.class,
-                    "respondingGatewayCrossGatewayQuery",
-                    new AdapterDeferredResponseOptionImpl().respondingGatewayCrossGatewayQuerySecured(msg, assertion)
-                        .getNewId());
+                    "respondingGatewayCrossGatewayQueryDeferredSecuredRequest",request);
 
             } else {
                 throw new WebServiceException("Could not determine URL for Doc Query Adapter endpoint");
             }
         } catch (final Exception ex) {
-            throw new ErrorEventException(ex, getAdapterHelper().createErrorResponse(), "Unable to call Doc Query Adapter");
+            String error = "Unable to call Doc Deferred Response Option Query Secured Adapter";
+            throw new ErrorEventException(ex, AdapterResponseHelper.createFailureWithMessage(error),error);
         }
 
         return response;

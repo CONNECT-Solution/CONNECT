@@ -26,22 +26,29 @@
 */
 package gov.hhs.fha.nhinc.docquery.deferred.adapter;
 
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResponseOptionQuerySecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureResponseType;
+import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterDeferredResponseOptionImpl;
 import gov.hhs.fha.nhinc.dq.adapterdeferredrequestquerysecured.AdapterDeferredResponseOptionQueryRequestSecuredPortType;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import javax.annotation.Resource;
+import javax.xml.ws.WebServiceContext;
 
 /**
  * Adapter webservice to respond to store the request ID, generated ID for new AdHocQuery, and forward the modified message
  * off to the Responding Gateway
  */
 
-public class AdapterDeferredResponseOptionQuerySecured implements AdapterDeferredResponseOptionQueryRequestSecuredPortType{
+public class AdapterDeferredResponseOptionQuerySecured  extends BaseService implements AdapterDeferredResponseOptionQueryRequestSecuredPortType{
+
+    @Resource
+    private WebServiceContext context;
 
     @Override
-    public RespondingGatewayCrossGatewayQuerySecureResponseType respondingGatewayCrossGatewayQueryDeferredSecuredRequest(
+    public AdapterDeferredResponseOptionQuerySecuredType respondingGatewayCrossGatewayQueryDeferredSecuredRequest(
         RespondingGatewayCrossGatewayQuerySecureRequestType request) {
-        // TODO Auto-generated method stub
-        return null;
+        return new AdapterDeferredResponseOptionImpl().respondingGatewayCrossGatewayQuerySecured(request.getAdhocQueryRequest(),
+            getAssertion(context));
     }
 
 }
