@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  * @author ptambellini
  *
  */
-public class AdapterDocQueryDeferredProxyNoOpImpl implements AdapterDocQueryDeferredProxy {
+public class AdapterDocQueryDeferredProxyNoOpImpl implements AdapterDocQueryDeferredResponseQueryProxy {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocQueryDeferredProxyNoOpImpl.class);
 
     @Override
@@ -43,7 +43,7 @@ public class AdapterDocQueryDeferredProxyNoOpImpl implements AdapterDocQueryDefe
         AssertionType assertion) {
         LOG.debug("Using NoOp Implementation for Adapter Doc Query Service");
 
-        return " ";
+        return "1";
 
     }
 }

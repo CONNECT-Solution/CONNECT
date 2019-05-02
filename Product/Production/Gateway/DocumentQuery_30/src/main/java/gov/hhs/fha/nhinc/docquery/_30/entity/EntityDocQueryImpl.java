@@ -80,8 +80,9 @@ public class EntityDocQueryImpl extends BaseService {
     public AdhocQueryResponse respondingGatewayCrossGatewayQueryUnsecured(
         RespondingGatewayCrossGatewayQueryRequestType request, WebServiceContext context) {
 
+        AssertionType assertion = getAssertion(context, request.getAssertion());
         return deferredDocQueryCheck.respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(),
-            request.getAssertion(), request.getNhinTargetCommunities());
+            assertion, request.getNhinTargetCommunities());
 
     }
 

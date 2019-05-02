@@ -24,26 +24,26 @@
     <!--
        Beans defined for Adapter Doc Query Deferred Response
     -->
-    <alias alias="adapterdocquerydeferredresponse" name="adapterDQDeferredResponseSecured" />
+    <alias alias="adapterdocquerydeferredresponsequery" name="adapterDQDeferredResponseQueryUnsecured" />
 
     <!-- No-op Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredProxyNoOpImpl" id="adapterDQDeferredResultsNoOp" name="adapterDQDeferredResultsNoOp">
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredProxyNoOpImpl" id="adapterDQDeferredResponseQueryNoOp" name="adapterDQDeferredResponseQueryNoOp">
         <meta key="impltype" value="noop"/>
     </bean>
 
     <!-- Java Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredProxyJavaImpl" id="adapterDQDeferredResultsJava" name="adapterDQDeferredResultsJava">
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredProxyJavaImpl" id="adapterDQDeferredResponseQueryJava" name="adapterDQDeferredResponseQueryJava">
         <meta key="impltype" value="java"/>
     </bean>
 
     <!-- Secured web service Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredProxyWebServiceSecuredImpl" id="adapterDQDeferredResultsSecured" name="adapterDQDeferredResultsSecured">
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredProxyWebServiceSecuredImpl" id="adapterDQDeferredResponseQuerySecured" name="adapterDQDeferredResponseQuerySecured">
         <meta key="impltype" value="wssecured"/>
         <meta key="default" value="true"/>
     </bean>
 
     <!-- Unsecured web service Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredProxyWebServiceUnsecuredImpl" id="adapterDQDeferredResponseUnsecured" name="adapterDQDeferredResultsUnsecured">
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredProxyWebServiceUnsecuredImpl" id="adapterDQDeferredResponseQueryUnsecured" name="adapterDQDeferredResponseQueryUnsecured">
         <meta key="impltype" value="wsunsecured"/>
     </bean>
 
