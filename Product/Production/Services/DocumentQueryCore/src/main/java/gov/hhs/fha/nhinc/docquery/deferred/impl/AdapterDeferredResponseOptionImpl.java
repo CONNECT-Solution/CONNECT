@@ -20,35 +20,35 @@ public class AdapterDeferredResponseOptionImpl {
     public AdapterDeferredResponseOptionQueryType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg,
         AssertionType assertion) {
 
-        DeferredXCARequest deferredXCAReq = new DeferredXCARequest();
-        String defEndpoint = assertion.getDeferredResponseEndpoint();
-        String newId = new WSAHeaderHelper().generateMessageID();
-        String dcAdHocQueryRequestId = msg.getId();
-        deferredXCAReq.setAdHocQueryRequestId(newId);
-        deferredXCAReq.setDeferredResponseEndpoint(defEndpoint);
-        deferredXCAReq.setDcAdHocQueryRequestId(dcAdHocQueryRequestId);
-        DeferredXCARequestDao defXCAReqDao = new DeferredXCARequestDao();
-        defXCAReqDao.save(deferredXCAReq);
+        String newId = saveRequest(msg, assertion);
         AdapterDeferredResponseOptionQueryType response = new AdapterDeferredResponseOptionQueryType();
         response.setNewId(newId);
+        response.setAssertion(assertion);
         return response;
     }
+
+
 
     public AdapterDeferredResponseOptionQuerySecuredType respondingGatewayCrossGatewayQuerySecured(
         AdhocQueryRequest msg,
         AssertionType assertion) {
 
+        String newId = saveRequest(msg, assertion);
+        AdapterDeferredResponseOptionQuerySecuredType response = new AdapterDeferredResponseOptionQuerySecuredType();
+        response.setNewId(newId);
+        return response;
+    }
+
+    private static String saveRequest(AdhocQueryRequest msg, AssertionType assertion) {
         DeferredXCARequest deferredXCAReq = new DeferredXCARequest();
         String defEndpoint = assertion.getDeferredResponseEndpoint();
         String newId = new WSAHeaderHelper().generateMessageID();
-        String dcAdHocQueryRequestId = msg.getId();
+        String dcAdHocQueryRequestId = msg.getAdhocQuery().getId();
         deferredXCAReq.setAdHocQueryRequestId(newId);
         deferredXCAReq.setDeferredResponseEndpoint(defEndpoint);
         deferredXCAReq.setDcAdHocQueryRequestId(dcAdHocQueryRequestId);
         DeferredXCARequestDao defXCAReqDao = new DeferredXCARequestDao();
         defXCAReqDao.save(deferredXCAReq);
-        AdapterDeferredResponseOptionQuerySecuredType response = new AdapterDeferredResponseOptionQuerySecuredType();
-        response.setNewId(newId);
-        return response;
+        return newId;
     }
 }
