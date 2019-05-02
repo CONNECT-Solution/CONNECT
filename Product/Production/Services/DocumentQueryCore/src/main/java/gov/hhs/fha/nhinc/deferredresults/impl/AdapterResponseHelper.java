@@ -4,6 +4,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocQueryDeferredResponseMetadata;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -28,6 +29,8 @@ public class AdapterResponseHelper {
         for (String value : values) {
             RegistryError error = new RegistryError();
             error.setValue(value);
+            error.setErrorCode("XDSRegistryError");
+            error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             list.add(error);
         }
 
@@ -107,4 +110,5 @@ public class AdapterResponseHelper {
         }
         return null;
     }
+
 }

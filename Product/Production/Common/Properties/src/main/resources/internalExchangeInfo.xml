@@ -1056,6 +1056,25 @@
                                 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
                         </ns2:endpoint>
+                        
+                        <ns2:endpoint>
+                            <ns2:name>adapterdeferredresponsequery</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDeferredResponseOptionQueryRequest</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
+                        <ns2:endpoint>
+                            <ns2:name>adapterdeferredresponsequerysecured</ns2:name>
+                            <ns2:endpointConfigurationList>
+                                <ns2:endpointConfiguration>
+                                    <ns2:url>https://localhost:8181/Adapter/DocumentQuery/AdapterDeferredResponseOptionQuerySecured</ns2:url>
+                                    <ns2:version>LEVEL_a0</ns2:version>
+                                </ns2:endpointConfiguration>
+                            </ns2:endpointConfigurationList>
+                        </ns2:endpoint>
                     </ns2:endpointList>
                     <ns2:targetRegion>US-NY</ns2:targetRegion>
                     <ns2:targetRegion>US-VA</ns2:targetRegion>
