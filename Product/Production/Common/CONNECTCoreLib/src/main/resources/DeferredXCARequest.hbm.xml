@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM "classpath://org/hibernate/hibernate-configuration-3.0.dtd">
+<hibernate-mapping package="gov.hhs.fha.nhinc.docrepository.adapter.model">
+    <class name="DeferredXCARequest" table="deferredxcarequest">
+        <id column="AdHocQueryRequestId" length="45" name="adHocQueryRequestId" type="string"/>
+        <property column="DeferredResponseEndpoint" length="256" name="deferredResponseEndpoint" not-null="true" type="string"/>
+        <property column="DCAdHocQueryRequestId" length="45" name="dcAdHocQueryRequestId" not-null="true" type="string"/>
+    </class>
+</hibernate-mapping>

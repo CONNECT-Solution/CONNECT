@@ -24,24 +24,42 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.deferred.adapter;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResponseOptionQueryType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.dq.adapterdeferredrequestquery.AdapterDeferredResponseOptionQueryRequestPortType;
+package gov.hhs.fha.nhinc.docrepository.adapter.model;
+
 
 /**
- * Adapter webservice to respond to store the request ID, generated ID for new AdHocQuery, and forward the modified message
- * off to the Responding Gateway
+ * @author ptambellini
+ *
  */
+public class DeferredXCARequest {
 
-public class AdapterDeferredResponseOptionQuery implements AdapterDeferredResponseOptionQueryRequestPortType {
+    private String adHocQueryRequestId;
+    private String deferredResponseEndpoint;
+    private String dcAdHocQueryRequestId;
 
+    public String getAdHocQueryRequestId() {
+        return adHocQueryRequestId;
+    }
 
-    @Override
-    public AdapterDeferredResponseOptionQueryType
-    respondingGatewayCrossGatewayQueryDeferred(RespondingGatewayCrossGatewayQueryRequestType arg0) {
-        return null;
+    public void setAdHocQueryRequestId(String adHocQueryRequestId) {
+        this.adHocQueryRequestId = adHocQueryRequestId;
+    }
+
+    public String getDeferredResponseEndpoint() {
+        return deferredResponseEndpoint;
+    }
+
+    public void setDeferredResponseEndpoint(String deferredResponseEndpoint) {
+        this.deferredResponseEndpoint = deferredResponseEndpoint;
+    }
+
+    public String getDcAdHocQueryRequestId() {
+        return dcAdHocQueryRequestId;
+    }
+
+    public void setDcAdHocQueryRequestId(String dcAdHocQueryRequestId) {
+        this.dcAdHocQueryRequestId = dcAdHocQueryRequestId;
     }
 
 }
