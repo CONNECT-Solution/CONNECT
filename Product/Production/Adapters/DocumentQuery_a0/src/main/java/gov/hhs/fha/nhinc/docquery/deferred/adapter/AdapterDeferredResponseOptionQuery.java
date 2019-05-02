@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docquery.deferred.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResponseOptionQueryType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterDeferredResponseOptionImpl;
 import gov.hhs.fha.nhinc.dq.adapterdeferredrequestquery.AdapterDeferredResponseOptionQueryRequestPortType;
 
 /**
@@ -40,8 +41,8 @@ public class AdapterDeferredResponseOptionQuery implements AdapterDeferredRespon
 
     @Override
     public AdapterDeferredResponseOptionQueryType
-    respondingGatewayCrossGatewayQueryDeferred(RespondingGatewayCrossGatewayQueryRequestType arg0) {
-        return null;
+    respondingGatewayCrossGatewayQueryDeferred(RespondingGatewayCrossGatewayQueryRequestType request) {
+        return new AdapterDeferredResponseOptionImpl().respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), request.getAssertion());
     }
 
 }

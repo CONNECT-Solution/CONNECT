@@ -382,6 +382,9 @@ public class NhincConstants {
     = "urn:ihe:iti:2007:ResponseStatusType:PartialSuccess";
     public static final String ADAPTER_DEFERRED_RESULTS_SECURED_SERVICE = "adapterdeferredresultssecured";
     public static final String ADAPTER_DEFERRED_RESULTS_SERVICE = "adapterdeferredresultsoption";
+    public static final String ADAPTER_DEFERRED_RESPONSE_QUERY_SERVICE_NAME = "adapterdeferredresponsequery";
+    public static final String ADAPTER_DEFERRED_RESPONSE_QUERY_SECURED_SERVICE_NAME = "adapterdeferredresponsequerysecured";
+
     public static final String ADAPTER_DEFERRED_RESPONSE_OPTION_SERVICE_NAME = "adapterdeferredresponseoption";
     public static final String ADAPTER_DEFERRED_RESPONSE_OPTION_SECURED_SERVICE_NAME = "adapterdeferredresponseoptionsecured";
 

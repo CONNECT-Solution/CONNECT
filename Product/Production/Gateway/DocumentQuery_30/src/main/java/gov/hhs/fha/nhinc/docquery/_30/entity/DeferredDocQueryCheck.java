@@ -29,8 +29,8 @@ package gov.hhs.fha.nhinc.docquery._30.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredProxy;
 import gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredProxyObjectFactory;
+import gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredResponseQueryProxy;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -52,15 +52,16 @@ public final class DeferredDocQueryCheck extends BaseService {
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
         NhinTargetCommunitiesType nhinTarget) {
-        // String defEndpoint = assertion.getDeferredResponseEndpoint();
         if (null != assertion && StringUtils.isNotBlank(assertion.getDeferredResponseEndpoint())) {
             AdapterDocQueryDeferredProxyObjectFactory oFactory = new AdapterDocQueryDeferredProxyObjectFactory();
-            AdapterDocQueryDeferredProxy proxy = oFactory.getAdapterDocQueryProxy();
+            AdapterDocQueryDeferredResponseQueryProxy proxy = oFactory.getAdapterDocQueryProxy();
             String results = proxy.respondingGatewayCrossGatewayQuery(msg, assertion);
             if (StringUtils.isBlank(results)) {
                 IllegalStateException e = new IllegalStateException();
                 throw new ErrorEventException(e, "New Id was not generated.");
             }
+
+            //Overwrite the ID of the AdhocQueryRequest to match the response from our newly assigned ID from the adapter
             msg.setId(results);
         }
         return entityDocQueryImpl.respondingGatewayCrossGatewayQuery(msg, assertion, nhinTarget);
