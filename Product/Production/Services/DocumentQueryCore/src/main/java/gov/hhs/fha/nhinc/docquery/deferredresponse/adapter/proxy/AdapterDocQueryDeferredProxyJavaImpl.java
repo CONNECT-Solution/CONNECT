@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author ptambellini
  */
-public class AdapterDocQueryDeferredProxyJavaImpl implements AdapterDocQueryDeferredProxy {
+public class AdapterDocQueryDeferredProxyJavaImpl implements AdapterDocQueryDeferredResponseQueryProxy {
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocQueryDeferredProxyJavaImpl.class);
 
     @Override
