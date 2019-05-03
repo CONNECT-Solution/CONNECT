@@ -35,9 +35,9 @@ public class AdapterResponseHelper {
 
         for (String value : values) {
             RegistryError error = new RegistryError();
-            error.setValue(value);
             error.setErrorCode("XDSRegistryError");
             error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+            error.setCodeContext(value);
             list.add(error);
         }
         return errorList;
