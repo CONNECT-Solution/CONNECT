@@ -65,6 +65,7 @@ import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyStore;
+import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -73,6 +74,7 @@ import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.SignatureException;
+import java.security.UnrecoverableEntryException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
@@ -93,7 +95,6 @@ import java.util.Set;
 import javax.activation.DataHandler;
 import javax.security.auth.x500.X500Principal;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.MapUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
@@ -432,9 +433,11 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
         // keytool -certreq -alias gateway -keystore gateway.jks -file gateway-yyyyMMdd.csr
         try {
-            PrivateKey privateKey = CertificateUtil.getPrivateKeyEntry(getTempKeystore(), alias, getPasswordKeystore())
-                .getPrivateKey();
-            savePrivateKey(alias, privateKey, getPasswordKeystore());
+            PrivateKeyEntry entry = CertificateUtil.getPrivateKeyEntry(getTempKeystore(), alias, getPasswordKeystore());
+            if (null == entry) {
+                return buildSimpleResponse(false, "Unable to find KeyPair for the alias: " + alias);
+            }
+            savePrivateKey(alias, entry.getPrivateKey(), getPasswordKeystore());
 
             DataHandler certPem = CertificateUtil
                 .getDataHandlerForPem(getPemCsrBy(getTempKeystore(), getPasswordKeystore(), alias));
@@ -668,62 +671,37 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
             }
 
             if (null != request.getRootCert() && CollectionUtils.isNotEmpty(request.getIntermediateList())) {
+                // KeyStore
                 removeIntermediateFrom(getTempKeystore(), alias);
                 Map<String, Certificate> mapCerts = convertCertificateMap(alias, request);
                 for (Entry<String, Certificate> entryCert : mapCerts.entrySet()) {
                     getTempKeystore().setCertificateEntry(entryCert.getKey(), entryCert.getValue());
                 }
+
+                // TrustStore
+                Certificate oldCertificate = CertificateManagerImpl.getInstance().getCertificateBy(alias);
+                List<ListCertificateType> oldChain = buildChain(alias, oldCertificate, getTempTruststore());
+                for (ListCertificateType item : oldChain) {
+                    getTempTruststore().deleteEntry(item.getAlias());
+                }
+
+                removeIntermediateFrom(getTempTruststore(), alias);
+                for (Entry<String, Certificate> entryCert : mapCerts.entrySet()) {
+                    getTempTruststore().setCertificateEntry(entryCert.getKey(), entryCert.getValue());
+                }
+
+                saveTempTruststore();
             }
 
             getTempKeystore().setKeyEntry(alias, privateKey, getPasswordKeystore().toCharArray(),
                 CoreHelpUtils.getCertificateChain(publicKey));
             saveTempKeystore();
-        } catch (CertificateManagerException | UtilException | KeyStoreException e) {
-            LOG.error("Error occurred while importing to temporary KeyStore: {}", e.getLocalizedMessage(), e);
-            return buildSimpleResponse(false, "Error occurred while importing to temporary KeyStore.");
+        } catch (CertificateManagerException | UtilException | KeyStoreException | CertificateEncodingException e) {
+            LOG.error("Error occurred while importing to temporary KeyStore/TrustStore: {}", e.getLocalizedMessage(),
+                e);
+            return buildSimpleResponse(false, "Error occurred while importing to temporary KeyStore/TrustStore.");
         }
-        return buildSimpleResponse(true, "Import to temporary KeyStore is successful.");
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#importToTruststore(gov.hhs.fha.nhinc.common.configadmin.
-     * ImportToTruststoreRequestMessageType)
-     */
-    @Override
-    public SimpleCertificateResponseMessageType importToTruststore(ImportCertificateChainRequestMessageType request) {
-        if (StringUtils.isBlank(request.getAlias()) || CollectionUtils.isEmpty(request.getIntermediateList())
-            || null == request.getRootCert()) {
-            return buildSimpleResponse(false, "Alias, CA Root and CA Intermediate are required.");
-        }
-
-        try{
-            String alias = request.getAlias();
-            Map<String, Certificate> mapCerts = convertCertificateMap(alias, request);
-            if (MapUtils.isEmpty(mapCerts) || mapCerts.size() < 2) {
-                return buildSimpleResponse(false, "Error creating certificate chain for TrustStore.");
-            }
-
-            Certificate oldCertificate = CertificateManagerImpl.getInstance().getCertificateBy(alias);
-            List<ListCertificateType> oldChain = buildChain(alias, oldCertificate, getTempTruststore());
-            for (ListCertificateType item : oldChain) {
-                getTempTruststore().deleteEntry(item.getAlias());
-            }
-
-            removeIntermediateFrom(getTempTruststore(), alias);
-            for (Entry<String, Certificate> entryCert : mapCerts.entrySet()) {
-                getTempTruststore().setCertificateEntry(entryCert.getKey(), entryCert.getValue());
-            }
-
-            saveTempTruststore();
-        }catch(CertificateManagerException | KeyStoreException | UtilException | CertificateEncodingException e){
-            LOG.error("Error occurred while importing to the temporary TrustStore: {}", e.getLocalizedMessage(), e);
-            return buildSimpleResponse(false, "Error occurred while importing to the temporary TrustStore.");
-        }
-
-        return buildSimpleResponse(true, "Import into the temporary TrustStore is successful.");
+        return buildSimpleResponse(true, "Import to temporary KeyStore/TrustStore is successful.");
     }
 
     private static void savePrivateKey(String alias, PrivateKey privatekey, String password)
@@ -875,9 +853,10 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     public SimpleCertificateResponseMessageType listTemporaryAlias(SimpleCertificateRequestMessageType request) {
         try {
             SimpleCertificateResponseMessageType response = buildSimpleResponse(true, "Temporary Aliases");
-            CollectionUtils.addAll(response.getAliasList(), getTempKeystore().aliases());
+            response.getAliasList().addAll(getAliasKeypair(getTempKeystore(), getPasswordKeystore()));
             return response;
-        } catch (CertificateManagerException | KeyStoreException e) {
+        } catch (CertificateManagerException | KeyStoreException | NoSuchAlgorithmException
+            | UnrecoverableEntryException e) {
             LOG.error("Error while getting temporary alias list: {}", e.getLocalizedMessage(), e);
             return buildSimpleResponse(false, "Failed to retrieve alias list");
         }
@@ -911,6 +890,8 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         try{
             Map<String, Certificate> removeCerts = convertCertificateMap("noalias", request);
             removeCertificatesFrom(getTempKeystore(), removeCerts.values());
+            removeCertificatesFrom(getTempTruststore(), removeCerts.values());
+            saveTempTruststore();
             saveTempKeystore();
         } catch (UtilException | KeyStoreException | CertificateManagerException ex) {
             LOG.error("Error occured on undo import in temporary KeyStore: {}", ex.getLocalizedMessage(), ex);
@@ -918,24 +899,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         }
 
         return buildSimpleResponse(true, "Undo import in temporary Keystore successful.");
-    }
-
-    @Override
-    public SimpleCertificateResponseMessageType undoImportTruststore(ImportCertificateChainRequestMessageType request) {
-        if (null == request.getRootCert() || CollectionUtils.isEmpty(request.getIntermediateList())) {
-            return buildSimpleResponse(false, "Undoing an import requires the CA Root, and Intermediate certificates.");
-        }
-
-        try {
-            Map<String, Certificate> removeCerts = convertCertificateMap("noalias", request);
-            removeCertificatesFrom(getTempTruststore(), removeCerts.values());
-            saveTempTruststore();
-        } catch (UtilException | KeyStoreException | CertificateManagerException ex) {
-            LOG.error("Error occured on undo import in temporary TrustStore: {}", ex.getLocalizedMessage(), ex);
-            return buildSimpleResponse(false, "Error occured on undo import in temporary TrustStore.");
-        }
-
-        return buildSimpleResponse(true, "Undo import in temporary TrustStore successful.");
     }
 
     private void saveTempKeystore() throws UtilException, CertificateManagerException {
@@ -964,6 +927,22 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
                 keystore.deleteEntry(removeAlias);
             }
         }
+    }
+
+    private static List<String> getAliasKeypair(KeyStore keystore, String password)
+        throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException {
+        List<String> kpAliases = new ArrayList<>();
+
+        for(String alias : Collections.list(keystore.aliases())){
+            try {
+                keystore.getEntry(alias, new KeyStore.PasswordProtection(password.toCharArray()));
+                kpAliases.add(alias);
+            } catch (UnsupportedOperationException ex) {
+                LOG.trace("Ignore certificate without keypair: {}", alias, ex);
+            }
+        }
+
+        return kpAliases;
     }
 
 }

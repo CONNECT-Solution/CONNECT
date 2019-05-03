@@ -123,7 +123,7 @@ public class CertficateBean {
     private String csrText;
     private String csrFileType;
     private String[] tabTitles = new String[] { "Start", "Create Certificate", "Certificate Signing Request",
-            "CA Providers", "KeyStore", "TrustStore" };
+            "CA Providers", "KeyStore/TrustStore" };
     private int importWizardTabIndex = 0;
     private Map<String, String> caProperties = null;
     private Map<String, String> caLinks = null;
@@ -133,6 +133,9 @@ public class CertficateBean {
     private UploadedFile uploadedFileRoot;
     private CertificateDTO certServer;
     private CertificateDTO certRoot;
+    private boolean[] disableNext = new boolean[] { true, true, true, true, true, true };
+    private boolean[] disableTab = new boolean[] {false, true, true, true, true, true};
+    private boolean disableImportAction = true;
 
     public CertficateBean() {
         service = new CertificateManagerServiceImpl();
@@ -662,6 +665,10 @@ public class CertficateBean {
     }
 
     public void setImportWizardTabIndex(int importWizardTabIndex) {
+        if (importWizardTabIndex == 0) {
+            cacheAlias = null; // clear out the cache on start importWizard
+        }
+        enableTab(importWizardTabIndex);
         this.importWizardTabIndex = importWizardTabIndex;
     }
 
@@ -677,9 +684,9 @@ public class CertficateBean {
         if (status) {
             HelperUtil.addMessageInfo(null,
                 MessageFormat.format("Successfully created certificate for: {0}", getAlias()));
-            next();
             cacheAlias.add(getAlias());
             createCSR();
+            disableNext[1] = false;
         } else {
             HelperUtil.addMessageError(null, MessageFormat.format("Failed to create certificate for: {0}", getAlias()));
         }
@@ -710,6 +717,7 @@ public class CertficateBean {
     }
 
     public StreamedContent getCsrFile() {
+        enableNextCSR(false);
         String filename = MessageFormat.format("{0}-{1}.csr", getAlias(),
             CoreHelpUtils.formatDate("yyyyMMdd", new Date()));
         return new DefaultStreamedContent(new ByteArrayInputStream(csrText.getBytes()), csrFileType, filename);
@@ -733,15 +741,12 @@ public class CertficateBean {
         organizationalUnit = null;
         countryName = null;
 
-        listIntermediate = null;
-        uploadedFileRoot = null;
-        uploadedFileServer = null;
-        certRoot = null;
-        certServer = null;
+        clearImport();
 
         csrFileType = null;
         csrText = null;
-        cacheAlias = null;
+        disableNext = new boolean[] { true, true, true, true, true, true };
+        disableImportAction = true;
     }
 
     public void next() {
@@ -776,15 +781,33 @@ public class CertficateBean {
     }
 
     public void importToKeystore() {
-        if (null == uploadedFileServer || StringUtils.isBlank(alias)) {
-            HelperUtil.addMessageError(null, "Alias and Server Certificate are required.");
+        List<String> serverValidation = new ArrayList<>();
+        if (StringUtils.isBlank(alias)) {
+            serverValidation.add("Alias is required.");
+        }
+        if (null == uploadedFileServer) {
+            serverValidation.add("Server Certificate are required.");
+        }
+        if (CollectionUtils.isNotEmpty(serverValidation)) {
+            validationErrors(serverValidation);
             return;
         }
+
+        if(MapUtils.isNotEmpty(listIntermediate) && null == uploadedFileRoot){
+            HelperUtil.addMessageWarn(null, "CA Root was not uploaded, CA Intermediate was not imported.");
+        }
+        if (MapUtils.isEmpty(listIntermediate) && null != uploadedFileRoot) {
+            HelperUtil.addMessageWarn(null, "CA Intermediate was not uploaded, CA Root was not imported.");
+        }
+
         SimpleCertificateResponseMessageType response;
         if (MapUtils.isNotEmpty(listIntermediate) && null != uploadedFileRoot) {
             response = service.importToKeystore(alias, uploadedFileServer, listIntermediate, uploadedFileRoot);
         } else {
             response = service.importToKeystore(alias, uploadedFileServer, null, null);
+        }
+        if (response.isStatus()) {
+            disableImportAction = false;
         }
         alertUserOn(response);
     }
@@ -816,14 +839,6 @@ public class CertficateBean {
             certRoot = service.createCertificate(uploadedFileRoot.getContents());
             validateCertificate(certRoot);
         }
-    }
-
-    public void importToTruststore() {
-        if (MapUtils.isEmpty(listIntermediate) || null == uploadedFileRoot || StringUtils.isBlank(alias)) {
-            HelperUtil.addMessageError(null, "Alias, CA Root and CA Intermediate are required.");
-            return;
-        }
-        alertUserOn(service.importToTruststore(alias, listIntermediate, uploadedFileRoot));
     }
 
     public String getSubjectServer() {
@@ -872,6 +887,8 @@ public class CertficateBean {
         certServer = null;
         certRoot = null;
         listIntermediate = null;
+        uploadedFileRoot = null;
+        uploadedFileServer = null;
     }
 
     public void clearIntermediate() {
@@ -883,7 +900,11 @@ public class CertficateBean {
     }
 
     public void completeImportWizard() {
-        alertUserOn(service.completeImportWizard());
+        SimpleCertificateResponseMessageType response = service.completeImportWizard();
+        if (response.isStatus()) {
+            disableImportAction = true;
+        }
+        alertUserOn(response);
     }
 
     private static void alertUserOn(SimpleCertificateResponseMessageType response) {
@@ -914,14 +935,51 @@ public class CertficateBean {
     }
 
     public void undo(String option) {
-        if (null == uploadedFileRoot || MapUtils.isEmpty(listIntermediate)) {
-            HelperUtil.addMessageError(null, "CA Root and CA Intermediate are required for undo.");
+        List<String> serverValidation = new ArrayList<>();
+        if (MapUtils.isEmpty(listIntermediate)) {
+            serverValidation.add("CA Intermediate are required.");
         }
-        LOG.debug("undo option: {}", option);
-        if (option.equalsIgnoreCase("keystore")) {
-            alertUserOn(service.undoImportKeystore(getAlias(), listIntermediate, uploadedFileRoot));
-        } else if (option.equalsIgnoreCase("truststore")) {
-            alertUserOn(service.undoImportTruststore(getAlias(), listIntermediate, uploadedFileRoot));
+        if (null == uploadedFileRoot) {
+            serverValidation.add("CA Root is Required.");
+        }
+        if (CollectionUtils.isNotEmpty(serverValidation)) {
+            validationErrors(serverValidation);
+            return;
+        }
+        alertUserOn(service.undoImportKeystore(getAlias(), listIntermediate, uploadedFileRoot));
+    }
+
+    public boolean getDisableNext(int index) {
+        return disableNext[index];
+    }
+
+    private void enableTab(Integer index) {
+        disableTab[0]=false;
+        for (int i = 1; i < disableTab.length; i++) {
+            disableTab[i]=true;
+        }
+        if (null != index) {
+            disableTab[index] = false;
+        }
+    }
+    public boolean getDisableTab(int index) {
+        return disableTab[index];
+    }
+
+    public void enableNextCSR(boolean copyFlag) {
+        if (copyFlag) {
+            HelperUtil.addMessageInfo(null, "Copy Successful.");
+        }
+        disableNext[2] = false;
+    }
+
+    public boolean getDisableImportAction() {
+        return disableImportAction;
+    }
+
+    private void validationErrors(List<String> errors) {
+        for (String error : errors) {
+            HelperUtil.addMessageError(null, error);
         }
     }
 }
