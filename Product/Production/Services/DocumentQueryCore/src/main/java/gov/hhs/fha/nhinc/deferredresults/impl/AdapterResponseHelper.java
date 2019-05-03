@@ -23,6 +23,13 @@ public class AdapterResponseHelper {
         RegistryResponseType response = new RegistryResponseType();
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
 
+        RegistryErrorList errorList = createErrorList(values);
+
+        response.setRegistryErrorList(errorList);
+        return response;
+    }
+
+    private static RegistryErrorList createErrorList(String... values) {
         RegistryErrorList errorList = new RegistryErrorList();
         List<RegistryError> list = errorList.getRegistryError();
 
@@ -33,9 +40,14 @@ public class AdapterResponseHelper {
             error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             list.add(error);
         }
+        return errorList;
+    }
 
-        response.setRegistryErrorList(errorList);
-        return response;
+    public static AdhocQueryResponse createAdhocFailureWithMessage(String... values ) {
+        AdhocQueryResponse adhoc = new AdhocQueryResponse();
+        adhoc.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+        adhoc.setRegistryErrorList(createErrorList(values));
+        return adhoc;
     }
 
     public static AdhocQueryResponse createSuccessResponse() {
