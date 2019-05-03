@@ -123,7 +123,7 @@ public class CertficateBean {
     private String csrText;
     private String csrFileType;
     private String[] tabTitles = new String[] { "Start", "Create Certificate", "Certificate Signing Request",
-            "CA Providers", "KeyStore/TrustStore" };
+            "CA Providers", "Import SSL Certificate" };
     private int importWizardTabIndex = 0;
     private Map<String, String> caProperties = null;
     private Map<String, String> caLinks = null;
