@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,6 +26,8 @@
 */
 package gov.hhs.fha.nhinc.docquery._30.nhin;
 
+import static org.junit.Assert.assertNotNull;
+
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.docquery._30.entity.EntityDocQuerySecured;
@@ -36,7 +38,6 @@ import gov.hhs.fha.nhinc.docquery.outbound.PassthroughOutboundDocQuery;
 import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQuery;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,8 @@ public class DocQuerySpringContextTest {
         assertNotNull(outboundDocQueryUnsecured);
 
         RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
+        AdhocQueryRequest req = new AdhocQueryRequest();
+        request.setAdhocQueryRequest(req);
         AdhocQueryResponse response = outboundDocQueryUnsecured.respondingGatewayCrossGatewayQuery(request);
 
         assertNotNull(response);
@@ -97,6 +100,8 @@ public class DocQuerySpringContextTest {
         assertNotNull(outboundDocQuerySecured);
 
         RespondingGatewayCrossGatewayQuerySecuredRequestType request = new RespondingGatewayCrossGatewayQuerySecuredRequestType();
+        AdhocQueryRequest req = new AdhocQueryRequest();
+        request.setAdhocQueryRequest(req);
         AdhocQueryResponse response = outboundDocQuerySecured.respondingGatewayCrossGatewayQuery(request);
 
         assertNotNull(response);
