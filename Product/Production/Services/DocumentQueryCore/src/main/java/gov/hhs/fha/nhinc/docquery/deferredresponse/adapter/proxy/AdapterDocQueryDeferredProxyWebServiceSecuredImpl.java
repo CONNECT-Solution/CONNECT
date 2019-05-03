@@ -94,6 +94,6 @@ public class AdapterDocQueryDeferredProxyWebServiceSecuredImpl implements Adapte
         }
 
         LOG.debug("End respondingGatewayCrossGatewayQuery");
-        return response.getNewId();
+        return response.getGatewayAdhocQueryRequestId();
     }
 }
