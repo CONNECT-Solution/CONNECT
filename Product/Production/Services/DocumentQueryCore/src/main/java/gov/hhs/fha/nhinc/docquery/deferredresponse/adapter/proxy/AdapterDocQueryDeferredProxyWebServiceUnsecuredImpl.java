@@ -52,19 +52,17 @@ public class AdapterDocQueryDeferredProxyWebServiceUnsecuredImpl implements Adap
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocQueryDeferredProxyWebServiceUnsecuredImpl.class);
 
-    public AdapterDeferredResponseOptionQueryRequestPortDescriptor getServicePortDescriptor() {
+    private static AdapterDeferredResponseOptionQueryRequestPortDescriptor getServicePortDescriptor() {
         return new AdapterDeferredResponseOptionQueryRequestPortDescriptor();
     }
 
     @Override
-    public String respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg,
-        AssertionType assertion) {
+    public String respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         LOG.debug("Begin respondingGatewayCrossGatewayQuery");
-        AdapterDeferredResponseOptionQueryType response = null;
-        String url;
+        AdapterDeferredResponseOptionQueryType response = new AdapterDeferredResponseOptionQueryType();
         try {
             //get the Adopter Endpoint URL
-            url = CoreHelpUtils.getAdapterEndpoint(NhincConstants.ADAPTER_DEFERRED_RESPONSE_QUERY_SERVICE_NAME);
+            String url = CoreHelpUtils.getAdapterEndpoint(NhincConstants.ADAPTER_DEFERRED_RESPONSE_QUERY_SERVICE_NAME);
             //Call the service
             if (NullChecker.isNotNullish(url)) {
                 LOG.debug("getEndPointFromConnectionManagerByAdapterAPILevel: {}", url);
@@ -93,7 +91,7 @@ public class AdapterDocQueryDeferredProxyWebServiceUnsecuredImpl implements Adap
             }
         } catch (Exception ex) {
             String error = "Unable to call Doc Deferred Response Option Query Adapter";
-            throw new ErrorEventException(ex, AdapterResponseHelper.createFailureWithMessage(error),error);
+            throw new ErrorEventException(ex, AdapterResponseHelper.createAdhocFailureWithMessage(error),error);
         }
 
         LOG.debug("End respondingGatewayCrossGatewayQuery");
