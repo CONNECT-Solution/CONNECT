@@ -22,7 +22,7 @@ public class AdapterDeferredResponseOptionImpl {
 
         String newId = saveRequest(msg, assertion);
         AdapterDeferredResponseOptionQueryType response = new AdapterDeferredResponseOptionQueryType();
-        response.setNewId(newId);
+        response.setGatewayAdhocQueryRequestId(newId);
         response.setAssertion(assertion);
         return response;
     }
@@ -35,7 +35,7 @@ public class AdapterDeferredResponseOptionImpl {
 
         String newId = saveRequest(msg, assertion);
         AdapterDeferredResponseOptionQuerySecuredType response = new AdapterDeferredResponseOptionQuerySecuredType();
-        response.setNewId(newId);
+        response.setGatewayAdhocQueryRequestId(newId);
         return response;
     }
 
