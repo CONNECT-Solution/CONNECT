@@ -509,20 +509,6 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
     }
 
     @Override
-    public SimpleCertificateResponseMessageType importToTruststore(String alias,
-        Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile) {
-        try {
-            ImportCertificateChainRequestMessageType request = buildRequestCertificateChain(alias, null,
-                intermediateFiles, rootFile);
-            return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
-                AdminWSConstants.ADMIN_CERT_IMPORT_TOTRUSTSTORE, request);
-        } catch (Exception ex) {
-            LOG.error("error importing to trust for: {}", alias, ex);
-        }
-        return null;
-    }
-
-    @Override
     public SimpleCertificateResponseMessageType completeImportWizard() {
         try {
             SimpleCertificateRequestMessageType request = new SimpleCertificateRequestMessageType();
@@ -577,20 +563,6 @@ public class CertificateManagerServiceImpl implements CertificateManagerService 
                 AdminWSConstants.ADMIN_CERT_UNDO_IMPORTKEYSTORE, request);
         } catch (Exception ex) {
             LOG.error("Error occured while calling undoImportKeystore webservice: {}", ex.getLocalizedMessage(), ex);
-        }
-        return null;
-    }
-
-    @Override
-    public SimpleCertificateResponseMessageType undoImportTruststore(String alias,
-        Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile) {
-        try {
-            ImportCertificateChainRequestMessageType request = buildRequestCertificateChain(alias, null,
-                intermediateFiles, rootFile);
-            return (SimpleCertificateResponseMessageType) getClient().invokePort(EntityConfigAdminPortType.class,
-                AdminWSConstants.ADMIN_CERT_UNDO_IMPORTTRUSTSTORE, request);
-        } catch (Exception ex) {
-            LOG.error("Error occured while calling undoImportTruststore webservice: {}", ex.getLocalizedMessage(), ex);
         }
         return null;
     }

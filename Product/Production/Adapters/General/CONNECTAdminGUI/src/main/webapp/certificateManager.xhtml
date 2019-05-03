@@ -348,11 +348,11 @@
                                             <p:autoUpdate />
                                         </p:messages>
                                         <div class="content">
-                                            <h:outputText>This Import Wizard allows the user to add or import one certificate at a time.</h:outputText>
+                                            <h:outputText>The Import Wizard allow users to create and import signed certificates.</h:outputText>
                                             <br /> <br />
-                                            <h:outputText>The Import Wizard through a couple of steps makes a certificate, sets up the Certificate Signing Request (CSR) and allows for the certificate to be sent to be processed by a CA provider (Entrust or eHealth Exchange). Once the certificate has been verified by the CA provider, the Import Wizard can resume loading the Key and Trust Stores.</h:outputText>
+                                            <h:outputText>User can start the process either by clicking on Creating a Self Signed Certificate or Generating a Certificate Signing Request (CSR). User also has the option of resuming the process using Import SSL Certificate.</h:outputText>
                                             <br /> <br />
-                                            <h:outputText>After the TrustStore complete button is pressed, the KeyStore and TrustStore files [stored in the importWizard/new folder] will need to be manually copied to replace the existing KeyStore and TrustStore files.</h:outputText>
+                                            <h:outputText>Note: The certificates created by the Import wizard are stored in the application properties directory under ~/importWizard/new/. User has to manually replace the existing certificates with the ones created by Import wizard and restart the server for changes to take effect.</h:outputText>
                                             <br /> <br />
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
@@ -360,13 +360,13 @@
                                                         <li class="list-group-item"><p:commandLink
                                                                 action="#{certificateBean.setImportWizardTabIndex(1)}"
                                                                 style="margin-right:20px;" update="@(.cssImportWizard)">
-                                                                <h:outputText value="Create a new certificate" />
+                                                                <h:outputText value="Creating a self signed certificate" />
                                                             </p:commandLink></li>
                                                         <li class="list-group-item"><p:commandLink
                                                                 action="#{certificateBean.setImportWizardTabIndex(2)}"
                                                                 style="margin-right:20px;" update="@(.cssImportWizard)">
                                                                 <h:outputText
-                                                                    value="Generate CSR for an existing Certificate" />
+                                                                    value="Generating a Certificate Signing Request (CSR)" />
                                                             </p:commandLink></li>
                                                         <li class="list-group-item"><p:commandLink
                                                                 action="#{certificateBean.setImportWizardTabIndex(4)}"
@@ -381,7 +381,8 @@
                                 </div>
 
                             </p:tab>
-                            <p:tab id="tabIdCreateCert" title="#{certificateBean.tabTitles[1]}" closable="false">
+                            <p:tab id="tabIdCreateCert" title="#{certificateBean.tabTitles[1]}" closable="false"
+                                disabled="#{certificateBean.getDisableTab(1)}">
 
                                 <div class="form-block center-block">
                                     <h:form id="formCreateCertificate" class="form form-horizontal">
@@ -389,7 +390,7 @@
                                             <p:autoUpdate />
                                         </p:messages>
                                         <div class="content">
-                                            <h:outputText>This step creates a temporary certificate that will be used to the replace the existing certificate in the KeyStore file.</h:outputText>
+                                            <h:outputText>This step creates a temporary certificate that will be used to replace the existing certificate in the KeyStore file.</h:outputText>
                                             <br /> <br />
                                             <h:outputText>Please skip this step and use Create Certificate Signing Request (CSR) step if an existing certificate will be used.</h:outputText>
                                             <div class="form-group row">
@@ -418,13 +419,13 @@
                                                     <h:outputLabel class="control-label" for="inputAlias"
                                                         value="* Alias:" />
                                                     <p:selectOneMenu styleClass="form-control" id="inputAlias"
-                                                        required="true" requiredMessage="Alias is required." placeholder="Enter a new alias or select from dropdown."
+                                                        required="true" requiredMessage="Alias is required."
+                                                        placeholder="Enter a new alias or select from dropdown."
                                                         value="#{certificateBean.alias}" filter="true" editable="true"
                                                         filterMatchMode="startsWith">
                                                         <f:selectItem itemLabel="---" itemValue=""
                                                             noSelectionOption="true" />
-                                                        <f:selectItems value="#{certificateBean.keystores}" var="item"
-                                                            itemLabel="#{item.alias}" itemValue="#{item.alias}" />
+                                                        <f:selectItems value="#{certificateBean.cacheAlias}" />
                                                     </p:selectOneMenu>
                                                 </div>
                                                 <div class="col-sm-12">
@@ -484,6 +485,7 @@
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="btn btn-primary" icon="ui-icon-seek-next"
                                                     value="Next" action="#{certificateBean.next()}"
+                                                    disabled="#{certificateBean.getDisableNext(1)}"
                                                     update="@(.cssImportWizard)" immediate="true" />
                                             </div>
                                         </div>
@@ -491,7 +493,8 @@
                                 </div>
 
                             </p:tab>
-                            <p:tab id="tabIdCreateCSR" title="#{certificateBean.tabTitles[2]}" closable="false">
+                            <p:tab id="tabIdCreateCSR" title="#{certificateBean.tabTitles[2]}" closable="false"
+                                disabled="#{certificateBean.getDisableTab(2)}">
 
                                 <div class="form-block center-block">
                                     <h:form id="formCreateCSR" class="form form-horizontal">
@@ -534,23 +537,39 @@
                                         </div>
                                         <div class="form-button-row">
                                             <div class="col-sm-12">
+                                                <script type='text/javascript'>
+                                                function enableNextCSR() {
+                                                    var nextButton = document.getElementById('certTabView:importCertTabView:formCreateCSR:csrNextButton');
+                                                    nextButton.removeAttribute("disabled");
+                                                    nextButton.classList.remove("ui-state-disabled");
+                                                }
+                                                function copyCSR() {
+                                                    document.getElementById('certTabView:importCertTabView:formCreateCSR:inputTextareaCsr').select();
+                                                    document.execCommand('copy');
+                                                }
+                                                </script>
                                                 <p:commandButton value="Copy" ajax="false" icon="ui-icon-clipboard"
                                                     disabled="#{certificateBean.disableActionCsr}"
-                                                    onclick="document.getElementById('certTabView:importCertTabView:formCreateCSR:inputTextareaCsr').select();document.execCommand('copy');alert('copy successful.');return false;" />
+                                                    action="#{certificateBean.enableNextCSR(true)}"
+                                                    update="@(.cssImportWizard)" onclick="enableNextCSR();copyCSR();" />
                                                 <p:commandButton value="Download " ajax="false" icon="ui-icon-document"
-                                                    disabled="#{certificateBean.disableActionCsr}">
+                                                    disabled="#{certificateBean.disableActionCsr}"
+                                                    onclick="enableNextCSR();" update="@(.cssImportWizard)">
                                                     <p:fileDownload value="#{certificateBean.csrFile}" />
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="delete-button" icon="ui-icon-circle-close"
                                                     value="Cancel" immediate="true"
                                                     action="#{certificateBean.cancelImportWizard()}"
                                                     update="@(.cssImportWizard)">
+                                                    <p:resetInput target="@form" />
                                                     <p:confirm header="Cancel Import Wizard"
                                                         message="WARNING: This will clean up the file created by wizard. Continue delete?"
                                                         icon="ui-icon-alert" />
                                                 </p:commandButton>
-                                                <p:commandButton styleClass="btn btn-primary" icon="ui-icon-seek-next"
-                                                    value="Next" action="#{certificateBean.next()}"
+                                                <p:commandButton id="csrNextButton" styleClass="btn btn-primary"
+                                                    icon="ui-icon-seek-next" value="Next"
+                                                    action="#{certificateBean.next()}"
+                                                    disabled="#{certificateBean.getDisableNext(2)}"
                                                     update="@(.cssImportWizard)" immediate="true"></p:commandButton>
                                             </div>
                                         </div>
@@ -558,7 +577,8 @@
                                 </div>
 
                             </p:tab>
-                            <p:tab id="tabIdCaAuthorityInfo" title="#{certificateBean.tabTitles[3]}" closable="false">
+                            <p:tab id="tabIdCaAuthorityInfo" title="#{certificateBean.tabTitles[3]}" closable="false"
+                                disabled="#{certificateBean.getDisableTab(3)}">
 
                                 <div class="form-block center-block">
                                     <h:form id="formCaAuthorityInfo" class="form form-horizontal">
@@ -580,25 +600,17 @@
                                         </div>
                                         <div class="form-button-row">
                                             <div class="col-sm-12">
-                                                <p:commandButton styleClass="delete-button" icon="ui-icon-circle-close"
-                                                    value="Cancel" immediate="true"
-                                                    action="#{certificateBean.cancelImportWizard()}"
-                                                    update="@(.cssImportWizard)">
-                                                    <p:confirm header="Cancel Import Wizard"
-                                                        message="WARNING: This will clean up the file created by wizard. Continue delete?"
-                                                        icon="ui-icon-alert" />
-                                                </p:commandButton>
                                                 <p:commandButton styleClass="btn btn-primary" icon="ui-icon-seek-next"
                                                     value="Next" action="#{certificateBean.next()}"
                                                     update="@(.cssImportWizard)" immediate="true" />
-
                                             </div>
                                         </div>
                                     </h:form>
                                 </div>
 
                             </p:tab>
-                            <p:tab id="tabIdImportToKeystore" title="#{certificateBean.tabTitles[4]}" closable="false">
+                            <p:tab id="tabIdImportToKeystore" title="#{certificateBean.tabTitles[4]}" closable="false"
+                                disabled="#{certificateBean.getDisableTab(4)}">
 
                                 <div class="form-block center-block">
                                     <h:form id="formImportToKeystore" class="form form-horizontal">
@@ -669,122 +681,21 @@
                                                     <p:resetInput target="@form" />
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="btn btn-primary updateCssRefreshId"
-                                                    icon="ui-icon-circle-plus"
+                                                    icon="ui-icon-circle-plus" update="@form"
                                                     action="#{certificateBean.importToKeystore()}" value="Import">
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="refresh-button"
                                                     icon="ui-icon-arrowreturn-1-w" value="Undo" immediate="true"
                                                     action="#{certificateBean.undo('keystore')}"
+                                                    disabled="#{certificateBean.disableImportAction}"
                                                     update="@(.cssImportWizard)">
                                                     <p:confirm header="Undo KeyStore"
                                                         message="WARNING: This will remove uploaded certificates from the temporary KeyStore. Are you sure?"
                                                         icon="ui-icon-alert" />
                                                 </p:commandButton>
-                                                <p:commandButton styleClass="delete-button" icon="ui-icon-circle-close"
-                                                    value="Cancel" immediate="true"
-                                                    action="#{certificateBean.cancelImportWizard()}"
-                                                    update="@(.cssImportWizard)">
-                                                    <p:confirm header="Cancel Import Wizard"
-                                                        message="WARNING: This will clean up the file created by wizard. Continue delete?"
-                                                        icon="ui-icon-alert" />
-                                                </p:commandButton>
-                                                <p:commandButton styleClass="btn btn-primary" icon="ui-icon-seek-next"
-                                                    value="Next" action="#{certificateBean.next()}"
-                                                    update="@(.cssImportWizard)" immediate="true" />
-                                            </div>
-                                        </div>
-                                    </h:form>
-                                </div>
-
-                            </p:tab>
-                            <p:tab id="tabIdImportToTruststore" title="#{certificateBean.tabTitles[5]}" closable="false">
-
-                                <div class="form-block center-block">
-                                    <h:form id="formImportToTruststore" class="form form-horizontal">
-                                        <p:messages id="errorMsgsImportToTruststore" closable="true">
-                                            <p:autoUpdate />
-                                        </p:messages>
-                                        <div class="content">
-                                            <h:outputText>To override the existing CA Root and CA Intermediate certificates in the TrustStore: select the certificate and upload the CA chain.</h:outputText>
-                                            <br /> <br />
-                                            <h:outputText>Upon completion of the Import Wizard, the existing KeyStore and TrustStore files must be manually replaced with the ones provided in '/importWizard/new'. Once this is done, a server restart needs to be done to have the updates take effect.</h:outputText>
-                                            <br /> <br />
-                                            <h:outputText>If the Admin GUI deployment is hosted on a container server independent of CONNECT, the KeyStore and TrustStore must be manually replaced there as well.</h:outputText>
-                                            <br /> <br />
-                                            <h:outputText>The Import Wizard also stores a backup of the Key and Trust Store files (prior to the import) at /importWizard/backup folder.</h:outputText>
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <h:outputLabel class="control-label" for="inputAliasTruststore"
-                                                        value="* Alias:" />
-                                                    <p:selectOneMenu styleClass="form-control" id="inputAliasTruststore"
-                                                        required="true" requiredMessage="Alias is required."
-                                                        value="#{certificateBean.alias}" filter="true"
-                                                        filterMatchMode="startsWith">
-                                                        <f:selectItem itemLabel="---" itemValue=""
-                                                            noSelectionOption="true" />
-                                                        <f:selectItems value="#{certificateBean.cacheAlias}" />
-                                                    </p:selectOneMenu>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <h:outputLabel for="selectTruststoreRoot" class="control-label"
-                                                        value="* CA Root:" />
-                                                    <h:outputText class="label label-default" id="truststoreSubjectRoot"
-                                                        value="#{certificateBean.subjectRoot}" />
-                                                    <p:fileUpload id="selectTruststoreRoot" auto="true"
-                                                        fileUploadListener="#{certificateBean.importFileRoot}"
-                                                        allowTypes="/(\.|\/)(der|cer|crt|pem)$/" required="true"
-                                                        requiredMessage="CA Root is Required."
-                                                        update="truststoreSubjectRoot" />
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <h:outputLabel for="selectTruststoreIntermediate"
-                                                        class="control-label" value="* CA Intermediate:" />
-                                                    <h:outputText class="label label-default"
-                                                        id="truststoreSubjectIntermediate"
-                                                        value="#{certificateBean.intermediateCount}" />
-                                                    <p:commandLink update="@form" styleClass="control-label"
-                                                        style="margin-left:20px;" immediate="true"
-                                                        action="#{certificateBean.clearIntermediate}">
-                                                        <h:outputText value="Clear" />
-                                                    </p:commandLink>
-                                                    <p:fileUpload id="selectTruststoreIntermediate" auto="false"
-                                                        multiple="true" mode="advanced"
-                                                        fileUploadListener="#{certificateBean.importFileIntermediate}"
-                                                        allowTypes="/(\.|\/)(der|cer|crt|pem)$/" required="true"
-                                                        requiredMessage="CA Intermediate is Required."
-                                                        update="truststoreSubjectIntermediate" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-button-row">
-                                            <div class="col-sm-12">
-                                                <p:commandButton styleClass="btn btn-default updateCssRefreshId"
-                                                    update="@form" action="#{certificateBean.clearImport()}"
-                                                    value="Clear" immediate="true">
-                                                    <p:resetInput target="@form" />
-                                                </p:commandButton>
-                                                <p:commandButton styleClass="btn btn-primary updateCssRefreshId"
-                                                    icon="ui-icon-circle-plus"
-                                                    action="#{certificateBean.importToTruststore()}" value="Import">
-                                                </p:commandButton>
-                                                <p:commandButton styleClass="refresh-button"
-                                                    icon="ui-icon-arrowreturn-1-w" value="Undo" immediate="true"
-                                                    action="#{certificateBean.undo('truststore')}"
-                                                    update="@(.cssImportWizard)">
-                                                    <p:confirm header="Undo TrustStore"
-                                                        message="WARNING: This will remove uploaded certificates from temporary TrustStore. are you sure?"
-                                                        icon="ui-icon-alert" />
-                                                </p:commandButton>
-                                                <p:commandButton styleClass="delete-button" icon="ui-icon-circle-close"
-                                                    value="Cancel" immediate="true"
-                                                    action="#{certificateBean.cancelImportWizard()}"
-                                                    update="@(.cssImportWizard)">
-                                                    <p:confirm header="Cancel Import Wizard"
-                                                        message="WARNING: This will clean up the file created by wizard. Continue delete?"
-                                                        icon="ui-icon-alert" />
-                                                </p:commandButton>
                                                 <p:commandButton styleClass="btn btn-primary" icon="ui-icon-seek-end"
                                                     value="Complete" immediate="true" update="@form"
+                                                    disabled="#{certificateBean.disableImportAction}"
                                                     action="#{certificateBean.completeImportWizard()}">
                                                     <p:confirm header="Complete Import Wizard"
                                                         message="Continue with creating backup of existing KeyStore and TrustStore and saving newly constructed KeyStore and TrustStore?"
@@ -794,8 +705,8 @@
                                         </div>
                                     </h:form>
                                 </div>
-
                             </p:tab>
+
                         </p:tabView>
                     </p:tab>
                     <!-- END: TAB PANE - MANAGE TRUSTSTORE -->
