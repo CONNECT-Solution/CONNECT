@@ -44,7 +44,7 @@ public class AdapterDocQueryDeferredProxyJavaImpl implements AdapterDocQueryDefe
         AssertionType assertion) {
         LOG.debug("Using Java Implementation for Adapter Doc Query Deferred Service");
 
-        return new AdapterDeferredResponseOptionImpl().respondingGatewayCrossGatewayQuery(msg, assertion).getNewId();
+        return new AdapterDeferredResponseOptionImpl().respondingGatewayCrossGatewayQuery(msg, assertion).getGatewayAdhocQueryRequestId();
     }
 
 }
