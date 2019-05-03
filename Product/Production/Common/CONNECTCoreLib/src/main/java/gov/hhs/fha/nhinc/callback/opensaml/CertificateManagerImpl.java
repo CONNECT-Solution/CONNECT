@@ -23,7 +23,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.callback.opensaml;
 
 import static gov.hhs.fha.nhinc.callback.opensaml.CertificateUtil.PKCS11_TYPE;
@@ -198,7 +198,6 @@ public class CertificateManagerImpl implements CertificateManager {
                 isUpdateSuccessful = true;
             }
         } catch (final IOException | NoSuchAlgorithmException | CertificateException | KeyStoreException ex) {
-            isUpdateSuccessful = false;
             throw new CertificateManagerException(ex.getMessage(), ex);
         } finally {
             IOUtils.closeQuietly(is);
@@ -336,29 +335,6 @@ public class CertificateManagerImpl implements CertificateManager {
             return pkEntry.getPrivateKey();
         }
         return null;
-    }
-
-    private Map<String, PrivateKeyEntry> getPrivateKeyEntries() throws CertificateManagerException {
-        Map<String, PrivateKeyEntry> pkEntries = new HashMap<>();
-        final String password = getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY);
-        if (password != null) {
-            try {
-                Enumeration enumeration = keyStore.aliases();
-                while(enumeration.hasMoreElements()) {
-                    String alias = (String)enumeration.nextElement();
-                    PrivateKeyEntry pkEntry = (PrivateKeyEntry) keyStore.getEntry(alias,
-                        new KeyStore.PasswordProtection(password.toCharArray()));
-                    pkEntries.put(alias, pkEntry);
-                }
-
-            } catch (final NoSuchAlgorithmException | KeyStoreException | UnrecoverableEntryException ex) {
-                throw new CertificateManagerException(ex.getLocalizedMessage(), ex);
-            }
-
-        } else {
-            LOG.error("{} is not a defined system property.", KEY_STORE_PASSWORD_KEY);
-        }
-        return pkEntries;
     }
 
     private PrivateKeyEntry getPrivateKeyEntry(String alias) throws CertificateManagerException {
@@ -507,12 +483,24 @@ public class CertificateManagerImpl implements CertificateManager {
     @Override
     public List<X509Certificate> getDefaultCertificates() throws CertificateManagerException {
         List<X509Certificate> certList = new LinkedList<>();
+        final String password = getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY);
 
-        for (Map.Entry<String, PrivateKeyEntry> entry : getPrivateKeyEntries().entrySet()) {
-            certList.add((X509Certificate) entry.getValue().getCertificate());
+        if (password != null) {
+            try {
+                Enumeration enumeration = keyStore.aliases();
+                while(enumeration.hasMoreElements()) {
+                    String alias = (String)enumeration.nextElement();
+                    certList.add((X509Certificate) keyStore.getCertificate(alias));
+                }
+            } catch (final KeyStoreException ex) {
+                throw new CertificateManagerException(ex.getLocalizedMessage(), ex);
+            }
+        } else {
+            LOG.error("{} is not a defined system property.", KEY_STORE_PASSWORD_KEY);
         }
 
         return certList;
     }
+
 
 }

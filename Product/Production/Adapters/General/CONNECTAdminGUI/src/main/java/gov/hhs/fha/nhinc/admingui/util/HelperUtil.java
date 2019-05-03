@@ -152,6 +152,10 @@ public class HelperUtil {
         FacesContext.getCurrentInstance().addMessage(clientId, getMsgInfo(theMessage));
     }
 
+    public static void addMessageWarn(String clientId, String theMessage) {
+        FacesContext.getCurrentInstance().addMessage(clientId, getMsgWarn(theMessage));
+    }
+
 
     // populateList
     public static Map<String, String> populateListPatientId(List<Patient> listPatient) {

@@ -169,20 +169,26 @@ public class CertificateUtil {
         return getCertKeyIdAuthority((X509Certificate) cert);
     }
     public static String getCertKeyIdAuthority(X509Certificate cert) {
-        String aki = null;
+        String authId = null;
         if (null != cert) {
             byte[] akiBytes = cert.getExtensionValue(AUTHORITY_KEY_ID);
             try {
                 if (akiBytes != null) {
                     DERDecoder extValA = new DERDecoder(akiBytes);
                     extValA.skip(6);
-                    aki = Hex.encodeHexString(extValA.getBytes(20));
+                    authId = Hex.encodeHexString(extValA.getBytes(20));
                 }
             } catch (WSSecurityException e) {
                 LOG.error("Unable to decode certificate authority {}", e.getLocalizedMessage(), e);
             }
+
+            String subjId = getCertKeyIdSubject(cert);
+            LOG.debug("compare authId to subjId: {}, {}", authId, subjId);
+            if (StringUtils.isNotBlank(subjId) && StringUtils.isNotBlank(authId) && subjId.compareTo(authId) == 0) {
+                authId = null; // if-root: expect-null
+            }
         }
-        return aki;
+        return authId;
     }
 
     public static String getCertKeyIdSubject(Certificate cert) {
