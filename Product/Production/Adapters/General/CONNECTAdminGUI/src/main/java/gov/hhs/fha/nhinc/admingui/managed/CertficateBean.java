@@ -123,7 +123,11 @@ public class CertficateBean {
     private String csrText;
     private String csrFileType;
     private String[] tabTitles = new String[] { "Start", "Create Certificate", "Certificate Signing Request",
+<<<<<<< HEAD
             "CA Providers", "Import SSL Certificates" };
+=======
+            "CA Providers", "KeyStore/TrustStore" };
+>>>>>>> CONN-2461 fix import-wizard QA
     private int importWizardTabIndex = 0;
     private Map<String, String> caProperties = null;
     private Map<String, String> caLinks = null;
@@ -688,7 +692,6 @@ public class CertficateBean {
             createCSR();
             disableNext[1] = false;
 
-
             //Clear out the fields so they have to type it in again and cant spam create button.
             setCommonName(null);
             setOrganization(null);
@@ -755,7 +758,9 @@ public class CertficateBean {
         csrFileType = null;
         csrText = null;
         disableNext = new boolean[] { true, true, true, true, true, true };
+<<<<<<< HEAD
         enableTab(0);
+CONN-2461 fix import-wizard QA
         disableImportAction = true;
     }
 
