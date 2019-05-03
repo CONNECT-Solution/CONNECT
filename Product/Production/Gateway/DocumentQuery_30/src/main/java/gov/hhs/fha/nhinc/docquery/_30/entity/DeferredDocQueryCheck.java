@@ -31,10 +31,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredProxyObjectFactory;
 import gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredResponseQueryProxy;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -53,18 +58,47 @@ public final class DeferredDocQueryCheck extends BaseService {
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
         NhinTargetCommunitiesType nhinTarget) {
         if (null != assertion && StringUtils.isNotBlank(assertion.getDeferredResponseEndpoint())) {
+
+            if (msg.getId() == null) {
+                String error = "AdhocQueryRequest must contain an ID to use the Deferred Response Option";
+                throw new ErrorEventException(new IllegalArgumentException(),
+                    createAdhocFailureWithMessage(error), error);
+            }
             AdapterDocQueryDeferredProxyObjectFactory oFactory = new AdapterDocQueryDeferredProxyObjectFactory();
             AdapterDocQueryDeferredResponseQueryProxy proxy = oFactory.getAdapterDocQueryProxy();
             String results = proxy.respondingGatewayCrossGatewayQuery(msg, assertion);
             if (StringUtils.isBlank(results)) {
-                IllegalStateException e = new IllegalStateException();
-                throw new ErrorEventException(e, "New Id was not generated.");
+                String error = "New ID for AdhocQueryRequest was not generated.";
+                throw new ErrorEventException(new IllegalStateException(),
+                    createAdhocFailureWithMessage(error), error);
+
             }
 
             //Overwrite the ID of the AdhocQueryRequest to match the response from our newly assigned ID from the adapter
             msg.setId(results);
         }
         return entityDocQueryImpl.respondingGatewayCrossGatewayQuery(msg, assertion, nhinTarget);
+    }
+
+
+    private static RegistryErrorList createErrorList(String value) {
+        RegistryErrorList errorList = new RegistryErrorList();
+        List<RegistryError> list = errorList.getRegistryError();
+
+        RegistryError error = new RegistryError();
+        error.setValue(value);
+        error.setErrorCode("XDSRegistryError");
+        error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+        list.add(error);
+
+        return errorList;
+    }
+
+    public static AdhocQueryResponse createAdhocFailureWithMessage(String value ) {
+        AdhocQueryResponse adhoc = new AdhocQueryResponse();
+        adhoc.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+        adhoc.setRegistryErrorList(createErrorList(value));
+        return adhoc;
     }
 
 }
