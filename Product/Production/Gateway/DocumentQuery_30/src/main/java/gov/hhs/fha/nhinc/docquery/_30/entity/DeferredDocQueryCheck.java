@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQuery
 import gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredResponseQueryProxy;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -46,7 +45,7 @@ import org.apache.commons.lang.StringUtils;
  * @author ptambellini
  *
  */
-public final class DeferredDocQueryCheck extends BaseService {
+public final class DeferredDocQueryCheck {
 
     private EntityDocQueryImpl entityDocQueryImpl;
 
