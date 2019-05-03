@@ -24,7 +24,7 @@
     <!--
        Beans defined for Adapter Doc Query Deferred Response
     -->
-    <alias alias="adapterdocquerydeferredresponsequery" name="adapterDQDeferredResponseQueryUnsecured" />
+    <alias alias="adapterdocquerydeferredresponsequery" name="adapterDQDeferredResponseQuerySecured" />
 
     <!-- No-op Implementation -->
     <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredProxyNoOpImpl" id="adapterDQDeferredResponseQueryNoOp" name="adapterDQDeferredResponseQueryNoOp">
