@@ -43,7 +43,7 @@ public class AdapterDeferredResponseOptionImpl {
         DeferredXCARequest deferredXCAReq = new DeferredXCARequest();
         String defEndpoint = assertion.getDeferredResponseEndpoint();
         String newId = new WSAHeaderHelper().generateMessageID();
-        String dcAdHocQueryRequestId = msg.getAdhocQuery().getId();
+        String dcAdHocQueryRequestId = msg.getId();
         deferredXCAReq.setAdHocQueryRequestId(newId);
         deferredXCAReq.setDeferredResponseEndpoint(defEndpoint);
         deferredXCAReq.setDcAdHocQueryRequestId(dcAdHocQueryRequestId);
