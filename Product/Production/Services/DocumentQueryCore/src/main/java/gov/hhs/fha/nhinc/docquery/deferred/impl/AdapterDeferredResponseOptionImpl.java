@@ -20,7 +20,7 @@ public class AdapterDeferredResponseOptionImpl {
     public AdapterDeferredResponseOptionQueryType respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg,
         AssertionType assertion) {
 
-        String newId = saveRequest(msg, assertion);
+        String newId = generateIdAndSaveRequest(msg, assertion);
         AdapterDeferredResponseOptionQueryType response = new AdapterDeferredResponseOptionQueryType();
         response.setGatewayAdhocQueryRequestId(newId);
         response.setAssertion(assertion);
@@ -33,13 +33,13 @@ public class AdapterDeferredResponseOptionImpl {
         AdhocQueryRequest msg,
         AssertionType assertion) {
 
-        String newId = saveRequest(msg, assertion);
+        String newId = generateIdAndSaveRequest(msg, assertion);
         AdapterDeferredResponseOptionQuerySecuredType response = new AdapterDeferredResponseOptionQuerySecuredType();
         response.setGatewayAdhocQueryRequestId(newId);
         return response;
     }
 
-    private static String saveRequest(AdhocQueryRequest msg, AssertionType assertion) {
+    private static String generateIdAndSaveRequest(AdhocQueryRequest msg, AssertionType assertion) {
         DeferredXCARequest deferredXCAReq = new DeferredXCARequest();
         String defEndpoint = assertion.getDeferredResponseEndpoint();
         String newId = new WSAHeaderHelper().generateMessageID();
