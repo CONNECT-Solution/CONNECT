@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResponseOptionQuerySecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
 import gov.hhs.fha.nhinc.deferredresults.impl.AdapterResponseHelper;
 import gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.description.AdapterDeferredResponseOptionQueryRequestSecuredPortDescriptor;
@@ -40,6 +41,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import javax.xml.ws.WebServiceException;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -48,18 +51,20 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
  */
 public class AdapterDocQueryDeferredProxyWebServiceSecuredImpl implements AdapterDocQueryDeferredResponseQueryProxy {
 
-    public ServicePortDescriptor<AdapterDeferredResponseOptionQueryRequestSecuredPortType> getServicePortDescriptor() {
+    private static final Logger LOG = LoggerFactory.getLogger(AdapterDocQueryDeferredProxyWebServiceUnsecuredImpl.class);
+
+    private static ServicePortDescriptor<AdapterDeferredResponseOptionQueryRequestSecuredPortType> getServicePortDescriptor() {
         return new AdapterDeferredResponseOptionQueryRequestSecuredPortDescriptor();
     }
 
     @Override
-    public String respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg,
-        AssertionType assertion) {
-        String response = null;
-        String url;
+    public String respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
+        LOG.debug("Begin respondingGatewayCrossGatewayQuery");
+
+        AdapterDeferredResponseOptionQuerySecuredType response = new AdapterDeferredResponseOptionQuerySecuredType();
         try {
             // get the Adopter Endpoint URL
-            url = CoreHelpUtils.getAdapterEndpoint(NhincConstants.ADAPTER_DEFERRED_RESPONSE_QUERY_SECURED_SERVICE_NAME);
+            String url = CoreHelpUtils.getAdapterEndpoint(NhincConstants.ADAPTER_DEFERRED_RESPONSE_QUERY_SECURED_SERVICE_NAME);
 
             // Call the service
             if (NullChecker.isNotNullish(url)) {
@@ -76,7 +81,7 @@ public class AdapterDocQueryDeferredProxyWebServiceSecuredImpl implements Adapte
                 RespondingGatewayCrossGatewayQuerySecureRequestType request = new RespondingGatewayCrossGatewayQuerySecureRequestType();
                 request.setAdhocQueryRequest(msg);
 
-                response = (String) client.invokePort(
+                response = (AdapterDeferredResponseOptionQuerySecuredType) client.invokePort(
                     AdapterDeferredResponseOptionQueryRequestSecuredPortType.class,
                     "respondingGatewayCrossGatewayQueryDeferredSecuredRequest",request);
 
@@ -85,9 +90,10 @@ public class AdapterDocQueryDeferredProxyWebServiceSecuredImpl implements Adapte
             }
         } catch (final Exception ex) {
             String error = "Unable to call Doc Deferred Response Option Query Secured Adapter";
-            throw new ErrorEventException(ex, AdapterResponseHelper.createFailureWithMessage(error),error);
+            throw new ErrorEventException(ex, AdapterResponseHelper.createAdhocFailureWithMessage(error),error);
         }
 
-        return response;
+        LOG.debug("End respondingGatewayCrossGatewayQuery");
+        return response.getNewId();
     }
 }
