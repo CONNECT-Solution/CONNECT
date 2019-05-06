@@ -79,17 +79,11 @@ public interface CertificateManagerService {
     public SimpleCertificateResponseMessageType importToKeystore(String alias, UploadedFile serverFile,
         Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile);
 
-    public SimpleCertificateResponseMessageType importToTruststore(String alias,
-        Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile);
-
     public SimpleCertificateResponseMessageType completeImportWizard();
 
     public SimpleCertificateResponseMessageType listTemporaryAlias();
 
     public SimpleCertificateResponseMessageType undoImportKeystore(String alias,
-        Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile);
-
-    public SimpleCertificateResponseMessageType undoImportTruststore(String alias,
         Map<String, UploadedFile> intermediateFiles, UploadedFile rootFile);
 
 }
