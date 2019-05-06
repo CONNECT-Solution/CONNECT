@@ -33,6 +33,8 @@ import gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQuery
 import gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredResponseQueryProxy;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
+import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
+import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -75,6 +77,15 @@ public final class DeferredDocQueryCheck {
 
             //Overwrite the ID of the AdhocQueryRequest to match the response from our newly assigned ID from the adapter
             msg.setId(results);
+
+            String serviceName = NhincConstants.DOC_QUERY_DEFERRED_RESULTS_SERVICE_NAME;
+            try {
+                assertion.setDeferredResponseEndpoint(InternalExchangeManager.getInstance().getEndpointURL(serviceName));
+            } catch (ExchangeManagerException e) {
+                String error = "Could not determine URL endpoint for deferred results.";
+                throw new ErrorEventException(e, createAdhocFailureWithMessage(error), error +
+                    " Missing internal service binding for " + serviceName);
+            }
         }
         return entityDocQueryImpl.respondingGatewayCrossGatewayQuery(msg, assertion, nhinTarget);
     }

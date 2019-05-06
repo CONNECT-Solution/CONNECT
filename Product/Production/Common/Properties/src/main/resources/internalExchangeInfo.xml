@@ -977,7 +977,7 @@
                             <ns2:name>docquerydeferredresultsoption</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
-                                    <ns2:url>https://localhost:8181/Gateway/DocumentQuery/3_0//NhinService/DocumentQueryDeferredResponse</ns2:url>
+                                    <ns2:url>https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/DocumentQueryDeferredResponse</ns2:url>
                                     <ns2:version>3.0</ns2:version>
                                 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
@@ -987,7 +987,7 @@
                             <ns2:name>entitydocquerydeferredresultsoption</ns2:name>
                             <ns2:endpointConfigurationList>
                                 <ns2:endpointConfiguration>
-                                    <ns2:url>http://localhost:8080/Gateway/DocumentQuery/3_0//EntityService/EntityDeferredResultOptionResponse</ns2:url>
+                                    <ns2:url>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDeferredResultOptionResponse</ns2:url>
                                     <ns2:version>3.0</ns2:version>
                                 </ns2:endpointConfiguration>
                             </ns2:endpointConfigurationList>
