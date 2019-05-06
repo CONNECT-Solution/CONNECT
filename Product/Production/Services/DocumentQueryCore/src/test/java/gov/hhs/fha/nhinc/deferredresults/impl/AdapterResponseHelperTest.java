@@ -1,5 +1,7 @@
 package gov.hhs.fha.nhinc.deferredresults.impl;
 
+import static org.junit.Assert.assertEquals;
+
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -7,7 +9,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class AdapterResponseHelperTest {
@@ -47,7 +48,7 @@ public class AdapterResponseHelperTest {
         List<RegistryError> responseList = response.getRegistryErrorList().getRegistryError();
         assertEquals(3, responseList.size());
         for (int i = 0; i < 3; i++) {
-            assertEquals("Message " + i, responseList.get(i).getValue());
+            assertEquals("Message " + i, responseList.get(i).getCodeContext());
         }
     }
 
