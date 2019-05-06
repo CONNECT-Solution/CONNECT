@@ -4,6 +4,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocQueryDeferredResponseMetadata;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -22,17 +23,31 @@ public class AdapterResponseHelper {
         RegistryResponseType response = new RegistryResponseType();
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
 
+        RegistryErrorList errorList = createErrorList(values);
+
+        response.setRegistryErrorList(errorList);
+        return response;
+    }
+
+    private static RegistryErrorList createErrorList(String... values) {
         RegistryErrorList errorList = new RegistryErrorList();
         List<RegistryError> list = errorList.getRegistryError();
 
         for (String value : values) {
             RegistryError error = new RegistryError();
-            error.setValue(value);
+            error.setErrorCode("XDSRegistryError");
+            error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+            error.setCodeContext(value);
             list.add(error);
         }
+        return errorList;
+    }
 
-        response.setRegistryErrorList(errorList);
-        return response;
+    public static AdhocQueryResponse createAdhocFailureWithMessage(String... values ) {
+        AdhocQueryResponse adhoc = new AdhocQueryResponse();
+        adhoc.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+        adhoc.setRegistryErrorList(createErrorList(values));
+        return adhoc;
     }
 
     public static AdhocQueryResponse createSuccessResponse() {
@@ -107,4 +122,5 @@ public class AdapterResponseHelper {
         }
         return null;
     }
+
 }

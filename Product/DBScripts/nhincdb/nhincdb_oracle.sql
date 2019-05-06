@@ -178,6 +178,23 @@ CREATE TABLE "NHINCUSER"."DOCREPOSITORY" (
 	);
 		
 --------------------------------------------------------
+--  DDL for Table DEFERREDXCAREQUEST
+--------------------------------------------------------
+CREATE TABLE IF NOT EXISTS "NHINCUSER"."DEFERREDXCAREQUEST" (
+  "ADHOCQUERYREQUESTID" VARCHAR(45)
+ ,"DEFERREDRESPONSEENDPOINT" VARCHAR(256)
+ ,"DCADHOCQUERYREQUESTID" VARCHAR(45)
+ );
+
+ --------------------------------------------------------
+--  DDL for Table DEFERREDXCARESPONSE
+--------------------------------------------------------
+CREATE TABLE IF NOT EXISTS "NHINCUSER"."DEFERREDXCARESPONSE" (
+  "ADHOCQUERYREQUESTID" VARCHAR(45)
+  ,"DEFERREDRESPONSEENDPOINT" VARCHAR(256)
+  );
+		
+--------------------------------------------------------
 --  DDL for Table EVENT
 --------------------------------------------------------
 CREATE TABLE "NHINCUSER"."EVENT" (

@@ -23,32 +23,40 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-package gov.hhs.fha.nhinc.docquery.deferred.adapter;
+ */
+package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResponseOptionQuerySecuredType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
-import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterDeferredResponseOptionImpl;
-import gov.hhs.fha.nhinc.dq.adapterdeferredrequestquerysecured.AdapterDeferredResponseOptionQueryRequestSecuredPortType;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import javax.annotation.Resource;
-import javax.xml.ws.WebServiceContext;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.DeferredXCARequest;
+import gov.hhs.fha.nhinc.persistence.HibernateUtilFactory;
+import gov.hhs.fha.nhinc.util.GenericDBUtils;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Adapter webservice to respond to store the request ID, generated ID for new AdHocQuery, and forward the modified message
- * off to the Responding Gateway
+ * @author ptambellini
+ *
  */
+public class DeferredXCARequestDao {
+    private static final Logger LOG = LoggerFactory.getLogger(DeferredXCARequestDao.class);
 
-public class AdapterDeferredResponseOptionQuerySecured  extends BaseService implements AdapterDeferredResponseOptionQueryRequestSecuredPortType{
+    public boolean save(DeferredXCARequest deferredXCARequest) {
+        return GenericDBUtils.save(getSession(), deferredXCARequest);
+    }
 
-    @Resource
-    private WebServiceContext context;
+    public DeferredXCARequest findById(String adHocQueryRequestId) {
+        return GenericDBUtils.readBy(getSession(), DeferredXCARequest.class, adHocQueryRequestId);
+    }
 
-    @Override
-    public AdapterDeferredResponseOptionQuerySecuredType respondingGatewayCrossGatewayQueryDeferredSecuredRequest(
-        RespondingGatewayCrossGatewayQuerySecureRequestType request) {
-        return new AdapterDeferredResponseOptionImpl().respondingGatewayCrossGatewayQuerySecured(request.getAdhocQueryRequest(),
-            getAssertion(context));
+    protected Session getSession() {
+        Session session = null;
+        try {
+            session = HibernateUtilFactory.getDocRepoHibernateUtil().getSessionFactory().openSession();
+        } catch (HibernateException e) {
+            LOG.error("Fail to openSession: {}, {}", e.getMessage(), e);
+        }
+        return session;
     }
 
 }

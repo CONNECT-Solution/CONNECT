@@ -23,32 +23,43 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-package gov.hhs.fha.nhinc.docquery.deferred.adapter;
-
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResponseOptionQuerySecuredType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
-import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterDeferredResponseOptionImpl;
-import gov.hhs.fha.nhinc.dq.adapterdeferredrequestquerysecured.AdapterDeferredResponseOptionQueryRequestSecuredPortType;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import javax.annotation.Resource;
-import javax.xml.ws.WebServiceContext;
-
-/**
- * Adapter webservice to respond to store the request ID, generated ID for new AdHocQuery, and forward the modified message
- * off to the Responding Gateway
  */
 
-public class AdapterDeferredResponseOptionQuerySecured  extends BaseService implements AdapterDeferredResponseOptionQueryRequestSecuredPortType{
+package gov.hhs.fha.nhinc.docrepository.adapter.model;
 
-    @Resource
-    private WebServiceContext context;
 
-    @Override
-    public AdapterDeferredResponseOptionQuerySecuredType respondingGatewayCrossGatewayQueryDeferredSecuredRequest(
-        RespondingGatewayCrossGatewayQuerySecureRequestType request) {
-        return new AdapterDeferredResponseOptionImpl().respondingGatewayCrossGatewayQuerySecured(request.getAdhocQueryRequest(),
-            getAssertion(context));
+/**
+ * @author ptambellini
+ *
+ */
+public class DeferredXCARequest {
+
+    private String adHocQueryRequestId;
+    private String deferredResponseEndpoint;
+    private String dcAdHocQueryRequestId;
+
+    public String getAdHocQueryRequestId() {
+        return adHocQueryRequestId;
+    }
+
+    public void setAdHocQueryRequestId(String adHocQueryRequestId) {
+        this.adHocQueryRequestId = adHocQueryRequestId;
+    }
+
+    public String getDeferredResponseEndpoint() {
+        return deferredResponseEndpoint;
+    }
+
+    public void setDeferredResponseEndpoint(String deferredResponseEndpoint) {
+        this.deferredResponseEndpoint = deferredResponseEndpoint;
+    }
+
+    public String getDcAdHocQueryRequestId() {
+        return dcAdHocQueryRequestId;
+    }
+
+    public void setDcAdHocQueryRequestId(String dcAdHocQueryRequestId) {
+        this.dcAdHocQueryRequestId = dcAdHocQueryRequestId;
     }
 
 }

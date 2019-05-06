@@ -23,32 +23,29 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-package gov.hhs.fha.nhinc.docquery.deferred.adapter;
+ */
+package gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.description;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResponseOptionQuerySecuredType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
-import gov.hhs.fha.nhinc.docquery.deferred.impl.AdapterDeferredResponseOptionImpl;
-import gov.hhs.fha.nhinc.dq.adapterdeferredrequestquerysecured.AdapterDeferredResponseOptionQueryRequestSecuredPortType;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import javax.annotation.Resource;
-import javax.xml.ws.WebServiceContext;
+import gov.hhs.fha.nhinc.dq.adapterdeferredrequestquery.AdapterDeferredResponseOptionQueryRequestPortType;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
- * Adapter webservice to respond to store the request ID, generated ID for new AdHocQuery, and forward the modified message
- * off to the Responding Gateway
+ * @author ptambellini
+ *
  */
-
-public class AdapterDeferredResponseOptionQuerySecured  extends BaseService implements AdapterDeferredResponseOptionQueryRequestSecuredPortType{
-
-    @Resource
-    private WebServiceContext context;
+public class AdapterDeferredResponseOptionQueryRequestPortDescriptor
+extends SOAP12ServicePortDescriptor<AdapterDeferredResponseOptionQueryRequestPortType>
+{
+    private static final String WS_ADDRESSING_ACTION =
+        "urn:gov:hhs:fha:nhinc:dq:adapterdeferredrequestquery:RespondingGateway_CrossGatewayQueryDeferredRequest";
 
     @Override
-    public AdapterDeferredResponseOptionQuerySecuredType respondingGatewayCrossGatewayQueryDeferredSecuredRequest(
-        RespondingGatewayCrossGatewayQuerySecureRequestType request) {
-        return new AdapterDeferredResponseOptionImpl().respondingGatewayCrossGatewayQuerySecured(request.getAdhocQueryRequest(),
-            getAssertion(context));
+    public String getWSAddressingAction() {
+        return WS_ADDRESSING_ACTION;
     }
 
+    @Override
+    public Class<AdapterDeferredResponseOptionQueryRequestPortType> getPortClass() {
+        return AdapterDeferredResponseOptionQueryRequestPortType.class;
+    }
 }
