@@ -350,7 +350,7 @@
                                         <div class="content">
                                             <h:outputText>The Import Wizard allow users to create and import signed certificates.</h:outputText>
                                             <br /> <br />
-                                            <h:outputText>User can start the process either by clicking on Creating a Self Signed Certificate or Generating a Certificate Signing Request (CSR). User also has the option of resuming the process using Import SSL Certificate.</h:outputText>
+                                            <h:outputText>User can start the process either by clicking on Creating a Self Signed Certificate or Generating a Certificate Signing Request (CSR). User also has the option of resuming the process using the Import SSL Certificate(s) option.</h:outputText>
                                             <br /> <br />
                                             <h:outputText>Note: The certificates created by the Import wizard are stored in the application properties directory under ~/importWizard/new/. User has to manually replace the existing certificates with the ones created by Import wizard and restart the server for changes to take effect.</h:outputText>
                                             <br /> <br />
@@ -516,12 +516,10 @@
                                                     <h:outputLabel class="control-label" for="inputAliasCSR"
                                                         value="* Alias:" />
                                                     <p:selectOneMenu styleClass="form-control" id="inputAliasCSR"
-                                                        required="true" requiredMessage="Alias is required."
                                                         value="#{certificateBean.alias}" filter="true"
                                                         filterMatchMode="startsWith">
                                                         <p:ajax listener="#{certificateBean.createCSR}" update="@form" />
-                                                        <f:selectItem itemLabel="---" itemValue=""
-                                                            noSelectionOption="true" />
+                                                        <f:selectItem itemLabel="---" itemValue=""/>
                                                         <f:selectItems value="#{certificateBean.cacheAlias}" />
                                                     </p:selectOneMenu>
                                                 </div>
