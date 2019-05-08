@@ -687,6 +687,14 @@ public class CertficateBean {
             cacheAlias.add(getAlias());
             createCSR();
             disableNext[1] = false;
+
+
+            //Clear out the fields so they have to type it in again and cant spam create button.
+            setCommonName(null);
+            setOrganization(null);
+            setOrganizationalUnit(null);
+            setCountryName(null);
+            setExchangeType(null);
         } else {
             HelperUtil.addMessageError(null, MessageFormat.format("Failed to create certificate for: {0}", getAlias()));
         }
@@ -694,7 +702,8 @@ public class CertficateBean {
 
     public void createCSR() {
         if (StringUtils.isBlank(getAlias())) {
-            HelperUtil.addMessageError(null, "Required fields cannot be empty when creating CSR.");
+            csrText = null;
+            csrFileType = null;
             return;
         }
         SimpleCertificateResponseMessageType response = service.createCSR(getAlias());
@@ -746,6 +755,7 @@ public class CertficateBean {
         csrFileType = null;
         csrText = null;
         disableNext = new boolean[] { true, true, true, true, true, true };
+        enableTab(0);
         disableImportAction = true;
     }
 
