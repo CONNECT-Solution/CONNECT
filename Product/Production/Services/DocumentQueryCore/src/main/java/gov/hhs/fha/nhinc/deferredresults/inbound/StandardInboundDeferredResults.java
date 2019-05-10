@@ -29,9 +29,8 @@ package gov.hhs.fha.nhinc.deferredresults.inbound;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.deferredresults.inbound.adapter.proxy.AdapterDeferredResultsProxyObjectFactory;
 import gov.hhs.fha.nhinc.docquery.audit.DocQueryDeferredResponseAuditLogger;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import javax.xml.ws.WebServiceContext;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -39,7 +38,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  *
  * @author tjafri
  */
-public class StandardInboundDeferredResults extends BaseService implements InboundDeferredResults {
+public class StandardInboundDeferredResults implements InboundDeferredResults {
 
     private final AdapterDeferredResultsProxyObjectFactory adapterFactory
     = new AdapterDeferredResultsProxyObjectFactory();
@@ -50,18 +49,18 @@ public class StandardInboundDeferredResults extends BaseService implements Inbou
 
     @Override
     public RegistryResponseType respondingGatewayCrossGatewayQueryNhinDeferredResults(AdhocQueryResponse body,
-        AssertionType assertion, WebServiceContext context) {
+        AssertionType assertion, Properties webserviceContextProperties) {
         RegistryResponseType response = adapterFactory.getAdapterDeferredResultsProxy()
             .respondingGatewayCrossGatewayQueryDeferredResults(body, assertion);
-        auditResponse(body, response, assertion, context);
+        auditResponse(body, response, assertion, webserviceContextProperties);
         return response;
     }
 
     private void auditResponse(AdhocQueryResponse request, RegistryResponseType response, AssertionType assertion,
-        WebServiceContext context) {
+        Properties webserviceContextProperties) {
         getAuditLogger().auditResponseMessage(request, response, assertion, null,
             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, Boolean.FALSE,
-            getWebContextProperties(context), NhincConstants.DOC_QUERY_DEFERRED_RESULTS_SERVICE_NAME);
+            webserviceContextProperties, NhincConstants.DOC_QUERY_DEFERRED_RESULTS_SERVICE_NAME);
     }
 
     protected DocQueryDeferredResponseAuditLogger getAuditLogger() {
