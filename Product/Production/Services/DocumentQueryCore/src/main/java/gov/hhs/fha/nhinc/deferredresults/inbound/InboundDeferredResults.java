@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.deferredresults.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import javax.xml.ws.WebServiceContext;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -43,5 +43,5 @@ public interface InboundDeferredResults {
     // Forward AdHocQueryResponse to the adapter located at the document consumer's endpoint
     // Return the result of the adapter call here, and reply back to the Responding Gateway with an ACK
     public RegistryResponseType respondingGatewayCrossGatewayQueryNhinDeferredResults(AdhocQueryResponse body,
-        AssertionType assertion, WebServiceContext context);
+        AssertionType assertion, Properties webserviceContextProperties);
 }
