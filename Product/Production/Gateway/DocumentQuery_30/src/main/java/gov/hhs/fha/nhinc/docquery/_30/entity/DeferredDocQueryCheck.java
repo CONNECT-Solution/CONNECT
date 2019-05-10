@@ -80,7 +80,8 @@ public final class DeferredDocQueryCheck {
 
             String serviceName = NhincConstants.DOC_QUERY_DEFERRED_RESULTS_SERVICE_NAME;
             try {
-                assertion.setDeferredResponseEndpoint(InternalExchangeManager.getInstance().getEndpointURL(serviceName));
+                assertion.setDeferredResponseEndpoint(InternalExchangeManager.getInstance().getEndpointURL(serviceName,
+                    NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0));
             } catch (ExchangeManagerException e) {
                 String error = "Could not determine URL endpoint for deferred results.";
                 throw new ErrorEventException(e, createAdhocFailureWithMessage(error), error +
