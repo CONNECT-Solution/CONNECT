@@ -57,10 +57,10 @@ public class EntityDeferredResultsImpl extends BaseService {
     private RegistryResponseType respondingGatewayCrossGatewayQuery(AdhocQueryResponse requestMsg,
         AssertionType assertion, NhinTargetSystemType target) {
         auditRequest(requestMsg, assertion, target);
-        return geteAdapterProxy().respondingGatewayCrossGatewayQueryResults(requestMsg, assertion);
+        return getAdapterProxy().respondingGatewayCrossGatewayQueryResults(requestMsg, assertion);
     }
 
-    private AdapterDocQueryDeferredProxy geteAdapterProxy() {
+    private static AdapterDocQueryDeferredProxy getAdapterProxy() {
         return new AdapterDocQueryDeferredProxyObjectFactory().getAdapterDocQueryProxy();
     }
 
@@ -70,7 +70,7 @@ public class EntityDeferredResultsImpl extends BaseService {
             Boolean.TRUE, null, NhincConstants.DOC_QUERY_DEFERRED_RESULTS_SERVICE_NAME);
     }
 
-    private NhinTargetSystemType getTargetFrom(NhinTargetCommunitiesType communitites) {
+    private static NhinTargetSystemType getTargetFrom(NhinTargetCommunitiesType communitites) {
         return MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(communitites);
     }
 
