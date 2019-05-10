@@ -72,10 +72,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -333,4 +338,27 @@ public class CoreHelpUtils {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, serviceUrl, assertion);
     }
 
+    public static String extractDeferredResponseEndpoint(AssertionType assertion) {
+        return null == assertion ? null : assertion.getDeferredResponseEndpoint();
+    }
+
+    public static List<String> findFirstSlotOfExtrinsic(RegistryObjectListType regList, String searchName) {
+        return findFirstSlotOfExtrinsic(regList, searchName, 0);
+    }
+
+    public static List<String> findFirstSlotOfExtrinsic(RegistryObjectListType regList, String searchName,
+        int startIndex) {
+        for (JAXBElement<? extends IdentifiableType> e : regList.getIdentifiable()) {
+            IdentifiableType iType = e.getValue();
+            if (iType instanceof ExtrinsicObjectType) {
+                List<SlotType1> slots = ((ExtrinsicObjectType) iType).getSlot();
+                for (int i = startIndex; i < slots.size(); i++) {
+                    if (null != slots.get(i) && slots.get(i).getName().equalsIgnoreCase(searchName)) {
+                        return slots.get(i).getValueList().getValue();
+                    }
+                }
+            }
+        }
+        return new ArrayList<>();
+    }
 }

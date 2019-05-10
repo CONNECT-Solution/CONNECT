@@ -23,15 +23,20 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.deferredresults.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseType;
 import gov.hhs.fha.nhinc.deferredresults.adapter.proxy.AdapterDocQueryDeferredProxy;
 import gov.hhs.fha.nhinc.deferredresults.adapter.proxy.AdapterDocQueryDeferredProxyObjectFactory;
+import gov.hhs.fha.nhinc.docquery.audit.DocQueryDeferredResponseAuditLogger;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -40,17 +45,36 @@ public class EntityDeferredResultsImpl extends BaseService {
 
     public RegistryResponseType respondingGatewayCrossGatewayQuerySecured(
         RespondingGatewayCrossGatewayQueryResponseSecuredType request, WebServiceContext context) {
-        AssertionType assertion = getAssertion(context, null);
-        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryResponse(), assertion);
+        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryResponse(), getAssertion(context, null),
+            getTargetFrom(request.getNhinTargetCommunities()));
     }
 
     public RegistryResponseType respondingGatewayCrossGatewayQueryUnsecured(RespondingGatewayCrossGatewayQueryResponseType request) {
-        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryResponse(), request.getAssertion());
+        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryResponse(), request.getAssertion(),
+            getTargetFrom(request.getNhinTargetCommunities()));
     }
 
-    private static RegistryResponseType respondingGatewayCrossGatewayQuery(AdhocQueryResponse message, AssertionType assertion) {
-        AdapterDocQueryDeferredProxyObjectFactory factory = new AdapterDocQueryDeferredProxyObjectFactory();
-        AdapterDocQueryDeferredProxy adapterProxy = factory.getAdapterDocQueryProxy();
-        return adapterProxy.respondingGatewayCrossGatewayQueryResults(message, assertion);
+    private RegistryResponseType respondingGatewayCrossGatewayQuery(AdhocQueryResponse requestMsg,
+        AssertionType assertion, NhinTargetSystemType target) {
+        auditRequest(requestMsg, assertion, target);
+        return geteAdapterProxy().respondingGatewayCrossGatewayQueryResults(requestMsg, assertion);
+    }
+
+    private AdapterDocQueryDeferredProxy geteAdapterProxy() {
+        return new AdapterDocQueryDeferredProxyObjectFactory().getAdapterDocQueryProxy();
+    }
+
+    private void auditRequest(AdhocQueryResponse request, AssertionType assertion, NhinTargetSystemType target) {
+        getAuditLogger().auditRequestMessage(request, assertion, target,
+            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+            Boolean.TRUE, null, NhincConstants.DOC_QUERY_DEFERRED_RESULTS_SERVICE_NAME);
+    }
+
+    private NhinTargetSystemType getTargetFrom(NhinTargetCommunitiesType communitites) {
+        return MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(communitites);
+    }
+
+    protected DocQueryDeferredResponseAuditLogger getAuditLogger() {
+        return new DocQueryDeferredResponseAuditLogger();
     }
 }
