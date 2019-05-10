@@ -207,7 +207,6 @@ extends AuditTransformsTest<AdhocQueryResponse, RegistryResponseType> {
         assertEquals("ParticipantPatient.ParticipantObjectID mismatch", "D123401^^^&1.1&ISO",
             participantPatient.getParticipantObjectID());
 
-        // TODO: assertSame vs assertEquals consistency when returning constants
         assertSame("ParticipantPatient.ParticipantObjectTypeCode object reference mismatch",
             DocQueryAuditTransformsConstants.PARTICIPANT_PATIENT_OBJ_TYPE_CODE_SYSTEM,
             participantPatient.getParticipantObjectTypeCode());
