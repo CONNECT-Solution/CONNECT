@@ -349,15 +349,20 @@ public class CoreHelpUtils {
     public static List<String> findFirstSlotOfExtrinsic(RegistryObjectListType regList, String searchName,
         int startIndex) {
         for (JAXBElement<? extends IdentifiableType> e : regList.getIdentifiable()) {
-            IdentifiableType iType = e.getValue();
-            if (iType instanceof ExtrinsicObjectType) {
-                List<SlotType1> slots = ((ExtrinsicObjectType) iType).getSlot();
-                for (int i = startIndex; i < slots.size(); i++) {
-                    if (null != slots.get(i) && slots.get(i).getName().equalsIgnoreCase(searchName)) {
-                        return slots.get(i).getValueList().getValue();
-                    }
+            List<SlotType1> slots = getSlotFromExtrinsicObjectType(e);
+            for (int i = startIndex; i < slots.size(); i++) {
+                if (null != slots.get(i) && slots.get(i).getName().equalsIgnoreCase(searchName)) {
+                    return slots.get(i).getValueList().getValue();
                 }
             }
+        }
+        return new ArrayList<>();
+    }
+
+    private static List<SlotType1> getSlotFromExtrinsicObjectType(JAXBElement<? extends IdentifiableType> jax){
+        IdentifiableType iType = jax.getValue();
+        if (iType instanceof ExtrinsicObjectType) {
+            return((ExtrinsicObjectType) iType).getSlot();
         }
         return new ArrayList<>();
     }
