@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.deferredresults.impl;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResultsResponseType;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocQueryDeferredResponseMetadata;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
@@ -121,6 +122,20 @@ public class AdapterResponseHelper {
             return request.getAdhocQuery().getId();
         }
         return null;
+    }
+
+    public static AdapterDeferredResultsResponseType createAdapterDeferredResultsResponseTypeFail(String message) {
+        AdapterDeferredResultsResponseType response = new AdapterDeferredResultsResponseType();
+        response.setStatus(false);
+        response.setMessage(message);
+        return response;
+    }
+
+    public static AdapterDeferredResultsResponseType createAdapterDeferredResultsResponseTypeSuccess(String endpoint) {
+        AdapterDeferredResultsResponseType response = new AdapterDeferredResultsResponseType();
+        response.setStatus(true);
+        response.setDeferredResultEndpoint(endpoint);
+        return response;
     }
 
 }

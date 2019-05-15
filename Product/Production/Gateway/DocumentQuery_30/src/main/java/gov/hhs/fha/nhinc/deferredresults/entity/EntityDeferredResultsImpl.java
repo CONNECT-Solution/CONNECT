@@ -31,11 +31,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseType;
-import gov.hhs.fha.nhinc.deferredresults.adapter.proxy.AdapterDocQueryDeferredProxy;
-import gov.hhs.fha.nhinc.deferredresults.adapter.proxy.AdapterDocQueryDeferredProxyObjectFactory;
-import gov.hhs.fha.nhinc.docquery.audit.DocQueryDeferredResponseAuditLogger;
+import gov.hhs.fha.nhinc.deferredresults.outbound.StandardOutboundDeferredResults;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -56,25 +53,12 @@ public class EntityDeferredResultsImpl extends BaseService {
 
     private RegistryResponseType respondingGatewayCrossGatewayQuery(AdhocQueryResponse requestMsg,
         AssertionType assertion, NhinTargetSystemType target) {
-        auditRequest(requestMsg, assertion, target);
-        return getAdapterProxy().respondingGatewayCrossGatewayQueryResults(requestMsg, assertion);
-    }
-
-    private static AdapterDocQueryDeferredProxy getAdapterProxy() {
-        return new AdapterDocQueryDeferredProxyObjectFactory().getAdapterDocQueryProxy();
-    }
-
-    private void auditRequest(AdhocQueryResponse request, AssertionType assertion, NhinTargetSystemType target) {
-        getAuditLogger().auditRequestMessage(request, assertion, target,
-            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-            Boolean.TRUE, null, NhincConstants.DOC_QUERY_DEFERRED_RESULTS_SERVICE_NAME);
+        StandardOutboundDeferredResults outbound = new StandardOutboundDeferredResults();
+        return outbound.sendToAdapterNhin(requestMsg, assertion, target);
     }
 
     private static NhinTargetSystemType getTargetFrom(NhinTargetCommunitiesType communitites) {
         return MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(communitites);
     }
 
-    protected DocQueryDeferredResponseAuditLogger getAuditLogger() {
-        return new DocQueryDeferredResponseAuditLogger();
-    }
 }

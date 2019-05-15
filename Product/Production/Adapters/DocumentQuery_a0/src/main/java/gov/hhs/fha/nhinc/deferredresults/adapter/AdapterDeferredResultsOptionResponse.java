@@ -26,10 +26,10 @@
  */
 package gov.hhs.fha.nhinc.deferredresults.adapter;
 
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResultsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
 import gov.hhs.fha.nhinc.deferredresults.impl.AdapterDeferredResultsOption;
 import gov.hhs.fha.nhinc.dq.adapterdeferredresultoption.AdapterDocQueryDeferredResultsOptionPortType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -42,7 +42,7 @@ public class AdapterDeferredResultsOptionResponse implements AdapterDocQueryDefe
     AdapterDeferredResultsOption adapterImpl;
 
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredResults(
+    public AdapterDeferredResultsResponseType respondingGatewayCrossGatewayQueryDeferredResults(
         RespondingGatewayCrossGatewayQueryResponseType message) {
         return adapterImpl.respondingGatewayCrossGatewayQueryResults(message);
     }

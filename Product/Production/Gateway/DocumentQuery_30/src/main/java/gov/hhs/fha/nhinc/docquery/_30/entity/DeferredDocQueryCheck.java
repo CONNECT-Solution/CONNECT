@@ -33,9 +33,9 @@ import gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQuery
 import gov.hhs.fha.nhinc.docquery.deferredresponse.adapter.proxy.AdapterDocQueryDeferredResponseQueryProxy;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.event.error.ErrorEventException;
-import gov.hhs.fha.nhinc.exchangemgr.ExchangeManagerException;
-import gov.hhs.fha.nhinc.exchangemgr.InternalExchangeManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -72,7 +72,6 @@ public final class DeferredDocQueryCheck {
                 String error = "New ID for AdhocQueryRequest was not generated.";
                 throw new ErrorEventException(new IllegalStateException(),
                     createAdhocFailureWithMessage(error), error);
-
             }
 
             //Overwrite the ID of the AdhocQueryRequest to match the response from our newly assigned ID from the adapter
@@ -80,9 +79,11 @@ public final class DeferredDocQueryCheck {
 
             String serviceName = NhincConstants.DOC_QUERY_DEFERRED_RESULTS_SERVICE_NAME;
             try {
-                assertion.setDeferredResponseEndpoint(InternalExchangeManager.getInstance().getEndpointURL(serviceName,
-                    NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0));
-            } catch (ExchangeManagerException e) {
+                String internalDeferredEndpoint = PropertyAccessor.getInstance().getProperty(
+                    NhincConstants.FILE_PROPERTY_DEFERRED_RESPONSE_ENDPOINT,
+                    NhincConstants.DOC_QUERY_DEFERRED_RESULTS_SERVICE_NAME);
+                assertion.setDeferredResponseEndpoint(internalDeferredEndpoint);
+            } catch (PropertyAccessException e) {
                 String error = "Could not determine URL endpoint for deferred results.";
                 throw new ErrorEventException(e, createAdhocFailureWithMessage(error), error +
                     " Missing internal service binding for " + serviceName);
@@ -105,7 +106,7 @@ public final class DeferredDocQueryCheck {
         return errorList;
     }
 
-    public static AdhocQueryResponse createAdhocFailureWithMessage(String value ) {
+    public static AdhocQueryResponse createAdhocFailureWithMessage(String value) {
         AdhocQueryResponse adhoc = new AdhocQueryResponse();
         adhoc.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         adhoc.setRegistryErrorList(createErrorList(value));
