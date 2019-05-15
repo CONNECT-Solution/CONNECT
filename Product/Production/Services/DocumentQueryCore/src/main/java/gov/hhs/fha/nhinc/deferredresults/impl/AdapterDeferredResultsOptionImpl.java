@@ -27,13 +27,11 @@
 package gov.hhs.fha.nhinc.deferredresults.impl;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResultsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
-import gov.hhs.fha.nhinc.deferredresults.nhin.proxy.NhinDocQueryDeferredResultsProxy;
-import gov.hhs.fha.nhinc.deferredresults.nhin.proxy.NhinDocQueryDeferredResultsProxyObjectFactory;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocQueryDeferredResponseMetadata;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,34 +42,34 @@ public class AdapterDeferredResultsOptionImpl implements AdapterDeferredResultsO
     DeferredResponseOptionDao dao;
 
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryResults(
+    public AdapterDeferredResultsResponseType respondingGatewayCrossGatewayQueryResults(
         RespondingGatewayCrossGatewayQueryResponseType message) {
         return sendToNwhin(message.getAdhocQueryResponse(), message.getAssertion());
     }
 
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse message,
+    public AdapterDeferredResultsResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse message,
         AssertionType assertion) {
         return sendToNwhin(message, assertion);
     }
 
-    private RegistryResponseType sendToNwhin(AdhocQueryResponse message, AssertionType assertion) {
+    private AdapterDeferredResultsResponseType sendToNwhin(AdhocQueryResponse message, AssertionType assertion) {
 
         if (assertion == null) {
-            return AdapterResponseHelper.createFailureWithMessage("Could not read AssertionType from message");
+            return AdapterResponseHelper
+                .createAdapterDeferredResultsResponseTypeFail("Could not read AssertionType from message");
         }
 
         DocQueryDeferredResponseMetadata metadata = dao.findByRequest(message.getRequestId());
         if (metadata != null) {
-
-            assertion.setDeferredResponseEndpoint(metadata.getResponseEndpoint());
-
-            NhinDocQueryDeferredResultsProxyObjectFactory factory = new NhinDocQueryDeferredResultsProxyObjectFactory();
-            NhinDocQueryDeferredResultsProxy nhinProxy = factory.getNhinDocQueryDeferredProxy();
-            return nhinProxy.respondingGatewayCrossGatewayQueryResults(message, assertion);
+            return AdapterResponseHelper
+                .createAdapterDeferredResultsResponseTypeSuccess(metadata.getResponseEndpoint());
         } else {
-            return AdapterResponseHelper.createFailureWithMessage("Could not find entry with the given Request ID");
+            return AdapterResponseHelper
+                .createAdapterDeferredResultsResponseTypeFail("Could not find entry with the given Request ID");
         }
     }
+
+
 
 }
