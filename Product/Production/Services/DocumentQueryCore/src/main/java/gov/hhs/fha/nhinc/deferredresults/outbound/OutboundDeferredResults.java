@@ -24,18 +24,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.deferredresults.impl;
+package gov.hhs.fha.nhinc.deferredresults.outbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResultsResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-public interface AdapterDeferredResultsOption {
+/**
+ * @author ttang
+ *
+ */
+public interface OutboundDeferredResults {
 
-    public AdapterDeferredResultsResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse message,
-        AssertionType assertion);
-
-    public AdapterDeferredResultsResponseType respondingGatewayCrossGatewayQueryResults(
-        RespondingGatewayCrossGatewayQueryResponseType message);
+    // Look up deferredEndpoint by message-id and call nhin with DeferredResponseEndpoint
+    public RegistryResponseType sendToAdapterNhin(AdhocQueryResponse requestMsg, AssertionType assertion,
+        NhinTargetSystemType target);
 }

@@ -26,22 +26,23 @@
  */
 package gov.hhs.fha.nhinc.deferredresults.impl;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResultsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DeferredResponseOptionDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocQueryDeferredResponseMetadata;
 import gov.hhs.fha.nhinc.test.DAOIntegrationTest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -49,9 +50,6 @@ public class AdapterDeferredResultsOptionImplTest extends DAOIntegrationTest {
 
     private static final String ENDPOINT = "RESPONSE ENDPOINT";
     private static final String REQUEST = "REQUEST ID";
-    private static final String SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
-    private static final String FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-
     @Mock
     DeferredResponseOptionDao dao;
 
@@ -75,17 +73,18 @@ public class AdapterDeferredResultsOptionImplTest extends DAOIntegrationTest {
 
         request.setAssertion(generateAssertion());
 
-        RegistryResponseType response = impl.respondingGatewayCrossGatewayQueryResults(request);
+        AdapterDeferredResultsResponseType response = impl.respondingGatewayCrossGatewayQueryResults(request);
         verify(dao, Mockito.times(1)).findByRequest(Mockito.eq(REQUEST));
-        assertEquals(SUCCESS, response.getStatus());
+        assertEquals(Boolean.TRUE, response.isStatus());
     }
 
     @Test
     public void testRespondingGatewayCrossGatewayQueryResultsSecured() {
         AdhocQueryResponse message = getHappyPathResponse();
-        RegistryResponseType response = impl.respondingGatewayCrossGatewayQueryResults(message, generateAssertion());
+        AdapterDeferredResultsResponseType response = impl.respondingGatewayCrossGatewayQueryResults(message,
+            generateAssertion());
         verify(dao, Mockito.times(1)).findByRequest(Mockito.eq(REQUEST));
-        assertEquals(SUCCESS, response.getStatus());
+        assertEquals(Boolean.TRUE, response.isStatus());
     }
 
     @Test
@@ -97,17 +96,17 @@ public class AdapterDeferredResultsOptionImplTest extends DAOIntegrationTest {
 
         request.setAssertion(null);
 
-        RegistryResponseType response = impl.respondingGatewayCrossGatewayQueryResults(request);
+        AdapterDeferredResultsResponseType response = impl.respondingGatewayCrossGatewayQueryResults(request);
         verify(dao, Mockito.never()).findByRequest(Mockito.any(String.class));
-        assertEquals(FAILURE, response.getStatus());
+        assertEquals(Boolean.FALSE, response.isStatus());
     }
 
     @Test
     public void testRespondingGatewayCrossGatewayQueryResultsSecuredNoAssertion() {
         AdhocQueryResponse message = getHappyPathResponse();
-        RegistryResponseType response = impl.respondingGatewayCrossGatewayQueryResults(message, null);
+        AdapterDeferredResultsResponseType response = impl.respondingGatewayCrossGatewayQueryResults(message, null);
         verify(dao, Mockito.never()).findByRequest(Mockito.any(String.class));
-        assertEquals(FAILURE, response.getStatus());
+        assertEquals(Boolean.FALSE, response.isStatus());
     }
 
     @Test
@@ -119,17 +118,18 @@ public class AdapterDeferredResultsOptionImplTest extends DAOIntegrationTest {
 
         request.setAssertion(generateAssertion());
 
-        RegistryResponseType response = impl.respondingGatewayCrossGatewayQueryResults(request);
+        AdapterDeferredResultsResponseType response = impl.respondingGatewayCrossGatewayQueryResults(request);
         verify(dao, Mockito.times(1)).findByRequest(Mockito.eq("NOT CONTAINED"));
-        assertEquals(FAILURE, response.getStatus());
+        assertEquals(Boolean.FALSE, response.isStatus());
     }
 
     @Test
     public void testRespondingGatewayCrossGatewayQueryResultsSecuredNoResult() {
         AdhocQueryResponse message = getNegativePathResponse();
-        RegistryResponseType response = impl.respondingGatewayCrossGatewayQueryResults(message, generateAssertion());
+        AdapterDeferredResultsResponseType response = impl.respondingGatewayCrossGatewayQueryResults(message,
+            generateAssertion());
         verify(dao, Mockito.times(1)).findByRequest(Mockito.eq("NOT CONTAINED"));
-        assertEquals(FAILURE, response.getStatus());
+        assertEquals(Boolean.FALSE, response.isStatus());
     }
 
     private static AssertionType generateAssertion() {

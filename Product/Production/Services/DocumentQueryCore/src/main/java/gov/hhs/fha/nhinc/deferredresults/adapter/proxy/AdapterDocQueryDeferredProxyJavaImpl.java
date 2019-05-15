@@ -27,9 +27,9 @@
 package gov.hhs.fha.nhinc.deferredresults.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResultsResponseType;
 import gov.hhs.fha.nhinc.deferredresults.impl.AdapterDeferredResultsOptionImpl;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +38,7 @@ public class AdapterDocQueryDeferredProxyJavaImpl implements AdapterDocQueryDefe
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocQueryDeferredProxyJavaImpl.class);
 
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse msg,
+    public AdapterDeferredResultsResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse msg,
         AssertionType assertion) {
         LOG.debug("Running through Java Adapter Proxy.");
         return new AdapterDeferredResultsOptionImpl().respondingGatewayCrossGatewayQueryResults(msg, assertion);
