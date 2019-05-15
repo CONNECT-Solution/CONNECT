@@ -683,7 +683,7 @@ public class CertficateBean {
             serverValidation.add("Common Name (CN) s is required.");
         }
         if (StringUtils.isBlank(getOrganizationalUnit())) {
-            serverValidation.add("Organizational Unit is required.");
+            serverValidation.add("Organizational Unit (OU) is required.");
         }
         if (StringUtils.isBlank(getOrganization())) {
             serverValidation.add("Organization (O) is required.");
