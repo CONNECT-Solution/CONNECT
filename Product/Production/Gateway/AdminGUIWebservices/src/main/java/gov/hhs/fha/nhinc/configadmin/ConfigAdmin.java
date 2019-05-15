@@ -194,12 +194,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         response.setMessage(message);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#listKeyStores(gov.hhs.fha.nhinc.common.configadmin.
-     * ListKeyStoresRequestMessageType)
-     */
     @Override
     public ListKeyStoresResponseMessageType listKeyStores(ListKeyStoresRequestMessageType listKeyStoresRequest) {
         ListKeyStoresResponseMessageType response = new ListKeyStoresResponseMessageType();
@@ -214,13 +208,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         return SHA2PasswordUtil.checkPassword(hashToken.getBytes(),passKey.getBytes(),userName.getBytes());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#listTrustStores(gov.hhs.fha.nhinc.common.configadmin.
-     * ListTrustStoresRequestMessageType)
-     */
     @Override
     public ListTrustStoresResponseMessageType listTrustStores(
         ListTrustStoresRequestMessageType listTrustStoresRequest) {
@@ -258,13 +245,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         return certList;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#editCertificate(gov.hhs.fha.nhinc.common.configadmin.
-     * EditCertificateRequestMessageType)
-     */
     @Override
     public SimpleCertificateResponseMessageType editCertificate(
         EditCertificateRequestMessageType editCertificateRequest) {
@@ -294,13 +274,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         return response;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#deleteCertificate(gov.hhs.fha.nhinc.common.configadmin.
-     * DeleteCertificateRequestMessageType)
-     */
     @Override
     public SimpleCertificateResponseMessageType deleteCertificate(
         DeleteCertificateRequestMessageType deleteCertificateRequest) {
@@ -354,13 +327,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         return isUpdateSuccessful;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#listChainOfTrust(gov.hhs.fha.nhinc.common.configadmin.
-     * ListChainOfTrustRequestMessageType)
-     */
     @Override
     public ListCertificatesResponseMessageType listChainOfTrust(ListChainOfTrustRequestMessageType request) {
         LOG.debug("listChainOfTrust: begin");
@@ -417,12 +383,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         return CertificateManagerImpl.getInstance().getTrustStore();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#createCSR(gov.hhs.fha.nhinc.common.configadmin.
-     * CreateCSRRequestMessageType)
-     */
     @Override
     public SimpleCertificateResponseMessageType createCSR(CreateCSRRequestMessageType request) {
 
@@ -451,13 +411,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#createCertificate(gov.hhs.fha.nhinc.common.configadmin.
-     * CreateCertificateRequestMessageType)
-     */
     @Override
     public SimpleCertificateResponseMessageType createCertificate(CreateCertificateRequestMessageType request) {
 
@@ -612,13 +565,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         return certGen.generate(keypair.getPrivate());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#deleteGatewayNew(gov.hhs.fha.nhinc.common.configadmin.
-     * DeleteGatewayNewRequestMessageType)
-     */
     @Override
     public SimpleCertificateResponseMessageType deleteTemporaryKeystore(SimpleCertificateRequestMessageType request) {
         boolean deleted = false;
@@ -645,13 +591,6 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * gov.hhs.fha.nhinc.configadmin.EntityConfigAdminPortType#importToKeystore(gov.hhs.fha.nhinc.common.configadmin.
-     * ImportToKeystoreRequestMessageType)
-     */
     @Override
     public SimpleCertificateResponseMessageType importToKeystore(ImportCertificateChainRequestMessageType request) {
         String alias = request.getAlias();
@@ -661,7 +600,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
 
         PrivateKey privateKey = readPrivateKey(alias, getPasswordKeystore());
         if (null == privateKey) {
-            return buildSimpleResponse(false, "No privatekey recorded for alias: " + alias);
+            return buildSimpleResponse(false, "Create a CSR and get SSL Certificates from your CA Providers before replacing existing Certificates with alias: " + alias);
         }
 
         try {

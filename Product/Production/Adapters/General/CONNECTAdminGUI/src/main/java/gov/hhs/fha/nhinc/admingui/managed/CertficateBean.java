@@ -667,17 +667,36 @@ public class CertficateBean {
     public void setImportWizardTabIndex(int importWizardTabIndex) {
         if (importWizardTabIndex == 0) {
             cacheAlias = null; // clear out the cache on start importWizard
+
         }
         enableTab(importWizardTabIndex);
         this.importWizardTabIndex = importWizardTabIndex;
     }
 
     public void createCertificate() {
-        if (StringUtils.isBlank(getAlias()) || StringUtils.isBlank(getCommonName())
-            || StringUtils.isBlank(getOrganizationalUnit()) || StringUtils.isBlank(getOrganization())
-            || StringUtils.isBlank(getCountryName())) {
-            HelperUtil.addMessageError(null, "Required fields cannot be empty when creating certificate.");
+
+        List<String> serverValidation = new ArrayList<>();
+        if (StringUtils.isBlank(getAlias())) {
+            serverValidation.add("Alias is required.");
         }
+        if (StringUtils.isBlank(getCommonName())) {
+            serverValidation.add("Common Name (CN) s is required.");
+        }
+        if (StringUtils.isBlank(getOrganizationalUnit())) {
+            serverValidation.add("Organizational Unit is required.");
+        }
+        if (StringUtils.isBlank(getOrganization())) {
+            serverValidation.add("Organization (O) is required.");
+        }
+        if (StringUtils.isBlank(getCountryName())) {
+            serverValidation.add("Country Name (C) is required.");
+        }
+
+        if (CollectionUtils.isNotEmpty(serverValidation)) {
+            validationErrors(serverValidation);
+            return;
+        }
+
 
         boolean status = service.createCertificate(getAlias(), getCommonName(), getOrganizationalUnit(),
             getOrganization(), getCountryName());
@@ -734,6 +753,11 @@ public class CertficateBean {
 
     public String getCsrText() {
         return csrText;
+    }
+
+    public void resumeImportWizard(int tabIndex) {
+        clearImportWizard();
+        setImportWizardTabIndex(tabIndex);
     }
 
     public void cancelImportWizard() {
@@ -796,18 +820,17 @@ public class CertficateBean {
             serverValidation.add("Alias is required.");
         }
         if (null == uploadedFileServer) {
-            serverValidation.add("Server Certificate are required.");
+            serverValidation.add("Server Certificate is required.");
+        }
+
+        boolean rootMissing = MapUtils.isNotEmpty(listIntermediate) && null == uploadedFileRoot;
+        boolean intermeidateMissing = MapUtils.isEmpty(listIntermediate) && null != uploadedFileRoot;
+        if ( rootMissing || intermeidateMissing ) {
+            serverValidation.add("Root and Intermediate Certificates must both be present in order to import Chain of Trust.");
         }
         if (CollectionUtils.isNotEmpty(serverValidation)) {
             validationErrors(serverValidation);
             return;
-        }
-
-        if(MapUtils.isNotEmpty(listIntermediate) && null == uploadedFileRoot){
-            HelperUtil.addMessageWarn(null, "CA Root was not uploaded, CA Intermediate was not imported.");
-        }
-        if (MapUtils.isEmpty(listIntermediate) && null != uploadedFileRoot) {
-            HelperUtil.addMessageWarn(null, "CA Intermediate was not uploaded, CA Root was not imported.");
         }
 
         SimpleCertificateResponseMessageType response;

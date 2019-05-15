@@ -358,18 +358,18 @@
                                                 <div class="col-sm-12">
                                                     <ul class="list-group">
                                                         <li class="list-group-item"><p:commandLink
-                                                                action="#{certificateBean.setImportWizardTabIndex(1)}"
+                                                                action="#{certificateBean.resumeImportWizard(1)}"
                                                                 style="margin-right:20px;" update="@(.cssImportWizard)">
                                                                 <h:outputText value="Create a new Certificate" />
                                                             </p:commandLink></li>
                                                         <li class="list-group-item"><p:commandLink
-                                                                action="#{certificateBean.setImportWizardTabIndex(2)}"
+                                                                action="#{certificateBean.resumeImportWizard(2)}"
                                                                 style="margin-right:20px;" update="@(.cssImportWizard)">
                                                                 <h:outputText
                                                                     value="Generate CSR for an existing Certificate" />
                                                             </p:commandLink></li>
                                                         <li class="list-group-item"><p:commandLink
-                                                                action="#{certificateBean.setImportWizardTabIndex(4)}"
+                                                                action="#{certificateBean.resumeImportWizard(4)}"
                                                                 style="margin-right:20px;" update="@(.cssImportWizard)">
                                                                 <h:outputText value="Import SSL Certificate(s)" />
                                                             </p:commandLink></li>
@@ -419,7 +419,6 @@
                                                     <h:outputLabel class="control-label" for="inputAlias"
                                                         value="* Alias:" />
                                                     <p:selectOneMenu styleClass="form-control" id="inputAlias"
-                                                        required="true" requiredMessage="Alias is required."
                                                         placeholder="Enter a new alias or select from dropdown."
                                                         value="#{certificateBean.alias}" filter="true" editable="true"
                                                         filterMatchMode="startsWith">
@@ -433,8 +432,7 @@
                                                         value="* Common Name (CN):" />
                                                     <p:inputText styleClass="form-control"
                                                         value="#{certificateBean.commonName}" id="inputReferenceNumber"
-                                                        maxlength="250" required="true"
-                                                        requiredMessage="Common Name (CN) is required."
+                                                        maxlength="250" 
                                                         placeholder="Fully qualified domain name or entrust reference number">
                                                     </p:inputText>
                                                 </div>
@@ -443,8 +441,7 @@
                                                         value="* Organizational Unit (OU):" />
                                                     <p:inputText styleClass="form-control"
                                                         value="#{certificateBean.organizationalUnit}"
-                                                        id="inputOrganizationalUnit" maxlength="250" required="true"
-                                                        requiredMessage="Organizational Unit (OU) is required.">
+                                                        id="inputOrganizationalUnit" maxlength="250">
                                                     </p:inputText>
                                                 </div>
                                                 <div class="col-sm-12">
@@ -452,8 +449,7 @@
                                                         value="* Organization (O):" />
                                                     <p:inputText styleClass="form-control"
                                                         value="#{certificateBean.organization}" id="inputOrganization"
-                                                        maxlength="250" required="true"
-                                                        requiredMessage="Organization (O) is required.">
+                                                        maxlength="250">
                                                     </p:inputText>
                                                 </div>
                                                 <div class="col-sm-12">
@@ -461,8 +457,7 @@
                                                         value="* Country Name (C):" />
                                                     <p:inputText styleClass="form-control"
                                                         value="#{certificateBean.countryName}" id="inputCountryName"
-                                                        maxlength="250" required="true"
-                                                        requiredMessage="Country Name (C) is required.">
+                                                        maxlength="250">
                                                     </p:inputText>
                                                 </div>
                                             </div>
@@ -480,7 +475,7 @@
                                                     update="@(.cssImportWizard)">
                                                     <p:resetInput target="@form" />
                                                     <p:confirm header="Cancel Import Wizard"
-                                                        message="WARNING: This will clean up the file created by wizard. Continue delete?"
+                                                        message="WARNING: This will cleanup any files created by Import Wizard. Continue?"
                                                         icon="ui-icon-alert" />
                                                 </p:commandButton>
                                                 <p:commandButton styleClass="btn btn-primary" icon="ui-icon-seek-next"
@@ -561,7 +556,7 @@
                                                     update="@(.cssImportWizard)">
                                                     <p:resetInput target="@form" />
                                                     <p:confirm header="Cancel Import Wizard"
-                                                        message="WARNING: This will clean up the file created by wizard. Continue delete?"
+                                                        message="WARNING: This will cleanup any files created by Import Wizard. Continue?"
                                                         icon="ui-icon-alert" />
                                                 </p:commandButton>
                                                 <p:commandButton id="csrNextButton" styleClass="btn btn-primary"
@@ -682,6 +677,8 @@
                                                     icon="ui-icon-circle-plus" update="@form"
                                                     action="#{certificateBean.importToKeystore()}" value="Import">
                                                 </p:commandButton>
+                                                <!-- This will be kept inline so if it ever needs to be re-added, we can just uncomment -->
+                                                <!-- 
                                                 <p:commandButton styleClass="refresh-button"
                                                     icon="ui-icon-arrowreturn-1-w" value="Undo" immediate="true"
                                                     action="#{certificateBean.undo('keystore')}"
@@ -691,6 +688,7 @@
                                                         message="WARNING: This will remove uploaded certificates from the temporary KeyStore. Are you sure?"
                                                         icon="ui-icon-alert" />
                                                 </p:commandButton>
+                                                 -->
                                                 <p:commandButton styleClass="btn btn-primary" icon="ui-icon-seek-end"
                                                     value="Complete" immediate="true" update="@form"
                                                     disabled="#{certificateBean.disableImportAction}"
