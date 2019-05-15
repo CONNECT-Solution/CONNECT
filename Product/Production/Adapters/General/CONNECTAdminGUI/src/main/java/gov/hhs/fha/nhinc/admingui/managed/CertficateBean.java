@@ -824,8 +824,8 @@ public class CertficateBean {
         }
 
         boolean rootMissing = MapUtils.isNotEmpty(listIntermediate) && null == uploadedFileRoot;
-        boolean intermeidateMissing = MapUtils.isEmpty(listIntermediate) && null != uploadedFileRoot;
-        if ( rootMissing || intermeidateMissing ) {
+        boolean intermediateMissing = MapUtils.isEmpty(listIntermediate) && null != uploadedFileRoot;
+        if ( rootMissing || intermediateMissing ) {
             serverValidation.add("Root and Intermediate Certificates must both be present in order to import Chain of Trust.");
         }
         if (CollectionUtils.isNotEmpty(serverValidation)) {
