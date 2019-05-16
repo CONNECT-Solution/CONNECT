@@ -54,7 +54,7 @@ public class EntityDeferredResultsImpl extends BaseService {
     private RegistryResponseType respondingGatewayCrossGatewayQuery(AdhocQueryResponse requestMsg,
         AssertionType assertion, NhinTargetSystemType target) {
         StandardOutboundDeferredResults outbound = new StandardOutboundDeferredResults();
-        return outbound.sendToAdapterNhin(requestMsg, assertion, target);
+        return outbound.processMessage(requestMsg, assertion, target);
     }
 
     private static NhinTargetSystemType getTargetFrom(NhinTargetCommunitiesType communitites) {

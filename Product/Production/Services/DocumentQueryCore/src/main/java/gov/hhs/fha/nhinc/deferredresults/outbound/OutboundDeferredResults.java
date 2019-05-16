@@ -38,6 +38,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public interface OutboundDeferredResults {
 
     // Look up deferredEndpoint by message-id and call nhin with DeferredResponseEndpoint
-    public RegistryResponseType sendToAdapterNhin(AdhocQueryResponse requestMsg, AssertionType assertion,
+    public RegistryResponseType processMessage(AdhocQueryResponse requestMsg, AssertionType assertion,
         NhinTargetSystemType target);
 }
