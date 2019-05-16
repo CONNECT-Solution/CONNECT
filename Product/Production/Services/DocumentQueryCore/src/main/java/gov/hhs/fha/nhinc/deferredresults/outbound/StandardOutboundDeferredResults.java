@@ -48,7 +48,7 @@ import org.w3._2005._08.addressing.EndpointReferenceType;
 public class StandardOutboundDeferredResults implements OutboundDeferredResults {
 
     @Override
-    public RegistryResponseType sendToAdapterNhin(AdhocQueryResponse requestMsg, AssertionType assertion,
+    public RegistryResponseType processMessage(AdhocQueryResponse requestMsg, AssertionType assertion,
         NhinTargetSystemType target) {
 
         AdapterDeferredResultsResponseType adapterResp = getAdapterProxy()
