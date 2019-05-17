@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQuerySecureRequestType;
 import gov.hhs.fha.nhinc.deferredresults.impl.AdapterResponseHelper;
 import gov.hhs.fha.nhinc.docquery.deferredresponse.descriptor.AdapterDeferredResponseOptionSecuredServicePortDescriptor;
-import gov.hhs.fha.nhinc.event.error.ErrorEventException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import javax.xml.ws.WebServiceException;
@@ -62,8 +61,8 @@ public class AdapterDeferredResponseOptionProxyWebServiceSecuredImpl implements 
             }
             response = (RegistryResponseType) invokeClientPort(getRequest(msg), assertion);
         } catch (final Exception ex) {
+            LOG.error(ERROR_MSG, ex);
             response = AdapterResponseHelper.createFailureWithMessage(ERROR_MSG);
-            throw new ErrorEventException(ex, response, ERROR_MSG);
         }
 
         return response;

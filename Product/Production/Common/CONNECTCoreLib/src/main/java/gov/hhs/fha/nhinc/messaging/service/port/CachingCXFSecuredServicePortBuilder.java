@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSClientServiceEndpoin
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsSecurityServiceEndpointDecorator;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.commons.collections.map.MultiKeyMap;
 
 /**
  * @author akong
@@ -41,7 +42,7 @@ import java.util.Map;
  */
 public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAServicePortBuilder<T> {
 
-    private static final Map<String, Map<Class<?>, Object>> CACHED_PORTS = new HashMap<>();
+    private static final Map<String, MultiKeyMap> CACHED_PORTS = new HashMap<>();
     private String certificateAlias;
     private String exchangeName;
 
@@ -62,10 +63,10 @@ public class CachingCXFSecuredServicePortBuilder<T> extends CachingCXFWSAService
      * @see gov.hhs.fha.nhinc.messaging.service.port.CachingCXFServicePortBuilder#getCache()
      */
     @Override
-    protected Map<Class<?>, Object> getCache(String alias) {
+    protected MultiKeyMap getCache(String alias, boolean isDeferredCapable) {
         String defaultAlias = StoreUtil.getGatewayAliasDefaultTo(alias);
         if (CACHED_PORTS.get(defaultAlias) == null) {
-            CACHED_PORTS.put(defaultAlias, new HashMap<Class<?>, Object>());
+            CACHED_PORTS.put(defaultAlias, new MultiKeyMap());
         }
 
         return CACHED_PORTS.get(defaultAlias);
