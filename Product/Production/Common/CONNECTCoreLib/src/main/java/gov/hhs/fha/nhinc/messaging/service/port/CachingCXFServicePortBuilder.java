@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -30,8 +30,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapResponseServiceEndpointDecorator;
-import java.util.Map;
 import javax.xml.ws.BindingProvider;
+import org.apache.commons.collections.map.MultiKeyMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +56,7 @@ public abstract class CachingCXFServicePortBuilder<T> extends CXFServicePortBuil
      *
      * @return the cache map
      */
-    protected abstract Map<Class<?>, Object> getCache(String gatewayAlias);
+    protected abstract MultiKeyMap getCache(String gatewayAlias, boolean isDeferredCapable);
 
     /**
      * Constructor.
@@ -93,15 +93,17 @@ public abstract class CachingCXFServicePortBuilder<T> extends CXFServicePortBuil
     @SuppressWarnings("unchecked")
     @Override
     public synchronized T createPort(String gatewayAlias, AssertionType assertion) {
-        LOG.debug("createPort-gatewayAlias: {}", gatewayAlias);
-        T port = (T) getCache(gatewayAlias).get(serviceEndpointClass);
+        boolean isDeferredCapable = assertion != null && assertion.getDeferredResponseEndpoint() != null;
+        LOG.debug("creating cached port. gatewayAlias: {}, deferredCapable: {}", gatewayAlias, isDeferredCapable);
+        MultiKeyMap cache = getCache(gatewayAlias, isDeferredCapable);
+        T port = (T) cache.get(serviceEndpointClass, isDeferredCapable);
         if (port == null) {
             port = super.createPort(gatewayAlias, assertion);
             ((BindingProvider) port).getRequestContext().put(THREAD_LOCAL_REQUEST_CONTEXT, Boolean.TRUE);
 
             configurePort(port, assertion);
 
-            getCache(gatewayAlias).put(serviceEndpointClass, port);
+            cache.put(serviceEndpointClass, isDeferredCapable, port);
         }
 
         return port;
