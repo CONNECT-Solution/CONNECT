@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.deferredresults.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResultsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
 import gov.hhs.fha.nhinc.deferredresults.descriptor.AdapterDocQueryDeferredServicePortDescriptor;
 import gov.hhs.fha.nhinc.deferredresults.impl.AdapterResponseHelper;
@@ -39,7 +40,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import javax.xml.ws.WebServiceException;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,12 +48,12 @@ public class AdapterDocQueryDeferredProxyWebServiceUnsecuredImpl extends BaseAda
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDocQueryDeferredProxyWebServiceUnsecuredImpl.class);
 
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse body,
+    public AdapterDeferredResultsResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse body,
         AssertionType assertion) {
 
         LOG.debug("Running through Unsecured Adapter Proxy");
 
-        RegistryResponseType response = null;
+        AdapterDeferredResultsResponseType response = null;
         try {
             // get the Adopter Endpoint URL
             String url = getEndPointFromConnectionManagerByAdapterAPILevel(
@@ -65,16 +65,16 @@ public class AdapterDocQueryDeferredProxyWebServiceUnsecuredImpl extends BaseAda
                     throw new IllegalArgumentException("Request Message must be provided");
                 } else {
                     RespondingGatewayCrossGatewayQueryResponseType message
-                        = new RespondingGatewayCrossGatewayQueryResponseType();
+                    = new RespondingGatewayCrossGatewayQueryResponseType();
                     message.setAdhocQueryResponse(body);
                     message.setAssertion(assertion);
                     final ServicePortDescriptor<AdapterDocQueryDeferredResultsOptionPortType> portDescriptor
-                        = new AdapterDocQueryDeferredServicePortDescriptor();
+                    = new AdapterDocQueryDeferredServicePortDescriptor();
 
                     final CONNECTClient<AdapterDocQueryDeferredResultsOptionPortType> client = CONNECTClientFactory.
                         getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
-                    response = (RegistryResponseType) client.invokePort(
+                    response = (AdapterDeferredResultsResponseType) client.invokePort(
                         AdapterDocQueryDeferredResultsOptionPortType.class,
                         "respondingGatewayCrossGatewayQueryDeferredResults", message);
                 }
@@ -82,8 +82,8 @@ public class AdapterDocQueryDeferredProxyWebServiceUnsecuredImpl extends BaseAda
                 throw new WebServiceException("Could not determine URL for Doc Query Deferred Results Adapter endpoint");
             }
         } catch (final Exception ex) {
-            response = AdapterResponseHelper.createFailureWithMessage(
-                "Unable to call Doc Query Deferred Results Adapter");
+            response = AdapterResponseHelper
+                .createAdapterDeferredResultsResponseTypeFail("Unable to call Doc Query Deferred Results Adapter");
             throw new ErrorEventException(ex, response, "Unable to call Doc Query Deferred Results Adapter");
         }
 

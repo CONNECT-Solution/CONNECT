@@ -30,7 +30,7 @@ import static org.junit.Assert.assertNotNull;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.deferredresults.inbound.StandardInboundDeferredResults;
-import javax.xml.ws.WebServiceContext;
+import java.util.Properties;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.junit.Ignore;
@@ -66,9 +66,9 @@ public class NhinDeferredResultsOptionTest {
     public void testRespondingGatewayCrossGatewayQueryDeferredNhinSecured() {
         StandardInboundDeferredResults inboundSpy = Mockito.spy(stdDeferredResultsInbound);
         RegistryResponseType result
-            = new RegistryResponseType();
+        = new RegistryResponseType();
         Mockito.doReturn(result).when(inboundSpy).respondingGatewayCrossGatewayQueryNhinDeferredResults(Mockito.any(
-            AdhocQueryResponse.class), Mockito.any(AssertionType.class), Mockito.any(WebServiceContext.class));
+            AdhocQueryResponse.class), Mockito.any(AssertionType.class), Mockito.any(Properties.class));
 
         AdhocQueryResponse request = new AdhocQueryResponse();
         //Override the Autowired with our spy so we dont  actually invoke SOAP services

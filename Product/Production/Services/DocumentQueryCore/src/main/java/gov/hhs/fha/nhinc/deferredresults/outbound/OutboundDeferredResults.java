@@ -24,31 +24,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.messaging.client;
+package gov.hhs.fha.nhinc.deferredresults.outbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapHeaderServiceEndPointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFUnsecuredServicePortBuilder;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
-import gov.hhs.fha.nhinc.util.CoreHelpUtils;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- * @author akong
+ * @author ttang
  *
  */
-public class CONNECTCXFClientUnsecured<T> extends CONNECTCXFClient<T> {
+public interface OutboundDeferredResults {
 
-    CONNECTCXFClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, String exchangeName,
-        AssertionType assertion) {
-        super(portDescriptor, url, exchangeName, assertion, new CachingCXFUnsecuredServicePortBuilder<>(portDescriptor));
-        serviceEndpoint = new SoapHeaderServiceEndPointDecorator<>(serviceEndpoint, null,
-            CoreHelpUtils.extractDeferredResponseEndpoint(assertion));
-        serviceEndpoint.configure();
-    }
-
-    @Override
-    public T getPort() {
-        return serviceEndpoint.getPort();
-    }
-
+    // Look up deferredEndpoint by message-id and call nhin with DeferredResponseEndpoint
+    public RegistryResponseType processMessage(AdhocQueryResponse requestMsg, AssertionType assertion,
+        NhinTargetSystemType target);
 }

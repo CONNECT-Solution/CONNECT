@@ -26,13 +26,13 @@
  */
 package gov.hhs.fha.nhinc.deferredresults.adapter;
 
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResultsResponseType;
 import gov.hhs.fha.nhinc.deferredresults.impl.AdapterDeferredResultsOption;
 import gov.hhs.fha.nhinc.dq.adapterdeferredresultoptionsecured.AdapterDocQueryDeferredResultsOptionSecuredPortType;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AdapterDeferredResultsOptionResponseSecured extends BaseService implements
-    AdapterDocQueryDeferredResultsOptionSecuredPortType {
+AdapterDocQueryDeferredResultsOptionSecuredPortType {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdapterDeferredResultsOptionResponseSecured.class);
 
@@ -55,7 +55,8 @@ public class AdapterDeferredResultsOptionResponseSecured extends BaseService imp
     private WebServiceContext context;
 
     @Override
-    public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredResultsSecured(AdhocQueryResponse message) {
+    public AdapterDeferredResultsResponseType respondingGatewayCrossGatewayQueryDeferredResultsSecured(
+        AdhocQueryResponse message) {
         LOG.info("Running through Adapter Secured layer.");
         return adapterImpl.respondingGatewayCrossGatewayQueryResults(message, getAssertion(context));
     }

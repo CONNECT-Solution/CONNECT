@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndp
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsSecurityServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFSecuredServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.util.CoreHelpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -82,7 +83,7 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
         serviceEndpoint = new WsSecurityServiceEndpointDecorator<>(serviceEndpoint,
             StoreUtil.getGatewayCertificateAlias(exchangeName), assertion);
         serviceEndpoint = new SoapHeaderServiceEndPointDecorator<>(serviceEndpoint, null,
-            assertion.getDeferredResponseEndpoint());
+            CoreHelpUtils.extractDeferredResponseEndpoint(assertion));
     }
 
     @Override

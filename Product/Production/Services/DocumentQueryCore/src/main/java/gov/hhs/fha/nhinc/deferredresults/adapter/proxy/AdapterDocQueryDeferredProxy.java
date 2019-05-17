@@ -23,15 +23,16 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.deferredresults.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResultsResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 
 public interface AdapterDocQueryDeferredProxy {
 
-    RegistryResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse msg, AssertionType assertion);
+    AdapterDeferredResultsResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse msg,
+        AssertionType assertion);
 }

@@ -27,15 +27,15 @@
 package gov.hhs.fha.nhinc.deferredresults.impl;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterDeferredResultsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public interface AdapterDeferredResultsOption {
 
-    public RegistryResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse message,
+    public AdapterDeferredResultsResponseType respondingGatewayCrossGatewayQueryResults(AdhocQueryResponse message,
         AssertionType assertion);
 
-    public RegistryResponseType respondingGatewayCrossGatewayQueryResults(
+    public AdapterDeferredResultsResponseType respondingGatewayCrossGatewayQueryResults(
         RespondingGatewayCrossGatewayQueryResponseType message);
 }
