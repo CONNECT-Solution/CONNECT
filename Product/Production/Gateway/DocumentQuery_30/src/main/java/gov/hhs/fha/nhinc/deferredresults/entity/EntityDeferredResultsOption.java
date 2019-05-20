@@ -23,11 +23,13 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 package gov.hhs.fha.nhinc.deferredresults.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryResponseType;
 import gov.hhs.fha.nhinc.dq.entitydeferredresponse.EntityDocQueryDeferredResultPortType;
+import javax.annotation.Resource;
+import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,11 +44,14 @@ public class EntityDeferredResultsOption implements EntityDocQueryDeferredResult
 
     EntityDeferredResultsImpl impl = new EntityDeferredResultsImpl();
 
+    @Resource
+    private WebServiceContext context;
+
     @Override
     public RegistryResponseType respondingGatewayCrossGatewayQueryDeferredEntity(
         RespondingGatewayCrossGatewayQueryResponseType message) {
         LOG.debug("Inside Entity Results Option Unsecured");
-        return impl.respondingGatewayCrossGatewayQueryUnsecured(message);
+        return impl.respondingGatewayCrossGatewayQueryUnsecured(message, context);
     }
 
 }
