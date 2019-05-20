@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2009-2019, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
- *  
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
@@ -12,7 +12,7 @@
  *     * Neither the name of the United States Government nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -162,6 +162,11 @@ public class EventAspectAdvice {
             logFailure(joinPoint, e, serviceType, resolvedVersion);
             value =  e.getReturnOverride();
             hasFailure = true;
+
+            // Make sure there is a return override, otherwise we need to re-throw the error
+            if (value == null) {
+                throw e;
+            }
         } catch (Throwable e) {
             // We don't want to swallow the exception if its not an ErrorEventException.
             // We also don't want the delegate to log the END_* event.
