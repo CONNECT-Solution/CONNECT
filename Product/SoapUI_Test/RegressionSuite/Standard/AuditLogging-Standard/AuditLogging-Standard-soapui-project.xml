@@ -103,7 +103,434 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:testSuite name="g1" id="7613ded3-2501-40f5-98f6-6da03aac789f">
+  <con:interface xsi:type="con:WsdlInterface" id="f0a24bce-da81-4e18-8039-62869959c115" wsaVersion="NONE" name="EntityDocQueryDeferredResultBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:dq:entitydeferredresponse}EntityDocQueryDeferredResultBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/EntityDeferredResultsOptionResponse.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:/NhinConnect/EntityDocQueryDeferredResult</con:endpoint></con:endpoints><con:operation id="07d1daea-8013-4ce4-b74b-35c7420d5232" isOneWay="false" action="urn:gov:hhs:fha:nhinc:dq:entitydeferredresponse:RespondingGateway_CrossGatewayQueryDeferredEntity" name="RespondingGateway_CrossGatewayQueryDeferredEntity" bindingOperationName="RespondingGateway_CrossGatewayQueryDeferredEntity" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryDeferredResponse" inputName="RespondingGateway_CrossGatewayQueryDeferredResult" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a969c298-bfb0-4a34-8929-43dba6c3f7e0" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:/NhinConnect/EntityDocQueryDeferredResult</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon">\r
+   <soap:Header/>\r
+   <soap:Body>\r
+      <urn:RespondingGateway_CrossGatewayQueryResponse>\r
+         <urn1:AdhocQueryResponse status="?" requestId="?" startIndex="0" totalResultCount="?">\r
+            <!--Optional:-->\r
+            <urn2:ResponseSlotList>\r
+               <!--Zero or more repetitions:-->\r
+               <urn3:Slot name="?" slotType="?">\r
+                  <urn3:ValueList>\r
+                     <urn3:Value>?</urn3:Value>\r
+                  </urn3:ValueList>\r
+               </urn3:Slot>\r
+            </urn2:ResponseSlotList>\r
+            <!--Optional:-->\r
+            <urn2:RegistryErrorList highestSeverity="?">\r
+               <!--1 or more repetitions:-->\r
+               <urn2:RegistryError codeContext="?" errorCode="?" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" location="?">?</urn2:RegistryError>\r
+            </urn2:RegistryErrorList>\r
+            <urn3:RegistryObjectList>\r
+               <!--Zero or more repetitions:-->\r
+               <urn3:Identifiable id="?" home="?">\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn3:Slot name="?" slotType="?">\r
+                     <urn3:ValueList>\r
+                        <urn3:Value>?</urn3:Value>\r
+                     </urn3:ValueList>\r
+                  </urn3:Slot>\r
+               </urn3:Identifiable>\r
+            </urn3:RegistryObjectList>\r
+         </urn1:AdhocQueryResponse>\r
+         <urn:assertion>\r
+            <!--Optional:-->\r
+            <urn4:address>\r
+               <urn4:addressType>\r
+                  <urn4:code>?</urn4:code>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystem>?</urn4:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystemName>?</urn4:codeSystemName>\r
+                  <urn4:codeSystemVersion>?</urn4:codeSystemVersion>\r
+                  <urn4:displayName>?</urn4:displayName>\r
+                  <urn4:originalText>?</urn4:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:translation/>\r
+               </urn4:addressType>\r
+               <urn4:city>?</urn4:city>\r
+               <urn4:country>?</urn4:country>\r
+               <urn4:state>?</urn4:state>\r
+               <urn4:streetAddress>?</urn4:streetAddress>\r
+               <urn4:zipCode>?</urn4:zipCode>\r
+            </urn4:address>\r
+            <!--Optional:-->\r
+            <urn4:dateOfBirth>?</urn4:dateOfBirth>\r
+            <!--Optional:-->\r
+            <urn4:explanationNonClaimantSignature>?</urn4:explanationNonClaimantSignature>\r
+            <!--Optional:-->\r
+            <urn4:haveSecondWitnessSignature>?</urn4:haveSecondWitnessSignature>\r
+            <!--Optional:-->\r
+            <urn4:haveSignature>?</urn4:haveSignature>\r
+            <!--Optional:-->\r
+            <urn4:haveWitnessSignature>?</urn4:haveWitnessSignature>\r
+            <urn4:homeCommunity>\r
+               <!--Optional:-->\r
+               <urn4:description>?</urn4:description>\r
+               <urn4:homeCommunityId>?</urn4:homeCommunityId>\r
+               <!--Optional:-->\r
+               <urn4:name>?</urn4:name>\r
+            </urn4:homeCommunity>\r
+            <!--Optional:-->\r
+            <urn4:nationalProviderId>?</urn4:nationalProviderId>\r
+            <!--Optional:-->\r
+            <urn4:personName>\r
+               <urn4:familyName>?</urn4:familyName>\r
+               <urn4:givenName>?</urn4:givenName>\r
+               <urn4:nameType>\r
+                  <urn4:code>?</urn4:code>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystem>?</urn4:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystemName>?</urn4:codeSystemName>\r
+                  <urn4:codeSystemVersion>?</urn4:codeSystemVersion>\r
+                  <urn4:displayName>?</urn4:displayName>\r
+                  <urn4:originalText>?</urn4:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:translation/>\r
+               </urn4:nameType>\r
+               <urn4:secondNameOrInitials>?</urn4:secondNameOrInitials>\r
+               <urn4:fullName>?</urn4:fullName>\r
+               <urn4:prefix>?</urn4:prefix>\r
+               <urn4:suffix>?</urn4:suffix>\r
+            </urn4:personName>\r
+            <!--Optional:-->\r
+            <urn4:phoneNumber>\r
+               <urn4:areaCode>?</urn4:areaCode>\r
+               <urn4:countryCode>?</urn4:countryCode>\r
+               <urn4:extension>?</urn4:extension>\r
+               <urn4:localNumber>?</urn4:localNumber>\r
+               <urn4:phoneNumberType>\r
+                  <urn4:code>?</urn4:code>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystem>?</urn4:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystemName>?</urn4:codeSystemName>\r
+                  <urn4:codeSystemVersion>?</urn4:codeSystemVersion>\r
+                  <urn4:displayName>?</urn4:displayName>\r
+                  <urn4:originalText>?</urn4:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:translation/>\r
+               </urn4:phoneNumberType>\r
+            </urn4:phoneNumber>\r
+            <!--Optional:-->\r
+            <urn4:secondWitnessAddress>\r
+               <urn4:addressType>\r
+                  <urn4:code>?</urn4:code>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystem>?</urn4:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystemName>?</urn4:codeSystemName>\r
+                  <urn4:codeSystemVersion>?</urn4:codeSystemVersion>\r
+                  <urn4:displayName>?</urn4:displayName>\r
+                  <urn4:originalText>?</urn4:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:translation/>\r
+               </urn4:addressType>\r
+               <urn4:city>?</urn4:city>\r
+               <urn4:country>?</urn4:country>\r
+               <urn4:state>?</urn4:state>\r
+               <urn4:streetAddress>?</urn4:streetAddress>\r
+               <urn4:zipCode>?</urn4:zipCode>\r
+            </urn4:secondWitnessAddress>\r
+            <!--Optional:-->\r
+            <urn4:secondWitnessName>\r
+               <urn4:familyName>?</urn4:familyName>\r
+               <urn4:givenName>?</urn4:givenName>\r
+               <urn4:nameType>\r
+                  <urn4:code>?</urn4:code>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystem>?</urn4:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystemName>?</urn4:codeSystemName>\r
+                  <urn4:codeSystemVersion>?</urn4:codeSystemVersion>\r
+                  <urn4:displayName>?</urn4:displayName>\r
+                  <urn4:originalText>?</urn4:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:translation/>\r
+               </urn4:nameType>\r
+               <urn4:secondNameOrInitials>?</urn4:secondNameOrInitials>\r
+               <urn4:fullName>?</urn4:fullName>\r
+               <urn4:prefix>?</urn4:prefix>\r
+               <urn4:suffix>?</urn4:suffix>\r
+            </urn4:secondWitnessName>\r
+            <!--Optional:-->\r
+            <urn4:secondWitnessPhone>\r
+               <urn4:areaCode>?</urn4:areaCode>\r
+               <urn4:countryCode>?</urn4:countryCode>\r
+               <urn4:extension>?</urn4:extension>\r
+               <urn4:localNumber>?</urn4:localNumber>\r
+               <urn4:phoneNumberType>\r
+                  <urn4:code>?</urn4:code>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystem>?</urn4:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystemName>?</urn4:codeSystemName>\r
+                  <urn4:codeSystemVersion>?</urn4:codeSystemVersion>\r
+                  <urn4:displayName>?</urn4:displayName>\r
+                  <urn4:originalText>?</urn4:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:translation/>\r
+               </urn4:phoneNumberType>\r
+            </urn4:secondWitnessPhone>\r
+            <!--Optional:-->\r
+            <urn4:SSN>?</urn4:SSN>\r
+            <!--Zero or more repetitions:-->\r
+            <urn4:uniquePatientId>?</urn4:uniquePatientId>\r
+            <!--Optional:-->\r
+            <urn4:witnessAddress>\r
+               <urn4:addressType>\r
+                  <urn4:code>?</urn4:code>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystem>?</urn4:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystemName>?</urn4:codeSystemName>\r
+                  <urn4:codeSystemVersion>?</urn4:codeSystemVersion>\r
+                  <urn4:displayName>?</urn4:displayName>\r
+                  <urn4:originalText>?</urn4:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:translation/>\r
+               </urn4:addressType>\r
+               <urn4:city>?</urn4:city>\r
+               <urn4:country>?</urn4:country>\r
+               <urn4:state>?</urn4:state>\r
+               <urn4:streetAddress>?</urn4:streetAddress>\r
+               <urn4:zipCode>?</urn4:zipCode>\r
+            </urn4:witnessAddress>\r
+            <!--Optional:-->\r
+            <urn4:witnessName>\r
+               <urn4:familyName>?</urn4:familyName>\r
+               <urn4:givenName>?</urn4:givenName>\r
+               <urn4:nameType>\r
+                  <urn4:code>?</urn4:code>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystem>?</urn4:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystemName>?</urn4:codeSystemName>\r
+                  <urn4:codeSystemVersion>?</urn4:codeSystemVersion>\r
+                  <urn4:displayName>?</urn4:displayName>\r
+                  <urn4:originalText>?</urn4:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:translation/>\r
+               </urn4:nameType>\r
+               <urn4:secondNameOrInitials>?</urn4:secondNameOrInitials>\r
+               <urn4:fullName>?</urn4:fullName>\r
+               <urn4:prefix>?</urn4:prefix>\r
+               <urn4:suffix>?</urn4:suffix>\r
+            </urn4:witnessName>\r
+            <!--Optional:-->\r
+            <urn4:witnessPhone>\r
+               <urn4:areaCode>?</urn4:areaCode>\r
+               <urn4:countryCode>?</urn4:countryCode>\r
+               <urn4:extension>?</urn4:extension>\r
+               <urn4:localNumber>?</urn4:localNumber>\r
+               <urn4:phoneNumberType>\r
+                  <urn4:code>?</urn4:code>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystem>?</urn4:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystemName>?</urn4:codeSystemName>\r
+                  <urn4:codeSystemVersion>?</urn4:codeSystemVersion>\r
+                  <urn4:displayName>?</urn4:displayName>\r
+                  <urn4:originalText>?</urn4:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:translation/>\r
+               </urn4:phoneNumberType>\r
+            </urn4:witnessPhone>\r
+            <urn4:userInfo>\r
+               <urn4:personName>\r
+                  <urn4:familyName>?</urn4:familyName>\r
+                  <urn4:givenName>?</urn4:givenName>\r
+                  <urn4:nameType>\r
+                     <urn4:code>?</urn4:code>\r
+                     <!--Optional:-->\r
+                     <urn4:codeSystem>?</urn4:codeSystem>\r
+                     <!--Optional:-->\r
+                     <urn4:codeSystemName>?</urn4:codeSystemName>\r
+                     <urn4:codeSystemVersion>?</urn4:codeSystemVersion>\r
+                     <urn4:displayName>?</urn4:displayName>\r
+                     <urn4:originalText>?</urn4:originalText>\r
+                     <!--Zero or more repetitions:-->\r
+                     <urn4:translation/>\r
+                  </urn4:nameType>\r
+                  <urn4:secondNameOrInitials>?</urn4:secondNameOrInitials>\r
+                  <urn4:fullName>?</urn4:fullName>\r
+                  <urn4:prefix>?</urn4:prefix>\r
+                  <urn4:suffix>?</urn4:suffix>\r
+               </urn4:personName>\r
+               <urn4:userName>?</urn4:userName>\r
+               <urn4:org>\r
+                  <!--Optional:-->\r
+                  <urn4:description>?</urn4:description>\r
+                  <urn4:homeCommunityId>?</urn4:homeCommunityId>\r
+                  <!--Optional:-->\r
+                  <urn4:name>?</urn4:name>\r
+               </urn4:org>\r
+               <urn4:roleCoded>\r
+                  <urn4:code>?</urn4:code>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystem>?</urn4:codeSystem>\r
+                  <!--Optional:-->\r
+                  <urn4:codeSystemName>?</urn4:codeSystemName>\r
+                  <urn4:codeSystemVersion>?</urn4:codeSystemVersion>\r
+                  <urn4:displayName>?</urn4:displayName>\r
+                  <urn4:originalText>?</urn4:originalText>\r
+                  <!--Zero or more repetitions:-->\r
+                  <urn4:translation/>\r
+               </urn4:roleCoded>\r
+            </urn4:userInfo>\r
+            <urn4:authorized>?</urn4:authorized>\r
+            <urn4:purposeOfDisclosureCoded>\r
+               <urn4:code>?</urn4:code>\r
+               <!--Optional:-->\r
+               <urn4:codeSystem>?</urn4:codeSystem>\r
+               <!--Optional:-->\r
+               <urn4:codeSystemName>?</urn4:codeSystemName>\r
+               <urn4:codeSystemVersion>?</urn4:codeSystemVersion>\r
+               <urn4:displayName>?</urn4:displayName>\r
+               <urn4:originalText>?</urn4:originalText>\r
+               <!--Zero or more repetitions:-->\r
+               <urn4:translation/>\r
+            </urn4:purposeOfDisclosureCoded>\r
+            <!--Optional:-->\r
+            <urn4:acpAttribute>?</urn4:acpAttribute>\r
+            <!--Optional:-->\r
+            <urn4:instanceAcpAttribute>?</urn4:instanceAcpAttribute>\r
+            <!--Optional:-->\r
+            <urn4:samlConditions>\r
+               <urn4:notBefore>?</urn4:notBefore>\r
+               <urn4:notOnOrAfter>?</urn4:notOnOrAfter>\r
+            </urn4:samlConditions>\r
+            <!--Optional:-->\r
+            <urn4:samlAuthnStatement>\r
+               <urn4:authInstant>?</urn4:authInstant>\r
+               <!--Optional:-->\r
+               <urn4:sessionIndex>?</urn4:sessionIndex>\r
+               <urn4:authContextClassRef>?</urn4:authContextClassRef>\r
+               <!--Optional:-->\r
+               <urn4:subjectLocalityAddress>?</urn4:subjectLocalityAddress>\r
+               <!--Optional:-->\r
+               <urn4:subjectLocalityDNSName>?</urn4:subjectLocalityDNSName>\r
+            </urn4:samlAuthnStatement>\r
+            <!--Optional:-->\r
+            <urn4:samlAuthzDecisionStatement>\r
+               <!--Optional:-->\r
+               <urn4:decision>?</urn4:decision>\r
+               <!--Optional:-->\r
+               <urn4:resource>?</urn4:resource>\r
+               <!--Optional:-->\r
+               <urn4:action>?</urn4:action>\r
+               <!--Optional:-->\r
+               <urn4:evidence>\r
+                  <!--Optional:-->\r
+                  <urn4:assertion>\r
+                     <!--Optional:-->\r
+                     <urn4:id>?</urn4:id>\r
+                     <!--Optional:-->\r
+                     <urn4:issueInstant>?</urn4:issueInstant>\r
+                     <!--Optional:-->\r
+                     <urn4:version>?</urn4:version>\r
+                     <!--Optional:-->\r
+                     <urn4:issuer>?</urn4:issuer>\r
+                     <!--Optional:-->\r
+                     <urn4:issuerFormat>?</urn4:issuerFormat>\r
+                     <!--Optional:-->\r
+                     <urn4:subject>?</urn4:subject>\r
+                     <!--Optional:-->\r
+                     <urn4:conditions>\r
+                        <!--Optional:-->\r
+                        <urn4:notBefore>?</urn4:notBefore>\r
+                        <!--Optional:-->\r
+                        <urn4:notOnOrAfter>?</urn4:notOnOrAfter>\r
+                     </urn4:conditions>\r
+                     <!--Zero or more repetitions:-->\r
+                     <urn4:accessConsentPolicy>?</urn4:accessConsentPolicy>\r
+                     <!--Zero or more repetitions:-->\r
+                     <urn4:instanceAccessConsentPolicy>?</urn4:instanceAccessConsentPolicy>\r
+                  </urn4:assertion>\r
+               </urn4:evidence>\r
+            </urn4:samlAuthzDecisionStatement>\r
+            <!--Optional:-->\r
+            <urn4:samlSignature>\r
+               <!--Optional:-->\r
+               <urn4:keyInfo>\r
+                  <!--Optional:-->\r
+                  <urn4:rsaKeyValueModulus>cid:508121419485</urn4:rsaKeyValueModulus>\r
+                  <!--Optional:-->\r
+                  <urn4:rsaKeyValueExponent>cid:1311968438678</urn4:rsaKeyValueExponent>\r
+               </urn4:keyInfo>\r
+               <!--Optional:-->\r
+               <urn4:signatureValue>cid:798312208736</urn4:signatureValue>\r
+            </urn4:samlSignature>\r
+            <!--Optional:-->\r
+            <urn4:samlIssuer>\r
+               <!--Optional:-->\r
+               <urn4:issuer>?</urn4:issuer>\r
+               <!--Optional:-->\r
+               <urn4:issuerFormat>?</urn4:issuerFormat>\r
+            </urn4:samlIssuer>\r
+            <!--Zero or more repetitions:-->\r
+            <urn4:samlSubjectConfirmations>\r
+               <urn4:method>?</urn4:method>\r
+               <!--Optional:-->\r
+               <urn4:subjectCondition>\r
+                  <urn4:notBefore>?</urn4:notBefore>\r
+                  <urn4:notOnOrAfter>?</urn4:notOnOrAfter>\r
+               </urn4:subjectCondition>\r
+               <!--Optional:-->\r
+               <urn4:recipient>?</urn4:recipient>\r
+               <!--Optional:-->\r
+               <urn4:inResponseTo>?</urn4:inResponseTo>\r
+               <!--Optional:-->\r
+               <urn4:address>?</urn4:address>\r
+            </urn4:samlSubjectConfirmations>\r
+            <!--Optional:-->\r
+            <urn4:messageId>?</urn4:messageId>\r
+            <!--Zero or more repetitions:-->\r
+            <urn4:relatesToList>?</urn4:relatesToList>\r
+            <!--Optional:-->\r
+            <urn4:implementsSpecVersion>?</urn4:implementsSpecVersion>\r
+            <!--Optional:-->\r
+            <urn4:transactionTimeout>-1</urn4:transactionTimeout>\r
+            <!--Optional:-->\r
+            <urn4:keepAlive>?</urn4:keepAlive>\r
+            <!--Zero or more repetitions:-->\r
+            <urn4:CONNECTCustomHttpHeaders>\r
+               <urn4:headerName>?</urn4:headerName>\r
+               <urn4:headerValue>?</urn4:headerValue>\r
+            </urn4:CONNECTCustomHttpHeaders>\r
+            <!--Optional:-->\r
+            <urn4:signatureAlgorithm>?</urn4:signatureAlgorithm>\r
+            <!--Optional:-->\r
+            <urn4:digestAlgorithm>?</urn4:digestAlgorithm>\r
+            <!--Optional:-->\r
+            <urn4:deferredResponseEndpoint>?</urn4:deferredResponseEndpoint>\r
+         </urn:assertion>\r
+         <!--Optional:-->\r
+         <urn:NhinTargetCommunities>\r
+            <!--1 or more repetitions:-->\r
+            <urn4:nhinTargetCommunity>\r
+               <urn4:homeCommunity>\r
+                  <!--Optional:-->\r
+                  <urn4:description>?</urn4:description>\r
+                  <urn4:homeCommunityId>?</urn4:homeCommunityId>\r
+                  <!--Optional:-->\r
+                  <urn4:name>?</urn4:name>\r
+               </urn4:homeCommunity>\r
+               <!--Optional:-->\r
+               <urn4:list>?</urn4:list>\r
+               <!--Optional:-->\r
+               <urn4:region>?</urn4:region>\r
+            </urn4:nhinTargetCommunity>\r
+            <!--Optional:-->\r
+            <urn4:useSpecVersion>?</urn4:useSpecVersion>\r
+            <!--Optional:-->\r
+            <urn4:exchangeName>?</urn4:exchangeName>\r
+         </urn:NhinTargetCommunities>\r
+      </urn:RespondingGateway_CrossGatewayQueryResponse>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:dq:entitydeferredresponse:RespondingGateway_CrossGatewayQueryDeferredEntity"/></con:call></con:operation></con:interface><con:testSuite name="g1" id="7613ded3-2501-40f5-98f6-6da03aac789f">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="7e685188-254a-4e21-9f18-98674d0f4a82">
@@ -7161,7 +7588,7 @@ if (propertiesFile.exists()) {
               </con:configuration>
             </con:assertion>
             <con:credentials>
-              <con:authType>Global HTTP Settings</con:authType>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
             </con:credentials>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -9203,7 +9630,914 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
         </con:property>
       </con:properties>
     </con:testCase>
-    <con:properties>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DDQ Result Request" searchProperties="true" id="e2056df8-1549-480f-b6d0-4bfbc1b9c05a">
+      <con:description>Document Query Deferred Result Request</con:description><con:settings/>
+      <con:testStep type="groovy" name="Clear Audit Logs" id="a7ebdf40-b0db-45ac-b994-ffc8c4a43e25">
+        <con:settings/>
+        <con:config><script>log.info("clear-audit-logs")
+context.withSql(context.findProperty('AuditRepoDB')) { sql -> 
+	sql.execute('delete from ' + context.findProperty('AuditRepoTable'))
+	sql.execute('alter table ' + context.findProperty('AuditRepoTable') + ' AUTO_INCREMENT=1')
+}</script></con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Clear and add DeferredXCAResponseTable" id="b11b3f32-d20f-4c49-900c-0664df49b10d"><con:settings/><con:config><script>context.withSql(context.findProperty('DocRepositoryDB')) { sql -> 
+	def table = context.findProperty('DeferredXCAResponseTable')
+	def adHocQueryRequestId = context.findProperty( "AdHocQueryRequestId" )
+	def deferredResponseEndpoint = context.findProperty("DeferredResponseEndpoint")
+
+	sql.execute('delete from ' + table)
+
+	def insertSql = "insert into " + table + " (AdHocQueryRequestId, DeferredResponseEndpoint) values (?, ?)"
+	sql.executeUpdate(insertSql, [adHocQueryRequestId, deferredResponseEndpoint])
+}</script></con:config></con:testStep>
+      
+      
+      <con:testStep type="delay" name="Wait to Clear Audit logs" id="507e5670-5b60-4087-9dd2-65a17337bcf4">
+        <con:settings/>
+        <con:config>
+          <delay>3000</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Document Query Deferred Results Request" type="request" id="09970714-0719-4469-beab-ffa5ed8d5d55">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityDocQueryDeferredResultBindingSoap</con:interface>
+          <con:operation>RespondingGateway_CrossGatewayQueryDeferredEntity</con:operation>
+          <con:request name="Document Query Deferred Results Request" id="b27cc914-3135-4535-965f-6ddaf098c21a">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#TestSuite#Endpoint-DDQReqResults}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+	<soap:Header/>
+	<soap:Body>
+		<urn:RespondingGateway_CrossGatewayQueryResponse>
+			<urn1:AdhocQueryResponse status="?" requestId="urn:uuid:48463b77-6c7f-4203-bc07-abcbba578a8c">
+				<urn2:RegistryObjectList>
+					<urn2:ExtrinsicObject home="urn:oid:1.1" id="urn:uuid:5526dafd-9ed5-4da8-bc2e-8772d6f0f8e2" isOpaque="false" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1" status="Active">
+						<urn2:Slot name="creationTime">
+							<urn2:ValueList>
+								<urn2:Value>20080627174924</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="hash">
+							<urn2:ValueList>
+								<urn2:Value>ac0eec55d17eaa9c24054f8a7ecc5d3caa45d9f0</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="urn:recipient:intendedRecipient">
+							<urn2:ValueList>
+								<urn2:Value>Scott Borst</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="languageCode">
+							<urn2:ValueList>
+								<urn2:Value>en-US</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="legalAuthenticator">
+							<urn2:ValueList>
+								<urn2:Value>legal</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="serviceStartTime">
+							<urn2:ValueList>
+								<urn2:Value>20070911040000</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="serviceStopTime">
+							<urn2:ValueList>
+								<urn2:Value>20080627040000</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="size">
+							<urn2:ValueList>
+								<urn2:Value>26934</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="sourcePatientId">
+							<urn2:ValueList>
+								<urn2:Value>D123402^^^&amp;1.1&amp;ISO</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="sourcePatientInfo">
+							<urn2:ValueList>
+								<urn2:Value>PID-3|pid1^^^domain</urn2:Value>
+								<urn2:Value>PID-5|Schnur^Anna^^^</urn2:Value>
+								<urn2:Value>PID-7|19560813</urn2:Value>
+								<urn2:Value>PID-8|F</urn2:Value>
+								<urn2:Value>PID-11|312 HILL ROAD^^HILLSBORO^MO^37660^US</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="URI">
+							<urn2:ValueList>
+								<urn2:Value>1.123402.11111</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="repositoryUniqueId">
+							<urn2:ValueList>
+								<urn2:Value>1</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Name>
+							<urn2:LocalizedString value="Schnur CONNECT TESTGATEWAY Document 1"/>
+						</urn2:Name>
+						<urn2:Description>
+							<urn2:LocalizedString value="Document 1 Schnur CONNECT TESTGATEWAY comments"/>
+						</urn2:Description>
+						<urn2:Classification classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" classifiedObject="urn:uuid:5526dafd-9ed5-4da8-bc2e-8772d6f0f8e2" id="urn:uuid:6e9f10bc-7b28-4418-adb9-47eba8368cfa" nodeRepresentation="">
+							<urn2:Slot name="authorPerson">
+								<urn2:ValueList>
+									<urn2:Value>Axolotl Elysium</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Slot name="authorInstitution">
+								<urn2:ValueList>
+									<urn2:Value>Test Two Workgroup</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Slot name="authorRole">
+								<urn2:ValueList>
+									<urn2:Value>Primary Care Provider</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Slot name="authorSpecialty">
+								<urn2:ValueList>
+									<urn2:Value>General</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+						</urn2:Classification>
+						<urn2:Classification classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" classifiedObject="urn:uuid:5526dafd-9ed5-4da8-bc2e-8772d6f0f8e2" id="urn:uuid:db512054-02bf-4cf1-a93f-fea41cae7306" nodeRepresentation="34133-9">
+							<urn2:Slot name="codingScheme">
+								<urn2:ValueList>
+									<urn2:Value>2.16.840.1.113883.6.1</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Name>
+								<urn2:LocalizedString value="Summarization of Episode Note"/>
+							</urn2:Name>
+						</urn2:Classification>
+						<urn2:Classification classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" classifiedObject="urn:uuid:5526dafd-9ed5-4da8-bc2e-8772d6f0f8e2" id="urn:uuid:782105e7-1009-410d-96f5-947100f2a892" nodeRepresentation="Confidential">
+							<urn2:Slot name="codingScheme">
+								<urn2:ValueList>
+									<urn2:Value>Confidential</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Name>
+								<urn2:LocalizedString value="Confidential"/>
+							</urn2:Name>
+						</urn2:Classification>
+						<urn2:Classification classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" classifiedObject="urn:uuid:5526dafd-9ed5-4da8-bc2e-8772d6f0f8e2" id="urn:uuid:4cb843df-62e8-40d8-9d34-5962e4341694" nodeRepresentation="CDAR2/IHE 1.0">
+							<urn2:Slot name="codingScheme">
+								<urn2:ValueList>
+									<urn2:Value>formatCodeScheme_value</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Name>
+								<urn2:LocalizedString value="formatCodeDisplayName_value"/>
+							</urn2:Name>
+						</urn2:Classification>
+						<urn2:Classification classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" classifiedObject="urn:uuid:5526dafd-9ed5-4da8-bc2e-8772d6f0f8e2" id="urn:uuid:21483517-b682-41f7-aacd-88c417ce414b" nodeRepresentation="UTF-8">
+							<urn2:Slot name="codingScheme">
+								<urn2:ValueList>
+									<urn2:Value>UTF-8</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Name>
+								<urn2:LocalizedString value="UTF-8"/>
+							</urn2:Name>
+						</urn2:Classification>
+						<urn2:Classification classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" classifiedObject="urn:uuid:5526dafd-9ed5-4da8-bc2e-8772d6f0f8e2" id="urn:uuid:bb096f4e-fda4-4ec2-b9df-604e0aaa06ab" nodeRepresentation="test">
+							<urn2:Slot name="codingScheme">
+								<urn2:ValueList>
+									<urn2:Value>test</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Name>
+								<urn2:LocalizedString value="test"/>
+							</urn2:Name>
+						</urn2:Classification>
+						<urn2:Classification classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" classifiedObject="urn:uuid:5526dafd-9ed5-4da8-bc2e-8772d6f0f8e2" id="urn:uuid:8584f81a-bfeb-4f4f-b504-8b95c4c18da8" nodeRepresentation="test">
+							<urn2:Slot name="codingScheme">
+								<urn2:ValueList>
+									<urn2:Value>test</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Name>
+								<urn2:LocalizedString value="test"/>
+							</urn2:Name>
+						</urn2:Classification>
+						<urn2:ExternalIdentifier id="urn:uuid:d7f26d9b-0219-4f96-b2e3-5cebb4681443" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" registryObject="urn:uuid:5526dafd-9ed5-4da8-bc2e-8772d6f0f8e2" value="1.123401.55555">
+							<urn2:Name>
+								<urn2:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+							</urn2:Name>
+						</urn2:ExternalIdentifier>
+						<urn2:ExternalIdentifier id="urn:uuid:679a47ea-47fa-4139-9073-c413e39e8286" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" registryObject="urn:uuid:5526dafd-9ed5-4da8-bc2e-8772d6f0f8e2" value="D123401^^^&amp;2.2&amp;ISO">
+							<urn2:Name>
+								<urn2:LocalizedString value="XDSDocumentEntry.patientId"/>
+							</urn2:Name>
+						</urn2:ExternalIdentifier>
+					</urn2:ExtrinsicObject>
+					<urn2:ExtrinsicObject home="urn:oid:1.1" id="urn:uuid:1377798a-6dec-4e67-9dc4-e3423b5fe55c" isOpaque="false" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1" status="Active">
+						<urn2:Slot name="creationTime">
+							<urn2:ValueList>
+								<urn2:Value>20080627174924</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="hash">
+							<urn2:ValueList>
+								<urn2:Value>ac0eec55d17eaa9c24054f8a7ecc5d3caa45d9f0</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="urn:recipient:intendedRecipient">
+							<urn2:ValueList>
+								<urn2:Value>Scott Borst</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="languageCode">
+							<urn2:ValueList>
+								<urn2:Value>en-US</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="legalAuthenticator">
+							<urn2:ValueList>
+								<urn2:Value>legal</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="serviceStartTime">
+							<urn2:ValueList>
+								<urn2:Value>20070911040000</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="serviceStopTime">
+							<urn2:ValueList>
+								<urn2:Value>20080627040000</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="size">
+							<urn2:ValueList>
+								<urn2:Value>26934</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="sourcePatientId">
+							<urn2:ValueList>
+								<urn2:Value>D123402^^^&amp;1.1&amp;ISO</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="sourcePatientInfo">
+							<urn2:ValueList>
+								<urn2:Value>PID-3|pid1^^^domain</urn2:Value>
+								<urn2:Value>PID-5|Schnur^Anna^^^</urn2:Value>
+								<urn2:Value>PID-7|19560813</urn2:Value>
+								<urn2:Value>PID-8|F</urn2:Value>
+								<urn2:Value>PID-11|312 HILL ROAD^^HILLSBORO^MO^37660^US</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="URI">
+							<urn2:ValueList>
+								<urn2:Value>1.123402.11111</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Slot name="repositoryUniqueId">
+							<urn2:ValueList>
+								<urn2:Value>1</urn2:Value>
+							</urn2:ValueList>
+						</urn2:Slot>
+						<urn2:Name>
+							<urn2:LocalizedString value="Schnur CONNECT TESTGATEWAY Document 1"/>
+						</urn2:Name>
+						<urn2:Description>
+							<urn2:LocalizedString value="Document 1 Schnur CONNECT TESTGATEWAY comments"/>
+						</urn2:Description>
+						<urn2:Classification classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" classifiedObject="urn:uuid:1377798a-6dec-4e67-9dc4-e3423b5fe55c" id="urn:uuid:fb8df9f2-6481-4153-9d73-87ca66c8a452" nodeRepresentation="">
+							<urn2:Slot name="authorPerson">
+								<urn2:ValueList>
+									<urn2:Value>Axolotl Elysium</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Slot name="authorInstitution">
+								<urn2:ValueList>
+									<urn2:Value>Test Two Workgroup</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Slot name="authorRole">
+								<urn2:ValueList>
+									<urn2:Value>Primary Care Provider</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Slot name="authorSpecialty">
+								<urn2:ValueList>
+									<urn2:Value>General</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+						</urn2:Classification>
+						<urn2:Classification classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" classifiedObject="urn:uuid:1377798a-6dec-4e67-9dc4-e3423b5fe55c" id="urn:uuid:f8f471a6-c888-494d-a1b6-1369afb8fb33" nodeRepresentation="34133-9">
+							<urn2:Slot name="codingScheme">
+								<urn2:ValueList>
+									<urn2:Value>2.16.840.1.113883.6.1</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Name>
+								<urn2:LocalizedString value="Summarization of Episode Note"/>
+							</urn2:Name>
+						</urn2:Classification>
+						<urn2:Classification classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" classifiedObject="urn:uuid:1377798a-6dec-4e67-9dc4-e3423b5fe55c" id="urn:uuid:fe1fbfd4-3385-4c83-a303-a9b7cb8de8c6" nodeRepresentation="Confidential">
+							<urn2:Slot name="codingScheme">
+								<urn2:ValueList>
+									<urn2:Value>Confidential</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Name>
+								<urn2:LocalizedString value="Confidential"/>
+							</urn2:Name>
+						</urn2:Classification>
+						<urn2:Classification classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" classifiedObject="urn:uuid:1377798a-6dec-4e67-9dc4-e3423b5fe55c" id="urn:uuid:2b565f62-f40d-4e4d-af73-beb1a772e5b1" nodeRepresentation="CDAR2/IHE 1.0">
+							<urn2:Slot name="codingScheme">
+								<urn2:ValueList>
+									<urn2:Value>formatCodeScheme_value</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Name>
+								<urn2:LocalizedString value="formatCodeDisplayName_value"/>
+							</urn2:Name>
+						</urn2:Classification>
+						<urn2:Classification classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" classifiedObject="urn:uuid:1377798a-6dec-4e67-9dc4-e3423b5fe55c" id="urn:uuid:6cc0547e-39c0-4fda-9b69-b3496440bc32" nodeRepresentation="UTF-8">
+							<urn2:Slot name="codingScheme">
+								<urn2:ValueList>
+									<urn2:Value>UTF-8</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Name>
+								<urn2:LocalizedString value="UTF-8"/>
+							</urn2:Name>
+						</urn2:Classification>
+						<urn2:Classification classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" classifiedObject="urn:uuid:1377798a-6dec-4e67-9dc4-e3423b5fe55c" id="urn:uuid:09633b2e-7930-4e3d-a3b7-caf4947f58e6" nodeRepresentation="test">
+							<urn2:Slot name="codingScheme">
+								<urn2:ValueList>
+									<urn2:Value>test</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Name>
+								<urn2:LocalizedString value="test"/>
+							</urn2:Name>
+						</urn2:Classification>
+						<urn2:Classification classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" classifiedObject="urn:uuid:1377798a-6dec-4e67-9dc4-e3423b5fe55c" id="urn:uuid:9fd9995d-ccfc-41da-8049-8ec6d4e6f0b5" nodeRepresentation="test">
+							<urn2:Slot name="codingScheme">
+								<urn2:ValueList>
+									<urn2:Value>test</urn2:Value>
+								</urn2:ValueList>
+							</urn2:Slot>
+							<urn2:Name>
+								<urn2:LocalizedString value="test"/>
+							</urn2:Name>
+						</urn2:Classification>
+						<urn2:ExternalIdentifier id="urn:uuid:b5a70638-2e5b-45e2-9491-3f45c0874ed2" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" registryObject="urn:uuid:1377798a-6dec-4e67-9dc4-e3423b5fe55c" value="1.123401.66666">
+							<urn2:Name>
+								<urn2:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+							</urn2:Name>
+						</urn2:ExternalIdentifier>
+						<urn2:ExternalIdentifier id="urn:uuid:8cb5c29e-aa4c-42cc-a06b-53584e418eb3" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" registryObject="urn:uuid:1377798a-6dec-4e67-9dc4-e3423b5fe55c" value="D123401^^^&amp;2.2&amp;ISO">
+							<urn2:Name>
+								<urn2:LocalizedString value="XDSDocumentEntry.patientId"/>
+							</urn2:Name>
+						</urn2:ExternalIdentifier>
+					</urn2:ExtrinsicObject>
+				</urn2:RegistryObjectList>
+			</urn1:AdhocQueryResponse>
+			<urn:assertion>
+				<urn3:messageId>${#Project#MessageID}</urn3:messageId>
+				<urn3:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+					<urn3:description>${#Project#LocalHCDescription}</urn3:description>
+					<urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
+					<urn3:name>${#Project#LocalHCDescription}</urn3:name>
+				</urn3:homeCommunity>
+				<urn3:userInfo xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+					<urn3:personName>
+						<urn3:familyName>Skagerberg</urn3:familyName>
+						<urn3:givenName>Karl</urn3:givenName>
+						<urn3:nameType>
+							<urn3:code>nameCode</urn3:code>
+							<urn3:codeSystem>nameCodeSyst</urn3:codeSystem>
+							<urn3:codeSystemName>nameCodeSystName</urn3:codeSystemName>
+							<urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+							<urn3:displayName>nameCode</urn3:displayName>
+							<urn3:originalText>nameCode</urn3:originalText>
+						</urn3:nameType>
+						<urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
+						<urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
+					</urn3:personName>
+					<urn3:userName>UID=kskagerberg</urn3:userName>
+					<urn3:org>
+						<urn3:description>${#Project#LocalHCDescription}</urn3:description>
+						<urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
+						<urn3:name>${#Project#LocalHCDescription}</urn3:name>
+					</urn3:org>
+					<urn3:roleCoded>
+						<urn3:code>307969004</urn3:code>
+						<urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+						<urn3:displayName>Public Health</urn3:displayName>
+						<urn3:originalText>Public Health</urn3:originalText>
+					</urn3:roleCoded>
+				</urn3:userInfo>
+				<urn3:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn3:authorized>
+				<urn3:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+					<urn3:code>PUBLICHEALTH</urn3:code>
+					<urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+					<urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
+					<urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
+				</urn3:purposeOfDisclosureCoded>
+				<urn3:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+					<urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
+					<urn3:sessionIndex>987</urn3:sessionIndex>
+					<urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
+					<urn3:subjectLocalityAddress>1.1.1.1</urn3:subjectLocalityAddress>
+					<urn3:subjectLocalityDNSName>connectopensource.org</urn3:subjectLocalityDNSName>
+				</urn3:samlAuthnStatement>
+				<urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+					<urn3:decision>Permit</urn3:decision>
+					<urn3:resource>https://1.1.1.1:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+					<urn3:action>TestSaml</urn3:action>
+					<urn3:evidence>
+						<urn3:assertion>
+							<urn3:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn3:id>
+							<urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
+							<urn3:version>2.0</urn3:version>
+							<urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
+							<urn3:issuer>CN=SAML User,OU=connect,O=FHA,L=Melbourne,ST=FL,C=US</urn3:issuer>
+							<urn3:conditions>
+								<urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
+								<urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
+							</urn3:conditions>
+							<urn3:accessConsentPolicy>urn:oid:1.2.3.4</urn3:accessConsentPolicy>
+							<urn3:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn3:instanceAccessConsentPolicy>
+						</urn3:assertion>
+					</urn3:evidence>
+				</urn3:samlAuthzDecisionStatement>
+			</urn:assertion>
+			<urn:NhinTargetCommunities>
+				<urn3:nhinTargetCommunity>
+					<urn3:homeCommunity>
+						<urn3:description>${#Project#RemoteHCDescription}</urn3:description>
+						<urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
+						<urn3:name>${#Project#RemoteHCDescription}</urn3:name>
+					</urn3:homeCommunity>
+				</urn3:nhinTargetCommunity>
+			</urn:NhinTargetCommunities>
+		</urn:RespondingGateway_CrossGatewayQueryResponse>
+	</soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response" id="6fbcad09-48ed-49ce-bd84-d71b1ccd924e"/>
+            <con:assertion type="Schema Compliance" id="693a20b9-1f4b-48b1-9a02-3e613f90aade">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion" id="100346c9-e0be-466a-9bd6-37fb9b81e49d"/>
+            <con:assertion name="DocID Match" type="GroovyScriptAssertion" id="0a54b025-bdd7-4d1c-9985-f072cc0bc343" disabled="true">
+              <con:configuration>
+                <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				def holder = groovyUtils.getXmlHolder( messageExchange.responseContent );
+				holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
+				holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
+
+				def documentID = context.findProperty('DQDocID')
+				def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
+				assert (documentID == msgDocID)</scriptText>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="delay" name="Wait for Audit table to populate" id="85a300b1-5c2e-4dbb-85f9-f9fe8ba7ff11">
+        <con:settings/>
+        <con:config>
+          <delay>1500</delay>
+        </con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Verify Audit Logs" id="67aa3959-514d-4f2b-9d0f-9970f3e89923">
+        <con:settings/>
+        <con:config><script>if (  nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'docquerydeferredresultsoption', log) == "true")
+{
+context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Outbound" and remoteHcid="2.2"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable') + ' where direction="Inbound" and remoteHcid="1.1"')[0]	
+     }
+	testRunner.gotoStepByName( "VerifyMessage-NhinOutbound-InitiatingGateway(1.1)")
+}
+else if (  nhinc.FileUtils.readProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'docquerydeferredresultsoption', log) == "false")
+{
+ 	context.withSql(context.findProperty('AuditRepoDB')) {sql ->
+	assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('AuditRepoTable'))[0]
+	}
+	testRunner.gotoStepByName( "Success")
+}
+else
+{
+ 	testRunner.fail( "Incorrect AuditLogging property found for this service testcase" )
+}</script></con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-InitiatingGateway(1.1)" id="8d5ad1ed-12ed-4676-8704-112212abf239">
+        <con:settings/>
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+log.info("auditing-outbound-22")
+def sql22outbound = 'SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"'
+log.info(sql22outbound)
+def nhinAuditMessage_22_Outbound = sql.firstRow(sql22outbound)[0]
+
+def sql22userid = 'SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Outbound" and remoteHcid="2.2"'
+log.info(sql22userid)
+def userId_Outbound= sql.firstRow(sql22userid)[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_22_Outbound)
+
+assert(!userId_Outbound.isEmpty())
+
+parsedXmlMessage.EventIdentification.find{
+    assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
+    //assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+    assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
+    assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+    assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
+    assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+    assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+    assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )){
+    parsedXmlMessage.ActiveParticipant[0].each{ node ->
+            assert node.@UserID == context.findProperty( "ActiveParticipant.@UserID" )
+            if(!node.@UserName.isEmpty()){
+                assert node.@UserName == context.findProperty( "ActiveParticipant.@UserName" )
+            }
+        assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant.@UserIsRequestor" )
+         if(!node.RoleIDCode.isEmpty()){
+            assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant.RoleIDCode.@code" )
+            assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant.RoleIDCode.@codeSystemName" )
+            assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant.RoleIDCode.@displayName" )
+         }
+    }
+  }
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+    parsedXmlMessage.ActiveParticipant[1].each{ node ->
+        assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+        assert(!node.@AlternativeUserID.isEmpty())
+        assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
+        assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+        assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+        def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+        assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+        assert(!node.@NetworkAccessPointID.isEmpty())
+        def NetworkAccessPointID = node.@NetworkAccessPointID
+        if (NetworkAccessPointTypeCode == 1) {
+
+            assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+
+        } else {
+
+            def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+            def matcher = (NetworkAccessPointID =~ x)
+            assert matcher.matches()
+
+        }
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+        assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+        assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )
+     }
+}
+if (!parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[2].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+    parsedXmlMessage.ActiveParticipant[2].each{ node ->
+    log.info("ActiveParticipant_Dest_g1.@UserID" + "==" +node.@UserID)
+         assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )
+         if(!node.@UserName.isEmpty()){
+            assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+         }
+        assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+        assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+        def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+        assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+        assert(!node.@NetworkAccessPointID.isEmpty())
+        def NetworkAccessPointID = node.@NetworkAccessPointID
+        if (NetworkAccessPointTypeCode == 1) {
+
+            assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+
+        } else {
+
+            def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+            def matcher = (NetworkAccessPointID =~ x)
+            assert matcher.matches()
+
+        }
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+        assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+        assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )
+    }
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+        if(!it.@AuditEnterpriseSiteID.isEmpty()){
+            assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+        }
+        if(!it.@AuditSourceTypeCode.isEmpty()){
+            assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+        }
+        if(!it.@AuditSourceID.isEmpty()){
+            assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )
+        }
+}
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+    parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
+         assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+         assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+            assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+
+          assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+        assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+        assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+    }
+}
+if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Document.@ParticipantObjectTypeCode" )){
+    parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
+         //assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )
+         assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Document.@ParticipantObjectTypeCode" )
+         assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Document.@ParticipantObjectTypeCodeRole" )
+          assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@code" )
+        assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@codeSystemName" )
+        assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@displayName" )
+
+        byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()
+        def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))
+        assert parsedParticipantObjectQuery.AdhocQuery.Slot.ValueList.Value.text().contains(context.findProperty( "parsedParticipantObjectQuery.AdhocQuery.Slot.ValueList.Value.PatientID" ))
+
+        parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].each{
+            def decodedData1 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@value.text().decodeBase64())
+            assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
+            assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
+            def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
+            def remoteHCID = testRunner.testCase.testSuite.project.getPropertyValue("RemoteHCID")
+            def remoteHCIDWithPrefix
+            if(remoteHCID.startsWith("urn:oid:")){
+                remoteHCIDWithPrefix= remoteHCID
+            }
+            else{
+                remoteHCIDWithPrefix = "urn:oid:"+remoteHCID
+            }
+            assert decodedData2 == remoteHCIDWithPrefix
+            assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type" )
+
+        }
+    }
+  }
+}]]></script></con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="VerifyMessage-NhinOutbound-RespondingGateway(2.2)" id="75b2adae-f3cc-463e-99f8-7c00902f7917">
+        <con:settings/>
+        <con:config><script><![CDATA[context.withSql('AuditRepoDB') {sql ->
+def nhinAuditMessage_11_Outbound = sql.firstRow('SELECT CONVERT(message USING utf8) FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def userId_Inbound= sql.firstRow('SELECT userId FROM ' + context.findProperty('AuditRepoTable') + ' where eventType = "'+ context.findProperty('EventTypeDDQ') + '" and messageId= "'+context.findProperty('MessageID') + '" and direction="Inbound" and remoteHcid="1.1"')[0]
+def parsedXmlMessage = new XmlSlurper().parseText(nhinAuditMessage_11_Outbound)
+
+assert(!userId_Inbound.isEmpty())
+
+parsedXmlMessage.EventIdentification.find{
+    assert it.@EventActionCode == context.findProperty( "EventIdentification.@EventActionCode" )
+    //assert it.@EventDateTime == context.findProperty( "EventIdentification.@EventDateTime" )
+     assert it.@EventOutcomeIndicator == context.findProperty( "EventIdentification.@EventOutcomeIndicator" )
+    assert it.EventID.@code == context.findProperty( "EventIdentification.EventID.@code" )
+    assert it.EventID.@codeSystemName == context.findProperty( "EventIdentification.EventID.@codeSystemName" )
+    assert it.EventID.@displayName == context.findProperty( "EventIdentification.EventID.@displayName" )
+    assert it.EventTypeCode.@code == context.findProperty( "EventIdentification.EventTypeCode.@code" )
+    assert it.EventTypeCode.@codeSystemName == context.findProperty( "EventIdentification.EventTypeCode.@codeSystemName" )
+    assert it.EventTypeCode.@displayName == context.findProperty( "EventIdentification.EventTypeCode.@displayName" )
+}
+if (!parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[0].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )){
+    parsedXmlMessage.ActiveParticipant[0].each{ node ->
+         assert node.@UserID == context.findProperty( "ActiveParticipant_Source.@UserID" )
+        assert node.@UserName == context.findProperty( "ActiveParticipant_Source.@UserName" )
+        assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Source.@UserIsRequestor" )
+        assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+        def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+        assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+        assert(!node.@NetworkAccessPointID.isEmpty())
+        def NetworkAccessPointID = node.@NetworkAccessPointID
+        if (NetworkAccessPointTypeCode == 1) {
+
+            assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Source.@NetworkAccessPointID" )
+
+        } else {
+
+            def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+            def matcher = (NetworkAccessPointID =~ x)
+            assert matcher.matches()
+
+        }
+          assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@code" )
+        assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@codeSystemName" )
+        assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Source.RoleIDCode.@displayName" )
+    }
+}
+if (!parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName.isEmpty() && parsedXmlMessage.ActiveParticipant[1].RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )){
+    parsedXmlMessage.ActiveParticipant[1].each{ node ->
+         assert node.@UserID == context.findProperty( "ActiveParticipant_Dest_g1.@UserID" )
+         if(!node.@UserName.isEmpty()){
+            assert node.@UserName == context.findProperty( "ActiveParticipant_Dest.@UserNamee" )
+         }
+         assert(!node.@AlternativeUserID.isEmpty())
+        assert node.@UserIsRequestor == context.findProperty( "ActiveParticipant_Dest.@UserIsRequestor" )
+        assert(!node.@NetworkAccessPointTypeCode.isEmpty())
+        def NetworkAccessPointTypeCode = node.@NetworkAccessPointTypeCode
+        assert NetworkAccessPointTypeCode == 1 || NetworkAccessPointTypeCode == 2
+        assert(!node.@NetworkAccessPointID.isEmpty())
+        def NetworkAccessPointID = node.@NetworkAccessPointID
+        if (NetworkAccessPointTypeCode == 1) {
+
+            assert node.@NetworkAccessPointID == context.findProperty( "ActiveParticipant_Dest.@NetworkAccessPointID" )
+
+        } else {
+
+            def x = ~/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+            def matcher = (NetworkAccessPointID =~ x)
+            assert matcher.matches()
+
+        }
+            assert node.RoleIDCode.@code == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@code" )
+        assert node.RoleIDCode.@codeSystemName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@codeSystemName" )
+        assert node.RoleIDCode.@displayName == context.findProperty( "ActiveParticipant_Dest.RoleIDCode.@displayName" )
+    }
+}
+parsedXmlMessage.AuditSourceIdentification.find{
+        if(!it.@AuditEnterpriseSiteID.isEmpty()){
+            assert it.@AuditEnterpriseSiteID == context.findProperty( "AuditSourceIdentification.@AuditEnterpriseSiteID" )
+        }
+        if(!it.@AuditSourceTypeCode.isEmpty()){
+            log.info "inside auditsourcetype code" + it.@AuditSourceTypeCode
+            assert it.@AuditSourceTypeCode == context.findProperty( "AuditSourceIdentification.@AuditSourceTypeCode" )
+        }
+        if(!it.@AuditSourceID.isEmpty()){
+            assert it.@AuditSourceID == context.findProperty( "AuditSourceIdentification.@AuditSourceID" )
+        }
+}
+if(!parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[0].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )){
+    parsedXmlMessage.ParticipantObjectIdentification[0].each{ node ->
+         assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectID" )
+         assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCode" )
+         assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole" )
+            assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code" )
+            assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName" )
+            assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName" )
+    }
+ }
+ if (!parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode.isEmpty() && parsedXmlMessage.ParticipantObjectIdentification[1].@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Document.@ParticipantObjectTypeCode" )){
+    parsedXmlMessage.ParticipantObjectIdentification[1].each{ node ->
+         //assert node.@ParticipantObjectID == context.findProperty( "ParticipantObjectIdentification_Query.@ParticipantObjectID" )
+        assert node.@ParticipantObjectTypeCode == context.findProperty( "ParticipantObjectIdentification_Document.@ParticipantObjectTypeCode" )
+        assert node.@ParticipantObjectTypeCodeRole == context.findProperty( "ParticipantObjectIdentification_Document.@ParticipantObjectTypeCodeRole" )
+            assert node.ParticipantObjectIDTypeCode.@code == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@code" )
+            assert node.ParticipantObjectIDTypeCode.@codeSystemName == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@codeSystemName" )
+            assert node.ParticipantObjectIDTypeCode.@displayName == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@displayName" )
+
+        if(!node.ParticipantObjectQuery.text().isEmpty()){
+                byte[] participantobjectQueryDecoded = node.ParticipantObjectQuery.text().decodeBase64()
+            def parsedParticipantObjectQuery = new XmlSlurper().parseText(new String(participantobjectQueryDecoded))
+            assert parsedParticipantObjectQuery.AdhocQuery.Slot.ValueList.Value.text().contains(context.findProperty( "parsedParticipantObjectQuery.AdhocQuery.Slot.ValueList.Value.PatientID" ))
+        }
+        parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].each{
+            def decodedData1 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@value.text().decodeBase64())
+            assert decodedData1 == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value" )
+            assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[0].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type" )
+            def decodedData2 = new String (parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@value.text().decodeBase64())
+            def localHCID = testRunner.testCase.testSuite.project.getPropertyValue("LocalHCID")
+            def localHCIDWithPrefix
+            if(localHCID.startsWith("urn:oid:")){
+                localHCIDWithPrefix= localHCID
+            }
+            else{
+                localHCIDWithPrefix = "urn:oid:"+localHCID
+            }
+            assert decodedData2 == localHCIDWithPrefix
+            assert parsedXmlMessage.ParticipantObjectIdentification[1].ParticipantObjectDetail[1].@type == context.findProperty( "ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type" )
+
+        }
+    }
+  }
+}
+
+
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'),context.findProperty('auditLoggingStatusFileName'),'docquerydeferredresultsoption',"false", log);
+testRunner.gotoStepByName( "Clear Audit Logs")]]></script></con:config>
+      </con:testStep>
+      <con:testStep type="groovy" name="Success" id="f69775a3-9f5b-4e4a-b9a0-09fb7bb77f31">
+        <con:settings/>
+        <con:config>
+          <script/>
+        </con:config>
+      </con:testStep>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def projectPath = groovyUtils.projectPath
+def propertiesFilename = projectPath + "/DDQResultsRequestAuditLog.properties"
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+ def props = new Properties()
+ props.load(new FileInputStream(propertiesFile))
+ props.each { key, value ->
+     testCase.setPropertyValue(key, value)
+ }
+}</con:setupScript>
+      <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+      <con:properties>
+        
+        
+        
+        
+        
+        
+        
+        <con:property><con:name>&lt;!--Destination--></con:name><con:value/></con:property><con:property><con:name>&lt;!--Human</con:name><con:value>Requestor--></con:value></con:property><con:property><con:name>&lt;!--Source--></con:name><con:value/></con:property><con:property><con:name>&lt;--Document</con:name><con:value>--></con:value></con:property><con:property><con:name>&lt;--Patient--></con:name><con:value/></con:property><con:property><con:name>&lt;--RESPONDER--></con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>ActiveParticipant.@AlternativeUserID</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property>
+        
+        
+        
+        
+        
+        
+        
+        <con:property><con:name>ActiveParticipant.@UserID</con:name><con:value>CN=localhost</con:value></con:property><con:property><con:name>ActiveParticipant.@UserIsRequestor</con:name><con:value>true</con:value></con:property><con:property><con:name>ActiveParticipant.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@code</con:name><con:value>307969004</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@codeSystemName</con:name><con:value>SNOMED_CT</con:value></con:property><con:property><con:name>ActiveParticipant.RoleIDCode.@displayName</con:name><con:value>Human Requestor</con:value></con:property>
+        
+        
+        
+        <con:property><con:name>ActiveParticipant_Dest.@AlternativeUserID</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointID</con:name><con:value>localhost</con:value></con:property>
+        
+        <con:property><con:name>ActiveParticipant_Dest.@NetworkAccessPointTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserID</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property>
+        
+        
+        
+        <con:property><con:name>ActiveParticipant_Dest.@UserIsRequestor</con:name><con:value>false</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@code</con:name><con:value>110152</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Dest.RoleIDCode.@displayName</con:name><con:value>Destination</con:value></con:property><con:property><con:name>ActiveParticipant_Dest_g0.@UserID</con:name><con:value>https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/DocumentQueryDeferredResponse</con:value></con:property>
+        
+        
+        
+        
+        <con:property><con:name>ActiveParticipant_Dest_g1.@UserID</con:name><con:value>https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/DocumentQueryDeferredResponse</con:value></con:property>
+        
+        <con:property><con:name>ActiveParticipant_Dest_Initiator.@NetworkAccessPointTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@AlternativeUserID</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointID</con:name><con:value>192.168.1.2</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@NetworkAccessPointTypeCode</con:name><con:value>2</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserID</con:name><con:value>http://www.w3.org/2005/08/addressing/anonymous</con:value></con:property><con:property><con:name>ActiveParticipant_Source.@UserIsRequestor</con:name><con:value>true</con:value></con:property>
+        
+        
+        
+        
+        
+        
+        
+        
+        <con:property><con:name>ActiveParticipant_Source.@UserName</con:name><con:value>Karl Skagerberg</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@code</con:name><con:value>110153</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>ActiveParticipant_Source.RoleIDCode.@displayName</con:name><con:value>Source</con:value></con:property><con:property><con:name>AdHocQueryRequestId</con:name><con:value>urn:uuid:48463b77-6c7f-4203-bc07-abcbba578a8c</con:value></con:property><con:property><con:name>auditLogStatus</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property>
+        
+        
+        
+        
+        <con:property><con:name>AuditMessage.xmlns</con:name><con:value>http://nhinc.services.com/schema/auditmessage</con:value></con:property><con:property><con:name>AuditOff</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>AuditSourceIdentification.@AuditEnterpriseSiteID</con:name><con:value>DoD</con:value></con:property>
+        
+        
+        
+        
+        
+        
+        <con:property><con:name>AuditSourceIdentification.@AuditSourceID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name><con:value>1010</con:value></con:property><con:property><con:name>DeferredResponseEndpoint</con:name><con:value>https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/DocumentQueryDeferredResponse</con:value></con:property><con:property><con:name>DeferredXCAResponseTable</con:name><con:value>deferredxcaresponse</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property>
+        
+        
+        
+        
+        <con:property><con:name>endDate</con:name><con:value>2016-05-12T17:46:11Z</con:value></con:property><con:property><con:name>EventIdentification.@EventActionCode</con:name><con:value>E</con:value></con:property><con:property><con:name>EventIdentification.@EventDateTime</con:name><con:value>2015-04-02T13:47:30.199Z</con:value></con:property><con:property><con:name>EventIdentification.@EventOutcomeIndicator</con:name><con:value>0</con:value></con:property><con:property><con:name>EventIdentification.EventID.@code</con:name><con:value>110112</con:value></con:property><con:property><con:name>EventIdentification.EventID.@codeSystemName</con:name><con:value>DCM</con:value></con:property><con:property><con:name>EventIdentification.EventID.@displayName</con:name><con:value>Query</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@code</con:name><con:value>ITI-38</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>EventIdentification.EventTypeCode.@displayName</con:name><con:value>Cross Gateway Query</con:value></con:property><con:property><con:name>EventIdentification_Responder.EventID.@displayName</con:name><con:value>Export</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2016-06-11T00:00:00Z</con:value></con:property><con:property><con:name>FullPatientID</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property>
+        
+        
+        
+        
+        
+        
+        
+        <con:property><con:name>parsedParticipantObjectQuery.AdhocQuery.Slot.ValueList.Value.PatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectDataLifeCycle</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectID</con:name><con:value>D123402^^^&amp;1.1&amp;ISO</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectSensitivity</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCode</con:name><con:value>1</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.@ParticipantObjectTypeCodeRole</con:name><con:value>1</con:value></con:property>
+        
+        
+        
+        
+        <con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@code</con:name><con:value>2</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>RFC-3881</con:value></con:property>
+        
+        
+        
+        <con:property><con:name>ParticipantObjectIdentification.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Patient Number</con:value></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectName</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>ParticipantObjectIdentification.ParticipantObjectQuery</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>ParticipantObjectIdentification_Document.@ParticipantObjectDataLifeCycle</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>ParticipantObjectIdentification_Document.@ParticipantObjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Document.@ParticipantObjectSensitivity</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>ParticipantObjectIdentification_Document.@ParticipantObjectTypeCode</con:name><con:value>2</con:value></con:property>
+        
+        <con:property><con:name>ParticipantObjectIdentification_Document.@ParticipantObjectTypeCodeRole</con:name><con:value>24</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail.@type</con:name><con:value>QueryEncoding</con:value></con:property>
+        
+        
+        
+        
+      <con:property><con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail.@value</con:name><con:value>UTF-8</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@type</con:name><con:value>urn:ihe:iti:xca:2010:homeCommunityId</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Document.ParticipantObjectDetail_1.@value</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@code</con:name><con:value>ITI-38</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@codeSystemName</con:name><con:value>IHE Transactions</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Document.ParticipantObjectIDTypeCode.@displayName</con:name><con:value>Cross Gateway Query</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Document.ParticipantObjectName</con:name><con:value>1.1</con:value></con:property><con:property><con:name>ParticipantObjectIdentification_Document.ParticipantObjectQuery</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>ResponderActiveParticipant_Dest.@AlternativeUserID</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>ResponderActiveParticipant_Dest.@UserID</con:name><con:value xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:property><con:property><con:name>sigDate</con:name><con:value>05/12/2016 17:36:11</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2016-05-12T17:36:11Z</con:value></con:property><con:property><con:name>EventTypeDDQ</con:name><con:value>docquerydeferredresultsoption</con:value></con:property><con:property><con:name>&lt;!--</con:name><con:value>event identifiation --></con:value></con:property></con:properties>
+      <con:reportParameters/>
+    </con:testCase><con:properties>
       <con:property>
         <con:name>Endpoint-DocRetrieve</con:name>
         <con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value>
@@ -9240,7 +10574,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
         <con:name>Endpoint-PatientDiscoveryAsyncResp</con:name>
         <con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value>
       </con:property>
-    </con:properties>
+    <con:property><con:name>Endpoint-DDQReqResults</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDeferredResultOptionResponse</con:value></con:property></con:properties>
     <con:setupScript/>
     <con:tearDownScript/>
     <con:reportParameters/>
@@ -18615,7 +19949,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <con:name>AuditSourceIdentification.@AuditSourceTypeCode</con:name>
       <con:value>1010</con:value>
     </con:property>
-  </con:properties>
+  <con:property><con:name>EventTypeDDQ</con:name><con:value>docquerydeferredresultsoption</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
