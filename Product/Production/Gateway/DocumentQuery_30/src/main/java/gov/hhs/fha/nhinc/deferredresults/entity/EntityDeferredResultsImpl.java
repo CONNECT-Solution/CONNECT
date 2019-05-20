@@ -46,9 +46,10 @@ public class EntityDeferredResultsImpl extends BaseService {
             getTargetFrom(request.getNhinTargetCommunities()));
     }
 
-    public RegistryResponseType respondingGatewayCrossGatewayQueryUnsecured(RespondingGatewayCrossGatewayQueryResponseType request) {
-        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryResponse(), request.getAssertion(),
-            getTargetFrom(request.getNhinTargetCommunities()));
+    public RegistryResponseType respondingGatewayCrossGatewayQueryUnsecured(
+        RespondingGatewayCrossGatewayQueryResponseType request, WebServiceContext context) {
+        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryResponse(),
+            getAssertion(context, request.getAssertion()), getTargetFrom(request.getNhinTargetCommunities()));
     }
 
     private RegistryResponseType respondingGatewayCrossGatewayQuery(AdhocQueryResponse requestMsg,
