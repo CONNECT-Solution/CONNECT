@@ -782,6 +782,110 @@
                                 </endpointConfiguration>
                             </endpointConfigurationList>
                         </endpoint>
+						
+						
+                        <endpoint>
+                            <name>docquerydeferredresultsoption</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/DocumentQueryDeferredResponse</url>
+                                    <version>3.0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+
+                        <endpoint>
+                            <name>entitydocquerydeferredresultsoption</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDeferredResultOptionResponse</url>
+                                    <version>3.0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>entitydocquerydeferredresultsoptionsecured</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>https://localhost:8181/Gateway/DocumentQuery/3_0/EntityService/EntityDeferredResultOptionResponseSecured</url>
+                                    <version>3.0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterdocquerydeferredresultsoption</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDeferredResultsOption</url>
+                                    <version>LEVEL_a0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterdocquerydeferredresultsoptionsecured</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>https://localhost:8181/Adapter/DocumentQuery/A_0/AdapterDeferredResultsOptionSecured</url>
+                                    <version>LEVEL_a0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <!--DeferredResults Inbound Adapters -->
+                        <endpoint>
+                            <name>adapterdeferredresultsoption</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDeferredResultsOptionQuery</url>
+                                    <version>LEVEL_a0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterdeferredresultssecured</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>https://localhost:8181/Adapter/DocumentQuery/A_0/AdapterDeferredResultsOptionQuerySecured</url>
+                                    <version>LEVEL_a0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterdeferredresponseoption</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDeferredResponseOption</url>
+                                    <version>LEVEL_a0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterdeferredresponseoptionsecured</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>https://localhost:8181/Adapter/DocumentQuery/A_0/AdapterDeferredResponseOptionSecured</url>
+                                    <version>LEVEL_a0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        
+                        <endpoint>
+                            <name>adapterdeferredresponsequery</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>http://localhost:8080/Adapter/DocumentQuery/A_0/AdapterDeferredResponseOptionQueryRequest</url>
+                                    <version>LEVEL_a0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
+                        <endpoint>
+                            <name>adapterdeferredresponsequerysecured</name>
+                            <endpointConfigurationList>
+                                <endpointConfiguration>
+                                    <url>https://localhost:8181/Adapter/DocumentQuery/A_0/AdapterDeferredResponseOptionQuerySecured</url>
+                                    <version>LEVEL_a0</version>
+                                </endpointConfiguration>
+                            </endpointConfigurationList>
+                        </endpoint>
                     </endpointList>
                     <targetRegion>US-NY</targetRegion>
                     <targetRegion>US-VA</targetRegion>
