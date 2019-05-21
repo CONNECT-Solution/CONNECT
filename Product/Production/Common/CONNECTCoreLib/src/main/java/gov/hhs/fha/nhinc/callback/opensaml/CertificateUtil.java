@@ -174,9 +174,6 @@ public class CertificateUtil {
             byte[] akiBytes = cert.getExtensionValue(AUTHORITY_KEY_ID);
 
             if (akiBytes != null) {
-                //DERDecoder extValA = new DERDecoder(akiBytes);
-                //extValA.skip(6);
-                //authId = Hex.encodeHexString(extValA.getBytes(20));
                 byte[] octets = DEROctetString.getInstance(akiBytes).getOctets();
                 AuthorityKeyIdentifier authorityKeyIdentifier = AuthorityKeyIdentifier.getInstance(octets);
                 byte[] keyIdentifier = authorityKeyIdentifier.getKeyIdentifier();
