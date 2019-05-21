@@ -5362,7 +5362,12 @@ context.withSql('DocRepositoryDB') { sql ->
 
 		}
 
-</script></con:config></con:testStep><con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties></con:testCase><con:testCase id="105f5156-e83e-4138-ad68-59fc65be98f3" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query Deferred Results Request" searchProperties="true"><con:settings/><con:testStep type="groovy" name="Update Deferred XCA Response Table" id="150d5ead-900b-43e3-abb4-257247bb365c"><con:settings/><con:config><script>context.withSql('DocRepositoryDB') { sql -> 
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.restoreConfiguration(dir, log);
+if(context.findProperty("PassThruOn").toBoolean()){
+	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
+}</con:tearDownScript><con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties></con:testCase><con:testCase id="105f5156-e83e-4138-ad68-59fc65be98f3" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query Deferred Results Request" searchProperties="true"><con:settings/><con:testStep type="groovy" name="Update Deferred XCA Response Table" id="150d5ead-900b-43e3-abb4-257247bb365c"><con:settings/><con:config><script>context.withSql('DocRepositoryDB') { sql -> 
 		def table = context.findProperty('DeferredXCAResponseTable')
 
 		sql.execute('delete from ' + table)
@@ -5788,7 +5793,9 @@ context.withSql('DocRepositoryDB') { sql ->
 			</urn:NhinTargetCommunities>
 		</urn:RespondingGateway_CrossGatewayQueryResponse>
 	</soap:Body>
-</soap:Envelope>]]></con:request><con:assertion type="SOAP Response" id="e4bda420-4802-4da5-9992-4803aa974640"/><con:assertion type="Schema Compliance" id="659739d7-925a-4372-9bfb-9d28734ec2b3"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="d3832f9a-111f-497d-a83d-a898b5ae90f8"/><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>AdHocQueryRequestId</con:name><con:value>urn:uuid:48463b77-6c7f-4203-bc07-abcbba578a8c</con:value></con:property><con:property><con:name>DeferredResponseEndpoint</con:name><con:value>https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/DocumentQueryDeferredResponse</con:value></con:property></con:properties></con:testCase><con:properties/>
+</soap:Envelope>]]></con:request><con:assertion type="SOAP Response" id="e4bda420-4802-4da5-9992-4803aa974640"/><con:assertion type="Schema Compliance" id="659739d7-925a-4372-9bfb-9d28734ec2b3"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="d3832f9a-111f-497d-a83d-a898b5ae90f8"/><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.restoreConfiguration(dir, log);</con:tearDownScript><con:properties><con:property><con:name>AdHocQueryRequestId</con:name><con:value>urn:uuid:48463b77-6c7f-4203-bc07-abcbba578a8c</con:value></con:property><con:property><con:name>DeferredResponseEndpoint</con:name><con:value>https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/DocumentQueryDeferredResponse</con:value></con:property></con:properties></con:testCase><con:properties/>
     <con:setupScript/>
     <con:tearDownScript/>
     <con:reportParameters/>
