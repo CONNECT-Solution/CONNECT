@@ -7,7 +7,6 @@
                 <h4>TrustStore Password</h4>
                 <div class="form-block center-block">
                     <h:form id="deletePassKeyDlgForm" class="form form-horizontal">
-                        <p:messages id="deletePassKeyErrorMsg" closable="true" autoUpdate="true" showDetail="true" />
                         <div class="form-group">
                             <h:outputLabel for="deletePasskey" class="col-sm-3 control-label" id="inputPassKeyLbl" value="Password:" />
                             <div class="col-sm-9">
@@ -22,7 +21,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-button-row">
-                                    <p:commandButton  id="savePasskey" styleClass="btn btn-primary" value="OK" ajax="true" update=":certTabView:trustStoreForm :deletePassKeyDlgForm" actionListener="#{certificateBean.validateAndDeleteCertificate}" onclick="$(PF('deletePassKeyDlg').hide()"/>
+                                    <p:commandButton  id="savePasskey" styleClass="btn btn-primary" value="OK" ajax="true" update=":certTabView:trustStoreForm :deletePassKeyDlgForm" actionListener="#{certificateBean.validateAndDeleteCertificate}" onclick="PF('deletePassKeyDlg').hide()"/>
                                     <p:commandButton id="closePassKey" styleClass="btn btn-primary" value="Cancel" onclick="$('#deletePassKeyDlgForm\\:deletePasskey').val('');PF('deletePassKeyDlg').hide()"/>
                                 </div>
                             </div>
