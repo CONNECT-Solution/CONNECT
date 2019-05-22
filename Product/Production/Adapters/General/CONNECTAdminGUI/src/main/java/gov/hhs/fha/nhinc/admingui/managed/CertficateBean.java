@@ -89,7 +89,7 @@ public class CertficateBean {
     private static final String IMPORT_CERT_ERR_MSG_ID = "importCertErrorMsg";
     private static final String VIEW_CERT_ERR_MSG_ID = "viewCertErrorMsg";
     private static final String IMPORT_PASS_ERR_MSG_ID = "importPassKeyErrorMsg";
-
+    private static final String DELETE_PASS_ERR_MSG_ID = "deletePassKeyErrorMsg";
     private static final String EDIT_PASS_ERROR_MSG = "editPassKeyErrorMsg";
     private static final String ALIAS_PLACEHOLDER = "Enter Alias";
     private static final String BAD_MISMATCH_TOKEN = "Bad token or Mismatch token";
@@ -476,11 +476,11 @@ public class CertficateBean {
                 refreshCerts();
                 selectedTSCertificate = null;
             } else {
-                HelperUtil.addMessageError("deletePassKeyErrorMsg", response.getMessage());
+                HelperUtil.addMessageError(DELETE_PASS_ERR_MSG_ID, response.getMessage());
             }
         } catch (CertificateManagerException ex) {
             LOG.error("Unable to delete certificate {}", ex.getLocalizedMessage(), ex);
-            HelperUtil.addMessageError("deletePassKeyErrorMsg", ex.getLocalizedMessage());
+            HelperUtil.addMessageError(DELETE_PASS_ERR_MSG_ID, ex.getLocalizedMessage());
         }
         return deleteStatus;
     }
