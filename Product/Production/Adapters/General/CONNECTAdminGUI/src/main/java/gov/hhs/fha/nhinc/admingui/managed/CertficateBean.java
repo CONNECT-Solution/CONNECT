@@ -338,11 +338,11 @@ public class CertficateBean {
             String hashToken = service.getHashToken(trustStorePasskey);
             if (deleteCertificate(hashToken)) {
                 saveHashToken(hashToken);
-                execPFHideDialog("deletePassKeyDlg");
             }
         } else {
             deleteCertificate(getHashTokenFromSession());
         }
+        execPFHideDialog("deletePassKeyDlg");
         trustStorePasskey = null;
     }
 
@@ -768,6 +768,7 @@ public class CertficateBean {
 
     private void clearImportWizard() {
         alias = null;
+        oldAlias = null;
         exchangeType = null;
         commonName = null;
         organization = null;
@@ -781,6 +782,7 @@ public class CertficateBean {
         disableNext = new boolean[] { true, true, true, true, true, true };
         enableTab(0);
         disableImportAction = true;
+        refreshCacheForTrustStore();
     }
 
     public void next() {

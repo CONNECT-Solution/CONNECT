@@ -361,6 +361,7 @@
                                                         <li class="list-group-item"><p:commandLink
                                                                 action="#{certificateBean.resumeImportWizard(1)}"
                                                                 style="margin-right:20px;" update="@(.cssImportWizard)">
+                                                                <p:resetInput target="certTabView:importCertTabView:tabIdCreateCert" />
                                                                 <h:outputText value="Create a new Certificate" />
                                                             </p:commandLink></li>
                                                         <li class="list-group-item"><p:commandLink

@@ -56,13 +56,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.wss4j.common.crypto.DERDecoder;
 import org.apache.wss4j.common.ext.WSSecurityException;
+import org.bouncycastle.asn1.DEROctetString;
+import org.bouncycastle.asn1.x509.AuthorityKeyIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author jassmit
- */
 public class CertificateUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(CertificateUtil.class);
@@ -165,21 +163,21 @@ public class CertificateUtil {
         }
         return getCertKeyIdAuthority((X509Certificate) pair.getValue());
     }
+
     public static String getCertKeyIdAuthority(Certificate cert) {
         return getCertKeyIdAuthority((X509Certificate) cert);
     }
+
     public static String getCertKeyIdAuthority(X509Certificate cert) {
         String authId = null;
         if (null != cert) {
             byte[] akiBytes = cert.getExtensionValue(AUTHORITY_KEY_ID);
-            try {
-                if (akiBytes != null) {
-                    DERDecoder extValA = new DERDecoder(akiBytes);
-                    extValA.skip(6);
-                    authId = Hex.encodeHexString(extValA.getBytes(20));
-                }
-            } catch (WSSecurityException e) {
-                LOG.error("Unable to decode certificate authority {}", e.getLocalizedMessage(), e);
+
+            if (akiBytes != null) {
+                byte[] octets = DEROctetString.getInstance(akiBytes).getOctets();
+                AuthorityKeyIdentifier authorityKeyIdentifier = AuthorityKeyIdentifier.getInstance(octets);
+                byte[] keyIdentifier = authorityKeyIdentifier.getKeyIdentifier();
+                authId = Hex.encodeHexString(keyIdentifier);
             }
 
             String subjId = getCertKeyIdSubject(cert);
@@ -194,6 +192,7 @@ public class CertificateUtil {
     public static String getCertKeyIdSubject(Certificate cert) {
         return getCertKeyIdSubject((X509Certificate) cert);
     }
+
     public static String getCertKeyIdSubject(X509Certificate cert) {
         String ski = null;
         if (null != cert) {
@@ -219,6 +218,7 @@ public class CertificateUtil {
     public static String getCertSubjectCN(Certificate cert) {
         return getCertSubjectCN((X509Certificate) cert);
     }
+
     public static String getCertSubjectCN(X509Certificate cert) {
         if (null == cert) {
             return null;
