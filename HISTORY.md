@@ -1,11 +1,11 @@
 ## CONNECT 5.3 Release
 ### Summary
 The 5.3 release includes these exciting new features:
-* Deferred Document Query and Retrieve
-* Multi-exchange support
+
+* Multi-exchange using SNI
 * Certificate Manager upgrades
 * Security enhancements 
-* Community contribution, fixing auditlogging, AdminGUI updates import wizard updates, Wiki conslidation 
+* Community contribution, Fixing auditlogging, AdminGUI updates, Import wizard updates, Wiki consolidation 
 
 For more information refer to the [Release Notes]([TODO: LINK]).
 
