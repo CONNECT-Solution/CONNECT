@@ -2,12 +2,13 @@
 ### Summary
 The 5.3 release includes these exciting new features:
 
-* Multi-exchange using SNI
-* Certificate Manager upgrades
-* Security enhancements 
-* Community contribution, Fixing auditlogging, AdminGUI updates, Import wizard updates, Wiki consolidation 
+* Import chain of trust wizard
+* Configurable SHA version specification
+* Server Name Indication (SNI) support and proof of concept
+* Optimized SAML assertion builder
+* CONNECT wiki enhancement
 
-For more information refer to the [Release Notes]([TODO: LINK]).
+For more information refer to the [Release Notes]([https://connectopensource.atlassian.net/wiki/x/BQAgKg]).
 
 ## CONNECT 5.2 Release
 ### Summary
