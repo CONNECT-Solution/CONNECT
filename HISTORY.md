@@ -8,7 +8,7 @@ The 5.3 release includes these exciting new features:
 * Optimized SAML assertion builder
 * CONNECT wiki enhancement
 
-For more information refer to the [Release Notes]([https://connectopensource.atlassian.net/wiki/x/BQAgKg]).
+For more information refer to the [Release Notes](https://connectopensource.atlassian.net/wiki/x/BQAgKg).
 
 ## CONNECT 5.2 Release
 ### Summary
