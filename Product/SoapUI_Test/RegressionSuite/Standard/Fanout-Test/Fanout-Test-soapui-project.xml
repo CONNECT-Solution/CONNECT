@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="Fanout_Test" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.1.2" activeEnvironment="Default" id="04864499-83eb-4d04-8822-8d32765bd47b" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="Fanout_Test" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="5.3.0" activeEnvironment="Default" id="04864499-83eb-4d04-8822-8d32765bd47b" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="../../../target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" id="ff2f20f9-cdb1-4453-a8f6-cab70dcb9273" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -4186,8 +4186,8 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Docu
     </con:settings>
     <con:mockOperation interface="AdapterMpiPortTypeBinding" name="FindCandidates" operation="FindCandidates" id="07236df9-e75d-4dca-a12c-d834164611d9">
       <con:settings/>
-      <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
-      <con:defaultResponse>Gallow 1</con:defaultResponse>
+      <con:dispatchStyle>QUERY_MATCH</con:dispatchStyle>
+      <con:defaultResponse>Bad Response</con:defaultResponse>
       <con:response encoding="UTF-8" name="Gallow 1" id="65c022c0-19d4-4845-b483-bfbddafe7b7c" httpResponseStatus="200">
         <con:settings/>
         <con:script>context.patientid = Math.random()
@@ -4881,7 +4881,11 @@ context.root = Math.random()</con:script>
           <con:match>7.7</con:match>
           <con:response>Soap Fault 2</con:response>
         </con:query>
-      </con:dispatchConfig>
+      <con:query><con:name>Gallow 1</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
+
+//ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>1.1</con:match><con:response>Gallow 1</con:response></con:query><con:query><con:name>Gallow 2</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
+
+//ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>8.8</con:match><con:response>Gallow 2</con:response></con:query></con:dispatchConfig>
     </con:mockOperation>
     <con:properties/>
   </con:mockService>
@@ -7455,7 +7459,7 @@ context.root = Math.random()</con:script>
     </con:property>
     <con:property>
       <con:name>GatewayPropDir</con:name>
-      <con:value></con:value>
+      <con:value/>
     </con:property>
     <con:property>
       <con:name>Gender</con:name>
@@ -7673,5 +7677,5 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 }</con:afterLoadScript>
   <con:wssContainer/>
   <con:oAuth2ProfileContainer/>
-  <con:sensitiveInformation/>
+  <con:oAuth1ProfileContainer/><con:sensitiveInformation/>
 </con:soapui-project>
