@@ -391,7 +391,8 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
-}</con:tearDownScript>
+}
+testCase.getTestSuite().getProject().getMockServiceByName("mockMPI_all").getMockRunner().stop();</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -785,7 +786,8 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
-}</con:tearDownScript>
+}
+testCase.getTestSuite().getProject().getMockServiceByName("mockMPI_all").getMockRunner().stop();</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -1179,7 +1181,8 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
-}</con:tearDownScript>
+}
+testCase.getTestSuite().getProject().getMockServiceByName("mockMPI_all").getMockRunner().stop();</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
