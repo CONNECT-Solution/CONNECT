@@ -34,31 +34,9 @@
       </con:testStep>
       <con:testStep type="groovy" name="Set Up Mock" id="69c4af5f-d7a7-4227-8ad8-de91891c44a5">
         <con:settings/>
-        <con:config>
-          <script>log.info "Setting Patient Discovery Adapter to unsecured";
+        <con:config><script>log.info "Setting Patient Discovery Adapter to unsecured";
 def dir = context.findProperty('GatewayPropDir');
-/*nhinc.FileUtils.backupFile(dir, "PatientDiscoveryProxyConfig.xml", log);
-def alias = 'adapterpatientdiscovery'
-def aliasName= 'adapterpatientdiscoverywssecured';
-def replaceAlias = 'adapterpatientdiscoverywsunsecured';
 
-nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
-	alias, aliasName, replaceAlias, log);
-/**
-def pdConfigFile = new File(dir + "/" + "PatientDiscoveryProxyConfig.xml");
-def pdConfigFileNew = new File(dir + "/" + "PatientDiscoveryProxyConfig.xml.NEW");
-pdConfigFile.eachLine() {
-	line ->
-	if(line.contains(alias)) {
-		pdConfigFileNew &lt;&lt; replaceAlias + ln;
-	} else {
-		pdConfigFileNew &lt;&lt; line + ln;
-	}
-}
-
-pdConfigFile.delete();
-pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
-**/
 log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
 nhinc.FileUtils.updateSpringConfig(dir, "AdapterMpiConfig.xml", "adaptermpi", "adaptermpiwssecured", "adaptermpiwsunsecured", log);
@@ -66,8 +44,7 @@ nhinc.FileUtils.updateSpringConfig(dir, "AdapterMpiConfig.xml", "adaptermpi", "a
 log.info("before the mockpdadapter call");
 
 nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
-	"mpi", "http://localhost:1720/MockPDAdapter", "2.0",log);</script>
-        </con:config>
+	"mpi", "http://localhost:1720/MockPDAdapterNhinSaml", "2.0",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Patient Discovery" type="request" id="1b00ef44-8f32-4270-9ffd-8912f094acd6">
         <con:settings/>
@@ -391,7 +368,8 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
-}</con:tearDownScript>
+}
+testCase.getTestSuite().getProject().getMockServiceByName("mockPDAdapter").getMockRunner().stop();</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -428,31 +406,9 @@ if(context.findProperty("PassThruOn").toBoolean()){
       </con:testStep>
       <con:testStep type="groovy" name="Set Up Mock" id="b555d80a-5a26-459d-9066-c8946ad4faa8">
         <con:settings/>
-        <con:config>
-          <script>log.info "Setting Patient Discovery Adapter to unsecured";
+        <con:config><script>log.info "Setting Patient Discovery Adapter to unsecured";
 def dir = context.findProperty('GatewayPropDir');
-/*nhinc.FileUtils.backupFile(dir, "PatientDiscoveryProxyConfig.xml", log);
-def alias = 'adapterpatientdiscovery'
-def aliasName= 'adapterpatientdiscoverywssecured';
-def replaceAlias = 'adapterpatientdiscoverywsunsecured';
 
-nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
-	alias, aliasName, replaceAlias, log);
-/**
-def pdConfigFile = new File(dir + "/" + "PatientDiscoveryProxyConfig.xml");
-def pdConfigFileNew = new File(dir + "/" + "PatientDiscoveryProxyConfig.xml.NEW");
-pdConfigFile.eachLine() {
-	line ->
-	if(line.contains(alias)) {
-		pdConfigFileNew &lt;&lt; replaceAlias + ln;
-	} else {
-		pdConfigFileNew &lt;&lt; line + ln;
-	}
-}
-
-pdConfigFile.delete();
-pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
-**/
 log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
 nhinc.FileUtils.updateSpringConfig(dir, "AdapterMpiConfig.xml", "adaptermpi", "adaptermpiwssecured", "adaptermpiwsunsecured", log);
@@ -460,8 +416,7 @@ nhinc.FileUtils.updateSpringConfig(dir, "AdapterMpiConfig.xml", "adaptermpi", "a
 log.info("before the mockpdadapter call");
 
 nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
-	"mpi", "http://localhost:1720/MockPDAdapter", "2.0",log);</script>
-        </con:config>
+	"mpi", "http://localhost:1720/MockPDAdapterNhinSaml", "2.0",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Patient Discovery" type="request" id="4ae81153-f612-4439-826f-36e276a65923">
         <con:settings/>
@@ -785,7 +740,8 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
-}</con:tearDownScript>
+}
+testCase.getTestSuite().getProject().getMockServiceByName("mockPDAdapter").getMockRunner().stop();</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -822,31 +778,9 @@ if(context.findProperty("PassThruOn").toBoolean()){
       </con:testStep>
       <con:testStep type="groovy" name="Set Up Mock" id="806fdf99-95cf-4f3f-8435-9a9d2fb7c5ff">
         <con:settings/>
-        <con:config>
-          <script>log.info "Setting Patient Discovery Adapter to unsecured";
+        <con:config><script>log.info "Setting Patient Discovery Adapter to unsecured";
 def dir = context.findProperty('GatewayPropDir');
-/*nhinc.FileUtils.backupFile(dir, "PatientDiscoveryProxyConfig.xml", log);
-def alias = 'adapterpatientdiscovery'
-def aliasName= 'adapterpatientdiscoverywssecured';
-def replaceAlias = 'adapterpatientdiscoverywsunsecured';
 
-nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
-	alias, aliasName, replaceAlias, log);
-/**
-def pdConfigFile = new File(dir + "/" + "PatientDiscoveryProxyConfig.xml");
-def pdConfigFileNew = new File(dir + "/" + "PatientDiscoveryProxyConfig.xml.NEW");
-pdConfigFile.eachLine() {
-	line ->
-	if(line.contains(alias)) {
-		pdConfigFileNew &lt;&lt; replaceAlias + ln;
-	} else {
-		pdConfigFileNew &lt;&lt; line + ln;
-	}
-}
-
-pdConfigFile.delete();
-pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml"));
-**/
 log.info "Modifying internalExchangeInfo for adapterpatientdiscovery mock."
 
 nhinc.FileUtils.updateSpringConfig(dir, "AdapterMpiConfig.xml", "adaptermpi", "adaptermpiwssecured", "adaptermpiwsunsecured", log);
@@ -854,8 +788,7 @@ nhinc.FileUtils.updateSpringConfig(dir, "AdapterMpiConfig.xml", "adaptermpi", "a
 log.info("before the mockpdadapter call");
 
 nhinc.FileUtils.createOrUpdateConnection("internalExchangeInfo.xml", dir, "1.1",
-	"mpi", "http://localhost:1720/MockPDAdapter", "2.0",log);</script>
-        </con:config>
+	"mpi", "http://localhost:1720/MockPDAdapterNhinSaml", "2.0",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Patient Discovery" type="request" id="57e8431c-b059-48f7-a39b-497806403cf5">
         <con:settings/>
@@ -1179,7 +1112,8 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
-}</con:tearDownScript>
+}
+testCase.getTestSuite().getProject().getMockServiceByName("mockPDAdapter").getMockRunner().stop();</con:tearDownScript>
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
@@ -1209,7 +1143,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
     <con:tearDownScript/>
     <con:reportParameters/>
   </con:testSuite>
-  <con:mockService bindToHostOnly="false" docroot="" host="localhost" name="mockPDAdapter" path="/MockPDAdapter" port="1720" id="d2bea866-cecd-498a-9f0d-e6becd3d132d">
+  <con:mockService bindToHostOnly="false" docroot="" host="localhost" name="mockPDAdapter" path="/MockPDAdapterNhinSaml" port="1720" id="d2bea866-cecd-498a-9f0d-e6becd3d132d">
     <con:settings>
       <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting>
     </con:settings>
