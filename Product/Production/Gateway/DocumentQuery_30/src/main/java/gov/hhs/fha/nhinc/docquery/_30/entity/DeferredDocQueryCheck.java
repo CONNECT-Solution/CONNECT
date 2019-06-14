@@ -60,7 +60,7 @@ public final class DeferredDocQueryCheck {
         NhinTargetCommunitiesType nhinTarget) {
         if (null != assertion && StringUtils.isNotBlank(assertion.getDeferredResponseEndpoint())) {
 
-            if (msg.getId() == null) {
+            if (StringUtils.isNotBlank(msg.getId())) {
                 String error = "AdhocQueryRequest must contain an ID to use the Deferred Response Option";
                 throw new ErrorEventException(new IllegalArgumentException(),
                     createAdhocFailureWithMessage(error), error);
@@ -98,7 +98,7 @@ public final class DeferredDocQueryCheck {
         List<RegistryError> list = errorList.getRegistryError();
 
         RegistryError error = new RegistryError();
-        error.setValue(value);
+        error.setCodeContext(value);
         error.setErrorCode("XDSRegistryError");
         error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         list.add(error);
