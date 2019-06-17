@@ -86,7 +86,7 @@ public class AdapterDocQueryDeferredProxyWebServiceSecuredImpl implements Adapte
                     "respondingGatewayCrossGatewayQueryDeferredSecuredRequest",request);
 
             } else {
-                throw new WebServiceException("Could not determine URL for Doc Query Adapter endpoint");
+                throw new WebServiceException("Could not determine URL for Doc Query Deferred Adapter endpoint");
             }
         } catch (final Exception ex) {
             String error = "Unable to call Doc Deferred Response Option Query Secured Adapter";
