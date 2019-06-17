@@ -60,7 +60,7 @@ public final class DeferredDocQueryCheck {
         NhinTargetCommunitiesType nhinTarget) {
         if (null != assertion && StringUtils.isNotBlank(assertion.getDeferredResponseEndpoint())) {
 
-            if (StringUtils.isNotBlank(msg.getId())) {
+            if (StringUtils.isBlank(msg.getId())) {
                 String error = "AdhocQueryRequest must contain an ID to use the Deferred Response Option";
                 throw new ErrorEventException(new IllegalArgumentException(),
                     createAdhocFailureWithMessage(error), error);
