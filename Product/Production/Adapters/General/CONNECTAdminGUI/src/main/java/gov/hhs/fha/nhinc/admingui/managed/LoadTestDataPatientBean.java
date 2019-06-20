@@ -431,6 +431,7 @@ public class LoadTestDataPatientBean {
         withIdentifier = null;
         withAddress = null;
         withPhonenumber = null;
+        selectedPatient = null;
     }
 
     public boolean savePatient() {
