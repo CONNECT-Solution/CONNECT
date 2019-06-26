@@ -194,10 +194,6 @@
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>PolicyEngineWebservices</artifactId>
                                 </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>RedactionEngineWebservices</artifactId>
-                                </artifactItem>
                                 <dependency>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>CORERule2_2_0Webservices</artifactId>
