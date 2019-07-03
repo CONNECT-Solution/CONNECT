@@ -58,7 +58,7 @@ public class Personname implements Serializable {
         firstName = personname.getFirstName();
         middleName = personname.getMiddleName();
         lastName = personname.getLastName();
-        suffix = personname.getLastName();
+        suffix = personname.getSuffix();
     }
 
     public PersonNameType getPersonNameType() {

@@ -155,6 +155,7 @@
                                         </p:panel>
                                         <p:panel style="padding: 10px;">
                                             <p:chart type="bar" id="eventBarChart" model="#{statusBean.eventBarChart}" />
+                                            <br/><br/>
                                             <p:chart type="pie" id="eventPieChart" model="#{statusBean.eventPieChart}" />
                                          <p:poll listener="#{statusBean.initServices}" update="eventPieChart eventBarChart statusGrid" interval="30" />
                                         </p:panel>

@@ -8,7 +8,7 @@
     <con:setting id="WsdlSettings@excluded-types">&lt;con:entry xmlns:con="http://eviware.com/soapui/config">schema@http://www.w3.org/2001/XMLSchema&lt;/con:entry></con:setting>
     <con:setting id="WsdlSettings@name-with-binding">true</con:setting>
     <con:setting id="HttpSettings@http_version">1.1</con:setting>
-    <con:setting id="HttpSettings@socket_timeout">300000</con:setting>
+    <con:setting id="HttpSettings@socket_timeout">30000</con:setting>
     <con:setting id="HttpSettings@max_connections_per_host">500</con:setting>
     <con:setting id="HttpSettings@max_total_connections">2000</con:setting>
     <con:setting id="com.eviware.soapui.SoapUI@workspace">../../TestPBE-workspace.xml</con:setting>

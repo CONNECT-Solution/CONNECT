@@ -646,6 +646,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     private static void savePrivateKey(String alias, PrivateKey privatekey, String password)
         throws CertificateManagerException {
         try (FileWriter fos = new FileWriter(getPathPrivateKey(alias)); JcaPEMWriter pem = new JcaPEMWriter(fos)) {
+            Security.addProvider(new BouncyCastleProvider());
             JceOpenSSLPKCS8EncryptorBuilder encryptBuilder = new JceOpenSSLPKCS8EncryptorBuilder(
                 PKCS8Generator.PBE_SHA1_3DES);
             encryptBuilder.setRandom(new SecureRandom());
@@ -662,6 +663,7 @@ public class ConfigAdmin implements EntityConfigAdminPortType {
     private static PrivateKey readPrivateKey(String alias, String password) {
         try (FileReader reader = new FileReader(getPathPrivateKey(alias));
             PEMParser pemParser = new PEMParser(reader)) {
+            Security.addProvider(new BouncyCastleProvider());
             JceOpenSSLPKCS8DecryptorProviderBuilder decryptBuilder = new JceOpenSSLPKCS8DecryptorProviderBuilder();
             KeyFactory keyFactory = KeyFactory.getInstance("RSA", "BC");
 

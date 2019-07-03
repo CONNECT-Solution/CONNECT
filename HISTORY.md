@@ -1,3 +1,15 @@
+## CONNECT 5.3 Release
+### Summary
+The 5.3 release includes these exciting new features:
+
+* Import chain of trust wizard
+* Configurable SHA version specification
+* Server Name Indication (SNI) support and proof of concept
+* Optimized SAML assertion builder
+* CONNECT wiki enhancement
+
+For more information refer to the [Release Notes](https://connectopensource.atlassian.net/wiki/x/BQAgKg).
+
 ## CONNECT 5.2 Release
 ### Summary
 The 5.2 release includes these exciting new features:
